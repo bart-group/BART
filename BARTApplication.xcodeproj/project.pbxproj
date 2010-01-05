@@ -1,0 +1,575 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		256AC3DA0F4B6AC300CF3369 /* BARTApplicationAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* BARTApplicationAppDelegate.m */; };
+		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		CE08BA7F10DB73BE000B538A /* BADesignElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8B70AD10DA9B0C007AEB2B /* BADesignElementVITest.m */; };
+		CE08BD0610DB994D000B538A /* BADataElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE08BD0510DB994D000B538A /* BADataElementVITest.m */; };
+		CE08BD7A10DBC898000B538A /* Negative.cikernel in Sources */ = {isa = PBXBuildFile; fileRef = CE08BD7910DBC898000B538A /* Negative.cikernel */; };
+		CED190B710AC873C00FAFA4F /* BAAnalyzerElement.m in Sources */ = {isa = PBXBuildFile; fileRef = CED190AA10AC873C00FAFA4F /* BAAnalyzerElement.m */; };
+		CED190B810AC873C00FAFA4F /* BAAnalyzerGLM.m in Sources */ = {isa = PBXBuildFile; fileRef = CED190AC10AC873C00FAFA4F /* BAAnalyzerGLM.m */; };
+		CED190B910AC873C00FAFA4F /* BADataControl.m in Sources */ = {isa = PBXBuildFile; fileRef = CED190AE10AC873C00FAFA4F /* BADataControl.m */; };
+		CED190BA10AC873C00FAFA4F /* BADataElement.m in Sources */ = {isa = PBXBuildFile; fileRef = CED190B010AC873C00FAFA4F /* BADataElement.m */; };
+		CED190BB10AC873C00FAFA4F /* BADataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = CED190B210AC873C00FAFA4F /* BADataElementVI.m */; };
+		CED190BC10AC873C00FAFA4F /* BADesignElement.m in Sources */ = {isa = PBXBuildFile; fileRef = CED190B410AC873C00FAFA4F /* BADesignElement.m */; };
+		CED190BD10AC873C00FAFA4F /* BADesignElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = CED190B610AC873C00FAFA4F /* BADesignElementVI.m */; };
+		CED1913610AC877200FAFA4F /* BAElement.m in Sources */ = {isa = PBXBuildFile; fileRef = CED1910410AC877200FAFA4F /* BAElement.m */; };
+		CED1913710AC877200FAFA4F /* BAGUIPrototyp.m in Sources */ = {isa = PBXBuildFile; fileRef = CED1910610AC877200FAFA4F /* BAGUIPrototyp.m */; };
+		CED1913A10AC877200FAFA4F /* BASource.m in Sources */ = {isa = PBXBuildFile; fileRef = CED1910C10AC877200FAFA4F /* BASource.m */; };
+		CED1913B10AC877200FAFA4F /* BASourceDatasetFile.m in Sources */ = {isa = PBXBuildFile; fileRef = CED1910E10AC877200FAFA4F /* BASourceDatasetFile.m */; };
+		CED191DA10AC880300FAFA4F /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = CED191D410AC880300FAFA4F /* BlockIO.c */; };
+		CED191DB10AC880300FAFA4F /* gauss.c in Sources */ = {isa = PBXBuildFile; fileRef = CED191D610AC880300FAFA4F /* gauss.c */; };
+		CED191DC10AC880300FAFA4F /* gsl_futils.c in Sources */ = {isa = PBXBuildFile; fileRef = CED191D710AC880300FAFA4F /* gsl_futils.c */; };
+		CED191DD10AC880300FAFA4F /* SmoothnessEstim.c in Sources */ = {isa = PBXBuildFile; fileRef = CED191D910AC880300FAFA4F /* SmoothnessEstim.c */; };
+		CED191DF10AC888700FAFA4F /* libgsl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191DE10AC888700FAFA4F /* libgsl.dylib */; };
+		CED191E110AC888700FAFA4F /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E010AC888700FAFA4F /* libgslcblas.dylib */; };
+		CED191E310AC888700FAFA4F /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E210AC888700FAFA4F /* libvia.dylib */; };
+		CED191E510AC888700FAFA4F /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E410AC888700FAFA4F /* libviaio.dylib */; };
+		CED191F210AC8A5300FAFA4F /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */; };
+		CED191F610AC8A7B00FAFA4F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191F510AC8A7B00FAFA4F /* OpenGL.framework */; };
+		CED1922A10AC8AD600FAFA4F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED1922910AC8AD600FAFA4F /* QuartzCore.framework */; };
+		CEDF5B1F10C961FB0041570F /* BAGUIProtoCGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDF5B1E10C961FB0041570F /* BAGUIProtoCGLayer.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		256AC3D80F4B6AC300CF3369 /* BARTApplicationAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BARTApplicationAppDelegate.h; sourceTree = "<group>"; };
+		256AC3D90F4B6AC300CF3369 /* BARTApplicationAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BARTApplicationAppDelegate.m; sourceTree = "<group>"; };
+		256AC3F00F4B6AF500CF3369 /* BARTApplication_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BARTApplication_Prefix.pch; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		8D1107310486CEB800E47090 /* BARTApplication-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTApplication-Info.plist"; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* BARTApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BARTApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE08BD0410DB994D000B538A /* BADataElementVITest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElementVITest.h; sourceTree = "<group>"; };
+		CE08BD0510DB994D000B538A /* BADataElementVITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElementVITest.m; sourceTree = "<group>"; };
+		CE08BD7910DBC898000B538A /* Negative.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Negative.cikernel; sourceTree = "<group>"; };
+		CE08BD7D10DBDB29000B538A /* NegativeKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NegativeKernel.h; sourceTree = "<group>"; };
+		CE8B709110DA988F007AEB2B /* BARTUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BARTUnitTestSuite.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE8B709210DA988F007AEB2B /* BARTUnitTestSuite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BARTUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
+		CE8B70AC10DA9B0C007AEB2B /* BADesignElementVITest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementVITest.h; sourceTree = "<group>"; };
+		CE8B70AD10DA9B0C007AEB2B /* BADesignElementVITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementVITest.m; sourceTree = "<group>"; };
+		CED190A910AC873C00FAFA4F /* BAAnalyzerElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAAnalyzerElement.h; sourceTree = "<group>"; };
+		CED190AA10AC873C00FAFA4F /* BAAnalyzerElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAAnalyzerElement.m; sourceTree = "<group>"; };
+		CED190AB10AC873C00FAFA4F /* BAAnalyzerGLM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAAnalyzerGLM.h; sourceTree = "<group>"; };
+		CED190AC10AC873C00FAFA4F /* BAAnalyzerGLM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAAnalyzerGLM.m; sourceTree = "<group>"; };
+		CED190AD10AC873C00FAFA4F /* BADataControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataControl.h; sourceTree = "<group>"; };
+		CED190AE10AC873C00FAFA4F /* BADataControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataControl.m; sourceTree = "<group>"; };
+		CED190AF10AC873C00FAFA4F /* BADataElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElement.h; sourceTree = "<group>"; };
+		CED190B010AC873C00FAFA4F /* BADataElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElement.m; sourceTree = "<group>"; };
+		CED190B110AC873C00FAFA4F /* BADataElementVI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElementVI.h; sourceTree = "<group>"; };
+		CED190B210AC873C00FAFA4F /* BADataElementVI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElementVI.m; sourceTree = "<group>"; };
+		CED190B310AC873C00FAFA4F /* BADesignElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElement.h; sourceTree = "<group>"; };
+		CED190B410AC873C00FAFA4F /* BADesignElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElement.m; sourceTree = "<group>"; };
+		CED190B510AC873C00FAFA4F /* BADesignElementVI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementVI.h; sourceTree = "<group>"; };
+		CED190B610AC873C00FAFA4F /* BADesignElementVI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementVI.m; sourceTree = "<group>"; };
+		CED1910310AC877200FAFA4F /* BAElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAElement.h; sourceTree = "<group>"; };
+		CED1910410AC877200FAFA4F /* BAElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAElement.m; sourceTree = "<group>"; };
+		CED1910510AC877200FAFA4F /* BAGUIPrototyp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAGUIPrototyp.h; sourceTree = "<group>"; };
+		CED1910610AC877200FAFA4F /* BAGUIPrototyp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAGUIPrototyp.m; sourceTree = "<group>"; wrapsLines = 1; };
+		CED1910B10AC877200FAFA4F /* BASource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASource.h; sourceTree = "<group>"; };
+		CED1910C10AC877200FAFA4F /* BASource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASource.m; sourceTree = "<group>"; };
+		CED1910D10AC877200FAFA4F /* BASourceDatasetFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASourceDatasetFile.h; sourceTree = "<group>"; };
+		CED1910E10AC877200FAFA4F /* BASourceDatasetFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASourceDatasetFile.m; sourceTree = "<group>"; };
+		CED191D410AC880300FAFA4F /* BlockIO.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BlockIO.c; sourceTree = "<group>"; };
+		CED191D510AC880300FAFA4F /* BlockIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockIO.h; sourceTree = "<group>"; };
+		CED191D610AC880300FAFA4F /* gauss.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gauss.c; sourceTree = "<group>"; };
+		CED191D710AC880300FAFA4F /* gsl_futils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gsl_futils.c; sourceTree = "<group>"; };
+		CED191D810AC880300FAFA4F /* gsl_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gsl_utils.h; sourceTree = "<group>"; };
+		CED191D910AC880300FAFA4F /* SmoothnessEstim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SmoothnessEstim.c; sourceTree = "<group>"; };
+		CED191DE10AC888700FAFA4F /* libgsl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgsl.dylib; path = /usr/local/lib/libgsl.dylib; sourceTree = "<absolute>"; };
+		CED191E010AC888700FAFA4F /* libgslcblas.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgslcblas.dylib; path = /usr/local/lib/libgslcblas.dylib; sourceTree = "<absolute>"; };
+		CED191E210AC888700FAFA4F /* libvia.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvia.dylib; path = /usr/local/lib/libvia.dylib; sourceTree = "<absolute>"; };
+		CED191E410AC888700FAFA4F /* libviaio.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libviaio.dylib; path = /usr/lib/libviaio.dylib; sourceTree = "<absolute>"; };
+		CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
+		CED191F510AC8A7B00FAFA4F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		CED1922910AC8AD600FAFA4F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
+		CEDF5B1D10C961FB0041570F /* BAGUIProtoCGLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAGUIProtoCGLayer.h; sourceTree = "<group>"; };
+		CEDF5B1E10C961FB0041570F /* BAGUIProtoCGLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAGUIProtoCGLayer.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				CED191DF10AC888700FAFA4F /* libgsl.dylib in Frameworks */,
+				CED191E110AC888700FAFA4F /* libgslcblas.dylib in Frameworks */,
+				CED191E310AC888700FAFA4F /* libvia.dylib in Frameworks */,
+				CED191E510AC888700FAFA4F /* libviaio.dylib in Frameworks */,
+				CED191F210AC8A5300FAFA4F /* ApplicationServices.framework in Frameworks */,
+				CED191F610AC8A7B00FAFA4F /* OpenGL.framework in Frameworks */,
+				CED1922A10AC8AD600FAFA4F /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE8B708E10DA988F007AEB2B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				CED1910310AC877200FAFA4F /* BAElement.h */,
+				CED1910410AC877200FAFA4F /* BAElement.m */,
+				CED1910510AC877200FAFA4F /* BAGUIPrototyp.h */,
+				CED1910610AC877200FAFA4F /* BAGUIPrototyp.m */,
+				CEDF5B1D10C961FB0041570F /* BAGUIProtoCGLayer.h */,
+				CEDF5B1E10C961FB0041570F /* BAGUIProtoCGLayer.m */,
+				CED1910B10AC877200FAFA4F /* BASource.h */,
+				CED1910C10AC877200FAFA4F /* BASource.m */,
+				CED1910D10AC877200FAFA4F /* BASourceDatasetFile.h */,
+				CED1910E10AC877200FAFA4F /* BASourceDatasetFile.m */,
+				CED190A910AC873C00FAFA4F /* BAAnalyzerElement.h */,
+				CED190AA10AC873C00FAFA4F /* BAAnalyzerElement.m */,
+				CED190AB10AC873C00FAFA4F /* BAAnalyzerGLM.h */,
+				CED190AC10AC873C00FAFA4F /* BAAnalyzerGLM.m */,
+				CED190AD10AC873C00FAFA4F /* BADataControl.h */,
+				CED190AE10AC873C00FAFA4F /* BADataControl.m */,
+				CED190AF10AC873C00FAFA4F /* BADataElement.h */,
+				CED190B010AC873C00FAFA4F /* BADataElement.m */,
+				CED190B110AC873C00FAFA4F /* BADataElementVI.h */,
+				CED190B210AC873C00FAFA4F /* BADataElementVI.m */,
+				CED190B310AC873C00FAFA4F /* BADesignElement.h */,
+				CED190B410AC873C00FAFA4F /* BADesignElement.m */,
+				CED190B510AC873C00FAFA4F /* BADesignElementVI.h */,
+				CED190B610AC873C00FAFA4F /* BADesignElementVI.m */,
+				256AC3D80F4B6AC300CF3369 /* BARTApplicationAppDelegate.h */,
+				256AC3D90F4B6AC300CF3369 /* BARTApplicationAppDelegate.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+				CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */,
+				CED191F510AC8A7B00FAFA4F /* OpenGL.framework */,
+				CED1922910AC8AD600FAFA4F /* QuartzCore.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* BARTApplication.app */,
+				CE8B709110DA988F007AEB2B /* BARTUnitTestSuite.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
+			isa = PBXGroup;
+			children = (
+				CE08BD7810DBC853000B538A /* CIKernels */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+				CE8B709210DA988F007AEB2B /* BARTUnitTestSuite-Info.plist */,
+				CE8B70B010DA9B22007AEB2B /* Unit Tests */,
+			);
+			name = BARTApplication;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				CED191D410AC880300FAFA4F /* BlockIO.c */,
+				CED191D510AC880300FAFA4F /* BlockIO.h */,
+				CED191D610AC880300FAFA4F /* gauss.c */,
+				CED191D710AC880300FAFA4F /* gsl_futils.c */,
+				CED191D810AC880300FAFA4F /* gsl_utils.h */,
+				CED191D910AC880300FAFA4F /* SmoothnessEstim.c */,
+				256AC3F00F4B6AF500CF3369 /* BARTApplication_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107310486CEB800E47090 /* BARTApplication-Info.plist */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+				CED191DE10AC888700FAFA4F /* libgsl.dylib */,
+				CED191E010AC888700FAFA4F /* libgslcblas.dylib */,
+				CED191E210AC888700FAFA4F /* libvia.dylib */,
+				CED191E410AC888700FAFA4F /* libviaio.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CE08BD7810DBC853000B538A /* CIKernels */ = {
+			isa = PBXGroup;
+			children = (
+				CE08BD7910DBC898000B538A /* Negative.cikernel */,
+				CE08BD7D10DBDB29000B538A /* NegativeKernel.h */,
+			);
+			name = CIKernels;
+			sourceTree = "<group>";
+		};
+		CE8B70B010DA9B22007AEB2B /* Unit Tests */ = {
+			isa = PBXGroup;
+			children = (
+				CE8B70AC10DA9B0C007AEB2B /* BADesignElementVITest.h */,
+				CE8B70AD10DA9B0C007AEB2B /* BADesignElementVITest.m */,
+				CE08BD0410DB994D000B538A /* BADataElementVITest.h */,
+				CE08BD0510DB994D000B538A /* BADataElementVITest.m */,
+			);
+			name = "Unit Tests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* BARTApplication */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "BARTApplication" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BARTApplication;
+			productInstallPath = "$(HOME)/Applications";
+			productName = BARTApplication;
+			productReference = 8D1107320486CEB800E47090 /* BARTApplication.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CE8B709010DA988F007AEB2B /* BARTUnitTestSuite */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE8B709610DA9890007AEB2B /* Build configuration list for PBXNativeTarget "BARTUnitTestSuite" */;
+			buildPhases = (
+				CE8B708C10DA988F007AEB2B /* Resources */,
+				CE8B708D10DA988F007AEB2B /* Sources */,
+				CE8B708E10DA988F007AEB2B /* Frameworks */,
+				CE8B708F10DA988F007AEB2B /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BARTUnitTestSuite;
+			productName = BARTUnitTestSuite;
+			productReference = CE8B709110DA988F007AEB2B /* BARTUnitTestSuite.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = NO;
+			};
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "BARTApplication" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* BARTApplication */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47090 /* BARTApplication */,
+				CE8B709010DA988F007AEB2B /* BARTUnitTestSuite */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE8B708C10DA988F007AEB2B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CE8B708F10DA988F007AEB2B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072D0486CEB800E47090 /* main.m in Sources */,
+				256AC3DA0F4B6AC300CF3369 /* BARTApplicationAppDelegate.m in Sources */,
+				CED190B710AC873C00FAFA4F /* BAAnalyzerElement.m in Sources */,
+				CED190B810AC873C00FAFA4F /* BAAnalyzerGLM.m in Sources */,
+				CED190B910AC873C00FAFA4F /* BADataControl.m in Sources */,
+				CED190BA10AC873C00FAFA4F /* BADataElement.m in Sources */,
+				CED190BB10AC873C00FAFA4F /* BADataElementVI.m in Sources */,
+				CED190BC10AC873C00FAFA4F /* BADesignElement.m in Sources */,
+				CED190BD10AC873C00FAFA4F /* BADesignElementVI.m in Sources */,
+				CED1913610AC877200FAFA4F /* BAElement.m in Sources */,
+				CED1913710AC877200FAFA4F /* BAGUIPrototyp.m in Sources */,
+				CED1913A10AC877200FAFA4F /* BASource.m in Sources */,
+				CED1913B10AC877200FAFA4F /* BASourceDatasetFile.m in Sources */,
+				CED191DA10AC880300FAFA4F /* BlockIO.c in Sources */,
+				CED191DB10AC880300FAFA4F /* gauss.c in Sources */,
+				CED191DC10AC880300FAFA4F /* gsl_futils.c in Sources */,
+				CED191DD10AC880300FAFA4F /* SmoothnessEstim.c in Sources */,
+				CEDF5B1F10C961FB0041570F /* BAGUIProtoCGLayer.m in Sources */,
+				CE08BD7A10DBC898000B538A /* Negative.cikernel in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE8B708D10DA988F007AEB2B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE08BA7F10DB73BE000B538A /* BADesignElementVITest.m in Sources */,
+				CE08BD0610DB994D000B538A /* BADataElementVITest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C165DFE840E0CC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DDD58150DA1D0A300B32029 /* English */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = BARTApplication_Prefix.pch;
+				INFOPLIST_FILE = "BARTApplication-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = BARTApplication;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = BARTApplication_Prefix.pch;
+				INFOPLIST_FILE = "BARTApplication-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = BARTApplication;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				BUNDLE_LOADER = "";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					/usr/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					opt/local/lib,
+					/usr/lib,
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = "";
+				TEST_HOST = "";
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		CE8B709410DA9890007AEB2B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BARTApplication.app/Contents/MacOS/BARTApplication";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "BARTUnitTestSuite-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = BARTUnitTestSuite;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		CE8B709510DA9890007AEB2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "BARTUnitTestSuite-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = BARTUnitTestSuite;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "BARTApplication" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "BARTApplication" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE8B709610DA9890007AEB2B /* Build configuration list for PBXNativeTarget "BARTUnitTestSuite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE8B709410DA9890007AEB2B /* Debug */,
+				CE8B709510DA9890007AEB2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

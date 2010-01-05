@@ -1,0 +1,3 @@
+/Users/user/Development/BARTProcedure/BARTApplication/BADataElementVI.m: In function '-[BADataElementVI(PrivateMethods) getFloatDataFromSlice:]':
+/Users/user/Development/BARTProcedure/BARTApplication/BADataElementVI.m:349: warning: conflicting types for '-(float *)getFloatDataFromSlice:(int)sliceNr'
+/Users/user/Development/BARTProcedure/BARTApplication/BADataElement.h:76: warning: previous declaration of '-(short int *)getFloatDataFromSlice:(int)sliceNr'
