@@ -20,6 +20,7 @@
 
 
 #import "BAGUIProtoCGLayer.h"
+#import "ColorMappingFilter.h"
 
 #import <CoreGraphics/CGColorSpace.h>
 #import <QuartzCore/QuartzCore.h>
@@ -36,6 +37,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
 CIContext               *myCIContext;
 CIImage                 *backgroundCIImage;
 CIImage                 *foregroundCIImage;
+CIImage                 *foregroundCIImageFiltered;
 
 BADataElement           *backgroundImage;
 BADataElement           *foregroundImage;
@@ -53,7 +55,6 @@ CGSize                  imageSize;
 CIFormat                shortFormat;
 CIFormat                floatFormat;
 CGColorSpaceRef         colorSpace;
-unsigned char           *colorTable = nil;
 
 int                     slicesPerRow = 1;
 int                     slicesPerCol = 1;
@@ -89,7 +90,59 @@ static BAGUIProtoCGLayer *gui;
 	}
     gui = self;
     
-    //[self setSlicesPerRow:1 col:1];
+    shortFormat = kCIFormatRGBA16;
+    floatFormat = kCIFormatRGBAf;
+    colorSpace = CGColorSpaceCreateDeviceRGB();
+    
+    /************************************/
+    /*init CIFilter with color mapping kernel*/
+    
+    
+    NSSize ctSize;
+    ctSize.width  = 512;
+    ctSize.height = 1;
+    
+    float colorTableData[256 * 4 * 2];
+    for(int _ctIndex = 0; _ctIndex < 256; _ctIndex++) {
+        colorTableData[_ctIndex * 4 + 0] = 1.0;
+        colorTableData[_ctIndex * 4 + 1] = 1.0 * _ctIndex / 255.0;
+        colorTableData[_ctIndex * 4 + 2] = 0;//1.0 * _ctIndex / 255.0;
+        colorTableData[_ctIndex * 4 + 3] = 1.0;
+    }
+    for(int _ctIndex = 256; _ctIndex < 512; _ctIndex++) {
+        colorTableData[_ctIndex * 4 + 0] = 0.0;
+        colorTableData[_ctIndex * 4 + 1] = 1.0 * _ctIndex / 255.0;
+        colorTableData[_ctIndex * 4 + 2] = 1.0;//1.0 * _ctIndex / 255.0;
+        colorTableData[_ctIndex * 4 + 3] = 1.0;
+    }
+    
+    //short colorTableData[256 * 4];
+//    for(int _ctIndex = 0; _ctIndex < 256; _ctIndex++) {
+//        colorTableData[_ctIndex * 4 + 0] = USHRT_MAX;
+//        colorTableData[_ctIndex * 4 + 1] = USHRT_MAX / 255.0 *_ctIndex;
+//        colorTableData[_ctIndex * 4 + 2] = 0;
+//        colorTableData[_ctIndex * 4 + 3] = USHRT_MAX;
+//    }
+    
+    colorTable = [[CIImage imageWithBitmapData:[NSData dataWithBytes:colorTableData length:256 * sizeof(float) * 8]
+                                   bytesPerRow:256 * sizeof(float) * 8
+                                          size:ctSize 
+                                        format:floatFormat 
+                                    colorSpace:colorSpace] retain];
+
+   // colorTable = [[CIImage imageWithBitmapData:[NSData dataWithBytes:colorTableData length:256 * sizeof(short) * 4]
+//                                   bytesPerRow:256 * sizeof(short) * 4
+//                                          size:ctSize 
+//                                        format:shortFormat 
+//                                    colorSpace:colorSpace] retain];
+//    
+    
+    NSLog(@"created color table: %@", colorTable);
+    NSLog(@"ColorTable[5]: %d" ,colorTableData[5]);
+    NSLog(@"ColorTable[25]: %d", colorTableData[25]);
+    NSLog(@"ColorTable[156]: %d", colorTableData[157]);
+    
+    /************************************/
     
 	return self;
 }
@@ -126,7 +179,7 @@ static BAGUIProtoCGLayer *gui;
     
 	myCIContext = [CIContext contextWithCGContext:layerOneContext options:nil];
     
-    boundaries = [backgroundCIImage extent];
+    boundaries = [backgroundCIImage extent];//(CGRect){(CGPoint){0.0, 0.0}, (CGSize){320.0,256.0}};//[backgroundCIImage extent];
     
     CGContextRestoreGState(layerOneContext);
     CGContextSaveGState(layerOneContext);
@@ -140,29 +193,45 @@ static BAGUIProtoCGLayer *gui;
     foregroundLayer = CGLayerCreateWithContext([[applicationWindow graphicsContext] graphicsPort], windowRect.size, NULL);
     layerTwoContext = CGLayerGetContext(foregroundLayer);
     
-    /********************************************/
-    /*ColorSpaceRefTest*/
-    
-//    unsigned char* colorTable = (unsigned char*)malloc(sizeof(unsigned char)*3*256);
-//    for (int i = 0; i<3*256; i++)
-//    {
-//        colorTable[i]= 0;
-//    }
-//    
-//    colorSpace = CGColorSpaceCreateDeviceRGB();
-//    CGColorSpaceRef overlayColorSpace = CGColorSpaceCreateIndexed(colorSpace, 255, colorTable);
-//    
-//    CGContextSetFillColorSpace(layerTwoContext, colorSpace);
-//    CGContextSetStrokeColorSpace(layerTwoContext, colorSpace);
-//    CGContextSetRGBFillColor(layerTwoContext, 0.0, 1.0, 0.0, 1.0);
-//	
-//	CGContextFillRect(layerTwoContext, CGRectMake(0.0, 0.0, CGLayerGetSize(backgroundLayer).width, CGLayerGetSize(backgroundLayer).height));
-//	
-//	CGContextDrawLayerAtPoint ([[applicationWindow graphicsContext] graphicsPort], CGPointZero, foregroundLayer);
-    /********************************************/
-    
     CGContextSetInterpolationQuality(layerTwoContext, kCGInterpolationNone);
     CGContextScaleCTM(layerTwoContext, scaleFactor, scaleFactor);
+    
+    /********************************************************************************/
+    if (nil != foregroundCIImage)
+    {
+    
+        int colorTableMappingType = 0;
+        [ColorMappingFilter class];
+      
+        colorMappingFilter = [CIFilter filterWithName: @"ColorMappingFilter"
+										keysAndValues: @"inputImage", foregroundCIImage,
+                              @"colorTable", colorTable, nil];
+        
+//        colorMappingFilter = [CIFilter filterWithName:@"ColorMappingFilter"];
+        [colorMappingFilter retain];
+        
+  //      [colorMappingFilter setValue:foregroundCIImage forKey:@"inputImage"];
+        
+        NSLog(@"got instance of colorMappingFilter: %@", colorMappingFilter);
+        
+        [(ColorMappingFilter*)colorMappingFilter setKernelToUse: colorTableMappingType];
+        float    filterMinimum = 0.0;
+        float    filterMaximum = 255.0;
+        [colorMappingFilter setValue: [NSNumber numberWithFloat: filterMinimum / 255.0]
+                              forKey: @"minimum"];
+        
+        [colorMappingFilter setValue: [NSNumber numberWithFloat: filterMaximum / 255.0]
+                              forKey: @"maximum"];
+        
+    //    [colorMappingFilter setValue:colorTable
+      //                      forKey:@"colorTable"];
+        NSLog(@"COLORMAPPINGFILTER: %@", colorMappingFilter);
+        
+        foregroundCIImage = [colorMappingFilter valueForKey:@"outputImage"];
+        
+       
+    }
+    /********************************************************************************/
     
     CGImageRef foregroundCGImage = [myCIContext createCGImage:foregroundCIImage fromRect:boundaries format:floatFormat colorSpace:colorSpace];    
     CGContextDrawImage(layerTwoContext, boundaries, foregroundCGImage);
@@ -179,37 +248,12 @@ static BAGUIProtoCGLayer *gui;
     imageSize.width = (float) displayImageWidth;// DISPLAY_IMAGE_WIDTH;
     imageSize.height = (float) displayImageHeight;//DISPLAY_IMAGE_HEIGHT;
     
-    /***** COLOR TABLE TEST *****/
-    
-//    if (colorTable == nil) {
-//        colorTable = (unsigned char*)malloc(sizeof(unsigned char)*256);
-//        
-//        int pos = 0;
-//        for (int i = 0; i<256; i++)
-//        {
-//            //pos = i * 3;
-//            colorTable[pos] = i;//255-i;
-//            //colorTable[pos + 1] = 0;//255-i;
-////            colorTable[pos + 2] = 255;//255-i;
-//        }
-//        
-//        colorSpace = CGColorSpaceCreateIndexed(CGColorSpaceCreateDeviceRGB(), 255, colorTable);
-//        printf("NUMBER OF COMPONENTS: %d\n", CGColorSpaceGetNumberOfComponents(colorSpace));
-//        CGColorSpaceRetain(colorSpace);
-//    }
-    
-    /***** END COLOR TABLE TEST *****/
-    
-    colorSpace = CGColorSpaceCreateDeviceRGB();
-    
     // Attributes that vary from functional to activation image. 
     short_bytes_length = sizeof(short) * NUMBER_OF_CHANNELS * displayImageWidth * displayImageHeight;//DISPLAY_IMAGE_WIDTH * DISPLAY_IMAGE_HEIGHT;
     short_bytesPerRow = sizeof(short) * NUMBER_OF_CHANNELS * displayImageWidth;//DISPLAY_IMAGE_WIDTH;
-    shortFormat = kCIFormatRGBA16;
     
     float_bytes_length = sizeof(float) * NUMBER_OF_CHANNELS * displayImageWidth * displayImageHeight;//DISPLAY_IMAGE_WIDTH * DISPLAY_IMAGE_HEIGHT;
     float_bytesPerRow = sizeof(float) * NUMBER_OF_CHANNELS * displayImageWidth;//DISPLAY_IMAGE_WIDTH;
-    floatFormat = kCIFormatRGBAf;
     
     // Generate functional CIImage and retain it.
     chunkOfMemory = backgroundImageRaw; 
@@ -220,6 +264,9 @@ static BAGUIProtoCGLayer *gui;
                                                 size:imageSize 
                                               format:shortFormat 
                                           colorSpace:colorSpace];
+    
+       
+    
     [backgroundCIImage retain];
        
     // Generate activation CIImage and retain it.
@@ -235,6 +282,10 @@ static BAGUIProtoCGLayer *gui;
                                                   format:floatFormat 
                                               //colorSpace:overlayColorSpace];
                                               colorSpace:colorSpace];
+        
+       
+        
+        
         [foregroundCIImage retain];
     }
 }
@@ -260,9 +311,6 @@ static BAGUIProtoCGLayer *gui;
     }
     
     scaleFactor = MAX_SCALE_FACTOR / (CGFloat) slicesPerCol;
-    
-    
-    //[self setSlicesPerRow:1 col:1];
 
     [self convertFunctionalImage];
     [self setupImages];
@@ -369,27 +417,23 @@ static BAGUIProtoCGLayer *gui;
             } else {
                 value = 0.0;
             }
-
-            //  activationImageRaw[pos] = value;
-            //            activationImageRaw[pos + 1] = 0;
-            //            activationImageRaw[pos + 2] = 0;
-            
             
             if (value > 0.75) {
-                foregroundImageRaw[pos] = value;//(value + fabs(minValue))/(fabs(minValue) + maxValue) ;
-                foregroundImageRaw[pos + 1] = 0;//(value)/ maxValue ;
-                foregroundImageRaw[pos + 2] = 0;
+                foregroundImageRaw[pos] = (value + fabs(minValue))/(fabs(minValue) + maxValue);
+                foregroundImageRaw[pos + 1] = (value + fabs(minValue))/(fabs(minValue) + maxValue);
+                foregroundImageRaw[pos + 2] = (value + fabs(minValue))/(fabs(minValue) + maxValue);
                 foregroundImageRaw[pos + 3] = 1.0;
             } else if (value < -2.0) {
-                foregroundImageRaw[pos] = 0;
-                foregroundImageRaw[pos + 1] = 0;//fabs(value);
-                foregroundImageRaw[pos + 2] = fabs(value);//(value + fabs(minValue))/(fabs(minValue) + maxValue) ;//fabs(value);
+                foregroundImageRaw[pos] = (value + fabs(minValue))/(fabs(minValue) + maxValue);
+                foregroundImageRaw[pos + 1] = (value + fabs(minValue))/(fabs(minValue) + maxValue);
+                foregroundImageRaw[pos + 2] = (value + fabs(minValue))/(fabs(minValue) + maxValue);//fabs(value);
                 foregroundImageRaw[pos + 3] = 1.0;
             } else {
+            
                 foregroundImageRaw[pos] = 0.0;
                 foregroundImageRaw[pos + 1] = 0.0;
                 foregroundImageRaw[pos + 2] = 0.0;
-                foregroundImageRaw[pos + 3] = 0.0;
+                foregroundImageRaw[pos + 3] = -1.0;
             }
         }
     }
@@ -416,7 +460,6 @@ static BAGUIProtoCGLayer *gui;
                                          bytesPerRow:float_bytesPerRow 
                                                 size:imageSize
                                               format:floatFormat
-                                            //colorSpace:overlayColorSpace];
                                           colorSpace:colorSpace];
     [foregroundCIImage retain];
 	[self doPaint];

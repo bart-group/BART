@@ -15,6 +15,10 @@
 	
 	CGLayerRef backgroundLayer;
     CGLayerRef foregroundLayer;
+    
+    CIFilter* colorMappingFilter;
+    CIImage* colorTable;
+    
 }
 
 - (id)initWithWindow:(NSWindow*)window;
