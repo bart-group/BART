@@ -1,0 +1,64 @@
+
+
+vec4 getCTValue(__table sampler colorTable, float index) {
+	return unpremultiply(sample(colorTable, vec2(index, 0.0)));
+}
+
+kernel vec4 colorMappingFilterOne(sampler src, __table sampler colorTable, float min, float max) {
+
+	vec4 pix;
+	
+	float value;
+	
+
+	pix = unpremultiply(sample(src, samplerCoord(src)));
+
+	value = (pix.r + pix.g + pix.b) / 3.0;
+
+	pix = (value <= max - 0.5 ? (value > min ? getCTValue(colorTable, 255.0 * value + 255.0) : vec4(0.0, 0.0, 0.0, -1.0)) : vec4(0.0, 0.0, 0.0, -1.0));
+    pix = (value <= max ? (value > min + 0.5 ? getCTValue(colorTable, 255.0 * value) : pix) : pix);
+//    pix = getCTValue(colorTable, 128.0);
+   // pix.a = 1.0;//(value <= min) ? 1.0 : -1.0;
+    
+	return premultiply(pix);
+}
+
+
+
+kernel vec4 colorMappingFilterTwo(sampler src, __table sampler colorTable, float min, float max) {
+	
+	vec4 pix;
+	
+	float value;
+	
+
+	pix = unpremultiply(sample(src, samplerCoord(src)));
+
+	value = (pix.r + pix.g + pix.b) / 3.0;
+
+	pix = (value < max ? (value > min ? getCTValue(colorTable, 255.0 / (max - min) * (value - min)) : getCTValue(colorTable, 0.0)) : getCTValue(colorTable, 255.0));
+
+	pix.a = 1.0;
+
+	return premultiply(pix);
+}
+
+
+	
+kernel vec4 colorMappingFilterThree(sampler src, __table sampler colorTable, float min, float max) {
+	
+	vec4 pix;
+	
+	float value;
+	
+
+	pix = unpremultiply(sample(src, samplerCoord(src)));
+
+	value = (pix.r + pix.g + pix.b) / 3.0;
+
+	pix = (value < max ? (value > min ? getCTValue(colorTable, 255.0 / (max - min) * (value - min)) : vec4(0.0, 0.0, 0.0, 1.0)) : vec4(0.0, 0.0, 0.0, 1.0));
+
+	pix.a = 1.0;
+
+	return premultiply(pix);
+}
