@@ -14,7 +14,20 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		CE08BA7F10DB73BE000B538A /* BADesignElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8B70AD10DA9B0C007AEB2B /* BADesignElementVITest.m */; };
 		CE08BD0610DB994D000B538A /* BADataElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE08BD0510DB994D000B538A /* BADataElementVITest.m */; };
-		CE08BD7A10DBC898000B538A /* Negative.cikernel in Sources */ = {isa = PBXBuildFile; fileRef = CE08BD7910DBC898000B538A /* Negative.cikernel */; };
+		CE8A28C510F51058002422B5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED1922910AC8AD600FAFA4F /* QuartzCore.framework */; };
+		CE8A28D010F5121A002422B5 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E410AC888700FAFA4F /* libviaio.dylib */; };
+		CE8A28D110F5121B002422B5 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E210AC888700FAFA4F /* libvia.dylib */; };
+		CE8A28D210F5121B002422B5 /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E010AC888700FAFA4F /* libgslcblas.dylib */; };
+		CE8A28D310F5121C002422B5 /* libgsl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191DE10AC888700FAFA4F /* libgsl.dylib */; };
+		CE8A28D410F5121D002422B5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191F510AC8A7B00FAFA4F /* OpenGL.framework */; };
+		CE8A28D510F5121E002422B5 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */; };
+		CE8A28D610F5121F002422B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
+		CE8A28D710F5121F002422B5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E42FB307B3F0F600E4EEF1 /* CoreData.framework */; };
+		CE8A28D810F51220002422B5 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
+		CE8A28D910F51226002422B5 /* ColorMappingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A282010F4F2C8002422B5 /* ColorMappingFilter.m */; };
+		CE8A2A3A10F61713002422B5 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8A2A3910F61713002422B5 /* Quartz.framework */; };
+		CE8A2A4910F61940002422B5 /* ColorMappingFilter.cikernel in Sources */ = {isa = PBXBuildFile; fileRef = CE8A281C10F4F206002422B5 /* ColorMappingFilter.cikernel */; };
+		CE8A31D310F77214002422B5 /* ColorMappingFilter.cikernel in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE8A281C10F4F206002422B5 /* ColorMappingFilter.cikernel */; };
 		CED190B710AC873C00FAFA4F /* BAAnalyzerElement.m in Sources */ = {isa = PBXBuildFile; fileRef = CED190AA10AC873C00FAFA4F /* BAAnalyzerElement.m */; };
 		CED190B810AC873C00FAFA4F /* BAAnalyzerGLM.m in Sources */ = {isa = PBXBuildFile; fileRef = CED190AC10AC873C00FAFA4F /* BAAnalyzerGLM.m */; };
 		CED190B910AC873C00FAFA4F /* BADataControl.m in Sources */ = {isa = PBXBuildFile; fileRef = CED190AE10AC873C00FAFA4F /* BADataControl.m */; };
@@ -30,15 +43,34 @@
 		CED191DB10AC880300FAFA4F /* gauss.c in Sources */ = {isa = PBXBuildFile; fileRef = CED191D610AC880300FAFA4F /* gauss.c */; };
 		CED191DC10AC880300FAFA4F /* gsl_futils.c in Sources */ = {isa = PBXBuildFile; fileRef = CED191D710AC880300FAFA4F /* gsl_futils.c */; };
 		CED191DD10AC880300FAFA4F /* SmoothnessEstim.c in Sources */ = {isa = PBXBuildFile; fileRef = CED191D910AC880300FAFA4F /* SmoothnessEstim.c */; };
-		CED191DF10AC888700FAFA4F /* libgsl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191DE10AC888700FAFA4F /* libgsl.dylib */; };
-		CED191E110AC888700FAFA4F /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E010AC888700FAFA4F /* libgslcblas.dylib */; };
-		CED191E310AC888700FAFA4F /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E210AC888700FAFA4F /* libvia.dylib */; };
-		CED191E510AC888700FAFA4F /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E410AC888700FAFA4F /* libviaio.dylib */; };
-		CED191F210AC8A5300FAFA4F /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */; };
-		CED191F610AC8A7B00FAFA4F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191F510AC8A7B00FAFA4F /* OpenGL.framework */; };
-		CED1922A10AC8AD600FAFA4F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED1922910AC8AD600FAFA4F /* QuartzCore.framework */; };
 		CEDF5B1F10C961FB0041570F /* BAGUIProtoCGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDF5B1E10C961FB0041570F /* BAGUIProtoCGLayer.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		CE8A2B3610F6250A002422B5 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.cikernel";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "cp $(INPUT_FILE_NAME) $(TARGET_BUILD_DIR)/$(INPUT_FILE_NAME)";
+		};
+/* End PBXBuildRule section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CE8A333210F77DE4002422B5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				CE8A31D310F77214002422B5 /* ColorMappingFilter.cikernel in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -57,6 +89,10 @@
 		CE08BD0510DB994D000B538A /* BADataElementVITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElementVITest.m; sourceTree = "<group>"; };
 		CE08BD7910DBC898000B538A /* Negative.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Negative.cikernel; sourceTree = "<group>"; };
 		CE08BD7D10DBDB29000B538A /* NegativeKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NegativeKernel.h; sourceTree = "<group>"; };
+		CE8A281C10F4F206002422B5 /* ColorMappingFilter.cikernel */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = ColorMappingFilter.cikernel; sourceTree = "<group>"; };
+		CE8A281D10F4F206002422B5 /* ColorMappingFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorMappingFilter.h; sourceTree = "<group>"; };
+		CE8A282010F4F2C8002422B5 /* ColorMappingFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorMappingFilter.m; sourceTree = "<group>"; };
+		CE8A2A3910F61713002422B5 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		CE8B709110DA988F007AEB2B /* BARTUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BARTUnitTestSuite.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE8B709210DA988F007AEB2B /* BARTUnitTestSuite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BARTUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
 		CE8B70AC10DA9B0C007AEB2B /* BADesignElementVITest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementVITest.h; sourceTree = "<group>"; };
@@ -106,13 +142,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				CED191DF10AC888700FAFA4F /* libgsl.dylib in Frameworks */,
-				CED191E110AC888700FAFA4F /* libgslcblas.dylib in Frameworks */,
-				CED191E310AC888700FAFA4F /* libvia.dylib in Frameworks */,
-				CED191E510AC888700FAFA4F /* libviaio.dylib in Frameworks */,
-				CED191F210AC8A5300FAFA4F /* ApplicationServices.framework in Frameworks */,
-				CED191F610AC8A7B00FAFA4F /* OpenGL.framework in Frameworks */,
-				CED1922A10AC8AD600FAFA4F /* QuartzCore.framework in Frameworks */,
+				CE8A28C510F51058002422B5 /* QuartzCore.framework in Frameworks */,
+				CE8A28D010F5121A002422B5 /* libviaio.dylib in Frameworks */,
+				CE8A28D110F5121B002422B5 /* libvia.dylib in Frameworks */,
+				CE8A28D210F5121B002422B5 /* libgslcblas.dylib in Frameworks */,
+				CE8A28D310F5121C002422B5 /* libgsl.dylib in Frameworks */,
+				CE8A28D410F5121D002422B5 /* OpenGL.framework in Frameworks */,
+				CE8A28D510F5121E002422B5 /* ApplicationServices.framework in Frameworks */,
+				CE8A28D610F5121F002422B5 /* Foundation.framework in Frameworks */,
+				CE8A28D710F5121F002422B5 /* CoreData.framework in Frameworks */,
+				CE8A28D810F51220002422B5 /* AppKit.framework in Frameworks */,
+				CE8A2A3A10F61713002422B5 /* Quartz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				CE8A2A3910F61713002422B5 /* Quartz.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -245,6 +286,9 @@
 		CE08BD7810DBC853000B538A /* CIKernels */ = {
 			isa = PBXGroup;
 			children = (
+				CE8A282010F4F2C8002422B5 /* ColorMappingFilter.m */,
+				CE8A281C10F4F206002422B5 /* ColorMappingFilter.cikernel */,
+				CE8A281D10F4F206002422B5 /* ColorMappingFilter.h */,
 				CE08BD7910DBC898000B538A /* Negative.cikernel */,
 				CE08BD7D10DBDB29000B538A /* NegativeKernel.h */,
 			);
@@ -272,8 +316,10 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
+				CE8A333210F77DE4002422B5 /* CopyFiles */,
 			);
 			buildRules = (
+				CE8A2B3610F6250A002422B5 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -380,7 +426,8 @@
 				CED191DC10AC880300FAFA4F /* gsl_futils.c in Sources */,
 				CED191DD10AC880300FAFA4F /* SmoothnessEstim.c in Sources */,
 				CEDF5B1F10C961FB0041570F /* BAGUIProtoCGLayer.m in Sources */,
-				CE08BD7A10DBC898000B538A /* Negative.cikernel in Sources */,
+				CE8A28D910F51226002422B5 /* ColorMappingFilter.m in Sources */,
+				CE8A2A4910F61940002422B5 /* ColorMappingFilter.cikernel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
