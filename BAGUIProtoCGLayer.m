@@ -60,6 +60,9 @@ int                     slicesPerRow = 1;
 int                     slicesPerCol = 1;
 int                     sliceDimension = 64;
 
+float                   minThreshold = 0.0;
+float                   maxThreshold = 0.0;
+
 CGFloat                 scaleFactor = 1.0;
 
 CGRect                  windowRect;
@@ -67,7 +70,10 @@ CGRect                  windowRect;
 CGContextRef layerOneContext;
 CGContextRef layerTwoContext;
 
+float* colorTableData;
+
 - (void)setupImages;
+- (CGPoint)computeMinMaxVoxelValue:(BADataElement*)image;
 - (void)convertFunctionalImage;
 /**
  * Sets the number of rows/columns of the display matrix.
@@ -102,18 +108,22 @@ static BAGUIProtoCGLayer *gui;
     ctSize.width  = 512;
     ctSize.height = 1;
     
-    float colorTableData[256 * 4 * 2];
+    //float colorTableData[256 * 4 * 2];
+    colorTableData = malloc(sizeof(float) * 256 * 4 * 2);
+    
+    // red to yellow (the more positive the more yellow)
     for(int _ctIndex = 0; _ctIndex < 256; _ctIndex++) {
         colorTableData[_ctIndex * 4 + 0] = 1.0;
-        colorTableData[_ctIndex * 4 + 1] = 1.0 * _ctIndex / 255.0;
-        colorTableData[_ctIndex * 4 + 2] = 0;//1.0 * _ctIndex / 255.0;
+        colorTableData[_ctIndex * 4 + 1] = 1.0 * (_ctIndex / 255.0);
+        colorTableData[_ctIndex * 4 + 2] = 0.0;//1.0 * _ctIndex / 255.0;
         colorTableData[_ctIndex * 4 + 3] = 1.0;
     }
-    for(int _ctIndex = 256; _ctIndex < 512; _ctIndex++) {
-        colorTableData[_ctIndex * 4 + 0] = 0.0;
-        colorTableData[_ctIndex * 4 + 1] = 1.0 * _ctIndex / 255.0;
-        colorTableData[_ctIndex * 4 + 2] = 1.0;//1.0 * _ctIndex / 255.0;
-        colorTableData[_ctIndex * 4 + 3] = 1.0;
+    // cyan to blue (the more negative the more cyan)
+    for(int _ctIndex = 0; _ctIndex < 256; _ctIndex++) {
+        colorTableData[(_ctIndex + 256) * 4 + 0] = 0.0;//0.5 - 0.5 * (_ctIndex / 255.0); // 127 to 0
+        colorTableData[(_ctIndex + 256) * 4 + 1] = 1.0 * (_ctIndex / 255.0); // 255 to 0
+        colorTableData[(_ctIndex + 256) * 4 + 2] = 1.0;//1.0 * (_ctIndex / 255.0);
+        colorTableData[(_ctIndex + 256) * 4 + 3] = 1.0;
     }
     
     //short colorTableData[256 * 4];
@@ -124,8 +134,8 @@ static BAGUIProtoCGLayer *gui;
 //        colorTableData[_ctIndex * 4 + 3] = USHRT_MAX;
 //    }
     
-    colorTable = [[CIImage imageWithBitmapData:[NSData dataWithBytes:colorTableData length:256 * sizeof(float) * 8]
-                                   bytesPerRow:256 * sizeof(float) * 8
+    colorTable = [[CIImage imageWithBitmapData:[NSData dataWithBytes:colorTableData length:256 * sizeof(float) * 4 * 2]
+                                   bytesPerRow:256 * sizeof(float) * 4 * 2
                                           size:ctSize 
                                         format:floatFormat 
                                     colorSpace:colorSpace] retain];
@@ -137,14 +147,14 @@ static BAGUIProtoCGLayer *gui;
 //                                    colorSpace:colorSpace] retain];
 //    
     
-    NSLog(@"created color table: %@", colorTable);
-    NSLog(@"ColorTable[5]: %d" ,colorTableData[5]);
-    NSLog(@"ColorTable[25]: %d", colorTableData[25]);
-    NSLog(@"ColorTable[156]: %d", colorTableData[157]);
+//    NSLog(@"created color table: %@", colorTable);
+//    NSLog(@"ColorTable[5]: %d" ,colorTableData[5]);
+//    NSLog(@"ColorTable[25]: %d", colorTableData[25]);
+//    NSLog(@"ColorTable[156]: %d", colorTableData[157]);
     
     /************************************/
-    
-	return self;
+	free(colorTableData);
+    return self;
 }
 
 - (void)initLayers {
@@ -212,7 +222,7 @@ static BAGUIProtoCGLayer *gui;
         
   //      [colorMappingFilter setValue:foregroundCIImage forKey:@"inputImage"];
         
-        NSLog(@"got instance of colorMappingFilter: %@", colorMappingFilter);
+        //NSLog(@"got instance of colorMappingFilter: %@", colorMappingFilter);
         
         [(ColorMappingFilter*)colorMappingFilter setKernelToUse: colorTableMappingType];
         float    filterMinimum = 0.0;
@@ -225,7 +235,7 @@ static BAGUIProtoCGLayer *gui;
         
     //    [colorMappingFilter setValue:colorTable
       //                      forKey:@"colorTable"];
-        NSLog(@"COLORMAPPINGFILTER: %@", colorMappingFilter);
+        //NSLog(@"COLORMAPPINGFILTER: %@", colorMappingFilter);
         
         foregroundCIImage = [colorMappingFilter valueForKey:@"outputImage"];
         
@@ -336,6 +346,13 @@ static BAGUIProtoCGLayer *gui;
     
     backgroundImageRaw = (short*) malloc(sizeof(short) * NUMBER_OF_CHANNELS * displayImageWidth * displayImageHeight);
     
+    CGPoint minmax;
+    minmax = [self computeMinMaxVoxelValue:backgroundImage];
+    
+    float valueScale = ((float) SHRT_MAX) / (minmax.y - minmax.x);  
+    
+    NSLog(@"min: %8.0f, max: %8.0f, scale: %2.2f", minmax.x, minmax.y, valueScale);
+    
     for (int col = 0; col < displayImageWidth; col++) {
         for (int row = 0; row < displayImageHeight; row++) {
             slice = ((row / sliceDimension) * slicesPerRow) + (col / sliceDimension);
@@ -346,16 +363,42 @@ static BAGUIProtoCGLayer *gui;
                 value = -1;
             }
                         
-            backgroundImageRaw[pos] = value;
-            backgroundImageRaw[pos + 1] = value;
-            backgroundImageRaw[pos + 2] = value;
+            backgroundImageRaw[pos] = (short) (value * valueScale);
+            backgroundImageRaw[pos + 1] = (short) (value * valueScale);
+            backgroundImageRaw[pos + 2] = (short) (value * valueScale);
             backgroundImageRaw[pos + 3] = -1;
         }
     }
 }
+- (CGPoint)computeMinMaxVoxelValue:(BADataElement*)image {
+    enum ImageDataType imageDataType = image.imageDataType;
+    float min = 0.0;
+    float max = 0.0;
+    float tmpFloat = 0.0;
+    
+    for (int slice = 0; slice < image.numberSlices; slice++) {
+        for (int col = 0; col < image.numberCols; col++) {
+            for (int row = 0; row < image.numberRows; row++) {
+                if (imageDataType == IMAGE_DATA_SHORT) {
+                    tmpFloat = (float) [image getShortVoxelValueAtRow:row col:col slice:slice timestep:0];
+                } else if (imageDataType == IMAGE_DATA_FLOAT) {
+                    tmpFloat = [image getFloatVoxelValueAtRow:row col:col slice:slice timestep:0];
+                }
+                
+                if (tmpFloat > max) {
+                    max = tmpFloat;
+                } else if (tmpFloat < min) {
+                    min = tmpFloat;
+                }
+            }
+        }
+    }
+    
+    return (CGPoint) {min, max};
+} 
  
 - (void)setForegroundImage:(BADataElement*)newForegroundImage {
-    
+   
     int displayImageWidth = slicesPerRow * sliceDimension;
     int displayImageHeight = slicesPerCol * sliceDimension;
     
@@ -396,6 +439,7 @@ static BAGUIProtoCGLayer *gui;
         }
     }
     NSLog(@"maxValue: %f; minValue: %f\n", maxValue, minValue);
+    NSLog(@"width: %d, height: %d, spr: %d, spc: %d",displayImageWidth, displayImageHeight, slicesPerRow, slicesPerCol);
     
     if (foregroundImageRaw != nil) {
         free(foregroundImageRaw);
@@ -417,23 +461,21 @@ static BAGUIProtoCGLayer *gui;
             } else {
                 value = 0.0;
             }
-            
-            if (value > 0.75) {
-                foregroundImageRaw[pos] = (value + fabs(minValue))/(fabs(minValue) + maxValue);
-                foregroundImageRaw[pos + 1] = (value + fabs(minValue))/(fabs(minValue) + maxValue);
-                foregroundImageRaw[pos + 2] = (value + fabs(minValue))/(fabs(minValue) + maxValue);
+            if (value > maxThreshold) {
+                foregroundImageRaw[pos] = 0.5 * (value + fabs(minValue))/(fabs(minValue) + maxValue) + 0.5;//(value + fabs(minValue))/(fabs(minValue) + maxValue);
+                foregroundImageRaw[pos + 1] = 0.5 * (value + fabs(minValue))/(fabs(minValue) + maxValue) + 0.5;//(value + fabs(minValue))/(fabs(minValue) + maxValue);
+                foregroundImageRaw[pos + 2] = 0.5 * (value + fabs(minValue))/(fabs(minValue) + maxValue) + 0.5;//(value + fabs(minValue))/(fabs(minValue) + maxValue);
                 foregroundImageRaw[pos + 3] = 1.0;
-            } else if (value < -2.0) {
-                foregroundImageRaw[pos] = (value + fabs(minValue))/(fabs(minValue) + maxValue);
-                foregroundImageRaw[pos + 1] = (value + fabs(minValue))/(fabs(minValue) + maxValue);
-                foregroundImageRaw[pos + 2] = (value + fabs(minValue))/(fabs(minValue) + maxValue);//fabs(value);
+            } else if (value < minThreshold) {
+                foregroundImageRaw[pos] = 0.5 * (value + fabs(minValue))/(fabs(minValue) + maxValue);
+                foregroundImageRaw[pos + 1] = 0.5 * (value + fabs(minValue))/(fabs(minValue) + maxValue);
+                foregroundImageRaw[pos + 2] = 0.5 * (value + fabs(minValue))/(fabs(minValue) + maxValue);//fabs(value);
                 foregroundImageRaw[pos + 3] = 1.0;
             } else {
-            
                 foregroundImageRaw[pos] = 0.0;
                 foregroundImageRaw[pos + 1] = 0.0;
                 foregroundImageRaw[pos + 2] = 0.0;
-                foregroundImageRaw[pos + 3] = -1.0;
+                foregroundImageRaw[pos + 3] = 0.0;
             }
         }
     }
@@ -453,7 +495,6 @@ static BAGUIProtoCGLayer *gui;
 //    
     /***************************************/
     
-    
     chunkOfMemory = foregroundImageRaw;
 	imageData = [NSData dataWithBytes:chunkOfMemory length:float_bytes_length];
     foregroundCIImage =	[CIImage imageWithBitmapData:imageData 
@@ -470,51 +511,14 @@ static BAGUIProtoCGLayer *gui;
     slicesPerCol = spc;
 }
 
-//- (CGFloat*) convertToRGBFromHue:(int)h Saturation:(float)s Value:(float)v {
-//    CGFloat *rgbVector = malloc(sizeof(CGFloat) * 3);
-//    int hi = (h / 60) % 6;
-//    float f = ((float) h / 60.0) - (float) (h / 60);
-//    float p = v * (1.0 - s);
-//    float q = v * (1.0 - f * s);
-//    float t = v * (1.0 - (1.0 - f) * s);
-//    
-//    switch (hi) {
-//        case 0:
-//            rgbVector[0] = v;
-//            rgbVector[1] = t;
-//            rgbVector[2] = p;
-//            break;
-//        case 1:
-//            rgbVector[0] = q;
-//            rgbVector[1] = v;
-//            rgbVector[2] = p;
-//            break;
-//        case 2:
-//            rgbVector[0] = p;
-//            rgbVector[1] = v;
-//            rgbVector[2] = t;
-//            break;
-//        case 3:
-//            rgbVector[0] = p;
-//            rgbVector[1] = q;
-//            rgbVector[2] = v;
-//            break;
-//        case 4:
-//            rgbVector[0] = t;
-//            rgbVector[1] = p;
-//            rgbVector[2] = v;
-//            break;
-//        case 5:
-//            rgbVector[0] = v;
-//            rgbVector[1] = p;
-//            rgbVector[2] = q;
-//            break;
-//        default:
-//            break;
-//    }
-//
-//    return rgbVector;
-//}
+- (IBAction)updateSlider:(id)sender {
+    minThreshold = [minimumSlider floatValue];
+    maxThreshold = [maximumSlider floatValue];
+    
+    [minimumValueLabel setStringValue:[NSString stringWithFormat:@"Min: %1.2f", minThreshold]];
+    [maximumValueLabel setStringValue:[NSString stringWithFormat:@"Max: %1.2f", maxThreshold]];
+}
+
 
 + (BAGUIProtoCGLayer *)getGUI {
     return [gui retain];

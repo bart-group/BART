@@ -14,6 +14,9 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		CE08BA7F10DB73BE000B538A /* BADesignElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8B70AD10DA9B0C007AEB2B /* BADesignElementVITest.m */; };
 		CE08BD0610DB994D000B538A /* BADataElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE08BD0510DB994D000B538A /* BADataElementVITest.m */; };
+		CE7D674B1112DAED005A9D15 /* BADesignElementDyn.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7D674A1112DAED005A9D15 /* BADesignElementDyn.m */; };
+		CE7D67F711133323005A9D15 /* BADesignElementDyn.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7D674A1112DAED005A9D15 /* BADesignElementDyn.m */; };
+		CE7D689B1113447C005A9D15 /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7D689A1113447C005A9D15 /* libfftw3.a */; };
 		CE8A28C510F51058002422B5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED1922910AC8AD600FAFA4F /* QuartzCore.framework */; };
 		CE8A28D010F5121A002422B5 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E410AC888700FAFA4F /* libviaio.dylib */; };
 		CE8A28D110F5121B002422B5 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E210AC888700FAFA4F /* libvia.dylib */; };
@@ -89,6 +92,9 @@
 		CE08BD0510DB994D000B538A /* BADataElementVITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElementVITest.m; sourceTree = "<group>"; };
 		CE08BD7910DBC898000B538A /* Negative.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Negative.cikernel; sourceTree = "<group>"; };
 		CE08BD7D10DBDB29000B538A /* NegativeKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NegativeKernel.h; sourceTree = "<group>"; };
+		CE7D67491112DAED005A9D15 /* BADesignElementDyn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementDyn.h; sourceTree = "<group>"; };
+		CE7D674A1112DAED005A9D15 /* BADesignElementDyn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementDyn.m; sourceTree = "<group>"; };
+		CE7D689A1113447C005A9D15 /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3.a; path = /usr/local/lib/libfftw3.a; sourceTree = "<absolute>"; };
 		CE8A281C10F4F206002422B5 /* ColorMappingFilter.cikernel */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = ColorMappingFilter.cikernel; sourceTree = "<group>"; };
 		CE8A281D10F4F206002422B5 /* ColorMappingFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorMappingFilter.h; sourceTree = "<group>"; };
 		CE8A282010F4F2C8002422B5 /* ColorMappingFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorMappingFilter.m; sourceTree = "<group>"; };
@@ -153,6 +159,7 @@
 				CE8A28D710F5121F002422B5 /* CoreData.framework in Frameworks */,
 				CE8A28D810F51220002422B5 /* AppKit.framework in Frameworks */,
 				CE8A2A3A10F61713002422B5 /* Quartz.framework in Frameworks */,
+				CE7D689B1113447C005A9D15 /* libfftw3.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +198,8 @@
 				CED190B210AC873C00FAFA4F /* BADataElementVI.m */,
 				CED190B310AC873C00FAFA4F /* BADesignElement.h */,
 				CED190B410AC873C00FAFA4F /* BADesignElement.m */,
+				CE7D67491112DAED005A9D15 /* BADesignElementDyn.h */,
+				CE7D674A1112DAED005A9D15 /* BADesignElementDyn.m */,
 				CED190B510AC873C00FAFA4F /* BADesignElementVI.h */,
 				CED190B610AC873C00FAFA4F /* BADesignElementVI.m */,
 				256AC3D80F4B6AC300CF3369 /* BARTApplicationAppDelegate.h */,
@@ -279,6 +288,7 @@
 				CED191E010AC888700FAFA4F /* libgslcblas.dylib */,
 				CED191E210AC888700FAFA4F /* libvia.dylib */,
 				CED191E410AC888700FAFA4F /* libviaio.dylib */,
+				CE7D689A1113447C005A9D15 /* libfftw3.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -428,6 +438,7 @@
 				CEDF5B1F10C961FB0041570F /* BAGUIProtoCGLayer.m in Sources */,
 				CE8A28D910F51226002422B5 /* ColorMappingFilter.m in Sources */,
 				CE8A2A4910F61940002422B5 /* ColorMappingFilter.cikernel in Sources */,
+				CE7D67F711133323005A9D15 /* BADesignElementDyn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +448,7 @@
 			files = (
 				CE08BA7F10DB73BE000B538A /* BADesignElementVITest.m in Sources */,
 				CE08BD0610DB994D000B538A /* BADataElementVITest.m in Sources */,
+				CE7D674B1112DAED005A9D15 /* BADesignElementDyn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,6 +510,7 @@
 			buildSettings = {
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				BUNDLE_LOADER = "";
+				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -513,7 +526,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = "";
 				TEST_HOST = "";
 			};
 			name = Debug;

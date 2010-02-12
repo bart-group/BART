@@ -53,7 +53,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 
 -(id)init
 {
-    slidingWindowSize = 50;
+    slidingWindowSize = 396;
     indexForTimestep = slidingWindowSize;
     gui = [BAGUIProtoCGLayer getGUI];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(OnNewData:) name:@"MessageName" object:nil];
@@ -70,21 +70,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
      */
     [self createOutputImages];
     [self startTimer];
-    
-    //int i = 0;
-//    while (i <= 0) {
-//        [self Regression:2000 :396 :396];
-//        [self sendFinishNotification];
-//        [gui updateImage:mBetaOutput];
-//        i++;
-//        Sleep(2000);
-//    }
-    
-   // [self Regression:2000 :396 :396];
-   // [self sendFinishNotification];
-    
-    //[mBetaOutput WriteDataElementToFile:@"/Users/user/Development/outfromBART.v"];
-    //[mResOutput WriteDataElementToFile:@"/Users/user/Development/outfromBART.v"];
+
     return;
 }
 
@@ -125,13 +111,19 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     if (timer)
     {
         [self stopTimer];
+        
+        NSLog(@"Time analysis: Start");
+        
         [self Regression:2000 
                         :slidingWindowSize 
                         :indexForTimestep];
         [self sendFinishNotification];
         [gui setForegroundImage:mResMap];
+        
+        NSLog(@"Time analysis: End");
+        
         indexForTimestep++;
-        if (indexForTimestep < 396){
+        if (indexForTimestep < mData.numberTimesteps){
             [self startTimer];
         } else {
             [mBetaOutput WriteDataElementToFile:@"/Users/user/Development/outfromBART.v"];
@@ -197,7 +189,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         Vc = fmat_x_matT(S, S, NULL);
         
         /* Compute pseudo inverse. */
-        gsl_matrix_float *SX = NULL;   /* Matrix S multiplied by matrix X.*/
+        gsl_matrix_float *SX = NULL;   /* "Notation": SX = matrix S multiplied by matrix X. */
         SX = fmat_x_mat(S, X, NULL);
         gsl_matrix_float *XInv = NULL; /* Pseudo inverse matrix of X. */
         XInv = fmat_PseudoInv(SX, NULL);
@@ -266,8 +258,10 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         gsl_matrix_float_transpose(betaCovariates);
         
         float contrast[5] = {1.0, 0.0, -1.0, 0.0, 0.0};
+        //float contrast[3] = {1.0, -1.0, 0.0};
         gsl_vector_float *contrastVector;
         contrastVector = gsl_vector_float_alloc(5);
+        //contrastVector = gsl_vector_float_alloc(3);
         contrastVector->data = contrast;
         
         gsl_vector_float *tmp = NULL;
@@ -276,7 +270,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         float new_sigma = sqrt(variance);
         
         gsl_matrix_float_free(betaCovariates);
-        /* Get variance estimate. END */
+        /* END Get variance estimate. */
         
         gsl_matrix_float_free(X);
         
@@ -293,7 +287,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                 dispatch_apply(numberRows, queue, ^(size_t row) {
                     dispatch_apply(numberCols, queue, ^(size_t col) {
                         
-                        if ([mData getShortVoxelValueAtRow:row col:col slice:slice timestep:0] >=  minval + 1) {
+                        if ([mData getFloatVoxelValueAtRow:row col:col slice:slice timestep:0] >=  minval + 1) {
                             npix++;
                             float sum = 0.0;
                             float sum2 = 0.0;
@@ -304,7 +298,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                             float u;
                             
                             for (i = (lastTimestep - sliding_window_size); i < lastTimestep; i++) {
-                                u = (float)[mData getShortVoxelValueAtRow:row col:col slice:slice timestep:i];
+                                u = [mData getFloatVoxelValueAtRow:row col:col slice:slice timestep:i];
                                 (*ptr1++) = u;
                                 sum += u;
                                 sum2 += u * u;

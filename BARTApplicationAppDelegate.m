@@ -8,6 +8,7 @@
 
 #import "BARTApplicationAppDelegate.h"
 #import "BAGUIPrototyp.h"
+#import "BADesignElementDyn.h"
 
 @implementation BARTApplicationAppDelegate
 
@@ -15,26 +16,31 @@
 @synthesize gui;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	// Insert code here to initialize your application 
+ 
     gui = [[BAGUIProtoCGLayer alloc] initWithWindow:window];
     [gui initLayers];
 	//[gui doPaint];
 
     dataEl = [[BADataElement alloc] initWithDatasetFile:@"/Users/user/Development/BR5T-functional.v" ofImageDataType:IMAGE_DATA_SHORT];
+    //dataEl = [[BADataElement alloc] initWithDatasetFile:@"/Users/user/Development/KC9T/KC9T081015-functional.v" ofImageDataType:IMAGE_DATA_SHORT];
+    
     [gui setBackgroundImage:dataEl];
-    designEl = [[BADesignElement alloc] initWithDatasetFile:@"/Users/user/Development/designfromscipt.v" ofImageDataType:IMAGE_DATA_FLOAT];
-   
-    printf("\nCOVARIATE VALUE AT 1/42: %10.10f", [[designEl getValueFromCovariate:0 atTimestep:42] floatValue]);
     
+    designEl = [[BADesignElement alloc] initWithDatasetFile:@"/Users/user/Development/VGenDesign/testfiles/erDesignTest01.des" ofImageDataType:IMAGE_DATA_FLOAT];
+    //designEl = [[BADesignElement alloc] initWithDatasetFile:@"/Users/user/Development/VGenDesign/testfiles/blockDesignTest01.des" ofImageDataType:IMAGE_DATA_FLOAT];
     
+    //designEl = [[BADesignElement alloc] initWithDatasetFile:@"/Users/user/Development/KC9T/KC9T.des.v" ofImageDataType:IMAGE_DATA_FLOAT];
+
     analyzer = [[BAAnalyzerElement alloc] initWithAnalyzerType:kAnalyzerGLM];
     
-    if ([analyzer isKindOfClass:[BAAnalyzerElement class]]) {
-        printf("JIPPIE!");
-    }
+//    if ([analyzer isKindOfClass:[BAAnalyzerElement class]]) {
+//        printf("JIPPIE!");
+//    }
     
     [analyzer anaylzeTheData:dataEl withDesign:designEl];
-    //[gui updateImage:nil];
+    
+  //  BADesignElementDyn *designTest = [[BADesignElementDyn alloc] initWithFile:@"/Users/user/Development/VGenDesign/testfiles/blockDesignTest01.des" ofImageDataType:IMAGE_DATA_FLOAT];
+  //  [designTest release];
 }
 
 -(void)dealloc{
@@ -43,6 +49,7 @@
     [dataEl release];
     [designEl release];
     [analyzer release];
+    
     [super dealloc];    
     
 }

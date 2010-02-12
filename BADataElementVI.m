@@ -113,16 +113,21 @@
 }
 -(float)getFloatVoxelValueAtRow:(int)r col:(int)c slice:(int)s timestep:(int)t
 {
-    return VPixel(mImageArray[s], t, r, c, VFloat);
+    if (IMAGE_DATA_FLOAT == imageDataType) {
+        return VPixel(mImageArray[s], t, r, c, VFloat);
+    } else if (IMAGE_DATA_SHORT == imageDataType) {
+        return (float) VPixel(mImageArray[s], t, r, c, VShort);
+    }
+
+    return NAN;
 }
 
 -(void)setVoxelValue:(NSNumber*)val atRow: (int)r col:(int)c slice:(int)s timestep:(int)t
 {
-    if (IMAGE_DATA_FLOAT == imageDataType){
+    if (IMAGE_DATA_FLOAT == imageDataType) {
         VPixel(mImageArray[s], t, r, c, VFloat) = [val floatValue];
-        
     }
-    if (IMAGE_DATA_SHORT == imageDataType){
+    if (IMAGE_DATA_SHORT == imageDataType) {
         VPixel(mImageArray[s], t, r, c, VShort) = [val shortValue];
     }
 

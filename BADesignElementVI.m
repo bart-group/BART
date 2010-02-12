@@ -61,8 +61,8 @@
     numberCovariates = VImageNColumns(mDesign);
     
     int itr;
-    if (VGetAttr(VImageAttrList(mDesign), "repetition_time", NULL, VLongRepn,
-                 &itr) != VAttrFound) {
+    if (VGetAttr(VImageAttrList(mDesign), "repetition_time", NULL, VLongRepn, &itr) 
+            != VAttrFound) {
         NSLog(@"TR info missing in header");
     }
     
@@ -77,8 +77,8 @@
 {
     NSNumber *ret;
     if (IMAGE_DATA_FLOAT == imageDataType){
-        ret = [NSNumber numberWithFloat:VGetPixel(mDesign, 0, t, cov)];}
-    else {
+        ret = [NSNumber numberWithFloat:VGetPixel(mDesign, 0, t, cov)];
+    } else {
         NSLog(@"Cannot identify type of design image - no float");
     }
 

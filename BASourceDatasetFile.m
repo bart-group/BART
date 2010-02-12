@@ -21,10 +21,12 @@
     
     if (self) {
         
-        if (IMAGE_DESIGN == type ){
-            mElement = [[BADesignElement alloc] initWithDatasetFile:file ofImageDataType:IMAGE_DATA_FLOAT];}
-        if ( IMAGE_FCTDATA == type ){
-            mElement = [[BADataElement alloc] initWithDatasetFile:file ofImageDataType:IMAGE_DATA_SHORT];}
+        if (IMAGE_DESIGN == type) {
+            mElement = [[BADesignElement alloc] initWithDatasetFile:file ofImageDataType:IMAGE_DATA_FLOAT];
+        }
+        if (IMAGE_FCTDATA == type) {
+            mElement = [[BADataElement alloc] initWithDatasetFile:file ofImageDataType:IMAGE_DATA_SHORT];
+        }
     
     }
     

@@ -15,8 +15,13 @@ kernel vec4 colorMappingFilterOne(sampler src, __table sampler colorTable, float
 
 	value = (pix.r + pix.g + pix.b) / 3.0;
 
-	pix = (value <= max - 0.5 ? (value > min ? getCTValue(colorTable, 255.0 * value + 255.0) : vec4(0.0, 0.0, 0.0, -1.0)) : vec4(0.0, 0.0, 0.0, -1.0));
-    pix = (value <= max ? (value > min + 0.5 ? getCTValue(colorTable, 255.0 * value) : pix) : pix);
+//	pix = (value <= max - 0.5 ? (value > min ? getCTValue(colorTable, 255.0 * value + 255.0) : vec4(0.0, 0.0, 0.0, 0.0)) : vec4(0.0, 0.0, 0.0, 0.0));
+//    pix = (value <= max ? (value > min + 0.5 ? getCTValue(colorTable, 255.0 * value) : pix) : pix);
+    
+    // for negative values
+    pix = (value <= max - 0.5 ? (value > min ? getCTValue(colorTable, 255.0 * (value / 0.5) + 256.0) : vec4(0.0, 0.0, 0.0, 0.0)) : vec4(0.0, 0.0, 0.0, 0.0));
+    // for positive values
+    pix = (value <= max ? (value > min + 0.5 ? getCTValue(colorTable, 255.0 * ((value - 0.5) / 0.5)) : pix) : pix);
 //    pix = getCTValue(colorTable, 128.0);
    // pix.a = 1.0;//(value <= min) ? 1.0 : -1.0;
     

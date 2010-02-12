@@ -19,6 +19,11 @@
     CIFilter* colorMappingFilter;
     CIImage* colorTable;
     
+    IBOutlet NSSlider* minimumSlider;
+    IBOutlet NSSlider* maximumSlider;
+    IBOutlet NSTextField* minimumValueLabel;
+    IBOutlet NSTextField* maximumValueLabel;
+    
 }
 
 - (id)initWithWindow:(NSWindow*)window;
@@ -44,6 +49,8 @@
  * (usually used for functional/activation data).
  */
 - (void)setForegroundImage:(BADataElement*)newForegroundImage;
+
+- (IBAction)updateSlider:(id)sender;
 
 + (BAGUIProtoCGLayer*)getGUI;
 

@@ -8,6 +8,7 @@
 
 #import "BADesignElement.h"
 #import "BADesignElementVI.h"
+#import "BADesignElementDyn.h"
 
 
 @implementation BADesignElement
@@ -21,7 +22,12 @@
 {
     self = [super init];
     //TODO!!!!!!!
-    return [[BADesignElementVI alloc] initWithFile:path ofImageDataType:type];
+    return [[BADesignElementDyn alloc] initWithFile:path ofImageDataType:type];
+}
+
+-(NSNumber*)getValueFromCovariate: (int)cov atTimestep:(int)t 
+{
+
 }
 
 @end
