@@ -97,7 +97,7 @@ fftw_complex **inverseInBuffers = NULL;
         NSLog(@" BADesignElementDyn.initWithFile: defaulting to IMAGE_DATA_FLOAT (other values are not supported)!");
         imageDataType = IMAGE_DATA_FLOAT;
     }
-    //trials = malloc(sizeof(Trial) * MAX_NUMBER_TRIALS);
+    
     trials = malloc(sizeof(TrialList*) * MAX_NUMBER_EVENTS);
     for (int i = 0; i < MAX_NUMBER_EVENTS; i++) {
         trials[i] = NULL;
@@ -234,14 +234,6 @@ fftw_complex **inverseInBuffers = NULL;
             sum2 = 0.0;
             nx   = 0.0;
             
-//            for (j = 0; j < numberTrials; j++) {
-//                if (trials[j].id == i) {
-//                    sum1 += trials[j].height;
-//                    sum2 += trials[j].height * trials[j].height;
-//                    nx++;
-//                }
-//            }
-            
             TrialList* currentTrial;
             currentTrial = trials[i];
             
@@ -252,7 +244,6 @@ fftw_complex **inverseInBuffers = NULL;
                 currentTrial = currentTrial->next;
             }
             
-            //if (nx < 1) continue;
             if (nx >= 1) {
                 mean  = sum1 / nx;
                 if (nx < 1.5) continue;      /* sigma not computable       */
@@ -260,12 +251,6 @@ fftw_complex **inverseInBuffers = NULL;
                 if (sigma < 0.01) continue;  /* not a parametric covariate */
                 
                 /* correct for zero mean */
-//                for (j = 0; j < numberTrials; j++) {
-//                    if (trials[j].id == i) {
-//                        trials[j].height -= mean;
-//                    }
-//                }
-                
                 currentTrial = trials[i];
                 
                 while (currentTrial != NULL) {
@@ -295,14 +280,6 @@ fftw_complex **inverseInBuffers = NULL;
     for (i = 0; i < numberEvents; i++) {
         
         xmin = VRepnMaxValue(VFloatRepn);
-//        for (j = 0; j < numberTrials; j++) {
-//            if (trials[j].id == i) {
-//                if (trials[j].duration < xmin) {
-//                    xmin = trials[j].duration;
-//                    
-//                }
-//            }
-//        }
         
         TrialList* currentTrial;
         currentTrial = trials[i];
@@ -313,8 +290,6 @@ fftw_complex **inverseInBuffers = NULL;
             }
             currentTrial = currentTrial->next;
         }
-        
-        
         
 //        block = FALSE;
 //        if (xmin >= block_threshold) {
@@ -352,7 +327,6 @@ fftw_complex **inverseInBuffers = NULL;
     for (j = 0; j < ntimesteps; j++) {
         VPixel(mDesign, 0, j, ncols, VFloat) = 1;
     }
-    
     
     /* alloc memory */
     numberSamples = (int) (total_duration * 1000.0 / delta);
@@ -468,7 +442,7 @@ fftw_complex **inverseInBuffers = NULL;
     dispatch_queue_t queue;       /* Global asyn. dispatch queue. */
     queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     
-    /* for each trial, event do... */
+    /* For each event and trial do... */
     dispatch_apply(numberEvents, queue, ^(size_t eventNr) {
         memset(forwardInBuffers[eventNr], 0, sizeof(double) * numberSamples);
         
@@ -477,33 +451,6 @@ fftw_complex **inverseInBuffers = NULL;
         double t0;
         double h;
         float minTrialDuration = block_threshold;
-        
-//        for (int j = 0; j < numberTrials; j++) {
-//            
-//            if (trials[j].id == eventNr) {
-//                trialcount++;
-//                
-//                //block = event_type[eventNr];
-//                if (trials[j].duration < minTrialDuration) {
-//                    minTrialDuration = trials[j].duration;
-//                }
-//                t0 = trials[j].onset;
-//                double tmax = trials[j].onset + trials[j].duration;
-//                h  = trials[j].height;
-//                
-//                t0 *= 1000.0;
-//                tmax *= 1000.0;
-//                
-//                int k = t0 / delta;
-//                
-//                for (double t = t0; t <= tmax; t += delta) {
-//                    if (k >= numberSamples) {
-//                        break;
-//                    }
-//                    forwardInBuffers[eventNr][k++] += h;
-//                }
-//            }
-//        }
         
         TrialList* currentTrial;
         currentTrial = trials[eventNr];
@@ -583,25 +530,24 @@ fftw_complex **inverseInBuffers = NULL;
                           :inverseOutBuffers[eventNr]
                           :inverseFFTplans[eventNr]
                           :fkernel2];
-            //col++;
         }
     });
     
-//    VAttrList out_list = NULL;                         
-//    out_list = VCreateAttrList();
-//    VAppendAttr (out_list, "image", NULL, VImageRepn, mDesign);
-//    
-//    VImage plot_image = NULL;
-//    plot_image = [self Plot_gamma:deriv];
-//    VAppendAttr (out_list, "plot_gamma", NULL, VImageRepn, plot_image);
-//    
-//    FILE *out_file = fopen("/tmp/testDesign.v", "w");
-//    
-//    if (!VWriteFile(out_file, out_list)) {
-//        exit(1);
-//        
-//    }
-//    fclose(out_file);
+    VAttrList out_list = NULL;                         
+    out_list = VCreateAttrList();
+    VAppendAttr (out_list, "image", NULL, VImageRepn, mDesign);
+    
+    VImage plot_image = NULL;
+    plot_image = [self Plot_gamma:deriv];
+    VAppendAttr (out_list, "plot_gamma", NULL, VImageRepn, plot_image);
+    
+    FILE *out_file = fopen("/tmp/testDesign.v", "w");
+    
+    if (!VWriteFile(out_file, out_list)) {
+        exit(1);
+        
+    }
+    fclose(out_file);
 }
 
 -(void)parseInputFile:(NSString *)path
@@ -660,12 +606,9 @@ fftw_complex **inverseInBuffers = NULL;
                 if (duration < 0.5 && duration >= -0.0001) {
                     duration = 0.5;
                 }
-//                trials[numberTrials].id       = trialID - 1;
-//                trials[numberTrials].onset    = onset;
-//                trials[numberTrials].duration = duration;
-//                trials[numberTrials].height   = height;
+
                 Trial newTrial;
-                newTrial.id       = trialID - 1;
+                newTrial.id       = trialID;
                 newTrial.onset    = onset;
                 newTrial.duration = duration;
                 newTrial.height   = height;
@@ -674,15 +617,6 @@ fftw_complex **inverseInBuffers = NULL;
                 newListEntry = malloc(sizeof(TrialList));
                 *newListEntry = TRIALLIST_INIT;
                 newListEntry->trial = newTrial;
-                //newListEntry->next = NULL;
-                
-                /******/
-                TrialList * pFun1;
-                TrialList * pFun2;
-                TrialList * pFun3;
-                TrialList * pFun4;
-                
-                /*******/
                 
                 if (trials[trialID - 1] == NULL) {
                     trials[trialID - 1] = newListEntry;
@@ -690,14 +624,6 @@ fftw_complex **inverseInBuffers = NULL;
                 } else {
                     [self tl_append:trials[trialID - 1] :newListEntry];
                 }
-
-                
-                pFun1 = trials[0];
-                pFun2 = trials[1];
-                pFun3 = trials[2];
-                pFun4 = trials[3];
-                
-                
                 
                 numberTrials++;
                 
@@ -705,10 +631,6 @@ fftw_complex **inverseInBuffers = NULL;
                     NSLog(@" too many trials %d. Aborting program.\n", numberTrials);
                     exit(1);
                 }
-                
-//                if (trialID > numberEvents) {
-//                    numberEvents = trialID;
-//                }
             }
         }
     }
@@ -730,7 +652,7 @@ fftw_complex **inverseInBuffers = NULL;
 -(double)xgamma:(double) xx
                :(double) t0
 {
-    double scale=20.0; // nobody knows where it comes from
+    double scale = 20.0; // nobody knows where it comes from
     
     double x = xx - t0;
     if (x < 0 || x > 50) {
@@ -1003,7 +925,7 @@ fftw_complex **inverseInBuffers = NULL;
 
 -(void)setRegressor:(TrialList *)regressor
 {
-    trials[regressor->trial.id] = regressor;
+    trials[regressor->trial.id - 1] = regressor;
     
     [self generateDesign];
 }
@@ -1013,7 +935,7 @@ fftw_complex **inverseInBuffers = NULL;
     VFree(mDesign);
     free(xx);
     
-    for (int eventNr = 0; eventNr = numberEvents; eventNr++) {
+    for (int eventNr = 0; eventNr < numberEvents; eventNr++) {
         fftw_free(forwardInBuffers[eventNr]);
         fftw_free(forwardOutBuffers[eventNr]);
         fftw_free(inverseInBuffers[eventNr]);
