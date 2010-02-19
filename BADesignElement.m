@@ -25,7 +25,7 @@
     return [[BADesignElementDyn alloc] initWithFile:path ofImageDataType:type];
 }
 
--(void)writeDesignFile:(NSString*) path
+-(NSError*)writeDesignFile:(NSString*) path
 {
     
 }

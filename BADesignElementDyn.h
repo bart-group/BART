@@ -23,6 +23,6 @@ typedef struct ComplexStruct {
 }
 
 -(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
--(void)generateDesign;
+-(NSError*)generateDesign;
 
 @end

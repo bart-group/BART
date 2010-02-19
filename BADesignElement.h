@@ -9,6 +9,18 @@
 #import <Cocoa/Cocoa.h>
 #import "BAElement.h"
 
+enum BADesignElementError {
+    TR_NOT_SPECIFIED,
+    NUMBERTIMESTEPS_NOT_SPECIFIED,
+    FILEOPEN,
+    TXT_SCANFILE,
+    ILLEGAL_INPUT_FORMAT,
+    NO_EVENTS_FOUND,
+    EVENT_NUMERATION,
+    MAX_TRIALS,
+    WRITE_OUTPUT
+};
+
 typedef struct TrialStruct{
     int   id;               // Stimulus number.
     float onset;
@@ -39,7 +51,7 @@ typedef struct TrialListStruct {
 
 -(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
 
--(void)writeDesignFile:(NSString*)path;
+-(NSError*)writeDesignFile:(NSString*)path;
 
 -(NSNumber*)getValueFromCovariate: (int)cov atTimestep:(int)t;
 -(void)setRegressor:(TrialList *)regressor;

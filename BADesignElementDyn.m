@@ -30,19 +30,13 @@ double b2 = 0.9;
 double cc = 0.35;
 
 /* Generated design information/resulting design image. */
-//VImage mDesign = NULL;
 float** mDesign = NULL;
 
 /* Attributes that should be modifiable (were once CLI parameters). */
-//VShort bkernel = 0;
 short bkernel = 0;
-//VShort deriv = 0;
 short deriv = 0;
-//VFloat block_threshold = 10.0; // in seconds
 float block_threshold = 10.0; // in seconds
-//VLong  ntimesteps = 396;       // Must be set to a different value!
-int ntimesteps = 396;       // Must be set to a different value!
-//VFloat tr = 2.0;               // Must be set to a different value!
+int ntimesteps = 396;         // Must be set to a different value!
 float tr = 2.0;               // Must be set to a different value!
 
 /* Other Attributes set up by initDesign. Main use in generate Design. */
@@ -64,8 +58,8 @@ fftw_complex **forwardOutBuffers = NULL; // Resulting HRFs (one per Event).
 fftw_complex **inverseInBuffers = NULL;
 /* Other Attributes END. */
 
--(void)parseInputFile:(NSString*)path;
--(void)initDesign;
+-(NSError*)parseInputFile:(NSString*)path;
+-(NSError*)initDesign;
 
 -(Complex)complex_mult:(Complex)a :(Complex)b;
 -(double)xgamma:(double)xx :(double)t0;
@@ -73,7 +67,6 @@ fftw_complex **inverseInBuffers = NULL;
 -(double)deriv1_gamma:(double)x :(double)t0;
 -(double)deriv2_gamma:(double)x :(double)t0;
 -(double)xgauss:(double)xx :(double)t0;
-//-(VImage)Plot_gamma:(VShort)deriv;
 -(float**)Plot_gamma:(short)deriv;
 -(BOOL)test_ascii:(int)val;
 -(void)Convolve:(int)col
@@ -82,9 +75,7 @@ fftw_complex **inverseInBuffers = NULL;
                :(double *)inverseOutBuffer
                :(fftw_plan)planInverseFFT
                :(fftw_complex *)fkernel;
-/**
- * Utility function for TrialList.
- */
+/* Utility function for TrialList. */
 -(void)tl_append:(TrialList*)head
                 :(TrialList*)newLast;
 
@@ -131,7 +122,7 @@ fftw_complex **inverseInBuffers = NULL;
     return self;
 }
 
--(void)initDesign
+-(NSError*)initDesign
 {
     // TODO: parameterize or/and use config
     static char* filename = ""; // for file with scan times (scanfile)    
@@ -177,17 +168,15 @@ fftw_complex **inverseInBuffers = NULL;
     
     /* constant TR */
     if (strlen(filename) < 3) {
-//        if (tr > 100)       VWarning(" TR must be given in seconds, not milliseconds");
-//        if (tr < 0.0001)    VError(" TR must be specified");
-//        if (ntimesteps < 2) VError(" 'ntimesteps' must be specified");
+        
         if (tr > 100) {
-            NSLog(@" Warning: TR must be given in seconds, not milliseconds!");
+            NSLog(@"Warning: TR must be given in seconds, not milliseconds!");
         }
         if (tr < 0.0001) {
-            NSLog(@" Error: TR must be specified!");
+            return [NSError errorWithDomain:@"Repetition time (TR) must be specified!" code:TR_NOT_SPECIFIED userInfo:nil];
         }
         if (ntimesteps < 2) {
-            NSLog(@" Error: 'ntimesteps' must be specified!");
+            return [NSError errorWithDomain:@"Number of timesteps must be specified!" code:NUMBERTIMESTEPS_NOT_SPECIFIED userInfo:nil];
         }
         fprintf(stderr, " TR = %.3f\n", tr);
         
@@ -201,9 +190,11 @@ fftw_complex **inverseInBuffers = NULL;
         FILE *fp = NULL;
         fp = fopen(filename, "r");
         if (!fp) {
-            NSLog(@" error opening file %s", filename);
+            NSString* errorString = [NSString stringWithFormat:@"Could not open file %s!", filename];
+            return [NSError errorWithDomain:errorString code:FILEOPEN userInfo:nil];
         }
-        fprintf(stderr, " reading scan file: %s\n", filename);
+        
+        NSLog(@"Reading scan file: %s\n", filename);
         
         i = 0;
         while (!feof(fp)) {
@@ -211,16 +202,15 @@ fftw_complex **inverseInBuffers = NULL;
             fgets(buf, BUFFER_LENGTH, fp);
             if (buf[0] == '%' || buf[0] == '#') continue;
             if (strlen(buf) < 2) continue;
-//            if (![self test_ascii:((int) buf[0])]) VError(" scan file must be a text file");
+            
             if (![self test_ascii:((int) buf[0])]) {
-                NSLog(@" Error: scan file must be a text file");
+                return [NSError errorWithDomain:@"Scan file must be a text file!" code:TXT_SCANFILE userInfo:nil];
             }
             i++;
         }
         
         rewind(fp);
         ntimesteps = i;
-//        xx = (double *) VCalloc(ntimesteps, sizeof(double));
         xx = (double *) malloc(sizeof(double) * ntimesteps);
         i = 0;
         while (!feof(fp)) {
@@ -228,9 +218,10 @@ fftw_complex **inverseInBuffers = NULL;
             fgets(buf, BUFFER_LENGTH, fp);
             if (buf[0] == '%' || buf[0] == '#') continue;
             if (strlen(buf) < 2) continue;
-//            if (sscanf(buf, "%lf", &u) != 1) VError(" line %d: illegal input format", i + 1);
+
             if (sscanf(buf, "%lf", &u) != 1) {
-                NSLog(@" Error: line %d: illegal input format", i + 1);
+                NSString* errorString = [NSString stringWithFormat:@"Illegal input format, line %d!", i + 1];
+                return [NSError errorWithDomain:errorString code:ILLEGAL_INPUT_FORMAT userInfo:nil];
             }
             xx[i] = u * 1000.0;
             i++;
@@ -238,8 +229,8 @@ fftw_complex **inverseInBuffers = NULL;
         fclose(fp);
     }
     total_duration = (xx[0] + xx[ntimesteps - 1]) / 1000.0;
-    fprintf(stderr, "# num timesteps: %d,  experiment duration: %.2f min\n",
-            ntimesteps, total_duration / 60.0);
+    
+    NSLog(@"Number timesteps: %d,  experiment duration: %.2f min\n", ntimesteps, total_duration / 60.0);
     
     total_duration += 10.0; /* add 10 seconds to avoid FFT problems (wrap around) */
     
@@ -291,27 +282,13 @@ fftw_complex **inverseInBuffers = NULL;
         }
     }
     if (numberEvents < 1) {
-//        VError(" no events found");
-        //TODO: create real error object and pass it to the calling method/instance.
-        NSLog(@" Error: no events founds!");
+        return [NSError errorWithDomain:@"No events were found!" code:NO_EVENTS_FOUND userInfo:nil];
     }
-    
-    
-    /*
-     ** create output design file in vista-format
-     */
-    
-    
-    /* get number of columns in design matrix, and event type (block) */
-    //event_type = (VBoolean *) VMalloc(sizeof(VBoolean) * nevents);
-    //for (i=0; i<nevents; i++) event_type[i] = FALSE;
     
     float xmin;
     int ncols = 0;
-    //VBoolean block = FALSE;
     for (i = 0; i < numberEvents; i++) {
         
-//        xmin = VRepnMaxValue(VFloatRepn);
         xmin = FLT_MAX;
         
         TrialList* currentTrial;
@@ -324,13 +301,6 @@ fftw_complex **inverseInBuffers = NULL;
             currentTrial = currentTrial->next;
         }
         
-//        block = FALSE;
-//        if (xmin >= block_threshold) {
-//            block = TRUE;
-//        }
-//        event_type[i] = block;
-        
-        //if (block || deriv == 0) ncols++;
         if (0 == deriv) {
             ncols++;
         } else if (1 == deriv) {
@@ -339,9 +309,9 @@ fftw_complex **inverseInBuffers = NULL;
             ncols += 3;
         }
     }
-    fprintf(stderr, "# number of events: %d,  num columns in design matrix: %d\n", numberEvents, ncols + 1);
     
-//    mDesign = VCreateImage(1, ntimesteps, ncols + 1, VFloatRepn);
+    NSLog(@"# number of events: %d,  num columns in design matrix: %d\n", numberEvents, ncols + 1);
+    
     mDesign = (float**) malloc(sizeof(float*) * (ncols + 1));
     for (int col = 0; col < ncols + 1; col++) {
         mDesign[col] = (float*) malloc(sizeof(float) * ntimesteps);
@@ -353,24 +323,6 @@ fftw_complex **inverseInBuffers = NULL;
              }
          }
     }
-//    VSetAttr(VImageAttrList(mDesign), "modality", NULL, VStringRepn, "X");
-//    VSetAttr(VImageAttrList(mDesign), "name", NULL, VStringRepn, "X");
-//    VSetAttr(VImageAttrList(mDesign), "repetition_time", NULL, VLongRepn, (VLong) (tr * 1000.0));
-//    VSetAttr(VImageAttrList(mDesign), "ntimesteps", NULL, VLongRepn, (VLong) ntimesteps);
-//    
-//    VSetAttr(VImageAttrList(mDesign), "derivatives", NULL, VShortRepn, deriv);
-//    VSetAttr(VImageAttrList(mDesign), "delay", NULL, VFloatRepn, delay);
-//    VSetAttr(VImageAttrList(mDesign), "undershoot", NULL, VFloatRepn, undershoot);
-//    sprintf(buf, "%.3f", understrength);
-//    VSetAttr(VImageAttrList(mDesign), "understrength", NULL, VStringRepn, &buf);
-//    
-//    VSetAttr(VImageAttrList(mDesign), "nsessions", NULL, VShortRepn, (VShort) 1);
-//    VSetAttr(VImageAttrList(mDesign), "designtype", NULL, VShortRepn, (VShort) 1);
-//    VFillImage(mDesign, VAllBands, 0);
-    
-//    for (j = 0; j < ntimesteps; j++) {
-//        VPixel(mDesign, 0, j, ncols, VFloat) = 1;
-//    }
     
     /* alloc memory */
     numberSamples = (int) (total_duration * 1000.0 / delta);
@@ -478,10 +430,13 @@ fftw_complex **inverseInBuffers = NULL;
     fftw_free(kernel0);
     fftw_free(kernel1);
     fftw_free(kernel2);
+    
+    return nil;
 }
 
--(void)generateDesign
+-(NSError*)generateDesign
 {
+    __block NSError* error = nil;
     
     dispatch_queue_t queue;       /* Global asyn. dispatch queue. */
     queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
@@ -501,8 +456,7 @@ fftw_complex **inverseInBuffers = NULL;
         
         while (currentTrial != NULL) {
             trialcount++;
-            
-            //block = event_type[eventNr];
+        
             if (currentTrial->trial.duration < minTrialDuration) {
                 minTrialDuration = currentTrial->trial.duration;
             }
@@ -526,11 +480,11 @@ fftw_complex **inverseInBuffers = NULL;
         }
         
         if (trialcount < 1) {
-            NSLog(@" no trials in event %d, please re-number event-ids. Aborting program.", eventNr + 1);
-            exit(1);
+            NSString* errorString = [NSString stringWithFormat:@"No trials in event %d, please re-number event-IDs!", eventNr + 1];
+            error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
         }
         if (trialcount < 4) {
-            NSLog(@" Warning: too few trials (%d) in event %d. Statistics will be unreliable.",
+            NSLog(@"Warning: too few trials (%d) in event %d. Statistics will be unreliable.",
                   trialcount, eventNr + 1);
         }
         
@@ -577,23 +531,10 @@ fftw_complex **inverseInBuffers = NULL;
         }
     });
     
-//    VAttrList out_list = NULL;                         
-//    out_list = VCreateAttrList();
-//    VAppendAttr (out_list, "image", NULL, VImageRepn, mDesign);
-//    
-//    VImage plot_image = NULL;
-//    plot_image = [self Plot_gamma:deriv];
-//    VAppendAttr (out_list, "plot_gamma", NULL, VImageRepn, plot_image);
-//    
-//    FILE *out_file = fopen("/tmp/testDesign.v", "w");
-//    
-//    if (!VWriteFile(out_file, out_list)) {
-//        exit(1);
-//    }
-//    fclose(out_file);
+    return error;
 }
 
--(void)parseInputFile:(NSString *)path
+-(NSError*)parseInputFile:(NSString *)path
 {
     
     int character;
@@ -604,7 +545,6 @@ fftw_complex **inverseInBuffers = NULL;
     
     numberTrials = 0;
     numberEvents = 0;
-    NSLog(@" numberTrials: %d\n", numberTrials);
     
     FILE* inFile;
     char* inputFilename = (char*) malloc(sizeof(char) * UINT16_MAX);
@@ -643,12 +583,11 @@ fftw_complex **inverseInBuffers = NULL;
                 }
                 
                 if (sscanf(buffer, "%d %f %f %f", &trialID, &onset, &duration, &height) != 4) {
-//                    VError(" line %d: illegal input format", numberTrials + 1);
-                    NSLog(@" line %d: illegal input format", numberTrials + 1);
-                    NSException *e = [NSException exceptionWithName:@"DesignFileFormatException" 
-                                                             reason:@"Illegal design file input format! Expected format: one entry per line and columns separated by tabs." 
-                                                           userInfo:nil];
-                    @throw e;
+
+                    NSString* errorString = 
+                        [NSString stringWithFormat:
+                            @"Illegal design file input format (at line %d)! Expected format: one entry per line and columns separated by tabs.", numberTrials + 1];
+                    return [NSError errorWithDomain:errorString code:ILLEGAL_INPUT_FORMAT userInfo:nil];
                     
                 }
                 
@@ -677,17 +616,19 @@ fftw_complex **inverseInBuffers = NULL;
                 numberTrials++;
                 
                 if (numberTrials > MAX_NUMBER_TRIALS) {
-                    NSLog(@" too many trials %d. Aborting program.\n", numberTrials);
-                    exit(1);
+                    NSString* errorString = [NSString stringWithFormat:@"Too many trials: %d!", numberTrials];
+                    return [NSError errorWithDomain:errorString code:MAX_TRIALS userInfo:nil];
                 }
             }
         }
     }
     fclose(inFile);  
     free(inputFilename);
+    
+    return nil;
 }
 
--(void)writeDesignFile:(NSString*) path 
+-(NSError*)writeDesignFile:(NSString*) path 
 {
     VImage outDesign = NULL;
     outDesign = VCreateImage(1, ntimesteps, numberCovariates, VFloatRepn);
@@ -745,11 +686,13 @@ fftw_complex **inverseInBuffers = NULL;
     FILE *out_file = fopen(outputFilename, "w"); //fopen("/tmp/testDesign.v", "w");
 
     if (!VWriteFile(out_file, out_list)) {
-        exit(1);
+        return [NSError errorWithDomain:@"Writing output design image failed." code:WRITE_OUTPUT userInfo:nil];
     }
     
     fclose(out_file);
     free(outputFilename);
+    
+    return nil;
 }
 
 -(Complex)complex_mult:(Complex) a
@@ -914,8 +857,6 @@ fftw_complex **inverseInBuffers = NULL;
     return y;
 }
 
-// TODO: VImage entfernen, einfache float-Matrix wuerde es auch tun
-//-(VImage)Plot_gamma:(VShort)deriv
 -(float**)Plot_gamma:(short)deriv
 {
     double y0;
@@ -927,8 +868,6 @@ fftw_complex **inverseInBuffers = NULL;
     int ncols = (int) (28.0 / step);
     int nrows = deriv + 2;
     
-//    VImage dest = NULL;
-//    dest = VCreateImage(1, nrows, ncols, VFloatRepn);
     float** dest = (float**) malloc(sizeof(float*) * ncols);
     for (int col = 0; col < ncols; col++) {
         
@@ -938,8 +877,6 @@ fftw_complex **inverseInBuffers = NULL;
         }
     }
     
-//    VFillImage(dest, VAllBands, 0);
-    
     int j = 0;
     for (double x = 0.0; x < 28.0; x += step) {
         if (j >= ncols) {
@@ -948,16 +885,13 @@ fftw_complex **inverseInBuffers = NULL;
         y0 = [self xgamma:x :t0];
         y1 = [self deriv1_gamma:x :t0];
         y2 = [self deriv2_gamma:x :t0];
-//        VPixel(dest, 0, 0, j, VFloat) = x;
-//        VPixel(dest, 0, 1, j, VFloat) = y0;
+
         dest[j][0] = x;
         dest[j][1] = y0;
         if (deriv > 0) {
-//            VPixel(dest, 0, 2, j, VFloat) = y1;
             dest[j][2] = y1;
         }
         if (deriv > 1) {
-//            VPixel(dest, 0, 3, j, VFloat) = y2;
             dest[j][3] = y2;
         }
         j++;
@@ -1019,7 +953,6 @@ fftw_complex **inverseInBuffers = NULL;
         j = (int) (xx[timestep] / delta + 0.5);
         
         if (j >= 0 && j < numberSamples) {
-//            VPixel(mDesign, 0, timestep, col, VFloat) = inverseOutBuffer[j];
             mDesign[col][timestep] = inverseOutBuffer[j];
         }
     }
@@ -1043,7 +976,6 @@ fftw_complex **inverseInBuffers = NULL;
     NSNumber *value = nil;
     if (mDesign != NULL) {
         if (IMAGE_DATA_FLOAT == imageDataType){
-//            value = [NSNumber numberWithFloat:VGetPixel(mDesign, 0, t, cov)];
             value = [NSNumber numberWithFloat:mDesign[cov][t]];
         } else {
             NSLog(@"Cannot identify type of design image - no float");
@@ -1064,7 +996,6 @@ fftw_complex **inverseInBuffers = NULL;
 
 -(void)dealloc
 {
-    //VFree(mDesign);
     for (int col = 0; col < numberCovariates; col++) {
         free(mDesign[col]);
     }
