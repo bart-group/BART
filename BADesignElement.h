@@ -9,6 +9,19 @@
 #import <Cocoa/Cocoa.h>
 #import "BAElement.h"
 
+typedef struct TrialStruct{
+    int   id;               // Stimulus number.
+    float onset;
+    float duration;         // in seconds
+    float height;
+} Trial;
+
+typedef struct TrialListStruct {
+    Trial trial;
+    struct TrialListStruct *next;
+} TrialList;
+
+
 
 @interface BADesignElement : BAElement {
 
@@ -24,10 +37,10 @@
 @property (readonly, assign) int numberTimesteps;
 @property (readonly, assign) enum ImageDataType imageDataType;
 
-
 -(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
 
 -(NSNumber*)getValueFromCovariate: (int)cov atTimestep:(int)t;
+-(void)setRegressor:(TrialList *)regressor;
 
 @end
 

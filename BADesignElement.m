@@ -30,6 +30,11 @@
 
 }
 
+-(void)setRegressor:(TrialList *)regressor
+{
+    
+}
+
 @end
 
 

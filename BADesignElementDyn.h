@@ -9,13 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import "BADesignElement.h"
 
-typedef struct TrialStruct{
-    int   id;
-    float onset;
-    float duration;         // in seconds
-    float height;
-} Trial;
-
 typedef struct ComplexStruct {
     double re;
     double im;
@@ -24,7 +17,8 @@ typedef struct ComplexStruct {
 
 @interface BADesignElementDyn : BADesignElement {
 
-    Trial* trials;
+//    Trial* trials;
+    TrialList** trials;
     int numberTrials;
     int numberEvents;
     
