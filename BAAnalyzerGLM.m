@@ -148,15 +148,15 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         int numberSlices = mData.numberSlices;
         int numberRows = mData.numberRows;
         int numberCols = mData.numberCols;
-        int numberCovariates = mDesign.numberCovariates;
+        int numberExplanatoryVariables = mDesign.numberExplanatoryVariables;
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0); /* Global asyn. dispatch queue. */
         
         gsl_set_error_handler_off();
         
         // C1) If there are more than one input image - test for dimensions
         
-        if (numberCovariates >= MBETA) {
-            NSLog(@" too many covariates (%d), max is %d", numberCovariates, MBETA);
+        if (numberExplanatoryVariables >= MBETA) {
+            NSLog(@" too many covariates (%d), max is %d", numberExplanatoryVariables, MBETA);
         }
         if (mDesign.numberTimesteps != numberBands) {
             NSLog(@" design dimension inconsistency: %d (numberTimesteps design) %d (numberTimesteps data)", 
@@ -165,12 +165,12 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         
         /* Read design matrix. */
         gsl_matrix_float *X = NULL; /* mDesign matrix. */
-        X = gsl_matrix_float_alloc(sliding_window_size, numberCovariates);
+        X = gsl_matrix_float_alloc(sliding_window_size, numberExplanatoryVariables);
         double x; /* One entry of matrix X. */
         for (int timestep = (lastTimestep - sliding_window_size); timestep < lastTimestep; timestep++) {
-            for (int covariate = 0; covariate < numberCovariates; covariate++) {
+            for (int covariate = 0; covariate < numberExplanatoryVariables; covariate++) {
 // TODO: use getFloatValue... (performance increase!)
-                x = [[mDesign getValueFromCovariate:covariate atTimestep:timestep] floatValue];
+                x = [[mDesign getValueFromExplanatoryVariable:covariate atTimestep:timestep] floatValue];
                 fmset(X, timestep - (lastTimestep - sliding_window_size), covariate, (float) x);
             }
         }
@@ -236,8 +236,8 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         NSNumber *val;
         float *fPointer;
         fPointer = F->data;
-        for (int row = 0; row < numberCovariates; row++) {
-            for (int col = 0; col < numberCovariates; col++) {
+        for (int row = 0; row < numberExplanatoryVariables; row++) {
+            for (int col = 0; col < numberExplanatoryVariables; col++) {
                 val = [NSNumber numberWithFloat:(*fPointer)];
                 [mBCOVOutput setVoxelValue:val atRow:row col:col slice:0 timestep:0];
                 fPointer++;
@@ -248,10 +248,10 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         gsl_matrix_float_free(F);
         
         gsl_matrix_float *betaCovariates = NULL;
-        betaCovariates = gsl_matrix_float_alloc(numberCovariates, numberCovariates);  
+        betaCovariates = gsl_matrix_float_alloc(numberExplanatoryVariables, numberExplanatoryVariables);  
         fPointer = betaCovariates->data;
-        for (int row = 0; row < numberCovariates; row++) {
-            for (int col = 0; col < numberCovariates; col++) {
+        for (int row = 0; row < numberExplanatoryVariables; row++) {
+            for (int col = 0; col < numberExplanatoryVariables; col++) {
                 *fPointer++ = [mBCOVOutput getFloatVoxelValueAtRow:row col:col slice:0 timestep:0];
             }
         }
@@ -320,7 +320,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                                 /* S x y */
                                 ys = VectorConvolve(y, ys, kernel);
                                 
-                                gsl_vector_float *beta = gsl_vector_float_alloc(numberCovariates);
+                                gsl_vector_float *beta = gsl_vector_float_alloc(numberExplanatoryVariables);
                                 /* compute betas */
                                 fmat_x_vector(XInv, ys, beta);
                                 
@@ -345,7 +345,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                                 
                                 /* Write beta output. */
                                 ptr1 = beta->data;
-                                for (i = 0; i < numberCovariates; i++) {
+                                for (i = 0; i < numberExplanatoryVariables; i++) {
                                     val = [NSNumber numberWithFloat:(*ptr1)];
                                     [mBetaOutput setVoxelValue: val atRow:row col:col slice:i timestep:slice];
                                     ptr1++;
@@ -360,10 +360,10 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                                 float sum = 0.0;
                                 float s = 0.0;
                                 float tsigma = 0.0;
-                                beta = gsl_vector_float_alloc(numberCovariates);
+                                beta = gsl_vector_float_alloc(numberExplanatoryVariables);
                                 
                                 ptr1 = beta->data;
-                                for (i = 0; i < numberCovariates; i++) {
+                                for (i = 0; i < numberExplanatoryVariables; i++) {
                                     *ptr1++ = [mBetaOutput getFloatVoxelValueAtRow:row col:col slice:i timestep:slice];
                                 }
                                 sum = fskalarproduct(beta, contrastVector);
@@ -435,7 +435,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 //                          PROPID_VOXEL, 
 //                          nil];
 //   /*mData.numberRows*/
-    mBetaOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mData.numberRows andCols:mData.numberCols andSlices:mDesign.numberCovariates andTimesteps:mData.numberSlices];
+    mBetaOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mData.numberRows andCols:mData.numberCols andSlices:mDesign.numberExplanatoryVariables andTimesteps:mData.numberSlices];
 
     [mBetaOutput setImageProperty:PROPID_PATIENT    withValue:[mData getImageProperty:PROPID_PATIENT]];
     [mBetaOutput setImageProperty:PROPID_VOXEL      withValue:[mData getImageProperty:PROPID_VOXEL]];
@@ -483,7 +483,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     [mResMap setImageProperty:PROPID_MODALITY    withValue:@"tmap"]; // TODO: name variably based on ResMap type
     //[mResMap setImageProperty:PROPID_CONTRAST    withValue:<#(id)value#>]
     
-    mBCOVOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mDesign.numberCovariates andCols:mDesign.numberCovariates andSlices:1 andTimesteps:1];
+    mBCOVOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mDesign.numberExplanatoryVariables andCols:mDesign.numberExplanatoryVariables andSlices:1 andTimesteps:1];
 }
 
 @end

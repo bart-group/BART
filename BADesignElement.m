@@ -14,7 +14,7 @@
 @implementation BADesignElement
 
 @synthesize repetitionTimeInMs;
-@synthesize numberCovariates;
+@synthesize numberExplanatoryVariables;
 @synthesize numberTimesteps;
 @synthesize imageDataType;
 
@@ -30,12 +30,25 @@
     
 }
 
--(NSNumber*)getValueFromCovariate: (int)cov atTimestep:(int)t 
+-(NSNumber*)getValueFromExplanatoryVariable: (int)cov atTimestep:(int)t 
 {
 
 }
 
 -(void)setRegressor:(TrialList *)regressor
+{
+    
+}
+
+-(void)setRegressorValue:(Trial)value forRegressorID:(int)regID atTimestep:(int)timestep
+{
+}
+
+-(void)setCovariate:(float*)covariate forCovariateID:(int)covID
+{
+}
+
+-(void)setCovariateValue:(float)value forCovariateID:(int)covID atTimestep:(int)timestep
 {
     
 }

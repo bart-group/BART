@@ -31,6 +31,9 @@ double cc = 0.35;
 
 /* Generated design information/resulting design image. */
 float** mDesign = NULL;
+float** mCovariates = NULL;
+int numberRegressors = 0;
+int numberCovariates = 0;     // TODO: get from config  
 
 /* Attributes that should be modifiable (were once CLI parameters). */
 short bkernel = 0;
@@ -101,19 +104,21 @@ fftw_complex **inverseInBuffers = NULL;
     }
     
     NSLog(@"GenDesign GCD: START");
-    @try {
-        [self parseInputFile:path];
-    }
-    @catch (NSException * e) {
-        NSLog(@"%s: %s", e.name, e.reason);
-        exit(1);
-    }
-    
+    [self parseInputFile:path];
     [self initDesign];
     [self generateDesign];
     NSLog(@"GenDesign GCD: END");
     
-    numberCovariates = numberEvents * (deriv + 1) + 1;
+    if (numberCovariates > 0) {
+        mCovariates = (float**) malloc(sizeof(float*) * numberCovariates);
+        for (int cov = 0; cov < numberCovariates; cov++) {
+            mCovariates[cov] = (float*) malloc(sizeof(float) * ntimesteps);
+            memset(mCovariates[cov], 0.0, sizeof(float) * ntimesteps);
+        }
+    }
+     
+    numberRegressors = numberEvents * (deriv + 1) + 1;
+    numberExplanatoryVariables = numberRegressors + numberCovariates;
     numberTimesteps = ntimesteps;
     repetitionTimeInMs = tr * 1000;
 
@@ -631,7 +636,7 @@ fftw_complex **inverseInBuffers = NULL;
 -(NSError*)writeDesignFile:(NSString*) path 
 {
     VImage outDesign = NULL;
-    outDesign = VCreateImage(1, ntimesteps, numberCovariates, VFloatRepn);
+    outDesign = VCreateImage(1, ntimesteps, numberRegressors, VFloatRepn);
     
     VSetAttr(VImageAttrList(outDesign), "modality", NULL, VStringRepn, "X");
     VSetAttr(VImageAttrList(outDesign), "name", NULL, VStringRepn, "X");
@@ -654,7 +659,7 @@ fftw_complex **inverseInBuffers = NULL;
     VSetAttr(VImageAttrList(outDesign), "nsessions", NULL, VShortRepn, (VShort) 1);
     VSetAttr(VImageAttrList(outDesign), "designtype", NULL, VShortRepn, (VShort) 1);
     
-    for (int col = 0; col < numberCovariates; col++) {
+    for (int col = 0; col < numberRegressors; col++) {
         for (int ts = 0; ts < ntimesteps; ts++) {
             VPixel(outDesign, 0, ts, col, VFloat) = (VFloat) mDesign[col][ts];
         }
@@ -970,18 +975,23 @@ fftw_complex **inverseInBuffers = NULL;
 }
 
 
--(NSNumber*)getValueFromCovariate:(int)cov 
-                       atTimestep:(int)t 
+-(NSNumber*)getValueFromExplanatoryVariable:(int)cov 
+                                 atTimestep:(int)t 
 {
     NSNumber *value = nil;
-    if (mDesign != NULL) {
-        if (IMAGE_DATA_FLOAT == imageDataType){
-            value = [NSNumber numberWithFloat:mDesign[cov][t]];
+    if (cov < numberRegressors) {
+        if (mDesign != NULL) {
+            if (IMAGE_DATA_FLOAT == imageDataType){
+                value = [NSNumber numberWithFloat:mDesign[cov][t]];
+            } else {
+                NSLog(@"Cannot identify type of design image - no float");
+            }
         } else {
-            NSLog(@"Cannot identify type of design image - no float");
+            NSLog(@"%@: generateDesign has not been called yet! (initial design information NULL)", self);
         }
     } else {
-        NSLog(@"%@: generateDesign has not been called yet! (initial design information NULL)", self);
+        int covIndex = cov - numberRegressors;
+        value = [NSNumber numberWithFloat:mCovariates[covIndex][t]];
     }
     
     return value;
@@ -989,17 +999,60 @@ fftw_complex **inverseInBuffers = NULL;
 
 -(void)setRegressor:(TrialList *)regressor
 {
+    free(trials[regressor->trial.id - 1]);
+    trials[regressor->trial.id - 1] = NULL;
     trials[regressor->trial.id - 1] = regressor;
     
     [self generateDesign];
 }
 
+-(void)setRegressorValue:(Trial)value forRegressorID:(int)regID atTimestep:(int)timestep
+{
+    TrialList* entry = trials[regID - 1];
+    int currentTimestep = 0;
+    
+    while (currentTimestep < timestep) {
+        entry = entry->next;
+        currentTimestep++;
+    }
+    
+    entry->trial = value;
+}
+
+-(void)setCovariate:(float*)covariate forCovariateID:(int)covID
+{
+    if (mCovariates != NULL) {
+        free(mCovariates[covID - 1]);
+        mCovariates[covID - 1] = NULL;
+        mCovariates[covID - 1] = covariate;
+    } else {
+        NSLog(@"Could not set covariate values for CovariateID %d because number of covariates is 0.", covID);
+    }
+
+}
+
+-(void)setCovariateValue:(float)value forCovariateID:(int)covID atTimestep:(int)timestep
+{
+    if (mCovariates != NULL) {
+        mCovariates[covID - 1][timestep] = value;
+    } else {
+        NSLog(@"Could not set covariate value %f for CovariateID %d at timestep %d because number of covariates is 0.", value, covID, timestep);
+    }
+}
+
 -(void)dealloc
 {
-    for (int col = 0; col < numberCovariates; col++) {
+    for (int col = 0; col < numberRegressors; col++) {
         free(mDesign[col]);
     }
     free(mDesign);
+    
+    if (mCovariates != NULL) {
+        for (int cov = 0; cov < numberCovariates; cov++) {
+            free(mCovariates[cov]);
+        }
+        free(mCovariates);
+    }
     
     free(xx);
     

@@ -38,14 +38,14 @@ typedef struct TrialListStruct {
 @interface BADesignElement : BAElement {
 
     int repetitionTimeInMs;
-    int numberCovariates;
+    int numberExplanatoryVariables;
     int numberTimesteps;
     enum ImageDataType imageDataType;
     
 }
 
 @property (readonly, assign) int repetitionTimeInMs;
-@property (readonly, assign) int numberCovariates;
+@property (readonly, assign) int numberExplanatoryVariables;
 @property (readonly, assign) int numberTimesteps;
 @property (readonly, assign) enum ImageDataType imageDataType;
 
@@ -53,8 +53,12 @@ typedef struct TrialListStruct {
 
 -(NSError*)writeDesignFile:(NSString*)path;
 
--(NSNumber*)getValueFromCovariate: (int)cov atTimestep:(int)t;
+-(NSNumber*)getValueFromExplanatoryVariable: (int)cov atTimestep:(int)t;
+
 -(void)setRegressor:(TrialList *)regressor;
+-(void)setRegressorValue:(Trial)value forRegressorID:(int)regID atTimestep:(int)timestep;
+-(void)setCovariate:(float*)covariate forCovariateID:(int)covID;
+-(void)setCovariateValue:(float)value forCovariateID:(int)covID atTimestep:(int)timestep;
 
 @end
 

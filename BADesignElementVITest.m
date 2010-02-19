@@ -41,7 +41,7 @@ BADesignElement *designEl;
     BOOL success = NO;
     float expectedMax = 1.53;
     float expectedMin = 1.529;
-    float value = [[designEl getValueFromCovariate:covariateNumber atTimestep:timestep] floatValue];
+    float value = [[designEl getValueFromExplanatoryVariable:covariateNumber atTimestep:timestep] floatValue];
     
     if (value > expectedMin && value < expectedMax) {
         success = YES;

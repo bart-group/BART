@@ -58,7 +58,7 @@
     }
     
     numberTimesteps = VImageNRows(mDesign);
-    numberCovariates = VImageNColumns(mDesign);
+    numberExplanatoryVariables = VImageNColumns(mDesign);
     
     int itr;
     if (VGetAttr(VImageAttrList(mDesign), "repetition_time", NULL, VLongRepn, &itr) 
@@ -73,7 +73,7 @@
     
 }
 
--(NSNumber*)getValueFromCovariate: (int)cov atTimestep:(int)t 
+-(NSNumber*)getValueFromExplanatoryVariable: (int)cov atTimestep:(int)t 
 {
     NSNumber *ret;
     if (IMAGE_DATA_FLOAT == imageDataType){
