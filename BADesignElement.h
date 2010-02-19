@@ -39,6 +39,8 @@ typedef struct TrialListStruct {
 
 -(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
 
+-(void)writeDesignFile:(NSString*)path;
+
 -(NSNumber*)getValueFromCovariate: (int)cov atTimestep:(int)t;
 -(void)setRegressor:(TrialList *)regressor;
 

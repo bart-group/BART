@@ -10,7 +10,6 @@
 
 #import <fftw3.h>
 
-// TODO: get rid of VImage
 #include <viaio/VImage.h>
 
 extern int VStringToken (char *, char *, int, int);
@@ -31,14 +30,20 @@ double b2 = 0.9;
 double cc = 0.35;
 
 /* Generated design information/resulting design image. */
-VImage mDesign = NULL;
+//VImage mDesign = NULL;
+float** mDesign = NULL;
 
 /* Attributes that should be modifiable (were once CLI parameters). */
-VShort bkernel = 0;
-VShort deriv = 0;
-VFloat block_threshold = 10.0; // in seconds
-VLong  ntimesteps = 396;       // Must be set to a different value!
-VFloat tr = 2.0;               // Must be set to a different value!
+//VShort bkernel = 0;
+short bkernel = 0;
+//VShort deriv = 0;
+short deriv = 0;
+//VFloat block_threshold = 10.0; // in seconds
+float block_threshold = 10.0; // in seconds
+//VLong  ntimesteps = 396;       // Must be set to a different value!
+int ntimesteps = 396;       // Must be set to a different value!
+//VFloat tr = 2.0;               // Must be set to a different value!
+float tr = 2.0;               // Must be set to a different value!
 
 /* Other Attributes set up by initDesign. Main use in generate Design. */
 int numberSamples;
@@ -68,7 +73,8 @@ fftw_complex **inverseInBuffers = NULL;
 -(double)deriv1_gamma:(double)x :(double)t0;
 -(double)deriv2_gamma:(double)x :(double)t0;
 -(double)xgauss:(double)xx :(double)t0;
--(VImage)Plot_gamma:(VShort)deriv;
+//-(VImage)Plot_gamma:(VShort)deriv;
+-(float**)Plot_gamma:(short)deriv;
 -(BOOL)test_ascii:(int)val;
 -(void)Convolve:(int)col
                :(fftw_complex *)local_nbuf
@@ -98,13 +104,20 @@ fftw_complex **inverseInBuffers = NULL;
         imageDataType = IMAGE_DATA_FLOAT;
     }
     
-    trials = malloc(sizeof(TrialList*) * MAX_NUMBER_EVENTS);
+    trials = (TrialList**) malloc(sizeof(TrialList*) * MAX_NUMBER_EVENTS);
     for (int i = 0; i < MAX_NUMBER_EVENTS; i++) {
         trials[i] = NULL;
     }
     
     NSLog(@"GenDesign GCD: START");
-    [self parseInputFile:path];
+    @try {
+        [self parseInputFile:path];
+    }
+    @catch (NSException * e) {
+        NSLog(@"%s: %s", e.name, e.reason);
+        exit(1);
+    }
+    
     [self initDesign];
     [self generateDesign];
     NSLog(@"GenDesign GCD: END");
@@ -112,7 +125,8 @@ fftw_complex **inverseInBuffers = NULL;
     numberCovariates = numberEvents * (deriv + 1) + 1;
     numberTimesteps = ntimesteps;
     repetitionTimeInMs = tr * 1000;
-    
+
+    [self writeDesignFile:@"/tmp/testDesign.v"];
     
     return self;
 }
@@ -120,12 +134,12 @@ fftw_complex **inverseInBuffers = NULL;
 -(void)initDesign
 {
     // TODO: parameterize or/and use config
-    static VString filename = ""; // for file with scan times (scanfile)    
-    static VFloat delay = 6.0;              
-    static VFloat understrength = 0.35;
-    static VFloat undershoot = 12.0;
+    static char* filename = ""; // for file with scan times (scanfile)    
+    static float delay = 6.0;              
+    static float understrength = 0.35;
+    static float undershoot = 12.0;
     
-    static VBoolean zeromean = TRUE;
+    static bool zeromean = YES;
     
     //    static VOptionDescRec  options[] = {
     //        {"tr",VFloatRepn,1,(VPointer) &tr,VOptionalOpt,NULL,"repetition_time in seconds"},
@@ -163,12 +177,21 @@ fftw_complex **inverseInBuffers = NULL;
     
     /* constant TR */
     if (strlen(filename) < 3) {
-        if (tr > 100)       VWarning(" TR must be given in seconds, not milliseconds");
-        if (tr < 0.0001)    VError(" TR must be specified");
-        if (ntimesteps < 2) VError(" 'ntimesteps' must be specified");
+//        if (tr > 100)       VWarning(" TR must be given in seconds, not milliseconds");
+//        if (tr < 0.0001)    VError(" TR must be specified");
+//        if (ntimesteps < 2) VError(" 'ntimesteps' must be specified");
+        if (tr > 100) {
+            NSLog(@" Warning: TR must be given in seconds, not milliseconds!");
+        }
+        if (tr < 0.0001) {
+            NSLog(@" Error: TR must be specified!");
+        }
+        if (ntimesteps < 2) {
+            NSLog(@" Error: 'ntimesteps' must be specified!");
+        }
         fprintf(stderr, " TR = %.3f\n", tr);
         
-        xx = (double *) VCalloc(ntimesteps, sizeof(double));
+        xx = (double *) malloc(sizeof(double) * ntimesteps);
         for (i = 0; i < ntimesteps; i++) {
             xx[i] = (double) i * tr * 1000.0;
         }
@@ -188,20 +211,27 @@ fftw_complex **inverseInBuffers = NULL;
             fgets(buf, BUFFER_LENGTH, fp);
             if (buf[0] == '%' || buf[0] == '#') continue;
             if (strlen(buf) < 2) continue;
-            if (![self test_ascii:((int) buf[0])]) VError(" scan file must be a text file");
+//            if (![self test_ascii:((int) buf[0])]) VError(" scan file must be a text file");
+            if (![self test_ascii:((int) buf[0])]) {
+                NSLog(@" Error: scan file must be a text file");
+            }
             i++;
         }
         
         rewind(fp);
         ntimesteps = i;
-        xx = (double *) VCalloc(ntimesteps, sizeof(double));
+//        xx = (double *) VCalloc(ntimesteps, sizeof(double));
+        xx = (double *) malloc(sizeof(double) * ntimesteps);
         i = 0;
         while (!feof(fp)) {
             for (j = 0; j < BUFFER_LENGTH; j++) buf[j] = '\0';
             fgets(buf, BUFFER_LENGTH, fp);
             if (buf[0] == '%' || buf[0] == '#') continue;
             if (strlen(buf) < 2) continue;
-            if (sscanf(buf, "%lf", &u) != 1) VError(" line %d: illegal input format", i + 1);
+//            if (sscanf(buf, "%lf", &u) != 1) VError(" line %d: illegal input format", i + 1);
+            if (sscanf(buf, "%lf", &u) != 1) {
+                NSLog(@" Error: line %d: illegal input format", i + 1);
+            }
             xx[i] = u * 1000.0;
             i++;
         }
@@ -261,7 +291,9 @@ fftw_complex **inverseInBuffers = NULL;
         }
     }
     if (numberEvents < 1) {
-        VError(" no events found");
+//        VError(" no events found");
+        //TODO: create real error object and pass it to the calling method/instance.
+        NSLog(@" Error: no events founds!");
     }
     
     
@@ -279,7 +311,8 @@ fftw_complex **inverseInBuffers = NULL;
     //VBoolean block = FALSE;
     for (i = 0; i < numberEvents; i++) {
         
-        xmin = VRepnMaxValue(VFloatRepn);
+//        xmin = VRepnMaxValue(VFloatRepn);
+        xmin = FLT_MAX;
         
         TrialList* currentTrial;
         currentTrial = trials[i];
@@ -308,25 +341,36 @@ fftw_complex **inverseInBuffers = NULL;
     }
     fprintf(stderr, "# number of events: %d,  num columns in design matrix: %d\n", numberEvents, ncols + 1);
     
-    mDesign = VCreateImage(1, ntimesteps, ncols + 1, VFloatRepn);
-    VSetAttr(VImageAttrList(mDesign), "modality", NULL, VStringRepn, "X");
-    VSetAttr(VImageAttrList(mDesign), "name", NULL, VStringRepn, "X");
-    VSetAttr(VImageAttrList(mDesign), "repetition_time", NULL, VLongRepn, (VLong) (tr * 1000.0));
-    VSetAttr(VImageAttrList(mDesign), "ntimesteps", NULL, VLongRepn, (VLong) ntimesteps);
-    
-    VSetAttr(VImageAttrList(mDesign), "derivatives", NULL, VShortRepn, deriv);
-    VSetAttr(VImageAttrList(mDesign), "delay", NULL, VFloatRepn, delay);
-    VSetAttr(VImageAttrList(mDesign), "undershoot", NULL, VFloatRepn, undershoot);
-    sprintf(buf, "%.3f", understrength);
-    VSetAttr(VImageAttrList(mDesign), "understrength", NULL, VStringRepn, &buf);
-    
-    VSetAttr(VImageAttrList(mDesign), "nsessions", NULL, VShortRepn, (VShort) 1);
-    VSetAttr(VImageAttrList(mDesign), "designtype", NULL, VShortRepn, (VShort) 1);
-    VFillImage(mDesign, VAllBands, 0);
-    
-    for (j = 0; j < ntimesteps; j++) {
-        VPixel(mDesign, 0, j, ncols, VFloat) = 1;
+//    mDesign = VCreateImage(1, ntimesteps, ncols + 1, VFloatRepn);
+    mDesign = (float**) malloc(sizeof(float*) * (ncols + 1));
+    for (int col = 0; col < ncols + 1; col++) {
+        mDesign[col] = (float*) malloc(sizeof(float) * ntimesteps);
+         for (int ts = 0; ts < ntimesteps; ts++) {
+             if (col == ncols) {
+                 mDesign[col][ts] = 1.0;
+             } else {
+                 mDesign[col][ts] = 0.0;
+             }
+         }
     }
+//    VSetAttr(VImageAttrList(mDesign), "modality", NULL, VStringRepn, "X");
+//    VSetAttr(VImageAttrList(mDesign), "name", NULL, VStringRepn, "X");
+//    VSetAttr(VImageAttrList(mDesign), "repetition_time", NULL, VLongRepn, (VLong) (tr * 1000.0));
+//    VSetAttr(VImageAttrList(mDesign), "ntimesteps", NULL, VLongRepn, (VLong) ntimesteps);
+//    
+//    VSetAttr(VImageAttrList(mDesign), "derivatives", NULL, VShortRepn, deriv);
+//    VSetAttr(VImageAttrList(mDesign), "delay", NULL, VFloatRepn, delay);
+//    VSetAttr(VImageAttrList(mDesign), "undershoot", NULL, VFloatRepn, undershoot);
+//    sprintf(buf, "%.3f", understrength);
+//    VSetAttr(VImageAttrList(mDesign), "understrength", NULL, VStringRepn, &buf);
+//    
+//    VSetAttr(VImageAttrList(mDesign), "nsessions", NULL, VShortRepn, (VShort) 1);
+//    VSetAttr(VImageAttrList(mDesign), "designtype", NULL, VShortRepn, (VShort) 1);
+//    VFillImage(mDesign, VAllBands, 0);
+    
+//    for (j = 0; j < ntimesteps; j++) {
+//        VPixel(mDesign, 0, j, ncols, VFloat) = 1;
+//    }
     
     /* alloc memory */
     numberSamples = (int) (total_duration * 1000.0 / delta);
@@ -533,21 +577,20 @@ fftw_complex **inverseInBuffers = NULL;
         }
     });
     
-    VAttrList out_list = NULL;                         
-    out_list = VCreateAttrList();
-    VAppendAttr (out_list, "image", NULL, VImageRepn, mDesign);
-    
-    VImage plot_image = NULL;
-    plot_image = [self Plot_gamma:deriv];
-    VAppendAttr (out_list, "plot_gamma", NULL, VImageRepn, plot_image);
-    
-    FILE *out_file = fopen("/tmp/testDesign.v", "w");
-    
-    if (!VWriteFile(out_file, out_list)) {
-        exit(1);
-        
-    }
-    fclose(out_file);
+//    VAttrList out_list = NULL;                         
+//    out_list = VCreateAttrList();
+//    VAppendAttr (out_list, "image", NULL, VImageRepn, mDesign);
+//    
+//    VImage plot_image = NULL;
+//    plot_image = [self Plot_gamma:deriv];
+//    VAppendAttr (out_list, "plot_gamma", NULL, VImageRepn, plot_image);
+//    
+//    FILE *out_file = fopen("/tmp/testDesign.v", "w");
+//    
+//    if (!VWriteFile(out_file, out_list)) {
+//        exit(1);
+//    }
+//    fclose(out_file);
 }
 
 -(void)parseInputFile:(NSString *)path
@@ -564,7 +607,7 @@ fftw_complex **inverseInBuffers = NULL;
     NSLog(@" numberTrials: %d\n", numberTrials);
     
     FILE* inFile;
-    char* inputFilename = VMalloc(sizeof(char) *UINT16_MAX);
+    char* inputFilename = (char*) malloc(sizeof(char) * UINT16_MAX);
     [path getCString:inputFilename maxLength:UINT16_MAX  encoding:NSUTF8StringEncoding];
     
     inFile = fopen(inputFilename, "r");
@@ -600,7 +643,13 @@ fftw_complex **inverseInBuffers = NULL;
                 }
                 
                 if (sscanf(buffer, "%d %f %f %f", &trialID, &onset, &duration, &height) != 4) {
-                    VError(" line %d: illegal input format", numberTrials + 1);
+//                    VError(" line %d: illegal input format", numberTrials + 1);
+                    NSLog(@" line %d: illegal input format", numberTrials + 1);
+                    NSException *e = [NSException exceptionWithName:@"DesignFileFormatException" 
+                                                             reason:@"Illegal design file input format! Expected format: one entry per line and columns separated by tabs." 
+                                                           userInfo:nil];
+                    @throw e;
+                    
                 }
                 
                 if (duration < 0.5 && duration >= -0.0001) {
@@ -614,7 +663,7 @@ fftw_complex **inverseInBuffers = NULL;
                 newTrial.height   = height;
                 
                 TrialList* newListEntry;
-                newListEntry = malloc(sizeof(TrialList));
+                newListEntry = (TrialList*) malloc(sizeof(TrialList));
                 *newListEntry = TRIALLIST_INIT;
                 newListEntry->trial = newTrial;
                 
@@ -634,7 +683,73 @@ fftw_complex **inverseInBuffers = NULL;
             }
         }
     }
-    fclose(inFile);    
+    fclose(inFile);  
+    free(inputFilename);
+}
+
+-(void)writeDesignFile:(NSString*) path 
+{
+    VImage outDesign = NULL;
+    outDesign = VCreateImage(1, ntimesteps, numberCovariates, VFloatRepn);
+    
+    VSetAttr(VImageAttrList(outDesign), "modality", NULL, VStringRepn, "X");
+    VSetAttr(VImageAttrList(outDesign), "name", NULL, VStringRepn, "X");
+    VSetAttr(VImageAttrList(outDesign), "repetition_time", NULL, VLongRepn, (VLong) (tr * 1000.0));
+    VSetAttr(VImageAttrList(outDesign), "ntimesteps", NULL, VLongRepn, (VLong) ntimesteps);
+    
+    VSetAttr(VImageAttrList(outDesign), "derivatives", NULL, VShortRepn, deriv);
+    
+    // evil: Copy&Paste from initDesign()
+    static float delay = 6.0;              
+    static float understrength = 0.35;
+    static float undershoot = 12.0;
+    char buf[BUFFER_LENGTH];
+    
+    VSetAttr(VImageAttrList(outDesign), "delay", NULL, VFloatRepn, delay);
+    VSetAttr(VImageAttrList(outDesign), "undershoot", NULL, VFloatRepn, undershoot);
+    sprintf(buf, "%.3f", understrength);
+    VSetAttr(VImageAttrList(outDesign), "understrength", NULL, VStringRepn, &buf);
+    
+    VSetAttr(VImageAttrList(outDesign), "nsessions", NULL, VShortRepn, (VShort) 1);
+    VSetAttr(VImageAttrList(outDesign), "designtype", NULL, VShortRepn, (VShort) 1);
+    
+    for (int col = 0; col < numberCovariates; col++) {
+        for (int ts = 0; ts < ntimesteps; ts++) {
+            VPixel(outDesign, 0, ts, col, VFloat) = (VFloat) mDesign[col][ts];
+        }
+    }
+    
+    
+    VAttrList out_list = NULL;                         
+    out_list = VCreateAttrList();
+    VAppendAttr(out_list, "image", NULL, VImageRepn, outDesign);
+    
+    // Numbers taken from Plot_gamma()
+    int ncols = (int) (28.0 / 0.2);
+    int nrows = deriv + 2;
+    VImage plot_image = NULL;
+    plot_image = VCreateImage(1, nrows, ncols, VFloatRepn);
+    float** plot_image_raw = NULL;
+    plot_image_raw = [self Plot_gamma:deriv];
+    
+    for (int col = 0; col < ncols; col++) {
+        for (int row = 0; row < nrows; row++) {
+            VPixel(plot_image, 0, row, col, VFloat) = (VFloat) plot_image_raw[col][row];
+        }
+    }
+    
+    VAppendAttr(out_list, "plot_gamma", NULL, VImageRepn, plot_image);
+    
+    char* outputFilename = (char*) malloc(sizeof(char) * UINT16_MAX);
+    [path getCString:outputFilename maxLength:UINT16_MAX  encoding:NSUTF8StringEncoding];
+    FILE *out_file = fopen(outputFilename, "w"); //fopen("/tmp/testDesign.v", "w");
+
+    if (!VWriteFile(out_file, out_list)) {
+        exit(1);
+    }
+    
+    fclose(out_file);
+    free(outputFilename);
 }
 
 -(Complex)complex_mult:(Complex) a
@@ -692,7 +807,9 @@ fftw_complex **inverseInBuffers = NULL;
     double cx  = 0.1;
     
     x = xx - t0;
-    if (x < 0 || x > 50) return 0;
+    if (x < 0 || x > 50) {
+        return 0;
+    }
     
     d1 = aa1 * bb1;
     d2 = aa2 * bb2;
@@ -798,7 +915,8 @@ fftw_complex **inverseInBuffers = NULL;
 }
 
 // TODO: VImage entfernen, einfache float-Matrix wuerde es auch tun
--(VImage)Plot_gamma:(VShort)deriv
+//-(VImage)Plot_gamma:(VShort)deriv
+-(float**)Plot_gamma:(short)deriv
 {
     double y0;
     double y1;
@@ -809,9 +927,18 @@ fftw_complex **inverseInBuffers = NULL;
     int ncols = (int) (28.0 / step);
     int nrows = deriv + 2;
     
-    VImage dest = NULL;
-    dest = VCreateImage(1, nrows, ncols, VFloatRepn);
-    VFillImage(dest, VAllBands, 0);
+//    VImage dest = NULL;
+//    dest = VCreateImage(1, nrows, ncols, VFloatRepn);
+    float** dest = (float**) malloc(sizeof(float*) * ncols);
+    for (int col = 0; col < ncols; col++) {
+        
+        dest[col] = (float*) malloc(sizeof(float) * nrows);
+        for (int row = 0; row < nrows; row++) {
+            dest[col][row] = 0.0;
+        }
+    }
+    
+//    VFillImage(dest, VAllBands, 0);
     
     int j = 0;
     for (double x = 0.0; x < 28.0; x += step) {
@@ -821,13 +948,17 @@ fftw_complex **inverseInBuffers = NULL;
         y0 = [self xgamma:x :t0];
         y1 = [self deriv1_gamma:x :t0];
         y2 = [self deriv2_gamma:x :t0];
-        VPixel(dest, 0, 0, j, VFloat) = x;
-        VPixel(dest, 0, 1, j, VFloat) = y0;
+//        VPixel(dest, 0, 0, j, VFloat) = x;
+//        VPixel(dest, 0, 1, j, VFloat) = y0;
+        dest[j][0] = x;
+        dest[j][1] = y0;
         if (deriv > 0) {
-            VPixel(dest, 0, 2, j, VFloat) = y1;
+//            VPixel(dest, 0, 2, j, VFloat) = y1;
+            dest[j][2] = y1;
         }
         if (deriv > 1) {
-            VPixel(dest, 0, 3, j, VFloat) = y2;
+//            VPixel(dest, 0, 3, j, VFloat) = y2;
+            dest[j][3] = y2;
         }
         j++;
     }
@@ -888,7 +1019,8 @@ fftw_complex **inverseInBuffers = NULL;
         j = (int) (xx[timestep] / delta + 0.5);
         
         if (j >= 0 && j < numberSamples) {
-            VPixel(mDesign, 0, timestep, col, VFloat) = inverseOutBuffer[j];
+//            VPixel(mDesign, 0, timestep, col, VFloat) = inverseOutBuffer[j];
+            mDesign[col][timestep] = inverseOutBuffer[j];
         }
     }
 }
@@ -911,14 +1043,14 @@ fftw_complex **inverseInBuffers = NULL;
     NSNumber *value = nil;
     if (mDesign != NULL) {
         if (IMAGE_DATA_FLOAT == imageDataType){
-            value = [NSNumber numberWithFloat:VGetPixel(mDesign, 0, t, cov)];
+//            value = [NSNumber numberWithFloat:VGetPixel(mDesign, 0, t, cov)];
+            value = [NSNumber numberWithFloat:mDesign[cov][t]];
         } else {
             NSLog(@"Cannot identify type of design image - no float");
         }
     } else {
         NSLog(@"%@: generateDesign has not been called yet! (initial design information NULL)", self);
     }
-
     
     return value;
 }
@@ -932,7 +1064,12 @@ fftw_complex **inverseInBuffers = NULL;
 
 -(void)dealloc
 {
-    VFree(mDesign);
+    //VFree(mDesign);
+    for (int col = 0; col < numberCovariates; col++) {
+        free(mDesign[col]);
+    }
+    free(mDesign);
+    
     free(xx);
     
     for (int eventNr = 0; eventNr < numberEvents; eventNr++) {

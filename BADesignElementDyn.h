@@ -14,10 +14,8 @@ typedef struct ComplexStruct {
     double im;
 } Complex;
 
-
 @interface BADesignElementDyn : BADesignElement {
 
-//    Trial* trials;
     TrialList** trials;
     int numberTrials;
     int numberEvents;

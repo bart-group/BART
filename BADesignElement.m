@@ -25,6 +25,11 @@
     return [[BADesignElementDyn alloc] initWithFile:path ofImageDataType:type];
 }
 
+-(void)writeDesignFile:(NSString*) path
+{
+    
+}
+
 -(NSNumber*)getValueFromCovariate: (int)cov atTimestep:(int)t 
 {
 
