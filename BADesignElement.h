@@ -56,7 +56,7 @@ typedef struct TrialListStruct {
 -(NSNumber*)getValueFromExplanatoryVariable: (int)cov atTimestep:(int)t;
 
 -(void)setRegressor:(TrialList *)regressor;
--(void)setRegressorValue:(Trial)value forRegressorID:(int)regID atTimestep:(int)timestep;
+-(void)setRegressorTrial:(Trial)trial; 
 -(void)setCovariate:(float*)covariate forCovariateID:(int)covID;
 -(void)setCovariateValue:(float)value forCovariateID:(int)covID atTimestep:(int)timestep;
 

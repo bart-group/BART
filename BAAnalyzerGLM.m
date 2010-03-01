@@ -126,8 +126,8 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         if (indexForTimestep < mData.numberTimesteps){
             [self startTimer];
         } else {
-            [mBetaOutput WriteDataElementToFile:@"/Users/user/Development/outfromBART.v"];
-            [mResOutput WriteDataElementToFile:@"/Users/user/Development/outfromBART.v"];
+            [mBetaOutput WriteDataElementToFile:@"/Users/Lydi/Development/outfromBART.v"];
+            [mResOutput WriteDataElementToFile:@"/Users/Lydi/Development/outfromBART.v"];
         }
     }
 }

@@ -19,6 +19,7 @@ typedef struct ComplexStruct {
     TrialList** trials;
     int numberTrials;
     int numberEvents;
+	
     
 }
 
