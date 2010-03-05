@@ -1,0 +1,799 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0040B8071141470400A57967 /* BAAnalyzerGLM.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7961141470400A57967 /* BAAnalyzerGLM.m */; };
+		0040B8081141470400A57967 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
+		0040B8091141470400A57967 /* gauss.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7991141470400A57967 /* gauss.c */; };
+		0040B80A1141470400A57967 /* gsl_futils.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B79A1141470400A57967 /* gsl_futils.c */; };
+		0040B80C1141470400A57967 /* BAAnalyzerElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A01141470400A57967 /* BAAnalyzerElement.m */; };
+		0040B80D1141470400A57967 /* BADataControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A21141470400A57967 /* BADataControl.m */; };
+		0040B80E1141470400A57967 /* BADataElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A41141470400A57967 /* BADataElement.m */; };
+		0040B80F1141470400A57967 /* BADataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A61141470400A57967 /* BADataElementVI.m */; };
+		0040B8101141470400A57967 /* BADesignElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A81141470400A57967 /* BADesignElement.m */; };
+		0040B8111141470400A57967 /* BADesignElementDyn.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7AA1141470400A57967 /* BADesignElementDyn.m */; };
+		0040B8121141470400A57967 /* BADesignElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7AC1141470400A57967 /* BADesignElementVI.m */; };
+		0040B8131141470400A57967 /* BADocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7AE1141470400A57967 /* BADocument.m */; };
+		0040B8141141470400A57967 /* BAElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B01141470400A57967 /* BAElement.m */; };
+		0040B8151141470400A57967 /* BAGUIProtoCGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B21141470400A57967 /* BAGUIProtoCGLayer.m */; };
+		0040B8161141470400A57967 /* BAGUIPrototyp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B41141470400A57967 /* BAGUIPrototyp.m */; };
+		0040B8441141470400A57967 /* BARTApplicationAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F01141470400A57967 /* BARTApplicationAppDelegate.m */; };
+		0040B8451141470400A57967 /* BASource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F21141470400A57967 /* BASource.m */; };
+		0040B8461141470400A57967 /* BASourceDatasetFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F41141470400A57967 /* BASourceDatasetFile.m */; };
+		0040B8471141470400A57967 /* ColorMappingFilter.cikernel in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F51141470400A57967 /* ColorMappingFilter.cikernel */; };
+		0040B8481141470400A57967 /* ColorMappingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F71141470400A57967 /* ColorMappingFilter.m */; };
+		0040B8491141470400A57967 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F81141470400A57967 /* main.m */; };
+		0040B84A1141470400A57967 /* Negative.cikernel in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F91141470400A57967 /* Negative.cikernel */; };
+		0040B85D1141472200A57967 /* BADataElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B8551141472200A57967 /* BADataElementVITest.m */; };
+		0040B85E1141472200A57967 /* BADesignElementDynTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B8571141472200A57967 /* BADesignElementDynTest.m */; };
+		0040B85F1141472200A57967 /* BADesignElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B8591141472200A57967 /* BADesignElementVITest.m */; };
+		0040B8701141488200A57967 /* SmoothnessEstim.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B86F1141488200A57967 /* SmoothnessEstim.c */; };
+		0040B87B11414A8E00A57967 /* ColorMappingFilter.cikernel in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0040B7F51141470400A57967 /* ColorMappingFilter.cikernel */; };
+		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		CE7D689B1113447C005A9D15 /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7D689A1113447C005A9D15 /* libfftw3.a */; };
+		CE8A28C510F51058002422B5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED1922910AC8AD600FAFA4F /* QuartzCore.framework */; };
+		CE8A28D010F5121A002422B5 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E410AC888700FAFA4F /* libviaio.dylib */; };
+		CE8A28D110F5121B002422B5 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E210AC888700FAFA4F /* libvia.dylib */; };
+		CE8A28D210F5121B002422B5 /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E010AC888700FAFA4F /* libgslcblas.dylib */; };
+		CE8A28D310F5121C002422B5 /* libgsl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191DE10AC888700FAFA4F /* libgsl.dylib */; };
+		CE8A28D410F5121D002422B5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191F510AC8A7B00FAFA4F /* OpenGL.framework */; };
+		CE8A28D510F5121E002422B5 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */; };
+		CE8A28D610F5121F002422B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
+		CE8A28D710F5121F002422B5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E42FB307B3F0F600E4EEF1 /* CoreData.framework */; };
+		CE8A28D810F51220002422B5 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
+		CE8A2A3A10F61713002422B5 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8A2A3910F61713002422B5 /* Quartz.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		CE8A2B3610F6250A002422B5 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.cikernel";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "";
+		};
+/* End PBXBuildRule section */
+
+/* Begin PBXContainerItemProxy section */
+		0040B9911141708D00A57967 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D1107260486CEB800E47090 /* BARTApplication */;
+			remoteInfo = BARTApplication;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0040B98411416F6800A57967 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents;
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE8A333210F77DE4002422B5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				0040B87B11414A8E00A57967 /* ColorMappingFilter.cikernel in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0040B7951141470400A57967 /* BAAnalyzerGLM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAAnalyzerGLM.h; sourceTree = "<group>"; };
+		0040B7961141470400A57967 /* BAAnalyzerGLM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAAnalyzerGLM.m; sourceTree = "<group>"; };
+		0040B7971141470400A57967 /* BlockIO.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BlockIO.c; sourceTree = "<group>"; };
+		0040B7981141470400A57967 /* BlockIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockIO.h; sourceTree = "<group>"; };
+		0040B7991141470400A57967 /* gauss.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gauss.c; sourceTree = "<group>"; };
+		0040B79A1141470400A57967 /* gsl_futils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gsl_futils.c; sourceTree = "<group>"; };
+		0040B79C1141470400A57967 /* gsl_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gsl_utils.h; sourceTree = "<group>"; };
+		0040B79F1141470400A57967 /* BAAnalyzerElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAAnalyzerElement.h; sourceTree = "<group>"; };
+		0040B7A01141470400A57967 /* BAAnalyzerElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAAnalyzerElement.m; sourceTree = "<group>"; };
+		0040B7A11141470400A57967 /* BADataControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataControl.h; sourceTree = "<group>"; };
+		0040B7A21141470400A57967 /* BADataControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataControl.m; sourceTree = "<group>"; };
+		0040B7A31141470400A57967 /* BADataElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElement.h; sourceTree = "<group>"; };
+		0040B7A41141470400A57967 /* BADataElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElement.m; sourceTree = "<group>"; };
+		0040B7A51141470400A57967 /* BADataElementVI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElementVI.h; sourceTree = "<group>"; };
+		0040B7A61141470400A57967 /* BADataElementVI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElementVI.m; sourceTree = "<group>"; };
+		0040B7A71141470400A57967 /* BADesignElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElement.h; sourceTree = "<group>"; };
+		0040B7A81141470400A57967 /* BADesignElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElement.m; sourceTree = "<group>"; };
+		0040B7A91141470400A57967 /* BADesignElementDyn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementDyn.h; sourceTree = "<group>"; };
+		0040B7AA1141470400A57967 /* BADesignElementDyn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementDyn.m; sourceTree = "<group>"; };
+		0040B7AB1141470400A57967 /* BADesignElementVI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementVI.h; sourceTree = "<group>"; };
+		0040B7AC1141470400A57967 /* BADesignElementVI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementVI.m; sourceTree = "<group>"; };
+		0040B7AD1141470400A57967 /* BADocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADocument.h; sourceTree = "<group>"; };
+		0040B7AE1141470400A57967 /* BADocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADocument.m; sourceTree = "<group>"; };
+		0040B7AF1141470400A57967 /* BAElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAElement.h; sourceTree = "<group>"; };
+		0040B7B01141470400A57967 /* BAElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAElement.m; sourceTree = "<group>"; };
+		0040B7B11141470400A57967 /* BAGUIProtoCGLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAGUIProtoCGLayer.h; sourceTree = "<group>"; };
+		0040B7B21141470400A57967 /* BAGUIProtoCGLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAGUIProtoCGLayer.m; sourceTree = "<group>"; };
+		0040B7B31141470400A57967 /* BAGUIPrototyp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAGUIPrototyp.h; sourceTree = "<group>"; };
+		0040B7B41141470400A57967 /* BAGUIPrototyp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAGUIPrototyp.m; sourceTree = "<group>"; };
+		0040B7EF1141470400A57967 /* BARTApplicationAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BARTApplicationAppDelegate.h; sourceTree = "<group>"; };
+		0040B7F01141470400A57967 /* BARTApplicationAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BARTApplicationAppDelegate.m; sourceTree = "<group>"; };
+		0040B7F11141470400A57967 /* BASource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASource.h; sourceTree = "<group>"; };
+		0040B7F21141470400A57967 /* BASource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASource.m; sourceTree = "<group>"; };
+		0040B7F31141470400A57967 /* BASourceDatasetFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASourceDatasetFile.h; sourceTree = "<group>"; };
+		0040B7F41141470400A57967 /* BASourceDatasetFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASourceDatasetFile.m; sourceTree = "<group>"; };
+		0040B7F51141470400A57967 /* ColorMappingFilter.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ColorMappingFilter.cikernel; sourceTree = "<group>"; };
+		0040B7F61141470400A57967 /* ColorMappingFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorMappingFilter.h; sourceTree = "<group>"; };
+		0040B7F71141470400A57967 /* ColorMappingFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorMappingFilter.m; sourceTree = "<group>"; };
+		0040B7F81141470400A57967 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0040B7F91141470400A57967 /* Negative.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Negative.cikernel; sourceTree = "<group>"; };
+		0040B7FA1141470400A57967 /* NegativeKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NegativeKernel.h; sourceTree = "<group>"; };
+		0040B8541141472200A57967 /* BADataElementVITest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElementVITest.h; sourceTree = "<group>"; };
+		0040B8551141472200A57967 /* BADataElementVITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElementVITest.m; sourceTree = "<group>"; };
+		0040B8561141472200A57967 /* BADesignElementDynTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementDynTest.h; sourceTree = "<group>"; };
+		0040B8571141472200A57967 /* BADesignElementDynTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementDynTest.m; sourceTree = "<group>"; };
+		0040B8581141472200A57967 /* BADesignElementVITest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementVITest.h; sourceTree = "<group>"; };
+		0040B8591141472200A57967 /* BADesignElementVITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementVITest.m; sourceTree = "<group>"; };
+		0040B86F1141488200A57967 /* SmoothnessEstim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SmoothnessEstim.c; sourceTree = "<group>"; };
+		0040B9B1114173BD00A57967 /* BARTUnitTestSuite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
+		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		256AC3F00F4B6AF500CF3369 /* BARTApplication_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BARTApplication_Prefix.pch; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		8D1107310486CEB800E47090 /* BARTApplication-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTApplication-Info.plist"; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* BARTApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BARTApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE7D689A1113447C005A9D15 /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3.a; path = /usr/local/lib/libfftw3.a; sourceTree = "<absolute>"; };
+		CE8A2A3910F61713002422B5 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
+		CE8B709110DA988F007AEB2B /* BARTApplication.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BARTApplication.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CED191DE10AC888700FAFA4F /* libgsl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgsl.dylib; path = /usr/local/lib/libgsl.dylib; sourceTree = "<absolute>"; };
+		CED191E010AC888700FAFA4F /* libgslcblas.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgslcblas.dylib; path = /usr/local/lib/libgslcblas.dylib; sourceTree = "<absolute>"; };
+		CED191E210AC888700FAFA4F /* libvia.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvia.dylib; path = /usr/local/lib/libvia.dylib; sourceTree = "<absolute>"; };
+		CED191E410AC888700FAFA4F /* libviaio.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libviaio.dylib; path = /usr/lib/libviaio.dylib; sourceTree = "<absolute>"; };
+		CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
+		CED191F510AC8A7B00FAFA4F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		CED1922910AC8AD600FAFA4F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				CE8A28C510F51058002422B5 /* QuartzCore.framework in Frameworks */,
+				CE8A28D010F5121A002422B5 /* libviaio.dylib in Frameworks */,
+				CE8A28D110F5121B002422B5 /* libvia.dylib in Frameworks */,
+				CE8A28D210F5121B002422B5 /* libgslcblas.dylib in Frameworks */,
+				CE8A28D310F5121C002422B5 /* libgsl.dylib in Frameworks */,
+				CE8A28D410F5121D002422B5 /* OpenGL.framework in Frameworks */,
+				CE8A28D510F5121E002422B5 /* ApplicationServices.framework in Frameworks */,
+				CE8A28D610F5121F002422B5 /* Foundation.framework in Frameworks */,
+				CE8A28D710F5121F002422B5 /* CoreData.framework in Frameworks */,
+				CE8A28D810F51220002422B5 /* AppKit.framework in Frameworks */,
+				CE8A2A3A10F61713002422B5 /* Quartz.framework in Frameworks */,
+				CE7D689B1113447C005A9D15 /* libfftw3.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE8B708E10DA988F007AEB2B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0040B78F1141470400A57967 /* docs */ = {
+			isa = PBXGroup;
+			children = (
+				0040B7901141470400A57967 /* BARTMainApplication */,
+				0040B7911141470400A57967 /* CLETUS */,
+			);
+			name = docs;
+			path = ../docs;
+			sourceTree = SOURCE_ROOT;
+		};
+		0040B7901141470400A57967 /* BARTMainApplication */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BARTMainApplication;
+			sourceTree = "<group>";
+		};
+		0040B7911141470400A57967 /* CLETUS */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CLETUS;
+			sourceTree = "<group>";
+		};
+		0040B7921141470400A57967 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				0040B7931141470400A57967 /* ARTIE */,
+				0040B79E1141470400A57967 /* BARTMainApp */,
+				0040B7FC1141470400A57967 /* CLETUS */,
+				0040B8051141470400A57967 /* EDNA */,
+				0040B8061141470400A57967 /* NED */,
+			);
+			name = src;
+			path = ../src;
+			sourceTree = SOURCE_ROOT;
+		};
+		0040B7931141470400A57967 /* ARTIE */ = {
+			isa = PBXGroup;
+			children = (
+				0040B7941141470400A57967 /* GLM */,
+			);
+			path = ARTIE;
+			sourceTree = "<group>";
+		};
+		0040B7941141470400A57967 /* GLM */ = {
+			isa = PBXGroup;
+			children = (
+				0040B86F1141488200A57967 /* SmoothnessEstim.c */,
+				0040B7951141470400A57967 /* BAAnalyzerGLM.h */,
+				0040B7961141470400A57967 /* BAAnalyzerGLM.m */,
+				0040B7971141470400A57967 /* BlockIO.c */,
+				0040B7981141470400A57967 /* BlockIO.h */,
+				0040B7991141470400A57967 /* gauss.c */,
+				0040B79A1141470400A57967 /* gsl_futils.c */,
+				0040B79C1141470400A57967 /* gsl_utils.h */,
+			);
+			path = GLM;
+			sourceTree = "<group>";
+		};
+		0040B79E1141470400A57967 /* BARTMainApp */ = {
+			isa = PBXGroup;
+			children = (
+				0040B8631141483B00A57967 /* CIKernels */,
+				0040B79F1141470400A57967 /* BAAnalyzerElement.h */,
+				0040B7A01141470400A57967 /* BAAnalyzerElement.m */,
+				0040B7A11141470400A57967 /* BADataControl.h */,
+				0040B7A21141470400A57967 /* BADataControl.m */,
+				0040B7A31141470400A57967 /* BADataElement.h */,
+				0040B7A41141470400A57967 /* BADataElement.m */,
+				0040B7A51141470400A57967 /* BADataElementVI.h */,
+				0040B7A61141470400A57967 /* BADataElementVI.m */,
+				0040B7A71141470400A57967 /* BADesignElement.h */,
+				0040B7A81141470400A57967 /* BADesignElement.m */,
+				0040B7A91141470400A57967 /* BADesignElementDyn.h */,
+				0040B7AA1141470400A57967 /* BADesignElementDyn.m */,
+				0040B7AB1141470400A57967 /* BADesignElementVI.h */,
+				0040B7AC1141470400A57967 /* BADesignElementVI.m */,
+				0040B7AD1141470400A57967 /* BADocument.h */,
+				0040B7AE1141470400A57967 /* BADocument.m */,
+				0040B7AF1141470400A57967 /* BAElement.h */,
+				0040B7B01141470400A57967 /* BAElement.m */,
+				0040B7B11141470400A57967 /* BAGUIProtoCGLayer.h */,
+				0040B7B21141470400A57967 /* BAGUIProtoCGLayer.m */,
+				0040B7B31141470400A57967 /* BAGUIPrototyp.h */,
+				0040B7B41141470400A57967 /* BAGUIPrototyp.m */,
+				0040B7EF1141470400A57967 /* BARTApplicationAppDelegate.h */,
+				0040B7F01141470400A57967 /* BARTApplicationAppDelegate.m */,
+				0040B7F11141470400A57967 /* BASource.h */,
+				0040B7F21141470400A57967 /* BASource.m */,
+				0040B7F31141470400A57967 /* BASourceDatasetFile.h */,
+				0040B7F41141470400A57967 /* BASourceDatasetFile.m */,
+				0040B7F61141470400A57967 /* ColorMappingFilter.h */,
+				0040B7F71141470400A57967 /* ColorMappingFilter.m */,
+				0040B7F81141470400A57967 /* main.m */,
+				0040B7FA1141470400A57967 /* NegativeKernel.h */,
+			);
+			path = BARTMainApp;
+			sourceTree = "<group>";
+		};
+		0040B7FC1141470400A57967 /* CLETUS */ = {
+			isa = PBXGroup;
+			children = (
+				0040B7FD1141470400A57967 /* build */,
+			);
+			path = CLETUS;
+			sourceTree = "<group>";
+		};
+		0040B7FD1141470400A57967 /* build */ = {
+			isa = PBXGroup;
+			children = (
+				0040B7FE1141470400A57967 /* CLETUS.build */,
+			);
+			path = build;
+			sourceTree = "<group>";
+		};
+		0040B7FE1141470400A57967 /* CLETUS.build */ = {
+			isa = PBXGroup;
+			children = (
+				0040B7FF1141470400A57967 /* CLETUS.pbxindex */,
+			);
+			path = CLETUS.build;
+			sourceTree = "<group>";
+		};
+		0040B7FF1141470400A57967 /* CLETUS.pbxindex */ = {
+			isa = PBXGroup;
+			children = (
+				0040B8001141470400A57967 /* strings.pbxstrings */,
+			);
+			path = CLETUS.pbxindex;
+			sourceTree = "<group>";
+		};
+		0040B8001141470400A57967 /* strings.pbxstrings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = strings.pbxstrings;
+			sourceTree = "<group>";
+		};
+		0040B8051141470400A57967 /* EDNA */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EDNA;
+			sourceTree = "<group>";
+		};
+		0040B8061141470400A57967 /* NED */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NED;
+			sourceTree = "<group>";
+		};
+		0040B8521141472200A57967 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				0040B8531141472200A57967 /* BARTMainAppTests */,
+				0040B85C1141472200A57967 /* CLETUSTests */,
+			);
+			name = tests;
+			path = ../tests;
+			sourceTree = SOURCE_ROOT;
+		};
+		0040B8531141472200A57967 /* BARTMainAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				0040B8541141472200A57967 /* BADataElementVITest.h */,
+				0040B8551141472200A57967 /* BADataElementVITest.m */,
+				0040B8561141472200A57967 /* BADesignElementDynTest.h */,
+				0040B8571141472200A57967 /* BADesignElementDynTest.m */,
+				0040B8581141472200A57967 /* BADesignElementVITest.h */,
+				0040B8591141472200A57967 /* BADesignElementVITest.m */,
+			);
+			path = BARTMainAppTests;
+			sourceTree = "<group>";
+		};
+		0040B85C1141472200A57967 /* CLETUSTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CLETUSTests;
+			sourceTree = "<group>";
+		};
+		0040B8631141483B00A57967 /* CIKernels */ = {
+			isa = PBXGroup;
+			children = (
+				0040B7F51141470400A57967 /* ColorMappingFilter.cikernel */,
+				0040B7F91141470400A57967 /* Negative.cikernel */,
+			);
+			name = CIKernels;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				CE8A2A3910F61713002422B5 /* Quartz.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+				CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */,
+				CED191F510AC8A7B00FAFA4F /* OpenGL.framework */,
+				CED1922910AC8AD600FAFA4F /* QuartzCore.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* BARTApplication.app */,
+				CE8B709110DA988F007AEB2B /* BARTApplication.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
+			isa = PBXGroup;
+			children = (
+				0040B78F1141470400A57967 /* docs */,
+				0040B7921141470400A57967 /* src */,
+				0040B8521141472200A57967 /* tests */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = BARTApplication;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				256AC3F00F4B6AF500CF3369 /* BARTApplication_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0040B9B1114173BD00A57967 /* BARTUnitTestSuite-Info.plist */,
+				8D1107310486CEB800E47090 /* BARTApplication-Info.plist */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+				CED191DE10AC888700FAFA4F /* libgsl.dylib */,
+				CED191E010AC888700FAFA4F /* libgslcblas.dylib */,
+				CED191E210AC888700FAFA4F /* libvia.dylib */,
+				CED191E410AC888700FAFA4F /* libviaio.dylib */,
+				CE7D689A1113447C005A9D15 /* libfftw3.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* BARTApplication */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "BARTApplication" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+				CE8A333210F77DE4002422B5 /* CopyFiles */,
+			);
+			buildRules = (
+				CE8A2B3610F6250A002422B5 /* PBXBuildRule */,
+			);
+			dependencies = (
+			);
+			name = BARTApplication;
+			productInstallPath = "$(HOME)/Applications";
+			productName = BARTApplication;
+			productReference = 8D1107320486CEB800E47090 /* BARTApplication.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CE8B709010DA988F007AEB2B /* BARTUnitTestSuite */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE8B709610DA9890007AEB2B /* Build configuration list for PBXNativeTarget "BARTUnitTestSuite" */;
+			buildPhases = (
+				CE8B708C10DA988F007AEB2B /* Resources */,
+				CE8B708D10DA988F007AEB2B /* Sources */,
+				CE8B708E10DA988F007AEB2B /* Frameworks */,
+				CE8B708F10DA988F007AEB2B /* ShellScript */,
+				0040B98411416F6800A57967 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0040B9921141708D00A57967 /* PBXTargetDependency */,
+			);
+			name = BARTUnitTestSuite;
+			productName = BARTUnitTestSuite;
+			productReference = CE8B709110DA988F007AEB2B /* BARTApplication.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+			};
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "BARTApplication" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* BARTApplication */;
+			projectDirPath = "";
+			projectRoot = "../../<Project File Directory>";
+			targets = (
+				8D1107260486CEB800E47090 /* BARTApplication */,
+				CE8B709010DA988F007AEB2B /* BARTUnitTestSuite */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE8B708C10DA988F007AEB2B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CE8B708F10DA988F007AEB2B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0040B8071141470400A57967 /* BAAnalyzerGLM.m in Sources */,
+				0040B8081141470400A57967 /* BlockIO.c in Sources */,
+				0040B8091141470400A57967 /* gauss.c in Sources */,
+				0040B80A1141470400A57967 /* gsl_futils.c in Sources */,
+				0040B80C1141470400A57967 /* BAAnalyzerElement.m in Sources */,
+				0040B80D1141470400A57967 /* BADataControl.m in Sources */,
+				0040B80E1141470400A57967 /* BADataElement.m in Sources */,
+				0040B80F1141470400A57967 /* BADataElementVI.m in Sources */,
+				0040B8101141470400A57967 /* BADesignElement.m in Sources */,
+				0040B8111141470400A57967 /* BADesignElementDyn.m in Sources */,
+				0040B8121141470400A57967 /* BADesignElementVI.m in Sources */,
+				0040B8131141470400A57967 /* BADocument.m in Sources */,
+				0040B8141141470400A57967 /* BAElement.m in Sources */,
+				0040B8151141470400A57967 /* BAGUIProtoCGLayer.m in Sources */,
+				0040B8161141470400A57967 /* BAGUIPrototyp.m in Sources */,
+				0040B8441141470400A57967 /* BARTApplicationAppDelegate.m in Sources */,
+				0040B8451141470400A57967 /* BASource.m in Sources */,
+				0040B8461141470400A57967 /* BASourceDatasetFile.m in Sources */,
+				0040B8471141470400A57967 /* ColorMappingFilter.cikernel in Sources */,
+				0040B8481141470400A57967 /* ColorMappingFilter.m in Sources */,
+				0040B8491141470400A57967 /* main.m in Sources */,
+				0040B84A1141470400A57967 /* Negative.cikernel in Sources */,
+				0040B8701141488200A57967 /* SmoothnessEstim.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE8B708D10DA988F007AEB2B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0040B85D1141472200A57967 /* BADataElementVITest.m in Sources */,
+				0040B85E1141472200A57967 /* BADesignElementDynTest.m in Sources */,
+				0040B85F1141472200A57967 /* BADesignElementVITest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0040B9921141708D00A57967 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D1107260486CEB800E47090 /* BARTApplication */;
+			targetProxy = 0040B9911141708D00A57967 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C165DFE840E0CC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DDD58150DA1D0A300B32029 /* English */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = BARTApplication_Prefix.pch;
+				INFOPLIST_FILE = "BARTApplication-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = BARTApplication;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = BARTApplication_Prefix.pch;
+				INFOPLIST_FILE = "BARTApplication-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = BARTApplication;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				BUNDLE_LOADER = "";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1)";
+				GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1 = "BUILD_PATH=\\\"/tmp\\\"";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					/usr/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					opt/local/lib,
+					/usr/lib,
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				TEST_HOST = "";
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+			};
+			name = Release;
+		};
+		CE8B709410DA9890007AEB2B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BARTApplication.app/Contents/MacOS/BARTApplication";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "BARTUnitTestSuite-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = BARTApplication;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		CE8B709510DA9890007AEB2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "BARTUnitTestSuite-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = BARTUnitTestSuite;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "BARTApplication" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "BARTApplication" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE8B709610DA9890007AEB2B /* Build configuration list for PBXNativeTarget "BARTUnitTestSuite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE8B709410DA9890007AEB2B /* Debug */,
+				CE8B709510DA9890007AEB2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
