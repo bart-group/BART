@@ -18,8 +18,8 @@ BADataElement *dataEl;
 @implementation BADataElementVITest
 
 - (void) setUp {
-    dataEl = [[BADataElement alloc] 
-              initWithDatasetFile:@"/Users/user/Development/BR5T-functional.v" 
+    dataEl = [[BADataElementVI alloc] 
+              initWithFile:@"/Users/Lydi/Development/BR5T-functional.v" 
               ofImageDataType:IMAGE_DATA_SHORT];
 }
 

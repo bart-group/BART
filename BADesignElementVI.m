@@ -59,6 +59,7 @@
     
     numberTimesteps = VImageNRows(mDesign);
     numberExplanatoryVariables = VImageNColumns(mDesign);
+	NSLog(@"numberExplanatoryVariables %d", numberExplanatoryVariables);
     
     int itr;
     if (VGetAttr(VImageAttrList(mDesign), "repetition_time", NULL, VLongRepn, &itr) 

@@ -20,14 +20,14 @@ BADesignElement *designEl;
 @implementation BADesignElementVITest
 
 - (void) setUp {
-    designEl = [[BADesignElement alloc] 
-                initWithDatasetFile:@"/Users/user/Development/designfromscipt.v" 
+    designEl = [[BADesignElementVI alloc] 
+                initWithFile:@"/Users/Lydi/Development/designfromscipt.v" 
                 ofImageDataType:IMAGE_DATA_FLOAT];
 }
 
 - (void) testProperties {
     STAssertEquals(designEl.numberTimesteps, 396, @"Incorrect number of timesteps.");
-    STAssertEquals(designEl.numberCovariates, 5, @"Incorrect number of covariates.");
+	STAssertEquals(designEl.numberExplanatoryVariables, 5, @"Incorrect number of covariates.");
     STAssertEquals(designEl.repetitionTimeInMs, 2000, @"Incorrect repetition time.");
     STAssertEquals(designEl.imageDataType, IMAGE_DATA_FLOAT, @"Incorrect image data type.");
 }

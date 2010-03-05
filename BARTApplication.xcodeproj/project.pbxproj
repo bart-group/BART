@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00E136C4113D6DC2009302BF /* BADesignElementDynTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E136BE113D6CD8009302BF /* BADesignElementDynTest.m */; };
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* BARTApplicationAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* BARTApplicationAppDelegate.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -14,7 +15,6 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		CE08BA7F10DB73BE000B538A /* BADesignElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8B70AD10DA9B0C007AEB2B /* BADesignElementVITest.m */; };
 		CE08BD0610DB994D000B538A /* BADataElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE08BD0510DB994D000B538A /* BADataElementVITest.m */; };
-		CE7D674B1112DAED005A9D15 /* BADesignElementDyn.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7D674A1112DAED005A9D15 /* BADesignElementDyn.m */; };
 		CE7D67F711133323005A9D15 /* BADesignElementDyn.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7D674A1112DAED005A9D15 /* BADesignElementDyn.m */; };
 		CE7D689B1113447C005A9D15 /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7D689A1113447C005A9D15 /* libfftw3.a */; };
 		CE8A28C510F51058002422B5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED1922910AC8AD600FAFA4F /* QuartzCore.framework */; };
@@ -76,6 +76,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		00E136BD113D6CD8009302BF /* BADesignElementDynTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementDynTest.h; sourceTree = "<group>"; };
+		00E136BE113D6CD8009302BF /* BADesignElementDynTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementDynTest.m; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -312,6 +314,8 @@
 				CE8B70AD10DA9B0C007AEB2B /* BADesignElementVITest.m */,
 				CE08BD0410DB994D000B538A /* BADataElementVITest.h */,
 				CE08BD0510DB994D000B538A /* BADataElementVITest.m */,
+				00E136BD113D6CD8009302BF /* BADesignElementDynTest.h */,
+				00E136BE113D6CD8009302BF /* BADesignElementDynTest.m */,
 			);
 			name = "Unit Tests";
 			sourceTree = "<group>";
@@ -448,7 +452,7 @@
 			files = (
 				CE08BA7F10DB73BE000B538A /* BADesignElementVITest.m in Sources */,
 				CE08BD0610DB994D000B538A /* BADataElementVITest.m in Sources */,
-				CE7D674B1112DAED005A9D15 /* BADesignElementDyn.m in Sources */,
+				00E136C4113D6DC2009302BF /* BADesignElementDynTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

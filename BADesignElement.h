@@ -50,6 +50,7 @@ typedef struct TrialListStruct {
 @property (readonly, assign) enum ImageDataType imageDataType;
 
 -(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
+-(id)initWithDynamicDataOfImageDataType:(enum ImageDataType)type;
 
 -(NSError*)writeDesignFile:(NSString*)path;
 

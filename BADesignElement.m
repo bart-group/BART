@@ -22,7 +22,7 @@
 {
     self = [super init];
     //TODO!!!!!!!
-    return [[BADesignElementDyn alloc] initWithFile:path ofImageDataType:type];
+    return [[BADesignElementVI alloc] initWithFile:path ofImageDataType:type];
 }
 
 -(NSError*)writeDesignFile:(NSString*) path

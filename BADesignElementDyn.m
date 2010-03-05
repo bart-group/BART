@@ -16,10 +16,10 @@ extern int VStringToken (char *, char *, int, int);
 
 // komische Konstanten erstmal aus vgendesign.c (Lipsia) uebernommen
 static const int BUFFER_LENGTH = 10000;
-static const int MAX_NUMBER_TRIALS = 5000;
-static const int MAX_NUMBER_EVENTS = 4;
+//static const int MAX_NUMBER_TRIALS = 5000;
+static const int MAX_NUMBER_EVENTS = 100;
 
-static const unsigned int MAX_NUMBER_TIMESTEPS = 10000;
+//static const unsigned int MAX_NUMBER_TIMESTEPS = 1000;
 const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 @interface BADesignElementDyn (PrivateMethods)
@@ -103,9 +103,10 @@ fftw_complex **inverseInBuffers = NULL;
     }
 	
 	
-	numberTimesteps = MAX_NUMBER_TIMESTEPS;//ntimesteps;
+	numberTimesteps = ntimesteps; //TODO get from config
     repetitionTimeInMs = tr * 1000;
-	initNumberSamples = (MAX_NUMBER_TIMESTEPS * repetitionTimeInMs) / samplingRateInMs;
+	initNumberSamples = (numberTimesteps * repetitionTimeInMs) / samplingRateInMs;
+	
 	
     trials = (TrialList**) malloc(sizeof(TrialList*) * MAX_NUMBER_EVENTS);
     for (int i = 0; i < MAX_NUMBER_EVENTS; i++) {
@@ -123,8 +124,8 @@ fftw_complex **inverseInBuffers = NULL;
     if (numberCovariates > 0) {
         mCovariates = (float**) malloc(sizeof(float*) * numberCovariates);
         for (int cov = 0; cov < numberCovariates; cov++) {
-            mCovariates[cov] = (float*) malloc(sizeof(float) * MAX_NUMBER_TIMESTEPS);
-            memset(mCovariates[cov], 0.0, sizeof(float) * MAX_NUMBER_TIMESTEPS);
+            mCovariates[cov] = (float*) malloc(sizeof(float) * numberTimesteps);
+            memset(mCovariates[cov], 0.0, sizeof(float) * numberTimesteps);
         }
     }
      
@@ -132,12 +133,12 @@ fftw_complex **inverseInBuffers = NULL;
     numberExplanatoryVariables = numberRegressors + numberCovariates;
 
 
-    [self writeDesignFile:@"/tmp/testDesign.v"];
+    //[self writeDesignFile:@"/tmp/testDesign.v"];
     
     return self;
 }
 
--(id)initWithDynamicData:(NSString*)path ofImageDataType:(enum ImageDataType)type
+-(id)initWithDynamicDataOfImageDataType:(enum ImageDataType)type
 {
     self = [super init];
     
@@ -152,10 +153,10 @@ fftw_complex **inverseInBuffers = NULL;
     for (int i = 0; i < MAX_NUMBER_EVENTS; i++) {
         trials[i] = NULL;
     }
-	
-	numberTimesteps = MAX_NUMBER_TIMESTEPS;
-    repetitionTimeInMs = tr * 1000;
-	initNumberSamples = (MAX_NUMBER_TIMESTEPS * repetitionTimeInMs)/(samplingRateInMs);
+	numberEvents = 4;//TODO get from config
+	numberTimesteps = ntimesteps; //TODO get from config
+    repetitionTimeInMs = tr * 1000;//TODO get from config
+	initNumberSamples = (numberTimesteps * repetitionTimeInMs)/(samplingRateInMs);
     
     NSLog(@"GenDesign GCD: START");
     [self initDesign];
@@ -165,16 +166,17 @@ fftw_complex **inverseInBuffers = NULL;
     if (numberCovariates > 0) {
         mCovariates = (float**) malloc(sizeof(float*) * numberCovariates);
         for (int cov = 0; cov < numberCovariates; cov++) {
-            mCovariates[cov] = (float*) malloc(sizeof(float) * MAX_NUMBER_TIMESTEPS);
-            memset(mCovariates[cov], 0.0, sizeof(float) * MAX_NUMBER_TIMESTEPS);
+            mCovariates[cov] = (float*) malloc(sizeof(float) * numberTimesteps);
+            memset(mCovariates[cov], 0.0, sizeof(float) * numberTimesteps);
         }
     }
+	
 	
     numberRegressors = numberEvents * (deriv + 1) + 1;
     numberExplanatoryVariables = numberRegressors + numberCovariates;
     
 	
-    [self writeDesignFile:@"/tmp/testDesign.v"];
+    //[self writeDesignFile:@"/tmp/testDesign.v"];
     
     return self;
 }
@@ -217,8 +219,8 @@ fftw_complex **inverseInBuffers = NULL;
 //        }
         fprintf(stderr, " TR = %.3f\n", tr);
         
-        xx = (double *) malloc(sizeof(double) * MAX_NUMBER_TIMESTEPS);
-        for (i = 0; i < MAX_NUMBER_TIMESTEPS; i++) {
+        xx = (double *) malloc(sizeof(double) * numberTimesteps);
+        for (i = 0; i < numberTimesteps; i++) {
             xx[i] = (double) (i) * tr * 1000.0;//TODO: Gabi fragen letzter Zeitschritt im moment nicht einbezogen xx[i] = (double) i * tr * 1000.0;
         }
     }
@@ -248,7 +250,7 @@ fftw_complex **inverseInBuffers = NULL;
         
         rewind(fp);
         numberTimesteps = i;
-        xx = (double *) malloc(sizeof(double) * MAX_NUMBER_TIMESTEPS);
+        xx = (double *) malloc(sizeof(double) * numberTimesteps);
         i = 0;
         while (!feof(fp)) {
             for (j = 0; j < BUFFER_LENGTH; j++) buf[j] = '\0';
@@ -265,10 +267,10 @@ fftw_complex **inverseInBuffers = NULL;
         }
         fclose(fp);
     }
-    total_duration = (xx[0] + xx[MAX_NUMBER_TIMESTEPS - 1]) / 1000.0;
-	NSLog(@"x[0]: %lf und xx[last] %lf", xx[0], xx[MAX_NUMBER_TIMESTEPS - 1]);
+    total_duration = (xx[0] + xx[numberTimesteps - 1]) / 1000.0;
+	NSLog(@"x[0]: %lf und xx[last] %lf", xx[0], xx[numberTimesteps - 1]);
     
-    NSLog(@"Number timesteps: %d,  experiment duration: %.2f min\n", MAX_NUMBER_TIMESTEPS, total_duration / 60.0);
+    NSLog(@"Number timesteps: %d,  experiment duration: %.2f min\n", numberTimesteps, total_duration / 60.0);
     
     total_duration += 10.0; /* add 10 seconds to avoid FFT problems (wrap around) */
     
@@ -352,8 +354,8 @@ fftw_complex **inverseInBuffers = NULL;
     
     mDesign = (float**) malloc(sizeof(float*) * (ncols + 1));
     for (int col = 0; col < ncols + 1; col++) {
-        mDesign[col] = (float*) malloc(sizeof(float) * MAX_NUMBER_TIMESTEPS);
-         for (int ts = 0; ts < MAX_NUMBER_TIMESTEPS; ts++) {
+        mDesign[col] = (float*) malloc(sizeof(float) * numberTimesteps);
+         for (int ts = 0; ts < numberTimesteps; ts++) {
              if (col == ncols) {
                  mDesign[col][ts] = 1.0;
              } else {
@@ -657,11 +659,6 @@ fftw_complex **inverseInBuffers = NULL;
                 }
                 
                 numberTrials++;
-                
-                if (numberTrials > MAX_NUMBER_TRIALS) {
-                    NSString* errorString = [NSString stringWithFormat:@"Too many trials: %d!", numberTrials];
-                    return [NSError errorWithDomain:errorString code:MAX_TRIALS userInfo:nil];
-                }
             }
         }
     }
@@ -699,11 +696,11 @@ fftw_complex **inverseInBuffers = NULL;
     
     for (int col = 0; col < numberRegressors; col++) {
         for (int ts = 0; ts < numberTimesteps; ts++) {
-			if ((mDesign[col][ts] < 0.000000000000001 && mDesign[col][ts] > -0.000000000000001) || ts < 7) {
-				VPixel(outDesign, 0, ts, col, VFloat) = (VFloat) 0.0;
-			} else {
+//			if ((mDesign[col][ts] < 0.000000000000001 && mDesign[col][ts] > -0.000000000000001) || ts < 7) {
+//				VPixel(outDesign, 0, ts, col, VFloat) = (VFloat) 0.0;
+//			} else {
 				VPixel(outDesign, 0, ts, col, VFloat) = (VFloat) mDesign[col][ts];
-			}
+//			}
 //			if (col < 1 && (ts > 360 && ts < 391)){
 //				NSLog(@"%.20f", mDesign[col][ts]);
 //			}
