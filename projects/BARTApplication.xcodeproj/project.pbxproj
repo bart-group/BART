@@ -14,10 +14,7 @@
 		0040B80C1141470400A57967 /* BAAnalyzerElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A01141470400A57967 /* BAAnalyzerElement.m */; };
 		0040B80D1141470400A57967 /* BADataControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A21141470400A57967 /* BADataControl.m */; };
 		0040B80E1141470400A57967 /* BADataElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A41141470400A57967 /* BADataElement.m */; };
-		0040B80F1141470400A57967 /* BADataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A61141470400A57967 /* BADataElementVI.m */; };
 		0040B8101141470400A57967 /* BADesignElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A81141470400A57967 /* BADesignElement.m */; };
-		0040B8111141470400A57967 /* BADesignElementDyn.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7AA1141470400A57967 /* BADesignElementDyn.m */; };
-		0040B8121141470400A57967 /* BADesignElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7AC1141470400A57967 /* BADesignElementVI.m */; };
 		0040B8131141470400A57967 /* BADocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7AE1141470400A57967 /* BADocument.m */; };
 		0040B8141141470400A57967 /* BAElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B01141470400A57967 /* BAElement.m */; };
 		0040B8151141470400A57967 /* BAGUIProtoCGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B21141470400A57967 /* BAGUIProtoCGLayer.m */; };
@@ -34,6 +31,9 @@
 		0040B85F1141472200A57967 /* BADesignElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B8591141472200A57967 /* BADesignElementVITest.m */; };
 		0040B8701141488200A57967 /* SmoothnessEstim.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B86F1141488200A57967 /* SmoothnessEstim.c */; };
 		0040B87B11414A8E00A57967 /* ColorMappingFilter.cikernel in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0040B7F51141470400A57967 /* ColorMappingFilter.cikernel */; };
+		00B772C511417C6300B2931A /* BADataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* BADataElementVI.m */; };
+		00B772CA11417C7A00B2931A /* BADesignElementDyn.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C711417C7A00B2931A /* BADesignElementDyn.m */; };
+		00B772CB11417C7A00B2931A /* BADesignElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C911417C7A00B2931A /* BADesignElementVI.m */; };
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -69,7 +69,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090 /* BARTApplication */;
+			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = BARTApplication;
 		};
 /* End PBXContainerItemProxy section */
@@ -110,14 +110,8 @@
 		0040B7A21141470400A57967 /* BADataControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataControl.m; sourceTree = "<group>"; };
 		0040B7A31141470400A57967 /* BADataElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElement.h; sourceTree = "<group>"; };
 		0040B7A41141470400A57967 /* BADataElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElement.m; sourceTree = "<group>"; };
-		0040B7A51141470400A57967 /* BADataElementVI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElementVI.h; sourceTree = "<group>"; };
-		0040B7A61141470400A57967 /* BADataElementVI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElementVI.m; sourceTree = "<group>"; };
 		0040B7A71141470400A57967 /* BADesignElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElement.h; sourceTree = "<group>"; };
 		0040B7A81141470400A57967 /* BADesignElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElement.m; sourceTree = "<group>"; };
-		0040B7A91141470400A57967 /* BADesignElementDyn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementDyn.h; sourceTree = "<group>"; };
-		0040B7AA1141470400A57967 /* BADesignElementDyn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementDyn.m; sourceTree = "<group>"; };
-		0040B7AB1141470400A57967 /* BADesignElementVI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementVI.h; sourceTree = "<group>"; };
-		0040B7AC1141470400A57967 /* BADesignElementVI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementVI.m; sourceTree = "<group>"; };
 		0040B7AD1141470400A57967 /* BADocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADocument.h; sourceTree = "<group>"; };
 		0040B7AE1141470400A57967 /* BADocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADocument.m; sourceTree = "<group>"; };
 		0040B7AF1141470400A57967 /* BAElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAElement.h; sourceTree = "<group>"; };
@@ -146,6 +140,12 @@
 		0040B8591141472200A57967 /* BADesignElementVITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementVITest.m; sourceTree = "<group>"; };
 		0040B86F1141488200A57967 /* SmoothnessEstim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SmoothnessEstim.c; sourceTree = "<group>"; };
 		0040B9B1114173BD00A57967 /* BARTUnitTestSuite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
+		00B772C311417C6300B2931A /* BADataElementVI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElementVI.h; sourceTree = "<group>"; };
+		00B772C411417C6300B2931A /* BADataElementVI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElementVI.m; sourceTree = "<group>"; };
+		00B772C611417C7A00B2931A /* BADesignElementDyn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementDyn.h; sourceTree = "<group>"; };
+		00B772C711417C7A00B2931A /* BADesignElementDyn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementDyn.m; sourceTree = "<group>"; };
+		00B772C811417C7A00B2931A /* BADesignElementVI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementVI.h; sourceTree = "<group>"; };
+		00B772C911417C7A00B2931A /* BADesignElementVI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementVI.m; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -268,14 +268,8 @@
 				0040B7A21141470400A57967 /* BADataControl.m */,
 				0040B7A31141470400A57967 /* BADataElement.h */,
 				0040B7A41141470400A57967 /* BADataElement.m */,
-				0040B7A51141470400A57967 /* BADataElementVI.h */,
-				0040B7A61141470400A57967 /* BADataElementVI.m */,
 				0040B7A71141470400A57967 /* BADesignElement.h */,
 				0040B7A81141470400A57967 /* BADesignElement.m */,
-				0040B7A91141470400A57967 /* BADesignElementDyn.h */,
-				0040B7AA1141470400A57967 /* BADesignElementDyn.m */,
-				0040B7AB1141470400A57967 /* BADesignElementVI.h */,
-				0040B7AC1141470400A57967 /* BADesignElementVI.m */,
 				0040B7AD1141470400A57967 /* BADocument.h */,
 				0040B7AE1141470400A57967 /* BADocument.m */,
 				0040B7AF1141470400A57967 /* BAElement.h */,
@@ -340,6 +334,8 @@
 		0040B8051141470400A57967 /* EDNA */ = {
 			isa = PBXGroup;
 			children = (
+				00B772C311417C6300B2931A /* BADataElementVI.h */,
+				00B772C411417C6300B2931A /* BADataElementVI.m */,
 			);
 			path = EDNA;
 			sourceTree = "<group>";
@@ -347,6 +343,10 @@
 		0040B8061141470400A57967 /* NED */ = {
 			isa = PBXGroup;
 			children = (
+				00B772C611417C7A00B2931A /* BADesignElementDyn.h */,
+				00B772C711417C7A00B2931A /* BADesignElementDyn.m */,
+				00B772C811417C7A00B2931A /* BADesignElementVI.h */,
+				00B772C911417C7A00B2931A /* BADesignElementVI.m */,
 			);
 			path = NED;
 			sourceTree = "<group>";
@@ -524,7 +524,7 @@
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* BARTApplication */;
 			projectDirPath = "";
-			projectRoot = "../../<Project File Directory>";
+			projectRoot = .;
 			targets = (
 				8D1107260486CEB800E47090 /* BARTApplication */,
 				CE8B709010DA988F007AEB2B /* BARTUnitTestSuite */,
@@ -579,10 +579,7 @@
 				0040B80C1141470400A57967 /* BAAnalyzerElement.m in Sources */,
 				0040B80D1141470400A57967 /* BADataControl.m in Sources */,
 				0040B80E1141470400A57967 /* BADataElement.m in Sources */,
-				0040B80F1141470400A57967 /* BADataElementVI.m in Sources */,
 				0040B8101141470400A57967 /* BADesignElement.m in Sources */,
-				0040B8111141470400A57967 /* BADesignElementDyn.m in Sources */,
-				0040B8121141470400A57967 /* BADesignElementVI.m in Sources */,
 				0040B8131141470400A57967 /* BADocument.m in Sources */,
 				0040B8141141470400A57967 /* BAElement.m in Sources */,
 				0040B8151141470400A57967 /* BAGUIProtoCGLayer.m in Sources */,
@@ -595,6 +592,9 @@
 				0040B8491141470400A57967 /* main.m in Sources */,
 				0040B84A1141470400A57967 /* Negative.cikernel in Sources */,
 				0040B8701141488200A57967 /* SmoothnessEstim.c in Sources */,
+				00B772C511417C6300B2931A /* BADataElementVI.m in Sources */,
+				00B772CA11417C7A00B2931A /* BADesignElementDyn.m in Sources */,
+				00B772CB11417C7A00B2931A /* BADesignElementVI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

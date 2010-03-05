@@ -29,13 +29,6 @@
 			sepNavVisRange = "{0, 729}";
 		};
 	};
-	0040B7A61141470400A57967 /* BADataElementVI.m */ = {
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1043, 4875}}";
-			sepNavSelRange = "{298, 6}";
-			sepNavVisRange = "{150, 362}";
-		};
-	};
 	0040B7B11141470400A57967 /* BAGUIProtoCGLayer.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {776, 832}}";
@@ -238,7 +231,7 @@
 		);
 		name = "/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/projects/BARTApplication-Info.plist";
 		rLen = 0;
-		rLoc = 9223372036854775807;
+		rLoc = 9223372036854775808;
 	};
 	0040B98E11416FCF00A57967 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -259,7 +252,7 @@
 		);
 		name = "/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/projects/BARTUnitTestSuite-Info.plist";
 		rLen = 0;
-		rLoc = 9223372036854775807;
+		rLoc = 9223372036854775808;
 	};
 	0040B9D21141783700A57967 /* PlistBookmark */ = {
 		isa = PlistBookmark;
@@ -270,7 +263,7 @@
 		);
 		name = "/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/projects/BARTUnitTestSuite-Info.plist";
 		rLen = 0;
-		rLoc = 9223372036854775807;
+		rLoc = 9223372036854775808;
 	};
 	005457811139750B00E98146 /* BARTApplication */ = {
 		isa = PBXExecutable;
@@ -308,7 +301,7 @@
 		isSCMEnabled = 0;
 		scmConfiguration = {
 			repositoryNamesForRoots = {
-				"../../<Project File Directory>" = BARTApplication;
+				. = BARTApplication;
 			};
 		};
 	};
@@ -333,6 +326,49 @@
 		path = /usr/include/i386/limits.h;
 		sourceTree = "<absolute>";
 	};
+	00B772C611417C7A00B2931A /* BADesignElementDyn.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {776, 486}}";
+			sepNavSelRange = "{264, 0}";
+			sepNavVisRange = "{0, 515}";
+		};
+	};
+	00B772D011417C8800B2931A /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 0040B9B1114173BD00A57967 /* BARTUnitTestSuite-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/projects/BARTUnitTestSuite-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	00B772E811417D3400B2931A /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 0040B9B1114173BD00A57967 /* BARTUnitTestSuite-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/projects/BARTUnitTestSuite-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	00B772E911417D3400B2931A /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 00B772C611417C7A00B2931A /* BADesignElementDyn.h */;
+	};
+	00B772EA11417D3400B2931A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 00B772C611417C7A00B2931A /* BADesignElementDyn.h */;
+		name = "BADesignElementDyn.h: 14";
+		rLen = 0;
+		rLoc = 264;
+		rType = 0;
+		vrLen = 515;
+		vrLoc = 0;
+	};
 	00E13739113D75E6009302BF /* BADesignElementVITest.m:30 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
@@ -341,7 +377,7 @@
 		continueAfterActions = 0;
 		countType = 0;
 		delayBeforeContinue = 0;
-		fileReference = CE8B70AD10DA9B0C007AEB2B /* BADesignElementVITest.m */;
+		fileReference = 0040B8591141472200A57967 /* BADesignElementVITest.m */;
 		functionName = "-testProperties";
 		hitCount = 0;
 		ignoreCount = 0;
@@ -369,9 +405,9 @@
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = 005457811139750B00E98146 /* BARTApplication */;
-		activeTarget = CE8B709010DA988F007AEB2B /* BARTUnitTestSuite */;
+		activeTarget = 8D1107260486CEB800E47090 /* BARTApplication */;
 		addToTargets = (
-			CE8B709010DA988F007AEB2B /* BARTUnitTestSuite */,
+			8D1107260486CEB800E47090 /* BARTApplication */,
 		);
 		breakpoints = (
 			00E13739113D75E6009302BF /* BADesignElementVITest.m:30 */,
@@ -451,28 +487,32 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 289490588;
-			PBXWorkspaceStateSaveDate = 289490588;
+			PBXPerProjectTemplateStateSaveDate = 289504315;
+			PBXWorkspaceStateSaveDate = 289504315;
 		};
 		perUserProjectItems = {
-			0040B8651141485200A57967 /* PBXTextBookmark */ = 0040B8651141485200A57967 /* PBXTextBookmark */;
-			0040B8661141485200A57967 /* PBXTextBookmark */ = 0040B8661141485200A57967 /* PBXTextBookmark */;
-			0040B8671141485200A57967 /* PBXTextBookmark */ = 0040B8671141485200A57967 /* PBXTextBookmark */;
-			0040B8681141485200A57967 /* PBXTextBookmark */ = 0040B8681141485200A57967 /* PBXTextBookmark */;
-			0040B8691141485200A57967 /* PBXTextBookmark */ = 0040B8691141485200A57967 /* PBXTextBookmark */;
-			0040B88211414A9300A57967 /* PBXTextBookmark */ = 0040B88211414A9300A57967 /* PBXTextBookmark */;
-			0040B91611415CB500A57967 /* PBXTextBookmark */ = 0040B91611415CB500A57967 /* PBXTextBookmark */;
-			0040B91711415CB500A57967 /* PBXTextBookmark */ = 0040B91711415CB500A57967 /* PBXTextBookmark */;
-			0040B91811415CB500A57967 /* PBXTextBookmark */ = 0040B91811415CB500A57967 /* PBXTextBookmark */;
-			0040B91911415CB500A57967 /* PBXTextBookmark */ = 0040B91911415CB500A57967 /* PBXTextBookmark */;
-			0040B91B11415CB500A57967 /* PBXTextBookmark */ = 0040B91B11415CB500A57967 /* PBXTextBookmark */;
-			0040B92811415F4100A57967 /* PBXTextBookmark */ = 0040B92811415F4100A57967 /* PBXTextBookmark */;
-			0040B97411416DA400A57967 /* PBXTextBookmark */ = 0040B97411416DA400A57967 /* PBXTextBookmark */;
-			0040B98D11416FCF00A57967 /* PlistBookmark */ = 0040B98D11416FCF00A57967 /* PlistBookmark */;
-			0040B98E11416FCF00A57967 /* PBXTextBookmark */ = 0040B98E11416FCF00A57967 /* PBXTextBookmark */;
-			0040B9C6114175D100A57967 /* PlistBookmark */ = 0040B9C6114175D100A57967 /* PlistBookmark */;
-			0040B9D21141783700A57967 /* PlistBookmark */ = 0040B9D21141783700A57967 /* PlistBookmark */;
-			008DA623113C344700918EB7 /* PBXTextBookmark */ = 008DA623113C344700918EB7 /* PBXTextBookmark */;
+			0040B8651141485200A57967 = 0040B8651141485200A57967 /* PBXTextBookmark */;
+			0040B8661141485200A57967 = 0040B8661141485200A57967 /* PBXTextBookmark */;
+			0040B8671141485200A57967 = 0040B8671141485200A57967 /* PBXTextBookmark */;
+			0040B8681141485200A57967 = 0040B8681141485200A57967 /* PBXTextBookmark */;
+			0040B8691141485200A57967 = 0040B8691141485200A57967 /* PBXTextBookmark */;
+			0040B88211414A9300A57967 = 0040B88211414A9300A57967 /* PBXTextBookmark */;
+			0040B91611415CB500A57967 = 0040B91611415CB500A57967 /* PBXTextBookmark */;
+			0040B91711415CB500A57967 = 0040B91711415CB500A57967 /* PBXTextBookmark */;
+			0040B91811415CB500A57967 = 0040B91811415CB500A57967 /* PBXTextBookmark */;
+			0040B91911415CB500A57967 = 0040B91911415CB500A57967 /* PBXTextBookmark */;
+			0040B91B11415CB500A57967 = 0040B91B11415CB500A57967 /* PBXTextBookmark */;
+			0040B92811415F4100A57967 = 0040B92811415F4100A57967 /* PBXTextBookmark */;
+			0040B97411416DA400A57967 = 0040B97411416DA400A57967 /* PBXTextBookmark */;
+			0040B98D11416FCF00A57967 = 0040B98D11416FCF00A57967 /* PlistBookmark */;
+			0040B98E11416FCF00A57967 = 0040B98E11416FCF00A57967 /* PBXTextBookmark */;
+			0040B9C6114175D100A57967 = 0040B9C6114175D100A57967 /* PlistBookmark */;
+			0040B9D21141783700A57967 = 0040B9D21141783700A57967 /* PlistBookmark */;
+			008DA623113C344700918EB7 = 008DA623113C344700918EB7 /* PBXTextBookmark */;
+			00B772D011417C8800B2931A /* PlistBookmark */ = 00B772D011417C8800B2931A /* PlistBookmark */;
+			00B772E811417D3400B2931A /* PlistBookmark */ = 00B772E811417D3400B2931A /* PlistBookmark */;
+			00B772E911417D3400B2931A /* PBXBookmark */ = 00B772E911417D3400B2931A /* PBXBookmark */;
+			00B772EA11417D3400B2931A /* PBXTextBookmark */ = 00B772EA11417D3400B2931A /* PBXTextBookmark */;
 		};
 		sourceControlManager = 005457A91139751700E98146 /* Source Control */;
 		userBuildSettings = {
@@ -491,19 +531,5 @@
 	};
 	CE8B709010DA988F007AEB2B /* BARTUnitTestSuite */ = {
 		activeExec = 0;
-	};
-	CE8B70AD10DA9B0C007AEB2B /* BADesignElementVITest.m */ = {
-		isa = PBXFileReference;
-		fileEncoding = 4;
-		lastKnownFileType = sourcecode.c.objc;
-		name = BADesignElementVITest.m;
-		path = /Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/projects/BADesignElementVITest.m;
-		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {855, 754}}";
-			sepNavSelRange = "{1193, 31}";
-			sepNavVisRange = "{923, 601}";
-			sepNavWindowFrame = "{{337, 95}, {750, 558}}";
-		};
 	};
 }
