@@ -31,6 +31,13 @@
 		0040B85F1141472200A57967 /* BADesignElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B8591141472200A57967 /* BADesignElementVITest.m */; };
 		0040B8701141488200A57967 /* SmoothnessEstim.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B86F1141488200A57967 /* SmoothnessEstim.c */; };
 		0040B87B11414A8E00A57967 /* ColorMappingFilter.cikernel in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0040B7F51141470400A57967 /* ColorMappingFilter.cikernel */; };
+		00B1AC24114554DB008FC09D /* COEDLValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AC22114554DB008FC09D /* COEDLValidator.h */; };
+		00B1AC25114554DB008FC09D /* COEDLValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC23114554DB008FC09D /* COEDLValidator.m */; };
+		00B1AC34114556C3008FC09D /* COEDLValidatorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC33114556C3008FC09D /* COEDLValidatorTest.m */; };
+		00B1AC5911455E38008FC09D /* COXMLUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AC5711455E38008FC09D /* COXMLUtility.h */; };
+		00B1AC5A11455E38008FC09D /* COXMLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC5811455E38008FC09D /* COXMLUtility.m */; };
+		00B1AC81114562A8008FC09D /* COXMLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC5811455E38008FC09D /* COXMLUtility.m */; };
+		00B1ACDC114565CE008FC09D /* COEDLValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC23114554DB008FC09D /* COEDLValidator.m */; };
 		00B772C511417C6300B2931A /* BADataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* BADataElementVI.m */; };
 		00B772CA11417C7A00B2931A /* BADesignElementDyn.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C711417C7A00B2931A /* BADesignElementDyn.m */; };
 		00B772CB11417C7A00B2931A /* BADesignElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C911417C7A00B2931A /* BADesignElementVI.m */; };
@@ -155,6 +162,12 @@
 		0040B8591141472200A57967 /* BADesignElementVITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementVITest.m; sourceTree = "<group>"; };
 		0040B86F1141488200A57967 /* SmoothnessEstim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SmoothnessEstim.c; sourceTree = "<group>"; };
 		0040B9B1114173BD00A57967 /* BARTUnitTestSuite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
+		00B1AC22114554DB008FC09D /* COEDLValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COEDLValidator.h; sourceTree = "<group>"; };
+		00B1AC23114554DB008FC09D /* COEDLValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COEDLValidator.m; sourceTree = "<group>"; };
+		00B1AC32114556C3008FC09D /* COEDLValidatorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COEDLValidatorTest.h; sourceTree = "<group>"; };
+		00B1AC33114556C3008FC09D /* COEDLValidatorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COEDLValidatorTest.m; sourceTree = "<group>"; };
+		00B1AC5711455E38008FC09D /* COXMLUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COXMLUtility.h; sourceTree = "<group>"; };
+		00B1AC5811455E38008FC09D /* COXMLUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COXMLUtility.m; sourceTree = "<group>"; };
 		00B772C311417C6300B2931A /* BADataElementVI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElementVI.h; sourceTree = "<group>"; };
 		00B772C411417C6300B2931A /* BADataElementVI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElementVI.m; sourceTree = "<group>"; };
 		00B772C611417C7A00B2931A /* BADesignElementDyn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementDyn.h; sourceTree = "<group>"; };
@@ -337,6 +350,10 @@
 			children = (
 				00C39FEA1144FADC00725668 /* COSystemConfig.h */,
 				00C39FEB1144FADC00725668 /* COSystemConfig.m */,
+				00B1AC22114554DB008FC09D /* COEDLValidator.h */,
+				00B1AC23114554DB008FC09D /* COEDLValidator.m */,
+				00B1AC5711455E38008FC09D /* COXMLUtility.h */,
+				00B1AC5811455E38008FC09D /* COXMLUtility.m */,
 			);
 			path = CLETUS;
 			sourceTree = "<group>";
@@ -392,6 +409,8 @@
 				00C39FFB1144FBD600725668 /* CLETUSUnitTestSuite-Info.plist */,
 				00C3A0011144FBEF00725668 /* COSystemConfigTest.h */,
 				00C3A0021144FBEF00725668 /* COSystemConfigTest.m */,
+				00B1AC32114556C3008FC09D /* COEDLValidatorTest.h */,
+				00B1AC33114556C3008FC09D /* COEDLValidatorTest.m */,
 			);
 			path = CLETUSTests;
 			sourceTree = "<group>";
@@ -493,6 +512,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				00C3A02B1144FF9700725668 /* COSystemConfig.h in Headers */,
+				00B1AC24114554DB008FC09D /* COEDLValidator.h in Headers */,
+				00B1AC5911455E38008FC09D /* COXMLUtility.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,6 +603,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+				ORGANIZATIONNAME = "Max-Planck-Gesellschaft";
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "BARTApplication" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -664,6 +686,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				00C3A02A1144FF9600725668 /* COSystemConfig.m in Sources */,
+				00B1AC25114554DB008FC09D /* COEDLValidator.m in Sources */,
+				00B1AC5A11455E38008FC09D /* COXMLUtility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,6 +697,9 @@
 			files = (
 				00C3A0041144FBEF00725668 /* COSystemConfigTest.m in Sources */,
 				00C3A0271144FF5600725668 /* COSystemConfig.m in Sources */,
+				00B1AC34114556C3008FC09D /* COEDLValidatorTest.m in Sources */,
+				00B1AC81114562A8008FC09D /* COXMLUtility.m in Sources */,
+				00B1ACDC114565CE008FC09D /* COEDLValidator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
