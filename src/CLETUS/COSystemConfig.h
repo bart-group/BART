@@ -8,9 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+
 enum COSystemConfigError {
-    URL_CREATION,
-	XML_DOCUMENT_READ,
 	CONFIG_ENTRY
 };
 
@@ -33,16 +32,12 @@ enum COSystemConfigError {
 +(COSystemConfig*)getInstance;
 
 /**
- * Initializes the configuration with the information from an EDL file
- * and optionally checks its logical consistency.
+ * Initializes the configuration with the information from an EDL file.
  *
  * \param edlPath  Path to the EDL file.
- * \param rulePath Path to the XML file containing the EDL 
- *                 logical validation rules (pass nil if not needed).
  * \return         Nil if successful, error object otherwise.
  */
--(NSError*)initWithContentsOfEDLFile:(NSString*)edlPath 
-                         andEDLRules:(NSString*)rulePath;
+-(NSError*)initWithContentsOfEDLFile:(NSString*)edlPath;
 
 /**
  * Sets a property for a given key.
@@ -63,16 +58,6 @@ enum COSystemConfigError {
  * \return    Value for key (string representation).
  */
 -(NSString*)getProp:(NSString*)key;
-
-/**
- * Resolves a reference to a XML node given in MATLAB syntax.
- *
- * \param ref  Reference path to the wanted EDL value in MATLAB syntax.
- * \param node Context node from which the reference path navigates.
- * \return     Value of the node referenced by ref.
- */
--(NSString*)substituteEDLValueForRef:(NSString*)ref
-                         basedOnNode:(NSXMLNode*)node;
 
 
 @end
