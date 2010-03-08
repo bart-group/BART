@@ -34,6 +34,14 @@
 		00B772C511417C6300B2931A /* BADataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* BADataElementVI.m */; };
 		00B772CA11417C7A00B2931A /* BADesignElementDyn.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C711417C7A00B2931A /* BADesignElementDyn.m */; };
 		00B772CB11417C7A00B2931A /* BADesignElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C911417C7A00B2931A /* BADesignElementVI.m */; };
+		00C3A0041144FBEF00725668 /* COSystemConfigTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C3A0021144FBEF00725668 /* COSystemConfigTest.m */; };
+		00C3A0271144FF5600725668 /* COSystemConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C39FEB1144FADC00725668 /* COSystemConfig.m */; };
+		00C3A02A1144FF9600725668 /* COSystemConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C39FEB1144FADC00725668 /* COSystemConfig.m */; };
+		00C3A02B1144FF9700725668 /* COSystemConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 00C39FEA1144FADC00725668 /* COSystemConfig.h */; };
+		00C3A05911450B7200725668 /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C39FF11144FB2100725668 /* CLETUS.dylib */; };
+		00C3A06211450B9300725668 /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C39FF11144FB2100725668 /* CLETUS.dylib */; };
+		00C3A081114510CE00725668 /* Init_Links_1.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00C3A07F114510CE00725668 /* Init_Links_1.edl */; };
+		00C3A082114510CE00725668 /* rtExperiment_v14.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 00C3A080114510CE00725668 /* rtExperiment_v14.xsd */; };
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -71,6 +79,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = BARTApplication;
+		};
+		00C3A0221144FF0C00725668 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00C39FF01144FB2100725668 /* CLETUS */;
+			remoteInfo = CLETUS;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -146,6 +161,15 @@
 		00B772C711417C7A00B2931A /* BADesignElementDyn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementDyn.m; sourceTree = "<group>"; };
 		00B772C811417C7A00B2931A /* BADesignElementVI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementVI.h; sourceTree = "<group>"; };
 		00B772C911417C7A00B2931A /* BADesignElementVI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementVI.m; sourceTree = "<group>"; };
+		00C39FEA1144FADC00725668 /* COSystemConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COSystemConfig.h; sourceTree = "<group>"; };
+		00C39FEB1144FADC00725668 /* COSystemConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COSystemConfig.m; sourceTree = "<group>"; };
+		00C39FF11144FB2100725668 /* CLETUS.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = CLETUS.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		00C39FFA1144FBD600725668 /* CLETUSUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CLETUSUnitTestSuite.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00C39FFB1144FBD600725668 /* CLETUSUnitTestSuite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CLETUSUnitTestSuite-Info.plist"; path = "../../projects/CLETUSUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
+		00C3A0011144FBEF00725668 /* COSystemConfigTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COSystemConfigTest.h; sourceTree = "<group>"; };
+		00C3A0021144FBEF00725668 /* COSystemConfigTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COSystemConfigTest.m; sourceTree = "<group>"; };
+		00C3A07F114510CE00725668 /* Init_Links_1.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Init_Links_1.edl; sourceTree = "<group>"; };
+		00C3A080114510CE00725668 /* rtExperiment_v14.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rtExperiment_v14.xsd; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -168,6 +192,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		00C39FEF1144FB2100725668 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00C39FF71144FBD600725668 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00C3A06211450B9300725668 /* CLETUS.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072E0486CEB800E47090 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -185,6 +224,7 @@
 				CE8A28D810F51220002422B5 /* AppKit.framework in Frameworks */,
 				CE8A2A3A10F61713002422B5 /* Quartz.framework in Frameworks */,
 				CE7D689B1113447C005A9D15 /* libfftw3.a in Frameworks */,
+				00C3A05911450B7200725668 /* CLETUS.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,40 +335,10 @@
 		0040B7FC1141470400A57967 /* CLETUS */ = {
 			isa = PBXGroup;
 			children = (
-				0040B7FD1141470400A57967 /* build */,
+				00C39FEA1144FADC00725668 /* COSystemConfig.h */,
+				00C39FEB1144FADC00725668 /* COSystemConfig.m */,
 			);
 			path = CLETUS;
-			sourceTree = "<group>";
-		};
-		0040B7FD1141470400A57967 /* build */ = {
-			isa = PBXGroup;
-			children = (
-				0040B7FE1141470400A57967 /* CLETUS.build */,
-			);
-			path = build;
-			sourceTree = "<group>";
-		};
-		0040B7FE1141470400A57967 /* CLETUS.build */ = {
-			isa = PBXGroup;
-			children = (
-				0040B7FF1141470400A57967 /* CLETUS.pbxindex */,
-			);
-			path = CLETUS.build;
-			sourceTree = "<group>";
-		};
-		0040B7FF1141470400A57967 /* CLETUS.pbxindex */ = {
-			isa = PBXGroup;
-			children = (
-				0040B8001141470400A57967 /* strings.pbxstrings */,
-			);
-			path = CLETUS.pbxindex;
-			sourceTree = "<group>";
-		};
-		0040B8001141470400A57967 /* strings.pbxstrings */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = strings.pbxstrings;
 			sourceTree = "<group>";
 		};
 		0040B8051141470400A57967 /* EDNA */ = {
@@ -377,6 +387,11 @@
 		0040B85C1141472200A57967 /* CLETUSTests */ = {
 			isa = PBXGroup;
 			children = (
+				00C3A07F114510CE00725668 /* Init_Links_1.edl */,
+				00C3A080114510CE00725668 /* rtExperiment_v14.xsd */,
+				00C39FFB1144FBD600725668 /* CLETUSUnitTestSuite-Info.plist */,
+				00C3A0011144FBEF00725668 /* COSystemConfigTest.h */,
+				00C3A0021144FBEF00725668 /* COSystemConfigTest.m */,
 			);
 			path = CLETUSTests;
 			sourceTree = "<group>";
@@ -417,6 +432,8 @@
 			children = (
 				8D1107320486CEB800E47090 /* BARTApplication.app */,
 				CE8B709110DA988F007AEB2B /* BARTApplication.octest */,
+				00C39FF11144FB2100725668 /* CLETUS.dylib */,
+				00C39FFA1144FBD600725668 /* CLETUSUnitTestSuite.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -470,7 +487,53 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		00C39FED1144FB2100725668 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00C3A02B1144FF9700725668 /* COSystemConfig.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		00C39FF01144FB2100725668 /* CLETUS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00C39FF41144FB4000725668 /* Build configuration list for PBXNativeTarget "CLETUS" */;
+			buildPhases = (
+				00C39FED1144FB2100725668 /* Headers */,
+				00C39FEE1144FB2100725668 /* Sources */,
+				00C39FEF1144FB2100725668 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CLETUS;
+			productName = CLETUS;
+			productReference = 00C39FF11144FB2100725668 /* CLETUS.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		00C39FF91144FBD600725668 /* CLETUSUnitTestSuite */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00C39FFE1144FBD700725668 /* Build configuration list for PBXNativeTarget "CLETUSUnitTestSuite" */;
+			buildPhases = (
+				00C39FF51144FBD600725668 /* Resources */,
+				00C39FF61144FBD600725668 /* Sources */,
+				00C39FF71144FBD600725668 /* Frameworks */,
+				00C39FF81144FBD600725668 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CLETUSUnitTestSuite;
+			productName = CLETUSUnitTestSuite;
+			productReference = 00C39FFA1144FBD600725668 /* CLETUSUnitTestSuite.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		8D1107260486CEB800E47090 /* BARTApplication */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "BARTApplication" */;
@@ -484,6 +547,7 @@
 				CE8A2B3610F6250A002422B5 /* PBXBuildRule */,
 			);
 			dependencies = (
+				00C3A0231144FF0C00725668 /* PBXTargetDependency */,
 			);
 			name = BARTApplication;
 			productInstallPath = "$(HOME)/Applications";
@@ -531,11 +595,22 @@
 			targets = (
 				8D1107260486CEB800E47090 /* BARTApplication */,
 				CE8B709010DA988F007AEB2B /* BARTUnitTestSuite */,
+				00C39FF01144FB2100725668 /* CLETUS */,
+				00C39FF91144FBD600725668 /* CLETUSUnitTestSuite */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		00C39FF51144FBD600725668 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00C3A081114510CE00725668 /* Init_Links_1.edl in Resources */,
+				00C3A082114510CE00725668 /* rtExperiment_v14.xsd in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D1107290486CEB800E47090 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -555,6 +630,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		00C39FF81144FBD600725668 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
 		CE8B708F10DA988F007AEB2B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -571,6 +659,23 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		00C39FEE1144FB2100725668 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00C3A02A1144FF9600725668 /* COSystemConfig.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00C39FF61144FBD600725668 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00C3A0041144FBEF00725668 /* COSystemConfigTest.m in Sources */,
+				00C3A0271144FF5600725668 /* COSystemConfig.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -619,6 +724,11 @@
 			target = 8D1107260486CEB800E47090 /* BARTApplication */;
 			targetProxy = 0040B9911141708D00A57967 /* PBXContainerItemProxy */;
 		};
+		00C3A0231144FF0C00725668 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00C39FF01144FB2100725668 /* CLETUS */;
+			targetProxy = 00C3A0221144FF0C00725668 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -641,6 +751,110 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		00C39FF21144FB2200725668 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = CLETUS;
+			};
+			name = Debug;
+		};
+		00C39FF31144FB2200725668 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = CLETUS;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		00C39FFC1144FBD700725668 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "CLETUSUnitTestSuite-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = CLETUSUnitTestSuite;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		00C39FFD1144FBD700725668 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "CLETUSUnitTestSuite-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = CLETUSUnitTestSuite;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -652,8 +866,13 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BARTApplication_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1 = "";
 				INFOPLIST_FILE = "BARTApplication-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					opt/local/lib,
+					/usr/lib,
+				);
 				PRODUCT_NAME = BARTApplication;
 			};
 			name = Debug;
@@ -769,6 +988,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		00C39FF41144FB4000725668 /* Build configuration list for PBXNativeTarget "CLETUS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00C39FF21144FB2200725668 /* Debug */,
+				00C39FF31144FB2200725668 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		00C39FFE1144FBD700725668 /* Build configuration list for PBXNativeTarget "CLETUSUnitTestSuite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00C39FFC1144FBD700725668 /* Debug */,
+				00C39FFD1144FBD700725668 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "BARTApplication" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
