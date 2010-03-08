@@ -22,22 +22,14 @@ COSystemConfig* config;
 
 -(void)setUp
 {
-	NSFileManager *fm = [NSFileManager defaultManager];
-    BOOL fileExists = [fm fileExistsAtPath:@"../tests/CLETUSTests/Init_Links_1.edl"] ;
-	if (YES == fileExists){
-		config = [COSystemConfig getInstance];
-		[config initWithContentsOfEDLFile:@"../tests/CLETUSTests/Init_Links_1.edl"];
-	}
-	else {
-		printf("TEST");
-	}
+	config = [COSystemConfig getInstance];
+    [config initWithContentsOfEDLFile:@"../tests/CLETUSTests/Init_Links_1.edl" andEDLRules:nil];
 }
 
 -(void)testInit
 {
 	NSError* err = nil;
-	err = [config initWithContentsOfEDLFile:@"../tests/CLETUSTests/Init_Links_1.edl"];
-//    err = [config initWithContentsOfEDLFile:@"/Users/Lydi/Development/BARTProcedure/EDL_material/test.xml"];
+	err = [config initWithContentsOfEDLFile:@"../tests/CLETUSTests/Init_Links_1.edl" andEDLRules:nil];
     
     BOOL success = NO;
     if (err == nil) {
@@ -50,7 +42,7 @@ COSystemConfig* config;
 -(void)testChallengeInitError
 {
     NSError* err = nil;
-	err = [config initWithContentsOfEDLFile:@"not_existing.xml"];
+	err = [config initWithContentsOfEDLFile:@"not_existing.foo" andEDLRules:nil];
     
     BOOL success = NO;
     if (err == nil) {
@@ -62,20 +54,67 @@ COSystemConfig* config;
     STAssertEquals(NO, success, @"Expected reading error (XML_DOCUMENT_READ, file not existing)!");
 }
 
+-(void)testSubstituteEDLValueForRef
+{
+    NSXMLDocument* doc = [[NSXMLDocument alloc] initWithXMLString:@"<?xml version=\"1.0\"?><!-- far --><rules><rule><param value=\"foo\"></param></rule><rule><param>bar</param></rule></rules><!-- boo -->" 
+                                                          options:NSXMLDocumentTidyXML 
+                                                            error:nil];
+    
+    NSString* attrRef    = @"rules.rule.param.ATTRIBUTE.value";
+    NSString* contentRef = @"rules.rule{2}.param.CONTENT";
+    
+    NSString* falsePath1  = @"rules.rule{3}.param.CONTENT";
+    NSString* falsePath2  = @"rules.rand.param.CONTENT";
+    NSString* falsePath3  = @"rules.rule.param.ATTRIBUTE.not";
+    NSString* falsePath4  = @"rules.rule.param.ATTRIBUT.value";
+    NSString* falsePath5  = @"rules.rule{2}.param.CONTEN";
+    NSString* falsePath6  = @"rules";
+    
+    
+    NSString* attrRefExpectedValue    = @"foo";
+    NSString* contentRefExpectedValue = @"bar";
+    
+    NSXMLNode* docRoot = [[doc rootElement] parent];
+    
+    NSString* attrResult    = [config substituteEDLValueForRef:attrRef basedOnNode:docRoot];
+    NSString* contentResult = [config substituteEDLValueForRef:contentRef basedOnNode:docRoot];
+    
+    NSString* r1FalsePath1  = [config substituteEDLValueForRef:falsePath1 basedOnNode:docRoot];
+    NSString* r2FalsePath2  = [config substituteEDLValueForRef:falsePath2 basedOnNode:docRoot];
+    NSString* r3FalsePath3  = [config substituteEDLValueForRef:falsePath3 basedOnNode:docRoot];
+    NSString* r4FalsePath4  = [config substituteEDLValueForRef:falsePath4 basedOnNode:docRoot];
+    NSString* r5FalsePath5  = [config substituteEDLValueForRef:falsePath5 basedOnNode:docRoot];
+    NSString* r6FalsePath6  = [config substituteEDLValueForRef:falsePath6 basedOnNode:docRoot];
+    
+    BOOL success = NO;
+    
+    if ([attrResult compare:attrRefExpectedValue] == 0
+        && [contentResult compare:contentRefExpectedValue] == 0) {
+        success = YES;
+    }
+    
+    if (r1FalsePath1 != nil
+        || r2FalsePath2 != nil
+        || r3FalsePath3 != nil
+        || r4FalsePath4 != nil
+        || r5FalsePath5 != nil
+        || r6FalsePath6 != nil) {
+        success = NO;
+    }
+    
+    STAssertEquals(YES, success, @"References were not successfully resolved!");
+    
+    [doc release];
+}
+
 -(void)testGetProp
 {
     
     NSString* property = @"/rtExperiment/environment/resultImage/imageModalities/imgBase";
-//    NSString* property = @"/person/name[1]/firstName";
     NSString* value = [config getProp:property];
     
-//    FILE* fp = fopen("/Users/Lydi/Development/BARTProcedure/EDL_material/outfile_getprop.txt", "w");
-//    fputs([value cStringUsingEncoding:NSUTF8StringEncoding], fp);
-//    fclose(fp);
-    
     NSString* expected = @"results_";
-//    NSString* expected = @"John";
-
+    
     STAssertEqualObjects(value, expected, @"Value %s does not match the expected %s!", [value cStringUsingEncoding:NSUTF8StringEncoding], [expected cStringUsingEncoding:NSUTF8StringEncoding]);
 }
 
@@ -90,47 +129,6 @@ COSystemConfig* config;
     
     STAssertEqualObjects(actualValue, value, @"Value %s does not match the expected %s!", [actualValue cStringUsingEncoding:NSUTF8StringEncoding], [value cStringUsingEncoding:NSUTF8StringEncoding]);
 }
-
-//-(void)testNSXMLDocumentClass
-//{
-//    NSXMLDocument* doc;
-//    NSError* err;
-//    NSString* file = [[NSString alloc] initWithString:@"/Users/Lydi/Development/BARTProcedure/EDL_material/test.xml"];
-//    NSURL* fileURL = [NSURL fileURLWithPath:file];
-//    
-//    doc = [[NSXMLDocument alloc] initWithContentsOfURL:fileURL 
-//                                               options:(NSXMLNodePreserveWhitespace|NSXMLNodePreserveCDATA) 
-//                                                 error:&err];
-//    
-////    NSError* err;
-////    NSString* fileContent = [NSString stringWithContentsOfFile:@"/Users/Lydi/Development/BARTProcedure/EDL_material/test.xml" 
-////                                                      encoding:NSUTF8StringEncoding
-////                                                         error:&err];
-////    FILE* fp = fopen("/Users/Lydi/Development/BARTProcedure/EDL_material/outfile_docclass.txt", "w");
-////    fputs([fileContent cStringUsingEncoding:NSUTF8StringEncoding], fp);
-////    fclose(fp);
-////    
-////    NSXMLDocument* doc = [[NSXMLDocument alloc] initWithXMLString:fileContent
-////                                                          options:(NSXMLNodePreserveWhitespace|NSXMLNodePreserveCDATA)
-////                                                            error:&err];
-////    if (doc == nil) { 
-////        doc = [[NSXMLDocument alloc] initWithContentsOfURL:fileURL 
-////                                                   options:NSXMLDocumentTidyXML 
-////                                                     error:&err]; 
-////    }
-//    
-//    NSXMLElement* thisUser;
-//    NSArray* nodes = [doc nodesForXPath:@"/person/name[1]" error:&err];
-//    if ([nodes count] > 0) {
-//        thisUser = [nodes objectAtIndex:0];
-////        FILE* fp = fopen("/Users/Lydi/Development/BARTProcedure/EDL_material/outfile_docclass.txt", "w");
-////        fputs([[[thisUser childAtIndex:0] stringValue] cStringUsingEncoding:NSUTF8StringEncoding], fp);
-////        fputs([[NSString stringWithFormat:@"%@", doc] cStringUsingEncoding:NSUTF8StringEncoding], fp);
-////        fclose(fp);
-//    }
-//    
-//    STAssertEqualObjects([[thisUser childAtIndex:0] stringValue], @"John", @"Element value missmatch!"); 
-//}
 
 -(void)tearDown
 {

@@ -14,7 +14,7 @@ enum COSystemConfigError {
 	CONFIG_ENTRY
 };
 
-/*!
+/**
  * Class for storing realtime fMRI configuration (experiment setup,
  * design information, etc.)
  * Differentiates between original experiment config (pre experiment 
@@ -25,22 +25,26 @@ enum COSystemConfigError {
 	
 }
 
-/*!
+/**
  * Return the singleton COSystemConfig object.
  *
  * \return COSystemConfig object.
  */
 +(COSystemConfig*)getInstance;
 
-/*!
- * Initializes the configuration with the information from an EDL file.
+/**
+ * Initializes the configuration with the information from an EDL file
+ * and optionally checks its logical consistency.
  *
- * \param path Path (incl. file name) to the EDL file.
- * \return     Nil if successful, error object otherwise.
+ * \param edlPath  Path to the EDL file.
+ * \param rulePath Path to the XML file containing the EDL 
+ *                 logical validation rules (pass nil if not needed).
+ * \return         Nil if successful, error object otherwise.
  */
--(NSError*)initWithContentsOfEDLFile:(NSString*)path;
+-(NSError*)initWithContentsOfEDLFile:(NSString*)edlPath 
+                         andEDLRules:(NSString*)rulePath;
 
-/*!
+/**
  * Sets a property for a given key.
  *
  * \param key   Complete XPath to the desired config entity according 
@@ -52,12 +56,23 @@ enum COSystemConfigError {
  */
 -(NSError*)setProp:(NSString*)key :(NSString*)value;
 
-/*!
+/**
  * Returns a requested value for a given key.
  *
  * \param key See method setProp:key:value.
  * \return    Value for key (string representation).
  */
 -(NSString*)getProp:(NSString*)key;
+
+/**
+ * Resolves a reference to a XML node given in MATLAB syntax.
+ *
+ * \param ref  Reference path to the wanted EDL value in MATLAB syntax.
+ * \param node Context node from which the reference path navigates.
+ * \return     Value of the node referenced by ref.
+ */
+-(NSString*)substituteEDLValueForRef:(NSString*)ref
+                         basedOnNode:(NSXMLNode*)node;
+
 
 @end

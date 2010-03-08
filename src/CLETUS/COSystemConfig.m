@@ -12,18 +12,39 @@
 @interface COSystemConfig (PrivateStuff)
 
 COSystemConfig* mSingleton = nil;
+
+/**
+ * Original configuration from the EDL file. Remains unchanged
+ * during runtime.
+ */
 NSXMLDocument* mSystemSetting = nil;
+
+/**
+ * Copy of the original configuration. Changes to the experiment
+ * configuration that occur during runtime are stored here.
+ */
 NSXMLDocument* mRuntimeSetting = nil;
+
+/**
+ * Ruleset that identifies functional dependencies between
+ * configuration entries.
+ */
+NSXMLDocument* mEDLRules = nil;
+
+/**
+ * Dictionary that eliminates the need of knowing the exact XPath
+ * for often used configuration entries (e.g. RepetitionTime).
+ */
 NSDictionary* mAbbreviations = nil;
 
-/*!
+/**
  * Setups abbreviation dictionary which contains short keywords
  * for often used config entries (and their associated XPath
  * locators).
  */
 -(void)initAbbreviations;
 
-/*!
+/**
  * Utility method for method initWithContentsOfEDLFile. Does
  * the actual reading of the XML file.
  *
@@ -32,9 +53,15 @@ NSDictionary* mAbbreviations = nil;
  * \return        NSXMLDocument instance that represents the content of the
  *				  EDL file.
  */
--(NSXMLDocument*)parseEDLFile:(NSURL*)fileURL;
+-(NSXMLDocument*)parseXMLFile:(NSURL*)fileURL;
 
-/*!
+/**
+ * Checks the logical consistency of the EDL configuration based on
+ * the given EDL ruleset.
+ */
+-(NSError*)validateEDLConsistency;
+
+/**
  * Utility method for accessing the internal XMLDocument/-Tree:
  * Decides whether the given key is a short keyword (XPath
  * supplement) and has to be expanded to the actual XPath string.
@@ -49,13 +76,13 @@ NSDictionary* mAbbreviations = nil;
 -(void)initAbbreviations
 {
 	NSArray *shortKeys = [NSArray arrayWithObjects:@"sTR", 
-												   @"sNumEvents", 
-												   @"sFoo", 
+                          @"sNumEvents", 
+                          @"sFoo", 
 						  nil];
 	
 	NSArray *xpathValues = [NSArray arrayWithObjects:@"", 
-													 @"", 
-													 @"", 
+                            @"", 
+                            @"", 
 							nil];
 	mAbbreviations = [NSDictionary dictionaryWithObjects:xpathValues
 												 forKeys:shortKeys];
@@ -71,31 +98,52 @@ NSDictionary* mAbbreviations = nil;
 	return mSingleton;
 }
 
--(NSError*)initWithContentsOfEDLFile:(NSString*)path
+-(NSError*)initWithContentsOfEDLFile:(NSString*)edlPath 
+                         andEDLRules:(NSString*)rulePath;
 {
-    NSURL* fileURL = [NSURL fileURLWithPath:path];
+    NSURL* fileURL = [NSURL fileURLWithPath:edlPath];
     if (!fileURL) {
-		NSString* errorString = [NSString stringWithFormat:@"Could not create URL from given path %s!", path];
+		NSString* errorString = [NSString stringWithFormat:@"Could not create URL from given path %s!", edlPath];
         return [NSError errorWithDomain:errorString code:URL_CREATION userInfo:nil];
     }
-	
-	NSError* err = nil;
     
     [mSystemSetting release];
-	mSystemSetting  = [self parseEDLFile:fileURL];
+	mSystemSetting  = [self parseXMLFile:fileURL];
     [mRuntimeSetting release];
-	mRuntimeSetting = [self parseEDLFile:fileURL];
+	mRuntimeSetting = [self parseXMLFile:fileURL];
     
     if (mSystemSetting == nil || mRuntimeSetting == nil)  {
-		err = [NSError errorWithDomain:@"Could not read/parse XML file. Check XML-Syntax and existence of file!" 
-                                  code:XML_DOCUMENT_READ 
-                              userInfo:nil];
+		return [NSError errorWithDomain:@"Could not read/parse EDL file. Check well-formedness of XML syntax and existence of file!" 
+                                   code:XML_DOCUMENT_READ 
+                               userInfo:nil];
 	}
-
-	return err;
+    
+    // Read EDL rules and validate the EDL.
+    if (rulePath != nil) {
+        
+        [fileURL release];
+        fileURL = [NSURL fileURLWithPath:rulePath];
+        if (!fileURL) {
+            NSString* errorString = [NSString stringWithFormat:@"Could not create URL from given path %s!", rulePath];
+            return [NSError errorWithDomain:errorString code:URL_CREATION userInfo:nil];
+        }
+        
+        [mEDLRules release];
+        mEDLRules = [self parseXMLFile:fileURL];
+        
+        if (mEDLRules == nil)  {
+            return [NSError errorWithDomain:@"Could not read/parse EDL rules file. Check well-formedness of XML syntax and existence of file!" 
+                                       code:XML_DOCUMENT_READ 
+                                   userInfo:nil];
+        }
+        
+        return [self validateEDLConsistency];
+    }
+    
+	return nil;
 }
 
--(NSXMLDocument*)parseEDLFile:(NSURL*)fileURL
+-(NSXMLDocument*)parseXMLFile:(NSURL*)fileURL
 {	
 	NSXMLDocument* doc = nil;
     NSError* err = nil;
@@ -110,6 +158,92 @@ NSDictionary* mAbbreviations = nil;
     }
 	
 	return doc;
+}
+
+-(NSError*)validateEDLConsistency
+{
+    return nil;
+}
+
+-(NSString*)substituteEDLValueForRef:(NSString*)ref
+                         basedOnNode:(NSXMLNode*)node
+{
+    if ([ref hasPrefix:@"ATTRIBUTE."]) {
+        
+        // Find and return an attribute value.
+        NSString* attributeName  = [ref stringByReplacingOccurrencesOfString:@"ATTRIBUTE." 
+                                                                  withString:@""];
+        
+        NSString* attributeValue = nil;
+        
+        for (NSXMLNode* child in [((NSXMLElement*) node) attributes]) {
+            
+            // Child is the requested attribute...
+            if ([child kind] == NSXMLAttributeKind 
+                && [[child name] compare:attributeName] == 0) {
+                attributeValue = [[[NSString alloc] initWithString:[child stringValue]] autorelease];
+            }
+        }
+        
+        return attributeValue;
+        
+    } else if ([ref hasPrefix:@"CONTENT"]) {
+        
+        // Element value.
+        return [[[NSString alloc] initWithString:[node stringValue]] autorelease];
+        
+    } else {
+        
+        // Go to child and repeat recursive...
+        NSUInteger splitIndex = [ref rangeOfString:@"."].location;
+        
+        if (splitIndex == NSNotFound) {
+            return nil;
+        }
+        
+        NSString* newBaseNodeName = [ref substringToIndex:splitIndex];
+        int occurenceNr = 1;
+        
+        // Node has multiple child elements of the same name. Locate the one wanted child.
+        if ([newBaseNodeName hasSuffix:@"}"]) {
+            NSUInteger curlyOpenIndex = [ref rangeOfString:@"{"].location;
+            
+            NSRange ofOccurenceNrString;
+            ofOccurenceNrString.location = curlyOpenIndex + 1;
+            ofOccurenceNrString.length   = [newBaseNodeName length] - 1 - curlyOpenIndex;
+            
+            occurenceNr = [[newBaseNodeName substringWithRange:ofOccurenceNrString] intValue];
+            
+            newBaseNodeName = [ref substringToIndex:curlyOpenIndex];
+        }
+        
+        NSXMLNode* newBaseNode = nil;
+        
+        int currentOccurence = 0;
+        for (NSXMLNode* child in [node children]) {
+            
+            if ([child kind] == NSXMLElementKind 
+                || [child kind] == NSXMLAttributeKind) {
+                
+                if ([[child name] compare:newBaseNodeName] == 0) {
+                    
+                    currentOccurence++;
+                    
+                    // Child is the requested element...
+                    if (currentOccurence == occurenceNr) {
+                        newBaseNode = child;
+                    }
+                }
+            }
+        }
+        
+        if (newBaseNode) {
+            return [self substituteEDLValueForRef:[ref substringFromIndex:splitIndex + 1] 
+                                      basedOnNode:newBaseNode];
+        } else {
+            return nil;
+        }
+    }
 }
 
 -(NSString*)resolveKey:(NSString*)key
@@ -141,7 +275,7 @@ NSDictionary* mAbbreviations = nil;
 			return [NSError errorWithDomain:errorString code:CONFIG_ENTRY userInfo:nil];
 		}
 	}
-
+    
 	return err;
 }
 
@@ -171,6 +305,8 @@ NSDictionary* mAbbreviations = nil;
 {
     [mSystemSetting release];
     [mRuntimeSetting release];
+    
+    [mSingleton release];
     
 	[super dealloc];
 }
