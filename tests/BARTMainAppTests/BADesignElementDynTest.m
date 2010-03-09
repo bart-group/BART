@@ -19,7 +19,7 @@
 
 - (void) setUp {
     designEl = [[BADesignElementDyn alloc] 
-                initWithFile:@"/Users/Lydi/Development/VGenDesign/testfiles/erDesignTest01.des" 
+                initWithFile:@"../tests/BARTMainAppTests/testfiles/erDesignTest01.des" 
                 ofImageDataType:IMAGE_DATA_FLOAT];
 }
 
