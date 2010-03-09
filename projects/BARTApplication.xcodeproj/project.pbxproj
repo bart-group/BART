@@ -43,6 +43,15 @@
 		00B1AC5A11455E38008FC09D /* COXMLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC5811455E38008FC09D /* COXMLUtility.m */; };
 		00B1AC81114562A8008FC09D /* COXMLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC5811455E38008FC09D /* COXMLUtility.m */; };
 		00B1ACDC114565CE008FC09D /* COEDLValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC23114554DB008FC09D /* COEDLValidator.m */; };
+		00B1AD1511456C2E008FC09D /* COEDLValidatorRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AD1311456C2E008FC09D /* COEDLValidatorRule.h */; };
+		00B1AD1611456C2E008FC09D /* COEDLValidatorRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AD1411456C2E008FC09D /* COEDLValidatorRule.m */; };
+		00B1AD1B11456C47008FC09D /* COEDLValidatorRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AD1411456C2E008FC09D /* COEDLValidatorRule.m */; };
+		00B1AD77114645A3008FC09D /* COEDLValidatorLiteral.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AD75114645A3008FC09D /* COEDLValidatorLiteral.h */; };
+		00B1AD78114645A3008FC09D /* COEDLValidatorLiteral.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AD76114645A3008FC09D /* COEDLValidatorLiteral.m */; };
+		00B1ADA811465349008FC09D /* COEDLValidatorToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1ADA611465349008FC09D /* COEDLValidatorToken.h */; };
+		00B1ADA911465349008FC09D /* COEDLValidatorToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1ADA711465349008FC09D /* COEDLValidatorToken.m */; };
+		00B1ADEF114670BD008FC09D /* COEDLValidatorLiteral.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AD76114645A3008FC09D /* COEDLValidatorLiteral.m */; };
+		00B1ADF0114670BE008FC09D /* COEDLValidatorToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1ADA711465349008FC09D /* COEDLValidatorToken.m */; };
 		00B772C511417C6300B2931A /* BADataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* BADataElementVI.m */; };
 		00B772CA11417C7A00B2931A /* BADesignElementDyn.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C711417C7A00B2931A /* BADesignElementDyn.m */; };
 		00B772CB11417C7A00B2931A /* BADesignElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C911417C7A00B2931A /* BADesignElementVI.m */; };
@@ -186,6 +195,12 @@
 		00B1AC33114556C3008FC09D /* COEDLValidatorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COEDLValidatorTest.m; sourceTree = "<group>"; };
 		00B1AC5711455E38008FC09D /* COXMLUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COXMLUtility.h; sourceTree = "<group>"; };
 		00B1AC5811455E38008FC09D /* COXMLUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COXMLUtility.m; sourceTree = "<group>"; };
+		00B1AD1311456C2E008FC09D /* COEDLValidatorRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COEDLValidatorRule.h; sourceTree = "<group>"; };
+		00B1AD1411456C2E008FC09D /* COEDLValidatorRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COEDLValidatorRule.m; sourceTree = "<group>"; };
+		00B1AD75114645A3008FC09D /* COEDLValidatorLiteral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COEDLValidatorLiteral.h; sourceTree = "<group>"; };
+		00B1AD76114645A3008FC09D /* COEDLValidatorLiteral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COEDLValidatorLiteral.m; sourceTree = "<group>"; };
+		00B1ADA611465349008FC09D /* COEDLValidatorToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COEDLValidatorToken.h; sourceTree = "<group>"; };
+		00B1ADA711465349008FC09D /* COEDLValidatorToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COEDLValidatorToken.m; sourceTree = "<group>"; };
 		00B772C311417C6300B2931A /* BADataElementVI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElementVI.h; sourceTree = "<group>"; };
 		00B772C411417C6300B2931A /* BADataElementVI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElementVI.m; sourceTree = "<group>"; };
 		00B772C611417C7A00B2931A /* BADesignElementDyn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementDyn.h; sourceTree = "<group>"; };
@@ -370,6 +385,12 @@
 				00B1AC23114554DB008FC09D /* COEDLValidator.m */,
 				00B1AC5711455E38008FC09D /* COXMLUtility.h */,
 				00B1AC5811455E38008FC09D /* COXMLUtility.m */,
+				00B1AD1311456C2E008FC09D /* COEDLValidatorRule.h */,
+				00B1AD1411456C2E008FC09D /* COEDLValidatorRule.m */,
+				00B1ADA611465349008FC09D /* COEDLValidatorToken.h */,
+				00B1ADA711465349008FC09D /* COEDLValidatorToken.m */,
+				00B1AD75114645A3008FC09D /* COEDLValidatorLiteral.h */,
+				00B1AD76114645A3008FC09D /* COEDLValidatorLiteral.m */,
 			);
 			path = CLETUS;
 			sourceTree = "<group>";
@@ -551,6 +572,9 @@
 				00C3A02B1144FF9700725668 /* COSystemConfig.h in Headers */,
 				00B1AC24114554DB008FC09D /* COEDLValidator.h in Headers */,
 				00B1AC5911455E38008FC09D /* COXMLUtility.h in Headers */,
+				00B1AD1511456C2E008FC09D /* COEDLValidatorRule.h in Headers */,
+				00B1AD77114645A3008FC09D /* COEDLValidatorLiteral.h in Headers */,
+				00B1ADA811465349008FC09D /* COEDLValidatorToken.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,6 +752,9 @@
 				00C3A02A1144FF9600725668 /* COSystemConfig.m in Sources */,
 				00B1AC25114554DB008FC09D /* COEDLValidator.m in Sources */,
 				00B1AC5A11455E38008FC09D /* COXMLUtility.m in Sources */,
+				00B1AD1611456C2E008FC09D /* COEDLValidatorRule.m in Sources */,
+				00B1AD78114645A3008FC09D /* COEDLValidatorLiteral.m in Sources */,
+				00B1ADA911465349008FC09D /* COEDLValidatorToken.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -740,6 +767,9 @@
 				00B1AC34114556C3008FC09D /* COEDLValidatorTest.m in Sources */,
 				00B1AC81114562A8008FC09D /* COXMLUtility.m in Sources */,
 				00B1ACDC114565CE008FC09D /* COEDLValidator.m in Sources */,
+				00B1AD1B11456C47008FC09D /* COEDLValidatorRule.m in Sources */,
+				00B1ADEF114670BD008FC09D /* COEDLValidatorLiteral.m in Sources */,
+				00B1ADF0114670BE008FC09D /* COEDLValidatorToken.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
