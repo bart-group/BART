@@ -21,12 +21,12 @@
     [gui initLayers];
 	//[gui doPaint];
 
-    dataEl = [[BADataElement alloc] initWithDatasetFile:@"/Users/Lydi/Development/BR5T-functional.v" ofImageDataType:IMAGE_DATA_SHORT];
+    dataEl = [[BADataElement alloc] initWithDatasetFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset01-functional.v" ofImageDataType:IMAGE_DATA_SHORT];
     //dataEl = [[BADataElement alloc] initWithDatasetFile:@"/Users/user/Development/KC9T/KC9T081015-functional.v" ofImageDataType:IMAGE_DATA_SHORT];
     
     [gui setBackgroundImage:dataEl];
     
-    designEl = [[BADesignElement alloc] initWithDatasetFile:@"/Users/Lydi/Development/designfromscipt.v" ofImageDataType:IMAGE_DATA_FLOAT];
+    designEl = [[BADesignElement alloc] initWithDatasetFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset01-design.v" ofImageDataType:IMAGE_DATA_FLOAT];
     //designEl = [[BADesignElement alloc] initWithDatasetFile:@"/Users/user/Development/VGenDesign/testfiles/blockDesignTest01.des" ofImageDataType:IMAGE_DATA_FLOAT];
     
     //designEl = [[BADesignElement alloc] initWithDatasetFile:@"/Users/user/Development/KC9T/KC9T.des.v" ofImageDataType:IMAGE_DATA_FLOAT];

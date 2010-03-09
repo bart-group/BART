@@ -19,7 +19,7 @@ BADataElement *dataEl;
 
 - (void) setUp {
     dataEl = [[BADataElementVI alloc] 
-              initWithFile:@"../tests/BARTMainAppTests/testfiles/BR5T-functional.v" 
+              initWithFile:@"../tests/BARTMainAppTests/testfiles/TestDataset01-functional.v" 
               ofImageDataType:IMAGE_DATA_SHORT];
 }
 

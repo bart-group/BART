@@ -21,7 +21,7 @@ BADesignElement *designEl;
 
 - (void) setUp {
     designEl = [[BADesignElementVI alloc] 
-                initWithFile:@"../tests/BARTMainAppTests/testfiles/design-BR5T.v" 
+                initWithFile:@"../tests/BARTMainAppTests/testfiles/TestDataset01-design.v" 
                 ofImageDataType:IMAGE_DATA_FLOAT];
 }
 
