@@ -37,7 +37,7 @@ enum COSystemConfigError {
  * \param edlPath  Path to the EDL file.
  * \return         Nil if successful, error object otherwise.
  */
--(NSError*)initWithContentsOfEDLFile:(NSString*)edlPath;
+-(NSError*)initializeWithContentsOfEDLFile:(NSString*)edlPath;
 
 /**
  * Sets a property for a given key.

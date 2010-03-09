@@ -23,13 +23,13 @@ COSystemConfig* config;
 -(void)setUp
 {
 	config = [COSystemConfig getInstance];
-    [config initWithContentsOfEDLFile:@"../tests/CLETUSTests/Init_Links_1.edl"];
+    [config initializeWithContentsOfEDLFile:@"../tests/CLETUSTests/Init_Links_1.edl"];
 }
 
 -(void)testInit
 {
 	NSError* err = nil;
-	err = [config initWithContentsOfEDLFile:@"../tests/CLETUSTests/Init_Links_1.edl"];
+	err = [config initializeWithContentsOfEDLFile:@"../tests/CLETUSTests/Init_Links_1.edl"];
     
     BOOL success = NO;
     if (err == nil) {
@@ -42,7 +42,7 @@ COSystemConfig* config;
 -(void)testChallengeInitError
 {
     NSError* err = nil;
-	err = [config initWithContentsOfEDLFile:@"not_existing.foo"];
+	err = [config initializeWithContentsOfEDLFile:@"not_existing.foo"];
     
     BOOL success = NO;
     if (err == nil) {
@@ -57,24 +57,41 @@ COSystemConfig* config;
 -(void)testGetProp
 {
     
-    NSString* property = @"/rtExperiment/environment/resultImage/imageModalities/imgBase";
-    NSString* value = [config getProp:property];
+    NSString* propertyElem = @"/rtExperiment/environment/resultImage/imageModalities/imgBase";
+    NSString* valueElem = [config getProp:propertyElem];
+    NSString* propertyAttr = @"/rtExperiment/environment/resultImage/imageModalities/@imgDataExtension";
+    NSString* valueAttr = [config getProp:propertyAttr];
     
-    NSString* expected = @"results_";
+    NSString* expectedElemValue = @"results_";
+    NSString* expectedAttrValue = @".hdr";
     
-    STAssertEqualObjects(value, expected, @"Value %s does not match the expected %s!", [value cStringUsingEncoding:NSUTF8StringEncoding], [expected cStringUsingEncoding:NSUTF8StringEncoding]);
+    STAssertEqualObjects(valueElem, expectedElemValue, @"Value %s does not match the expected %s!", 
+                         [valueElem cStringUsingEncoding:NSUTF8StringEncoding], 
+                         [expectedElemValue cStringUsingEncoding:NSUTF8StringEncoding]);
+    STAssertEqualObjects(valueAttr, expectedAttrValue, @"Value %s does not match the expected %s!", 
+                         [valueAttr cStringUsingEncoding:NSUTF8StringEncoding], 
+                         [expectedAttrValue cStringUsingEncoding:NSUTF8StringEncoding]);
 }
 
 -(void)testSetProp
 {
-    NSString* property = @"/rtExperiment/environment/resultImage/imageModalities/imgBase";
-    NSString* value = @"foobar";
+    NSString* propertyElem = @"/rtExperiment/environment/resultImage/imageModalities/imgBase";
+    NSString* valueElem = @"foobar";
+    NSString* propertyAttr = @"/rtExperiment/environment/resultImage/imageModalities/@imgDataExtension";
+    NSString* valueAttr = @"foobaz";
     
-    [config setProp:property :value];
+    [config setProp:propertyElem :valueElem];
+    [config setProp:propertyAttr :valueAttr];
     
-    NSString* actualValue = [config getProp:property];
+    NSString* actualElemValue = [config getProp:propertyElem];
+    NSString* actualAttrValue = [config getProp:propertyAttr];
     
-    STAssertEqualObjects(actualValue, value, @"Value %s does not match the expected %s!", [actualValue cStringUsingEncoding:NSUTF8StringEncoding], [value cStringUsingEncoding:NSUTF8StringEncoding]);
+    STAssertEqualObjects(actualElemValue, valueElem, @"Value %s does not match the expected %s!", 
+                         [actualElemValue cStringUsingEncoding:NSUTF8StringEncoding], 
+                         [valueElem cStringUsingEncoding:NSUTF8StringEncoding]);
+    STAssertEqualObjects(actualAttrValue, valueAttr, @"Value %s does not match the expected %s!", 
+                         [actualAttrValue cStringUsingEncoding:NSUTF8StringEncoding], 
+                         [valueAttr cStringUsingEncoding:NSUTF8StringEncoding]);
 }
 
 -(void)tearDown

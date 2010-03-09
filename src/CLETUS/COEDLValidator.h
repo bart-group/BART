@@ -14,14 +14,16 @@
 }
  
 /**
- * Initializes the configuration with the information from an EDL file
- * and optionally checks its logical consistency.
+ * Initializes the validator with the information from an EDL file and
+ * an EDL rule file.
  *
+ * 
  * \param rulePath Path to the XML file containing the EDL 
  *                 logical validation rules (pass nil if not needed).
  * \return         Nil if successful, error object otherwise.
  */
--(id)initWithEDLRules:(NSString*)rulePath;
+-(id)initWithContentsOfEDLFile:(NSString*)edlPath
+                   andEDLRules:(NSString*)rulePath;
     
 /**
  * Checks the logical consistency of the EDL configuration based on

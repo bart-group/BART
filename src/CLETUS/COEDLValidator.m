@@ -23,7 +23,9 @@ NSXMLDocument* mEDLRules = nil;
 
 @implementation COEDLValidator
 
--(id)initWithEDLRules:(NSString*)rulePath {
+-(id)initWithContentsOfEDLFile:(NSString*)edlPath
+                   andEDLRules:(NSString*)rulePath
+{
         
     NSURL* fileURL = [NSURL fileURLWithPath:rulePath];
     if (!fileURL) {

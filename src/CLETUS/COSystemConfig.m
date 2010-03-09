@@ -80,7 +80,7 @@ NSDictionary* mAbbreviations = nil;
 	return mSingleton;
 }
 
--(NSError*)initWithContentsOfEDLFile:(NSString*)edlPath 
+-(NSError*)initializeWithContentsOfEDLFile:(NSString*)edlPath 
                          
 {
     NSURL* fileURL = [NSURL fileURLWithPath:edlPath];

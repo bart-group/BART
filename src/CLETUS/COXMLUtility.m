@@ -13,7 +13,7 @@
 
 +(NSXMLDocument*)newParsedXMLDocument:(NSURL*)fileURL
 {	
-    //TODO: Error nutzen!
+    //TODO: Use Error!
 	NSXMLDocument* doc = nil;
     NSError* err = nil;
     doc = [[NSXMLDocument alloc] initWithContentsOfURL:fileURL

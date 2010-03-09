@@ -14,6 +14,9 @@ enum COXMLUtilityError {
 	XML_DOCUMENT_READ
 };
 
+/**
+ * Providing functions for common XML issues.
+ */
 @interface COXMLUtility : NSObject {
 
 }
