@@ -174,6 +174,10 @@
 		0040B8591141472200A57967 /* BADesignElementVITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementVITest.m; sourceTree = "<group>"; };
 		0040B86F1141488200A57967 /* SmoothnessEstim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SmoothnessEstim.c; sourceTree = "<group>"; };
 		0040B9B1114173BD00A57967 /* BARTUnitTestSuite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
+		0072A8B91148075F00F03DF5 /* TestDataset02-design.des */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TestDataset02-design.des"; sourceTree = "<group>"; };
+		0072A8BA1148075F00F03DF5 /* TestDataset02-design.v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TestDataset02-design.v"; sourceTree = "<group>"; };
+		0072A8BB1148075F00F03DF5 /* TestDataset02-functional.v */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TestDataset02-functional.v"; sourceTree = "<group>"; };
+		0072A8BC1148075F00F03DF5 /* TestDataset02-Orig.v */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TestDataset02-Orig.v"; sourceTree = "<group>"; };
 		00841BF811464321004341CC /* blockDesignTest01.des */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blockDesignTest01.des; sourceTree = "<group>"; };
 		00841BF911464321004341CC /* blockDesignTest01.des.v */ = {isa = PBXFileReference; lastKnownFileType = file; path = blockDesignTest01.des.v; sourceTree = "<group>"; };
 		00841BFA11464321004341CC /* blockDesignTest01_deriv0.des.v */ = {isa = PBXFileReference; lastKnownFileType = file; path = blockDesignTest01_deriv0.des.v; sourceTree = "<group>"; };
@@ -465,6 +469,10 @@
 		00841BF711464321004341CC /* testfiles */ = {
 			isa = PBXGroup;
 			children = (
+				0072A8B91148075F00F03DF5 /* TestDataset02-design.des */,
+				0072A8BA1148075F00F03DF5 /* TestDataset02-design.v */,
+				0072A8BB1148075F00F03DF5 /* TestDataset02-functional.v */,
+				0072A8BC1148075F00F03DF5 /* TestDataset02-Orig.v */,
 				00841C0C1146451F004341CC /* TestDataset01_Orig.v */,
 				00841C0D1146451F004341CC /* TestDataset01-design.v */,
 				00841C0E1146451F004341CC /* TestDataset01-functional.v */,

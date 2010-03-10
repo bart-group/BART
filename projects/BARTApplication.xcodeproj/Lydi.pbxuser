@@ -67,9 +67,9 @@
 	};
 	0040B7B21141470400A57967 /* BAGUIProtoCGLayer.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1643, 6877}}";
-			sepNavSelRange = "{20947, 0}";
-			sepNavVisRange = "{20212, 1140}";
+			sepNavIntBoundsRect = "{{0, 0}, {1174, 7007}}";
+			sepNavSelRange = "{21422, 0}";
+			sepNavVisRange = "{20713, 729}";
 		};
 	};
 	0040B7B31141470400A57967 /* BAGUIPrototyp.h */ = {
@@ -1920,7 +1920,6 @@
 		activeExecutable = 005457811139750B00E98146 /* BARTApplication */;
 		activeTarget = 8D1107260486CEB800E47090 /* BARTApplication */;
 		addToTargets = (
-			CE8B709010DA988F007AEB2B /* BARTUnitTestSuite */,
 		);
 		breakpoints = (
 			00E13739113D75E6009302BF /* BADesignElementVITest.m:30 */,
