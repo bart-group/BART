@@ -441,7 +441,7 @@ static BAGUIPrototyp *gui;
     int slice;
     int row;
     int col;
-    float contrastVector[5] = {1.0, 0.0, 0.0, 0.0, 0.0};
+    float contrastVector[3] = {1.0, 0.0, 0.0};
     
     int pos;
     
@@ -479,12 +479,12 @@ static BAGUIPrototyp *gui;
 //            activationImageRaw[pos + 2] = 0;
             
             
-            if (value > 0.75) {
+            if (value > 0.0) {
                 activationImageRaw[pos] = value;//(value + fabs(minValue))/(fabs(minValue) + maxValue) ;
                 activationImageRaw[pos + 1] = 0;//(value)/ maxValue ;
                 activationImageRaw[pos + 2] = 0;
                 activationImageRaw[pos + 3] = activationOverlayAlpha;
-            } else if (value < -2.0) {
+            } else if (value < 0.0) {
                 activationImageRaw[pos] = 0;
                 activationImageRaw[pos + 1] = 0;//fabs(value);
                 activationImageRaw[pos + 2] = fabs(value);//(value + fabs(minValue))/(fabs(minValue) + maxValue) ;//fabs(value);

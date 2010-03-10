@@ -60,8 +60,8 @@ int                     slicesPerRow = 1;
 int                     slicesPerCol = 1;
 int                     sliceDimension = 64;
 
-float                   minThreshold = 0.0;
-float                   maxThreshold = 0.0;
+float                   minThreshold = -3.0;
+float                   maxThreshold = 1.3;
 
 CGFloat                 scaleFactor = 1.0;
 
@@ -154,6 +154,8 @@ static BAGUIProtoCGLayer *gui;
     
     /************************************/
 	free(colorTableData);
+	
+
     return self;
 }
 
@@ -522,6 +524,12 @@ static BAGUIProtoCGLayer *gui;
 
 + (BAGUIProtoCGLayer *)getGUI {
     return [gui retain];
+}
+
+- (void)setTimesteps:(int)timestep andSlidWindSize:(int)size
+{
+	[timestepValueLabel setStringValue:[NSString stringWithFormat:@"%d",timestep]];
+	[slidWinSizeValueLabel setStringValue:[NSString stringWithFormat:@"%d",size]];
 }
 
 

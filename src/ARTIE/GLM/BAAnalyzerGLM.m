@@ -32,6 +32,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     NSTimer *timerToFakeRepetitionTime;
     int indexForTimestep;
     int slidingWindowSize;
+	BOOL mSlidingWindowAnalysis;
      
 -(void)Regression:(short)minval
                  :(int)sliding_window_size
@@ -53,7 +54,8 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 
 -(id)init
 {
-    slidingWindowSize = 396;
+    slidingWindowSize = 40;
+	mSlidingWindowAnalysis = YES;
     indexForTimestep = slidingWindowSize;
     gui = [BAGUIProtoCGLayer getGUI];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(OnNewData:) name:@"MessageName" object:nil];
@@ -114,11 +116,19 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         
         NSLog(@"Time analysis: Start");
         
+		int index = 0;
+		if (mSlidingWindowAnalysis){
+			index = slidingWindowSize;}
+		else {
+			index = indexForTimestep;}
+
         [self Regression:2000 
-                        :slidingWindowSize 
+                        :index // sw: slidingWindowSize akk: indexForTimestep
                         :indexForTimestep];
         [self sendFinishNotification];
         [gui setForegroundImage:mResMap];
+		[gui setTimesteps:indexForTimestep andSlidWindSize:index];
+		
         
         NSLog(@"Time analysis: End");
         
@@ -257,10 +267,15 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         }
         gsl_matrix_float_transpose(betaCovariates);
         
-        float contrast[5] = {1.0, 0.0, -1.0, 0.0, 0.0};
+		float contrast[mDesign.numberExplanatoryVariables];
+		//TODO
+		//for (int i = 0; i < mDesign.numberExplanatoryVariables; i++){
+		contrast[0] = 1.0;
+		contrast[1] = 0.0;
+		contrast[2] = 0.0;
         //float contrast[3] = {1.0, -1.0, 0.0};
         gsl_vector_float *contrastVector;
-        contrastVector = gsl_vector_float_alloc(5);
+        contrastVector = gsl_vector_float_alloc(mDesign.numberExplanatoryVariables);
         //contrastVector = gsl_vector_float_alloc(3);
         contrastVector->data = contrast;
         

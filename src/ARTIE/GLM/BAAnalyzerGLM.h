@@ -21,6 +21,7 @@
     BADesignElement *mDesign;
     BADataElement *mData;
     BAGUIProtoCGLayer *gui;
+	
 }
 
 -(void)dealloc;

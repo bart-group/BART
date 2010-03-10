@@ -23,6 +23,8 @@
     IBOutlet NSSlider* maximumSlider;
     IBOutlet NSTextField* minimumValueLabel;
     IBOutlet NSTextField* maximumValueLabel;
+	IBOutlet NSTextField* timestepValueLabel;
+    IBOutlet NSTextField* slidWinSizeValueLabel;
     
 }
 
@@ -51,6 +53,8 @@
 - (void)setForegroundImage:(BADataElement*)newForegroundImage;
 
 - (IBAction)updateSlider:(id)sender;
+
+- (void)setTimesteps:(int)timestep andSlidWindSize:(int)size;
 
 + (BAGUIProtoCGLayer*)getGUI;
 
