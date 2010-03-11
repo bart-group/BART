@@ -60,8 +60,8 @@ int                     slicesPerRow = 1;
 int                     slicesPerCol = 1;
 int                     sliceDimension = 64;
 
-float                   minThreshold = -3.0;
-float                   maxThreshold = 1.3;
+float                   minThreshold = 0.0;
+float                   maxThreshold = 0.0;
 
 CGFloat                 scaleFactor = 1.0;
 
@@ -71,6 +71,10 @@ CGContextRef layerOneContext;
 CGContextRef layerTwoContext;
 
 float* colorTableData;
+
+int mSlidingWindowSize;
+int mTimestep;
+
 
 - (void)setupImages;
 - (CGPoint)computeMinMaxVoxelValue:(BADataElement*)image;
@@ -154,10 +158,17 @@ static BAGUIProtoCGLayer *gui;
     
     /************************************/
 	free(colorTableData);
+	[[NSNotificationCenter defaultCenter]
+	 addObserver:self
+	 selector:@selector(updateTimesteps:)
+	 name:@"updateTimesteps"
+	 object:nil ] ;
 	
 
     return self;
 }
+
+
 
 - (void)initLayers {
 	windowRect = CGRectMake(0, 0, [[applicationWindow contentView] frame].size.width,
@@ -414,7 +425,7 @@ static BAGUIProtoCGLayer *gui;
     int slice;
     int row;
     int col;
-    float contrastVector[5] = {1.0, 0.0, 0.0, 0.0, 0.0};
+    float contrastVector[3] = {1.0, 0.0, 0.0};
     
     int pos;
     
@@ -517,8 +528,10 @@ static BAGUIProtoCGLayer *gui;
     minThreshold = [minimumSlider floatValue];
     maxThreshold = [maximumSlider floatValue];
     
-    [minimumValueLabel setStringValue:[NSString stringWithFormat:@"Min: %1.2f", minThreshold]];
-    [maximumValueLabel setStringValue:[NSString stringWithFormat:@"Max: %1.2f", maxThreshold]];
+    [minimumValueLabel setStringValue:[NSString stringWithFormat:@"%1.2f", minThreshold]];
+    [maximumValueLabel setStringValue:[NSString stringWithFormat:@"%1.2f", maxThreshold]];
+	
+		
 }
 
 
@@ -528,10 +541,30 @@ static BAGUIProtoCGLayer *gui;
 
 - (void)setTimesteps:(int)timestep andSlidWindSize:(int)size
 {
-	[timestepValueLabel setStringValue:[NSString stringWithFormat:@"%d",timestep]];
-	[slidWinSizeValueLabel setStringValue:[NSString stringWithFormat:@"%d",size]];
+	mTimestep = timestep;
+	mSlidingWindowSize = size;
+
+//	[self updateTimesteps:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"updateTimesteps" object:self];
+	
+	
 }
 
+-(void)awakeFromNib
+{
+	minThreshold = [minimumSlider floatValue];
+	maxThreshold = [maximumSlider floatValue];    
+    [minimumValueLabel setStringValue:[NSString stringWithFormat:@"%1.2f", minThreshold]];
+    [maximumValueLabel setStringValue:[NSString stringWithFormat:@"%1.2f", maxThreshold]];
+	[slidWinSizeValueLabel setStringValue:[NSString stringWithFormat:@"%d",mSlidingWindowSize]];
+	[timestepValueLabel setStringValue:[NSString stringWithFormat:@"%d",mTimestep]];
+}
+
+- (IBAction)updateTimesteps:(id)sender
+{
+	[slidWinSizeValueLabel setStringValue:[NSString stringWithFormat:@"%d",mSlidingWindowSize]];
+	[timestepValueLabel setStringValue:[NSString stringWithFormat:@"%d",mTimestep]];
+}
 
 @end
 
