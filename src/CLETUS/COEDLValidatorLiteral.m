@@ -1,6 +1,6 @@
 //
 //  COEDLValidatorLiteral.m
-//  BARTApplication
+//  CLETUS
 //
 //  Created by Oliver Zscheyge on 3/9/10.
 //  Copyright 2010 Max-Planck-Gesellschaft. All rights reserved.
@@ -20,32 +20,67 @@
 
 @interface COEDLValidatorLiteral (PrivateStuff)
 
+/** String representing the whole literal. */ 
 NSString*           literalString = nil;
+
+/** Dictionary of all parameters that are in scope
+ *  of the literal. */
+NSDictionary*       mParameters;
+
+/** Analysed literalString, split into tokens of type COEDLValidatorToken. */
 NSMutableArray*     parsedTokens;
+
+/** Storing the value of the literal if already evaluated. */
 enum COLiteralValue value;
+
+/** Error information if something went wrong during the parse process. */
 NSError*            error;
 
+/**
+ * Splits the literalString into an array of COEDLValidatorToken objects
+ * prepared for evaluation.
+ */
 -(void)tokenize:(int*)cur;
 
+/**
+ * Methods identifing signaling characters for each token kind.
+ */
 -(BOOL)isBeginOfSymbol:(unichar)character;
 -(BOOL)isBeginOfWord:(unichar)character;
 -(BOOL)isBeginOfString:(unichar)character;
 -(BOOL)isDigit:(unichar)character;
 
+/**
+ * Methods parsing a token of the appropriate token kind.
+ */
 -(void)parseSymbol:(int*)cur;
 -(void)parseWord:(int*)cur;
 -(void)parseString:(int*)cur;
 -(void)parseNumber:(int*)cur;
 
+/**
+ * Evaluates the array parsedTokens and stores the result
+ * in mValue.
+ */
 -(void)evaluateTokens;
 
 @end
 
 @implementation COEDLValidatorLiteral
 
--(id)initWithLiteralString:(NSString*)literal
+@synthesize literalString;
+
+-(id)initWithLiteralString:(NSString*)literal 
+             andParameters:(NSDictionary*)params
 {
-    literalString = [literal copy];
+    literalString = literal;//[literal copy];
+    if (params) {
+        mParameters = params;
+    } else {
+        mParameters = [NSDictionary dictionary];
+    }
+
+    
     parsedTokens = [[NSMutableArray alloc] initWithCapacity:0];
     value = LIT_FALSE;
     error = nil;
@@ -59,7 +94,6 @@ NSError*            error;
         int cur = 0;
         while (cur < [literalString length]) {
             [self tokenize:&cur];
-            cur++;
         }
         
         [self evaluateTokens];
@@ -79,18 +113,15 @@ NSError*            error;
     
     if ([self isBeginOfSymbol:character]) {
         [self parseSymbol:cur];
-    }
-    
-    if ([self isBeginOfWord:character]) {
+        (*cur)++;
+    } else if ([self isBeginOfWord:character]) {
         [self parseWord:cur];
-    }
-    
-    if ([self isBeginOfString:character]) {
+    } else if ([self isBeginOfString:character]) {
         [self parseString:cur];
-    }
-    
-    if ([self isDigit:character]) {
+    } else if ([self isDigit:character]) {
         [self parseNumber:cur];
+    } else {
+        (*cur)++;
     }
 }
 
@@ -103,6 +134,7 @@ NSError*            error;
         case '*':
         case '(':
         case ')':
+        case ',':
         case '=':
             return YES;
         default:
@@ -153,9 +185,10 @@ NSError*            error;
         case '*':
         case '(':
         case ')':
+        case ',':
             token = [[COEDLValidatorToken alloc] initWithKind:SYMBOL_TOKEN 
                                                      andValue:[NSString stringWithFormat:@"%c", [literalString characterAtIndex:*cur]]];
-            (*cur)++;
+            //(*cur)++;
             break;
         case '=':
             @try {
@@ -163,7 +196,7 @@ NSError*            error;
                     token = [[COEDLValidatorToken alloc] initWithKind:SYMBOL_TOKEN 
                                                              andValue:[NSString stringWithString:@"=="]];
                     
-                    (*cur) += 2;
+                    (*cur)++;
                 } else {
                     value = LIT_ERROR;
                     error = [NSError errorWithDomain:@"Cannot parse '=' at the end of the literal string." code:INCORRECT_SYNTAX userInfo:nil];
@@ -191,7 +224,7 @@ NSError*            error;
 -(void)parseWord:(int*)cur
 {
     NSMutableString* buffer = [[NSMutableString alloc] initWithString:@""];
-    unichar character;
+    unichar character = [literalString characterAtIndex:(*cur)];
     
     /* While cur is in the boundaries of literalString and the
      * character is either a letter, a number or the underscore
@@ -202,10 +235,13 @@ NSError*            error;
            || character == '_')
            && ((*cur) < [literalString length])) {
         
-        character = [literalString characterAtIndex:(*cur)];
         [buffer appendFormat:@"%c", character];
         
         (*cur)++;
+        
+        if ((*cur) < [literalString length]) {
+            character = [literalString characterAtIndex:(*cur)];
+        }
     }
     
     COEDLValidatorToken* token = [[COEDLValidatorToken alloc] initWithKind:WORD_TOKEN 
@@ -256,7 +292,6 @@ NSError*            error;
         // End of the string...
         } else if (character == '\'') {
             stringEndFound = YES;
-            (*cur)++;
         
         // 
         } else {
@@ -285,18 +320,84 @@ NSError*            error;
          e.g. 2, 90.02, 100.100, 5.0 */
 -(void)parseNumber:(int*)cur
 {
+    NSMutableString* buffer = [[NSMutableString alloc] initWithString:@""];
+    unichar character = [literalString characterAtIndex:(*cur)];
     
+    // Pre decimal point or normal integer.
+    while ([self isDigit:character]
+           && ((*cur) < [literalString length])) {
+
+        [buffer appendFormat:@"%c", character];
+        
+        (*cur)++;
+        
+        if ((*cur) < [literalString length]) {
+            character = [literalString characterAtIndex:(*cur)];
+        }
+    }
+    
+    // Post decimal point.
+    if (character == '.') {
+        if ((*cur) + 1 < [literalString length]) {
+            
+            [buffer appendString:@"."];
+            (*cur)++;
+            character = [literalString characterAtIndex:(*cur)];
+            
+            if ([self isDigit:character]) {
+                while ([self isDigit:character]
+                       && ((*cur) < [literalString length])) {
+                    
+                    [buffer appendFormat:@"%c", character];
+                    
+                    (*cur)++;
+                    
+                    if ((*cur) < [literalString length]) {
+                        character = [literalString characterAtIndex:(*cur)];
+                    }
+                }
+            } else {
+                value = LIT_ERROR;
+                NSString* errorString = 
+                    [NSString stringWithFormat:@"Malformed decimal point number (no position after the decimal point) at position %d in literal.", (*cur) + 1];
+                error = [NSError errorWithDomain:errorString 
+                                            code:INCORRECT_SYNTAX userInfo:nil];
+            }
+
+        } else {
+            value = LIT_ERROR;
+            error = [NSError errorWithDomain:@"Broken number format at the end of the literal (number that dosn't have any position after the decimal point discovered)." 
+                                        code:INCORRECT_SYNTAX userInfo:nil];
+        }
+    }
+    
+    if (value != LIT_ERROR) {
+        COEDLValidatorToken* token = [[COEDLValidatorToken alloc] initWithKind:NUMBER_TOKEN 
+                                                                      andValue:buffer];
+        [parsedTokens addObject:token];
+        [token release];
+    }
+    
+    [buffer release];
 }
 
 -(void)evaluateTokens
 {
+    FILE* fp = fopen("/tmp/cletusTest.txt", "w");
+    for (COEDLValidatorToken* token in parsedTokens) {
+        fputc(48 + [token kind], fp);
+        fputc(' ', fp);
+        fputs([[token value] cStringUsingEncoding:NSUTF8StringEncoding], fp);
+        fputc('\n', fp);
+    }
+    fclose(fp);
 }
 
 -(void)dealloc
 {
-    [literalString release];
+    //[literalString release];
+    //[mParameters release];
     [parsedTokens release];
-    [error release];
     
     [super dealloc];
 }

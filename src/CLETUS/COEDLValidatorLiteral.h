@@ -1,6 +1,6 @@
 //
 //  COEDLValidatorLiteral.h
-//  BARTApplication
+//  CLETUS
 //
 //  Created by Oliver Zscheyge on 3/9/10.
 //  Copyright 2010 Max-Planck-Gesellschaft. All rights reserved.
@@ -25,10 +25,23 @@ enum COEDLValidatorLiteralError {
  * Able to parse and evaluate the literal string. 
  */
 @interface COEDLValidatorLiteral : NSObject {
+    
+    /** String representing the whole literal. */ 
+    NSString* literalString;
 
 }
 
--(id)initWithLiteralString:(NSString*)literal;
+/**
+ * Initializes an allocated COEDLValidatorLiteral object.
+ *
+ * \param literal A string representing a single literal.
+ * \param params  A dictionary containing all parameters
+ *                that are in scope of the literal.
+ *                Pass nil or an empty dictionary if no
+ *                parameters are in scope of the literal.
+ */
+-(id)initWithLiteralString:(NSString*)literal 
+             andParameters:(NSDictionary*)params;
 
 /**
  * Return the value of the literal (LIT_ERROR, LIT_FALSE
@@ -48,5 +61,7 @@ enum COEDLValidatorLiteralError {
  * \return An NSError object.
  */
 -(NSError*)getError;
+
+@property (readonly) NSString* literalString;
 
 @end

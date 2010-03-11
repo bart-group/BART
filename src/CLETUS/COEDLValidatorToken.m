@@ -1,6 +1,6 @@
 //
 //  COEDLValidatorToken.m
-//  BARTApplication
+//  CLETUS
 //
 //  Created by Oliver Zscheyge on 3/9/10.
 //  Copyright 2010 Max-Planck-Gesellschaft. All rights reserved.

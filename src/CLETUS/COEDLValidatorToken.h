@@ -1,6 +1,6 @@
 //
 //  COEDLValidatorToken.h
-//  BARTApplication
+//  CLETUS
 //
 //  Created by Oliver Zscheyge on 3/9/10.
 //  Copyright 2010 Max-Planck-Gesellschaft. All rights reserved.
@@ -13,8 +13,7 @@ enum COTokenKind {
     SYMBOL_TOKEN,
     WORD_TOKEN,
     STRING_TOKEN,
-    NUMBER_TOKEN,
-    BOOLEAN_TOKEN
+    NUMBER_TOKEN
 };
 
 /**

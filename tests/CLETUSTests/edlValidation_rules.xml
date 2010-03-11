@@ -1,0 +1,182 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+
+<edlRules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="edlValidation_rules.xsd">
+    
+    <!-- If logging is activated a logfile has to be given. -->
+    <rule ruleID="r1">
+        <param pID="r1p1"  pName="r1A">
+            <paramRef> rtExperiment.environment{1}.logging{1}.ATTRIBUTE.doLogging</paramRef>
+        </param>
+        <param pID="r1p2" pName="r1B">
+            <paramRef>rtExperiment.environment{1}.logging{1}.logFile{1}.CONTENT</paramRef>
+        </param>
+        <premise>
+            <literal>edlValidation_strcmp(r1p1,'true')</literal>
+          </premise>
+        <conclusion>
+            <literal> edlValidation_exists(r1p2)</literal>
+        </conclusion>
+        <message>Edl Error: doLogging = "true" but no logFile is given!</message>
+    </rule>
+     
+     
+     
+    <!-- The size of gw design + ignored scans at startup must be equal to MR param MR_TAG_MEASUREMENTS -->
+    <rule ruleID="r2">
+        <param pID="r2p1"  pName="">
+            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct</paramRef>
+        </param>
+        <param pID="r2p2"  pName="">
+            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor</paramRef>
+        </param>
+        <param pID="r2p3"  pName="">
+            <paramRef>rtExperiment.mriParams{1}.MR_TAG_MEASUREMENTS{1}.CONTENT</paramRef>
+        </param>
+        
+          <param pID="r2p4"  pName="">
+            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{1}.ATTRIBUTE.size</paramRef>
+        </param>
+         <param pID="r2p5"  pName="">
+            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.ATTRIBUTE.ignoreScansAtStart</paramRef>
+        </param>
+        
+         <premise>
+            <literal>edlValidation_exists(r2p1)</literal>
+            <literal>edlValidation_exists(r2p2)</literal>
+            <literal>edlValidation_exists(r2p3)</literal>
+        </premise>
+        
+        <conclusion>
+            <literal>  (r2p4+r2p5) == (r2p3)</literal>
+        </conclusion>
+        
+        <message>Edl Error: Number of measurments (MR_TAG_MEASUREMENTS) does not fit to number of scans in GW design! Missed ignored scans?</message>
+      </rule>
+  
+  
+  
+    <!-- The size of a growing window scanbased regressor is exactly: sbrdesign size * repetitions + all ignored images -->       
+    <rule ruleID="r3">
+        <param pID="r3p1"  pName="">
+            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct</paramRef>
+        </param>
+        <param pID="r3p2"  pName="">
+            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor</paramRef>
+        </param>
+        
+        <param pID="r3p3"  pName="">
+            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{1}.sbrDesign{1}.ATTRIBUTE.size</paramRef>
+        </param>
+        <param pID="r3p4"  pName="">
+            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{1}.sbrDesign{1}.ATTRIBUTE.repetitions</paramRef>
+        </param>  
+        <param pID="r3p5"  pName="">
+            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{1}.ATTRIBUTE.size</paramRef>
+        </param>      
+        <param pID="r3p6"  pName="">
+            <paramRef>rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{1}.sbrIgnoreStruct{1}.ATTRIBUTE.overallIgnores</paramRef>
+        </param>   
+        
+        <premise>
+            <literal>edlValidation_exists(r3p1)</literal>
+            <literal>edlValidation_exists(r3p2)</literal>
+        </premise>
+        
+        <conclusion>
+            <literal>  (r3p3*r3p4+r3p6)  == (r3p5)</literal>
+        </conclusion>
+        
+        <message>Edl Error: Check size of  scanBasedRegressor and size of sbrDesign in gwDesignStruct! Missed ignored scans?</message>
+    </rule>
+    
+    
+    
+    <!-- If image modalities image type is set to "IMAGE"   file extension must be ".ima" -->       
+    <rule ruleID="r4">
+        <param pID="r4p1"  pName="">
+            <paramRef> rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgType</paramRef>
+        </param>
+        <param pID="r4p2"  pName="">
+            <paramRef>  rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgDataExtension</paramRef>
+        </param>
+        
+         <premise>
+             <literal>edlValidation_strcmp(r4p1,'IMAGE')</literal>
+         </premise>
+        
+        <conclusion>
+            <literal>edlValidation_strcmp(r4p2,'.ima')</literal>
+        </conclusion>
+        
+        <message>Edl Error: Input image data is defined as IMAGE, but file extension is not ".ima"!</message>
+    </rule>
+    
+    
+    
+    <!-- If image modalities image type is set to "DICOM"   file extension must be ".dcm" -->       
+    <rule ruleID="r5">
+        <param pID="r5p1"  pName="">
+            <paramRef> rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgType</paramRef>
+        </param>
+        <param pID="r5p2"  pName="">
+            <paramRef>  rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgDataExtension</paramRef>
+        </param>
+        
+        <premise>
+            <literal>edlValidation_strcmp(r5p1,'DICOM')</literal>
+        </premise>
+        
+        <conclusion>
+            <literal>edlValidation_strcmp(r5p2,'.dcm')</literal>
+        </conclusion>
+        
+        <message>Edl Error: Input image data is defined as DICOM, but file extension is not ".dcm"!</message>
+    </rule>
+    
+    
+    
+    <!-- If image modalities image type is set to "ANALYZE"   file extension must be ".img" -->       
+    <rule ruleID="r6">
+        <param pID="r6p1"  pName="">
+            <paramRef> rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgType</paramRef>
+        </param>
+        <param pID="r6p2"  pName="">
+            <paramRef>  rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgDataExtension</paramRef>
+        </param>
+        
+        <premise>
+            <literal>edlValidation_strcmp(r6p1,'ANALYZE')</literal>
+        </premise>
+        
+        <conclusion>
+            <literal>edlValidation_strcmp(r6p2,'.img')</literal>
+        </conclusion>
+        
+        <message>Edl Error: Input image data is defined as ANALYZE, but file extension is not ".img"!</message>
+    </rule>
+    
+    
+    <!-- If TR is given in MRI params it should be equal to image modalities.TR  -->       
+    <rule ruleID="r7">
+        <param pID="r7p1"  pName="">
+            <paramRef>rtExperiment.mriParams{1}.MR_TAG_TR{1}.CONTENT</paramRef>
+        </param>
+        <param pID="r7p2"  pName="">
+            <paramRef>  rtExperiment.experimentData{1}.imageModalities{1}.TR{1}.CONTENT</paramRef>
+        </param>
+        
+        <premise>
+            <literal>edlValidation_exists(r7p1)</literal>
+        </premise>
+        
+        <conclusion>
+            <literal>(r7p1 == r7p2)</literal>
+        </conclusion>
+        
+        <message>Edl Error: TR defined in image modalities does not match TR defined in MRI parameters !</message>
+    </rule>
+  
+  
+ 
+  
+</edlRules> 

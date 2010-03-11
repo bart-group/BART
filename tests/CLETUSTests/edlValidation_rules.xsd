@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:element name="edlRules">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Be careful: parameter ids must be unique to be evaluated in literals! 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="rule"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+<xs:element name="rule">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="unbounded" ref="param"/>
+            <xs:element minOccurs="1" maxOccurs="unbounded" ref="premise"/>
+            <xs:element minOccurs="1" maxOccurs="unbounded" ref="conclusion"/>
+            <xs:element minOccurs="1" maxOccurs="1" ref="message"/>
+        </xs:sequence>
+        <xs:attribute name="ruleID" use="required" type="xs:ID"/>
+    </xs:complexType>
+</xs:element>
+
+    <xs:element name="param">
+        <xs:complexType>
+            <xs:sequence>
+                 <xs:element minOccurs="1" maxOccurs="1" name="paramRef"  type="xs:string"/>
+            </xs:sequence>
+            <xs:attribute name="pID" use="required" type="xs:ID"/>
+            <xs:attribute name="pName" use="optional"  type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="premise">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded"  ref="literal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+        <xs:element name="conclusion">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="1" ref="literal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="literal"  type="xs:string">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Literals are the base units of premises and conclusions. Every Literal must be solvable to TRUE or FALSE.
+                Literals may contain the functions: edlValidation_exist(param), edlValidation_strcmp(param1,param2).
+                Literals may contain the operators:  <![CDATA[+,-,*,/, ==, >=,<=, >,<]]>.
+            </xs:documentation>
+       </xs:annotation>
+    </xs:element>
+
+    <xs:element name="message"  type="xs:string"/>
+    
+</xs:schema>

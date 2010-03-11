@@ -10,10 +10,36 @@
 #import "COEDLValidator.h"
 
 
+@interface COEDLValidatorTest (PrivateStuff)
+
+COEDLValidator* validator;
+
+@end
+
 @implementation COEDLValidatorTest
 
 -(void)setUp
 {
+    validator = [[COEDLValidator alloc] initWithContentsOfEDLFile:@"../tests/CLETUSTests/Init_Links_1.edl" 
+                                                      andEDLRules:@"../tests/CLETUSTests/edlValidation_rules.xml"];
+}
+
+-(void)testASetUp
+{
+    BOOL success = NO;
+    
+    if (validator) {
+        success = YES;
+    }
+    
+    STAssertEquals(YES, success, @"COEDLValidator object is nil! Check paths!");
+}
+
+-(void)testIsEDLConfigCorrectAccordingToRules
+{
+    BOOL valid = [validator isEDLConfigCorrectAccordingToRules];
+    
+    STAssertEquals(YES, valid, @"Some rules are not valid!");
 }
 
 -(void)testSubstituteEDLValueForRef
@@ -71,6 +97,7 @@
 
 -(void)tearDown
 {
+    [validator release];
 }
 
 @end

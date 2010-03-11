@@ -83,16 +83,10 @@ NSDictionary* mAbbreviations = nil;
 -(NSError*)initializeWithContentsOfEDLFile:(NSString*)edlPath 
                          
 {
-    NSURL* fileURL = [NSURL fileURLWithPath:edlPath];
-    if (!fileURL) {
-		NSString* errorString = [NSString stringWithFormat:@"Could not create URL from given path %s!", edlPath];
-        return [NSError errorWithDomain:errorString code:URL_CREATION userInfo:nil];
-    }
-    
     [mSystemSetting release];
-	mSystemSetting  = [COXMLUtility newParsedXMLDocument:fileURL];
+	mSystemSetting  = [COXMLUtility newParsedXMLDocument:edlPath];
     [mRuntimeSetting release];
-	mRuntimeSetting = [COXMLUtility newParsedXMLDocument:fileURL];
+	mRuntimeSetting = [COXMLUtility newParsedXMLDocument:edlPath];
     
     if (mSystemSetting == nil || mRuntimeSetting == nil)  {
 		return [NSError errorWithDomain:@"Could not read/parse EDL file. Check well-formedness of XML syntax and existence of file!" 
