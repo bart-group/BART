@@ -37,14 +37,14 @@ typedef struct TrialListStruct {
 
 @interface BADesignElement : BAElement {
 
-    int repetitionTimeInMs;
+    int mRepetitionTimeInMs;
     int numberExplanatoryVariables;
     int numberTimesteps;
     enum ImageDataType imageDataType;
     
 }
 
-@property (readonly, assign) int repetitionTimeInMs;
+@property (readonly, assign) int mRepetitionTimeInMs;
 @property (readonly, assign) int numberExplanatoryVariables;
 @property (readonly, assign) int numberTimesteps;
 @property (readonly, assign) enum ImageDataType imageDataType;

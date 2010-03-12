@@ -13,7 +13,7 @@
 
 @implementation BADesignElement
 
-@synthesize repetitionTimeInMs;
+@synthesize mRepetitionTimeInMs;
 @synthesize numberExplanatoryVariables;
 @synthesize numberTimesteps;
 @synthesize imageDataType;
@@ -22,7 +22,7 @@
 {
     self = [super init];
     //TODO!!!!!!!
-    return [[BADesignElementVI alloc] initWithFile:path ofImageDataType:type];
+    return [[BADesignElementDyn alloc] initWithFile:path ofImageDataType:type];
 }
 
 -(NSError*)writeDesignFile:(NSString*) path

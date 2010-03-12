@@ -12,6 +12,8 @@
 
 #include <viaio/VImage.h>
 
+#import "COSystemConfig.h"
+
 extern int VStringToken (char *, char *, int, int);
 
 // komische Konstanten erstmal aus vgendesign.c (Lipsia) uebernommen
@@ -34,16 +36,25 @@ double cc = 0.35;
 /* Generated design information/resulting design image. */
 float** mDesign = NULL;
 float** mCovariates = NULL;
-int numberRegressors = 0;
-int numberCovariates = 0;     // TODO: get from config  
+//int numberRegressors = 0;
+//int numberCovariates = 0;     // TODO: get from config  
+//
+///* Attributes that should be modifiable (were once CLI parameters). */
+//short bkernel = 0;
+//short deriv = 0;
+//float block_threshold = 10.0; // in seconds
+//int ntimesteps = 396;         // Must be set to a different value!
+
+//float tr = 2.0;               // Must be set to a different value!
+int mNumberRegressors = 0;
+int mNumberCovariates = 0;     // TODO: get from config  
 
 /* Attributes that should be modifiable (were once CLI parameters). */
-short bkernel = 0;
-short deriv = 0;
-float block_threshold = 10.0; // in seconds
-int ntimesteps = 396;         // Must be set to a different value!
+short mKernelForBlockDesign = 0;
+int mDerivationsHrf = 0;
+float mBlockThreshold = 10.0; // in seconds
 
-float tr = 2.0;               // Must be set to a different value!
+
 
 /* Other Attributes set up by initDesign. Main use in generate Design. */
 int numberSamples;
@@ -74,7 +85,7 @@ fftw_complex **inverseInBuffers = NULL;
 -(double)deriv1_gamma:(double)x :(double)t0;
 -(double)deriv2_gamma:(double)x :(double)t0;
 -(double)xgauss:(double)xx :(double)t0;
--(float**)Plot_gamma:(short)deriv;
+-(float**)Plot_gamma;
 -(BOOL)test_ascii:(int)val;
 -(void)Convolve:(int)col
                :(fftw_complex *)local_nbuf
@@ -85,6 +96,10 @@ fftw_complex **inverseInBuffers = NULL;
 /* Utility function for TrialList. */
 -(void)tl_append:(TrialList*)head
                 :(TrialList*)newLast;
+
+-(NSError*)getPropertiesFromConfig;
+
+COSystemConfig *config;
 
 @end
 
@@ -102,40 +117,35 @@ fftw_complex **inverseInBuffers = NULL;
         imageDataType = IMAGE_DATA_FLOAT;
     }
 	
-	
-	numberTimesteps = ntimesteps; //TODO get from config
-    repetitionTimeInMs = tr * 1000;
-	initNumberSamples = (numberTimesteps * repetitionTimeInMs) / samplingRateInMs;
-	
-	
     trials = (TrialList**) malloc(sizeof(TrialList*) * MAX_NUMBER_EVENTS);
     for (int i = 0; i < MAX_NUMBER_EVENTS; i++) {
         trials[i] = NULL;
     }
-    
+	
+	if (nil == [self getPropertiesFromConfig]){
+		return nil;
+	}
+	
     NSLog(@"GenDesign GCD: START");
-    [self parseInputFile:path];
-	 NSLog(@"GenDesign GCD: PARSE");
+	[self parseInputFile:path];
+	NSLog(@"GenDesign GCD: PARSE");
     [self initDesign];
-	 NSLog(@"GenDesign GCD: INIT");   
+	NSLog(@"GenDesign GCD: INIT");   
     [self generateDesign];
     NSLog(@"GenDesign GCD: END");
     
-    if (numberCovariates > 0) {
-        mCovariates = (float**) malloc(sizeof(float*) * numberCovariates);
-        for (int cov = 0; cov < numberCovariates; cov++) {
+    if (mNumberCovariates > 0) {
+        mCovariates = (float**) malloc(sizeof(float*) * mNumberCovariates);
+        for (int cov = 0; cov < mNumberCovariates; cov++) {
             mCovariates[cov] = (float*) malloc(sizeof(float) * numberTimesteps);
             memset(mCovariates[cov], 0.0, sizeof(float) * numberTimesteps);
         }
     }
      
-    numberRegressors = numberEvents * (deriv + 1) + 1;
-    numberExplanatoryVariables = numberRegressors + numberCovariates;
+    mNumberRegressors = numberEvents * (mDerivationsHrf + 1) + 1;
+    numberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
 
-
-    //[self writeDesignFile:@"/tmp/testDesign.v"];
-    
-    return self;
+	return self;
 }
 
 -(id)initWithDynamicDataOfImageDataType:(enum ImageDataType)type
@@ -154,26 +164,24 @@ fftw_complex **inverseInBuffers = NULL;
         trials[i] = NULL;
     }
 	numberEvents = 4;//TODO get from config
-	numberTimesteps = ntimesteps; //TODO get from config
-    repetitionTimeInMs = tr * 1000;//TODO get from config
-	initNumberSamples = (numberTimesteps * repetitionTimeInMs)/(samplingRateInMs);
+	numberTimesteps = 396; //TODO get from config
     
     NSLog(@"GenDesign GCD: START");
     [self initDesign];
     [self generateDesign];
     NSLog(@"GenDesign GCD: END");
     
-    if (numberCovariates > 0) {
-        mCovariates = (float**) malloc(sizeof(float*) * numberCovariates);
-        for (int cov = 0; cov < numberCovariates; cov++) {
+    if (mNumberCovariates > 0) {
+        mCovariates = (float**) malloc(sizeof(float*) * mNumberCovariates);
+        for (int cov = 0; cov < mNumberCovariates; cov++) {
             mCovariates[cov] = (float*) malloc(sizeof(float) * numberTimesteps);
             memset(mCovariates[cov], 0.0, sizeof(float) * numberTimesteps);
         }
     }
 	
 	
-    numberRegressors = numberEvents * (deriv + 1) + 1;
-    numberExplanatoryVariables = numberRegressors + numberCovariates;
+    mNumberRegressors = numberEvents * (mDerivationsHrf + 1) + 1;
+    numberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
     
 	
     //[self writeDesignFile:@"/tmp/testDesign.v"];
@@ -181,6 +189,46 @@ fftw_complex **inverseInBuffers = NULL;
     return self;
 }
 
+
+
+-(NSError*)getPropertiesFromConfig
+{
+	config = [COSystemConfig getInstance];
+	
+	//TODO:  Will be initialized somewhere else
+	NSError *err = [config initializeWithContentsOfEDLFile:@"../../tests/CLETUSTests/Init_Links_1.edl"];
+	NSLog(@"%@", err);
+	if ( nil != err){
+		NSLog(@"Where the hell is the edl file");
+		return err;
+	}
+	
+	NSString* config_tr = [config getProp:@"/rtExperiment/experimentData/imageModalities/TR"];
+	NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+	[f setNumberStyle:NSNumberFormatterDecimalStyle];
+	//TODO : Abfrage Einheit der repetition Time
+	mRepetitionTimeInMs = [[f numberFromString:config_tr] intValue];
+	
+	
+	
+	[f release];//temp for conversion purposes
+	
+	
+	initNumberSamples = (numberTimesteps * mRepetitionTimeInMs) / samplingRateInMs;
+	
+	mNumberRegressors = 0;
+	mNumberCovariates = 0;     // TODO: get from config  
+	
+	/* Attributes that should be modifiable (were once CLI parameters). */
+	mKernelForBlockDesign = 0;
+	mDerivationsHrf = 0;
+	mBlockThreshold = 10.0; // in seconds
+	
+	return nil;
+	
+
+
+}
 
 -(NSError*)initDesign
 {
@@ -208,20 +256,11 @@ fftw_complex **inverseInBuffers = NULL;
     /* constant TR */
     if (strlen(filename) < 3) {
         
-        if (tr > 100) {
-            NSLog(@"Warning: TR must be given in seconds, not milliseconds!");
-        }
-        if (tr < 0.0001) {
-            return [NSError errorWithDomain:@"Repetition time (TR) must be specified!" code:TR_NOT_SPECIFIED userInfo:nil];
-        }
-     //   if (ntimesteps < 2) {
-//            return [NSError errorWithDomain:@"Number of timesteps must be specified!" code:NUMBERTIMESTEPS_NOT_SPECIFIED userInfo:nil];
-//        }
-        fprintf(stderr, " TR = %.3f\n", tr);
+        fprintf(stderr, " TR in ms = %d\n", mRepetitionTimeInMs);
         
         xx = (double *) malloc(sizeof(double) * numberTimesteps);
         for (i = 0; i < numberTimesteps; i++) {
-            xx[i] = (double) (i) * tr * 1000.0;//TODO: Gabi fragen letzter Zeitschritt im moment nicht einbezogen xx[i] = (double) i * tr * 1000.0;
+            xx[i] = (double) (i) * mRepetitionTimeInMs;//TODO: Gabi fragen letzter Zeitschritt im moment nicht einbezogen xx[i] = (double) i * tr * 1000.0;
         }
     }
     /* read scan times from file, non-constant TR */
@@ -341,11 +380,11 @@ fftw_complex **inverseInBuffers = NULL;
             currentTrial = currentTrial->next;
         }
         
-        if (0 == deriv) {
+        if (0 == mDerivationsHrf) {
             ncols++;
-        } else if (1 == deriv) {
+        } else if (1 == mDerivationsHrf) {
             ncols += 2;
-        } else if (2 == deriv) {
+        } else if (2 == mDerivationsHrf) {
             ncols += 3;
         }
     }
@@ -413,14 +452,14 @@ fftw_complex **inverseInBuffers = NULL;
     memset(kernel0, 0, sizeof(double) * initNumberSamples);
     
     double *kernel1 = NULL;
-    if (deriv >= 1) {
+    if (mDerivationsHrf >= 1) {
         kernel1  = (double *)fftw_malloc(sizeof(double) * initNumberSamples);
         fkernel1 = (fftw_complex *)fftw_malloc (sizeof (fftw_complex) * nc);
         memset(kernel1,0,sizeof(double) * initNumberSamples);
     }
     
     double *kernel2 = NULL;
-    if (deriv == 2) {
+    if (mDerivationsHrf == 2) {
         kernel2  = (double *)fftw_malloc(sizeof(double) * initNumberSamples);
         fkernel2 = (fftw_complex *)fftw_malloc (sizeof (fftw_complex) * nc);
         memset(kernel2,0,sizeof(double) * initNumberSamples);
@@ -434,17 +473,17 @@ fftw_complex **inverseInBuffers = NULL;
         if (i >= initNumberSamples) break;//numberSamples
         
         /* Gauss kernel for block designs */
-        if (bkernel == 0) {
+        if (mKernelForBlockDesign == 0) {
             block_kernel[i] = [self xgauss:t :5.0];
-        } else if (bkernel == 1) {
+        } else if (mKernelForBlockDesign == 1) {
             block_kernel[i] = [self bgamma:t :0.0];
         }
         
         kernel0[i] = [self xgamma:t :0];
-        if (deriv >= 1) {
+        if (mDerivationsHrf >= 1) {
             kernel1[i] = [self deriv1_gamma:t :0.0];
         }
-        if (deriv == 2) {
+        if (mDerivationsHrf == 2) {
             kernel2[i] = [self deriv2_gamma:t :0.0];
         }
         i++;
@@ -460,13 +499,13 @@ fftw_complex **inverseInBuffers = NULL;
     fftw_execute(pk0);
     
     fftw_plan pk1;
-    if (deriv >= 1) {
+    if (mDerivationsHrf >= 1) {
         pk1 = fftw_plan_dft_r2c_1d(initNumberSamples, kernel1, fkernel1, FFTW_ESTIMATE);
         fftw_execute(pk1);
     }
     
     fftw_plan pk2;
-    if (deriv == 2) {
+    if (mDerivationsHrf == 2) {
         pk2 = fftw_plan_dft_r2c_1d(initNumberSamples, kernel2, fkernel2, FFTW_ESTIMATE);
         fftw_execute(pk2);
     }
@@ -494,7 +533,7 @@ fftw_complex **inverseInBuffers = NULL;
         int trialcount = 0;
         double t0;
         double h;
-        float minTrialDuration = block_threshold;
+        float minTrialDuration = mBlockThreshold;
         
         TrialList* currentTrial;
         currentTrial = trials[eventNr];
@@ -536,9 +575,9 @@ fftw_complex **inverseInBuffers = NULL;
         /* fft */
         fftw_execute(forwardFFTplans[eventNr]);
         
-        int col = eventNr * (deriv + 1);
+        int col = eventNr * (mDerivationsHrf + 1);
         
-        if (minTrialDuration >= block_threshold) {
+        if (minTrialDuration >= mBlockThreshold) {
             [self Convolve:col 
                           :inverseInBuffers[eventNr]
                           :forwardOutBuffers[eventNr]
@@ -556,7 +595,7 @@ fftw_complex **inverseInBuffers = NULL;
         
         col++;
         
-        if (deriv >= 1) {
+        if (mDerivationsHrf >= 1) {
             [self Convolve:col
                           :inverseInBuffers[eventNr]
                           :forwardOutBuffers[eventNr]
@@ -566,7 +605,7 @@ fftw_complex **inverseInBuffers = NULL;
             col++;
         }
         
-        if (deriv == 2) {
+        if (mDerivationsHrf == 2) {
             [self Convolve:col
                           :inverseInBuffers[eventNr]
                           :forwardOutBuffers[eventNr]
@@ -671,14 +710,14 @@ fftw_complex **inverseInBuffers = NULL;
 -(NSError*)writeDesignFile:(NSString*) path 
 {
     VImage outDesign = NULL;
-    outDesign = VCreateImage(1, numberTimesteps, numberRegressors, VFloatRepn);
+    outDesign = VCreateImage(1, numberTimesteps, mNumberRegressors, VFloatRepn);
     
     VSetAttr(VImageAttrList(outDesign), "modality", NULL, VStringRepn, "X");
     VSetAttr(VImageAttrList(outDesign), "name", NULL, VStringRepn, "X");
-    VSetAttr(VImageAttrList(outDesign), "repetition_time", NULL, VLongRepn, (VLong) (tr * 1000.0));
+    VSetAttr(VImageAttrList(outDesign), "repetition_time", NULL, VLongRepn, (VLong) mRepetitionTimeInMs);
     VSetAttr(VImageAttrList(outDesign), "ntimesteps", NULL, VLongRepn, (VLong) numberTimesteps);
     
-    VSetAttr(VImageAttrList(outDesign), "derivatives", NULL, VShortRepn, deriv);
+    VSetAttr(VImageAttrList(outDesign), "derivatives", NULL, VShortRepn, mDerivationsHrf);
     
     // evil: Copy&Paste from initDesign()
     static float delay = 6.0;              
@@ -694,7 +733,7 @@ fftw_complex **inverseInBuffers = NULL;
     VSetAttr(VImageAttrList(outDesign), "nsessions", NULL, VShortRepn, (VShort) 1);
     VSetAttr(VImageAttrList(outDesign), "designtype", NULL, VShortRepn, (VShort) 1);
     
-    for (int col = 0; col < numberRegressors; col++) {
+    for (int col = 0; col < mNumberRegressors; col++) {
         for (int ts = 0; ts < numberTimesteps; ts++) {
 //			if ((mDesign[col][ts] < 0.000000000000001 && mDesign[col][ts] > -0.000000000000001) || ts < 7) {
 //				VPixel(outDesign, 0, ts, col, VFloat) = (VFloat) 0.0;
@@ -714,11 +753,11 @@ fftw_complex **inverseInBuffers = NULL;
     
     // Numbers taken from Plot_gamma()
     int ncols = (int) (28.0 / 0.2);
-    int nrows = deriv + 2;
+    int nrows = mDerivationsHrf + 2;
     VImage plot_image = NULL;
     plot_image = VCreateImage(1, nrows, ncols, VFloatRepn);
     float** plot_image_raw = NULL;
-    plot_image_raw = [self Plot_gamma:deriv];
+    plot_image_raw = [self Plot_gamma];
     
     for (int col = 0; col < ncols; col++) {
         for (int row = 0; row < nrows; row++) {
@@ -908,7 +947,7 @@ fftw_complex **inverseInBuffers = NULL;
     return y;
 }
 
--(float**)Plot_gamma:(short)deriv
+-(float**)Plot_gamma
 {
     double y0;
     double y1;
@@ -917,7 +956,7 @@ fftw_complex **inverseInBuffers = NULL;
     double step = 0.2;
     
     int ncols = (int) (28.0 / step);
-    int nrows = deriv + 2;
+    int nrows = mDerivationsHrf + 2;
     
     float** dest = (float**) malloc(sizeof(float*) * ncols);
     for (int col = 0; col < ncols; col++) {
@@ -939,10 +978,10 @@ fftw_complex **inverseInBuffers = NULL;
 
         dest[j][0] = x;
         dest[j][1] = y0;
-        if (deriv > 0) {
+        if (mDerivationsHrf > 0) {
             dest[j][2] = y1;
         }
-        if (deriv > 1) {
+        if (mDerivationsHrf > 1) {
             dest[j][3] = y2;
         }
         j++;
@@ -1025,7 +1064,7 @@ fftw_complex **inverseInBuffers = NULL;
                                  atTimestep:(int)t 
 {
     NSNumber *value = nil;
-    if (cov < numberRegressors) {
+    if (cov < mNumberRegressors) {
         if (mDesign != NULL) {
             if (IMAGE_DATA_FLOAT == imageDataType){
                 value = [NSNumber numberWithFloat:mDesign[cov][t]];
@@ -1036,7 +1075,7 @@ fftw_complex **inverseInBuffers = NULL;
             NSLog(@"%@: generateDesign has not been called yet! (initial design information NULL)", self);
         }
     } else {
-        int covIndex = cov - numberRegressors;
+        int covIndex = cov - mNumberRegressors;
         value = [NSNumber numberWithFloat:mCovariates[covIndex][t]];
     }
     
@@ -1091,13 +1130,13 @@ fftw_complex **inverseInBuffers = NULL;
 
 -(void)dealloc
 {
-    for (int col = 0; col < numberRegressors; col++) {
+    for (int col = 0; col < mNumberRegressors; col++) {
         free(mDesign[col]);
     }
     free(mDesign);
     
     if (mCovariates != NULL) {
-        for (int cov = 0; cov < numberCovariates; cov++) {
+        for (int cov = 0; cov < mNumberCovariates; cov++) {
             free(mCovariates[cov]);
         }
         free(mCovariates);
