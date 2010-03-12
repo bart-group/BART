@@ -10,10 +10,12 @@
 
 enum COTokenKind {
     EMPTY_TOKEN = 0,
-    SYMBOL_TOKEN,
-    WORD_TOKEN,
+    BOOLEAN_TOKEN,
+    NUMBER_TOKEN,
     STRING_TOKEN,
-    NUMBER_TOKEN
+    PARAMETER_TOKEN,
+    WORD_TOKEN,
+    SYMBOL_TOKEN
 };
 
 /**
@@ -22,9 +24,9 @@ enum COTokenKind {
 @interface COEDLValidatorToken : NSObject {
     
     /** Kind of the token (e.g. word, symbol, number ...). */
-    enum COTokenKind kind;
+    enum COTokenKind mKind;
     /** Value of the token in string representation. */
-    NSString* value;
+    NSString* mValue;
 
 }
 
@@ -45,7 +47,7 @@ enum COTokenKind {
  */
 -(id)initWithKind:(enum COTokenKind)aKind andValue:(NSString*)aValue;
 
-@property (readonly, assign) enum COTokenKind kind;
-@property (readonly, assign) NSString* value;
+@property (assign) enum COTokenKind mKind;
+@property (retain) NSString* mValue;
 
 @end

@@ -11,13 +11,13 @@
 
 @implementation COEDLValidatorToken
 
-@synthesize kind;
-@synthesize value;
+@synthesize mKind;
+@synthesize mValue;
 
 -(id)init
 {
-    kind  = EMPTY_TOKEN;
-    value = @"";
+    mKind  = EMPTY_TOKEN;
+    mValue = [[NSString alloc] initWithString:@""];
     
     return self;
 }
@@ -25,16 +25,15 @@
 -(id)initWithKind:(enum COTokenKind)aKind 
          andValue:(NSString*)aValue
 {
-    kind  = aKind;
-    value = [aValue copy];
+    mKind  = aKind;
+    mValue = [aValue retain];
     
     return self;
 }
 
 -(void)dealloc
 {
-    [value release];
-    
+    [mValue release];
     [super dealloc];
 }
 

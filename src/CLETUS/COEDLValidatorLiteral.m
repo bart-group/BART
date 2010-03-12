@@ -21,24 +21,28 @@
 @interface COEDLValidatorLiteral (PrivateStuff)
 
 /** String representing the whole literal. */ 
-NSString*           literalString = nil;
+//NSString*           literalString = nil;
 
 /** Dictionary of all parameters that are in scope
  *  of the literal. */
 NSDictionary*       mParameters;
 
 /** Analysed literalString, split into tokens of type COEDLValidatorToken. */
-NSMutableArray*     parsedTokens;
+NSMutableArray*     mTokens;
 
 /** Storing the value of the literal if already evaluated. */
-enum COLiteralValue value;
+enum COLiteralValue litValue;
 
 /** Error information if something went wrong during the parse process. */
-NSError*            error;
+NSError*            mError;
+
+
 
 /**
  * Splits the literalString into an array of COEDLValidatorToken objects
  * prepared for evaluation.
+ *
+ * \param cur Current reading position in the literal string. 
  */
 -(void)tokenize:(int*)cur;
 
@@ -59,10 +63,49 @@ NSError*            error;
 -(void)parseNumber:(int*)cur;
 
 /**
- * Evaluates the array parsedTokens and stores the result
- * in mValue.
+ * Lookup all tokens of kind WORD_TOKEN that are not 
+ * predefined EDL functions in the dictionary mParameters.
+ *
+ * If found:  replace the parameter name with value and 
+ *            change token kind to PARAM_TOKEN.
+ * Not found: remove word token. This will most likely 
+ *            result in an evaluation error later. Except
+ *            this word token (not existing parameter) is
+ *            argument for the predefined EDL function
+ *            edlValidation_exists - calling this function
+ *            without an argument will result in NO/FALSE.
  */
--(void)evaluateTokens;
+-(void)resolveParameters;
+
+/**
+ * Checks whether a given word represents an EDL
+ * function. Predefined EDL functions are:
+ *
+ * - edlValidation_biggerThan
+ * - edlValidation_lowerThan
+ * - edlValidation_exists
+ * - edlValidation_strcmp
+ */
+-(BOOL)isPredefinedEDLFunction:(NSString*)word;
+
+/**
+ * Recursively evaluates the array parsedTokens until only 
+ * one COEDLValidatorToken of kind BOOLEAN_TOKEN is left.
+ *
+ * \param range Defines the subsequence of parsedTokens
+ *              that shall be evaluated.
+ */
+-(void)evaluateTokensOver:(NSRange)range;
+
+-(void)evaluateBracketsOver:(NSRange)range;
+-(void)removePair:(int)leftIndex and:(int)rightIndex;
+-(BOOL)isFunctionOpeningBracket:(int)bracketIndex;
+
+-(void)evaluateUnaryFunctionWith:(NSRange)argumentRange;
+-(void)evaluateEDLValidationExistsWith:(NSRange)argumentRange;
+
+-(void)evaluateBinaryFunctionWith:(NSRange)leftArgRange and:(NSRange)rightArgRange;
+-(void)evaluateEDLValidationStrcmpWith:(NSRange)leftArgRange and:(NSRange)rightArgRange;
 
 @end
 
@@ -79,32 +122,73 @@ NSError*            error;
     } else {
         mParameters = [NSDictionary dictionary];
     }
-
     
-    parsedTokens = [[NSMutableArray alloc] initWithCapacity:0];
-    value = LIT_FALSE;
-    error = nil;
+    mTokens = [[NSMutableArray alloc] initWithCapacity:0];
+    litValue = LIT_FALSE;
+    mError = nil;
     
     return self;
 }
 
 -(enum COLiteralValue)getValue 
 {    
-    if ([parsedTokens count] == 0) {
+    if ([mTokens count] == 0) {
+        // Tokenize...
         int cur = 0;
         while (cur < [literalString length]) {
             [self tokenize:&cur];
         }
         
-        [self evaluateTokens];
+        
+        
+        // Evaluate...
+        if ([mTokens count] > 0) {
+            [self resolveParameters];
+            
+            // TODO: remove output
+            FILE* fp = fopen("/tmp/cletusTest.txt", "w");
+            for (COEDLValidatorToken* token in mTokens) {
+                fputc(48 + [token mKind], fp);
+                fputc(' ', fp);
+                fputs([[token mValue] cStringUsingEncoding:NSUTF8StringEncoding], fp);
+                fputc('\n', fp);
+            }
+            fclose(fp);
+            // END output
+            
+            NSRange evalRange;
+            evalRange.location = 0;
+            evalRange.length   = [mTokens count];
+            [self evaluateTokensOver:evalRange];
+        } else {
+            litValue = LIT_ERROR;
+            // TODO: error and explosion
+        }
+        
+        // Get value from last token that is left after
+        // evaluation.
+        if ([mTokens count] == 1) {
+            COEDLValidatorToken* resultToken = [mTokens objectAtIndex:0];
+            if ([resultToken mKind] == BOOLEAN_TOKEN) {
+                if ([[resultToken mValue] compare:@"TRUE"] == 0) {
+                    litValue = LIT_TRUE;
+                } else {
+                    litValue = LIT_FALSE;
+                }
+            } else {
+                litValue = LIT_ERROR;
+            }
+        } else {
+            litValue = LIT_ERROR;
+        }
     }
     
-    return value;
+    return litValue;
 }
 
 -(NSError*)getError
 {
-    return error;
+    return mError;
 }
 
 -(void)tokenize:(int*)cur
@@ -198,26 +282,26 @@ NSError*            error;
                     
                     (*cur)++;
                 } else {
-                    value = LIT_ERROR;
-                    error = [NSError errorWithDomain:@"Cannot parse '=' at the end of the literal string." code:INCORRECT_SYNTAX userInfo:nil];
+                    litValue = LIT_ERROR;
+                    mError = [NSError errorWithDomain:@"Cannot parse '=' at the end of the literal string." code:INCORRECT_SYNTAX userInfo:nil];
                 }
                 
             }
             @catch (NSException * e) {
-                value = LIT_ERROR;
-                error = [NSError errorWithDomain:@"Cannot parse '=' at the end of the literal string." code:INCORRECT_SYNTAX userInfo:nil];
+                litValue = LIT_ERROR;
+                mError = [NSError errorWithDomain:@"Cannot parse '=' at the end of the literal string." code:INCORRECT_SYNTAX userInfo:nil];
             }
             break;
 
         default:
-            value = LIT_ERROR;
-            error = [NSError errorWithDomain:[NSString stringWithFormat:@"Unsupported symbol at position %d in literal string.", (*cur) + 1] 
+            litValue = LIT_ERROR;
+            mError = [NSError errorWithDomain:[NSString stringWithFormat:@"Unsupported symbol at position %d in literal string.", (*cur) + 1] 
                                         code:INCORRECT_SYNTAX 
                                     userInfo:nil];
             break;
     }
     
-    [parsedTokens addObject:token];
+    [mTokens addObject:token];
     [token release];
 }
 
@@ -246,7 +330,7 @@ NSError*            error;
     
     COEDLValidatorToken* token = [[COEDLValidatorToken alloc] initWithKind:WORD_TOKEN 
                                                                   andValue:buffer];
-    [parsedTokens addObject:token];
+    [mTokens addObject:token];
     [token release];
     [buffer release];
 }
@@ -254,8 +338,8 @@ NSError*            error;
 -(void)parseString:(int*)cur
 {
     if ((*cur) >= [literalString length] - 1) {
-        value = LIT_ERROR;
-        error = [NSError errorWithDomain:@"Beginning string (character ') at the end of the literal string." code:INCORRECT_SYNTAX userInfo:nil];
+        litValue = LIT_ERROR;
+        mError = [NSError errorWithDomain:@"Beginning string (character ') at the end of the literal string." code:INCORRECT_SYNTAX userInfo:nil];
     }
     
     (*cur)++; // Skip string beginning.
@@ -285,8 +369,8 @@ NSError*            error;
                 (*cur)++;
             }
             @catch (NSException * e) {
-                value = LIT_ERROR;
-                error = [NSError errorWithDomain:@"Broken string at the end of the literal." code:INCORRECT_SYNTAX userInfo:nil];
+                litValue = LIT_ERROR;
+                mError = [NSError errorWithDomain:@"Broken string at the end of the literal." code:INCORRECT_SYNTAX userInfo:nil];
             }
             
         // End of the string...
@@ -302,13 +386,13 @@ NSError*            error;
     }
     
     if (!stringEndFound) {
-        value = LIT_ERROR;
-        error = [NSError errorWithDomain:@"Broken string (missing string terminator) at the end of the literal." 
+        litValue = LIT_ERROR;
+        mError = [NSError errorWithDomain:@"Broken string (missing string terminator) at the end of the literal." 
                                     code:INCORRECT_SYNTAX userInfo:nil];
     } else {
         COEDLValidatorToken* token = [[COEDLValidatorToken alloc] initWithKind:STRING_TOKEN 
                                                                       andValue:buffer];
-        [parsedTokens addObject:token];
+        [mTokens addObject:token];
         [token release];
     }
     
@@ -357,47 +441,294 @@ NSError*            error;
                     }
                 }
             } else {
-                value = LIT_ERROR;
+                litValue = LIT_ERROR;
                 NSString* errorString = 
                     [NSString stringWithFormat:@"Malformed decimal point number (no position after the decimal point) at position %d in literal.", (*cur) + 1];
-                error = [NSError errorWithDomain:errorString 
+                mError = [NSError errorWithDomain:errorString 
                                             code:INCORRECT_SYNTAX userInfo:nil];
             }
 
         } else {
-            value = LIT_ERROR;
-            error = [NSError errorWithDomain:@"Broken number format at the end of the literal (number that dosn't have any position after the decimal point discovered)." 
+            litValue = LIT_ERROR;
+            mError = [NSError errorWithDomain:@"Broken number format at the end of the literal (number that dosn't have any position after the decimal point discovered)." 
                                         code:INCORRECT_SYNTAX userInfo:nil];
         }
     }
     
-    if (value != LIT_ERROR) {
+    if (litValue != LIT_ERROR) {
         COEDLValidatorToken* token = [[COEDLValidatorToken alloc] initWithKind:NUMBER_TOKEN 
                                                                       andValue:buffer];
-        [parsedTokens addObject:token];
+        [mTokens addObject:token];
         [token release];
     }
     
     [buffer release];
 }
 
--(void)evaluateTokens
+-(void)resolveParameters
 {
-    FILE* fp = fopen("/tmp/cletusTest.txt", "w");
-    for (COEDLValidatorToken* token in parsedTokens) {
-        fputc(48 + [token kind], fp);
-        fputc(' ', fp);
-        fputs([[token value] cStringUsingEncoding:NSUTF8StringEncoding], fp);
-        fputc('\n', fp);
+    NSMutableArray* wordTokensToRemove = [NSMutableArray arrayWithCapacity:0];
+    
+    for (COEDLValidatorToken* token in mTokens) {
+        if ([token mKind] == WORD_TOKEN
+            && ![self isPredefinedEDLFunction:[token mValue]]) {
+            
+            NSString* paramValue = [mParameters valueForKey:[token mValue]];
+            if (paramValue) {
+                [token setMKind:PARAMETER_TOKEN];
+                [token setMValue:paramValue];
+            } else {
+                [wordTokensToRemove addObject:token];
+            }
+        }
     }
-    fclose(fp);
+    
+    [mTokens removeObjectsInArray:wordTokensToRemove];
 }
+
+-(BOOL)isPredefinedEDLFunction:(NSString*)word
+{
+    if ([word compare:@"edlValidation_biggerThan"] == 0
+        || [word compare:@"edlValidation_lowerThan"] == 0
+        || [word compare:@"edlValidation_exists"] == 0
+        || [word compare:@"edlValidation_strcmp"] == 0) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+-(void)evaluateTokensOver:(NSRange)range
+{
+    COEDLValidatorToken* curToken = [mTokens objectAtIndex:range.location];
+    enum COTokenKind tokenKind = [curToken mKind];
+    
+    if (tokenKind == SYMBOL_TOKEN) {
+        
+        // Evaluate curToken.
+        
+        NSString* symbol = [curToken mValue];
+        
+        if ([symbol compare:@"("] == 0) {
+            [self evaluateBracketsOver:range];
+        } else if ([symbol compare:@"-"] == 0) {
+            // TODO: implement unary minus
+        } else if ([symbol compare:@"*"] == 0 
+                   || [symbol compare:@"/"] == 0) {
+            // TODO: implement multiplication
+        } else if ([symbol compare:@"+"] == 0 
+                   || [symbol compare:@"-"] == 0) {
+            // TODO: implement addition
+        } else if ([symbol compare:@"=="] == 0) {
+            // TODO: implement comparison
+        } 
+        
+    } else {
+        // "Tail recursion": move to next token in mTokens and repeat process.
+        if (range.length > 1) {
+            range.location++;
+            range.length--;
+            
+            [self evaluateTokensOver:range];
+        }
+    }
+}
+
+// BEGIN Bracket evaluation.
+-(void)evaluateBracketsOver:(NSRange)range
+{
+    // TODO: error if no corresponding bracket is found
+    
+    NSUInteger openingBracketIndex = range.location;
+    NSUInteger seperatorIndex = 0;
+    NSUInteger closingBracketIndex = 0;
+    BOOL closingBracketFound = NO;
+    int bracketPairNr = 1;
+    
+    // First: find indices for opening/closing bracket (and optional seperator)
+    NSUInteger lookupIndex = openingBracketIndex + 1;
+    while (!closingBracketFound
+           && (lookupIndex < [mTokens count])) {
+        
+        COEDLValidatorToken* lookupToken = [mTokens objectAtIndex:lookupIndex];
+        
+        if ([lookupToken mKind] == SYMBOL_TOKEN) {
+            NSString* lookupTokenValue = [lookupToken mValue];
+            
+            if ([lookupTokenValue compare:@"("] == 0) {
+                bracketPairNr++;
+            } else if ([lookupTokenValue compare:@")"] == 0) {
+                bracketPairNr--;
+                if (bracketPairNr == 0
+                    && !closingBracketFound) {
+                    closingBracketIndex = lookupIndex;
+                    closingBracketFound = YES;
+                }
+            } else if (seperatorIndex == 0
+                       && bracketPairNr == 1
+                       && [lookupTokenValue compare:@","] == 0) {
+                seperatorIndex = lookupIndex;
+            }
+        }
+        
+        lookupIndex++;
+    }
+    
+    // Second: Determine whether the brackets encapsulate function argument(s)
+    //         or just annother expression.
+    if ([self isFunctionOpeningBracket:openingBracketIndex]) {
+        [self removePair:openingBracketIndex and:closingBracketIndex];
+        
+        if (seperatorIndex == 0) {
+            NSRange argumentRange;
+            argumentRange.location = openingBracketIndex;
+            argumentRange.length   = closingBracketIndex - 1 - openingBracketIndex;
+            
+            [self evaluateUnaryFunctionWith:argumentRange];
+        } else {
+            [mTokens removeObjectAtIndex:seperatorIndex - 1]; // - 1 because of bracket removal.
+            
+            NSRange leftArgRange;
+            leftArgRange.location  = openingBracketIndex;
+            leftArgRange.length    = seperatorIndex - 1 - openingBracketIndex;
+            NSRange rightArgRange;
+            rightArgRange.location = seperatorIndex - 1; // seperator position before it was removed
+            rightArgRange.length   = closingBracketIndex - 1 - seperatorIndex;
+            
+            [self evaluateBinaryFunctionWith:leftArgRange and:rightArgRange];
+        }
+    } else {
+        if (seperatorIndex == 0) {
+            [self removePair:openingBracketIndex and:closingBracketIndex];
+            range.length -= 2;
+            
+            // openingBracketIndex is now the index of the first token
+            // formerly enclosed by the brackets
+            [self evaluateTokensOver:range];
+        } else {
+            // TODO: error: syntax error!
+        }
+    }
+}
+
+-(void)removePair:(int)leftIndex and:(int)rightIndex
+{
+    [mTokens removeObjectAtIndex:leftIndex];
+    [mTokens removeObjectAtIndex:rightIndex - 1];
+}
+-(BOOL)isFunctionOpeningBracket:(int)bracketIndex
+{
+    if (bracketIndex > 0) {
+        COEDLValidatorToken* possibleWordToken = [mTokens objectAtIndex:bracketIndex - 1];
+        if ([possibleWordToken mKind] == WORD_TOKEN) {
+            return [self isPredefinedEDLFunction:[possibleWordToken mValue]];
+        }
+    } 
+    
+    return NO;
+}
+// END Bracket evaluation.
+
+// BEGIN Unary function evaluation
+-(void)evaluateUnaryFunctionWith:(NSRange)argumentRange
+{
+    if ([[[mTokens objectAtIndex:argumentRange.location - 1] mValue] compare:@"edlValidation_exists"] == 0) {
+        [self evaluateEDLValidationExistsWith:argumentRange];
+    }
+}
+-(void)evaluateEDLValidationExistsWith:(NSRange)argumentRange
+{
+    [[mTokens objectAtIndex:argumentRange.location - 1] setMKind:BOOLEAN_TOKEN];
+    
+    COEDLValidatorToken* resultToken;
+    
+    if (argumentRange.length == 1) {
+        enum COTokenKind tokenKind = [[mTokens objectAtIndex:argumentRange.location] mKind];
+        if (tokenKind == NUMBER_TOKEN
+            || tokenKind == STRING_TOKEN
+            || tokenKind == PARAMETER_TOKEN) {
+            
+            [mTokens removeObjectAtIndex:argumentRange.location];
+            //[[mTokens objectAtIndex:argumentRange.location - 1] setMValue:@"TRUE"];
+            resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"TRUE"];
+            [mTokens replaceObjectAtIndex:(argumentRange.location - 1) withObject:resultToken];
+            [resultToken release];
+        } else {
+            // TODO: error - no valid argument for exists
+        }
+    } else {
+        //[[mTokens objectAtIndex:argumentRange.location - 1] setMValue:@"FALSE"];
+        resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"TRUE"];
+        [mTokens replaceObjectAtIndex:(argumentRange.location - 1) withObject:resultToken];
+        [resultToken release];
+    }
+}
+// END Unary function evaluation
+
+// BEGIN Binary function evaluation
+-(void)evaluateBinaryFunctionWith:(NSRange)leftArgRange and:(NSRange)rightArgRange
+{
+    if ([[[mTokens objectAtIndex:leftArgRange.location - 1] mValue] compare:@"edlValidation_strcmp"] == 0) {
+        [self evaluateEDLValidationStrcmpWith:leftArgRange and:rightArgRange];
+    } else if ([[[mTokens objectAtIndex:leftArgRange.location - 1] mValue] compare:@"edlValidation_biggerThan"] == 0) {
+        // TODO: implement
+    } else if ([[[mTokens objectAtIndex:leftArgRange.location - 1] mValue] compare:@"edlValidation_lowerThan"] == 0) {
+        // TODO: implement
+    }
+}
+-(void)evaluateEDLValidationStrcmpWith:(NSRange)leftArgRange and:(NSRange)rightArgRange
+{
+    if (leftArgRange.length == 1
+        && rightArgRange.length == 1) {
+        COEDLValidatorToken* leftToken  = [mTokens objectAtIndex:leftArgRange.location];
+        COEDLValidatorToken* rightToken = [mTokens objectAtIndex:rightArgRange.location];
+        if (([leftToken mKind] == PARAMETER_TOKEN || [leftToken mKind] == STRING_TOKEN)
+            && ([rightToken mKind] == PARAMETER_TOKEN || [rightToken mKind] == STRING_TOKEN)) {
+            // Both function parameters are either a string or a rule parameter.
+            
+            //[[mTokens objectAtIndex:leftArgRange.location - 1] setMKind:BOOLEAN_TOKEN];
+            COEDLValidatorToken* resultToken;
+            
+            if ([[leftToken mValue] compare:[rightToken mValue]] == 0) {
+                //[[mTokens objectAtIndex:leftArgRange.location - 1] setMValue:@"TRUE"];
+                resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"TRUE"];
+                
+                FILE* fp = fopen("/tmp/pletusTest.txt", "w");
+                fputs([[rightToken mValue] cStringUsingEncoding:NSUTF8StringEncoding], fp);
+                fclose(fp);
+                
+            } else {
+                //[[mTokens objectAtIndex:rightArgRange.location - 1] setMValue:@"FALSE"];
+                
+                
+                
+                FILE* fp = fopen("/tmp/kletusTest.txt", "w");
+                fputs([[rightToken mValue] cStringUsingEncoding:NSUTF8StringEncoding], fp);
+                fclose(fp);
+                
+                
+                
+                resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"FALSE"];
+            }
+            [mTokens replaceObjectAtIndex:(leftArgRange.location - 1) withObject:resultToken];
+            [resultToken release];
+            [self removePair:leftArgRange.location and:rightArgRange.location];
+            
+        } else {
+            // TODO: Error: wrong type for strcmp - or just return false?
+        }
+    } else {
+        // TODO: Error or/and false?
+    }
+}
+// END Binary function evaluation
+
 
 -(void)dealloc
 {
     //[literalString release];
     //[mParameters release];
-    [parsedTokens release];
+    [mTokens release];
     
     [super dealloc];
 }
