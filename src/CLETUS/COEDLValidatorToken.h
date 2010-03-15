@@ -25,6 +25,7 @@ enum COTokenKind {
     
     /** Kind of the token (e.g. word, symbol, number ...). */
     enum COTokenKind mKind;
+    
     /** Value of the token in string representation. */
     NSString* mValue;
 

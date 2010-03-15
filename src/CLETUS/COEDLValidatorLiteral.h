@@ -27,7 +27,20 @@ enum COEDLValidatorLiteralError {
 @interface COEDLValidatorLiteral : NSObject {
     
     /** String representing the whole literal. */ 
-    NSString* literalString;
+    NSString*           literalString;
+    
+    /** Dictionary of all parameters that are in scope
+     *  of the literal. */
+    NSDictionary*       mParameters;
+    
+    /** Analysed literalString, split into tokens of type COEDLValidatorToken. */
+    NSMutableArray*     mTokens;
+    
+    /** Storing the value of the literal if already evaluated. */
+    enum COLiteralValue litValue;
+    
+    /** Error information if something went wrong during the parse process. */
+    NSError*            mError;
 
 }
 

@@ -17,26 +17,18 @@
 // 
 //
 
+enum COLiteralComparisonOperator {
+    LIT_BIGGERTHAN,
+    LIT_LOWERTHAN
+};
+enum COLiteralArithmeticOperation {
+    LIT_MULTIPLICATION,
+    LIT_DIVISION,
+    LIT_ADDITION,
+    LIT_SUBSTRACTION
+};
 
 @interface COEDLValidatorLiteral (PrivateStuff)
-
-/** String representing the whole literal. */ 
-//NSString*           literalString = nil;
-
-/** Dictionary of all parameters that are in scope
- *  of the literal. */
-NSDictionary*       mParameters;
-
-/** Analysed literalString, split into tokens of type COEDLValidatorToken. */
-NSMutableArray*     mTokens;
-
-/** Storing the value of the literal if already evaluated. */
-enum COLiteralValue litValue;
-
-/** Error information if something went wrong during the parse process. */
-NSError*            mError;
-
-
 
 /**
  * Splits the literalString into an array of COEDLValidatorToken objects
@@ -106,6 +98,14 @@ NSError*            mError;
 
 -(void)evaluateBinaryFunctionWith:(NSRange)leftArgRange and:(NSRange)rightArgRange;
 -(void)evaluateEDLValidationStrcmpWith:(NSRange)leftArgRange and:(NSRange)rightArgRange;
+-(void)evaluateEDLValidationCompare:(NSRange)leftArgRange 
+                                and:(NSRange)rightArgRange 
+                       withOperator:(enum COLiteralComparisonOperator)op;
+
+-(void)evaluateArithmeticTermOver:(NSRange)range;
+-(NSUInteger)indexOfOperator:(NSString*)op inRange:(NSRange)range;
+-(void)evaluateUnaryMinus:(NSUInteger)minusIndex;
+-(void)evaluateBinaryOperation:(NSRange)leftOpRange and:(NSRange)rightOpRange;
 
 @end
 
@@ -139,22 +139,20 @@ NSError*            mError;
             [self tokenize:&cur];
         }
         
-        
-        
         // Evaluate...
         if ([mTokens count] > 0) {
             [self resolveParameters];
             
-            // TODO: remove output
-            FILE* fp = fopen("/tmp/cletusTest.txt", "w");
-            for (COEDLValidatorToken* token in mTokens) {
-                fputc(48 + [token mKind], fp);
-                fputc(' ', fp);
-                fputs([[token mValue] cStringUsingEncoding:NSUTF8StringEncoding], fp);
-                fputc('\n', fp);
-            }
-            fclose(fp);
-            // END output
+//            // TODO: remove output
+//            FILE* fp = fopen("/tmp/cletusTest.txt", "w");
+//            for (COEDLValidatorToken* token in mTokens) {
+//                fputc(48 + [token mKind], fp);
+//                fputc(' ', fp);
+//                fputs([[token mValue] cStringUsingEncoding:NSUTF8StringEncoding], fp);
+//                fputc('\n', fp);
+//            }
+//            fclose(fp);
+//            // END output
             
             NSRange evalRange;
             evalRange.location = 0;
@@ -629,7 +627,7 @@ NSError*            mError;
 }
 // END Bracket evaluation.
 
-// BEGIN Unary function evaluation
+// BEGIN Unary function evaluation.
 -(void)evaluateUnaryFunctionWith:(NSRange)argumentRange
 {
     if ([[[mTokens objectAtIndex:argumentRange.location - 1] mValue] compare:@"edlValidation_exists"] == 0) {
@@ -638,7 +636,7 @@ NSError*            mError;
 }
 -(void)evaluateEDLValidationExistsWith:(NSRange)argumentRange
 {
-    [[mTokens objectAtIndex:argumentRange.location - 1] setMKind:BOOLEAN_TOKEN];
+    //[[mTokens objectAtIndex:argumentRange.location - 1] setMKind:BOOLEAN_TOKEN];
     
     COEDLValidatorToken* resultToken;
     
@@ -658,22 +656,27 @@ NSError*            mError;
         }
     } else {
         //[[mTokens objectAtIndex:argumentRange.location - 1] setMValue:@"FALSE"];
-        resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"TRUE"];
+        resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"FALSE"];
         [mTokens replaceObjectAtIndex:(argumentRange.location - 1) withObject:resultToken];
         [resultToken release];
     }
 }
-// END Unary function evaluation
+// END Unary function evaluation.
 
-// BEGIN Binary function evaluation
+// BEGIN Binary function evaluation.
 -(void)evaluateBinaryFunctionWith:(NSRange)leftArgRange and:(NSRange)rightArgRange
 {
     if ([[[mTokens objectAtIndex:leftArgRange.location - 1] mValue] compare:@"edlValidation_strcmp"] == 0) {
-        [self evaluateEDLValidationStrcmpWith:leftArgRange and:rightArgRange];
+        [self evaluateEDLValidationStrcmpWith:leftArgRange 
+                                          and:rightArgRange];
     } else if ([[[mTokens objectAtIndex:leftArgRange.location - 1] mValue] compare:@"edlValidation_biggerThan"] == 0) {
-        // TODO: implement
+        [self evaluateEDLValidationCompare:leftArgRange 
+                                       and:rightArgRange 
+                              withOperator:LIT_BIGGERTHAN];
     } else if ([[[mTokens objectAtIndex:leftArgRange.location - 1] mValue] compare:@"edlValidation_lowerThan"] == 0) {
-        // TODO: implement
+        [self evaluateEDLValidationCompare:leftArgRange 
+                                       and:rightArgRange 
+                              withOperator:LIT_LOWERTHAN];
     }
 }
 -(void)evaluateEDLValidationStrcmpWith:(NSRange)leftArgRange and:(NSRange)rightArgRange
@@ -686,28 +689,11 @@ NSError*            mError;
             && ([rightToken mKind] == PARAMETER_TOKEN || [rightToken mKind] == STRING_TOKEN)) {
             // Both function parameters are either a string or a rule parameter.
             
-            //[[mTokens objectAtIndex:leftArgRange.location - 1] setMKind:BOOLEAN_TOKEN];
             COEDLValidatorToken* resultToken;
             
             if ([[leftToken mValue] compare:[rightToken mValue]] == 0) {
-                //[[mTokens objectAtIndex:leftArgRange.location - 1] setMValue:@"TRUE"];
                 resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"TRUE"];
-                
-                FILE* fp = fopen("/tmp/pletusTest.txt", "w");
-                fputs([[rightToken mValue] cStringUsingEncoding:NSUTF8StringEncoding], fp);
-                fclose(fp);
-                
             } else {
-                //[[mTokens objectAtIndex:rightArgRange.location - 1] setMValue:@"FALSE"];
-                
-                
-                
-                FILE* fp = fopen("/tmp/kletusTest.txt", "w");
-                fputs([[rightToken mValue] cStringUsingEncoding:NSUTF8StringEncoding], fp);
-                fclose(fp);
-                
-                
-                
                 resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"FALSE"];
             }
             [mTokens replaceObjectAtIndex:(leftArgRange.location - 1) withObject:resultToken];
@@ -721,7 +707,89 @@ NSError*            mError;
         // TODO: Error or/and false?
     }
 }
-// END Binary function evaluation
+-(void)evaluateEDLValidationCompare:(NSRange)leftArgRange 
+                                and:(NSRange)rightArgRange 
+                       withOperator:(enum COLiteralComparisonOperator)op
+{
+    if (leftArgRange.length == 1
+        || rightArgRange.length == 1) {
+        COEDLValidatorToken* leftToken  = [mTokens objectAtIndex:leftArgRange.location];
+        COEDLValidatorToken* rightToken = [mTokens objectAtIndex:rightArgRange.location];
+        if (([leftToken mKind] == PARAMETER_TOKEN || [leftToken mKind] == NUMBER_TOKEN)
+            && ([rightToken mKind] == PARAMETER_TOKEN || [rightToken mKind] == NUMBER_TOKEN)) {
+            // Both function parameters are either a number or a rule parameter.
+            
+            COEDLValidatorToken* resultToken;
+            
+            double leftValue  = [[leftToken mValue] doubleValue];
+            double rightValue = [[rightToken mValue] doubleValue];
+            if ((leftValue > rightValue && op == LIT_BIGGERTHAN)
+                || (leftValue < rightValue && op == LIT_LOWERTHAN)) {
+                resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"TRUE"];
+            } else {
+                resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"FALSE"];
+            }
+            [mTokens replaceObjectAtIndex:(leftArgRange.location - 1) withObject:resultToken];
+            [resultToken release];
+            [self removePair:leftArgRange.location and:rightArgRange.location];
+        }
+        
+    } else {
+        // Evaluate arith. terms and try again.
+        [self evaluateTokensOver:leftArgRange];
+        
+        rightArgRange.location = leftArgRange.location + 1;
+        [self evaluateTokensOver:rightArgRange];
+        
+        leftArgRange.length  = 1;
+        rightArgRange.length = 1;
+        [self evaluateEDLValidationCompare:leftArgRange 
+                                       and:rightArgRange 
+                              withOperator:op];
+    }
+
+}
+// END Binary function evaluation.
+
+// BEGIN Arithmetic term evaluation.
+-(void)evaluateArithmeticTermOver:(NSRange)range
+{
+    if (range.length == 2
+        && [[[mTokens objectAtIndex:range.location] mValue] compare:@"-"] == 0) {
+        double tokenValue = [[[mTokens objectAtIndex:range.location + 1] mValue] doubleValue];
+        tokenValue *= -1.0;
+        
+        COEDLValidatorToken* resultToken = [[COEDLValidatorToken alloc] initWithKind:NUMBER_TOKEN 
+                                                                            andValue:[[NSNumber numberWithDouble:tokenValue] stringValue]];
+        [mTokens replaceObjectAtIndex:range.location withObject:resultToken];
+        [resultToken release];
+        [mTokens removeObjectAtIndex:range.location + 1];
+    } else if (range.length > 2) {
+//        NSUInteger mulIndex = [self indexOfOperator:@"*" inRange:range];
+//        NSUInteger divIndex = [self indexOfOperator:@"/" inRange:range];
+//        NSUInteger addIndex = [self indexOfOperator:@"+" inRange:range];
+//        NSUInteger subIndex = [self indexOfOperator:@"-" inRange:range];
+    }
+}
+-(NSUInteger)indexOfOperator:(NSString*)op inRange:(NSRange)range;
+{
+    NSUInteger i = 0;
+    while (i < range.length) {
+        if ([[[mTokens objectAtIndex:range.location + i] mValue] compare:op] == 0) {
+            return range.location + i;
+        }
+        i++;
+    }
+    
+    return [mTokens count];
+}
+-(void)evaluateUnaryMinus:(NSUInteger)minusIndex
+{
+}
+-(void)evaluateBinaryOperation:(NSRange)leftOpRange and:(NSRange)rightOpRange
+{
+}
+// END Arithmetic term evaluation.
 
 
 -(void)dealloc
