@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
     <xs:element name="edlRules">
-        <xs:annotation> 
+        <xs:annotation>
             <xs:documentation xml:lang="en">
                 Be careful: parameter ids must be unique to be evaluated in literals! 
 				

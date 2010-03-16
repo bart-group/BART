@@ -151,7 +151,9 @@ enum COLiteralArithmeticOperation {
  * function. Predefined EDL functions are:
  *
  * - edlValidation_biggerThan
+ * - edlValidation_equalOrBiggerThan
  * - edlValidation_lowerThan
+ * - edlValidation_equalOrLowerThan
  * - edlValidation_exists
  * - edlValidation_strIsEqual
  *
