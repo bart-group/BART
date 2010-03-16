@@ -11,6 +11,28 @@
 
 @interface COEDLValidator: NSObject {
     
+    /**
+     * fMRI experiment configuration in EDL.
+     */
+    NSXMLDocument* mEDLdoc;
+    
+    /**
+     * Ruleset that identifies functional dependencies between
+     * configuration entries (as XML tree).
+     */
+    NSXMLDocument* mEDLRules;
+    
+    /**
+     * All EDL rules extracted from the XML tree in mEDLRules.
+     * Array of COEDLValidatorRule objects.
+     */
+    NSMutableArray* mRules;
+    
+    /**
+     * Error object for initialization and validation.
+     */
+    NSError* mError;
+    
 }
  
 /**

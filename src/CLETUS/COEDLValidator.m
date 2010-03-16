@@ -15,28 +15,6 @@
 @interface COEDLValidator (PrivateStuff)
     
 /**
- * fMRI experiment configuration in EDL.
- */
-NSXMLDocument* mEDLdoc;
-
-/**
- * Ruleset that identifies functional dependencies between
- * configuration entries (as XML tree).
- */
-NSXMLDocument* mEDLRules;
-
-/**
- * All EDL rules extracted from the XML tree in mEDLRules.
- * Array of COEDLValidatorRule objects.
- */
-NSMutableArray* mRules;
-
-/**
- * Error object for initialization and validation.
- */
-NSError* mError;
-
-/**
  * Internally fills the array mRules with COEDLValidatorRule
  * objects. Data for these objects is gathered from the 
  * XML tree mRules;

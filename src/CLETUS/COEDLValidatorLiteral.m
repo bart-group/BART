@@ -45,6 +45,8 @@ enum COLiteralArithmeticOperation {
 -(void)parseSymbol:(int*)cur;
 -(void)parseWord:(int*)cur;
 -(void)parseString:(int*)cur;
+/* Numbers have to match the reg. expr.: [0-9]{1,*}[[\.[0-9]{1,*}]?    
+ *                                 e.g.: 2, 90.02, 100.100, 5.0 */
 -(void)parseNumber:(int*)cur;
 
 /**
@@ -62,6 +64,86 @@ enum COLiteralArithmeticOperation {
  */
 -(void)resolveParameters;
 
+/*###### Evaluation functions. ######*/
+/**
+ * Recursively evaluates the array parsedTokens
+ * (Terms enclosed in brackets and arithmetic
+ *  expressions).
+ *
+ * \param range Defines the subsequence of parsedTokens
+ *              that should be evaluated.
+ */
+-(void)evaluateTokensOver:(NSRange)range;
+/**
+ * Recursively evaluates terms enclosed in bracket.
+ * The given range can be wider than the actual term.
+ *
+ * \param range Defines the subsequence of parsedTokens
+ *              that should be evaluated.
+ */
+-(void)evaluateBracketsOver:(NSRange)range;
+/**
+ * Recursively evaluates an arithmetic term without
+ * brackets.
+ *
+ * \param range Defines the subsequence of parsedTokens
+ *              that should be evaluated.
+ */
+-(void)evaluateArithmeticTermOver:(NSRange)range;
+
+/*###### Utility functions. ######*/
+/**
+ * Removes 2 tokens in one step. 
+ *
+ * \param leftIndex  Index of the left token that should be removed.
+ * \param rightIndex Index of the right token that should be removed.
+ */
+-(void)removePair:(NSUInteger)leftIndex and:(NSUInteger)rightIndex;
+/**
+ * Returns the index of a given symbol token contained in 
+ * instance variable mTokens.
+ * 
+ * \param symbol The symbol to search for.
+ * \param range  The range to search within mTokens for symbol.
+ * \return       The index of the symbol in mTokens (lies within range)
+ *               Returns [mTokens count] in case the symbol is not 
+ *               found/outside the range.
+ */
+-(NSUInteger)indexOfSymbol:(NSString*)symbol inRange:(NSRange)range;
+/**
+ * Returns the range of the first innermost bracket pair in a
+ * possibly wider term (that can contain additional bracket pairs)
+ * specified by range.
+ * 
+ * \param range Subsequence of mTokens that should be search for
+ *              an innermost bracket pair.
+ * \return      Range of the bracket pair (including both brackets).
+ *              Returns range of location = 0 and length = 0 if no
+ *              pair is found.
+ */
+-(NSRange)rangeOfInnermostBracketPairIn:(NSRange)range;
+/**
+ * Checks whether an opening bracket specified by bracketIndex
+ * is a parameter delimiter of a predefined function.
+ *
+ * \param bracketIndex Index of the opening bracket in mTokens.
+ * \return             YES if bracket is part of a function body.
+ */
+-(BOOL)isFunctionOpeningBracket:(NSUInteger)bracketIndex;
+/**
+ * Checks wether the symbol minus is an unary minus (sign) relative
+ * to the subsequence of mTokens specified by range.
+ *
+ * \param minusIndex Index of the minus symbol token in mTokens that
+ *                   could be an unary minus. Should be within range -
+ *                   otherwise returns NO.
+ * \param range      Range in mTokens.
+ * \return           YES if minusIndex is beginning of range.
+ *                   Also YES if it is followed by a number/parameter token and
+ *                             preceded by <b>no</b> number/parameter token!
+ *                   No otherwise or minusIndex out of range.
+ */
+-(BOOL)isUnaryMinus:(NSUInteger)minusIndex inRange:(NSRange)range;
 /**
  * Checks whether a given word represents an EDL
  * function. Predefined EDL functions are:
@@ -70,36 +152,80 @@ enum COLiteralArithmeticOperation {
  * - edlValidation_lowerThan
  * - edlValidation_exists
  * - edlValidation_strcmp
+ *
+ * \param word Word token that might represent an EDL function.
+ * \return     YES if word is EDL function, NO otherwise.
  */
 -(BOOL)isPredefinedEDLFunction:(NSString*)word;
 
+/*###### Evaluation of predefined unary functions. ######*/
 /**
- * Recursively evaluates the array parsedTokens until only 
- * one COEDLValidatorToken of kind BOOLEAN_TOKEN is left.
+ * Chooses the right predefined unary function that precedes the 
+ * parameter given by argumentRange.
  *
- * \param range Defines the subsequence of parsedTokens
- *              that shall be evaluated.
+ * \param argumentRange Range of the function parameter.
  */
--(void)evaluateTokensOver:(NSRange)range;
--(NSUInteger)indexOfSymbol:(NSString*)symbol inRange:(NSRange)range;
--(void)evaluateEquals:(NSUInteger)equalsIndex;
-
--(void)evaluateBracketsOver:(NSRange)range;
--(void)removePair:(NSUInteger)leftIndex and:(NSUInteger)rightIndex;
--(BOOL)isFunctionOpeningBracket:(NSUInteger)bracketIndex;
-
 -(void)evaluateUnaryFunctionWith:(NSRange)argumentRange;
+/**
+ * Evaluates the predefined EDL function edlValidation_exists
+ * for the parameter given by argumentRange.
+ *
+ * \param argumentRange Range of the function parameter.
+ */
 -(void)evaluateEDLValidationExistsWith:(NSRange)argumentRange;
 
+/*###### Evaluation of predefined binary functions. ######*/
+/**
+ * Chooses the right predefined binary function that precedes the left
+ * parameter given by leftArgRange.
+ *
+ * \param leftArgRange  Range of the left/first function parameter.
+ * \param rightArgRange Range of the right/second function parameter.
+ */
 -(void)evaluateBinaryFunctionWith:(NSRange)leftArgRange and:(NSRange)rightArgRange;
+/**
+ * Evaluates the predefined EDL function edlValidation_strcmp for the 
+ * parameters given by leftArgRange and rightArgRange.
+ * (Checks wether both strings are equal by characters)
+ *
+ * \param leftArgRange  Range of the left/first argument.
+ * \param rightArgRange Range of the right/second argument.
+ */
 -(void)evaluateEDLValidationStrcmpWith:(NSRange)leftArgRange and:(NSRange)rightArgRange;
+/**
+ * Evaluates the predefined EDL functions edlValidation_biggerThan,
+ * edlValidation_lowerThan (decision based on parameter op).
+ *
+ * \param leftArgRange  Range of the left/first argument for comparison.
+ * \param rightArgRange Range of the right/second argument for comparison.
+ * \param op            The EDL comparison function that should be chosen.
+ */
 -(void)evaluateEDLValidationCompare:(NSRange)leftArgRange 
                                 and:(NSRange)rightArgRange 
                        withOperator:(enum COLiteralComparisonOperator)op;
 
--(void)evaluateArithmeticTermOver:(NSRange)range;
+/*###### Evaluation of arithmetic terms and predefined equals functions (for numbers) ######*/
+/**
+ * Evaluates the unary minus operator.
+ *
+ * \param minusIndex Index of the unary minus operator in instance variable mTokens.
+ */
 -(void)evaluateUnaryMinus:(NSUInteger)minusIndex;
+/**
+ * Evaluates a binary arithmetic operation (multiplication, division, additon and
+ * subtraction).
+ *
+ * \param op    The operation to perform.
+ * \param index The index of the arithmetic operator in instance variable mTokens.
+ */
+// TODO: op information redundant ---> exists in the symbol token string
 -(void)evaluateBinaryOperation:(enum COLiteralArithmeticOperation)op at:(NSUInteger)index;
+/**
+ * Evaluates an equals expression for numbers.
+ *
+ * \param equalsIndex Index of the equals sign in mTokens.
+ */
+-(void)evaluateEquals:(NSUInteger)equalsIndex;
 
 @end
 
@@ -148,6 +274,9 @@ enum COLiteralArithmeticOperation {
 //            }
 //            fclose(fp);
 //            // END output
+            
+            //TODO remove output
+//            system("rm /tmp/*.txt");
             
             NSRange evalRange;
             evalRange.location = 0;
@@ -392,9 +521,6 @@ enum COLiteralArithmeticOperation {
     [buffer release];
 }
 
-/* TODO: document in interface: 
-         have to match reg. expr. [0-9]{1,*}[[\.[0-9]{1,*}]?    
-         e.g. 2, 90.02, 100.100, 5.0 */
 -(void)parseNumber:(int*)cur
 {
     NSMutableString* buffer = [[NSMutableString alloc] initWithString:@""];
@@ -479,89 +605,159 @@ enum COLiteralArithmeticOperation {
     [mTokens removeObjectsInArray:wordTokensToRemove];
 }
 
--(BOOL)isPredefinedEDLFunction:(NSString*)word
-{
-    if ([word compare:@"edlValidation_biggerThan"] == 0
-        || [word compare:@"edlValidation_lowerThan"] == 0
-        || [word compare:@"edlValidation_exists"] == 0
-        || [word compare:@"edlValidation_strcmp"] == 0) {
-        return YES;
-    }
-    
-    return NO;
-}
-
 -(void)evaluateTokensOver:(NSRange)range
 {
-            // TODO: remove output
-            FILE* fp = fopen("/tmp/cletusTest.txt", "a");
-    fputc('\n', fp);
-            for (COEDLValidatorToken* token in mTokens) {
-                fputs([[token mValue] cStringUsingEncoding:NSUTF8StringEncoding], fp);
-            }
-            fclose(fp);
-    fputc('\n', fp);
-            // END output
-    
-    NSUInteger symbolIndex    = [self indexOfSymbol:@"(" inRange:range];
-    NSUInteger altSymbolIndex = 0;
-    
-    if (symbolIndex < [mTokens count]) {
-        range.length   = range.length - (symbolIndex - range.location);
-        range.location = symbolIndex;
-        [self evaluateBracketsOver:range];
-    } //else {
-        symbolIndex = [self indexOfSymbol:@"*" inRange:range];
-        altSymbolIndex = [self indexOfSymbol:@"/" inRange:range];
-        
-        if (symbolIndex != altSymbolIndex) {
-            // While any of both operations is in range (= stop when when both are equal to [mTokens count])
-            while (symbolIndex != altSymbolIndex) {
-                
-                if (symbolIndex < altSymbolIndex) {
-                    [self evaluateBinaryOperation:LIT_MULTIPLICATION at:symbolIndex];
-                } else if (symbolIndex > altSymbolIndex) {
-                    [self evaluateBinaryOperation:LIT_DIVISION at:altSymbolIndex];
-                }
-                
-                symbolIndex = [self indexOfSymbol:@"*" inRange:range];
-                altSymbolIndex = [self indexOfSymbol:@"/" inRange:range];
-            }
-            range.location = 0;
-            range.length   = [mTokens count];
-            [self evaluateTokensOver:range];
-        } //else {
-            symbolIndex = [self indexOfSymbol:@"+" inRange:range];
-            altSymbolIndex = [self indexOfSymbol:@"-" inRange:range];
-            
-            if (symbolIndex != altSymbolIndex) {
-                while (symbolIndex != altSymbolIndex) {
-                    if (symbolIndex < altSymbolIndex) {
-                        [self evaluateBinaryOperation:LIT_ADDITION at:symbolIndex];
-                    } else if (symbolIndex > altSymbolIndex) {
-                        [self evaluateBinaryOperation:LIT_SUBTRACTION at:altSymbolIndex];
-                    }
-                    
-                    symbolIndex = [self indexOfSymbol:@"+" inRange:range];
-                    altSymbolIndex = [self indexOfSymbol:@"-" inRange:range];
-                }
-                range.location = 0;
-                range.length   = [mTokens count];
-                [self evaluateTokensOver:range];
-            } //else {
-                symbolIndex = [self indexOfSymbol:@"==" inRange:range];
-                
-                if (symbolIndex < [mTokens count]) {
-                    [self evaluateEquals:symbolIndex];
-                }
-//            }
-//        }
+//    NSUInteger bracketPos = [self indexOfSymbol:@"(" inRange:range];
+//    while (bracketPos != [mTokens count]) {
+    [self evaluateBracketsOver:range];
+//        bracketPos = [self indexOfSymbol:@"(" inRange:range];
 //    }
+    [self evaluateArithmeticTermOver:range];
+}
+-(void)evaluateBracketsOver:(NSRange)range
+{
+//    // TODO: remove output
+//    FILE* fp = fopen("/tmp/cletusTest.txt", "a");
+//    fputc('\n', fp);
+//    fputc('B', fp);
+//    fputc(' ', fp);
+//    for (COEDLValidatorToken* token in mTokens) {
+//        fputs([[token mValue] cStringUsingEncoding:NSUTF8StringEncoding], fp);
+//    }
+//    fclose(fp);
+//    // END output
+    
+    NSRange bracketRange = [self rangeOfInnermostBracketPairIn:range];
+//    fp = fopen("/tmp/rangesTest.txt", "a");
+//    fputc('\n', fp);
+//    fputc(48 + bracketRange.location, fp);
+//    fputc('_', fp);
+//    fputc(48 + bracketRange.length, fp);
+//    fclose(fp);
+    if (bracketRange.length != 0) {
+        NSUInteger openingBracketIndex = bracketRange.location;
+        NSUInteger closingBracketIndex = bracketRange.location + bracketRange.length - 1;
+        NSUInteger seperatorIndex = [self indexOfSymbol:@"," inRange:bracketRange];
+        
+        if ([self isFunctionOpeningBracket:openingBracketIndex]) {
+            if (seperatorIndex < [mTokens count]) {
+                // Binary function
+                [self removePair:openingBracketIndex and:closingBracketIndex];
+                [mTokens removeObjectAtIndex:seperatorIndex - 1];
+                
+                NSRange leftArgRange;
+                leftArgRange.location  = openingBracketIndex;
+                leftArgRange.length    = seperatorIndex - openingBracketIndex - 1;
+                [self evaluateTokensOver:leftArgRange];
+                
+                NSRange rightArgRange;
+                rightArgRange.location = openingBracketIndex + 1;
+                rightArgRange.length   = closingBracketIndex - seperatorIndex - 1;
+                [self evaluateTokensOver:rightArgRange];
+                
+                leftArgRange.length  = 1;
+                rightArgRange.length = 1;
+                // TODO: passing ranges and checking those is redundant
+                [self evaluateBinaryFunctionWith:leftArgRange and:rightArgRange];
+            } else {
+                // Unary function
+                [self removePair:openingBracketIndex and:closingBracketIndex];
+                
+                NSRange argumentRange;
+                argumentRange.location = openingBracketIndex;
+                argumentRange.length   = closingBracketIndex - openingBracketIndex - 1;
+
+                [self evaluateUnaryFunctionWith:argumentRange];
+            }
+        } else {
+            if (seperatorIndex == [mTokens count]) {
+                // Encapsulation
+                [self removePair:openingBracketIndex and:closingBracketIndex];
+                NSRange evalRange;
+                evalRange.location = bracketRange.location;
+                evalRange.length   = bracketRange.length - 2;
+                [self evaluateTokensOver:evalRange];
+            } else {
+                // TODO: syntax error
+            }
+        }
+        NSRange recursionRange;
+        recursionRange.location = range.location;
+        recursionRange.length   = range.length - bracketRange.length + 1;
+        [self evaluateBracketsOver:recursionRange];
+    }
+}
+-(void)evaluateArithmeticTermOver:(NSRange)range
+{     
+//    // TODO: remove output
+//    FILE* fp = fopen("/tmp/cletusTest.txt", "a");
+//    fputc('\n', fp);
+//    fputc('A', fp);
+//    fputc(' ', fp);
+//    for (COEDLValidatorToken* token in mTokens) {
+//        fputs([[token mValue] cStringUsingEncoding:NSUTF8StringEncoding], fp);
+//    }
+//    fclose(fp);
+//    // END output
+    
+    // Unary minus
+    NSUInteger symbolIndex    = [self indexOfSymbol:@"-" inRange:range];
+    if ([self isUnaryMinus:symbolIndex inRange:range]) {
+        [self evaluateUnaryMinus:symbolIndex];
+        NSRange newRange;
+        newRange.location = range.location;
+        newRange.length   = range.length - 1;
+        [self evaluateArithmeticTermOver:newRange];
+        return;
+    }
+    
+    // Multiplication, division
+    symbolIndex               = [self indexOfSymbol:@"*" inRange:range];
+    NSUInteger altSymbolIndex = [self indexOfSymbol:@"/" inRange:range];
+    if (symbolIndex != altSymbolIndex) {
+        if (symbolIndex < altSymbolIndex) {
+            [self evaluateBinaryOperation:LIT_MULTIPLICATION at:symbolIndex];
+        } else if (symbolIndex > altSymbolIndex) {
+            [self evaluateBinaryOperation:LIT_DIVISION at:altSymbolIndex];
+        }
+        NSRange newRange;
+        newRange.location = range.location;
+        newRange.length   = range.length - 2;
+        [self evaluateArithmeticTermOver:newRange];
+        return;
+    } 
+    
+    // Addition, subtraction
+    symbolIndex               = [self indexOfSymbol:@"+" inRange:range];
+    altSymbolIndex            = [self indexOfSymbol:@"-" inRange:range];
+    if (symbolIndex != altSymbolIndex) {
+        if (symbolIndex < altSymbolIndex) {
+            [self evaluateBinaryOperation:LIT_ADDITION at:symbolIndex];
+        } else if (symbolIndex > altSymbolIndex) {
+            [self evaluateBinaryOperation:LIT_SUBTRACTION at:altSymbolIndex];
+        }
+        NSRange newRange;
+        newRange.location = range.location;
+        newRange.length   = range.length - 2;
+        [self evaluateArithmeticTermOver:newRange];
+        return;
+    }
+    
+    // Equals
+    symbolIndex               = [self indexOfSymbol:@"==" inRange:range];
+    if (symbolIndex < [mTokens count]) {
+        [self evaluateEquals:symbolIndex];
+    }
+}
+
+-(void)removePair:(NSUInteger)leftIndex and:(NSUInteger)rightIndex
+{
+    [mTokens removeObjectAtIndex:leftIndex];
+    [mTokens removeObjectAtIndex:rightIndex - 1];
 }
 -(NSUInteger)indexOfSymbol:(NSString*)symbol inRange:(NSRange)range;
 {
     NSUInteger i = 0;
-   
     while (i < range.length
            && (i + range.location) < [mTokens count]) {
         COEDLValidatorToken* token = [mTokens objectAtIndex:range.location + i];
@@ -574,49 +770,16 @@ enum COLiteralArithmeticOperation {
     
     return [mTokens count];
 }
--(void)evaluateEquals:(NSUInteger)equalsIndex
+-(NSRange)rangeOfInnermostBracketPairIn:(NSRange)range
 {
-    if (equalsIndex > 0 && equalsIndex < ([mTokens count] - 1)) {
-        COEDLValidatorToken* leftOperand  = [mTokens objectAtIndex:equalsIndex - 1];
-        COEDLValidatorToken* rightOperand = [mTokens objectAtIndex:equalsIndex + 1];
-        if (([leftOperand mKind] == PARAMETER_TOKEN || [leftOperand mKind] == NUMBER_TOKEN)
-            && ([rightOperand mKind] == PARAMETER_TOKEN || [rightOperand mKind] == NUMBER_TOKEN)) {
-            
-            COEDLValidatorToken* resultToken;
-            
-            double leftValue  = [[leftOperand mValue] doubleValue];
-            double rightValue = [[rightOperand mValue] doubleValue];
-            if (leftValue == rightValue) {
-                resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"TRUE"];
-            } else {
-                resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"FALSE"];
-            }
-            [mTokens replaceObjectAtIndex:(equalsIndex - 1) withObject:resultToken];
-            [resultToken release];
-            [self removePair:equalsIndex and:equalsIndex + 1];
-        } else {
-            // TODO: syntax error
-        }
-    } else {
-        // TODO: syntax error: left or right operand for == missing
-    }
-}
-
-// BEGIN Bracket evaluation.
--(void)evaluateBracketsOver:(NSRange)range
-{
-    // TODO: error if no corresponding bracket is found
-    
-    NSUInteger openingBracketIndex = range.location;
-    NSUInteger seperatorIndex = 0;
+    NSUInteger openingBracketIndex = 0;
     NSUInteger closingBracketIndex = 0;
+    int bracketPairNr = 0;
+    int maxBracketPairNr = 0;
+    BOOL openingBracketFound = NO;
     BOOL closingBracketFound = NO;
-    int bracketPairNr = 1;
-    int maxBracketPairNr = bracketPairNr;
 
-    
-    // First: find indices for opening/closing bracket (and optional seperator)
-    NSUInteger lookupIndex = openingBracketIndex + 1;
+    NSUInteger lookupIndex = range.location;
     while (!closingBracketFound
            && (lookupIndex < (range.location + range.length))
            && (lookupIndex < [mTokens count])) {
@@ -629,75 +792,31 @@ enum COLiteralArithmeticOperation {
             if ([lookupTokenValue compare:@"("] == 0) {
                 bracketPairNr++;
                 if (bracketPairNr > maxBracketPairNr) {
+                    maxBracketPairNr = bracketPairNr;
                     openingBracketIndex = lookupIndex;
+                    openingBracketFound = YES;
                 }
             } else if ([lookupTokenValue compare:@")"] == 0) {
                 bracketPairNr--;
-
                 if (bracketPairNr == maxBracketPairNr - 1
-                    && openingBracketIndex != range.location) {
-            
-                    [self evaluateBracketsOver:(NSRange){openingBracketIndex, [mTokens count]}];
-                }
-
-                if (bracketPairNr == 0
-                    && !closingBracketFound) {
+                    || bracketPairNr == 0) {
                     closingBracketIndex = lookupIndex;
                     closingBracketFound = YES;
                 }
-            } else if (seperatorIndex == 0
-                       && bracketPairNr == 1
-                       && [lookupTokenValue compare:@","] == 0) {
-                seperatorIndex = lookupIndex;
             }
         }
-        
         lookupIndex++;
     }
-
-    if (openingBracketIndex == range.location) {
-        // Second: Determine whether the brackets encapsulate function argument(s)
-        //         or just annother expression.
-        if ([self isFunctionOpeningBracket:openingBracketIndex]) {
-            [self removePair:openingBracketIndex and:closingBracketIndex];
-            
-            if (seperatorIndex == 0) {
-                NSRange argumentRange;
-                argumentRange.location = openingBracketIndex;
-                argumentRange.length   = closingBracketIndex - 1 - openingBracketIndex;
-                
-                [self evaluateUnaryFunctionWith:argumentRange];
-            } else {
-                [mTokens removeObjectAtIndex:seperatorIndex - 1]; // - 1 because of bracket removal.
-                
-                NSRange leftArgRange;
-                leftArgRange.location  = openingBracketIndex;
-                leftArgRange.length    = seperatorIndex - 1 - openingBracketIndex;
-                NSRange rightArgRange;
-                rightArgRange.location = seperatorIndex - 1; // seperator position before it was removed
-                rightArgRange.length   = closingBracketIndex - 1 - seperatorIndex;
-                
-                [self evaluateBinaryFunctionWith:leftArgRange and:rightArgRange];
-            }
-        } else {
-            if (seperatorIndex == 0) {
-                [self removePair:openingBracketIndex and:closingBracketIndex];
-                range.length = closingBracketIndex - 1 - openingBracketIndex;
-                
-                // openingBracketIndex is now the index of the first token
-                // formerly enclosed by the brackets
-                [self evaluateTokensOver:range];
-            } else {
-                // TODO: error: syntax error!
-            }
-        }
+    
+    NSRange bracketPairRange;
+    if (closingBracketFound && openingBracketFound) {
+        bracketPairRange.location = openingBracketIndex;
+        bracketPairRange.length   = closingBracketIndex - openingBracketIndex + 1;
+    } else {
+        bracketPairRange.location = 0;
+        bracketPairRange.length   = 0;
     }
-}
-
--(void)removePair:(NSUInteger)leftIndex and:(NSUInteger)rightIndex
-{
-    [mTokens removeObjectAtIndex:leftIndex];
-    [mTokens removeObjectAtIndex:rightIndex - 1];
+    return bracketPairRange;
 }
 -(BOOL)isFunctionOpeningBracket:(NSUInteger)bracketIndex
 {
@@ -710,9 +829,39 @@ enum COLiteralArithmeticOperation {
     
     return NO;
 }
-// END Bracket evaluation.
+-(BOOL)isUnaryMinus:(NSUInteger)minusIndex inRange:(NSRange)range
+{
+    if (minusIndex == range.location) {
+        return YES;
+    } else if (minusIndex > range.location
+               && minusIndex < (range.location + range.length - 1)
+               && minusIndex < ([mTokens count] - 1)) {
+        enum COTokenKind possibleLeftOperandKind = [[mTokens objectAtIndex:minusIndex - 1] mKind];
+        enum COTokenKind rightOperandKind        = [[mTokens objectAtIndex:minusIndex + 1] mKind];
+        
+        // Left operand is no number/parameter, right operand is number/parameter
+        if ((possibleLeftOperandKind != NUMBER_TOKEN
+             && possibleLeftOperandKind != PARAMETER_TOKEN)
+            && (rightOperandKind == NUMBER_TOKEN
+                || rightOperandKind == PARAMETER_TOKEN)) {
+            return YES;
+        }
+    } 
+               
+    return NO;
+}
+-(BOOL)isPredefinedEDLFunction:(NSString*)word
+{
+    if ([word compare:@"edlValidation_biggerThan"] == 0
+        || [word compare:@"edlValidation_lowerThan"] == 0
+        || [word compare:@"edlValidation_exists"] == 0
+        || [word compare:@"edlValidation_strcmp"] == 0) {
+        return YES;
+    }
+    
+    return NO;
+}
 
-// BEGIN Unary function evaluation.
 -(void)evaluateUnaryFunctionWith:(NSRange)argumentRange
 {
     if ([[[mTokens objectAtIndex:argumentRange.location - 1] mValue] compare:@"edlValidation_exists"] == 0) {
@@ -721,10 +870,7 @@ enum COLiteralArithmeticOperation {
 }
 -(void)evaluateEDLValidationExistsWith:(NSRange)argumentRange
 {
-    //[[mTokens objectAtIndex:argumentRange.location - 1] setMKind:BOOLEAN_TOKEN];
-    
     COEDLValidatorToken* resultToken;
-    
     if (argumentRange.length == 1) {
         enum COTokenKind tokenKind = [[mTokens objectAtIndex:argumentRange.location] mKind];
         if (tokenKind == NUMBER_TOKEN
@@ -739,15 +885,12 @@ enum COLiteralArithmeticOperation {
             // TODO: error - no valid argument for exists
         }
     } else {
-        //[[mTokens objectAtIndex:argumentRange.location - 1] setMValue:@"FALSE"];
         resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"FALSE"];
         [mTokens replaceObjectAtIndex:(argumentRange.location - 1) withObject:resultToken];
         [resultToken release];
     }
 }
-// END Unary function evaluation.
 
-// BEGIN Binary function evaluation.
 -(void)evaluateBinaryFunctionWith:(NSRange)leftArgRange and:(NSRange)rightArgRange
 {
     if ([[[mTokens objectAtIndex:leftArgRange.location - 1] mValue] compare:@"edlValidation_strcmp"] == 0) {
@@ -835,10 +978,30 @@ enum COLiteralArithmeticOperation {
     }
 
 }
-// END Binary function evaluation.
 
-// BEGIN Arithmetic term evaluation.
--(void)evaluateBinaryOperation:(enum COLiteralArithmeticOperation)op at:(NSUInteger)index
+-(void)evaluateUnaryMinus:(NSUInteger)minusIndex
+{
+    if (minusIndex < ([mTokens count] - 1)) {
+        COEDLValidatorToken* operandToken = [mTokens objectAtIndex:minusIndex + 1];
+        if ([operandToken mKind] == NUMBER_TOKEN
+            || [operandToken mKind] == PARAMETER_TOKEN) {
+            double operandValue = [[operandToken mValue] doubleValue];
+            operandValue *= -1.0;
+            COEDLValidatorToken* resultToken = [[COEDLValidatorToken alloc] initWithKind:NUMBER_TOKEN 
+                                                                                andValue:[[NSNumber numberWithDouble:operandValue] stringValue]];
+            
+            [mTokens replaceObjectAtIndex:minusIndex withObject:resultToken];
+            [resultToken release];
+            [mTokens removeObjectAtIndex:minusIndex + 1];
+        } else {
+            // TODO: syntax error (unary minus applied to something other than a number)
+        }
+    } else {
+        // TODO: syntax error
+    }
+}
+-(void)evaluateBinaryOperation:(enum COLiteralArithmeticOperation)op 
+                            at:(NSUInteger)index
 {
     if (index > 0 && index < ([mTokens count] - 1)) {
         
@@ -866,13 +1029,36 @@ enum COLiteralArithmeticOperation {
         // TODO: syntax error
     }
 }
-// END Arithmetic term evaluation.
-
+-(void)evaluateEquals:(NSUInteger)equalsIndex
+{
+    if (equalsIndex > 0 && equalsIndex < ([mTokens count] - 1)) {
+        COEDLValidatorToken* leftOperand  = [mTokens objectAtIndex:equalsIndex - 1];
+        COEDLValidatorToken* rightOperand = [mTokens objectAtIndex:equalsIndex + 1];
+        if (([leftOperand mKind] == PARAMETER_TOKEN || [leftOperand mKind] == NUMBER_TOKEN)
+            && ([rightOperand mKind] == PARAMETER_TOKEN || [rightOperand mKind] == NUMBER_TOKEN)) {
+            
+            COEDLValidatorToken* resultToken;
+            
+            double leftValue  = [[leftOperand mValue] doubleValue];
+            double rightValue = [[rightOperand mValue] doubleValue];
+            if (leftValue == rightValue) {
+                resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"TRUE"];
+            } else {
+                resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"FALSE"];
+            }
+            [mTokens replaceObjectAtIndex:(equalsIndex - 1) withObject:resultToken];
+            [resultToken release];
+            [self removePair:equalsIndex and:equalsIndex + 1];
+        } else {
+            // TODO: syntax error
+        }
+    } else {
+        // TODO: syntax error: left or right operand for == missing
+    }
+}
 
 -(void)dealloc
 {
-    //[literalString release];
-    //[mParameters release];
     [mTokens release];
     
     [super dealloc];
