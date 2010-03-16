@@ -11,26 +11,26 @@
 		0040B8081141470400A57967 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
 		0040B8091141470400A57967 /* gauss.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7991141470400A57967 /* gauss.c */; };
 		0040B80A1141470400A57967 /* gsl_futils.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B79A1141470400A57967 /* gsl_futils.c */; };
-		0040B80C1141470400A57967 /* BAAnalyzerElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A01141470400A57967 /* BAAnalyzerElement.m */; };
-		0040B80D1141470400A57967 /* BADataControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A21141470400A57967 /* BADataControl.m */; };
-		0040B80E1141470400A57967 /* BADataElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A41141470400A57967 /* BADataElement.m */; };
-		0040B8101141470400A57967 /* BADesignElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A81141470400A57967 /* BADesignElement.m */; };
-		0040B8131141470400A57967 /* BADocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7AE1141470400A57967 /* BADocument.m */; };
-		0040B8141141470400A57967 /* BAElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B01141470400A57967 /* BAElement.m */; };
-		0040B8151141470400A57967 /* BAGUIProtoCGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B21141470400A57967 /* BAGUIProtoCGLayer.m */; };
-		0040B8161141470400A57967 /* BAGUIPrototyp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B41141470400A57967 /* BAGUIPrototyp.m */; };
 		0040B8441141470400A57967 /* BARTApplicationAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F01141470400A57967 /* BARTApplicationAppDelegate.m */; };
-		0040B8451141470400A57967 /* BASource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F21141470400A57967 /* BASource.m */; };
-		0040B8461141470400A57967 /* BASourceDatasetFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F41141470400A57967 /* BASourceDatasetFile.m */; };
 		0040B8471141470400A57967 /* ColorMappingFilter.cikernel in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F51141470400A57967 /* ColorMappingFilter.cikernel */; };
-		0040B8481141470400A57967 /* ColorMappingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F71141470400A57967 /* ColorMappingFilter.m */; };
-		0040B8491141470400A57967 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F81141470400A57967 /* main.m */; };
 		0040B84A1141470400A57967 /* Negative.cikernel in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F91141470400A57967 /* Negative.cikernel */; };
 		0040B85D1141472200A57967 /* BADataElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B8551141472200A57967 /* BADataElementVITest.m */; };
 		0040B85E1141472200A57967 /* BADesignElementDynTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B8571141472200A57967 /* BADesignElementDynTest.m */; };
 		0040B85F1141472200A57967 /* BADesignElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B8591141472200A57967 /* BADesignElementVITest.m */; };
 		0040B8701141488200A57967 /* SmoothnessEstim.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B86F1141488200A57967 /* SmoothnessEstim.c */; };
 		0040B87B11414A8E00A57967 /* ColorMappingFilter.cikernel in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0040B7F51141470400A57967 /* ColorMappingFilter.cikernel */; };
+		007932B3114FB79E007BEB66 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F81141470400A57967 /* main.m */; };
+		007932B4114FB79E007BEB66 /* ColorMappingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F71141470400A57967 /* ColorMappingFilter.m */; };
+		007932B5114FB7A1007BEB66 /* BASourceDatasetFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F41141470400A57967 /* BASourceDatasetFile.m */; };
+		007932B6114FB7A2007BEB66 /* BASource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F21141470400A57967 /* BASource.m */; };
+		007932B7114FB7A3007BEB66 /* BAGUIPrototyp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B41141470400A57967 /* BAGUIPrototyp.m */; };
+		007932B8114FB7A4007BEB66 /* BAGUIProtoCGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B21141470400A57967 /* BAGUIProtoCGLayer.m */; };
+		007932B9114FB7A5007BEB66 /* BAElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B01141470400A57967 /* BAElement.m */; };
+		007932BA114FB7A6007BEB66 /* BADocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7AE1141470400A57967 /* BADocument.m */; };
+		007932BB114FB7A7007BEB66 /* BADesignElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A81141470400A57967 /* BADesignElement.m */; };
+		007932BC114FB7A8007BEB66 /* BADataElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A41141470400A57967 /* BADataElement.m */; };
+		007932BD114FB7A8007BEB66 /* BADataControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A21141470400A57967 /* BADataControl.m */; };
+		007932BE114FB7A9007BEB66 /* BAAnalyzerElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A01141470400A57967 /* BAAnalyzerElement.m */; };
 		00841C0F1146451F004341CC /* TestDataset01_Orig.v in Resources */ = {isa = PBXBuildFile; fileRef = 00841C0C1146451F004341CC /* TestDataset01_Orig.v */; };
 		00841C101146451F004341CC /* TestDataset01-design.v in Resources */ = {isa = PBXBuildFile; fileRef = 00841C0D1146451F004341CC /* TestDataset01-design.v */; };
 		00841C111146451F004341CC /* TestDataset01-functional.v in Resources */ = {isa = PBXBuildFile; fileRef = 00841C0E1146451F004341CC /* TestDataset01-functional.v */; };
@@ -803,25 +803,25 @@
 				0040B8081141470400A57967 /* BlockIO.c in Sources */,
 				0040B8091141470400A57967 /* gauss.c in Sources */,
 				0040B80A1141470400A57967 /* gsl_futils.c in Sources */,
-				0040B80C1141470400A57967 /* BAAnalyzerElement.m in Sources */,
-				0040B80D1141470400A57967 /* BADataControl.m in Sources */,
-				0040B80E1141470400A57967 /* BADataElement.m in Sources */,
-				0040B8101141470400A57967 /* BADesignElement.m in Sources */,
-				0040B8131141470400A57967 /* BADocument.m in Sources */,
-				0040B8141141470400A57967 /* BAElement.m in Sources */,
-				0040B8151141470400A57967 /* BAGUIProtoCGLayer.m in Sources */,
-				0040B8161141470400A57967 /* BAGUIPrototyp.m in Sources */,
 				0040B8441141470400A57967 /* BARTApplicationAppDelegate.m in Sources */,
-				0040B8451141470400A57967 /* BASource.m in Sources */,
-				0040B8461141470400A57967 /* BASourceDatasetFile.m in Sources */,
 				0040B8471141470400A57967 /* ColorMappingFilter.cikernel in Sources */,
-				0040B8481141470400A57967 /* ColorMappingFilter.m in Sources */,
-				0040B8491141470400A57967 /* main.m in Sources */,
 				0040B84A1141470400A57967 /* Negative.cikernel in Sources */,
 				0040B8701141488200A57967 /* SmoothnessEstim.c in Sources */,
 				00B772C511417C6300B2931A /* BADataElementVI.m in Sources */,
 				00B772CA11417C7A00B2931A /* BADesignElementDyn.m in Sources */,
 				00B772CB11417C7A00B2931A /* BADesignElementVI.m in Sources */,
+				007932B3114FB79E007BEB66 /* main.m in Sources */,
+				007932B4114FB79E007BEB66 /* ColorMappingFilter.m in Sources */,
+				007932B5114FB7A1007BEB66 /* BASourceDatasetFile.m in Sources */,
+				007932B6114FB7A2007BEB66 /* BASource.m in Sources */,
+				007932B7114FB7A3007BEB66 /* BAGUIPrototyp.m in Sources */,
+				007932B8114FB7A4007BEB66 /* BAGUIProtoCGLayer.m in Sources */,
+				007932B9114FB7A5007BEB66 /* BAElement.m in Sources */,
+				007932BA114FB7A6007BEB66 /* BADocument.m in Sources */,
+				007932BB114FB7A7007BEB66 /* BADesignElement.m in Sources */,
+				007932BC114FB7A8007BEB66 /* BADataElement.m in Sources */,
+				007932BD114FB7A8007BEB66 /* BADataControl.m in Sources */,
+				007932BE114FB7A9007BEB66 /* BAAnalyzerElement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
