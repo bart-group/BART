@@ -31,6 +31,8 @@
 		007932BC114FB7A8007BEB66 /* BADataElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A41141470400A57967 /* BADataElement.m */; };
 		007932BD114FB7A8007BEB66 /* BADataControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A21141470400A57967 /* BADataControl.m */; };
 		007932BE114FB7A9007BEB66 /* BAAnalyzerElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A01141470400A57967 /* BAAnalyzerElement.m */; };
+		00793493114FEF76007BEB66 /* rtExperiment_v14-1.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 00793492114FEF76007BEB66 /* rtExperiment_v14-1.xsd */; };
+		0079349E114FF120007BEB66 /* COEDLValidatorLiteral.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AD76114645A3008FC09D /* COEDLValidatorLiteral.m */; };
 		00841C0F1146451F004341CC /* TestDataset01_Orig.v in Resources */ = {isa = PBXBuildFile; fileRef = 00841C0C1146451F004341CC /* TestDataset01_Orig.v */; };
 		00841C101146451F004341CC /* TestDataset01-design.v in Resources */ = {isa = PBXBuildFile; fileRef = 00841C0D1146451F004341CC /* TestDataset01-design.v */; };
 		00841C111146451F004341CC /* TestDataset01-functional.v in Resources */ = {isa = PBXBuildFile; fileRef = 00841C0E1146451F004341CC /* TestDataset01-functional.v */; };
@@ -55,7 +57,6 @@
 		00B1AD78114645A3008FC09D /* COEDLValidatorLiteral.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AD76114645A3008FC09D /* COEDLValidatorLiteral.m */; };
 		00B1ADA811465349008FC09D /* COEDLValidatorToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1ADA611465349008FC09D /* COEDLValidatorToken.h */; };
 		00B1ADA911465349008FC09D /* COEDLValidatorToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1ADA711465349008FC09D /* COEDLValidatorToken.m */; };
-		00B1ADEF114670BD008FC09D /* COEDLValidatorLiteral.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AD76114645A3008FC09D /* COEDLValidatorLiteral.m */; };
 		00B1ADF0114670BE008FC09D /* COEDLValidatorToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1ADA711465349008FC09D /* COEDLValidatorToken.m */; };
 		00B772C511417C6300B2931A /* BADataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* BADataElementVI.m */; };
 		00B772CA11417C7A00B2931A /* BADesignElementDyn.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C711417C7A00B2931A /* BADesignElementDyn.m */; };
@@ -179,6 +180,7 @@
 		0040B8591141472200A57967 /* BADesignElementVITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementVITest.m; sourceTree = "<group>"; };
 		0040B86F1141488200A57967 /* SmoothnessEstim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SmoothnessEstim.c; sourceTree = "<group>"; };
 		0040B9B1114173BD00A57967 /* BARTUnitTestSuite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
+		00793492114FEF76007BEB66 /* rtExperiment_v14-1.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "rtExperiment_v14-1.xsd"; sourceTree = "<group>"; };
 		00841BF811464321004341CC /* blockDesignTest01.des */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blockDesignTest01.des; sourceTree = "<group>"; };
 		00841BF911464321004341CC /* blockDesignTest01.des.v */ = {isa = PBXFileReference; lastKnownFileType = file; path = blockDesignTest01.des.v; sourceTree = "<group>"; };
 		00841BFA11464321004341CC /* blockDesignTest01_deriv0.des.v */ = {isa = PBXFileReference; lastKnownFileType = file; path = blockDesignTest01_deriv0.des.v; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 				0088781F1147B445009C7707 /* edlValidation_rules.xml */,
 				008878201147B445009C7707 /* edlValidation_rules.xsd */,
 				008878211147B445009C7707 /* rtExperiment_v14_w_timebased.xsd */,
+				00793492114FEF76007BEB66 /* rtExperiment_v14-1.xsd */,
 				008878221147B445009C7707 /* timeBasedRegressor.edl */,
 				00C3A07F114510CE00725668 /* Init_Links_1.edl */,
 				00C3A080114510CE00725668 /* rtExperiment_v14.xsd */,
@@ -712,6 +715,7 @@
 				008878241147B445009C7707 /* edlValidation_rules.xsd in Resources */,
 				008878251147B445009C7707 /* rtExperiment_v14_w_timebased.xsd in Resources */,
 				008878261147B445009C7707 /* timeBasedRegressor.edl in Resources */,
+				00793493114FEF76007BEB66 /* rtExperiment_v14-1.xsd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -789,9 +793,9 @@
 				00B1AC81114562A8008FC09D /* COXMLUtility.m in Sources */,
 				00B1ACDC114565CE008FC09D /* COEDLValidator.m in Sources */,
 				00B1AD1B11456C47008FC09D /* COEDLValidatorRule.m in Sources */,
-				00B1ADEF114670BD008FC09D /* COEDLValidatorLiteral.m in Sources */,
 				00B1ADF0114670BE008FC09D /* COEDLValidatorToken.m in Sources */,
 				008877CC1147A5ED009C7707 /* COEDLValidatorLiteralTest.m in Sources */,
+				0079349E114FF120007BEB66 /* COEDLValidatorLiteral.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
