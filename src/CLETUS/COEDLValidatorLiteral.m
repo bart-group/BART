@@ -12,7 +12,9 @@
 
 enum COLiteralComparisonOperator {
     LIT_BIGGERTHAN,
-    LIT_LOWERTHAN
+    LIT_EQUAL_OR_BIGGERTHAN,
+    LIT_LOWERTHAN,
+    LIT_EQUAL_OR_LOWERTHAN
 };
 enum COLiteralArithmeticOperation {
     LIT_MULTIPLICATION,
@@ -151,7 +153,7 @@ enum COLiteralArithmeticOperation {
  * - edlValidation_biggerThan
  * - edlValidation_lowerThan
  * - edlValidation_exists
- * - edlValidation_strcmp
+ * - edlValidation_strIsEqual
  *
  * \param word Word token that might represent an EDL function.
  * \return     YES if word is EDL function, NO otherwise.
@@ -184,7 +186,7 @@ enum COLiteralArithmeticOperation {
  */
 -(void)evaluateBinaryFunctionWith:(NSRange)leftArgRange and:(NSRange)rightArgRange;
 /**
- * Evaluates the predefined EDL function edlValidation_strcmp for the 
+ * Evaluates the predefined EDL function edlValidation_strIsEqual for the 
  * parameters given by leftArgRange and rightArgRange.
  * (Checks wether both strings are equal by characters)
  *
@@ -854,8 +856,11 @@ enum COLiteralArithmeticOperation {
 {
     if ([word compare:@"edlValidation_biggerThan"] == 0
         || [word compare:@"edlValidation_lowerThan"] == 0
+        || [word compare:@"edlValidation_equalOrBiggerThan"] == 0
+        || [word compare:@"edlValidation_lowerThan"] == 0
+        || [word compare:@"edlValidation_equalOrLowerThan"] == 0
         || [word compare:@"edlValidation_exists"] == 0
-        || [word compare:@"edlValidation_strcmp"] == 0) {
+        || [word compare:@"edlValidation_strIsEqual"] == 0) {
         return YES;
     }
     
@@ -893,7 +898,7 @@ enum COLiteralArithmeticOperation {
 
 -(void)evaluateBinaryFunctionWith:(NSRange)leftArgRange and:(NSRange)rightArgRange
 {
-    if ([[[mTokens objectAtIndex:leftArgRange.location - 1] mValue] compare:@"edlValidation_strcmp"] == 0) {
+    if ([[[mTokens objectAtIndex:leftArgRange.location - 1] mValue] compare:@"edlValidation_strIsEqual"] == 0) {
         [self evaluateEDLValidationStrcmpWith:leftArgRange 
                                           and:rightArgRange];
         
@@ -902,10 +907,18 @@ enum COLiteralArithmeticOperation {
                                        and:rightArgRange 
                               withOperator:LIT_BIGGERTHAN];
         
+    } else if ([[[mTokens objectAtIndex:leftArgRange.location - 1] mValue] compare:@"edlValidation_equalOrBiggerThan"] == 0) {
+        [self evaluateEDLValidationCompare:leftArgRange 
+                                       and:rightArgRange 
+                              withOperator:LIT_EQUAL_OR_BIGGERTHAN];
     } else if ([[[mTokens objectAtIndex:leftArgRange.location - 1] mValue] compare:@"edlValidation_lowerThan"] == 0) {
         [self evaluateEDLValidationCompare:leftArgRange 
                                        and:rightArgRange 
                               withOperator:LIT_LOWERTHAN];
+    } else if ([[[mTokens objectAtIndex:leftArgRange.location - 1] mValue] compare:@"edlValidation_equalOrLowerThan"] == 0) {
+        [self evaluateEDLValidationCompare:leftArgRange 
+                                       and:rightArgRange 
+                              withOperator:LIT_EQUAL_OR_LOWERTHAN];
     }
 }
 -(void)evaluateEDLValidationStrcmpWith:(NSRange)leftArgRange and:(NSRange)rightArgRange
@@ -953,7 +966,9 @@ enum COLiteralArithmeticOperation {
             double leftValue  = [[leftToken mValue] doubleValue];
             double rightValue = [[rightToken mValue] doubleValue];
             if ((leftValue > rightValue && op == LIT_BIGGERTHAN)
-                || (leftValue < rightValue && op == LIT_LOWERTHAN)) {
+                || (leftValue >= rightValue && op == LIT_EQUAL_OR_BIGGERTHAN)
+                || (leftValue < rightValue && op == LIT_LOWERTHAN)
+                || (leftValue <= rightValue && op == LIT_EQUAL_OR_LOWERTHAN)) {
                 resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"TRUE"];
             } else {
                 resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"FALSE"];
@@ -965,6 +980,7 @@ enum COLiteralArithmeticOperation {
         
     } else {
         // Evaluate arith. terms and try again.
+        // TODO: redundant
         [self evaluateTokensOver:leftArgRange];
         
         rightArgRange.location = leftArgRange.location + 1;
@@ -976,7 +992,6 @@ enum COLiteralArithmeticOperation {
                                        and:rightArgRange 
                               withOperator:op];
     }
-
 }
 
 -(void)evaluateUnaryMinus:(NSUInteger)minusIndex

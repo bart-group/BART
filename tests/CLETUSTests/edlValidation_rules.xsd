@@ -2,9 +2,40 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
     <xs:element name="edlRules">
-        <xs:annotation>
+        <xs:annotation> 
             <xs:documentation xml:lang="en">
                 Be careful: parameter ids must be unique to be evaluated in literals! 
+				
+				Rules Syntax
+			    ------------
+				Allowed arithmetic operators are: +,-,/,*                                                        
+         		EXAMPLE: ((rxp0*rxp1 + rxp2) == (rxp1))
+				
+				
+				Allowed relational operators are: ==                                                          
+                For others use available comparison functions instead (edlValidation_biggerThan, edlValidation_lowerThan, ...)  
+				EXAMPLE: (rxp0 == rxp1)
+				
+				Allowed functions are:                                                                            
+                                                                                                          
+				edlValidation_exists(arg)                                                                      
+				edlValidation_strIsEqual(arg1,arg2)
+				
+				edlValidation_lowerThan(arg1,arg2)                                                               
+				EXAMPLE: (edlValidation_lowerThan(rxp3,rxp4))                                 
+				 
+				edlValidation_equalOrLowerThan(arg1,arg2 )
+				EXAMPLE: (edlValidation_equalOrLowerThan(rxp3,rxp4))
+
+				edlValidation_biggerThan(arg1,arg2)                                                              
+				EXAMPLE: (edlValidation_biggerThan(rxp3,rxp4))
+
+				edlValidation_equalOrBiggerThan(arg1,arg2 )
+				EXAMPLE: (edlValidation_equalOrBiggerThan(rxp3,rxp4))
+
+				Don't use multiple comparisons in literals:                                                      
+				NEVER DO: (rxp1 == rxp2 == rxp1)
+				
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -14,17 +45,17 @@
         </xs:complexType>
     </xs:element>
 
-<xs:element name="rule">
-    <xs:complexType>
-        <xs:sequence>
-            <xs:element minOccurs="1" maxOccurs="unbounded" ref="param"/>
-            <xs:element minOccurs="1" maxOccurs="unbounded" ref="premise"/>
-            <xs:element minOccurs="1" maxOccurs="unbounded" ref="conclusion"/>
-            <xs:element minOccurs="1" maxOccurs="1" ref="message"/>
-        </xs:sequence>
-        <xs:attribute name="ruleID" use="required" type="xs:ID"/>
-    </xs:complexType>
-</xs:element>
+	<xs:element name="rule">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="1" maxOccurs="unbounded" ref="param"/>
+				<xs:element minOccurs="1" maxOccurs="unbounded" ref="premise"/>
+				<xs:element minOccurs="1" maxOccurs="unbounded" ref="conclusion"/>
+				<xs:element minOccurs="1" maxOccurs="1" ref="message"/>
+			</xs:sequence>
+			<xs:attribute name="ruleID" use="required" type="xs:ID"/>
+		</xs:complexType>
+	</xs:element>
 
     <xs:element name="param">
         <xs:complexType>
@@ -44,7 +75,7 @@
         </xs:complexType>
     </xs:element>
 
-        <xs:element name="conclusion">
+    <xs:element name="conclusion">
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="1" maxOccurs="1" ref="literal"/>
@@ -56,12 +87,10 @@
         <xs:annotation>
             <xs:documentation xml:lang="en">
                 Literals are the base units of premises and conclusions. Every Literal must be solvable to TRUE or FALSE.
-                Literals may contain the functions: edlValidation_exist(param), edlValidation_strcmp(param1,param2).
-                Literals may contain the operators:  <![CDATA[+,-,*,/, ==, >=,<=, >,<]]>.
             </xs:documentation>
        </xs:annotation>
     </xs:element>
 
     <xs:element name="message"  type="xs:string"/>
-    
+  
 </xs:schema>
