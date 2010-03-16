@@ -424,7 +424,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 -(float_t)CalcSigma:(float_t)fwhm
 {
     float sigma = 0.0;
-    float repetitionTime = (float) mDesign.repetitionTimeInMs/1000;
+    float repetitionTime = (float) mDesign.mRepetitionTimeInMs/1000;
     
 	if (repetitionTime > 0.001 && fwhm > 0.001) {
 		printf(" TR: %.3f seconds\n", repetitionTime);
@@ -454,7 +454,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 
     [mBetaOutput setImageProperty:PROPID_PATIENT    withValue:[mData getImageProperty:PROPID_PATIENT]];
     [mBetaOutput setImageProperty:PROPID_VOXEL      withValue:[mData getImageProperty:PROPID_VOXEL]];
-    [mBetaOutput setImageProperty:PROPID_REPTIME    withValue:[NSNumber numberWithLong:mDesign.repetitionTimeInMs]];
+    [mBetaOutput setImageProperty:PROPID_REPTIME    withValue:[NSNumber numberWithLong:mDesign.mRepetitionTimeInMs]];
     [mBetaOutput setImageProperty:PROPID_TALAIRACH  withValue:[mData getImageProperty:PROPID_TALAIRACH]];
     //if ('N' != [[mData getImageProperty:PROPID_FIXPOINT] UTF8String]){
     [mBetaOutput setImageProperty:PROPID_FIXPOINT   withValue:[mData getImageProperty:PROPID_FIXPOINT]];//}
@@ -482,7 +482,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     [mResOutput setImageProperty:PROPID_MODALITY    withValue:@"RES/trRV"];
     [mResOutput setImageProperty:PROPID_PATIENT     withValue:[mData getImageProperty:PROPID_PATIENT]];
     [mResOutput setImageProperty:PROPID_VOXEL       withValue:[mData getImageProperty:PROPID_VOXEL]];
-    [mResOutput setImageProperty:PROPID_REPTIME     withValue:[NSNumber numberWithLong:mDesign.repetitionTimeInMs]];
+    [mResOutput setImageProperty:PROPID_REPTIME     withValue:[NSNumber numberWithLong:mDesign.mRepetitionTimeInMs]];
     [mResOutput setImageProperty:PROPID_TALAIRACH   withValue:[mData getImageProperty:PROPID_TALAIRACH]];
     //if ('N' != [[mData getImageProperty:PROPID_FIXPOINT] UTF8String]) {
 	[mResOutput setImageProperty:PROPID_FIXPOINT    withValue:[mData getImageProperty:PROPID_FIXPOINT]];
