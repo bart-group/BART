@@ -11,7 +11,7 @@
             <paramRef>rtExperiment.environment{1}.logging{1}.logFile{1}.CONTENT</paramRef>
         </param>
         <premise>
-            <literal>edlValidation_strcmp(r1p1,'true')</literal>
+            <literal>edlValidation_strIsEqual(r1p1,'true')</literal>
           </premise>
         <conclusion>
             <literal> edlValidation_exists(r1p2)</literal>
@@ -101,11 +101,11 @@
         </param>
         
          <premise>
-             <literal>edlValidation_strcmp(r4p1,'IMAGE')</literal>
+             <literal>edlValidation_strIsEqual(r4p1,'IMAGE')</literal>
          </premise>
         
         <conclusion>
-            <literal>edlValidation_strcmp(r4p2,'.ima')</literal>
+            <literal>edlValidation_strIsEqual(r4p2,'.ima')</literal>
         </conclusion>
         
         <message>Edl Error: Input image data is defined as IMAGE, but file extension is not ".ima"!</message>
@@ -123,11 +123,11 @@
         </param>
         
         <premise>
-            <literal>edlValidation_strcmp(r5p1,'DICOM')</literal>
+            <literal>edlValidation_strIsEqual(r5p1,'DICOM')</literal>
         </premise>
         
         <conclusion>
-            <literal>edlValidation_strcmp(r5p2,'.dcm')</literal>
+            <literal>edlValidation_strIsEqual(r5p2,'.dcm')</literal>
         </conclusion>
         
         <message>Edl Error: Input image data is defined as DICOM, but file extension is not ".dcm"!</message>
@@ -145,11 +145,11 @@
         </param>
         
         <premise>
-            <literal>edlValidation_strcmp(r6p1,'ANALYZE')</literal>
+            <literal>edlValidation_strIsEqual(r6p1,'ANALYZE')</literal>
         </premise>
         
         <conclusion>
-            <literal>edlValidation_strcmp(r6p2,'.img')</literal>
+            <literal>edlValidation_strIsEqual(r6p2,'.img')</literal>
         </conclusion>
         
         <message>Edl Error: Input image data is defined as ANALYZE, but file extension is not ".img"!</message>

@@ -98,22 +98,21 @@
     // TODO: Check whether all rules are satisfied...
     
     BOOL allRulesSatisfied = YES;
-    NSMutableString* errorBuffer = [[NSMutableString alloc] initWithCapacity:0];
+    NSMutableString* errorBuffer = [[NSMutableString alloc] initWithCapacity:1];
     for (COEDLValidatorRule* rule in mRules) {
+        NSString* ruleID = [rule mRuleID];
         if (![rule isSatisfied]) {
             allRulesSatisfied = NO;
-            NSString* ruleID = [rule mRuleID];
-            if ([rule mError]) {
-                if ([[rule mError] code] == INCORRECT_SYNTAX) {
-                    [errorBuffer appendFormat:@"\n Rule %@ contains at least one literal with incorrect syntax!", ruleID];
-                }
-            } else {
-                [errorBuffer appendFormat:@"\n Rule %@ violated! Message: %@", ruleID, [rule mMessage]];
+            [errorBuffer appendFormat:@"\n Rule %@ violated! Message: %@", ruleID, [rule mMessage]];
+        }
+        if ([rule mError]) {
+            if ([[rule mError] code] == INCORRECT_SYNTAX) {
+                [errorBuffer appendFormat:@"\n Rule %@ contains at least one literal with incorrect syntax!", ruleID];
             }
         }
     }
     
-    if (!allRulesSatisfied) {
+    if ([errorBuffer length] > 0) {
         NSString* errorHeadline = @"Violations/Errors: ";
         NSString* errorDomain = [errorHeadline stringByAppendingString:errorBuffer];
         mError = [NSError errorWithDomain:errorDomain

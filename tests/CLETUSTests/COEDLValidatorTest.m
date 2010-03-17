@@ -37,8 +37,8 @@ COEDLValidator* validator;
 
 -(void)testIsEDLConfigCorrectAccordingToRules
 {
-//    BOOL valid = [validator isEDLConfigCorrectAccordingToRules];
-//    
+    BOOL valid = [validator isEDLConfigCorrectAccordingToRules];
+    
 //    STAssertEquals(YES, valid, @"Some rules are not valid!");
 }
 
