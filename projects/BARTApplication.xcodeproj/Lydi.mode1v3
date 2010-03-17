@@ -222,48 +222,7 @@
 		</dict>
 	</array>
 	<key>OpenEditors</key>
-	<array>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>0085EBA41151226C004795FD</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>BADesignElementDyn.m</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>0085EBA51151226C004795FD</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>BADesignElementDyn.m</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>0085EBAD1151227C004795FD</string>
-						<key>history</key>
-						<array>
-							<string>0085EB911151223A004795FD</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1142, 632}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>-1188 284 1142 673 -1280 0 1280 1024 </string>
-			</dict>
-		</dict>
-	</array>
+	<array/>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -295,8 +254,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -322,7 +279,7 @@
 							<array>
 								<real>22</real>
 								<real>22</real>
-								<real>210</real>
+								<real>311</real>
 							</array>
 							<key>PBXSmartGroupTreeModuleColumnsKey_v4</key>
 							<array>
@@ -343,6 +300,7 @@
 								<string>0040B8051141470400A57967</string>
 								<string>0040B8061141470400A57967</string>
 								<string>0040B8521141472200A57967</string>
+								<string>0040B8531141472200A57967</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
 								<string>29B97323FDCFA39411CA2CEA</string>
 								<string>19C28FACFE9D520D11CA2CBB</string>
@@ -352,20 +310,14 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>46</integer>
-									<integer>45</integer>
-									<integer>2</integer>
-									<integer>0</integer>
-								</array>
-								<array>
-									<integer>47</integer>
+									<integer>49</integer>
 									<integer>45</integer>
 									<integer>2</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 195}, {254, 842}}</string>
+							<string>{{0, 739}, {355, 842}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -377,7 +329,7 @@
 					<key>GeometryConfiguration</key>
 					<dict>
 						<key>Frame</key>
-						<string>{{0, 0}, {271, 860}}</string>
+						<string>{{0, 0}, {372, 860}}</string>
 						<key>GroupTreeTableConfiguration</key>
 						<array>
 							<string>TargetStatusColumn</string>
@@ -385,7 +337,7 @@
 							<string>SCMStatusColumn</string>
 							<real>22</real>
 							<string>MainColumn</string>
-							<real>210</real>
+							<real>311</real>
 						</array>
 						<key>RubberWindowFrame</key>
 						<string>0 101 1280 901 0 0 1280 1002 </string>
@@ -393,18 +345,20 @@
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
 					<key>Proportion</key>
-					<string>271pt</string>
+					<string>372pt</string>
 				</dict>
 				<dict>
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>NEDesignGammaFct.h</string>
+								<string>BADesignElementDyn.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -412,11 +366,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>NEDesignGammaFct.h</string>
+										<string>BADesignElementDyn.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>0085EBAC1151227C004795FD</string>
+										<string>0085ECDC11516B22004795FD</string>
 										<key>history</key>
 										<array>
 											<string>008DA623113C344700918EB7</string>
@@ -429,11 +383,23 @@
 											<string>00C3A0101144FC5700725668</string>
 											<string>0085EB561151218D004795FD</string>
 											<string>0085EB571151218D004795FD</string>
-											<string>0085EB591151218D004795FD</string>
-											<string>0085EB5B1151218D004795FD</string>
-											<string>0085EB7D11512213004795FD</string>
-											<string>0085EBAB1151227C004795FD</string>
-											<string>0085EB5A1151218D004795FD</string>
+											<string>0085EBBF1151237C004795FD</string>
+											<string>0085EBC01151237C004795FD</string>
+											<string>0085EC5D11514872004795FD</string>
+											<string>0085EC5E11514872004795FD</string>
+											<string>0085EC5F11514872004795FD</string>
+											<string>0085EC6011514872004795FD</string>
+											<string>0085EC6111514872004795FD</string>
+											<string>0085EC6211514872004795FD</string>
+											<string>0085EC6311514872004795FD</string>
+											<string>0085EC6411514872004795FD</string>
+											<string>0085EC6511514872004795FD</string>
+											<string>0085ECB0115162D2004795FD</string>
+											<string>0085ECB1115162D2004795FD</string>
+											<string>0085ECB2115162D2004795FD</string>
+											<string>0085ECB3115162D2004795FD</string>
+											<string>0085ECBC11516537004795FD</string>
+											<string>0085ECBD11516537004795FD</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -445,7 +411,7 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1004, 530}}</string>
+								<string>{{0, 0}, {903, 530}}</string>
 								<key>RubberWindowFrame</key>
 								<string>0 101 1280 901 0 0 1280 1002 </string>
 							</dict>
@@ -465,7 +431,7 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 535}, {1004, 325}}</string>
+								<string>{{0, 535}, {903, 325}}</string>
 								<key>RubberWindowFrame</key>
 								<string>0 101 1280 901 0 0 1280 1002 </string>
 							</dict>
@@ -476,7 +442,7 @@
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>1004pt</string>
+					<string>903pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -614,7 +580,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>290529916.53364998</real>
+	<real>290548514.72128803</real>
 	<key>ToolbarConfigUserDefaultsMinorVersion</key>
 	<string>2</string>
 	<key>ToolbarDisplayMode</key>
@@ -631,13 +597,13 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>0085ECDD11516B22004795FD</string>
 		<string>008DA601113C24C100918EB7</string>
 		<string>0085EB3E11511F93004795FD</string>
 		<string>0085EB3F11511F93004795FD</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>0054579D1139751700E98146</string>
-		<string>0085EBA41151226C004795FD</string>
 		<string>/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/projects/BARTApplication.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -662,7 +628,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>BADesignElementDyn.m</string>
+								<string>NEDesignGammaKernel.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -967,6 +933,8 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
