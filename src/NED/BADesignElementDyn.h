@@ -9,17 +9,12 @@
 #import <Cocoa/Cocoa.h>
 #import "BADesignElement.h"
 #import <fftw3.h>
+#import "NEDesignGammaKernel.h"
 
 typedef struct ComplexStruct {
     double re;
     double im;
 } Complex;
-
-
-typedef struct GammaKernelListStruct {
-	fftw_complex gammaKernel;
-	struct GammaKernelListStruct *next;
-} GammaKernelList;
 
 
 @interface BADesignElementDyn : BADesignElement {
@@ -40,13 +35,13 @@ typedef struct GammaKernelListStruct {
 	float** mDesign;
 	float** mCovariates;
 	
-	/* buffers for use with fftw3 for block design und eventrelated with derivations 0|1|2 */
-	
-	
-	fftw_complex *mKernelBlockDeriv0; // can be gamma or gauss function
-	fftw_complex *mKernelEventDeriv0; // always gamma function
-	fftw_complex *mKernelDeriv1; // deriv 1
-	fftw_complex *mKernelDeriv2; // deriv 2
+	///* buffers for use with fftw3 for block design und eventrelated with derivations 0|1|2 */
+//	
+//	
+//	fftw_complex *mKernelBlockDeriv0; // can be gamma or gauss function
+//	fftw_complex *mKernelEventDeriv0; // always gamma function
+//	fftw_complex *mKernelDeriv1; // deriv 1
+//	fftw_complex *mKernelDeriv2; // deriv 2
 	
 	/*buffers for input and output of fft*/
 	double **mBuffersForwardIn; // one per each event
@@ -58,7 +53,8 @@ typedef struct GammaKernelListStruct {
 	fftw_plan *mFftPlanForward;
 	fftw_plan *mFftPlanInverse;
 	
-	
+	// 
+	NEDesignGammaKernel **mGammaKernels; //one per each event
 	
     
 }
@@ -82,11 +78,11 @@ typedef struct GammaKernelListStruct {
 -(NSError*)initDesign;
 
 -(Complex)complex_mult:(Complex)a :(Complex)b;
--(double)xgamma:(double)xx :(double)t0;//TODO check functions
--(double)bgamma:(double)xx :(double)t0;
--(double)deriv1_gamma:(double)x :(double)t0;
--(double)deriv2_gamma:(double)x :(double)t0;
--(double)xgauss:(double)xx :(double)t0;
+//-(double)xgamma:(double)xx :(double)t0;//TODO check functions
+//-(double)bgamma:(double)xx :(double)t0;
+//-(double)deriv1_gamma:(double)x :(double)t0;
+//-(double)deriv2_gamma:(double)x :(double)t0;
+//-(double)xgauss:(double)xx :(double)t0;
 
 -(BOOL)test_ascii:(int)val;
 -(void)Convolve:(unsigned int)col

@@ -26,18 +26,18 @@ BADesignElement *designEl;
 }
 
 - (void) testProperties {
-    STAssertEquals(designEl.numberTimesteps, 396, @"Incorrect number of timesteps.");
-	STAssertEquals(designEl.numberExplanatoryVariables, 5, @"Incorrect number of covariates.");
-    STAssertEquals(designEl.repetitionTimeInMs, 2000, @"Incorrect repetition time.");
-    STAssertEquals(designEl.imageDataType, IMAGE_DATA_FLOAT, @"Incorrect image data type.");
+    //STAssertEquals(designEl.mNumberTimesteps, 396, @"Incorrect number of timesteps.");
+//	STAssertEquals(designEl.mNumberExplanatoryVariables, 5, @"Incorrect number of covariates.");
+//    STAssertEquals(designEl.mRepetitionTimeInMs, 2000, @"Incorrect repetition time.");
+    STAssertEquals(designEl.mImageDataType, IMAGE_DATA_FLOAT, @"Incorrect image data type.");
 }
 
 /**
  * TODO: test (more) values from a self constructed image.
  */
 - (void) testGetValueFromCovariate {
-    int covariateNumber = 0;
-    int timestep = 42;
+    unsigned int covariateNumber = 0;
+    unsigned int timestep = 42;
     BOOL success = NO;
     float expectedMax = 1.53;
     float expectedMin = 1.529;

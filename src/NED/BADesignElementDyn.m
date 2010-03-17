@@ -16,44 +16,6 @@
 
 extern int VStringToken (char *, char *, int, int);
 
-// komische Konstanten erstmal aus vgendesign.c (Lipsia) uebernommen
-
-
-//@interface BADesignElementDyn (PrivateMethods)
-
-
-/* Other Attributes set up by initDesign. Main use in generate Design. */
-
-
-
-
-///* Other Attributes END. */
-//
-//-(NSError*)parseInputFile:(NSString*)path;
-//-(NSError*)initDesign;
-//
-//-(Complex)complex_mult:(Complex)a :(Complex)b;
-//-(double)xgamma:(double)xx :(double)t0;//TODO check functions
-//-(double)bgamma:(double)xx :(double)t0;
-//-(double)deriv1_gamma:(double)x :(double)t0;
-//-(double)deriv2_gamma:(double)x :(double)t0;
-//-(double)xgauss:(double)xx :(double)t0;
-//
-//-(BOOL)test_ascii:(int)val;
-//-(void)Convolve:(unsigned int)col
-//				:(unsigned int) eventNr
-//               :(fftw_complex *)fkernel;
-///* Utility function for TrialList. */
-//-(void)tl_append:(TrialList*)head
-//                :(TrialList*)newLast;
-//
-//-(NSError*)getPropertiesFromConfig;
-//
-//-(NSError*)correctForZeromean;
-
-
-
-//@end
 
 @implementation BADesignElementDyn
 
@@ -66,12 +28,12 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 
 /* Standard parameter values for gamma function, Glover 99. */
-double a1 = 6.0;     
-double b1 = 0.9;
-double a2 = 12.0;
-double b2 = 0.9;
-double cc = 0.35;
-
+//double a1 = 6.0;     
+//double b1 = 0.9;
+//double a2 = 12.0;
+//double b2 = 0.9;
+//double cc = 0.35;
+//
 
 
 // TODO: check if imageDataType still needed (here: float)
@@ -185,18 +147,8 @@ double cc = 0.35;
 	mNumberCovariates = 0;     // TODO: get from config  
 	
 	mDerivationsHrf = 0;
-	
-	
 	[f release];//temp for conversion purposes
-	
-	
 	mNumberSamplesForInit = (mNumberTimesteps * mRepetitionTimeInMs) / samplingRateInMs;
-	
-	
-	/* Attributes that should be modifiable (were once CLI parameters). */
-	//mKernelBlockDesignIsGamma = YES;
-	//mBlockThreshold = 10.0; // in seconds
-	
 	
 	return nil;
 	
@@ -206,13 +158,7 @@ double cc = 0.35;
 
 -(NSError*)initDesign
 {
-    // TODO: parameterize or/and use config
-    float delay = 6.0;              
-    float understrength = 0.35;
-    float undershoot = 12.0;
     BOOL zeromean = YES;
-    
-        
 	fprintf(stderr, " TR in ms = %d\n", mRepetitionTimeInMs);
 	
 	mTimeOfRepetitionStartInMs = (double *) malloc(sizeof(double) * mNumberTimesteps);
@@ -227,12 +173,7 @@ double cc = 0.35;
     
     maxExpLengthInMs += 10000; /* add 10 seconds to avoid FFT problems (wrap around) */
     
-    /* set gamma function parameters */
-    a1 = delay;
-    a2 = undershoot;
-    cc = understrength;
-    
-    /*
+     /*
      ** check amplitude: must have zero mean for parametric designs
 	 ** for not parametric nothing will be corrected due to check of stddev
      */
@@ -291,14 +232,18 @@ double cc = 0.35;
         
     unsigned int numberSamplesInResult = (mNumberSamplesForInit / 2) + 1;//defined for results of fftw3
 
-    /* make plans */
+    /* make plans one per each event*/
     mFftPlanForward = (fftw_plan *) malloc(sizeof(fftw_plan) * mNumberEvents);
     mFftPlanInverse = (fftw_plan *) malloc(sizeof(fftw_plan) * mNumberEvents);
-    
-    mBuffersForwardIn = (double **) malloc(sizeof(double *) * mNumberEvents);
+	
+	/* alloc input/output buffers for forward/inverse fft one per each event*/
+	mBuffersForwardIn = (double **) malloc(sizeof(double *) * mNumberEvents);
     mBuffersForwardOut = (fftw_complex **) malloc(sizeof(fftw_complex *) * mNumberEvents);
     mBuffersInverseIn = (fftw_complex **) malloc(sizeof(fftw_complex *) * mNumberEvents);
     mBuffersInverseOut = (double **) malloc(sizeof(double *) * mNumberEvents);
+
+	/* alloc gamma kernels one per each event*/
+	mGammaKernels = (NEDesignGammaKernel **) malloc(sizeof(NEDesignGammaKernel*) * mNumberEvents);
     
     for (unsigned int eventNr = 0; eventNr < mNumberEvents; eventNr++) {
         
@@ -313,84 +258,19 @@ double cc = 0.35;
         mFftPlanForward[eventNr] = fftw_plan_dft_r2c_1d(mNumberSamplesForInit, mBuffersForwardIn[eventNr], mBuffersForwardOut[eventNr], FFTW_ESTIMATE);
         mFftPlanInverse[eventNr] = fftw_plan_dft_c2r_1d(mNumberSamplesForInit, mBuffersInverseIn[eventNr], mBuffersInverseOut[eventNr], FFTW_ESTIMATE);
 		
+		//TODO get per event from config!!!!
+		GammaParams params;
+		params.maxLengthHrfInMs = 30000;
+		params.peak1 = 6.0;
+		params.scale1 = 0.9;
+		params.peak2 = 12.0;
+		params.scale2 = 0.9;
+		params.offset = 0.0;
+		params.understrength = 0.1;
+		
+		mGammaKernels[eventNr] = [[NEDesignGammaKernel alloc] initWithGammaStruct:params andNumberSamples:mNumberSamplesForInit];
     }
-    
-    /* get kernel */
-    double *blockKernel = NULL;
-    blockKernel = (double *) fftw_malloc(sizeof(double) * mNumberSamplesForInit);
-    mKernelBlockDeriv0 = (fftw_complex *) fftw_malloc (sizeof(fftw_complex) * numberSamplesInResult);
-    memset(blockKernel,0, sizeof(double) * mNumberSamplesForInit);
-    
-    double *kernel0 = NULL;
-    kernel0  = (double *)fftw_malloc(sizeof(double) * mNumberSamplesForInit);
-    mKernelEventDeriv0 = (fftw_complex *)fftw_malloc (sizeof(fftw_complex) * numberSamplesInResult);
-    memset(kernel0, 0, sizeof(double) * mNumberSamplesForInit);
-    
-    double *kernel1 = NULL;
-    if (mDerivationsHrf >= 1) {
-        kernel1  = (double *)fftw_malloc(sizeof(double) * mNumberSamplesForInit);
-        mKernelDeriv1 = (fftw_complex *)fftw_malloc (sizeof (fftw_complex) * numberSamplesInResult);
-        memset(kernel1,0,sizeof(double) * mNumberSamplesForInit);
-    }
-    
-    double *kernel2 = NULL;
-    if (mDerivationsHrf == 2) {
-        kernel2  = (double *)fftw_malloc(sizeof(double) * mNumberSamplesForInit);
-        mKernelDeriv2 = (fftw_complex *)fftw_malloc (sizeof (fftw_complex) * numberSamplesInResult);
-        memset(kernel2,0,sizeof(double) * mNumberSamplesForInit);
-    }
-	
-    
-    unsigned int indexS = 0;
-    double dt = samplingRateInMs / 1000.0; /* Delta (temporal resolution) in seconds. */
-    //unsigned int maxLengthHrfInMs = 30000; //TODO get from config
-	//for (unsigned int indexSample = 0; indexSample < maxLengthHrfInMs; indexSample += samplingRateInMs) {
-	for (double indexSample = 0; indexSample < t1; indexSample += dt) {
-			
-        if (indexSample >= mNumberSamplesForInit) break;        
-        /* Gauss kernel for block designs */
-		BOOL kernelBlockDesignIsGamma = YES; //TODO get from config
-        if (NO == kernelBlockDesignIsGamma) {
-            blockKernel[indexS] = [self xgauss:indexSample :5.0];
-        } else {
-            blockKernel[indexS] = [self bgamma:indexSample :0.0];
-        }
-        
-        kernel0[indexS] = [self xgamma:indexSample :0];
-        if (mDerivationsHrf >= 1) {
-            kernel1[indexS] = [self deriv1_gamma:indexSample :0.0];
-        }
-        if (mDerivationsHrf == 2) {
-            kernel2[indexS] = [self deriv2_gamma:indexSample :0.0];
-        }
-        indexS++;
-    }
-    
-    /* fft for kernels */
-    fftw_plan pkg;
-    pkg = fftw_plan_dft_r2c_1d(mNumberSamplesForInit, blockKernel, mKernelBlockDeriv0, FFTW_ESTIMATE);
-    fftw_execute(pkg);
-    
-    fftw_plan pk0;
-    pk0 = fftw_plan_dft_r2c_1d(mNumberSamplesForInit, kernel0, mKernelEventDeriv0, FFTW_ESTIMATE);
-    fftw_execute(pk0);
-    
-    fftw_plan pk1;
-    if (mDerivationsHrf >= 1) {
-        pk1 = fftw_plan_dft_r2c_1d(mNumberSamplesForInit, kernel1, mKernelDeriv1, FFTW_ESTIMATE);
-        fftw_execute(pk1);
-    }
-    
-    fftw_plan pk2;
-    if (mDerivationsHrf == 2) {
-        pk2 = fftw_plan_dft_r2c_1d(mNumberSamplesForInit, kernel2, mKernelDeriv2, FFTW_ESTIMATE);
-        fftw_execute(pk2);
-    }
-    
-    fftw_free(blockKernel);
-    fftw_free(kernel0);
-    fftw_free(kernel1);
-    fftw_free(kernel2);
+
     
     return nil;
 }
@@ -453,30 +333,23 @@ double cc = 0.35;
         /* fft */
         fftw_execute(mFftPlanForward[eventNr]);
         unsigned int col = eventNr * (mDerivationsHrf + 1);
-        
-        if (minTrialDuration >= blockThreshold) {
-            [self Convolve:col 
-						  :eventNr
-                          :mKernelBlockDeriv0];
-        } else {
-            [self Convolve:col
-						  :eventNr
-                          :mKernelEventDeriv0];
-        }
+  		[self Convolve:col
+					  :eventNr
+					  :mGammaKernels[eventNr].mKernelDeriv0];
         
         col++;
         
         if (mDerivationsHrf >= 1) {
             [self Convolve:col
 						  :eventNr
-                          :mKernelDeriv1];
+                          :mGammaKernels[eventNr].mKernelDeriv1];
             col++;
         }
         
         if (mDerivationsHrf == 2) {
             [self Convolve:col
 						  :eventNr
-                          :mKernelDeriv2];
+						  :mGammaKernels[eventNr].mKernelDeriv2];
         }
     });
     
@@ -585,9 +458,9 @@ double cc = 0.35;
     VSetAttr(VImageAttrList(outDesign), "derivatives", NULL, VShortRepn, mDerivationsHrf);
     
     // evil: Copy&Paste from initDesign()
-    static float delay = 6.0;              
-    static float understrength = 0.35;
-    static float undershoot = 12.0;
+    float delay = 6.0;              
+    float understrength = 0.35;
+    float undershoot = 12.0;
     char buf[BUFFER_LENGTH];
     
     VSetAttr(VImageAttrList(outDesign), "delay", NULL, VFloatRepn, delay);
@@ -615,14 +488,11 @@ double cc = 0.35;
     VImage plot_image = NULL;
     plot_image = VCreateImage(1, nrows, ncols, VFloatRepn);
     float** plot_image_raw = NULL;
-    plot_image_raw = [self Plot_gamma];
+    plot_image_raw = [mGammaKernels[0] plotGammaWithDerivs:mDerivationsHrf];//take first event, here just one fct possible
     
     for (int col = 0; col < ncols; col++) {
         for (int row = 0; row < nrows; row++) {
             VPixel(plot_image, 0, row, col, VFloat) = (VFloat) plot_image_raw[col][row];
-//			if (col < 10 && row < 10){
-//				NSLog(@"%.50lf", (VFloat) plot_image_raw[col][row]);
-//			}
         }
     }
 	
@@ -652,201 +522,6 @@ double cc = 0.35;
     return w;
 }
 
-/*
- * Glover kernel, gamma function
- */
--(double)xgamma:(double) xx
-               :(double) t0
-{
-    double scale = 20.0; // nobody knows where it comes from
-    
-    double x = xx - t0;// div 1000 due to ms unit but here s used
-    if (x < 0 || x > 50) {
-        return 0;
-    }
-    
-    double d1 = a1 * b1;
-    double d2 = a2 * b2;
-    
-    double y1 = pow(x / d1, a1) * exp(-(x - d1) / b1);
-    double y2 = pow(x / d2, a2) * exp(-(x - d2) / b2);
-    
-    double y = y1 - cc * y2;
-    y /= scale;
-    return y;
-}
-
-/*
- * Glover kernel, gamma function, parameters changed for block designs
- */
--(double)bgamma:(double) xx
-               :(double) t0
-{
-    double x;
-    double y;
-    double scale=120;
-    
-    double y1;
-    double y2;
-    double d1;
-    double d2;
-    
-    double aa1 = 6;     
-    double bb1 = 0.9;
-    double aa2 = 12;
-    double bb2 = 0.9;
-    double cx  = 0.1;
-    
-    x = xx - t0;
-    if (x < 0 || x > 50) {
-        return 0;
-    }
-    
-    d1 = aa1 * bb1;
-    d2 = aa2 * bb2;
-    
-    y1 = pow(x / d1, aa1) * exp(-(x - d1) / bb1);
-    y2 = pow(x / d2, aa2) * exp(-(x - d2) / bb2);
-    
-    y = y1 - cx * y2;
-    y /= scale;
-    return y;
-}
-
-/* First derivative. */
--(double)deriv1_gamma:(double) x 
-                     :(double) t0
-{
-    double d1;
-    double d2;
-    double y1;
-    double y2;
-    double y;
-    double xx;
-    
-    double scale = 20.0;
-    
-    xx = x - t0;
-    if (xx < 0 || xx > 50) {
-        return 0;
-    }
-    
-    d1 = a1 * b1;
-    d2 = a2 * b2;
-    
-    y1 = pow(d1, -a1) * a1 * pow(xx, (a1 - 1.0)) * exp(-(xx - d1) / b1) 
-                - (pow((xx / d1), a1) * exp(-(xx - d1) / b1)) / b1;
-    
-    y2 = pow(d2, -a2) * a2 * pow(xx, (a2 - 1.0)) * exp(-(xx - d2) / b2) 
-                - (pow((xx / d2), a2) * exp(-(xx - d2) / b2)) / b2;
-    
-    y = y1 - cc * y2;
-    y /= scale;
-    
-    return y;
-}
-
-/* Second derivative. */
--(double)deriv2_gamma:(double) x0
-                     :(double) t0
-{
-    double d1;
-    double d2;
-    double y1;
-    double y2;
-    double y3;
-    double y4;
-    double y;
-    double x;
-    
-    double scale=20.0;
-    
-    x = x0 - t0;
-    if (x < 0 || x > 50) {
-        return 0;
-    }
-    
-    d1 = a1 * b1;
-    d2 = a2 * b2;
-    
-    y1 = pow(d1, -a1) * a1 * (a1 - 1) * pow(x, a1 - 2) * exp(-(x - d1) / b1) 
-                - pow(d1, -a1) * a1 * pow(x, (a1 - 1)) * exp(-(x - d1) / b1) / b1;
-    y2 = pow(d1, -a1) * a1 * pow(x, a1 - 1) * exp(-(x - d1) / b1) / b1
-                - pow((x / d1), a1) * exp(-(x - d1) / b1) / (b1 * b1);
-    y1 = y1 - y2;
-    
-    y3 = pow(d2, -a2) * a2 * (a2 - 1) * pow(x, a2 - 2) * exp(-(x - d2) / b2) 
-                - pow(d2, -a2) * a2 * pow(x, (a2 - 1)) * exp(-(x - d2) / b2) / b2;
-    y4 = pow(d2, -a2) * a2 * pow(x, a2 - 1) * exp(-(x - d2) / b2) / b2
-                - pow((x / d2), a2) * exp(-(x - d2) / b2) / (b2 * b2);
-    y2 = y3 - y4;
-    
-    y = y1 - cc * y2;
-    y /= scale;
-    
-    return y;
-}
-
-/* Gaussian function. */
--(double)xgauss:(double)x0
-               :(double)t0
-{
-    double sigma = 1.0;
-    double scale = 20.0;
-    double x;
-    double y;
-    double z;
-    double a=2.506628273;
-    
-    x = (x0 - t0);
-    z = x / sigma;
-    y = exp((double) - z * z * 0.5) / (sigma * a);
-    y /= scale;
-    return y;
-}
-
--(float**)Plot_gamma
-{
-    double y0;
-    double y1;
-    double y2;
-    double t0 = 0.0;
-    double step = 0.2;
-    
-    int ncols = (int) (28.0 / step);
-    int nrows = mDerivationsHrf + 2;
-    
-    float** dest = (float**) malloc(sizeof(float*) * ncols);
-    for (int col = 0; col < ncols; col++) {
-        
-        dest[col] = (float*) malloc(sizeof(float) * nrows);
-        for (int row = 0; row < nrows; row++) {
-            dest[col][row] = 0.0;
-        }
-    }
-    
-    int j = 0;
-    for (double x = 0.0; x < 28.0; x += step) {
-        if (j >= ncols) {
-            break;
-        }
-        y0 = [self xgamma:x :t0];
-        y1 = [self deriv1_gamma:x :t0];
-        y2 = [self deriv2_gamma:x :t0];
-
-        dest[j][0] = x;
-        dest[j][1] = y0;
-        if (mDerivationsHrf > 0) {
-            dest[j][2] = y1;
-        }
-        if (mDerivationsHrf > 1) {
-            dest[j][3] = y2;
-        }
-        j++;
-    }
-    
-    return dest;
-}
 
 -(BOOL)test_ascii:(int)val
 {
@@ -875,7 +550,6 @@ double cc = 0.35;
 	fftw_complex *localBufForwardOut = mBuffersForwardOut[eventNr];
 	double *localBufInverseOut = mBuffersInverseOut[eventNr];
 	fftw_plan planInverseFFT = mFftPlanInverse[eventNr];
-	
 	unsigned int numberSamplesResult = (mNumberSamplesForInit / 2) + 1;//fftw3 definition
 	
     
@@ -1009,6 +683,7 @@ double cc = 0.35;
         fftw_free(mBuffersForwardOut[eventNr]);
         fftw_free(mBuffersInverseIn[eventNr]);
         fftw_free(mBuffersInverseOut[eventNr]);
+		free(mGammaKernels[eventNr]);
         
         TrialList* node;
         TrialList* tmp;
@@ -1025,10 +700,11 @@ double cc = 0.35;
     fftw_free(mBuffersForwardOut);
     fftw_free(mBuffersInverseIn);
     free(mBuffersInverseOut);
-    fftw_free(mKernelBlockDeriv0);
-    fftw_free(mKernelEventDeriv0);
-    fftw_free(mKernelDeriv1);
-    fftw_free(mKernelDeriv2);
+	free(mGammaKernels);
+    //fftw_free(mKernelBlockDeriv0);
+//    fftw_free(mKernelEventDeriv0);
+//    fftw_free(mKernelDeriv1);
+//    fftw_free(mKernelDeriv2);
     
     free(mFftPlanForward);
     free(mFftPlanInverse);
