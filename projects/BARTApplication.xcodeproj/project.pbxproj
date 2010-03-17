@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0023A75811510D4C009182F8 /* edlValidation_rules.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0088781F1147B445009C7707 /* edlValidation_rules.xml */; };
 		0040B8071141470400A57967 /* BAAnalyzerGLM.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7961141470400A57967 /* BAAnalyzerGLM.m */; };
 		0040B8081141470400A57967 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
 		0040B8091141470400A57967 /* gauss.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7991141470400A57967 /* gauss.c */; };
@@ -718,6 +719,7 @@
 				008878251147B445009C7707 /* rtExperiment_v14_w_timebased.xsd in Resources */,
 				008878261147B445009C7707 /* timeBasedRegressor.edl in Resources */,
 				00793493114FEF76007BEB66 /* rtExperiment_v14-1.xsd in Resources */,
+				0023A75811510D4C009182F8 /* edlValidation_rules.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
