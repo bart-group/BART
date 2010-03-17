@@ -98,14 +98,36 @@
     // TODO: Check whether all rules are satisfied...
     
     BOOL allRulesSatisfied = YES;
+    NSMutableString* errorBuffer = [[NSMutableString alloc] initWithCapacity:0];
     for (COEDLValidatorRule* rule in mRules) {
         if (![rule isSatisfied]) {
             allRulesSatisfied = NO;
+            NSString* ruleID = [rule mRuleID];
             if ([rule mError]) {
-                // TODO: handle rule error
+                if ([[rule mError] code] == INCORRECT_SYNTAX) {
+                    [errorBuffer appendFormat:@"\n Rule %@ contains at least one literal with incorrect syntax!", ruleID];
+                }
+            } else {
+                [errorBuffer appendFormat:@"\n Rule %@ violated! Message: %@", ruleID, [rule mMessage]];
             }
         }
     }
+    
+    if (!allRulesSatisfied) {
+        NSString* errorHeadline = @"Violations/Errors: ";
+        NSString* errorDomain = [errorHeadline stringByAppendingString:errorBuffer];
+        mError = [NSError errorWithDomain:errorDomain
+                                     code:EDL_LOGICAL_VALIDATION
+                                 userInfo:nil];
+//        // TODO: remove output
+//        FILE* f = fopen("/tmp/validationErrors.txt", "w");
+//        fputs([[mError domain] cStringUsingEncoding:NSUTF8StringEncoding], f);
+//        fputc('\n', f);
+//        fclose(f);
+//        // END output
+    }
+    
+    [errorBuffer release];
     
     return allRulesSatisfied;
 }

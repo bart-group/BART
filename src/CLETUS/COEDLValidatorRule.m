@@ -8,6 +8,7 @@
 
 #import "COEDLValidatorRule.h"
 #import "COEDLValidatorLiteral.h"
+#import "COErrorCode.h"
 
 
 @interface COEDLValidatorRule (PrivateStuff) 
@@ -72,7 +73,9 @@
         }
         if (literalValue == LIT_ERROR) {
             conjunctedValue = NO;
-            // TODO: handle error!
+            mError = [NSError errorWithDomain:@"Incorrect syntax in literal." 
+                                         code:INCORRECT_SYNTAX
+                                     userInfo:nil];
         }
     }
     
@@ -86,8 +89,6 @@
     [mPremises release];
     [mConclusions release];
     [mMessage release];
-    
-    [mError release];
     
     [super dealloc];
 }
