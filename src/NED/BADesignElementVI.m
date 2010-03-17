@@ -2,8 +2,8 @@
 //  BADesignElementVI.m
 //  BARTCommandLine
 //
-//  Created by First Last on 11/11/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Created by Lydia Hellrung on 11/11/09.
+//  Copyright 2009 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
 #import "BADesignElementVI.h"
@@ -57,9 +57,9 @@
         VError(" m_DesignImage matrix not found ");
     }
     
-    numberTimesteps = VImageNRows(mDesign);
-    numberExplanatoryVariables = VImageNColumns(mDesign);
-	NSLog(@"numberExplanatoryVariables %d", numberExplanatoryVariables);
+    mNumberTimesteps = VImageNRows(mDesign);
+    mNumberExplanatoryVariables = VImageNColumns(mDesign);
+	NSLog(@"numberExplanatoryVariables %d", mNumberExplanatoryVariables);
     
     int itr;
     if (VGetAttr(VImageAttrList(mDesign), "repetition_time", NULL, VLongRepn, &itr) 
@@ -67,17 +67,17 @@
         NSLog(@"TR info missing in header");
     }
     
-    repetitionTimeInMs = itr;
+    mRepetitionTimeInMs = itr;
     VFree(inputFilename);
     
     
     
 }
 
--(NSNumber*)getValueFromExplanatoryVariable: (int)cov atTimestep:(int)t 
+-(NSNumber*)getValueFromExplanatoryVariable: (unsigned int)cov atTimestep:(unsigned int)t 
 {
     NSNumber *ret;
-    if (IMAGE_DATA_FLOAT == imageDataType){
+    if (IMAGE_DATA_FLOAT == mImageDataType){
         ret = [NSNumber numberWithFloat:VGetPixel(mDesign, 0, t, cov)];
     } else {
         NSLog(@"Cannot identify type of design image - no float");

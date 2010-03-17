@@ -158,7 +158,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         int numberSlices = mData.numberSlices;
         int numberRows = mData.numberRows;
         int numberCols = mData.numberCols;
-        int numberExplanatoryVariables = mDesign.numberExplanatoryVariables;
+        int numberExplanatoryVariables = mDesign.mNumberExplanatoryVariables;
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0); /* Global asyn. dispatch queue. */
         
         gsl_set_error_handler_off();
@@ -168,9 +168,9 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         if (numberExplanatoryVariables >= MBETA) {
             NSLog(@" too many covariates (%d), max is %d", numberExplanatoryVariables, MBETA);
         }
-        if (mDesign.numberTimesteps != numberBands) {
+        if (mDesign.mNumberTimesteps != numberBands) {
             NSLog(@" design dimension inconsistency: %d (numberTimesteps design) %d (numberTimesteps data)", 
-                  mDesign.numberTimesteps, numberBands);
+                  mDesign.mNumberTimesteps, numberBands);
         }
         
         /* Read design matrix. */
@@ -267,7 +267,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         }
         gsl_matrix_float_transpose(betaCovariates);
         
-		float contrast[mDesign.numberExplanatoryVariables];
+		float contrast[mDesign.mNumberExplanatoryVariables];
 		//TODO
 		//for (int i = 0; i < mDesign.numberExplanatoryVariables; i++){
 		contrast[0] = 1.0;
@@ -275,7 +275,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 		contrast[2] = 0.0;
         //float contrast[3] = {1.0, -1.0, 0.0};
         gsl_vector_float *contrastVector;
-        contrastVector = gsl_vector_float_alloc(mDesign.numberExplanatoryVariables);
+        contrastVector = gsl_vector_float_alloc(mDesign.mNumberExplanatoryVariables);
         //contrastVector = gsl_vector_float_alloc(3);
         contrastVector->data = contrast;
         
@@ -450,7 +450,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 //                          PROPID_VOXEL, 
 //                          nil];
 //   /*mData.numberRows*/
-    mBetaOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mData.numberRows andCols:mData.numberCols andSlices:mDesign.numberExplanatoryVariables andTimesteps:mData.numberSlices];
+    mBetaOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mData.numberRows andCols:mData.numberCols andSlices:mDesign.mNumberExplanatoryVariables andTimesteps:mData.numberSlices];
 
     [mBetaOutput setImageProperty:PROPID_PATIENT    withValue:[mData getImageProperty:PROPID_PATIENT]];
     [mBetaOutput setImageProperty:PROPID_VOXEL      withValue:[mData getImageProperty:PROPID_VOXEL]];
@@ -498,7 +498,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     [mResMap setImageProperty:PROPID_MODALITY    withValue:@"tmap"]; // TODO: name variably based on ResMap type
     //[mResMap setImageProperty:PROPID_CONTRAST    withValue:<#(id)value#>]
     
-    mBCOVOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mDesign.numberExplanatoryVariables andCols:mDesign.numberExplanatoryVariables andSlices:1 andTimesteps:1];
+    mBCOVOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mDesign.mNumberExplanatoryVariables andCols:mDesign.mNumberExplanatoryVariables andSlices:1 andTimesteps:1];
 }
 
 @end

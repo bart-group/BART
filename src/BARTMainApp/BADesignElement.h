@@ -37,24 +37,24 @@ typedef struct TrialListStruct {
 
 @interface BADesignElement : BAElement {
 
-    int mRepetitionTimeInMs;
-    int numberExplanatoryVariables;
-    int numberTimesteps;
-    enum ImageDataType imageDataType;
+    unsigned int mRepetitionTimeInMs;
+    unsigned int mNumberExplanatoryVariables;
+    unsigned int mNumberTimesteps;
+    enum ImageDataType mImageDataType;
     
 }
 
-@property (readonly, assign) int mRepetitionTimeInMs;
-@property (readonly, assign) int numberExplanatoryVariables;
-@property (readonly, assign) int numberTimesteps;
-@property (readonly, assign) enum ImageDataType imageDataType;
+@property (readonly, assign) unsigned int mRepetitionTimeInMs;
+@property (readonly, assign) unsigned int mNumberExplanatoryVariables;
+@property (readonly, assign) unsigned int mNumberTimesteps;
+@property (readonly, assign) enum ImageDataType mImageDataType;
 
 -(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
 -(id)initWithDynamicDataOfImageDataType:(enum ImageDataType)type;
 
 -(NSError*)writeDesignFile:(NSString*)path;
 
--(NSNumber*)getValueFromExplanatoryVariable: (int)cov atTimestep:(int)t;
+-(NSNumber*)getValueFromExplanatoryVariable: (unsigned int)cov atTimestep:(unsigned int)t;
 
 -(void)setRegressor:(TrialList *)regressor;
 -(void)setRegressorTrial:(Trial)trial; 

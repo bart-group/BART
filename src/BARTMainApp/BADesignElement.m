@@ -14,9 +14,9 @@
 @implementation BADesignElement
 
 @synthesize mRepetitionTimeInMs;
-@synthesize numberExplanatoryVariables;
-@synthesize numberTimesteps;
-@synthesize imageDataType;
+@synthesize mNumberExplanatoryVariables;
+@synthesize mNumberTimesteps;
+@synthesize mImageDataType;
 
 -(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
 {
@@ -30,10 +30,7 @@
     
 }
 
--(NSNumber*)getValueFromExplanatoryVariable: (int)cov atTimestep:(int)t 
-{
 
-}
 
 -(void)setRegressor:(TrialList *)regressor
 {

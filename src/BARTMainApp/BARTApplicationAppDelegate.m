@@ -26,7 +26,7 @@
     
     [gui setBackgroundImage:dataEl];
     
-    designEl = [[BADesignElement alloc] initWithDatasetFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-design.v" ofImageDataType:IMAGE_DATA_FLOAT];
+    designEl = [[BADesignElement alloc] initWithDatasetFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-design.des" ofImageDataType:IMAGE_DATA_FLOAT];
     //designEl = [[BADesignElement alloc] initWithDatasetFile:@"/Users/user/Development/VGenDesign/testfiles/blockDesignTest01.des" ofImageDataType:IMAGE_DATA_FLOAT];
     
     //designEl = [[BADesignElement alloc] initWithDatasetFile:@"/Users/user/Development/KC9T/KC9T.des.v" ofImageDataType:IMAGE_DATA_FLOAT];

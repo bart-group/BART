@@ -2,13 +2,13 @@
 //  BADesignElementDyn.m
 //  BARTApplication
 //
-//  Created by FirstLast on 1/29/10.
-//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//  Created by Lydia Hellrung on 1/29/10.
+//  Copyright 2010 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
 #import "BADesignElementDyn.h"
 
-#import <fftw3.h>
+
 
 #include <viaio/VImage.h>
 
@@ -17,14 +17,53 @@
 extern int VStringToken (char *, char *, int, int);
 
 // komische Konstanten erstmal aus vgendesign.c (Lipsia) uebernommen
-static const int BUFFER_LENGTH = 10000;
-//static const int MAX_NUMBER_TRIALS = 5000;
-static const int MAX_NUMBER_EVENTS = 100;
 
-//static const unsigned int MAX_NUMBER_TIMESTEPS = 1000;
+
+//@interface BADesignElementDyn (PrivateMethods)
+
+
+/* Other Attributes set up by initDesign. Main use in generate Design. */
+
+
+
+
+///* Other Attributes END. */
+//
+//-(NSError*)parseInputFile:(NSString*)path;
+//-(NSError*)initDesign;
+//
+//-(Complex)complex_mult:(Complex)a :(Complex)b;
+//-(double)xgamma:(double)xx :(double)t0;//TODO check functions
+//-(double)bgamma:(double)xx :(double)t0;
+//-(double)deriv1_gamma:(double)x :(double)t0;
+//-(double)deriv2_gamma:(double)x :(double)t0;
+//-(double)xgauss:(double)xx :(double)t0;
+//
+//-(BOOL)test_ascii:(int)val;
+//-(void)Convolve:(unsigned int)col
+//				:(unsigned int) eventNr
+//               :(fftw_complex *)fkernel;
+///* Utility function for TrialList. */
+//-(void)tl_append:(TrialList*)head
+//                :(TrialList*)newLast;
+//
+//-(NSError*)getPropertiesFromConfig;
+//
+//-(NSError*)correctForZeromean;
+
+
+
+//@end
+
+@implementation BADesignElementDyn
+
+const int BUFFER_LENGTH = 10000;
+const int MAX_NUMBER_EVENTS = 100;
+double samplingRateInMs = 20.0;           /* Temporal resolution for convolution is 20 ms. */
+double t1 = 30.0;              /* HRF duration / Breite der HRF.                */
 const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
-@interface BADesignElementDyn (PrivateMethods)
+
 
 /* Standard parameter values for gamma function, Glover 99. */
 double a1 = 6.0;     
@@ -33,77 +72,7 @@ double a2 = 12.0;
 double b2 = 0.9;
 double cc = 0.35;
 
-/* Generated design information/resulting design image. */
-float** mDesign = NULL;
-float** mCovariates = NULL;
-//int numberRegressors = 0;
-//int numberCovariates = 0;     // TODO: get from config  
-//
-///* Attributes that should be modifiable (were once CLI parameters). */
-//short bkernel = 0;
-//short deriv = 0;
-//float block_threshold = 10.0; // in seconds
-//int ntimesteps = 396;         // Must be set to a different value!
 
-//float tr = 2.0;               // Must be set to a different value!
-int mNumberRegressors = 0;
-int mNumberCovariates = 0;     // TODO: get from config  
-
-/* Attributes that should be modifiable (were once CLI parameters). */
-short mKernelForBlockDesign = 0;
-int mDerivationsHrf = 0;
-float mBlockThreshold = 10.0; // in seconds
-
-
-
-/* Other Attributes set up by initDesign. Main use in generate Design. */
-int numberSamples;
-unsigned int initNumberSamples;
-double samplingRateInMs = 20.0;           /* Temporal resolution for convolution is 20 ms. */
-double t1 = 30.0;              /* HRF duration / Breite der HRF.                */
-
-fftw_complex *fkernelg = NULL;
-fftw_complex *fkernel0 = NULL;
-fftw_complex *fkernel1 = NULL;
-fftw_complex *fkernel2 = NULL;
-
-double **forwardInBuffers = NULL;
-fftw_plan *forwardFFTplans;
-fftw_plan *inverseFFTplans;
-double *xx = NULL;
-double **inverseOutBuffers = NULL;
-fftw_complex **forwardOutBuffers = NULL; // Resulting HRFs (one per Event).
-fftw_complex **inverseInBuffers = NULL;
-/* Other Attributes END. */
-
--(NSError*)parseInputFile:(NSString*)path;
--(NSError*)initDesign;
-
--(Complex)complex_mult:(Complex)a :(Complex)b;
--(double)xgamma:(double)xx :(double)t0;
--(double)bgamma:(double)xx :(double)t0;
--(double)deriv1_gamma:(double)x :(double)t0;
--(double)deriv2_gamma:(double)x :(double)t0;
--(double)xgauss:(double)xx :(double)t0;
--(float**)Plot_gamma;
--(BOOL)test_ascii:(int)val;
--(void)Convolve:(int)col
-               :(fftw_complex *)local_nbuf
-               :(fftw_complex *)forwardOutBuffer
-               :(double *)inverseOutBuffer
-               :(fftw_plan)planInverseFFT
-               :(fftw_complex *)fkernel;
-/* Utility function for TrialList. */
--(void)tl_append:(TrialList*)head
-                :(TrialList*)newLast;
-
--(NSError*)getPropertiesFromConfig;
-
-COSystemConfig *config;
-
-@end
-
-@implementation BADesignElementDyn
 
 // TODO: check if imageDataType still needed (here: float)
 -(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
@@ -111,21 +80,22 @@ COSystemConfig *config;
     self = [super init];
     
     if (type == IMAGE_DATA_FLOAT) {
-        imageDataType = type;
+        mImageDataType = type;
     } else {
         NSLog(@" BADesignElementDyn.initWithFile: defaulting to IMAGE_DATA_FLOAT (other values are not supported)!");
-        imageDataType = IMAGE_DATA_FLOAT;
+        mImageDataType = IMAGE_DATA_FLOAT;
     }
 	
-    trials = (TrialList**) malloc(sizeof(TrialList*) * MAX_NUMBER_EVENTS);
+    mTrialList = (TrialList**) malloc(sizeof(TrialList*) * MAX_NUMBER_EVENTS);
     for (int i = 0; i < MAX_NUMBER_EVENTS; i++) {
-        trials[i] = NULL;
+        mTrialList[i] = NULL;
     }
 	
-	if (nil == [self getPropertiesFromConfig]){
+	if (nil != [self getPropertiesFromConfig]){
 		return nil;
 	}
 	
+			
     NSLog(@"GenDesign GCD: START");
 	[self parseInputFile:path];
 	NSLog(@"GenDesign GCD: PARSE");
@@ -136,15 +106,15 @@ COSystemConfig *config;
     
     if (mNumberCovariates > 0) {
         mCovariates = (float**) malloc(sizeof(float*) * mNumberCovariates);
-        for (int cov = 0; cov < mNumberCovariates; cov++) {
-            mCovariates[cov] = (float*) malloc(sizeof(float) * numberTimesteps);
-            memset(mCovariates[cov], 0.0, sizeof(float) * numberTimesteps);
+        for (unsigned int cov = 0; cov < mNumberCovariates; cov++) {
+            mCovariates[cov] = (float*) malloc(sizeof(float) * mNumberTimesteps);
+            memset(mCovariates[cov], 0.0, sizeof(float) * mNumberTimesteps);
         }
     }
      
-    mNumberRegressors = numberEvents * (mDerivationsHrf + 1) + 1;
-    numberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
-
+    mNumberRegressors = mNumberEvents * (mDerivationsHrf + 1) + 1;
+    mNumberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
+	[self writeDesignFile:@"/tmp/testDesign.v"];
 	return self;
 }
 
@@ -153,18 +123,18 @@ COSystemConfig *config;
     self = [super init];
     
     if (type == IMAGE_DATA_FLOAT) {
-        imageDataType = type;
+        mImageDataType = type;
     } else {
         NSLog(@" BADesignElementDyn.initWithFile: defaulting to IMAGE_DATA_FLOAT (other values are not supported)!");
-        imageDataType = IMAGE_DATA_FLOAT;
+        mImageDataType = IMAGE_DATA_FLOAT;
     }
     
-    trials = (TrialList**) malloc(sizeof(TrialList*) * MAX_NUMBER_EVENTS);
+    mTrialList = (TrialList**) malloc(sizeof(TrialList*) * MAX_NUMBER_EVENTS);
     for (int i = 0; i < MAX_NUMBER_EVENTS; i++) {
-        trials[i] = NULL;
+        mTrialList[i] = NULL;
     }
-	numberEvents = 4;//TODO get from config
-	numberTimesteps = 396; //TODO get from config
+	mNumberEvents = 4;//TODO get from config
+	mNumberTimesteps = 396; //TODO get from config
     
     NSLog(@"GenDesign GCD: START");
     [self initDesign];
@@ -173,15 +143,15 @@ COSystemConfig *config;
     
     if (mNumberCovariates > 0) {
         mCovariates = (float**) malloc(sizeof(float*) * mNumberCovariates);
-        for (int cov = 0; cov < mNumberCovariates; cov++) {
-            mCovariates[cov] = (float*) malloc(sizeof(float) * numberTimesteps);
-            memset(mCovariates[cov], 0.0, sizeof(float) * numberTimesteps);
+        for (unsigned int cov = 0; cov < mNumberCovariates; cov++) {
+            mCovariates[cov] = (float*) malloc(sizeof(float) * mNumberTimesteps);
+            memset(mCovariates[cov], 0.0, sizeof(float) * mNumberTimesteps);
         }
     }
 	
 	
-    mNumberRegressors = numberEvents * (mDerivationsHrf + 1) + 1;
-    numberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
+    mNumberRegressors = mNumberEvents * (mDerivationsHrf + 1) + 1;
+    mNumberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
     
 	
     //[self writeDesignFile:@"/tmp/testDesign.v"];
@@ -193,7 +163,7 @@ COSystemConfig *config;
 
 -(NSError*)getPropertiesFromConfig
 {
-	config = [COSystemConfig getInstance];
+	COSystemConfig *config = [COSystemConfig getInstance];
 	
 	//TODO:  Will be initialized somewhere else
 	NSError *err = [config initializeWithContentsOfEDLFile:@"../../tests/CLETUSTests/Init_Links_1.edl"];
@@ -207,22 +177,26 @@ COSystemConfig *config;
 	NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
 	[f setNumberStyle:NSNumberFormatterDecimalStyle];
 	//TODO : Abfrage Einheit der repetition Time
-	mRepetitionTimeInMs = [[f numberFromString:config_tr] intValue];
+	mRepetitionTimeInMs = 1000;//[[f numberFromString:config_tr] intValue];
+	NSString* config_nrTimesteps = [config getProp:@"/rtExperiment/..."];
+	mNumberTimesteps = 720;//[[f numberFromString:config_nrTimesteps] intValue]; //TODO get from config
 	
+	mNumberRegressors = 0;
+	mNumberCovariates = 0;     // TODO: get from config  
+	
+	mDerivationsHrf = 0;
 	
 	
 	[f release];//temp for conversion purposes
 	
 	
-	initNumberSamples = (numberTimesteps * mRepetitionTimeInMs) / samplingRateInMs;
+	mNumberSamplesForInit = (mNumberTimesteps * mRepetitionTimeInMs) / samplingRateInMs;
 	
-	mNumberRegressors = 0;
-	mNumberCovariates = 0;     // TODO: get from config  
 	
 	/* Attributes that should be modifiable (were once CLI parameters). */
-	mKernelForBlockDesign = 0;
-	mDerivationsHrf = 0;
-	mBlockThreshold = 10.0; // in seconds
+	//mKernelBlockDesignIsGamma = YES;
+	//mBlockThreshold = 10.0; // in seconds
+	
 	
 	return nil;
 	
@@ -233,85 +207,25 @@ COSystemConfig *config;
 -(NSError*)initDesign
 {
     // TODO: parameterize or/and use config
-    static char* filename = ""; // for file with scan times (scanfile)    
-    static float delay = 6.0;              
-    static float understrength = 0.35;
-    static float undershoot = 12.0;
+    float delay = 6.0;              
+    float understrength = 0.35;
+    float undershoot = 12.0;
+    BOOL zeromean = YES;
     
-    static bool zeromean = YES;
-    int i;
-    int j;
-    char buf[BUFFER_LENGTH];
+        
+	fprintf(stderr, " TR in ms = %d\n", mRepetitionTimeInMs);
+	
+	mTimeOfRepetitionStartInMs = (double *) malloc(sizeof(double) * mNumberTimesteps);
+	for (unsigned int i = 0; i < mNumberTimesteps; i++) {
+		mTimeOfRepetitionStartInMs[i] = (double) (i) * mRepetitionTimeInMs;//TODO: Gabi fragen letzter Zeitschritt im moment nicht einbezogen xx[i] = (double) i * tr * 1000.0;
+	}
 
-    double total_duration = 0.0;
-    double u;
-
-    //VParseFilterCmd(VNumber(options),options,argc,argv,&in_file,&out_file);
+    unsigned long maxExpLengthInMs = mTimeOfRepetitionStartInMs[0] + mTimeOfRepetitionStartInMs[mNumberTimesteps - 1];
+	
+	NSLog(@"x[0]: %lf und xx[last] %lf", mTimeOfRepetitionStartInMs[0], mTimeOfRepetitionStartInMs[mNumberTimesteps - 1]);
+    NSLog(@"Number timesteps: %d,  experiment duration: %.2f min\n", mNumberTimesteps, maxExpLengthInMs / 60000.0);
     
-    /* check command line parameters */
-    //    if (understrength < 0)      VError(" understrength must be >= 0");
-    //    if (delay < 0)              VError(" delay must be >= 0");
-    //    if (deriv < 0 || deriv > 2) VError(" parameter 'deriv' must be < 3");
-    
-    /* constant TR */
-    if (strlen(filename) < 3) {
-        
-        fprintf(stderr, " TR in ms = %d\n", mRepetitionTimeInMs);
-        
-        xx = (double *) malloc(sizeof(double) * numberTimesteps);
-        for (i = 0; i < numberTimesteps; i++) {
-            xx[i] = (double) (i) * mRepetitionTimeInMs;//TODO: Gabi fragen letzter Zeitschritt im moment nicht einbezogen xx[i] = (double) i * tr * 1000.0;
-        }
-    }
-    /* read scan times from file, non-constant TR */
-    else {
-        FILE *fp = NULL;
-        fp = fopen(filename, "r");
-        if (!fp) {
-            NSString* errorString = [NSString stringWithFormat:@"Could not open file %s!", filename];
-            return [NSError errorWithDomain:errorString code:FILEOPEN userInfo:nil];
-        }
-        
-        NSLog(@"Reading scan file: %s\n", filename);
-        
-        i = 0;
-        while (!feof(fp)) {
-            for (j = 0; j < BUFFER_LENGTH; j++) buf[j] = '\0';
-            fgets(buf, BUFFER_LENGTH, fp);
-            if (buf[0] == '%' || buf[0] == '#') continue;
-            if (strlen(buf) < 2) continue;
-            
-            if (![self test_ascii:((int) buf[0])]) {
-                return [NSError errorWithDomain:@"Scan file must be a text file!" code:TXT_SCANFILE userInfo:nil];
-            }
-            i++;
-        }
-        
-        rewind(fp);
-        numberTimesteps = i;
-        xx = (double *) malloc(sizeof(double) * numberTimesteps);
-        i = 0;
-        while (!feof(fp)) {
-            for (j = 0; j < BUFFER_LENGTH; j++) buf[j] = '\0';
-            fgets(buf, BUFFER_LENGTH, fp);
-            if (buf[0] == '%' || buf[0] == '#') continue;
-            if (strlen(buf) < 2) continue;
-
-            if (sscanf(buf, "%lf", &u) != 1) {
-                NSString* errorString = [NSString stringWithFormat:@"Illegal input format, line %d!", i + 1];
-                return [NSError errorWithDomain:errorString code:ILLEGAL_INPUT_FORMAT userInfo:nil];
-            }
-            xx[i] = u * 1000.0;
-            i++;
-        }
-        fclose(fp);
-    }
-    total_duration = (xx[0] + xx[numberTimesteps - 1]) / 1000.0;
-	NSLog(@"x[0]: %lf und xx[last] %lf", xx[0], xx[numberTimesteps - 1]);
-    
-    NSLog(@"Number timesteps: %d,  experiment duration: %.2f min\n", numberTimesteps, total_duration / 60.0);
-    
-    total_duration += 10.0; /* add 10 seconds to avoid FFT problems (wrap around) */
+    maxExpLengthInMs += 10000; /* add 10 seconds to avoid FFT problems (wrap around) */
     
     /* set gamma function parameters */
     a1 = delay;
@@ -320,58 +234,23 @@ COSystemConfig *config;
     
     /*
      ** check amplitude: must have zero mean for parametric designs
+	 ** for not parametric nothing will be corrected due to check of stddev
      */
-    if (zeromean) {
-        
-        float sum1;
-        float sum2;
-        float nx;
-        float mean;
-        float sigma;
-        
-        for (i = 0; i < numberEvents; i++) {
-            sum1 = 0.0;
-            sum2 = 0.0;
-            nx   = 0.0;
-            
-            TrialList* currentTrial;
-            currentTrial = trials[i];
-            
-            while (currentTrial != NULL) {
-                sum1 += currentTrial->trial.height;
-                sum2 += currentTrial->trial.height * currentTrial->trial.height;
-                nx++;
-                currentTrial = currentTrial->next;
-            }
-            
-            if (nx >= 1) {
-                mean  = sum1 / nx;
-                if (nx < 1.5) continue;      /* sigma not computable       */
-                sigma =  sqrt((double)((sum2 - nx * mean * mean) / (nx - 1.0)));
-                if (sigma < 0.01) continue;  /* not a parametric covariate */
-                
-                /* correct for zero mean */
-                currentTrial = trials[i];
-                
-                while (currentTrial != NULL) {
-                    currentTrial->trial.height -= mean;
-                    currentTrial = currentTrial->next;
-                }
-            }
-        }
-    }
-    if (numberEvents < 1) {
+    if (YES == zeromean) { 
+		[self correctForZeromean];
+	}
+    if (mNumberEvents < 1) {
         return [NSError errorWithDomain:@"No events were found!" code:NO_EVENTS_FOUND userInfo:nil];
     }
     
     float xmin;
     int ncols = 0;
-    for (i = 0; i < numberEvents; i++) {
+    for (unsigned int i = 0; i < mNumberEvents; i++) {
         
         xmin = FLT_MAX;
         
         TrialList* currentTrial;
-        currentTrial = trials[i];
+        currentTrial = mTrialList[i];
         
         while (currentTrial != NULL) {
             if (currentTrial->trial.duration < xmin) {
@@ -389,12 +268,12 @@ COSystemConfig *config;
         }
     }
     
-    NSLog(@"# number of events: %d,  num columns in design matrix: %d\n", numberEvents, ncols + 1);
+    NSLog(@"# number of events: %d,  num columns in design matrix: %d\n", mNumberEvents, ncols + 1);
     
     mDesign = (float**) malloc(sizeof(float*) * (ncols + 1));
     for (int col = 0; col < ncols + 1; col++) {
-        mDesign[col] = (float*) malloc(sizeof(float) * numberTimesteps);
-         for (int ts = 0; ts < numberTimesteps; ts++) {
+        mDesign[col] = (float*) malloc(sizeof(float) * mNumberTimesteps);
+         for (int ts = 0; ts < mNumberTimesteps; ts++) {
              if (col == ncols) {
                  mDesign[col][ts] = 1.0;
              } else {
@@ -405,112 +284,110 @@ COSystemConfig *config;
     
 	
     /* alloc memory */
-    numberSamples = (int) (total_duration * 1000.0 / samplingRateInMs);
-	NSLog(@"numberSamples %d", numberSamples);
-	NSLog(@"total duration %lf", total_duration);
+    mNumberSamplesNeededForExp = (unsigned long) (maxExpLengthInMs / samplingRateInMs);
+	NSLog(@"mNumberSamplesNeededForExp %d", mNumberSamplesNeededForExp);
+	NSLog(@"total duration in ms %lf", maxExpLengthInMs);
     
-    //    if (n > 300000) { /* reduce to 30 ms, if too big */
-    //        samplingRateInMs = 30.0;
-    //        n = (int) (total_duration * 1000.0 / samplingRateInMs);
-    //    }
-    
-    int nc = (initNumberSamples / 2) + 1;//numberSamples
+        
+    unsigned int numberSamplesInResult = (mNumberSamplesForInit / 2) + 1;//defined for results of fftw3
 
     /* make plans */
-    forwardFFTplans = (fftw_plan *) malloc(sizeof(fftw_plan) * numberEvents);
-    inverseFFTplans = (fftw_plan *) malloc(sizeof(fftw_plan) * numberEvents);
+    mFftPlanForward = (fftw_plan *) malloc(sizeof(fftw_plan) * mNumberEvents);
+    mFftPlanInverse = (fftw_plan *) malloc(sizeof(fftw_plan) * mNumberEvents);
     
-    forwardInBuffers = (double **) malloc(sizeof(double *) * numberEvents);
-    forwardOutBuffers = (fftw_complex **) malloc(sizeof(fftw_complex *) * numberEvents);
-    inverseInBuffers = (fftw_complex **) malloc(sizeof(fftw_complex *) * numberEvents);
-    inverseOutBuffers = (double **) malloc(sizeof(double *) * numberEvents);
+    mBuffersForwardIn = (double **) malloc(sizeof(double *) * mNumberEvents);
+    mBuffersForwardOut = (fftw_complex **) malloc(sizeof(fftw_complex *) * mNumberEvents);
+    mBuffersInverseIn = (fftw_complex **) malloc(sizeof(fftw_complex *) * mNumberEvents);
+    mBuffersInverseOut = (double **) malloc(sizeof(double *) * mNumberEvents);
     
-    for (int eventNr = 0; eventNr < numberEvents; eventNr++) {
+    for (unsigned int eventNr = 0; eventNr < mNumberEvents; eventNr++) {
         
-        forwardInBuffers[eventNr] = (double *) fftw_malloc(sizeof(double) * initNumberSamples);
-        forwardOutBuffers[eventNr] = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * nc);
-        memset(forwardInBuffers[eventNr], 0, sizeof(double) * initNumberSamples);
+        mBuffersForwardIn[eventNr] = (double *) fftw_malloc(sizeof(double) * mNumberSamplesForInit);
+        mBuffersForwardOut[eventNr] = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * numberSamplesInResult);
+        memset(mBuffersForwardIn[eventNr], 0, sizeof(double) * mNumberSamplesForInit);
         
-        inverseInBuffers[eventNr] = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * nc);
-        inverseOutBuffers[eventNr] = (double *) fftw_malloc(sizeof(double) * initNumberSamples);
-        memset(inverseOutBuffers[eventNr], 0, sizeof(double) * initNumberSamples);
+        mBuffersInverseIn[eventNr] = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * numberSamplesInResult);
+        mBuffersInverseOut[eventNr] = (double *) fftw_malloc(sizeof(double) * mNumberSamplesForInit);
+        memset(mBuffersInverseOut[eventNr], 0, sizeof(double) * mNumberSamplesForInit);
 
-        forwardFFTplans[eventNr] = fftw_plan_dft_r2c_1d(initNumberSamples, forwardInBuffers[eventNr], forwardOutBuffers[eventNr], FFTW_ESTIMATE);
-        inverseFFTplans[eventNr] = fftw_plan_dft_c2r_1d(initNumberSamples, inverseInBuffers[eventNr], inverseOutBuffers[eventNr], FFTW_ESTIMATE);
+        mFftPlanForward[eventNr] = fftw_plan_dft_r2c_1d(mNumberSamplesForInit, mBuffersForwardIn[eventNr], mBuffersForwardOut[eventNr], FFTW_ESTIMATE);
+        mFftPlanInverse[eventNr] = fftw_plan_dft_c2r_1d(mNumberSamplesForInit, mBuffersInverseIn[eventNr], mBuffersInverseOut[eventNr], FFTW_ESTIMATE);
 		
     }
     
     /* get kernel */
-    double *block_kernel = NULL;
-    block_kernel = (double *) fftw_malloc(sizeof(double) * initNumberSamples);
-    fkernelg = (fftw_complex *) fftw_malloc (sizeof(fftw_complex) * nc);
-    memset(block_kernel, 0, sizeof(double) * initNumberSamples);
+    double *blockKernel = NULL;
+    blockKernel = (double *) fftw_malloc(sizeof(double) * mNumberSamplesForInit);
+    mKernelBlockDeriv0 = (fftw_complex *) fftw_malloc (sizeof(fftw_complex) * numberSamplesInResult);
+    memset(blockKernel,0, sizeof(double) * mNumberSamplesForInit);
     
     double *kernel0 = NULL;
-    kernel0  = (double *)fftw_malloc(sizeof(double) * initNumberSamples);
-    fkernel0 = (fftw_complex *)fftw_malloc (sizeof(fftw_complex) * nc);
-    memset(kernel0, 0, sizeof(double) * initNumberSamples);
+    kernel0  = (double *)fftw_malloc(sizeof(double) * mNumberSamplesForInit);
+    mKernelEventDeriv0 = (fftw_complex *)fftw_malloc (sizeof(fftw_complex) * numberSamplesInResult);
+    memset(kernel0, 0, sizeof(double) * mNumberSamplesForInit);
     
     double *kernel1 = NULL;
     if (mDerivationsHrf >= 1) {
-        kernel1  = (double *)fftw_malloc(sizeof(double) * initNumberSamples);
-        fkernel1 = (fftw_complex *)fftw_malloc (sizeof (fftw_complex) * nc);
-        memset(kernel1,0,sizeof(double) * initNumberSamples);
+        kernel1  = (double *)fftw_malloc(sizeof(double) * mNumberSamplesForInit);
+        mKernelDeriv1 = (fftw_complex *)fftw_malloc (sizeof (fftw_complex) * numberSamplesInResult);
+        memset(kernel1,0,sizeof(double) * mNumberSamplesForInit);
     }
     
     double *kernel2 = NULL;
     if (mDerivationsHrf == 2) {
-        kernel2  = (double *)fftw_malloc(sizeof(double) * initNumberSamples);
-        fkernel2 = (fftw_complex *)fftw_malloc (sizeof (fftw_complex) * nc);
-        memset(kernel2,0,sizeof(double) * initNumberSamples);
+        kernel2  = (double *)fftw_malloc(sizeof(double) * mNumberSamplesForInit);
+        mKernelDeriv2 = (fftw_complex *)fftw_malloc (sizeof (fftw_complex) * numberSamplesInResult);
+        memset(kernel2,0,sizeof(double) * mNumberSamplesForInit);
     }
 	
     
-    i = 0;
-    double t;
+    unsigned int indexS = 0;
     double dt = samplingRateInMs / 1000.0; /* Delta (temporal resolution) in seconds. */
-    for (t = 0.0; t < t1; t += dt) {
-        if (i >= initNumberSamples) break;//numberSamples
-        
+    //unsigned int maxLengthHrfInMs = 30000; //TODO get from config
+	//for (unsigned int indexSample = 0; indexSample < maxLengthHrfInMs; indexSample += samplingRateInMs) {
+	for (double indexSample = 0; indexSample < t1; indexSample += dt) {
+			
+        if (indexSample >= mNumberSamplesForInit) break;        
         /* Gauss kernel for block designs */
-        if (mKernelForBlockDesign == 0) {
-            block_kernel[i] = [self xgauss:t :5.0];
-        } else if (mKernelForBlockDesign == 1) {
-            block_kernel[i] = [self bgamma:t :0.0];
+		BOOL kernelBlockDesignIsGamma = YES; //TODO get from config
+        if (NO == kernelBlockDesignIsGamma) {
+            blockKernel[indexS] = [self xgauss:indexSample :5.0];
+        } else {
+            blockKernel[indexS] = [self bgamma:indexSample :0.0];
         }
         
-        kernel0[i] = [self xgamma:t :0];
+        kernel0[indexS] = [self xgamma:indexSample :0];
         if (mDerivationsHrf >= 1) {
-            kernel1[i] = [self deriv1_gamma:t :0.0];
+            kernel1[indexS] = [self deriv1_gamma:indexSample :0.0];
         }
         if (mDerivationsHrf == 2) {
-            kernel2[i] = [self deriv2_gamma:t :0.0];
+            kernel2[indexS] = [self deriv2_gamma:indexSample :0.0];
         }
-        i++;
+        indexS++;
     }
     
     /* fft for kernels */
     fftw_plan pkg;
-    pkg = fftw_plan_dft_r2c_1d(initNumberSamples, block_kernel, fkernelg, FFTW_ESTIMATE);
+    pkg = fftw_plan_dft_r2c_1d(mNumberSamplesForInit, blockKernel, mKernelBlockDeriv0, FFTW_ESTIMATE);
     fftw_execute(pkg);
     
     fftw_plan pk0;
-    pk0 = fftw_plan_dft_r2c_1d(initNumberSamples, kernel0, fkernel0, FFTW_ESTIMATE);
+    pk0 = fftw_plan_dft_r2c_1d(mNumberSamplesForInit, kernel0, mKernelEventDeriv0, FFTW_ESTIMATE);
     fftw_execute(pk0);
     
     fftw_plan pk1;
     if (mDerivationsHrf >= 1) {
-        pk1 = fftw_plan_dft_r2c_1d(initNumberSamples, kernel1, fkernel1, FFTW_ESTIMATE);
+        pk1 = fftw_plan_dft_r2c_1d(mNumberSamplesForInit, kernel1, mKernelDeriv1, FFTW_ESTIMATE);
         fftw_execute(pk1);
     }
     
     fftw_plan pk2;
     if (mDerivationsHrf == 2) {
-        pk2 = fftw_plan_dft_r2c_1d(initNumberSamples, kernel2, fkernel2, FFTW_ESTIMATE);
+        pk2 = fftw_plan_dft_r2c_1d(mNumberSamplesForInit, kernel2, mKernelDeriv2, FFTW_ESTIMATE);
         fftw_execute(pk2);
     }
     
-    fftw_free(block_kernel);
+    fftw_free(blockKernel);
     fftw_free(kernel0);
     fftw_free(kernel1);
     fftw_free(kernel2);
@@ -526,17 +403,18 @@ COSystemConfig *config;
     queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     
     /* For each event and trial do... */
-    dispatch_apply(numberEvents, queue, ^(size_t eventNr) {
-        memset(forwardInBuffers[eventNr], 0, sizeof(double) * initNumberSamples);//numberSamples
+    dispatch_apply(mNumberEvents, queue, ^(size_t eventNr) {
+        memset(mBuffersForwardIn[eventNr], 0, sizeof(double) * mNumberSamplesForInit);
         
         /* get data */
         int trialcount = 0;
         double t0;
         double h;
-        float minTrialDuration = mBlockThreshold;
+		float blockThreshold = 10.0; //TODO get from config
+        float minTrialDuration = blockThreshold;
         
         TrialList* currentTrial;
-        currentTrial = trials[eventNr];
+        currentTrial = mTrialList[eventNr];
         
         while (currentTrial != NULL) {
             trialcount++;
@@ -551,13 +429,13 @@ COSystemConfig *config;
             t0 *= 1000.0;
             tmax *= 1000.0;
             
-            int k = t0 / samplingRateInMs;
+            unsigned int k = t0 / samplingRateInMs;
             
             for (double t = t0; t <= tmax; t += samplingRateInMs) {
-                if (k >= numberSamples) {
+                if (k >= mNumberSamplesForInit) {
                     break;
                 }
-                forwardInBuffers[eventNr][k++] += h;
+                mBuffersForwardIn[eventNr][k++] += h;
             }
             
             currentTrial = currentTrial->next;
@@ -573,45 +451,32 @@ COSystemConfig *config;
         }
         
         /* fft */
-        fftw_execute(forwardFFTplans[eventNr]);
+        fftw_execute(mFftPlanForward[eventNr]);
+        unsigned int col = eventNr * (mDerivationsHrf + 1);
         
-        int col = eventNr * (mDerivationsHrf + 1);
-        
-        if (minTrialDuration >= mBlockThreshold) {
+        if (minTrialDuration >= blockThreshold) {
             [self Convolve:col 
-                          :inverseInBuffers[eventNr]
-                          :forwardOutBuffers[eventNr]
-                          :inverseOutBuffers[eventNr]
-                          :inverseFFTplans[eventNr]
-                          :fkernelg];
+						  :eventNr
+                          :mKernelBlockDeriv0];
         } else {
             [self Convolve:col
-                          :inverseInBuffers[eventNr]
-                          :forwardOutBuffers[eventNr]
-                          :inverseOutBuffers[eventNr]
-                          :inverseFFTplans[eventNr]
-                          :fkernel0];
+						  :eventNr
+                          :mKernelEventDeriv0];
         }
         
         col++;
         
         if (mDerivationsHrf >= 1) {
             [self Convolve:col
-                          :inverseInBuffers[eventNr]
-                          :forwardOutBuffers[eventNr]
-                          :inverseOutBuffers[eventNr]
-                          :inverseFFTplans[eventNr]
-                          :fkernel1];
+						  :eventNr
+                          :mKernelDeriv1];
             col++;
         }
         
         if (mDerivationsHrf == 2) {
             [self Convolve:col
-                          :inverseInBuffers[eventNr]
-                          :forwardOutBuffers[eventNr]
-                          :inverseOutBuffers[eventNr]
-                          :inverseFFTplans[eventNr]
-                          :fkernel2];
+						  :eventNr
+                          :mKernelDeriv2];
         }
     });
     
@@ -627,8 +492,8 @@ COSystemConfig *config;
     float duration = 0.0;
     float height   = 0.0;
     
-    numberTrials = 0;
-    numberEvents = 0;
+    mNumberTrials = 0;
+    mNumberEvents = 0;
     
     FILE* inFile;
     char* inputFilename = (char*) malloc(sizeof(char) * UINT16_MAX);
@@ -651,7 +516,7 @@ COSystemConfig *config;
             
             if (buffer[0] != '%' && buffer[0] != '#') {
                 /* remove non-alphanumeric characters */
-                for (int j = 0; j < strlen(buffer); j++) {
+                for (unsigned int j = 0; j < strlen(buffer); j++) {
                     character = (int) buffer[j];
                     if (!isgraph(character) && buffer[j] != '\n' && buffer[j] != '\r' && buffer[j] != '\0') {
                         buffer[j] = ' ';
@@ -670,7 +535,7 @@ COSystemConfig *config;
 
                     NSString* errorString = 
                         [NSString stringWithFormat:
-                            @"Illegal design file input format (at line %d)! Expected format: one entry per line and columns separated by tabs.", numberTrials + 1];
+                            @"Illegal design file input format (at line %d)! Expected format: one entry per line and columns separated by tabs.", mNumberTrials + 1];
                     return [NSError errorWithDomain:errorString code:ILLEGAL_INPUT_FORMAT userInfo:nil];
                     
                 }
@@ -690,14 +555,14 @@ COSystemConfig *config;
                 *newListEntry = TRIALLIST_INIT;
                 newListEntry->trial = newTrial;
                 
-                if (trials[trialID - 1] == NULL) {
-                    trials[trialID - 1] = newListEntry;
-                    numberEvents++;
+                if (mTrialList[trialID - 1] == NULL) {
+                    mTrialList[trialID - 1] = newListEntry;
+                    mNumberEvents++;
                 } else {
-                    [self tl_append:trials[trialID - 1] :newListEntry];
+                    [self tl_append:mTrialList[trialID - 1] :newListEntry];
                 }
                 
-                numberTrials++;
+                mNumberTrials++;
             }
         }
     }
@@ -710,12 +575,12 @@ COSystemConfig *config;
 -(NSError*)writeDesignFile:(NSString*) path 
 {
     VImage outDesign = NULL;
-    outDesign = VCreateImage(1, numberTimesteps, mNumberRegressors, VFloatRepn);
+    outDesign = VCreateImage(1, mNumberTimesteps, mNumberRegressors, VFloatRepn);
     
     VSetAttr(VImageAttrList(outDesign), "modality", NULL, VStringRepn, "X");
     VSetAttr(VImageAttrList(outDesign), "name", NULL, VStringRepn, "X");
     VSetAttr(VImageAttrList(outDesign), "repetition_time", NULL, VLongRepn, (VLong) mRepetitionTimeInMs);
-    VSetAttr(VImageAttrList(outDesign), "ntimesteps", NULL, VLongRepn, (VLong) numberTimesteps);
+    VSetAttr(VImageAttrList(outDesign), "ntimesteps", NULL, VLongRepn, (VLong) mNumberTimesteps);
     
     VSetAttr(VImageAttrList(outDesign), "derivatives", NULL, VShortRepn, mDerivationsHrf);
     
@@ -733,16 +598,9 @@ COSystemConfig *config;
     VSetAttr(VImageAttrList(outDesign), "nsessions", NULL, VShortRepn, (VShort) 1);
     VSetAttr(VImageAttrList(outDesign), "designtype", NULL, VShortRepn, (VShort) 1);
     
-    for (int col = 0; col < mNumberRegressors; col++) {
-        for (int ts = 0; ts < numberTimesteps; ts++) {
-//			if ((mDesign[col][ts] < 0.000000000000001 && mDesign[col][ts] > -0.000000000000001) || ts < 7) {
-//				VPixel(outDesign, 0, ts, col, VFloat) = (VFloat) 0.0;
-//			} else {
+    for (unsigned int col = 0; col < mNumberRegressors; col++) {
+        for (unsigned int ts = 0; ts < mNumberTimesteps; ts++) {
 				VPixel(outDesign, 0, ts, col, VFloat) = (VFloat) mDesign[col][ts];
-//			}
-//			if (col < 1 && (ts > 360 && ts < 391)){
-//				NSLog(@"%.20f", mDesign[col][ts]);
-//			}
         }
     }
     
@@ -802,7 +660,7 @@ COSystemConfig *config;
 {
     double scale = 20.0; // nobody knows where it comes from
     
-    double x = xx - t0;
+    double x = xx - t0;// div 1000 due to ms unit but here s used
     if (x < 0 || x > 50) {
         return 0;
     }
@@ -1005,45 +863,47 @@ COSystemConfig *config;
     return NO;
 }
 
--(void)Convolve:(int)col
-               :(fftw_complex *)local_nbuf
-               :(fftw_complex *)forwardOutBuffer
-               :(double *)inverseOutBuffer
-               :(fftw_plan)planInverseFFT
-               :(fftw_complex *)fkernel
+-(void)Convolve:(unsigned int) col
+				:(unsigned int) eventNr
+               :(fftw_complex *)kernel
 {
     Complex a;
     Complex b;
     Complex c;
-    
-    int nc = (initNumberSamples / 2) + 1;//numberSamples
+ 
+	fftw_complex *localBufInverseIn = mBuffersInverseIn[eventNr];
+	fftw_complex *localBufForwardOut = mBuffersForwardOut[eventNr];
+	double *localBufInverseOut = mBuffersInverseOut[eventNr];
+	fftw_plan planInverseFFT = mFftPlanInverse[eventNr];
+	
+	unsigned int numberSamplesResult = (mNumberSamplesForInit / 2) + 1;//fftw3 definition
+	
     
     /* convolution */
-    int j;
-    for (j = 0; j < nc; j++) {
-        a.re = forwardOutBuffer[j][0];
-        a.im = forwardOutBuffer[j][1];
-        b.re = fkernel[j][0];
-        b.im = fkernel[j][1];
+    unsigned int j;
+    for (j = 0; j < numberSamplesResult; j++) {
+        a.re = localBufForwardOut[j][0];
+        a.im = localBufForwardOut[j][1];
+        b.re = kernel[j][0];
+        b.im = kernel[j][1];
         c = [self complex_mult:a :b];    
-        local_nbuf[j][0] = c.re;
-        local_nbuf[j][1] = c.im;
+        localBufInverseIn[j][0] = c.re;
+        localBufInverseIn[j][1] = c.im;
     }
     
     /* inverse fft */
     fftw_execute(planInverseFFT);
     
     /* scaling */
-    for (j = 0; j < initNumberSamples; j++) {//numberSamples
-        inverseOutBuffer[j] /= (double) initNumberSamples;//numberSamples
-    }
+    for (j = 0; j < mNumberSamplesForInit; j++) {
+        localBufInverseOut[j] /= (double) mNumberSamplesForInit;}
     
     /* sampling */
-    for (int timestep = 0; timestep < numberTimesteps; timestep++) {
-        j = (int) (xx[timestep] / samplingRateInMs + 0.5);
+    for (unsigned int timestep = 0; timestep < mNumberTimesteps; timestep++) {
+        j = (int) (mTimeOfRepetitionStartInMs[timestep] / samplingRateInMs + 0.5);
         
-        if (j >= 0 && j < numberSamples) {//numberSamples
-            mDesign[col][timestep] = inverseOutBuffer[j];
+        if (j >= 0 && j < mNumberSamplesNeededForExp) {
+            mDesign[col][timestep] = localBufInverseOut[j];
         }
     }
 }
@@ -1060,13 +920,13 @@ COSystemConfig *config;
 }
 
 
--(NSNumber*)getValueFromExplanatoryVariable:(int)cov 
-                                 atTimestep:(int)t 
+-(NSNumber*)getValueFromExplanatoryVariable:(unsigned int)cov 
+                                 atTimestep:(unsigned int)t 
 {
     NSNumber *value = nil;
     if (cov < mNumberRegressors) {
         if (mDesign != NULL) {
-            if (IMAGE_DATA_FLOAT == imageDataType){
+            if (IMAGE_DATA_FLOAT == mImageDataType){
                 value = [NSNumber numberWithFloat:mDesign[cov][t]];
             } else {
                 NSLog(@"Cannot identify type of design image - no float");
@@ -1084,9 +944,9 @@ COSystemConfig *config;
 
 -(void)setRegressor:(TrialList *)regressor
 {
-    free(trials[regressor->trial.id - 1]);
-    trials[regressor->trial.id - 1] = NULL;
-    trials[regressor->trial.id - 1] = regressor;
+    free(mTrialList[regressor->trial.id - 1]);
+    mTrialList[regressor->trial.id - 1] = NULL;
+    mTrialList[regressor->trial.id - 1] = regressor;
     
     [self generateDesign];
 }
@@ -1100,10 +960,10 @@ COSystemConfig *config;
 	*newListEntry = TRIALLIST_INIT;
 	newListEntry->trial = trial;
 	
-	if (trials[trial.id - 1] == NULL) {
-		trials[trial.id - 1] = newListEntry;
+	if (mTrialList[trial.id - 1] == NULL) {
+		mTrialList[trial.id - 1] = newListEntry;
 	} else {
-		[self tl_append:trials[trial.id - 1] :newListEntry];
+		[self tl_append:mTrialList[trial.id - 1] :newListEntry];
 	}
 }
 
@@ -1130,29 +990,29 @@ COSystemConfig *config;
 
 -(void)dealloc
 {
-    for (int col = 0; col < mNumberRegressors; col++) {
+    for (unsigned int col = 0; col < mNumberRegressors; col++) {
         free(mDesign[col]);
     }
     free(mDesign);
     
     if (mCovariates != NULL) {
-        for (int cov = 0; cov < mNumberCovariates; cov++) {
+        for (unsigned int cov = 0; cov < mNumberCovariates; cov++) {
             free(mCovariates[cov]);
         }
         free(mCovariates);
     }
     
-    free(xx);
+    free(mTimeOfRepetitionStartInMs);
     
-    for (int eventNr = 0; eventNr < numberEvents; eventNr++) {
-        fftw_free(forwardInBuffers[eventNr]);
-        fftw_free(forwardOutBuffers[eventNr]);
-        fftw_free(inverseInBuffers[eventNr]);
-        fftw_free(inverseOutBuffers[eventNr]);
+    for (unsigned int eventNr = 0; eventNr < mNumberEvents; eventNr++) {
+        fftw_free(mBuffersForwardIn[eventNr]);
+        fftw_free(mBuffersForwardOut[eventNr]);
+        fftw_free(mBuffersInverseIn[eventNr]);
+        fftw_free(mBuffersInverseOut[eventNr]);
         
         TrialList* node;
         TrialList* tmp;
-        node = trials[eventNr];
+        node = mTrialList[eventNr];
         while (node != NULL) {
             tmp = node;
             node = node -> next;
@@ -1160,20 +1020,55 @@ COSystemConfig *config;
         }
     }
     
-    free(trials);
-    free(forwardInBuffers);
-    fftw_free(forwardOutBuffers);
-    fftw_free(inverseInBuffers);
-    free(inverseOutBuffers);
-    fftw_free(fkernelg);
-    fftw_free(fkernel0);
-    fftw_free(fkernel1);
-    fftw_free(fkernel2);
+    free(mTrialList);
+    free(mBuffersForwardIn);
+    fftw_free(mBuffersForwardOut);
+    fftw_free(mBuffersInverseIn);
+    free(mBuffersInverseOut);
+    fftw_free(mKernelBlockDeriv0);
+    fftw_free(mKernelEventDeriv0);
+    fftw_free(mKernelDeriv1);
+    fftw_free(mKernelDeriv2);
     
-    free(forwardFFTplans);
-    free(inverseFFTplans);
+    free(mFftPlanForward);
+    free(mFftPlanInverse);
 
     [super dealloc];
+}
+
+-(NSError*)correctForZeromean
+{
+	for (unsigned int i = 0; i < mNumberEvents; i++) {
+		float sum1 = 0.0;
+		float sum2 = 0.0;
+		float nx   = 0.0;
+		
+		TrialList* currentTrial;
+		currentTrial = mTrialList[i];
+		
+		while (currentTrial != NULL) {
+			sum1 += currentTrial->trial.height;
+			sum2 += currentTrial->trial.height * currentTrial->trial.height;
+			nx++;
+			currentTrial = currentTrial->next;
+		}
+		
+		if (nx >= 1) {
+			float mean  = sum1 / nx;
+			if (nx < 1.5) continue;      /* sigma not computable       */
+			float sigma =  sqrt((double)((sum2 - nx * mean * mean) / (nx - 1.0)));
+			if (sigma < 0.01) continue;  /* not a parametric covariate */
+			
+			/* correct for zero mean */
+			currentTrial = mTrialList[i];
+			
+			while (currentTrial != NULL) {
+				currentTrial->trial.height -= mean;
+				currentTrial = currentTrial->next;
+			}
+		}
+	}
+	return nil;
 }
 
 @end

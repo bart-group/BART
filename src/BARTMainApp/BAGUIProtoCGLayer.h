@@ -54,6 +54,8 @@
 
 - (IBAction)updateSlider:(id)sender;
 
+- (IBAction)updateTimesteps:(id)sender;
+
 - (void)setTimesteps:(int)timestep andSlidWindSize:(int)size;
 
 + (BAGUIProtoCGLayer*)getGUI;
