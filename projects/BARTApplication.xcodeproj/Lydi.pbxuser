@@ -1,5 +1,24 @@
 // !$*UTF8*$!
 {
+	0023A6EC1151017C009182F8 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Test rig '/Developer/Tools/otest' exited abnormally with code 139 (it may have crashed).";
+		fRef = 007930F0114EA216007BEB66 /* RunPlatformUnitTests.include */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 450;
+		rType = 1;
+	};
+	0023A6ED1151017C009182F8 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 007930F0114EA216007BEB66 /* RunPlatformUnitTests.include */;
+		name = "RunPlatformUnitTests.include: 451";
+		rLen = 135;
+		rLoc = 16022;
+		rType = 0;
+		vrLen = 1292;
+		vrLoc = 15321;
+	};
 	0040B7951141470400A57967 /* BAAnalyzerGLM.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1095, 859}}";
@@ -316,6 +335,12 @@
 		name = RunPlatformUnitTests.include;
 		path = /Developer/Tools/RunPlatformUnitTests.include;
 		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1363, 6019}}";
+			sepNavSelRange = "{15470, 0}";
+			sepNavVisRange = "{13988, 2672}";
+			sepNavWindowFrame = "{{19, 0}, {795, 1028}}";
+		};
 	};
 	00793125114EA47D007BEB66 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -441,7 +466,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1776, 14222}}";
 			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 2877}";
+			sepNavVisRange = "{0, 2947}";
 		};
 	};
 	00793497114FF026007BEB66 /* PBXTextBookmark */ = {
@@ -496,9 +521,9 @@
 	};
 	007934EB1150FBF7007BEB66 /* COErrorCode.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1283, 908}}";
-			sepNavSelRange = "{238, 0}";
-			sepNavVisRange = "{0, 241}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 880}}";
+			sepNavSelRange = "{293, 0}";
+			sepNavVisRange = "{0, 293}";
 		};
 	};
 	007934F91150FD4E007BEB66 /* PBXTextBookmark */ = {
@@ -506,7 +531,7 @@
 		fRef = 008877CB1147A5ED009C7707 /* COEDLValidatorLiteralTest.m */;
 		name = "COEDLValidatorLiteralTest.m: 21";
 		rLen = 5164;
-		rLoc = 327;
+		rLoc = 350;
 		rType = 0;
 		vrLen = 4676;
 		vrLoc = 3;
@@ -516,7 +541,7 @@
 		fRef = 00B1AC32114556C3008FC09D /* COEDLValidatorTest.h */;
 		name = "COEDLValidatorTest.h: 12";
 		rLen = 0;
-		rLoc = 233;
+		rLoc = 256;
 		rType = 0;
 		vrLen = 259;
 		vrLoc = 0;
@@ -526,7 +551,7 @@
 		fRef = 00B1AC33114556C3008FC09D /* COEDLValidatorTest.m */;
 		name = "COEDLValidatorTest.m: 42";
 		rLen = 0;
-		rLoc = 891;
+		rLoc = 914;
 		rType = 0;
 		vrLen = 2568;
 		vrLoc = 161;
@@ -536,7 +561,7 @@
 		fRef = 00C39FEA1144FADC00725668 /* COSystemConfig.h */;
 		name = "COSystemConfig.h: 10";
 		rLen = 0;
-		rLoc = 173;
+		rLoc = 196;
 		rType = 0;
 		vrLen = 1569;
 		vrLoc = 0;
@@ -546,7 +571,7 @@
 		fRef = 00B1ADA711465349008FC09D /* COEDLValidatorToken.m */;
 		name = "COEDLValidatorToken.m: 28";
 		rLen = 0;
-		rLoc = 461;
+		rLoc = 484;
 		rType = 0;
 		vrLen = 605;
 		vrLoc = 0;
@@ -556,7 +581,7 @@
 		fRef = 00B1AD76114645A3008FC09D /* COEDLValidatorLiteral.m */;
 		name = "COEDLValidatorLiteral.m: 850";
 		rLen = 0;
-		rLoc = 27723;
+		rLoc = 27746;
 		rType = 0;
 		vrLen = 1888;
 		vrLoc = 0;
@@ -566,9 +591,9 @@
 		fRef = 00B1AC5711455E38008FC09D /* COXMLUtility.h */;
 		name = "COXMLUtility.h: 13";
 		rLen = 34;
-		rLoc = 173;
+		rLoc = 196;
 		rType = 0;
-		vrLen = 1579;
+		vrLen = 1571;
 		vrLoc = 0;
 	};
 	007935001150FD4E007BEB66 /* PBXTextBookmark */ = {
@@ -576,7 +601,7 @@
 		fRef = 00B1AC5811455E38008FC09D /* COXMLUtility.m */;
 		name = "COXMLUtility.m: 10";
 		rLen = 0;
-		rLoc = 194;
+		rLoc = 217;
 		rType = 0;
 		vrLen = 1830;
 		vrLoc = 0;
@@ -586,7 +611,7 @@
 		fRef = 00B1ADA611465349008FC09D /* COEDLValidatorToken.h */;
 		name = "COEDLValidatorToken.h: 28";
 		rLen = 0;
-		rLoc = 526;
+		rLoc = 549;
 		rType = 0;
 		vrLen = 1103;
 		vrLoc = 0;
@@ -596,7 +621,7 @@
 		fRef = 00B1AD75114645A3008FC09D /* COEDLValidatorLiteral.h */;
 		name = "COEDLValidatorLiteral.h: 21";
 		rLen = 0;
-		rLoc = 366;
+		rLoc = 389;
 		rType = 0;
 		vrLen = 1687;
 		vrLoc = 0;
@@ -606,7 +631,7 @@
 		fRef = 00B1AD1311456C2E008FC09D /* COEDLValidatorRule.h */;
 		name = "COEDLValidatorRule.h: 22";
 		rLen = 0;
-		rLoc = 581;
+		rLoc = 604;
 		rType = 0;
 		vrLen = 1680;
 		vrLoc = 0;
@@ -616,7 +641,7 @@
 		fRef = 00B1AD1411456C2E008FC09D /* COEDLValidatorRule.m */;
 		name = "COEDLValidatorRule.m: 51";
 		rLen = 0;
-		rLoc = 1120;
+		rLoc = 1167;
 		rType = 0;
 		vrLen = 1665;
 		vrLoc = 0;
@@ -626,7 +651,7 @@
 		fRef = 00B1AC22114554DB008FC09D /* COEDLValidator.h */;
 		name = "COEDLValidator.h: 14";
 		rLen = 0;
-		rLoc = 253;
+		rLoc = 276;
 		rType = 0;
 		vrLen = 1656;
 		vrLoc = 0;
@@ -636,7 +661,7 @@
 		fRef = 00B1AC23114554DB008FC09D /* COEDLValidator.m */;
 		name = "COEDLValidator.m: 13";
 		rLen = 0;
-		rLoc = 288;
+		rLoc = 311;
 		rType = 0;
 		vrLen = 2511;
 		vrLoc = 338;
@@ -668,32 +693,32 @@
 	};
 	008877CA1147A5ED009C7707 /* COEDLValidatorLiteralTest.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {684, 834}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 274}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 908}}";
+			sepNavSelRange = "{166, 0}";
+			sepNavVisRange = "{0, 297}";
 		};
 	};
 	008877CB1147A5ED009C7707 /* COEDLValidatorLiteralTest.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1285, 1131}}";
-			sepNavSelRange = "{327, 5164}";
-			sepNavVisRange = "{3, 4676}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 1131}}";
+			sepNavSelRange = "{166, 0}";
+			sepNavVisRange = "{0, 4863}";
 			sepNavWindowFrame = "{{501, 0}, {1173, 1028}}";
 		};
 	};
 	0088781F1147B445009C7707 /* edlValidation_rules.xml */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1125, 2379}}";
-			sepNavSelRange = "{1811, 0}";
-			sepNavVisRange = "{0, 3454}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 2249}}";
+			sepNavSelRange = "{3926, 0}";
+			sepNavVisRange = "{1346, 3249}";
 			sepNavWindowFrame = "{{881, 0}, {795, 1028}}";
 		};
 	};
 	008878201147B445009C7707 /* edlValidation_rules.xsd */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {908, 1170}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 1196}}";
 			sepNavSelRange = "{187, 0}";
-			sepNavVisRange = "{0, 2870}";
+			sepNavVisRange = "{0, 2991}";
 			sepNavWindowFrame = "{{1083, 0}, {596, 1028}}";
 		};
 	};
@@ -730,87 +755,87 @@
 	};
 	00B1AC22114554DB008FC09D /* COEDLValidator.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1285, 1105}}";
-			sepNavSelRange = "{253, 0}";
-			sepNavVisRange = "{0, 1656}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 1196}}";
+			sepNavSelRange = "{145, 0}";
+			sepNavVisRange = "{0, 1700}";
 		};
 	};
 	00B1AC23114554DB008FC09D /* COEDLValidator.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1285, 3952}}";
-			sepNavSelRange = "{288, 0}";
-			sepNavVisRange = "{338, 2511}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 4342}}";
+			sepNavSelRange = "{3970, 0}";
+			sepNavVisRange = "{1696, 2968}";
 		};
 	};
 	00B1AC32114556C3008FC09D /* COEDLValidatorTest.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1285, 861}}";
-			sepNavSelRange = "{233, 0}";
-			sepNavVisRange = "{0, 259}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 908}}";
+			sepNavSelRange = "{158, 0}";
+			sepNavVisRange = "{0, 282}";
 		};
 	};
 	00B1AC33114556C3008FC09D /* COEDLValidatorTest.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1447, 1235}}";
-			sepNavSelRange = "{891, 0}";
-			sepNavVisRange = "{766, 1859}";
+			sepNavIntBoundsRect = "{{0, 0}, {1447, 1352}}";
+			sepNavSelRange = "{158, 0}";
+			sepNavVisRange = "{0, 2227}";
 		};
 	};
 	00B1AC5711455E38008FC09D /* COXMLUtility.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1133, 806}}";
-			sepNavSelRange = "{170, 0}";
-			sepNavVisRange = "{0, 817}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 908}}";
+			sepNavSelRange = "{143, 0}";
+			sepNavVisRange = "{0, 1594}";
 		};
 	};
 	00B1AC5811455E38008FC09D /* COXMLUtility.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1285, 861}}";
-			sepNavSelRange = "{194, 0}";
-			sepNavVisRange = "{0, 1830}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 908}}";
+			sepNavSelRange = "{143, 0}";
+			sepNavVisRange = "{0, 1853}";
 		};
 	};
 	00B1AD1311456C2E008FC09D /* COEDLValidatorRule.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1285, 861}}";
-			sepNavSelRange = "{581, 0}";
-			sepNavVisRange = "{0, 1680}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 880}}";
+			sepNavSelRange = "{149, 0}";
+			sepNavVisRange = "{0, 1703}";
 		};
 	};
 	00B1AD1411456C2E008FC09D /* COEDLValidatorRule.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1285, 1222}}";
-			sepNavSelRange = "{1120, 0}";
-			sepNavVisRange = "{0, 1665}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 1261}}";
+			sepNavSelRange = "{2021, 0}";
+			sepNavVisRange = "{589, 1750}";
 		};
 	};
 	00B1AD75114645A3008FC09D /* COEDLValidatorLiteral.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1285, 861}}";
-			sepNavSelRange = "{366, 0}";
-			sepNavVisRange = "{0, 1687}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 880}}";
+			sepNavSelRange = "{152, 0}";
+			sepNavVisRange = "{0, 1710}";
 		};
 	};
 	00B1AD76114645A3008FC09D /* COEDLValidatorLiteral.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1133, 14079}}";
-			sepNavSelRange = "{15277, 0}";
-			sepNavVisRange = "{14834, 1042}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 14040}}";
+			sepNavSelRange = "{152, 0}";
+			sepNavVisRange = "{0, 1912}";
 			sepNavWindowFrame = "{{922, 0}, {758, 1028}}";
 		};
 	};
 	00B1ADA611465349008FC09D /* COEDLValidatorToken.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1285, 861}}";
-			sepNavSelRange = "{526, 0}";
-			sepNavVisRange = "{0, 1103}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 880}}";
+			sepNavSelRange = "{150, 0}";
+			sepNavVisRange = "{0, 1126}";
 		};
 	};
 	00B1ADA711465349008FC09D /* COEDLValidatorToken.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1285, 861}}";
-			sepNavSelRange = "{461, 0}";
-			sepNavVisRange = "{0, 605}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 880}}";
+			sepNavSelRange = "{150, 0}";
+			sepNavVisRange = "{0, 628}";
 		};
 	};
 	00B772C311417C6300B2931A /* BADataElementVI.h */ = {
@@ -881,16 +906,16 @@
 	};
 	00C39FEA1144FADC00725668 /* COSystemConfig.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1285, 861}}";
-			sepNavSelRange = "{173, 0}";
-			sepNavVisRange = "{0, 1569}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 908}}";
+			sepNavSelRange = "{974, 0}";
+			sepNavVisRange = "{0, 1592}";
 		};
 	};
 	00C39FEB1144FADC00725668 /* COSystemConfig.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1283, 2080}}";
-			sepNavSelRange = "{223, 0}";
-			sepNavVisRange = "{0, 1735}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 2145}}";
+			sepNavSelRange = "{145, 0}";
+			sepNavVisRange = "{0, 1758}";
 		};
 	};
 	00C39FF01144FB2100725668 /* CLETUS */ = {
@@ -906,16 +931,16 @@
 	};
 	00C3A0011144FBEF00725668 /* COSystemConfigTest.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {689, 834}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 250}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 880}}";
+			sepNavSelRange = "{149, 0}";
+			sepNavVisRange = "{0, 273}";
 		};
 	};
 	00C3A0021144FBEF00725668 /* COSystemConfigTest.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1356, 1144}}";
-			sepNavSelRange = "{883, 0}";
-			sepNavVisRange = "{0, 1117}";
+			sepNavIntBoundsRect = "{{0, 0}, {1283, 1417}}";
+			sepNavSelRange = "{149, 0}";
+			sepNavVisRange = "{0, 1678}";
 		};
 	};
 	00C3A00C1144FC5700725668 /* PBXTextBookmark */ = {
@@ -988,7 +1013,7 @@
 		fRef = 00C39FEB1144FADC00725668 /* COSystemConfig.m */;
 		name = "COSystemConfig.m: 11";
 		rLen = 0;
-		rLoc = 223;
+		rLoc = 246;
 		rType = 0;
 		vrLen = 1735;
 		vrLoc = 0;
@@ -998,7 +1023,7 @@
 		fRef = 007934EB1150FBF7007BEB66 /* COErrorCode.h */;
 		name = "COErrorCode.h: 13";
 		rLen = 0;
-		rLoc = 238;
+		rLoc = 289;
 		rType = 0;
 		vrLen = 241;
 		vrLoc = 0;
@@ -1008,7 +1033,7 @@
 		fRef = 007934EB1150FBF7007BEB66 /* COErrorCode.h */;
 		name = "COErrorCode.h: 13";
 		rLen = 0;
-		rLoc = 238;
+		rLoc = 289;
 		rType = 0;
 		vrLen = 241;
 		vrLoc = 0;
@@ -1172,6 +1197,8 @@
 			PBXWorkspaceStateSaveDate = 290520528;
 		};
 		perUserProjectItems = {
+			0023A6EC1151017C009182F8 /* XCBuildMessageTextBookmark */ = 0023A6EC1151017C009182F8 /* XCBuildMessageTextBookmark */;
+			0023A6ED1151017C009182F8 /* PBXTextBookmark */ = 0023A6ED1151017C009182F8 /* PBXTextBookmark */;
 			0040B88211414A9300A57967 = 0040B88211414A9300A57967 /* PBXTextBookmark */;
 			0040B91611415CB500A57967 = 0040B91611415CB500A57967 /* PBXTextBookmark */;
 			0040B91711415CB500A57967 = 0040B91711415CB500A57967 /* PBXTextBookmark */;
