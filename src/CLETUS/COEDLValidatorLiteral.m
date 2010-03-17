@@ -3,7 +3,7 @@
 //  CLETUS
 //
 //  Created by Oliver Zscheyge on 3/9/10.
-//  Copyright 2010 Max-Planck-Gesellschaft. All rights reserved.
+//  Copyright 2010 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
 #import "COEDLValidatorLiteral.h"
@@ -250,7 +250,6 @@ enum COLiteralArithmeticOperation {
     
     mTokens = [[NSMutableArray alloc] initWithCapacity:0];
     litValue = LIT_FALSE;
-    mError = nil;
     
     return self;
 }
@@ -260,12 +259,12 @@ enum COLiteralArithmeticOperation {
     if ([mTokens count] == 0) {
         // Tokenize...
         int cur = 0;
-        while (cur < [literalString length]) {
+        while (cur < [literalString length] && litValue != LIT_ERROR) {
             [self tokenize:&cur];
         }
         
         // Evaluate...
-        if ([mTokens count] > 0) {
+        if ([mTokens count] > 0 && litValue != LIT_ERROR) {
             [self resolveParameters];
             
 //            // TODO: remove output
@@ -279,21 +278,17 @@ enum COLiteralArithmeticOperation {
 //            fclose(fp);
 //            // END output
             
-            //TODO remove output
-//            system("rm /tmp/*.txt");
-            
             NSRange evalRange;
             evalRange.location = 0;
             evalRange.length   = [mTokens count];
             [self evaluateTokensOver:evalRange];
         } else {
             litValue = LIT_ERROR;
-            // TODO: error and explosion
         }
         
         // Get value from last token that is left after
         // evaluation.
-        if ([mTokens count] == 1) {
+        if ([mTokens count] == 1 && litValue != LIT_ERROR) {
             COEDLValidatorToken* resultToken = [mTokens objectAtIndex:0];
             if ([resultToken mKind] == BOOLEAN_TOKEN) {
                 if ([[resultToken mValue] compare:@"TRUE"] == 0) {
@@ -310,11 +305,6 @@ enum COLiteralArithmeticOperation {
     }
     
     return litValue;
-}
-
--(NSError*)getError
-{
-    return mError;
 }
 
 -(void)tokenize:(int*)cur
@@ -409,21 +399,16 @@ enum COLiteralArithmeticOperation {
                     (*cur)++;
                 } else {
                     litValue = LIT_ERROR;
-                    mError = [NSError errorWithDomain:@"Cannot parse '=' at the end of the literal string." code:INCORRECT_SYNTAX userInfo:nil];
                 }
                 
             }
             @catch (NSException * e) {
                 litValue = LIT_ERROR;
-                mError = [NSError errorWithDomain:@"Cannot parse '=' at the end of the literal string." code:INCORRECT_SYNTAX userInfo:nil];
             }
             break;
 
         default:
             litValue = LIT_ERROR;
-            mError = [NSError errorWithDomain:[NSString stringWithFormat:@"Unsupported symbol at position %d in literal string.", (*cur) + 1] 
-                                        code:INCORRECT_SYNTAX 
-                                    userInfo:nil];
             break;
     }
     
@@ -465,7 +450,7 @@ enum COLiteralArithmeticOperation {
 {
     if ((*cur) >= [literalString length] - 1) {
         litValue = LIT_ERROR;
-        mError = [NSError errorWithDomain:@"Beginning string (character ') at the end of the literal string." code:INCORRECT_SYNTAX userInfo:nil];
+        return;
     }
     
     (*cur)++; // Skip string beginning.
@@ -475,7 +460,8 @@ enum COLiteralArithmeticOperation {
     BOOL stringEndFound = NO;
     
     while (!stringEndFound
-           && ((*cur) < [literalString length])) {
+           && ((*cur) < [literalString length])
+           && litValue != LIT_ERROR) {
         
         character = [literalString characterAtIndex:(*cur)];
         
@@ -496,7 +482,6 @@ enum COLiteralArithmeticOperation {
             }
             @catch (NSException * e) {
                 litValue = LIT_ERROR;
-                mError = [NSError errorWithDomain:@"Broken string at the end of the literal." code:INCORRECT_SYNTAX userInfo:nil];
             }
             
         // End of the string...
@@ -511,10 +496,8 @@ enum COLiteralArithmeticOperation {
         (*cur)++;
     }
     
-    if (!stringEndFound) {
+    if (!stringEndFound || litValue == LIT_ERROR) {
         litValue = LIT_ERROR;
-        mError = [NSError errorWithDomain:@"Broken string (missing string terminator) at the end of the literal." 
-                                    code:INCORRECT_SYNTAX userInfo:nil];
     } else {
         COEDLValidatorToken* token = [[COEDLValidatorToken alloc] initWithKind:STRING_TOKEN 
                                                                       andValue:buffer];
@@ -565,16 +548,10 @@ enum COLiteralArithmeticOperation {
                 }
             } else {
                 litValue = LIT_ERROR;
-                NSString* errorString = 
-                    [NSString stringWithFormat:@"Malformed decimal point number (no position after the decimal point) at position %d in literal.", (*cur) + 1];
-                mError = [NSError errorWithDomain:errorString 
-                                            code:INCORRECT_SYNTAX userInfo:nil];
             }
 
         } else {
             litValue = LIT_ERROR;
-            mError = [NSError errorWithDomain:@"Broken number format at the end of the literal (number that dosn't have any position after the decimal point discovered)." 
-                                        code:INCORRECT_SYNTAX userInfo:nil];
         }
     }
     
@@ -611,15 +588,14 @@ enum COLiteralArithmeticOperation {
 
 -(void)evaluateTokensOver:(NSRange)range
 {
-//    NSUInteger bracketPos = [self indexOfSymbol:@"(" inRange:range];
-//    while (bracketPos != [mTokens count]) {
     [self evaluateBracketsOver:range];
-//        bracketPos = [self indexOfSymbol:@"(" inRange:range];
-//    }
     [self evaluateArithmeticTermOver:range];
 }
 -(void)evaluateBracketsOver:(NSRange)range
 {
+    if (litValue == LIT_ERROR) {
+        return;
+    }
 //    // TODO: remove output
 //    FILE* fp = fopen("/tmp/cletusTest.txt", "a");
 //    fputc('\n', fp);
@@ -632,12 +608,6 @@ enum COLiteralArithmeticOperation {
 //    // END output
     
     NSRange bracketRange = [self rangeOfInnermostBracketPairIn:range];
-//    fp = fopen("/tmp/rangesTest.txt", "a");
-//    fputc('\n', fp);
-//    fputc(48 + bracketRange.location, fp);
-//    fputc('_', fp);
-//    fputc(48 + bracketRange.length, fp);
-//    fclose(fp);
     if (bracketRange.length != 0) {
         NSUInteger openingBracketIndex = bracketRange.location;
         NSUInteger closingBracketIndex = bracketRange.location + bracketRange.length - 1;
@@ -682,7 +652,7 @@ enum COLiteralArithmeticOperation {
                 evalRange.length   = bracketRange.length - 2;
                 [self evaluateTokensOver:evalRange];
             } else {
-                // TODO: syntax error
+                litValue = LIT_ERROR;
             }
         }
         NSRange recursionRange;
@@ -693,6 +663,9 @@ enum COLiteralArithmeticOperation {
 }
 -(void)evaluateArithmeticTermOver:(NSRange)range
 {     
+    if (litValue == LIT_ERROR) {
+        return;
+    }
 //    // TODO: remove output
 //    FILE* fp = fopen("/tmp/cletusTest.txt", "a");
 //    fputc('\n', fp);
@@ -703,7 +676,7 @@ enum COLiteralArithmeticOperation {
 //    }
 //    fclose(fp);
 //    // END output
-    
+
     // Unary minus
     NSUInteger symbolIndex    = [self indexOfSymbol:@"-" inRange:range];
     if ([self isUnaryMinus:symbolIndex inRange:range]) {
@@ -889,7 +862,7 @@ enum COLiteralArithmeticOperation {
             [mTokens replaceObjectAtIndex:(argumentRange.location - 1) withObject:resultToken];
             [resultToken release];
         } else {
-            // TODO: error - no valid argument for exists
+            litValue = LIT_ERROR;
         }
     } else {
         resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"FALSE"];
@@ -945,10 +918,10 @@ enum COLiteralArithmeticOperation {
             [self removePair:leftArgRange.location and:rightArgRange.location];
             
         } else {
-            // TODO: Error: wrong type for strcmp - or just return false?
+            litValue = LIT_ERROR;
         }
     } else {
-        // TODO: Error or/and false?
+        litValue = LIT_ERROR; 
     }
 }
 -(void)evaluateEDLValidationCompare:(NSRange)leftArgRange 
@@ -1011,10 +984,10 @@ enum COLiteralArithmeticOperation {
             [resultToken release];
             [mTokens removeObjectAtIndex:minusIndex + 1];
         } else {
-            // TODO: syntax error (unary minus applied to something other than a number)
+            litValue = LIT_ERROR;
         }
     } else {
-        // TODO: syntax error
+        litValue = LIT_ERROR;
     }
 }
 -(void)evaluateBinaryOperation:(enum COLiteralArithmeticOperation)op 
@@ -1043,7 +1016,7 @@ enum COLiteralArithmeticOperation {
         [resultToken release];
         [self removePair:index and:(index + 1)];
     } else {
-        // TODO: syntax error
+        litValue = LIT_ERROR;
     }
 }
 -(void)evaluateEquals:(NSUInteger)equalsIndex
@@ -1067,10 +1040,10 @@ enum COLiteralArithmeticOperation {
             [resultToken release];
             [self removePair:equalsIndex and:equalsIndex + 1];
         } else {
-            // TODO: syntax error
+            litValue = LIT_ERROR;
         }
     } else {
-        // TODO: syntax error: left or right operand for == missing
+        litValue = LIT_ERROR;
     }
 }
 

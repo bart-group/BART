@@ -3,7 +3,7 @@
 //  CLETUS
 //
 //  Created by Oliver Zscheyge on 3/9/10.
-//  Copyright 2010 Max-Planck-Gesellschaft. All rights reserved.
+//  Copyright 2010 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
@@ -13,10 +13,6 @@ enum COLiteralValue {
 	LIT_ERROR = -1,
     LIT_FALSE,
     LIT_TRUE
-};
-
-enum COEDLValidatorLiteralError {
-	INCORRECT_SYNTAX
 };
 
 /**
@@ -38,9 +34,6 @@ enum COEDLValidatorLiteralError {
     
     /** Storing the value of the literal if already evaluated. */
     enum COLiteralValue litValue;
-    
-    /** Error information if something went wrong during the parse process. */
-    NSError*            mError;
 
 }
 
@@ -66,14 +59,6 @@ enum COEDLValidatorLiteralError {
  *         (both hidden behind COLiteralValue).
  */
 -(enum COLiteralValue)getValue;
-
-/**
- * If getValue returned LIT_ERROR you can ask for a
- * more descriptive error object. Nil otherwise.
- *
- * \return An NSError object.
- */
--(NSError*)getError;
 
 @property (readonly) NSString* literalString;
 

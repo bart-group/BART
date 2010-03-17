@@ -3,13 +3,14 @@
 //  CLETUS
 //
 //  Created by Oliver Zscheyge on 3/8/10.
-//  Copyright 2010 Max-Planck-Gesellschaft. All rights reserved.
+//  Copyright 2010 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
 #import "COEDLValidator.h"
 #import "COXMLUtility.h"
 #import "COEDLValidatorRule.h"
 #import "COEDLValidatorLiteral.h"
+#import "COErrorCode.h"
 
 
 @interface COEDLValidator (PrivateStuff)
@@ -98,7 +99,12 @@
     
     BOOL allRulesSatisfied = YES;
     for (COEDLValidatorRule* rule in mRules) {
-        
+        if (![rule isSatisfied]) {
+            allRulesSatisfied = NO;
+            if ([rule mError]) {
+                // TODO: handle rule error
+            }
+        }
     }
     
     return allRulesSatisfied;
