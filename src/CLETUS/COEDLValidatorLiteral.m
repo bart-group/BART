@@ -629,9 +629,16 @@ enum COLiteralArithmeticOperation {
                 rightArgRange.length   = closingBracketIndex - seperatorIndex - 1;
                 [self evaluateTokensOver:rightArgRange];
                 
-                leftArgRange.length  = 1;
-                rightArgRange.length = 1;
-                // TODO: passing ranges and checking those is redundant
+                if (leftArgRange.length != 0
+                    && rightArgRange.length != 0) {
+                    leftArgRange.length  = 1;
+                    rightArgRange.length = 1;
+                    // TODO: argRanges redundant
+                    
+                } else {
+                    leftArgRange.length  = 0;
+                    rightArgRange.length = 0;
+                }
                 [self evaluateBinaryFunctionWith:leftArgRange and:rightArgRange];
             } else {
                 // Unary function
@@ -679,13 +686,15 @@ enum COLiteralArithmeticOperation {
 
     // Unary minus
     NSUInteger symbolIndex    = [self indexOfSymbol:@"-" inRange:range];
-    if ([self isUnaryMinus:symbolIndex inRange:range]) {
-        [self evaluateUnaryMinus:symbolIndex];
-        NSRange newRange;
-        newRange.location = range.location;
-        newRange.length   = range.length - 1;
-        [self evaluateArithmeticTermOver:newRange];
-        return;
+    if (symbolIndex < [mTokens count]) {
+        if ([self isUnaryMinus:symbolIndex inRange:range]) {
+            [self evaluateUnaryMinus:symbolIndex];
+            NSRange newRange;
+            newRange.location = range.location;
+            newRange.length   = range.length - 1;
+            [self evaluateArithmeticTermOver:newRange];
+            return;
+        }
     }
     
     // Multiplication, division
@@ -873,6 +882,15 @@ enum COLiteralArithmeticOperation {
 
 -(void)evaluateBinaryFunctionWith:(NSRange)leftArgRange and:(NSRange)rightArgRange
 {
+    if (leftArgRange.length == 0 || rightArgRange.length == 0) {
+        [mTokens removeAllObjects];
+        litValue == LIT_FALSE;
+        COEDLValidatorToken* resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"FALSE"];
+        [mTokens addObject:resultToken];
+        [resultToken release];
+        return;
+    }
+    
     if ([[[mTokens objectAtIndex:leftArgRange.location - 1] mValue] compare:@"edlValidation_strIsEqual"] == 0) {
         [self evaluateEDLValidationStrcmpWith:leftArgRange 
                                           and:rightArgRange];
@@ -898,74 +916,52 @@ enum COLiteralArithmeticOperation {
 }
 -(void)evaluateEDLValidationStrcmpWith:(NSRange)leftArgRange and:(NSRange)rightArgRange
 {
-    if (leftArgRange.length == 1
-        && rightArgRange.length == 1) {
-        COEDLValidatorToken* leftToken  = [mTokens objectAtIndex:leftArgRange.location];
-        COEDLValidatorToken* rightToken = [mTokens objectAtIndex:rightArgRange.location];
-        if (([leftToken mKind] == PARAMETER_TOKEN || [leftToken mKind] == STRING_TOKEN)
-            && ([rightToken mKind] == PARAMETER_TOKEN || [rightToken mKind] == STRING_TOKEN)) {
-            // Both function parameters are either a string or a rule parameter.
-            
-            COEDLValidatorToken* resultToken;
-            
-            if ([[leftToken mValue] compare:[rightToken mValue]] == 0) {
-                resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"TRUE"];
-            } else {
-                resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"FALSE"];
-            }
-            [mTokens replaceObjectAtIndex:(leftArgRange.location - 1) withObject:resultToken];
-            [resultToken release];
-            [self removePair:leftArgRange.location and:rightArgRange.location];
-            
+    COEDLValidatorToken* leftToken  = [mTokens objectAtIndex:leftArgRange.location];
+    COEDLValidatorToken* rightToken = [mTokens objectAtIndex:rightArgRange.location];
+    if (([leftToken mKind] == PARAMETER_TOKEN || [leftToken mKind] == STRING_TOKEN)
+        && ([rightToken mKind] == PARAMETER_TOKEN || [rightToken mKind] == STRING_TOKEN)) {
+        // Both function parameters are either a string or a rule parameter.
+        
+        COEDLValidatorToken* resultToken;
+        
+        if ([[leftToken mValue] compare:[rightToken mValue]] == 0) {
+            resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"TRUE"];
         } else {
-            litValue = LIT_ERROR;
+            resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"FALSE"];
         }
+        [mTokens replaceObjectAtIndex:(leftArgRange.location - 1) withObject:resultToken];
+        [resultToken release];
+        [self removePair:leftArgRange.location and:rightArgRange.location];
+        
     } else {
-        litValue = LIT_ERROR; 
+        litValue = LIT_ERROR;
     }
 }
 -(void)evaluateEDLValidationCompare:(NSRange)leftArgRange 
                                 and:(NSRange)rightArgRange 
                        withOperator:(enum COLiteralComparisonOperator)op
 {
-    if (leftArgRange.length == 1
-        || rightArgRange.length == 1) {
-        COEDLValidatorToken* leftToken  = [mTokens objectAtIndex:leftArgRange.location];
-        COEDLValidatorToken* rightToken = [mTokens objectAtIndex:rightArgRange.location];
-        if (([leftToken mKind] == PARAMETER_TOKEN || [leftToken mKind] == NUMBER_TOKEN)
-            && ([rightToken mKind] == PARAMETER_TOKEN || [rightToken mKind] == NUMBER_TOKEN)) {
-            // Both function parameters are either a number or a rule parameter.
-            
-            COEDLValidatorToken* resultToken;
-            
-            double leftValue  = [[leftToken mValue] doubleValue];
-            double rightValue = [[rightToken mValue] doubleValue];
-            if ((leftValue > rightValue && op == LIT_BIGGERTHAN)
-                || (leftValue >= rightValue && op == LIT_EQUAL_OR_BIGGERTHAN)
-                || (leftValue < rightValue && op == LIT_LOWERTHAN)
-                || (leftValue <= rightValue && op == LIT_EQUAL_OR_LOWERTHAN)) {
-                resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"TRUE"];
-            } else {
-                resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"FALSE"];
-            }
-            [mTokens replaceObjectAtIndex:(leftArgRange.location - 1) withObject:resultToken];
-            [resultToken release];
-            [self removePair:leftArgRange.location and:rightArgRange.location];
+    COEDLValidatorToken* leftToken  = [mTokens objectAtIndex:leftArgRange.location];
+    COEDLValidatorToken* rightToken = [mTokens objectAtIndex:rightArgRange.location];
+    if (([leftToken mKind] == PARAMETER_TOKEN || [leftToken mKind] == NUMBER_TOKEN)
+        && ([rightToken mKind] == PARAMETER_TOKEN || [rightToken mKind] == NUMBER_TOKEN)) {
+        // Both function parameters are either a number or a rule parameter.
+        
+        COEDLValidatorToken* resultToken;
+        
+        double leftValue  = [[leftToken mValue] doubleValue];
+        double rightValue = [[rightToken mValue] doubleValue];
+        if ((leftValue > rightValue && op == LIT_BIGGERTHAN)
+            || (leftValue >= rightValue && op == LIT_EQUAL_OR_BIGGERTHAN)
+            || (leftValue < rightValue && op == LIT_LOWERTHAN)
+            || (leftValue <= rightValue && op == LIT_EQUAL_OR_LOWERTHAN)) {
+            resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"TRUE"];
+        } else {
+            resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"FALSE"];
         }
-        
-    } else {
-        // Evaluate arith. terms and try again.
-        // TODO: redundant
-        [self evaluateTokensOver:leftArgRange];
-        
-        rightArgRange.location = leftArgRange.location + 1;
-        [self evaluateTokensOver:rightArgRange];
-        
-        leftArgRange.length  = 1;
-        rightArgRange.length = 1;
-        [self evaluateEDLValidationCompare:leftArgRange 
-                                       and:rightArgRange 
-                              withOperator:op];
+        [mTokens replaceObjectAtIndex:(leftArgRange.location - 1) withObject:resultToken];
+        [resultToken release];
+        [self removePair:leftArgRange.location and:rightArgRange.location];
     }
 }
 

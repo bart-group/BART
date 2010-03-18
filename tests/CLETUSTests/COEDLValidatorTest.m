@@ -20,7 +20,7 @@ COEDLValidator* validator;
 
 -(void)setUp
 {
-    validator = [[COEDLValidator alloc] initWithContentsOfEDLFile:@"../tests/CLETUSTests/Init_Links_1.edl" 
+    validator = [[COEDLValidator alloc] initWithContentsOfEDLFile:@"../tests/CLETUSTests/main_SW_BoldModule_2ContinousTargetROIs.edl" 
                                                       andEDLRules:@"../tests/CLETUSTests/edlValidation_rules.xml"];
 }
 
@@ -39,7 +39,7 @@ COEDLValidator* validator;
 {
     BOOL valid = [validator isEDLConfigCorrectAccordingToRules];
     
-//    STAssertEquals(YES, valid, @"Some rules are not valid!");
+    STAssertEquals(YES, valid, @"Some rules are not valid!");
 }
 
 -(void)testSubstituteEDLValueForRef

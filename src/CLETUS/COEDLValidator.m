@@ -103,11 +103,12 @@
         NSString* ruleID = [rule mRuleID];
         if (![rule isSatisfied]) {
             allRulesSatisfied = NO;
-            [errorBuffer appendFormat:@"\n Rule %@ violated! Message: %@", ruleID, [rule mMessage]];
-        }
-        if ([rule mError]) {
-            if ([[rule mError] code] == INCORRECT_SYNTAX) {
-                [errorBuffer appendFormat:@"\n Rule %@ contains at least one literal with incorrect syntax!", ruleID];
+            if ([rule mError]) {
+                if ([[rule mError] code] == INCORRECT_SYNTAX) {
+                    [errorBuffer appendFormat:@"\n Rule %@ contains at least one literal with incorrect syntax!", ruleID];
+                }
+            } else {
+                [errorBuffer appendFormat:@"\n Rule %@ violated! Message: %@", ruleID, [rule mMessage]];
             }
         }
     }
@@ -118,12 +119,12 @@
         mError = [NSError errorWithDomain:errorDomain
                                      code:EDL_LOGICAL_VALIDATION
                                  userInfo:nil];
-//        // TODO: remove output
-//        FILE* f = fopen("/tmp/validationErrors.txt", "w");
-//        fputs([[mError domain] cStringUsingEncoding:NSUTF8StringEncoding], f);
-//        fputc('\n', f);
-//        fclose(f);
-//        // END output
+        // TODO: remove output
+        FILE* f = fopen("/tmp/validationErrors.txt", "w");
+        fputs([[mError domain] cStringUsingEncoding:NSUTF8StringEncoding], f);
+        fputc('\n', f);
+        fclose(f);
+        // END output
     }
     
     [errorBuffer release];

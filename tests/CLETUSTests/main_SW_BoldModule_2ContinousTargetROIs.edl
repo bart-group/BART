@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rtExperiment edlVersion="1.4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="C:\Nutzer\mhollman\BOLD\rtExplorer\experiments\config\rtExperiment_v14.xsd">
+   
+   <environment globalTimeUnit="milliseconds">
+        <logging doLogging="false">
+            <logFile>logRT_main.txt</logFile>
+        </logging>
+        <startTrigger waitForInitialTrigger="true">
+            <parallelPortTrigger>
+                <triggerPort>0x379</triggerPort>
+            </parallelPortTrigger>
+        </startTrigger>
+        <dataFolder>\data\dicom</dataFolder>
+        <dataFolderTarget>\data\dicom</dataFolderTarget>
+        <resultFolder>\data\results</resultFolder>
+	    <resultImage>
+      <imageModalities imgDataType="image" imgType="ANALYZE" imgDataExtension=".hdr">
+        <imgBase>results_</imgBase>
+        <byteOrder></byteOrder>
+        <img3D></img3D>
+      </imageModalities>
+    </resultImage>
+  </environment>     
+     
+    <experimentData trSimulation="false">
+      <paradigm ignoreScansAtStart="0">
+        <swDesignStruct>
+          <scanBasedRegressor regressorID="sbr1" name="tappingLinks" size="60" useRefFct="dGamma1" scaleHeightToZeroMean="false">
+            <sbrDesign size="12" repetitions="5">
+              <scan height="1">0</scan>
+              <scan height="1">0</scan>
+              <scan height="1">1</scan>
+              <scan height="1">1</scan>
+              <scan height="1">0</scan>
+              <scan height="1">0</scan>
+              <scan height="1">0</scan>
+              <scan height="1">0</scan>
+              <scan height="1">0</scan>
+              <scan height="1">0</scan>
+              <scan height="1">0</scan>
+              <scan height="1">0</scan>              
+          </sbrDesign>
+            <sbrIgnoreStruct overallIgnores="0">
+                <insertIgnores repetitionNr="1" nmbIgnores="0"/>
+                <insertIgnores repetitionNr="2" nmbIgnores="0"/>
+                <insertIgnores repetitionNr="3" nmbIgnores="0"/>
+                <insertIgnores repetitionNr="4" nmbIgnores="0"/>
+                <insertIgnores repetitionNr="5" nmbIgnores="0"/>
+            </sbrIgnoreStruct>
+          </scanBasedRegressor>
+         </swDesignStruct>
+      </paradigm>
+        
+     <imageModalities imgDataType="image" imgType="DICOM" imgDataExtension=".dcm">
+            <imgBase>IBMI_FMRI_</imgBase>
+            <byteOrder>littleEndian</byteOrder>
+            <TR>2000</TR>
+             <imgMosaic>
+                <imgWidth>320</imgWidth>
+                <imgHeight>320</imgHeight>
+                <slices>20</slices>
+                <tileWidth>64</tileWidth>
+                <tileHeight>64</tileHeight>
+                <bpp>uint16</bpp>
+            </imgMosaic>
+        </imageModalities>
+ 
+    </experimentData>
+
+  <mriParams fieldStrength="7T" vendorName="Siemens" systemVersion="VB15" >
+      <MR_TAG_BANDWIDTH vendorTag="bw">2230</MR_TAG_BANDWIDTH>
+      <MR_TAG_BASE_RESOLUTION vendorTag="matrix">64</MR_TAG_BASE_RESOLUTION>
+      <MR_TAG_PHASE_RESOLUTION vendorTag="ph_res">100</MR_TAG_PHASE_RESOLUTION>
+      <MR_TAG_TE vendorTag="te">21</MR_TAG_TE>
+      <MR_TAG_TR vendorTag="tr">2000</MR_TAG_TR>
+      <MR_TAG_SG_SIZE vendorTag="sg.0.size">20</MR_TAG_SG_SIZE>
+      <MR_TAG_SLICE_THICKNESS vendorTag="sl_thick">4.0</MR_TAG_SLICE_THICKNESS>
+      <MR_TAG_SG_DISTANCE_FACTOR vendorTag="sg.0.df">5</MR_TAG_SG_DISTANCE_FACTOR>
+      <MR_TAG_READOUT_FOV vendorTag="readout_fov">200</MR_TAG_READOUT_FOV>
+      <MR_TAG_PHASE_FOV vendorTag="phase_fov">100</MR_TAG_PHASE_FOV>
+      <MR_TAG_FLIP_ANGLE vendorTag="angle_array.0">80</MR_TAG_FLIP_ANGLE>
+      <MR_TAG_MEASUREMENTS vendorTag="meas">60</MR_TAG_MEASUREMENTS>
+  </mriParams>
+
+
+        
+  <preprocessing> 
+     <spatialFilter>
+        <kernelType>GAUSS</kernelType>
+        <kernelSize>3</kernelSize>
+     </spatialFilter>
+     <linearDetrending>1</linearDetrending>
+  </preprocessing>
+    
+    
+   <statistics>
+    <corrAnalysis></corrAnalysis>
+    <referenceFunctions>
+        <dGamma refFctID="dGamma1">
+            <tPeak1>6000</tPeak1>
+             <mWidth1>5100</mWidth1>
+             <scale1>1</scale1>
+             <tPeak2>16000</tPeak2>
+             <mWidth2>8000</mWidth2>
+             <scale2>0.09</scale2>
+             <offset>0</offset>
+			 <overallWidth>30000</overallWidth>
+         </dGamma>
+         
+         <dGamma refFctID="dGamma2">
+            <tPeak1>6000</tPeak1>
+             <mWidth1>5100</mWidth1>
+             <scale1>1</scale1>
+             <tPeak2>16000</tPeak2>
+             <mWidth2>8000</mWidth2>
+             <scale2>0.09</scale2>
+             <offset>0</offset>
+			 <overallWidth>30000</overallWidth>
+			 </dGamma>
+    </referenceFunctions>
+  </statistics>
+
+  <activationProcessing doActivationProcessing="true">
+      
+    <analysisRuntimeModules>
+        <analysisRuntimeModuleBOLD moduleID="ACTIVE1" useRegressor="sbr1">
+          <ROI>
+            <preExperiment>
+              <targetEDL>..\1_Init_Links\Init_Links.edl</targetEDL>
+              <targetScan>55</targetScan>
+              <initialScaledTreshold>0.4</initialScaledTreshold>
+            </preExperiment>
+            <label>ACTIVE1</label>
+          </ROI>
+          
+          <continuousBOLD>
+            <baselineStart>1</baselineStart>
+            <baselineEnd>3</baselineEnd>
+          </continuousBOLD>
+ 
+	  <globalTargetVariables>
+		  <targetVar_BOLD_NATIVE   tVarID="tvBoldNATIVE1"   tVarName="tvBoldNATIVE1_modA1"   tVarDescription="Bold ROISignal"/>
+		  <targetVar_BOLD_ACTIVE   tVarID="tvBoldACTIVE1"   tVarName="tvBoldACTIVE1_modA1"   tVarDescription="Bold ROISignal minus ROI Baseline Signal"/>
+		  <targetVar_BOLD_BASELINE tVarID="tvBoldBASELINE1" tVarName="tvBoldBASELINE1_modA1" tVarDescription="ROI Baseline Signal"/>
+	  </globalTargetVariables>
+	  
+	  <doOutput useOutputModule="om1">
+		  <outputAtSWScan>1</outputAtSWScan>
+		  <outputVariable useVarID="tvBoldNATIVE1"></outputVariable>
+		  <outputVariable useVarID="tvBoldACTIVE1"></outputVariable>
+	  </doOutput>
+  </analysisRuntimeModuleBOLD> 
+      
+
+
+ 
+        <analysisRuntimeModuleBOLD moduleID="CONTROL2" useRegressor="sbr1">
+          <ROI>
+            <preExperiment>
+              <targetEDL>..\1_Init_Links\Init_Links.edl</targetEDL>
+              <targetScan>55</targetScan>
+                <initialScaledTreshold>0.4</initialScaledTreshold>
+              </preExperiment>
+            <label>CONTROL</label>
+          </ROI>
+    
+          <continuousBOLD>
+            <baselineStart>1</baselineStart>
+            <baselineEnd>3</baselineEnd>
+          </continuousBOLD>
+          
+	  <globalTargetVariables>
+		  <targetVar_BOLD_NATIVE   tVarID="tvBoldNATIVE2" tVarName="tvBoldNATIVE1_modC" tVarDescription="Bold ROISignal"/>
+		  <targetVar_BOLD_ACTIVE   tVarID="tvBoldACTIVE2" tVarName="tvBoldACTIVE1_modC" tVarDescription="Bold ROISignal minus ROI Baseline Signal"/>
+		  <targetVar_BOLD_BASELINE tVarID="tvBoldBASELINE2" tVarName="tvBoldBASELINE1_modC" tVarDescription="ROI Baseline Signal"/>
+	  </globalTargetVariables>
+	  <doOutput useOutputModule="om1">
+		  <outputAtSWScan>1</outputAtSWScan>
+		  <outputVariable useVarID="tvBoldNATIVE2"></outputVariable>
+		  <outputVariable useVarID="tvBoldACTIVE2"></outputVariable>
+	  </doOutput>
+ 
+        </analysisRuntimeModuleBOLD> 
+
+
+      </analysisRuntimeModules>
+    
+      <outputModules>
+        <outputModuleTCPIP oModuleID="om1">
+          <targetIP>192.68.2.4</targetIP>
+          <targetPort>16666</targetPort>
+          <waitForAcknowledge>1</waitForAcknowledge>
+        </outputModuleTCPIP>
+      </outputModules>
+      
+  </activationProcessing>
+    
+    
+    
+<stimulusData>
+
+   <stimEnvironment>	
+    <startTrigger waitForInitialTrigger="true">
+        <parallelPortTrigger>
+            <triggerPort>0x379</triggerPort>
+        </parallelPortTrigger>
+    </startTrigger>
+    
+     <logEvents writeAtRuntime="off" writeMatFile="on" writeTextFile="on">
+      <logFileBase>\LOG\logStim</logFileBase>
+    </logEvents>
+    
+    <screen>
+      <screenResolutionX>800</screenResolutionX>
+      <screenResolutionY>600</screenResolutionY>  
+    </screen>  
+    
+  </stimEnvironment>
+  
+	<mediaObjectList>
+            <mediaObject moID="mo1" name="text1" type="TEXT">
+              <contentText>
+                <text>+</text>
+                <tSize>40</tSize>
+                <posX>150</posX>
+                <posY>150</posY>
+              </contentText>
+            </mediaObject>
+
+            <mediaObject moID="mo2" name="soundStart" type="SOUND">
+              <contentSound>
+                <soundFile>\mediaObject\soundfiles\start.wav</soundFile>
+              </contentSound>
+            </mediaObject>
+
+            <mediaObject moID="mo3" name="soundStop" type="SOUND">
+               <contentSound>
+                <soundFile>\mediaObject\soundfiles\stop.wav</soundFile>
+              </contentSound>
+            </mediaObject>
+            
+           <mediaObject moID="mo4" name="cb1" type="COMPLEX">
+              <contentComplex type="CHECKERBOARD" overallPresLength="100">
+              <functionHandlePrepare>predef_prepareCogentObjects_CB</functionHandlePrepare>
+              <functionHandleRun>predef_runCogentObjects_CB</functionHandleRun>
+              <nmbNeededBufferPos>2</nmbNeededBufferPos>
+
+              <stimPrepareParamsCOMPLEX>
+                <param>
+                  <paramName>cbSize</paramName>
+                  <paramType>INT</paramType>
+                  <paramValue>80</paramValue>
+                </param>
+
+                <param>
+                  <paramName>cbPosX</paramName>
+                  <paramType>INT</paramType>
+                  <paramValue>0</paramValue>
+                </param>
+
+                <param>
+                  <paramName>cbPosY</paramName>
+                  <paramType>INT</paramType>
+                  <paramValue>150</paramValue>
+                </param>
+
+                <param>
+                  <paramName>cbEnclosedFix</paramName>
+                  <paramType>STR</paramType>
+                  <paramValue>+</paramValue>
+                </param>
+              </stimPrepareParamsCOMPLEX>
+
+              <stimRunParamsCOMPLEX>
+                <param>
+                  <paramName>cbFreq</paramName>
+                  <paramType>INT</paramType>
+                  <paramValue>8</paramValue>
+                </param>
+              </stimRunParamsCOMPLEX>
+
+              </contentComplex>
+            </mediaObject>
+            
+      </mediaObjectList>
+
+      <timeTable timeTolerance="20">
+        <blockStimulusDesign repeats="2"  overallPresLength="120000">
+      		<stimEvent time="0" duration="4000">
+            <mObjectID>mo1</mObjectID>
+      		</stimEvent>
+
+      		<stimEvent time="4000" duration="4000">
+            <mObjectID>mo4</mObjectID>
+      		</stimEvent>
+          
+        </blockStimulusDesign>
+      </timeTable>
+      
+</stimulusData>
+
+    <viewProperties>
+        <view>MIP</view>
+        <anatomy>
+            <imgFile>none</imgFile>
+        </anatomy>
+    </viewProperties>
+</rtExperiment>

@@ -54,12 +54,18 @@
 
 -(BOOL)isSatisfied
 {
-    BOOL premisesSatisfied = [self valueOfConjunctedLiterals:mPremises];
-    BOOL conclusionsSatisfied = [self valueOfConjunctedLiterals:mConclusions];
+//    BOOL premisesSatisfied = [self valueOfConjunctedLiterals:mPremises];
+//    BOOL conclusionsSatisfied = [self valueOfConjunctedLiterals:mConclusions];
+//    
+//    // Return value of implication: premisesSatisfied ==> conclusionsSatisfied
+//    //           which is equal to: NOT(premisesSatisfied) OR conclusionsSatisfied
+//    return (!premisesSatisfied || conclusionsSatisfied);
     
-    // Return value of implication: premisesSatisfied ==> conclusionsSatisfied
-    //           which is equal to: NOT(premisesSatisfied) OR conclusionsSatisfied
-    return (!premisesSatisfied || conclusionsSatisfied);
+    if ([self valueOfConjunctedLiterals:mPremises]) {
+        return [self valueOfConjunctedLiterals:mConclusions];
+    } else {
+        return YES;
+    }
 }
 
 -(BOOL)valueOfConjunctedLiterals:(NSArray*)literals
