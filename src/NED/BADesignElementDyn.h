@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "BADesignElement.h"
 #import <fftw3.h>
-#import "NEDesignGammaKernel.h"
+#import "NEDesignKernel.h"
 
 typedef struct ComplexStruct {
     double re;
@@ -35,14 +35,6 @@ typedef struct ComplexStruct {
 	float** mDesign;
 	float** mCovariates;
 	
-	///* buffers for use with fftw3 for block design und eventrelated with derivations 0|1|2 */
-//	
-//	
-//	fftw_complex *mKernelBlockDeriv0; // can be gamma or gauss function
-//	fftw_complex *mKernelEventDeriv0; // always gamma function
-//	fftw_complex *mKernelDeriv1; // deriv 1
-//	fftw_complex *mKernelDeriv2; // deriv 2
-	
 	/*buffers for input and output of fft*/
 	double **mBuffersForwardIn; // one per each event
 	double **mBuffersInverseOut; // one per each event
@@ -53,10 +45,8 @@ typedef struct ComplexStruct {
 	fftw_plan *mFftPlanForward;
 	fftw_plan *mFftPlanInverse;
 	
-	// 
-	NEDesignGammaKernel **mGammaKernels; //one per each event
-	
-    
+	// the kernels to convolve with the event trials
+	NEDesignKernel **mConvolutionKernels; //one per each event
 }
 
 -(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
@@ -70,24 +60,14 @@ typedef struct ComplexStruct {
 
 @interface BADesignElementDyn (PrivateMethods)
 
-	
-
-
--(float**)Plot_gamma;
 -(NSError*)parseInputFile:(NSString*)path;
 -(NSError*)initDesign;
-
--(Complex)complex_mult:(Complex)a :(Complex)b;
-//-(double)xgamma:(double)xx :(double)t0;//TODO check functions
-//-(double)bgamma:(double)xx :(double)t0;
-//-(double)deriv1_gamma:(double)x :(double)t0;
-//-(double)deriv2_gamma:(double)x :(double)t0;
-//-(double)xgauss:(double)xx :(double)t0;
-
+-(Complex)multiplComplex:(Complex)a withComplex:(Complex) b;
 -(BOOL)test_ascii:(int)val;
 -(void)Convolve:(unsigned int)col
 			   :(unsigned int) eventNr
                :(fftw_complex *)fkernel;
+
 /* Utility function for TrialList. */
 -(void)tl_append:(TrialList*)head
                 :(TrialList*)newLast;
@@ -95,9 +75,6 @@ typedef struct ComplexStruct {
 -(NSError*)getPropertiesFromConfig;
 
 -(NSError*)correctForZeromean;
-
-
-
 
 @end
 

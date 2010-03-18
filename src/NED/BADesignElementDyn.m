@@ -148,12 +148,10 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	
 	mDerivationsHrf = 0;
 	[f release];//temp for conversion purposes
-	mNumberSamplesForInit = (mNumberTimesteps * mRepetitionTimeInMs) / samplingRateInMs;
+	mNumberSamplesForInit = (mNumberTimesteps * mRepetitionTimeInMs) / samplingRateInMs + 10000;//add some seconds to avoid wrap around problems with fft, here defined as 10s
+	
 	
 	return nil;
-	
-
-
 }
 
 -(NSError*)initDesign
@@ -166,7 +164,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 		mTimeOfRepetitionStartInMs[i] = (double) (i) * mRepetitionTimeInMs;//TODO: Gabi fragen letzter Zeitschritt im moment nicht einbezogen xx[i] = (double) i * tr * 1000.0;
 	}
 
-    unsigned long maxExpLengthInMs = mTimeOfRepetitionStartInMs[0] + mTimeOfRepetitionStartInMs[mNumberTimesteps - 1];
+    unsigned long maxExpLengthInMs = mTimeOfRepetitionStartInMs[0] + mTimeOfRepetitionStartInMs[mNumberTimesteps - 1] + mRepetitionTimeInMs;//+1 repetition to add time of last rep
 	
 	NSLog(@"x[0]: %lf und xx[last] %lf", mTimeOfRepetitionStartInMs[0], mTimeOfRepetitionStartInMs[mNumberTimesteps - 1]);
     NSLog(@"Number timesteps: %d,  experiment duration: %.2f min\n", mNumberTimesteps, maxExpLengthInMs / 60000.0);
@@ -211,10 +209,10 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     
     NSLog(@"# number of events: %d,  num columns in design matrix: %d\n", mNumberEvents, ncols + 1);
     
-    mDesign = (float**) malloc(sizeof(float*) * (ncols + 1));
+    mDesign = (float** ) malloc(sizeof(float*) * (ncols + 1));
     for (int col = 0; col < ncols + 1; col++) {
         mDesign[col] = (float*) malloc(sizeof(float) * mNumberTimesteps);
-         for (int ts = 0; ts < mNumberTimesteps; ts++) {
+         for (unsigned int ts = 0; ts < mNumberTimesteps; ts++) {
              if (col == ncols) {
                  mDesign[col][ts] = 1.0;
              } else {
@@ -227,7 +225,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     /* alloc memory */
     mNumberSamplesNeededForExp = (unsigned long) (maxExpLengthInMs / samplingRateInMs);
 	NSLog(@"mNumberSamplesNeededForExp %d", mNumberSamplesNeededForExp);
-	NSLog(@"total duration in ms %lf", maxExpLengthInMs);
+	NSLog(@"total duration in ms %d", maxExpLengthInMs);
     
         
     unsigned int numberSamplesInResult = (mNumberSamplesForInit / 2) + 1;//defined for results of fftw3
@@ -243,7 +241,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     mBuffersInverseOut = (double **) malloc(sizeof(double *) * mNumberEvents);
 
 	/* alloc gamma kernels one per each event*/
-	mGammaKernels = (NEDesignGammaKernel **) malloc(sizeof(NEDesignGammaKernel*) * mNumberEvents);
+	mConvolutionKernels = (NEDesignKernel **) malloc(sizeof(NEDesignKernel*) * mNumberEvents);
     
     for (unsigned int eventNr = 0; eventNr < mNumberEvents; eventNr++) {
         
@@ -259,16 +257,17 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         mFftPlanInverse[eventNr] = fftw_plan_dft_c2r_1d(mNumberSamplesForInit, mBuffersInverseIn[eventNr], mBuffersInverseOut[eventNr], FFTW_ESTIMATE);
 		
 		//TODO get per event from config!!!!
-		GammaParams params;
+		GloverParams params; //TODO everything in ms!!!!
 		params.maxLengthHrfInMs = 30000;
 		params.peak1 = 6.0;
 		params.scale1 = 0.9;
 		params.peak2 = 12.0;
 		params.scale2 = 0.9;
 		params.offset = 0.0;
-		params.understrength = 0.1;
+		params.relationP1P2 = 0.1;
+		params.heightScale = 120;
 		
-		mGammaKernels[eventNr] = [[NEDesignGammaKernel alloc] initWithGammaStruct:params andNumberSamples:mNumberSamplesForInit];
+		mConvolutionKernels[eventNr] = [[NEDesignKernel alloc] initWithGloverParams:params andNumberSamples:mNumberSamplesForInit];
     }
 
     
@@ -287,21 +286,16 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         memset(mBuffersForwardIn[eventNr], 0, sizeof(double) * mNumberSamplesForInit);
         
         /* get data */
-        int trialcount = 0;
+        unsigned int trialcount = 0;
         double t0;
         double h;
-		float blockThreshold = 10.0; //TODO get from config
-        float minTrialDuration = blockThreshold;
-        
+		        
         TrialList* currentTrial;
         currentTrial = mTrialList[eventNr];
         
         while (currentTrial != NULL) {
             trialcount++;
         
-            if (currentTrial->trial.duration < minTrialDuration) {
-                minTrialDuration = currentTrial->trial.duration;
-            }
             t0 = currentTrial->trial.onset;
             double tmax = currentTrial->trial.onset + currentTrial->trial.duration;
             h  = currentTrial->trial.height;
@@ -335,21 +329,21 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         unsigned int col = eventNr * (mDerivationsHrf + 1);
   		[self Convolve:col
 					  :eventNr
-					  :mGammaKernels[eventNr].mKernelDeriv0];
+					  :mConvolutionKernels[eventNr].mKernelDeriv0];
         
         col++;
         
-        if (mDerivationsHrf >= 1) {
+        if (1 <= mDerivationsHrf) {
             [self Convolve:col
 						  :eventNr
-                          :mGammaKernels[eventNr].mKernelDeriv1];
+                          :mConvolutionKernels[eventNr].mKernelDeriv1];
             col++;
         }
         
-        if (mDerivationsHrf == 2) {
+        if (2 == mDerivationsHrf) {
             [self Convolve:col
 						  :eventNr
-						  :mGammaKernels[eventNr].mKernelDeriv2];
+						  :mConvolutionKernels[eventNr].mKernelDeriv2];
         }
     });
     
@@ -488,7 +482,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     VImage plot_image = NULL;
     plot_image = VCreateImage(1, nrows, ncols, VFloatRepn);
     float** plot_image_raw = NULL;
-    plot_image_raw = [mGammaKernels[0] plotGammaWithDerivs:mDerivationsHrf];//take first event, here just one fct possible
+    plot_image_raw = [mConvolutionKernels[0] plotGammaWithDerivs:mDerivationsHrf];//take first event, here just one fct possible
     
     for (int col = 0; col < ncols; col++) {
         for (int row = 0; row < nrows; row++) {
@@ -513,8 +507,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     return nil;
 }
 
--(Complex)complex_mult:(Complex) a
-                      :(Complex) b
+-(Complex)multiplComplex:(Complex)a withComplex:(Complex) b
 {
     Complex w;
     w.re = a.re * b.re  -  a.im * b.im;
@@ -542,42 +535,36 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 				:(unsigned int) eventNr
                :(fftw_complex *)kernel
 {
-    Complex a;
-    Complex b;
-    Complex c;
- 
-	fftw_complex *localBufInverseIn = mBuffersInverseIn[eventNr];
-	fftw_complex *localBufForwardOut = mBuffersForwardOut[eventNr];
-	double *localBufInverseOut = mBuffersInverseOut[eventNr];
-	fftw_plan planInverseFFT = mFftPlanInverse[eventNr];
 	unsigned int numberSamplesResult = (mNumberSamplesForInit / 2) + 1;//fftw3 definition
+	Complex valueEventSeries;
+    Complex valueGammaKernel;
+    Complex multiplResult;
 	
-    
-    /* convolution */
+	/* convolution */
     unsigned int j;
     for (j = 0; j < numberSamplesResult; j++) {
-        a.re = localBufForwardOut[j][0];
-        a.im = localBufForwardOut[j][1];
-        b.re = kernel[j][0];
-        b.im = kernel[j][1];
-        c = [self complex_mult:a :b];    
-        localBufInverseIn[j][0] = c.re;
-        localBufInverseIn[j][1] = c.im;
+        valueEventSeries.re = mBuffersForwardOut[eventNr][j][0];
+        valueEventSeries.im = mBuffersForwardOut[eventNr][j][1];
+        valueGammaKernel.re = kernel[j][0];
+        valueGammaKernel.im = kernel[j][1];
+        multiplResult = [self multiplComplex:valueEventSeries withComplex:valueGammaKernel];
+        mBuffersInverseIn[eventNr][j][0] = multiplResult.re;
+        mBuffersInverseIn[eventNr][j][1] = multiplResult.im;
     }
     
     /* inverse fft */
-    fftw_execute(planInverseFFT);
+    fftw_execute(mFftPlanInverse[eventNr]);
     
     /* scaling */
     for (j = 0; j < mNumberSamplesForInit; j++) {
-        localBufInverseOut[j] /= (double) mNumberSamplesForInit;}
+        mBuffersInverseOut[eventNr][j] /= (double) mNumberSamplesForInit;}
     
     /* sampling */
     for (unsigned int timestep = 0; timestep < mNumberTimesteps; timestep++) {
         j = (int) (mTimeOfRepetitionStartInMs[timestep] / samplingRateInMs + 0.5);
         
-        if (j >= 0 && j < mNumberSamplesNeededForExp) {
-            mDesign[col][timestep] = localBufInverseOut[j];
+        if (j >= 0 && j < mNumberSamplesForInit) {
+            mDesign[col][timestep] = mBuffersInverseOut[eventNr][j];
         }
     }
 }
@@ -627,7 +614,6 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 -(void)setRegressorTrial:(Trial)trial 
 {
-
 	//TODO: eine Logik falls sich Bereiche überschneiden in einem Eventtyp
 	TrialList* newListEntry;
 	newListEntry = (TrialList*) malloc(sizeof(TrialList));
@@ -683,7 +669,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         fftw_free(mBuffersForwardOut[eventNr]);
         fftw_free(mBuffersInverseIn[eventNr]);
         fftw_free(mBuffersInverseOut[eventNr]);
-		free(mGammaKernels[eventNr]);
+		free(mConvolutionKernels[eventNr]);
         
         TrialList* node;
         TrialList* tmp;
@@ -700,12 +686,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     fftw_free(mBuffersForwardOut);
     fftw_free(mBuffersInverseIn);
     free(mBuffersInverseOut);
-	free(mGammaKernels);
-    //fftw_free(mKernelBlockDeriv0);
-//    fftw_free(mKernelEventDeriv0);
-//    fftw_free(mKernelDeriv1);
-//    fftw_free(mKernelDeriv2);
-    
+	free(mConvolutionKernels);
     free(mFftPlanForward);
     free(mFftPlanInverse);
 
