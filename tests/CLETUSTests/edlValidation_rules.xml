@@ -1,182 +1,1940 @@
 <?xml version="1.0"  encoding="UTF-8"?>
 
-<edlRules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="edlValidation_rules.xsd">
-    
-    <!-- If logging is activated a logfile has to be given. -->
-    <rule ruleID="r1">
-        <param pID="r1p1"  pName="r1A">
-            <paramRef> rtExperiment.environment{1}.logging{1}.ATTRIBUTE.doLogging</paramRef>
-        </param>
-        <param pID="r1p2" pName="r1B">
-            <paramRef>rtExperiment.environment{1}.logging{1}.logFile{1}.CONTENT</paramRef>
-        </param>
-        <premise>
-            <literal>edlValidation_strIsEqual(r1p1,'true')</literal>
-          </premise>
-        <conclusion>
-            <literal> edlValidation_exists(r1p2)</literal>
-        </conclusion>
-        <message>Edl Error: doLogging = "true" but no logFile is given!</message>
-    </rule>
-     
-     
-     
-    <!-- The size of gw design + ignored scans at startup must be equal to MR param MR_TAG_MEASUREMENTS -->
-    <rule ruleID="r2">
-        <param pID="r2p1"  pName="">
-            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct</paramRef>
-        </param>
-        <param pID="r2p2"  pName="">
-            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor</paramRef>
-        </param>
-        <param pID="r2p3"  pName="">
-            <paramRef>rtExperiment.mriParams{1}.MR_TAG_MEASUREMENTS{1}.CONTENT</paramRef>
-        </param>
-        
-          <param pID="r2p4"  pName="">
-            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{1}.ATTRIBUTE.size</paramRef>
-        </param>
-         <param pID="r2p5"  pName="">
-            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.ATTRIBUTE.ignoreScansAtStart</paramRef>
-        </param>
-        
-         <premise>
-            <literal>edlValidation_exists(r2p1)</literal>
-            <literal>edlValidation_exists(r2p2)</literal>
-            <literal>edlValidation_exists(r2p3)</literal>
-        </premise>
-        
-        <conclusion>
-            <literal>  (r2p4+r2p5) == (r2p3)</literal>
-        </conclusion>
-        
-        <message>Edl Error: Number of measurments (MR_TAG_MEASUREMENTS) does not fit to number of scans in GW design! Missed ignored scans?</message>
-      </rule>
+<edlRules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="edlValidation_rules.xsd">
+
+<!--  ENVIRONMENT INTERNAL -->
+	<!-- If logging is activated a logfile has to be given. -->
+	<rule ruleID="r1_1">
+		<param pID="r1_1p1" pName="r1_1A">
+			<paramRef>
+				rtExperiment.environment{1}.logging{1}.ATTRIBUTE.doLogging
+			</paramRef>
+		</param>
+		<param pID="r1_1p2" pName="r1_1B">
+			<paramRef>
+				rtExperiment.environment{1}.logging{1}.logFile{1}.CONTENT
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_strIsEqual(r1_1p1,'true')</literal>
+		</premise>
+		<conclusion>
+			<literal>edlValidation_exists(r1_1p2)</literal>
+		</conclusion>
+		<message>
+			Edl Error: doLogging = "true" but no logFile is given!
+		</message>
+	</rule>
+	
+    <!-- If Environment- output image modalities image type is set to "IMAGE"   file extension must be ".ima" -->
+	<rule ruleID="r1_2">
+		<param pID="r1_2p1" pName="">
+			<paramRef>
+				rtExperiment.environment{1}.resultImage{1}.imageModalities{1}.ATTRIBUTE.imgType
+			</paramRef>
+		</param>
+		<param pID="r1_2p2" pName="">
+			<paramRef>
+				rtExperiment.environment{1}.resultImage{1}.imageModalities{1}.ATTRIBUTE.imgDataExtension
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_strIsEqual(r1_2p1,'IMAGE')</literal>
+		</premise>
+		<conclusion>
+			<literal>edlValidation_strIsEqual(r1_2p2,'.ima')</literal>
+		</conclusion>
+		<message>
+			Edl Error: Environment- output image data is defined as IMAGE, but file
+			extension is not ".ima"!
+		</message>
+	</rule>
+
+	<!-- If Environment- output image modalities image type is set to "DICOM"   file extension must be ".dcm" -->
+	<rule ruleID="r1_3">
+		<param pID="r1_3p1" pName="">
+			<paramRef>
+				rtExperiment.environment{1}.resultImage{1}.imageModalities{1}.ATTRIBUTE.imgType
+			</paramRef>
+		</param>
+		<param pID="r1_3p2" pName="">
+			<paramRef>
+				rtExperiment.environment{1}.resultImage{1}.imageModalities{1}.ATTRIBUTE.imgDataExtension
+			</paramRef>
+		</param>
+
+		<premise>
+			<literal>edlValidation_strIsEqual(r1_3p1,'DICOM')</literal>
+		</premise>
+
+		<conclusion>
+			<literal>edlValidation_strIsEqual(r1_3p2,'.dcm')</literal>
+		</conclusion>
+
+		<message>
+			Edl Error: Environment- output image data is defined as DICOM, but file
+			extension is not ".dcm"!
+		</message>
+	</rule>
+
+	<!-- If Environment- output image modalities image type is set to "ANALYZE"   file extension must be ".hdr" -->
+	<rule ruleID="r1_4">
+		<param pID="r1_4p1" pName="">
+			<paramRef>
+				rtExperiment.environment{1}.resultImage{1}.imageModalities{1}.ATTRIBUTE.imgType
+			</paramRef>
+		</param>
+		<param pID="r1_4p2" pName="">
+			<paramRef>
+				rtExperiment.environment{1}.resultImage{1}.imageModalities{1}.ATTRIBUTE.imgDataExtension
+			</paramRef>
+		</param>
+
+		<premise>
+			<literal>edlValidation_strIsEqual(r1_4p1,'ANALYZE')</literal>
+		</premise>
+
+		<conclusion>
+			<literal>edlValidation_strIsEqual(r1_4p2,'.hdr')</literal>
+		</conclusion>
+
+		<message>
+			Edl Error: Environment- output image data is defined as ANALYZE, but file
+			extension is not ".img"!
+		</message>
+	</rule>
+<!-- END  ENVIRONMENT INTERNAL -->
+
+
+
+<!-- EXPERIMENT DATA -->
+
+	<!-- The size of gw design + ignored scans at startup must be equal to MR param MR_TAG_MEASUREMENTS -->
+	<rule ruleID="r2">
+		<param pID="r2p1" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r2p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor
+			</paramRef>
+		</param>
+		<param pID="r2p3" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_MEASUREMENTS{1}.CONTENT
+			</paramRef>
+		</param>
+
+		<param pID="r2p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{1}.ATTRIBUTE.size
+			</paramRef>
+		</param>
+		<param pID="r2p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.ATTRIBUTE.ignoreScansAtStart
+			</paramRef>
+		</param>
+
+		<premise>
+			<literal>edlValidation_exists(r2p1)</literal>
+			<literal>edlValidation_exists(r2p2)</literal>
+			<literal>edlValidation_exists(r2p3)</literal>
+		</premise>
+
+		<conclusion>
+			<literal>(r2p4+r2p5) == (r2p3)</literal>
+		</conclusion>
+
+		<message>
+			Edl Error: Number of measurments (MR_TAG_MEASUREMENTS) does
+			not fit to number of scans in GW design! Missed ignored
+			scans?
+		</message>
+	</rule>
+
+
+
+	<!-- The size of a growing window scanbased regressor is exactly: sbrdesign size * repetitions + all random ignored images -->
+	<rule ruleID="r2_1">
+		<param pID="r2_1p1" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r2_1p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor
+			</paramRef>
+		</param>
+
+		<param pID="r2_1p3" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{1}.sbrDesign{1}.ATTRIBUTE.size
+			</paramRef>
+		</param>
+		<param pID="r2_1p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{1}.sbrDesign{1}.ATTRIBUTE.repetitions
+			</paramRef>
+		</param>
+		<param pID="r2_1p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{1}.ATTRIBUTE.size
+			</paramRef>
+		</param>
+		<param pID="r2_1p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{1}.sbrIgnoreStruct{1}.ATTRIBUTE.overallIgnores
+			</paramRef>
+		</param>
+
+		<premise>
+			<literal>edlValidation_exists(r2_1p1)</literal>
+			<literal>edlValidation_exists(r2_1p2)</literal>
+		</premise>
+
+		<conclusion>
+			<literal>(r2_1p3*r2_1p4+r2_1p6) == (r2_1p5)</literal>
+		</conclusion>
+
+		<message>
+			Edl Error: Check size of scanBasedRegressor and size of
+			sbrDesign in gwDesignStruct! Missed ignored scans?
+		</message>
+	</rule>
+
+
+<!-- The length of a growing window time based regressor is exactly: tbrDesign length * repetitions  -->
+	<rule ruleID="r2_2">
+		<param pID="r2_2p1" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r2_2p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor
+			</paramRef>
+		</param>
+
+		<param pID="r2_2p3" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor{1}.tbrDesign{1}.ATTRIBUTE.length
+			</paramRef>
+		</param>
+		<param pID="r2_2p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor{1}.tbrDesign{1}.ATTRIBUTE.repetitions
+			</paramRef>
+		</param>
+  	<param pID="r2_2p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor{1}.ATTRIBUTE.length
+			</paramRef>
+		</param>  
+		<premise>
+			<literal>edlValidation_exists(r2_2p1)</literal>
+			<literal>edlValidation_exists(r2_2p2)</literal>
+		</premise>
+
+		<conclusion>
+			<literal>(r2_2p3*r2_2p4) == (r2_2p5)</literal>
+		</conclusion>
+
+		<message>
+			Edl Error: Check size of timeBasedRegressor Nr.1 and size of
+			tbrDesign in gwDesignStruct! Missed repetitions?
+		</message>
+	</rule>
   
   
   
-    <!-- The size of a growing window scanbased regressor is exactly: sbrdesign size * repetitions + all ignored images -->       
-    <rule ruleID="r3">
-        <param pID="r3p1"  pName="">
-            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct</paramRef>
-        </param>
-        <param pID="r3p2"  pName="">
-            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor</paramRef>
-        </param>
-        
-        <param pID="r3p3"  pName="">
-            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{1}.sbrDesign{1}.ATTRIBUTE.size</paramRef>
-        </param>
-        <param pID="r3p4"  pName="">
-            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{1}.sbrDesign{1}.ATTRIBUTE.repetitions</paramRef>
-        </param>  
-        <param pID="r3p5"  pName="">
-            <paramRef> rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{1}.ATTRIBUTE.size</paramRef>
-        </param>      
-        <param pID="r3p6"  pName="">
-            <paramRef>rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{1}.sbrIgnoreStruct{1}.ATTRIBUTE.overallIgnores</paramRef>
-        </param>   
-        
-        <premise>
-            <literal>edlValidation_exists(r3p1)</literal>
-            <literal>edlValidation_exists(r3p2)</literal>
-        </premise>
-        
-        <conclusion>
-            <literal>  (r3p3*r3p4+r3p6)  == (r3p5)</literal>
-        </conclusion>
-        
-        <message>Edl Error: Check size of  scanBasedRegressor and size of sbrDesign in gwDesignStruct! Missed ignored scans?</message>
-    </rule>
-    
-    
-    
-    <!-- If image modalities image type is set to "IMAGE"   file extension must be ".ima" -->       
-    <rule ruleID="r4">
-        <param pID="r4p1"  pName="">
-            <paramRef> rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgType</paramRef>
-        </param>
-        <param pID="r4p2"  pName="">
-            <paramRef>  rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgDataExtension</paramRef>
-        </param>
-        
-         <premise>
-             <literal>edlValidation_strIsEqual(r4p1,'IMAGE')</literal>
-         </premise>
-        
-        <conclusion>
-            <literal>edlValidation_strIsEqual(r4p2,'.ima')</literal>
-        </conclusion>
-        
-        <message>Edl Error: Input image data is defined as IMAGE, but file extension is not ".ima"!</message>
-    </rule>
-    
-    
-    
-    <!-- If image modalities image type is set to "DICOM"   file extension must be ".dcm" -->       
-    <rule ruleID="r5">
-        <param pID="r5p1"  pName="">
-            <paramRef> rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgType</paramRef>
-        </param>
-        <param pID="r5p2"  pName="">
-            <paramRef>  rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgDataExtension</paramRef>
-        </param>
-        
-        <premise>
-            <literal>edlValidation_strIsEqual(r5p1,'DICOM')</literal>
-        </premise>
-        
-        <conclusion>
-            <literal>edlValidation_strIsEqual(r5p2,'.dcm')</literal>
-        </conclusion>
-        
-        <message>Edl Error: Input image data is defined as DICOM, but file extension is not ".dcm"!</message>
-    </rule>
-    
-    
-    
-    <!-- If image modalities image type is set to "ANALYZE"   file extension must be ".img" -->       
-    <rule ruleID="r6">
-        <param pID="r6p1"  pName="">
-            <paramRef> rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgType</paramRef>
-        </param>
-        <param pID="r6p2"  pName="">
-            <paramRef>  rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgDataExtension</paramRef>
-        </param>
-        
-        <premise>
-            <literal>edlValidation_strIsEqual(r6p1,'ANALYZE')</literal>
-        </premise>
-        
-        <conclusion>
-            <literal>edlValidation_strIsEqual(r6p2,'.img')</literal>
-        </conclusion>
-        
-        <message>Edl Error: Input image data is defined as ANALYZE, but file extension is not ".img"!</message>
-    </rule>
-    
-    
-    <!-- If TR is given in MRI params it should be equal to image modalities.TR  -->       
-    <rule ruleID="r7">
-        <param pID="r7p1"  pName="">
-            <paramRef>rtExperiment.mriParams{1}.MR_TAG_TR{1}.CONTENT</paramRef>
-        </param>
-        <param pID="r7p2"  pName="">
-            <paramRef>  rtExperiment.experimentData{1}.imageModalities{1}.TR{1}.CONTENT</paramRef>
-        </param>
-        
-        <premise>
-            <literal>edlValidation_exists(r7p1)</literal>
-        </premise>
-        
-        <conclusion>
-            <literal>(r7p1 == r7p2)</literal>
-        </conclusion>
-        
-        <message>Edl Error: TR defined in image modalities does not match TR defined in MRI parameters !</message>
-    </rule>
+  <!-- The length of a sliding window time based regressor is exactly: tbrDesign length * repetitions  -->
+	<rule ruleID="r2_3">
+		<param pID="r2_3p1" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r2_3p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor
+			</paramRef>
+		</param>
+
+		<param pID="r2_3p3" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor{1}.tbrDesign{1}.ATTRIBUTE.length
+			</paramRef>
+		</param>
+		<param pID="r2_3p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor{1}.tbrDesign{1}.ATTRIBUTE.repetitions
+			</paramRef>
+		</param>
+  	<param pID="r2_3p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor{1}.ATTRIBUTE.length
+			</paramRef>
+		</param>  
+		<premise>
+			<literal>edlValidation_exists(r2_3p1)</literal>
+			<literal>edlValidation_exists(r2_3p2)</literal>
+		</premise>
+
+		<conclusion>
+			<literal>(r2_3p3*r2_3p4) == (r2_3p5)</literal>
+		</conclusion>
+
+		<message>
+			Edl Error: Check size of timeBasedRegressor Nr.1 and size of
+			tbrDesign in swDesignStruct! Missed repetitions?
+		</message>
+	</rule>
+  
+  <!-- The length of a growing window time based regressor{2} is exactly: tbrDesign length * repetitions  -->
+	<rule ruleID="r2_4">
+		<param pID="r2_4p1" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r2_4p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor{2}
+			</paramRef>
+		</param>
+
+		<param pID="r2_4p3" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor{2}.tbrDesign{1}.ATTRIBUTE.length
+			</paramRef>
+		</param>
+		<param pID="r2_4p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor{2}.tbrDesign{1}.ATTRIBUTE.repetitions
+			</paramRef>
+		</param>
+  	<param pID="r2_4p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor{2}.ATTRIBUTE.length
+			</paramRef>
+		</param>  
+		<premise>
+			<literal>edlValidation_exists(r2_4p1)</literal>
+			<literal>edlValidation_exists(r2_4p2)</literal>
+		</premise>
+
+		<conclusion>
+			<literal>(r2_4p3*r2_4p4) == (r2_4p5)</literal>
+		</conclusion>
+		<message>
+			Edl Error: Check size of timeBasedRegressor Nr.2 and size of
+			tbrDesign in gwDesignStruct! Missed repetitions?
+		</message>
+	</rule>
+  
+    <!-- The length of a sliding window time based regressor {2} is exactly: tbrDesign length * repetitions  -->
+	<rule ruleID="r2_5">
+		<param pID="r2_5p1" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r2_5p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor{2}
+			</paramRef>
+		</param>
+
+		<param pID="r2_5p3" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor{2}.tbrDesign{1}.ATTRIBUTE.length
+			</paramRef>
+		</param>
+		<param pID="r2_5p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor{2}.tbrDesign{1}.ATTRIBUTE.repetitions
+			</paramRef>
+		</param>
+  	<param pID="r2_5p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor{2}.ATTRIBUTE.length
+			</paramRef>
+		</param>  
+		<premise>
+			<literal>edlValidation_exists(r2_5p1)</literal>
+			<literal>edlValidation_exists(r2_5p2)</literal>
+		</premise>
+
+		<conclusion>
+			<literal>(r2_5p3*r2_5p4) == (r2_5p5)</literal>
+		</conclusion>
+
+		<message>
+			Edl Error: Check size of timeBasedRegressor Nr.2 and size of
+			tbrDesign in swDesignStruct! Missed repetitions?
+		</message>
+	</rule>
   
   
- 
+   <!-- The length of sliding window time design + ignored scans * TR  must be equal or lower than  MR param MR_TAG_MEASUREMENTS * TR  -->
+	<rule ruleID="r2_6">
+		<param pID="r2_6p1" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r2_6p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor{1}
+			</paramRef>
+		</param>
+		<param pID="r2_6p3" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_MEASUREMENTS{1}.CONTENT
+			</paramRef>
+		</param>		
+		<param pID="r2_6p4" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_TR{1}.CONTENT
+			</paramRef>
+		</param>		
+  	    <param pID="r2_6p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor{1}.ATTRIBUTE.length
+			</paramRef>
+		</param>
+		<param pID="r2_6p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.ATTRIBUTE.ignoreScansAtStart
+			</paramRef>
+		</param>	
+		
+		<premise>
+			<literal>edlValidation_exists(r2_6p1)</literal>
+			<literal>edlValidation_exists(r2_6p2)</literal>
+			<literal>edlValidation_exists(r2_6p3)</literal>
+			<literal>edlValidation_exists(r2_6p4)</literal>
+		</premise>
+
+		<conclusion>
+			<literal>edlValidation_equalOrLowerThan((r2_6p5+r2_6p4*r2_6p6),(r2_6p3*r2_6p4))</literal>
+		</conclusion>
+
+		<message>
+			Edl Error: Check length of timeBasedRegressor and number of scans in measurement! Missed ignored scans?
+		</message>
+	</rule>
   
-</edlRules> 
+  
+  <!-- The length of growing window time design + ignored scans * TR  must be equal or lower than  MR param MR_TAG_MEASUREMENTS * TR  -->
+	<rule ruleID="r2_7">
+		<param pID="r2_7p1" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r2_7p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor{1}
+			</paramRef>
+		</param>
+		<param pID="r2_7p3" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_MEASUREMENTS{1}.CONTENT
+			</paramRef>
+		</param>		
+		<param pID="r2_7p4" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_TR{1}.CONTENT
+			</paramRef>
+		</param>		
+  	    <param pID="r2_7p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor{1}.ATTRIBUTE.length
+			</paramRef>
+		</param>
+		<param pID="r2_7p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.ATTRIBUTE.ignoreScansAtStart
+			</paramRef>
+		</param>	
+		
+		<premise>
+			<literal>edlValidation_exists(r2_7p1)</literal>
+			<literal>edlValidation_exists(r2_7p2)</literal>
+			<literal>edlValidation_exists(r2_7p3)</literal>
+			<literal>edlValidation_exists(r2_7p4)</literal>
+		</premise>
+
+		<conclusion>
+			<literal>edlValidation_equalOrLowerThan((r2_7p5+r2_7p4*r2_7p6),(r2_7p3*r2_7p4))</literal>
+		</conclusion>
+
+		<message>
+			Edl Error: Check length of timeBasedRegressor and number of scans in measurement! Missed ignored scans? Measurement must be at least as long as needed time in design!
+		</message>
+	</rule>
+
+  
+  
+
+	<!-- The length of Sliding Window design + ignored scans at startup must be equal to MR param MR_TAG_MEASUREMENTS -->
+	<rule ruleID="r3">
+		<param pID="r3p1" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r3p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.scanBasedRegressor
+			</paramRef>
+		</param>
+		<param pID="r3p3" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_MEASUREMENTS{1}.CONTENT
+			</paramRef>
+		</param>
+
+		<param pID="r3p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.scanBasedRegressor{1}.ATTRIBUTE.size
+			</paramRef>
+		</param>
+		<param pID="r3p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.ATTRIBUTE.ignoreScansAtStart
+			</paramRef>
+		</param>
+
+		<premise>
+			<literal>edlValidation_exists(r3p1)</literal>
+			<literal>edlValidation_exists(r3p2)</literal>
+			<literal>edlValidation_exists(r3p3)</literal>
+		</premise>
+
+		<conclusion>
+			<literal>(r3p4+r3p5) == (r3p3)</literal>
+		</conclusion>
+
+		<message>
+			Edl Error: Number of measurments (MR_TAG_MEASUREMENTS) does
+			not fit to number of scans in Sliding Window design! Missed ignored
+			scans?
+		</message>
+	</rule>
+
+
+	<!-- The length of a sliding window scanbased regressor is exactly: sbrdesign size * repetitions + all ignored images -->
+	<rule ruleID="r3_1">
+		<param pID="r3_1p1" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r3_1p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.scanBasedRegressor
+			</paramRef>
+		</param>
+
+		<param pID="r3_1p3" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.scanBasedRegressor{1}.sbrDesign{1}.ATTRIBUTE.size
+			</paramRef>
+		</param>
+		<param pID="r3_1p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.scanBasedRegressor{1}.sbrDesign{1}.ATTRIBUTE.repetitions
+			</paramRef>
+		</param>
+		<param pID="r3_1p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.scanBasedRegressor{1}.ATTRIBUTE.size
+			</paramRef>
+		</param>
+		<param pID="r3_1p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.scanBasedRegressor{1}.sbrIgnoreStruct{1}.ATTRIBUTE.overallIgnores
+			</paramRef>
+		</param>
+
+		<premise>
+			<literal>edlValidation_exists(r3_1p1)</literal>
+			<literal>edlValidation_exists(r3_1p2)</literal>
+		</premise>
+
+		<conclusion>
+			<literal>(r3_1p3*r3_1p4+r3_1p6) == (r3_1p5)</literal>
+		</conclusion>
+
+		<message>
+			Edl Error: Check size of scanBasedRegressor and size of
+			sbrDesign in Sliding Window DesignStruct! Missed ignored scans?
+		</message>
+	</rule>
+
+
+
+	<!-- If image modalities image type is set to "IMAGE"   file extension must be ".ima" -->
+	<rule ruleID="r3_2">
+		<param pID="r3_2p1" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgType
+			</paramRef>
+		</param>
+		<param pID="r3_2p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgDataExtension
+			</paramRef>
+		</param>
+
+		<premise>
+			<literal>edlValidation_strIsEqual(r3_2p1,'IMAGE')</literal>
+		</premise>
+
+		<conclusion>
+			<literal>edlValidation_strIsEqual(r3_2p2,'.ima')</literal>
+		</conclusion>
+
+		<message>
+			Edl Error: Input image data is defined as IMAGE, but file
+			extension is not ".ima"!
+		</message>
+	</rule>
+
+
+
+	<!-- If image modalities image type is set to "DICOM"   file extension must be ".dcm" -->
+	<rule ruleID="r3_3">
+		<param pID="r3_3p1" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgType
+			</paramRef>
+		</param>
+		<param pID="r3_3p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgDataExtension
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_strIsEqual(r3_3p1,'DICOM')</literal>
+		</premise>
+		<conclusion>
+			<literal>edlValidation_strIsEqual(r3_3p2,'.dcm')</literal>
+		</conclusion>
+		<message>
+			Edl Error: Input image data is defined as DICOM, but file
+			extension is not ".dcm"!
+		</message>
+	</rule>
+
+
+
+	<!-- If image modalities image type is set to "ANALYZE"   file extension must be ".hdr" -->
+	<rule ruleID="r3_4">
+		<param pID="r3_4p1" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgType
+			</paramRef>
+		</param>
+		<param pID="r3_4p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.ATTRIBUTE.imgDataExtension
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_strIsEqual(r3_4p1,'ANALYZE')</literal>
+		</premise>
+		<conclusion>
+			<literal>edlValidation_strIsEqual(r3_4p2,'.hdr')</literal>
+		</conclusion>
+		<message>
+			Edl Error: Input image data is defined as ANALYZE, but file
+			extension is not ".img"!
+		</message>
+	</rule>
+
+
+	<!-- If TR is given in MRI params it should be equal to image modalities.TR  -->
+	<rule ruleID="r3_5">
+		<param pID="r3_5p1" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_TR{1}.CONTENT
+			</paramRef>
+		</param>
+		<param pID="r3_5p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.TR{1}.CONTENT
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r3_5p1)</literal>
+		</premise>
+		<conclusion>
+			<literal>(r3_5p1 == r3_5p2)</literal>
+		</conclusion>
+		<message>
+			Edl Error: TR defined in image modalities does not match TR
+			defined in MRI parameters !
+		</message>
+	</rule>
+
+		
+	<!-- If image modalities image mosaic is given the imgWidth must be equal or bigger than tileWidth -->
+	<rule ruleID="r3_6">
+		<param pID="r3_6p1" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.imgMosaic{1}
+			</paramRef>
+		</param>
+		<param pID="r3_6p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.imgMosaic{1}.imgWidth{1}.CONTENT
+			</paramRef>
+		</param>
+		<param pID="r3_6p3" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.imgMosaic{1}.tileWidth{1}.CONTENT
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r3_6p1)</literal>
+		</premise>
+		<conclusion>
+			<literal>edlValidation_equalOrBiggerThan(r3_6p2,r3_6p3)</literal>
+		</conclusion>
+		<message>
+			Edl Error: Input image data mosaic: the imgWidth must be equal or bigger than tileWidth!
+		</message>
+	</rule>	
+	
+	
+	<!-- If image modalities image mosaic is given the imgHeight must be equal or bigger than tileHeight -->
+	<rule ruleID="r3_7">
+		<param pID="r3_7p1" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.imgMosaic{1}
+			</paramRef>
+		</param>
+		<param pID="r3_7p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.imgMosaic{1}.imgHeight{1}.CONTENT
+			</paramRef>
+		</param>
+		<param pID="r3_7p3" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.imgMosaic{1}.tileHeight{1}.CONTENT
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r3_7p1)</literal>
+		</premise>
+		<conclusion>
+			<literal>edlValidation_equalOrBiggerThan(r3_7p2,r3_7p3)</literal>
+		</conclusion>
+		<message>
+			Edl Error: Input image data mosaic: the imgHeight must be equal or bigger than tileHeight!
+		</message>
+	</rule>		
+		
+		
+		
+<!-- END EXPERIMENT DATA -->
+
+
+
+
+<!-- MR PARAMS -->
+	
+	<!-- MR - Params TE should be lower than TR! -->
+	<rule ruleID="r4">
+		<param pID="r4p1" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_TE
+			</paramRef>
+		</param>
+		<param pID="r4p2" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_TR
+			</paramRef>
+		</param>
+		<param pID="r4p3" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_TE{1}.CONTENT
+			</paramRef>
+		</param>
+		<param pID="r4p4" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_TR{1}.CONTENT
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r4p1)</literal>
+			<literal>edlValidation_exists(r4p2)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_lowerThan(r4p3,r4p4))</literal>
+		</conclusion>
+		<message>
+			Edl Error: MR-Params TE (MR_TAG_TE) is not lower than TR (MR_TAG_TR).
+		</message>
+	</rule>
+
+	<!-- MR - Params If Phase Resolution is 100% Matrix size should fit the dimensions of image data in experimentData.imageModalities (imgMosaic) ! -->
+	<rule ruleID="r4_1">
+		<param pID="r4_1p1" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_BASE_RESOLUTION{1}.CONTENT
+			</paramRef>
+		</param>
+		<param pID="r4_1p2" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_PHASE_RESOLUTION{1}.CONTENT
+			</paramRef>
+		</param>
+		<param pID="r4_1p3" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.imgMosaic
+			</paramRef>
+		</param>
+		<param pID="r4_1p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.imgMosaic{1}.tileWidth{1}.CONTENT
+			</paramRef>
+		</param>
+		<param pID="r4_1p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.imgMosaic{1}.tileHeight{1}.CONTENT
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r4_1p1)</literal>
+			<literal>edlValidation_exists(r4_1p2)</literal>
+			<literal>edlValidation_exists(r4_1p3)</literal>
+      <literal>edlValidation_exists(r4_1p4)</literal>
+			<literal>(r4_1p2 == 100)</literal>
+		</premise>
+		<conclusion>
+			<literal>(r4_1p1 == r4_1p4)</literal>
+		</conclusion>
+		<message>
+			Edl Error: MR-Params: Phase Resolution (MR_TAG_PHASE_RESOLUTION) is 100%, but Matrix (MR_TAG_BASE_RESOLUTION) does not fit the dimensions of image data in experimentData.imageModalities !.
+		</message>
+	</rule>
+
+<!-- MR - Params If Phase Resolution is 100% Matrix size should fit the dimensions of image data in experimentData.imageModalities (img3D) ! -->
+	<rule ruleID="r4_2">
+		<param pID="r4_2p1" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_BASE_RESOLUTION{1}.CONTENT
+			</paramRef>
+		</param>
+		<param pID="r4_2p2" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_PHASE_RESOLUTION{1}.CONTENT
+			</paramRef>
+		</param>
+		<param pID="r4_2p3" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.img3D
+			</paramRef>
+		</param>
+		<param pID="r4_2p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.img3D{1}.imgWidth{1}.CONTENT
+			</paramRef>
+		</param>
+		<param pID="r4_2p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.img3D{1}.imgHeight{1}.CONTENT
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r4_2p1)</literal>
+			<literal>edlValidation_exists(r4_2p2)</literal>
+			<literal>edlValidation_exists(r4_2p3)</literal>
+      <literal>edlValidation_exists(r4_2p4)</literal>
+			<literal>(r4_2p2 == 100)</literal>
+		</premise>
+		<conclusion>
+			<literal>((r4_2p1 == r4_2p4 == r4_2p5))</literal>
+		</conclusion>
+		<message>
+			Edl Error: MR-Params: Phase Resolution (MR_TAG_PHASE_RESOLUTION) is 100%, but Matrix (MR_TAG_BASE_RESOLUTION) does not fit the dimensions of image data in experimentData.imageModalities !.
+		</message>
+	</rule>
+
+
+
+<!-- MR - Params: The given slices in imageModalities should match the slices measured in MR-Params (imgMosaic) ! -->
+	<rule ruleID="r4_3">
+		<param pID="r4_3p1" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_SG_SIZE{1}.CONTENT
+			</paramRef>
+		</param>
+		<param pID="r4_3p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.imgMosaic
+			</paramRef>
+		</param>
+		<param pID="r4_3p3" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.imgMosaic{1}.slices{1}.CONTENT
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r4_3p1)</literal>
+			<literal>edlValidation_exists(r4_3p2)</literal>
+		</premise>
+		<conclusion>
+			<literal>(r4_3p1 == r4_3p3)</literal>
+		</conclusion>
+		<message>
+			Edl Error: MR-Params: The given slices in imageModalities do not match the number of slices defined in MR-Params!.
+		</message>
+	</rule>
+
+
+<!-- MR - Params: The given slices in imageModalities should match the slices measured in MR-Params (img3D) ! -->
+	<rule ruleID="r4_4">
+		<param pID="r4_4p1" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_SG_SIZE{1}.CONTENT
+			</paramRef>
+		</param>
+		<param pID="r4_4p2" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.img3D
+			</paramRef>
+		</param>
+		<param pID="r4_4p3" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.imageModalities{1}.img3D{1}.slices{1}.CONTENT
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r4_4p1)</literal>
+			<literal>edlValidation_exists(r4_4p2)</literal>
+		</premise>
+		<conclusion>
+			<literal>(r4_4p1 == r4_4p3)</literal>
+		</conclusion>
+		<message>
+			Edl Error: MR-Params: The given slices in imageModalities do not match the number of slices defined in MR-Params!
+		</message>
+	</rule>
+
+
+
+<!-- MR - Params Check for flip angle ERNST angle is cos(FA)= exp(–TR/T1) T1 of gray matter @ 3T is 1800ms at short TR's ! -->
+
+<!-- END MR PARAMS -->
+
+
+
+<!-- BEGIN PREPROCESSING PARAMS -->
+
+<!-- END PREPROCESSING PARAMS -->
+
+
+
+
+
+<!-- BEGIN STATS PARAMS -->
+
+<!-- STAT- Params: DGamma1: If a double gamma is defined as reference function the time to peak for overshoot must be lower that time to peak for undershoot ! -->
+	<rule ruleID="r6_1">
+		<param pID="r6_1p1" pName="">
+			<paramRef>
+				rtExperiment.statistics{1}.referenceFunctions{1}.dGamma
+			</paramRef>
+		</param>
+		<param pID="r6_1p2" pName="">
+			<paramRef>
+				rtExperiment.statistics{1}.referenceFunctions{1}.dGamma{1}.tPeak1{1}.CONTENT
+			</paramRef>
+		</param>
+		<param pID="r6_1p3" pName="">
+			<paramRef>
+				rtExperiment.statistics{1}.referenceFunctions{1}.dGamma{1}.tPeak2{1}.CONTENT
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r6_1p1)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_lowerThan(r6_1p2,r6_1p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Statistic-Params: Double gamma reference function number 1: The time to peak for overshoot (tPeak1) must be lower that time to peak for undershoot (tPeak2)!
+		</message>
+	</rule>
+
+	<!-- STAT- Params: DGamma2: If a double gamma is defined as reference function the time to peak for overshoot must be lower that time to peak for undershoot ! -->
+	<rule ruleID="r6_2">
+		<param pID="r6_2p1" pName="">
+			<paramRef>
+				rtExperiment.statistics{1}.referenceFunctions{1}.dGamma{2}
+			</paramRef>
+		</param>
+		<param pID="r6_2p2" pName="">
+			<paramRef>
+				rtExperiment.statistics{1}.referenceFunctions{1}.dGamma{2}.tPeak1{1}.CONTENT
+			</paramRef>
+		</param>
+		<param pID="r6_2p3" pName="">
+			<paramRef>
+				rtExperiment.statistics{1}.referenceFunctions{1}.dGamma{2}.tPeak2{1}.CONTENT
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r6_2p1)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_lowerThan(r6_2p2,r6_2p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Statistic-Params: Double gamma reference function number 2: The time to peak for overshoot (tPeak1) must be lower that time to peak for undershoot (tPeak2)!
+		</message>
+	</rule>
+	
+	
+  <!-- STAT- Params: DGamma3: If a double gamma is defined as reference function the time to peak for overshoot must be lower that time to peak for undershoot ! -->
+	<rule ruleID="r6_3">
+		<param pID="r6_3p1" pName="">
+			<paramRef>
+				rtExperiment.statistics{1}.referenceFunctions{1}.dGamma{3}
+			</paramRef>
+		</param>
+		<param pID="r6_3p2" pName="">
+			<paramRef>
+				rtExperiment.statistics{1}.referenceFunctions{1}.dGamma{3}.tPeak1{1}.CONTENT
+			</paramRef>
+		</param>
+		<param pID="r6_3p3" pName="">
+			<paramRef>
+				rtExperiment.statistics{1}.referenceFunctions{1}.dGamma{3}.tPeak2{1}.CONTENT
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r6_3p1)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_lowerThan(r6_3p2,r6_3p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Statistic-Params: Double gamma reference function number 3: The time to peak for overshoot (tPeak1) must be lower that time to peak for undershoot (tPeak2)!
+		</message>
+	</rule>
+		
+<!-- END STATS PARAMS -->
+
+
+
+<!-- BEGIN STIMULUS PRESENTATION PARAMS -->
+ <!-- Stim Environment:  The measurement defined in MR Params should be at least as long as the stimulus presentation (blockStimulusDesign). -->
+	<rule ruleID="r7">
+		<param pID="r7p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign
+			</paramRef>
+		</param>
+		
+		<param pID="r7p3" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_MEASUREMENTS{1}.CONTENT
+			</paramRef>
+		</param>		
+		<param pID="r7p4" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_TR{1}.CONTENT
+			</paramRef>
+		</param>
+		<param pID="r7p5" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		
+		<premise>
+			<literal>edlValidation_exists(r7p1)</literal>
+			<literal>edlValidation_exists(r7p2)</literal>
+			<literal>edlValidation_exists(r7p3)</literal>
+			<literal>edlValidation_exists(r7p4)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan(r7p5,(r7p3*r7p4)))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The measurement defined in MR-Params does not (at least) last as long as stimulus presentation!
+		</message>
+	</rule>
+
+
+	<!-- Stim Environment:  The measurement defined in MR Params should be at least as long as the stimulus presentation (freeStimulusDesign). -->
+	<rule ruleID="r7_1">
+		<param pID="r7_1p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7_1p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign
+			</paramRef>
+		</param>
+		
+		<param pID="r7_1p3" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_MEASUREMENTS{1}.CONTENT
+			</paramRef>
+		</param>		
+		<param pID="r7_1p4" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_TR{1}.CONTENT
+			</paramRef>
+		</param>
+		<param pID="r7_1p5" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		
+		<premise>
+			<literal>edlValidation_exists(r7_1p1)</literal>
+			<literal>edlValidation_exists(r7_1p2)</literal>
+			<literal>edlValidation_exists(r7_1p3)</literal>
+			<literal>edlValidation_exists(r7_1p4)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan(r7_1p5,(r7_1p3*r7_1p4)))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The measurement defined in MR-Params does not (at least) last as long as stimulus presentation!
+		</message>
+	</rule>
+
+    <!-- Stim Environment:  The scan based regressors in swDesign defined in experiment data should be at least as long as the stimulus presentation (freeStimulusDesign). -->
+	<rule ruleID="r7_2">
+		<param pID="r7_2p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7_2p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign
+			</paramRef>
+		</param>
+		<param pID="r7_2p3" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		<param pID="r7_2p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r7_2p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.scanBasedRegressor
+			</paramRef>
+		</param>
+		<param pID="r7_2p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.scanBasedRegressor{1}.ATTRIBUTE.size
+			</paramRef>
+		</param>
+		<param pID="r7_2p7" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_TR{1}.CONTENT
+			</paramRef>
+		</param>		
+		<premise>
+			<literal>edlValidation_exists(r7_2p1)</literal>
+			<literal>edlValidation_exists(r7_2p2)</literal>
+			<literal>edlValidation_exists(r7_2p4)</literal>
+			<literal>edlValidation_exists(r7_2p5)</literal>
+			<literal>edlValidation_exists(r7_2p7)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan((r7_2p6*r7_2p7),r7_2p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The regressor(s)  defined in sliding window design does not (at least) last as long as stimulus presentation!
+		</message>
+	</rule>
+	
+
+	<!-- Stim Environment:  The scan based regressors in swDesign defined in experiment data should be not longer the stimulus presentation (blockStimulusDesign). -->
+	<rule ruleID="r7_3">
+		<param pID="r7_3p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7_3p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign
+			</paramRef>
+		</param>
+		<param pID="r7_3p3" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		<param pID="r7_3p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r7_3p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.scanBasedRegressor
+			</paramRef>
+		</param>
+		<param pID="r7_3p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.scanBasedRegressor{1}.ATTRIBUTE.size
+			</paramRef>
+		</param>
+		<param pID="r7_3p7" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_TR{1}.CONTENT
+			</paramRef>
+		</param>		
+		<premise>
+			<literal>edlValidation_exists(r7_3p1)</literal>
+			<literal>edlValidation_exists(r7_3p2)</literal>
+			<literal>edlValidation_exists(r7_3p4)</literal>
+			<literal>edlValidation_exists(r7_3p5)</literal>
+			<literal>edlValidation_exists(r7_3p7)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan((r7_3p6*r7_3p7),r7_3p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The stimulus presentation does not (at least) last as long as regressor(s)  defined in sliding window design!
+		</message>
+	</rule>
+
+	<!-- Stim Environment:  The scan based regressors in gwDesign defined in experiment data should be not longer the stimulus presentation (blockStimulusDesign). -->
+	<rule ruleID="r7_4">
+		<param pID="r7_4p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7_4p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign
+			</paramRef>
+		</param>
+		<param pID="r7_4p3" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		<param pID="r7_4p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r7_4p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor
+			</paramRef>
+		</param>
+		<param pID="r7_4p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{1}.ATTRIBUTE.size
+			</paramRef>
+		</param>
+		<param pID="r7_4p7" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_TR{1}.CONTENT
+			</paramRef>
+		</param>		
+		<premise>
+			<literal>edlValidation_exists(r7_4p1)</literal>
+			<literal>edlValidation_exists(r7_4p2)</literal>
+			<literal>edlValidation_exists(r7_4p4)</literal>
+			<literal>edlValidation_exists(r7_4p5)</literal>
+			<literal>edlValidation_exists(r7_4p7)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan((r7_4p6*r7_4p7),r7_4p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The stimulus presentation does not (at least) last as long as regressor(s)  defined in growing window design!
+		</message>
+	</rule>
+
+	<!-- Stim Environment:  The scan based regressors in gwDesign defined in experiment data should be not longer the stimulus presentation (freeStimulusDesign). -->
+	<rule ruleID="r7_5">
+		<param pID="r7_5p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7_5p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign
+			</paramRef>
+		</param>
+		<param pID="r7_5p3" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		<param pID="r7_5p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r7_5p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor
+			</paramRef>
+		</param>
+		<param pID="r7_5p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{1}.ATTRIBUTE.size
+			</paramRef>
+		</param>
+		<param pID="r7_5p7" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_TR{1}.CONTENT
+			</paramRef>
+		</param>		
+		<premise>
+			<literal>edlValidation_exists(r7_5p1)</literal>
+			<literal>edlValidation_exists(r7_5p2)</literal>
+			<literal>edlValidation_exists(r7_5p4)</literal>
+			<literal>edlValidation_exists(r7_5p5)</literal>
+			<literal>edlValidation_exists(r7_5p7)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan((r7_5p6*r7_5p7),r7_5p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The stimulus presentation does not (at least) last as long as regressor(s)  defined in growing window design!
+		</message>
+	</rule>
+
+	
+	<!-- Stim Environment:  The time based regressors in swDesign defined in experiment data should be not longer the stimulus presentation (blockStimulusDesign). -->
+	<rule ruleID="r7_6">
+		<param pID="r7_6p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7_6p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign
+			</paramRef>
+		</param>
+		<param pID="r7_6p3" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		<param pID="r7_6p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r7_6p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor
+			</paramRef>
+		</param>
+		<param pID="r7_6p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor{1}.ATTRIBUTE.length
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r7_6p1)</literal>
+			<literal>edlValidation_exists(r7_6p2)</literal>
+			<literal>edlValidation_exists(r7_6p4)</literal>
+			<literal>edlValidation_exists(r7_6p5)</literal>
+			<literal>edlValidation_exists(r7_6p7)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan(r7_6p6,r7_6p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The stimulus presentation does not (at least) last as long as regressor(s)  defined in sliding window design!
+		</message>
+	</rule>
+	
+	
+    <!-- Stim Environment:  The time based regressors in swDesign defined in experiment data should be not longer the stimulus presentation (freeStimulusDesign). -->
+	<rule ruleID="r7_7">
+		<param pID="r7_7p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7_7p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign
+			</paramRef>
+		</param>
+		<param pID="r7_7p3" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		<param pID="r7_7p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r7_7p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor
+			</paramRef>
+		</param>
+		<param pID="r7_7p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor{1}.ATTRIBUTE.length
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r7_7p1)</literal>
+			<literal>edlValidation_exists(r7_7p2)</literal>
+			<literal>edlValidation_exists(r7_7p4)</literal>
+			<literal>edlValidation_exists(r7_7p5)</literal>
+			<literal>edlValidation_exists(r7_7p7)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan(r7_7p6,r7_7p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The stimulus presentation does not (at least) last as long as regressor(s)  defined in sliding window design!
+		</message>
+	</rule>
+	
+	
+	
+	
+	<!-- Stim Environment:  The time based regressors in gwDesign defined in experiment data should be not longer the stimulus presentation (blockStimulusDesign). -->
+	<rule ruleID="r7_8">
+		<param pID="r7_8p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7_8p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign
+			</paramRef>
+		</param>
+		<param pID="r7_8p3" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		<param pID="r7_8p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r7_8p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor
+			</paramRef>
+		</param>
+		<param pID="r7_8p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor{1}.ATTRIBUTE.length
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r7_8p1)</literal>
+			<literal>edlValidation_exists(r7_8p2)</literal>
+			<literal>edlValidation_exists(r7_8p4)</literal>
+			<literal>edlValidation_exists(r7_8p5)</literal>
+			<literal>edlValidation_exists(r7_8p7)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan(r7_8p6,r7_8p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The stimulus presentation does not (at least) last as long as regressor(s)  defined in growing window design!
+		</message>
+	</rule>
+	
+	
+    <!-- Stim Environment:  The time based regressors in gwDesign defined in experiment data should be not longer the stimulus presentation (freeStimulusDesign). -->
+	<rule ruleID="r7_9">
+		<param pID="r7_9p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7_9p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign
+			</paramRef>
+		</param>
+		<param pID="r7_9p3" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		<param pID="r7_9p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r7_9p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor
+			</paramRef>
+		</param>
+		<param pID="r7_9p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor{1}.ATTRIBUTE.length
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r7_9p1)</literal>
+			<literal>edlValidation_exists(r7_9p2)</literal>
+			<literal>edlValidation_exists(r7_9p4)</literal>
+			<literal>edlValidation_exists(r7_9p5)</literal>
+			<literal>edlValidation_exists(r7_9p7)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan(r7_9p6,r7_9p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The stimulus presentation does not (at least) last as long as regressor(s)  defined in growing window design!
+		</message>
+	</rule>
+	
+	
+	<!-- Stim Environment:  The scan based regressor {2} in swDesign defined in experiment data should be at least as long as the stimulus presentation (freeStimulusDesign). -->
+	<rule ruleID="r7_10">
+		<param pID="r7_10p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7_10p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign
+			</paramRef>
+		</param>
+		<param pID="r7_10p3" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		<param pID="r7_10p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r7_10p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.scanBasedRegressor{2}
+			</paramRef>
+		</param>
+		<param pID="r7_10p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.scanBasedRegressor{2}.ATTRIBUTE.size
+			</paramRef>
+		</param>
+		<param pID="r7_10p7" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_TR{1}.CONTENT
+			</paramRef>
+		</param>		
+		<premise>
+			<literal>edlValidation_exists(r7_10p1)</literal>
+			<literal>edlValidation_exists(r7_10p2)</literal>
+			<literal>edlValidation_exists(r7_10p4)</literal>
+			<literal>edlValidation_exists(r7_10p5)</literal>
+			<literal>edlValidation_exists(r7_10p7)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan((r7_10p6*r7_10p7),r7_10p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The regressor(s)  defined in sliding window design does not (at least) last as long as stimulus presentation!
+		</message>
+	</rule>
+	
+
+	
+	<!-- Stim Environment:  The scan based regressor {2} in swDesign defined in experiment data should be not longer the stimulus presentation (blockStimulusDesign). -->
+	<rule ruleID="r7_11">
+		<param pID="r7_11p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7_11p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign
+			</paramRef>
+		</param>
+		<param pID="r7_11p3" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		<param pID="r7_11p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r7_11p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.scanBasedRegressor{2}
+			</paramRef>
+		</param>
+		<param pID="r7_11p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.scanBasedRegressor{2}.ATTRIBUTE.size
+			</paramRef>
+		</param>
+		<param pID="r7_11p7" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_TR{1}.CONTENT
+			</paramRef>
+		</param>		
+		<premise>
+			<literal>edlValidation_exists(r7_11p1)</literal>
+			<literal>edlValidation_exists(r7_11p2)</literal>
+			<literal>edlValidation_exists(r7_11p4)</literal>
+			<literal>edlValidation_exists(r7_11p5)</literal>
+			<literal>edlValidation_exists(r7_11p7)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan((r7_11p6*r7_11p7),r7_11p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The stimulus presentation does not (at least) last as long as regressor(s)  defined in sliding window design!
+		</message>
+	</rule>
+
+	<!-- Stim Environment:  The scan based regressor {2} in gwDesign defined in experiment data should be not longer the stimulus presentation (blockStimulusDesign). -->
+	<rule ruleID="r7_12">
+		<param pID="r7_12p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7_12p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign
+			</paramRef>
+		</param>
+		<param pID="r7_12p3" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		<param pID="r7_12p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r7_12p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{2}
+			</paramRef>
+		</param>
+		<param pID="r7_12p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{2}.ATTRIBUTE.size
+			</paramRef>
+		</param>
+		<param pID="r7_12p7" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_TR{1}.CONTENT
+			</paramRef>
+		</param>		
+		<premise>
+			<literal>edlValidation_exists(r7_12p1)</literal>
+			<literal>edlValidation_exists(r7_12p2)</literal>
+			<literal>edlValidation_exists(r7_12p4)</literal>
+			<literal>edlValidation_exists(r7_12p5)</literal>
+			<literal>edlValidation_exists(r7_12p7)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan((r7_12p6*r7_12p7),r7_12p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The stimulus presentation does not (at least) last as long as regressor(s)  defined in growing window design!
+		</message>
+	</rule>
+
+	<!-- Stim Environment:  The scan based regressor {2} in gwDesign defined in experiment data should be not longer the stimulus presentation (freeStimulusDesign). -->
+	<rule ruleID="r7_13">
+		<param pID="r7_13p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7_13p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign
+			</paramRef>
+		</param>
+		<param pID="r7_13p3" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		<param pID="r7_13p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r7_13p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{2}
+			</paramRef>
+		</param>
+		<param pID="r7_13p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.scanBasedRegressor{2}.ATTRIBUTE.size
+			</paramRef>
+		</param>
+		<param pID="r7_13p7" pName="">
+			<paramRef>
+				rtExperiment.mriParams{1}.MR_TAG_TR{1}.CONTENT
+			</paramRef>
+		</param>		
+		<premise>
+			<literal>edlValidation_exists(r7_13p1)</literal>
+			<literal>edlValidation_exists(r7_13p2)</literal>
+			<literal>edlValidation_exists(r7_13p4)</literal>
+			<literal>edlValidation_exists(r7_13p5)</literal>
+			<literal>edlValidation_exists(r7_13p7)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan((r7_13p6*r7_13p7),r7_13p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The stimulus presentation does not (at least) last as long as regressor(s)  defined in growing window design!
+		</message>
+	</rule>
+
+	
+	<!-- Stim Environment:  The time based regressor {2} in swDesign defined in experiment data should be not longer the stimulus presentation (blockStimulusDesign). -->
+	<rule ruleID="r7_14">
+		<param pID="r7_14p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7_14p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign
+			</paramRef>
+		</param>
+		<param pID="r7_14p3" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		<param pID="r7_14p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r7_14p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor{2}
+			</paramRef>
+		</param>
+		<param pID="r7_14p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor{2}.ATTRIBUTE.length
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r7_14p1)</literal>
+			<literal>edlValidation_exists(r7_14p2)</literal>
+			<literal>edlValidation_exists(r7_14p4)</literal>
+			<literal>edlValidation_exists(r7_14p5)</literal>
+			<literal>edlValidation_exists(r7_14p7)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan(r7_14p6,r7_14p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The stimulus presentation does not (at least) last as long as regressor(s)  defined in sliding window design!
+		</message>
+	</rule>
+	
+	
+    <!-- Stim Environment:  The time based regressor {2} in swDesign defined in experiment data should be not longer the stimulus presentation (freeStimulusDesign). -->
+	<rule ruleID="r7_15">
+		<param pID="r7_15p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7_15p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign
+			</paramRef>
+		</param>
+		<param pID="r7_15p3" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		<param pID="r7_15p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r7_15p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor{2}
+			</paramRef>
+		</param>
+		<param pID="r7_15p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.swDesignStruct{1}.timeBasedRegressor{2}.ATTRIBUTE.length
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r7_15p1)</literal>
+			<literal>edlValidation_exists(r7_15p2)</literal>
+			<literal>edlValidation_exists(r7_15p4)</literal>
+			<literal>edlValidation_exists(r7_15p5)</literal>
+			<literal>edlValidation_exists(r7_15p7)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan(r7_15p6,r7_15p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The stimulus presentation does not (at least) last as long as regressor(s)  defined in sliding window design!
+		</message>
+	</rule>
+	
+	
+	
+	
+	<!-- Stim Environment:  The time based regressor {2} in gwDesign defined in experiment data should be not longer the stimulus presentation (blockStimulusDesign). -->
+	<rule ruleID="r7_16">
+		<param pID="r7_16p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7_16p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign
+			</paramRef>
+		</param>
+		<param pID="r7_16p3" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.blockStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		<param pID="r7_16p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r7_16p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor{2}
+			</paramRef>
+		</param>
+		<param pID="r7_16p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor{2}.ATTRIBUTE.length
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r7_16p1)</literal>
+			<literal>edlValidation_exists(r7_16p2)</literal>
+			<literal>edlValidation_exists(r7_16p4)</literal>
+			<literal>edlValidation_exists(r7_16p5)</literal>
+			<literal>edlValidation_exists(r7_16p7)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan(r7_16p6,r7_16p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The stimulus presentation does not (at least) last as long as regressor(s)  defined in growing window design!
+		</message>
+	</rule>
+	
+	
+    <!-- Stim Environment:  The time based regressor {2} in gwDesign defined in experiment data should be not longer the stimulus presentation (freeStimulusDesign). -->
+	<rule ruleID="r7_17">
+		<param pID="r7_17p1" pName="">
+			<paramRef>
+				rtExperiment.stimulusData
+			</paramRef>
+		</param>
+		<param pID="r7_17p2" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign
+			</paramRef>
+		</param>
+		<param pID="r7_17p3" pName="">
+			<paramRef>
+				rtExperiment.stimulusData{1}.timeTable{1}.freeStimulusDesign{1}.ATTRIBUTE.overallPresLength
+			</paramRef>
+		</param>		
+		<param pID="r7_17p4" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct
+			</paramRef>
+		</param>
+		<param pID="r7_17p5" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor{2}
+			</paramRef>
+		</param>
+		<param pID="r7_17p6" pName="">
+			<paramRef>
+				rtExperiment.experimentData{1}.paradigm{1}.gwDesignStruct{1}.timeBasedRegressor{2}.ATTRIBUTE.length
+			</paramRef>
+		</param>
+		<premise>
+			<literal>edlValidation_exists(r7_17p1)</literal>
+			<literal>edlValidation_exists(r7_17p2)</literal>
+			<literal>edlValidation_exists(r7_17p4)</literal>
+			<literal>edlValidation_exists(r7_17p5)</literal>
+			<literal>edlValidation_exists(r7_17p7)</literal>
+		</premise>
+		<conclusion>
+			<literal>(edlValidation_equalOrLowerThan(r7_17p6,r7_17p3))</literal>
+		</conclusion>
+		<message>
+			Edl Error: Stimulus-Params: The stimulus presentation does not (at least) last as long as regressor(s)  defined in growing window design!
+		</message>
+	</rule>
+<!-- END STIMULUS PRESENTATION PARAMS -->
+
+
+
+</edlRules>
