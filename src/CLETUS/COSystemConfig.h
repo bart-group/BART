@@ -59,5 +59,14 @@ enum COSystemConfigError {
  */
 -(NSString*)getProp:(NSString*)key;
 
+/**
+ * Returns the number of nodes for a given XPath query.
+ *
+ * \param query Complete XPath to the desired config entry
+ *			    or set of config entries.
+ * \return      Number of nodes that are referenced by key.
+ */
+-(NSUInteger)countNodes:(NSString*)query;
+
 
 @end
