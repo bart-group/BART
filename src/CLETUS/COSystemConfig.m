@@ -153,6 +153,19 @@ NSDictionary* mAbbreviations = nil;
 	return resultValue;
 }
 
+-(NSUInteger)countNodes:(NSString*)query
+{
+	NSError* err = nil;
+	// TODO: mRuntimeSetting correct here?
+	NSUInteger numberOfNodes = [[mRuntimeSetting nodesForXPath:query error:&err] count];
+	
+	if (err != nil) {
+		// TODO: Handle/deligate error! (return nil?)
+	}
+	
+	return numberOfNodes;
+}
+
 -(void)dealloc
 {
     [mSystemSetting release];
