@@ -73,6 +73,15 @@ COSystemConfig* config;
                          [expectedAttrValue cStringUsingEncoding:NSUTF8StringEncoding]);
 }
 
+-(void)testCountNodes
+{
+	NSString* query = @"/rtExperiment/experimentData/paradigm/gwDesignStruct/scanBasedRegressor/sbrDesign/scan";
+	NSUInteger numberOfNodes = [config countNodes:query];
+	NSUInteger expected = 12;
+	
+	STAssertEquals(expected, numberOfNodes, @"NumberOfNodes not as expected.");
+}
+
 -(void)testSetProp
 {
     NSString* propertyElem = @"/rtExperiment/environment/resultImage/imageModalities/imgBase";
