@@ -50,15 +50,57 @@ typedef struct TrialListStruct {
 @property (readonly, assign) enum ImageDataType mImageDataType;
 
 -(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
+
+/**
+ * Initialize a Design  element from an edl configuration
+ * the edl configuration has to be initialized
+ * \param type the type of the image data - IMAGE_DATA_FLOAT || IMAGE_DATA_SHORT
+ *
+ * returns an object of DesignElement
+ */
 -(id)initWithDynamicDataOfImageDataType:(enum ImageDataType)type;
 
+/**
+ * write the design file to the given path
+ * \param path to write the file
+ * returns nil on success
+ */
 -(NSError*)writeDesignFile:(NSString*)path;
 
+/**
+ * get the value from regressor or covariate at a timestep
+ * \param cov the column number the value is in
+ * \parama t the row number the value is in - means timestep
+ */
 -(NSNumber*)getValueFromExplanatoryVariable: (unsigned int)cov atTimestep:(unsigned int)t;
 
+/**
+ * set a whole column as a regressor
+ * \param regressor a whole TrialList 
+ */
 -(void)setRegressor:(TrialList *)regressor;
+
+/**
+ * set a single trial in a regressor
+ * \param regressor a single Trial 
+ */
+
 -(void)setRegressorTrial:(Trial)trial; 
+
+/**
+ * set a whole column as a covariate
+ * \param covariate a whole covariate vector
+ * \param covID the ID of the covariate to set 
+ */
+
 -(void)setCovariate:(float*)covariate forCovariateID:(int)covID;
+
+/**
+ * set a single value in one covariate
+ * \param value to set for a covariate 
+ * \param covID set value for ID of the covariate 
+ * \param timestep set value at the timestep
+ */
 -(void)setCovariateValue:(float)value forCovariateID:(int)covID atTimestep:(int)timestep;
 
 @end

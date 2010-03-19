@@ -7,15 +7,10 @@
 //
 
 #import "BADesignElementDyn.h"
-
-
-
-#include <viaio/VImage.h>
-
 #import "COSystemConfig.h"
 
-extern int VStringToken (char *, char *, int, int);
-
+// just as long as it will be written as .v
+#include <viaio/VImage.h>
 
 @implementation BADesignElementDyn
 
@@ -24,16 +19,6 @@ const int MAX_NUMBER_EVENTS = 100;
 double samplingRateInMs = 20.0;           /* Temporal resolution for convolution is 20 ms. */
 double t1 = 30.0;              /* HRF duration / Breite der HRF.                */
 const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
-
-
-
-/* Standard parameter values for gamma function, Glover 99. */
-//double a1 = 6.0;     
-//double b1 = 0.9;
-//double a2 = 12.0;
-//double b2 = 0.9;
-//double cc = 0.35;
-//
 
 
 // TODO: check if imageDataType still needed (here: float)
@@ -128,7 +113,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	COSystemConfig *config = [COSystemConfig getInstance];
 	
 	//TODO:  Will be initialized somewhere else
-	NSError *err = [config initializeWithContentsOfEDLFile:@"../../tests/CLETUSTests/Init_Links_1.edl"];
+	NSError *err = [config initializeWithContentsOfEDLFile:@"../../tests/CLETUSTests/timeBasedRegressorLydi.edltimeBasedRegressorLydi.edl"];
 	NSLog(@"%@", err);
 	if ( nil != err){
 		NSLog(@"Where the hell is the edl file");
@@ -139,12 +124,13 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
 	[f setNumberStyle:NSNumberFormatterDecimalStyle];
 	//TODO : Abfrage Einheit der repetition Time
-	mRepetitionTimeInMs = 1000;//[[f numberFromString:config_tr] intValue];
+	mRepetitionTimeInMs = [[f numberFromString:config_tr] intValue];
 	NSString* config_nrTimesteps = [config getProp:@"/rtExperiment/..."];
 	mNumberTimesteps = 720;//[[f numberFromString:config_nrTimesteps] intValue]; //TODO get from config
 	
-	mNumberRegressors = 0;
-	mNumberCovariates = 0;     // TODO: get from config  
+	mNumberRegressors = [config countNodes:@"rtExperiment/experimentData/paradigm/gwDesignStruct/timeBasedRegressor"];
+	NSLog(@"Regressors: %@", mNumberRegressors);
+	mNumberCovariates = [config countNodes:@"rtExperiment/experimentData/paradigm/gwDesignStruct/timeBasedRegressor"];;     // TODO: get from config  
 	
 	mDerivationsHrf = 0;
 	[f release];//temp for conversion purposes
@@ -165,12 +151,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	}
 
     unsigned long maxExpLengthInMs = mTimeOfRepetitionStartInMs[0] + mTimeOfRepetitionStartInMs[mNumberTimesteps - 1] + mRepetitionTimeInMs;//+1 repetition to add time of last rep
-	
-	NSLog(@"x[0]: %lf und xx[last] %lf", mTimeOfRepetitionStartInMs[0], mTimeOfRepetitionStartInMs[mNumberTimesteps - 1]);
     NSLog(@"Number timesteps: %d,  experiment duration: %.2f min\n", mNumberTimesteps, maxExpLengthInMs / 60000.0);
-    
-    maxExpLengthInMs += 10000; /* add 10 seconds to avoid FFT problems (wrap around) */
-    
      /*
      ** check amplitude: must have zero mean for parametric designs
 	 ** for not parametric nothing will be corrected due to check of stddev
@@ -220,14 +201,9 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
              }
          }
     }
-    
 	
     /* alloc memory */
-    mNumberSamplesNeededForExp = (unsigned long) (maxExpLengthInMs / samplingRateInMs);
-	NSLog(@"mNumberSamplesNeededForExp %d", mNumberSamplesNeededForExp);
-	NSLog(@"total duration in ms %d", maxExpLengthInMs);
-    
-        
+         
     unsigned int numberSamplesInResult = (mNumberSamplesForInit / 2) + 1;//defined for results of fftw3
 
     /* make plans one per each event*/
