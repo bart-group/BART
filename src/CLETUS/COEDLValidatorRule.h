@@ -17,7 +17,7 @@
     /** Rule identifier (should be unique). */
     NSString* mRuleID;
     /** Rule parameters with values from an EDL file/configuration. */
-    NSDictionary* mRarameters;
+    NSDictionary* mParameters;
     /** An array of COEDLValidatorLiteral objects that represents 
      *  all premises of the rule.
      */
