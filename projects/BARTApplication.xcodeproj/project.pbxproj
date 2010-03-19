@@ -237,6 +237,7 @@
 		00C3A07F114510CE00725668 /* Init_Links_1.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Init_Links_1.edl; sourceTree = "<group>"; };
 		00C3A080114510CE00725668 /* rtExperiment_v14.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rtExperiment_v14.xsd; sourceTree = "<group>"; };
 		00EC5D301153CAEA006691F5 /* BARTApplicationDoxyfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BARTApplicationDoxyfile; sourceTree = "<group>"; };
+		00EC5DDA1153E8F3006691F5 /* doxygenstyle.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = doxygenstyle.css; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -306,6 +307,7 @@
 		0040B78F1141470400A57967 /* docs */ = {
 			isa = PBXGroup;
 			children = (
+				00EC5DDA1153E8F3006691F5 /* doxygenstyle.css */,
 				00EC5D301153CAEA006691F5 /* BARTApplicationDoxyfile */,
 				0040B7901141470400A57967 /* BARTMainApplication */,
 				0040B7911141470400A57967 /* CLETUS */,
@@ -659,6 +661,7 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				CE8A333210F77DE4002422B5 /* CopyFiles */,
+				00EC5D7E1153CFAB006691F5 /* ShellScript */,
 			);
 			buildRules = (
 				CE8A2B3610F6250A002422B5 /* PBXBuildRule */,
@@ -767,6 +770,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		00EC5D7E1153CFAB006691F5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if ! [ -f $DOXYGEN_CONFIG ] \nthen \n echo doxygen config file does not exist\n exit 0\nfi\n\ncp $DOXYGEN_CONFIG $TEMP_DIR/doxygen.config\n\necho \"INPUT = $SOURCE_ROOT\" >> $TEMP_DIR/doxygen.config\necho \"OUTPUT_DIRECTORY = $DOXYGEN_OUTPUT\" >> $TEMP_DIR/doxygen.config\necho \"HTML_STYLESHEET = $DOXYGEN_OUTPUT/doxygenstyle.css\" >> $TEMP_DIR/doxygen.config\n\n# run\n$DOXYGEN_PATH $TEMP_DIR/doxygen.config\n\nrm -f $TEMP_DIR/doxygen.config\nrm -f $DOXYGEN_OUTPUT/html/tab_b.gif $DOXYGEN_OUTPUT/html/tab_l.gif $DOXYGEN_OUTPUT/html/tab_r.gif\n\nexit 0\n";
 		};
 		CE8B708F10DA988F007AEB2B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -999,6 +1015,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				DOXYGEN_CONFIG = ../docs/BARTApplicationDoxyfile;
+				DOXYGEN_OUTPUT = ../docs;
+				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -1014,6 +1033,8 @@
 					/opt/local/lib,
 				);
 				PRODUCT_NAME = BARTApplication;
+				SOURCE_ROOT = ../src;
+				TEMP_DIR = /tmp;
 			};
 			name = Debug;
 		};
