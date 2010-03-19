@@ -55,48 +55,13 @@
 
 -(BOOL)isEDLConfigCorrectAccordingToRules
 {
-    // Construct rules first
+    // Construct rules first.
     if (mRules == nil) {
         mRules = [NSMutableArray arrayWithCapacity:0];
         [self buildRules];
     }
     
-    // just some control output...
-//    FILE* fp = fopen("/tmp/cletusValidatorTest.txt", "w");
-//    for (COEDLValidatorRule* rule in mRules) {
-//        fputs([[rule mRuleID] cStringUsingEncoding:NSUTF8StringEncoding], fp);
-//        fputc('\n', fp);
-//        fputs([@"  parameters:" cStringUsingEncoding:NSUTF8StringEncoding], fp);
-//        fputc('\n', fp);
-//        for (id key in [rule mParameters]) {
-//            fputs([[NSString stringWithFormat:@"    key: %@, value: %@", key, [[rule mParameters] objectForKey:key]] cStringUsingEncoding:NSUTF8StringEncoding], fp);
-//            fputc('\n', fp);
-//        }
-//        fputs([@"  literals of all premises:" cStringUsingEncoding:NSUTF8StringEncoding], fp);
-//        fputc('\n', fp);
-//        for (COEDLValidatorLiteral* lit in [rule mPremises]) {
-//            fputs("    ", fp);
-//            fputs([[lit literalString] cStringUsingEncoding:NSUTF8StringEncoding], fp);
-//            fputc('\n', fp);
-//        }
-//        fputs([@"  literals of all conclusions:" cStringUsingEncoding:NSUTF8StringEncoding], fp);
-//        fputc('\n', fp);
-//        for (COEDLValidatorLiteral* lit in [rule mConclusions]) {
-//            fputs("    ", fp);
-//            fputs([[lit literalString] cStringUsingEncoding:NSUTF8StringEncoding], fp);
-//            fputc('\n', fp);
-//        }
-//        fputs([@"  message:" cStringUsingEncoding:NSUTF8StringEncoding], fp);
-//        fputc('\n', fp);
-//        fputs("    ", fp);
-//        fputs([[rule mMessage] cStringUsingEncoding:NSUTF8StringEncoding], fp);
-//        fputc('\n', fp);
-//        
-//    }
-//    fclose(fp);
-    
-    // TODO: Check whether all rules are satisfied...
-    
+    // Check whether all rules are satisfied.
     BOOL allRulesSatisfied = YES;
     NSMutableString* errorBuffer = [[NSMutableString alloc] initWithCapacity:1];
     for (COEDLValidatorRule* rule in mRules) {
@@ -119,12 +84,12 @@
         mError = [NSError errorWithDomain:errorDomain
                                      code:EDL_LOGICAL_VALIDATION
                                  userInfo:nil];
-        // TODO: remove output
-        FILE* f = fopen("/tmp/validationErrors.txt", "w");
-        fputs([[mError domain] cStringUsingEncoding:NSUTF8StringEncoding], f);
-        fputc('\n', f);
-        fclose(f);
-        // END output
+//        // TODO: remove output
+//        FILE* f = fopen("/tmp/validationErrors.txt", "w");
+//        fputs([[mError domain] cStringUsingEncoding:NSUTF8StringEncoding], f);
+//        fputc('\n', f);
+//        fclose(f);
+//        // END output
     }
     
     [errorBuffer release];

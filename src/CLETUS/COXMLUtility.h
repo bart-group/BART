@@ -9,10 +9,6 @@
 #import <Cocoa/Cocoa.h>
 
 
-//enum COXMLUtilityError {
-//
-//};
-
 /**
  * Providing functions for common XML issues.
  */

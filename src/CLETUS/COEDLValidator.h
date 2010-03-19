@@ -11,7 +11,6 @@
 
 /**
  * Object used for validation of an EDL file against an EDL rule file.
- * 
  */
 @interface COEDLValidator: NSObject {
     

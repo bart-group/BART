@@ -13,6 +13,7 @@
 
 @interface COSystemConfig (PrivateStuff)
 
+/** Singleton object of COSystemConfig. */
 COSystemConfig* mSingleton = nil;
 
 /**
@@ -32,7 +33,6 @@ NSXMLDocument* mRuntimeSetting = nil;
  * for often used configuration entries (e.g. RepetitionTime).
  */
 NSDictionary* mAbbreviations = nil;
-    
 
 /**
  * Setups abbreviation dictionary which contains short keywords
