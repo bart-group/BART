@@ -13,27 +13,6 @@
 
 @interface COSystemConfig (PrivateStuff)
 
-/** Singleton object of COSystemConfig. */
-COSystemConfig* mSingleton = nil;
-
-/**
- * Original configuration from the EDL file. Remains unchanged
- * during runtime.
- */
-NSXMLDocument* mSystemSetting = nil;
-
-/**
- * Copy of the original configuration. Changes to the experiment
- * configuration that occur during runtime are stored here.
- */
-NSXMLDocument* mRuntimeSetting = nil;
-
-/**
- * Dictionary that eliminates the need of knowing the exact XPath
- * for often used configuration entries (e.g. RepetitionTime).
- */
-NSDictionary* mAbbreviations = nil;
-
 /**
  * Setups abbreviation dictionary which contains short keywords
  * for often used config entries (and their associated XPath
@@ -56,33 +35,43 @@ NSDictionary* mAbbreviations = nil;
 
 @implementation COSystemConfig
 
+-(id)init
+{
+    if (self = [super init]) {    
+        mSystemSetting = nil;
+        mRuntimeSetting = nil;
+        [self initAbbreviations];
+    }
+    
+    return self;
+}
+
 -(void)initAbbreviations
 {
-	NSArray *shortKeys = [NSArray arrayWithObjects:@"sTR", 
-                          @"sNumEvents", 
-                          @"sFoo", 
-						  nil];
+	NSArray *shortKeys   = [NSArray arrayWithObjects:@"$TR", 
+                            @"$gwDesign",
+						    nil];
 	
-	NSArray *xpathValues = [NSArray arrayWithObjects:@"", 
-                            @"", 
-                            @"", 
+	NSArray *xpathValues = [NSArray arrayWithObjects:@"/rtExperiment/experimentData/imageModalities/TR", 
+                            @"/rtExperiment/experimentData/paradigm/gwDesignStruct",
 							nil];
-	mAbbreviations = [NSDictionary dictionaryWithObjects:xpathValues
-												 forKeys:shortKeys];
+	mAbbreviations = [[NSDictionary alloc] initWithObjects:xpathValues
+                                                   forKeys:shortKeys];
 }
 
 +(COSystemConfig*)getInstance
 {
-	if (mSingleton == nil) {
-		mSingleton = [[COSystemConfig alloc] init];
-        [mSingleton initAbbreviations];
+    /** Singleton object of COSystemConfig. */
+    static COSystemConfig* mSingleton = nil;
+    
+	if (!mSingleton) {
+		mSingleton = [[self alloc] init];
 	} 
 	
 	return mSingleton;
 }
 
--(NSError*)initializeWithContentsOfEDLFile:(NSString*)edlPath 
-                         
+-(NSError*)fillWithContentsOfEDLFile:(NSString*)edlPath 
 {
     [mSystemSetting release];
 	mSystemSetting  = [COXMLUtility newParsedXMLDocument:edlPath];
@@ -100,15 +89,17 @@ NSDictionary* mAbbreviations = nil;
 
 -(NSString*)resolveKey:(NSString*)key
 {
-	NSString* query = nil;
-	
-	if ([key hasPrefix:@"s"]) {
-		query = [mAbbreviations objectForKey:key];
-	} else {
-		query = key;
-	}
-	
-	return query;
+    NSMutableString* query = [NSMutableString stringWithCapacity:0];
+    [query appendString:key];
+
+    for (NSString* entryKey in mAbbreviations) {
+        [query replaceOccurrencesOfString:(NSString*)entryKey 
+                               withString:[mAbbreviations valueForKey:entryKey] 
+                                  options:NSLiteralSearch 
+                                    range:NSMakeRange(0, [query length])];
+    }
+    
+    return query;
 }
 
 -(NSError*)setProp:(NSString*)key 
@@ -153,8 +144,9 @@ NSDictionary* mAbbreviations = nil;
 	return resultValue;
 }
 
--(NSUInteger)countNodes:(NSString*)query
+-(NSUInteger)countNodes:(NSString*)key
 {
+    NSString* query = [self resolveKey:key];
 	NSError* err = nil;
 	// TODO: mRuntimeSetting correct here?
 	NSUInteger numberOfNodes = [[mRuntimeSetting nodesForXPath:query error:&err] count];
@@ -170,8 +162,9 @@ NSDictionary* mAbbreviations = nil;
 {
     [mSystemSetting release];
     [mRuntimeSetting release];
+    [mAbbreviations release];
     
-    [mSingleton release];
+//    [mSingleton release];
     
 	[super dealloc];
 }

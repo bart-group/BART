@@ -62,7 +62,7 @@
  * Returns an error object if something went wrong during 
  * initialization/validation.
  *
- * \return Error object containing de
+ * \return Error object.
  */
 -(NSError*)getError;
     

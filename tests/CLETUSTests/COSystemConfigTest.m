@@ -23,13 +23,13 @@ COSystemConfig* config;
 -(void)setUp
 {
 	config = [COSystemConfig getInstance];
-    [config initializeWithContentsOfEDLFile:@"../tests/CLETUSTests/Init_Links_1.edl"];
+    [config fillWithContentsOfEDLFile:@"../tests/CLETUSTests/Init_Links_1.edl"];
 }
 
 -(void)testInit
 {
 	NSError* err = nil;
-	err = [config initializeWithContentsOfEDLFile:@"../tests/CLETUSTests/Init_Links_1.edl"];
+	err = [config fillWithContentsOfEDLFile:@"../tests/CLETUSTests/Init_Links_1.edl"];
     
     BOOL success = NO;
     if (err == nil) {
@@ -42,7 +42,7 @@ COSystemConfig* config;
 -(void)testChallengeInitError
 {
     NSError* err = nil;
-	err = [config initializeWithContentsOfEDLFile:@"not_existing.foo"];
+	err = [config fillWithContentsOfEDLFile:@"not_existing.foo"];
     
     BOOL success = NO;
     if (err == nil) {
@@ -61,9 +61,12 @@ COSystemConfig* config;
     NSString* valueElem = [config getProp:propertyElem];
     NSString* propertyAttr = @"/rtExperiment/environment/resultImage/imageModalities/@imgDataExtension";
     NSString* valueAttr = [config getProp:propertyAttr];
+    NSString* propertyAbbr = @"$TR";
+    NSString* valueAbbr = [config getProp:propertyAbbr];
     
     NSString* expectedElemValue = @"results_";
     NSString* expectedAttrValue = @".hdr";
+    NSString* expectedAbbrValue = @"2000";
     
     STAssertEqualObjects(valueElem, expectedElemValue, @"Value %s does not match the expected %s!", 
                          [valueElem cStringUsingEncoding:NSUTF8StringEncoding], 
@@ -71,15 +74,22 @@ COSystemConfig* config;
     STAssertEqualObjects(valueAttr, expectedAttrValue, @"Value %s does not match the expected %s!", 
                          [valueAttr cStringUsingEncoding:NSUTF8StringEncoding], 
                          [expectedAttrValue cStringUsingEncoding:NSUTF8StringEncoding]);
+    STAssertEqualObjects(valueAbbr, expectedAbbrValue, @"Value %s does not match the expected %s!", 
+                         [valueAbbr cStringUsingEncoding:NSUTF8StringEncoding], 
+                         [expectedAbbrValue cStringUsingEncoding:NSUTF8StringEncoding]);
 }
 
 -(void)testCountNodes
 {
 	NSString* query = @"/rtExperiment/experimentData/paradigm/gwDesignStruct/scanBasedRegressor/sbrDesign/scan";
 	NSUInteger numberOfNodes = [config countNodes:query];
-	NSUInteger expected = 12;
+    NSString* queryWithAbbr = @"$gwDesign/scanBasedRegressor/sbrDesign/scan";
+    NSUInteger numberOfNodesWithAbbr = [config countNodes:queryWithAbbr];
+    
+    NSUInteger expected = 12;
 	
 	STAssertEquals(expected, numberOfNodes, @"NumberOfNodes not as expected.");
+   	STAssertEquals(expected, numberOfNodesWithAbbr, @"NumberOfNodesWithAbbr not as expected.");
 }
 
 -(void)testSetProp

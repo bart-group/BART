@@ -21,6 +21,24 @@ enum COSystemConfigError {
  * during realtime analysis).
  */
 @interface COSystemConfig : NSObject {
+    
+    /**
+     * Original configuration from the EDL file. Remains unchanged
+     * during runtime.
+     */
+    NSXMLDocument* mSystemSetting;
+    
+    /**
+     * Copy of the original configuration. Changes to the experiment
+     * configuration that occur during runtime are stored here.
+     */
+    NSXMLDocument* mRuntimeSetting;
+    
+    /**
+     * Dictionary that eliminates the need of knowing the exact XPath
+     * for often used configuration entries (e.g. RepetitionTime).
+     */
+    NSDictionary* mAbbreviations;
 	
 }
 
@@ -37,7 +55,7 @@ enum COSystemConfigError {
  * \param edlPath  Path to the EDL file.
  * \return         Nil if successful, error object otherwise.
  */
--(NSError*)initializeWithContentsOfEDLFile:(NSString*)edlPath;
+-(NSError*)fillWithContentsOfEDLFile:(NSString*)edlPath;
 
 /**
  * Sets a property for a given key.
@@ -62,11 +80,10 @@ enum COSystemConfigError {
 /**
  * Returns the number of nodes for a given XPath query.
  *
- * \param query Complete XPath to the desired config entry
- *			    or set of config entries.
- * \return      Number of nodes that are referenced by key.
+ * \param key See method setProp:key:value.
+ * \return    Number of nodes that are referenced by key.
  */
--(NSUInteger)countNodes:(NSString*)query;
+-(NSUInteger)countNodes:(NSString*)key;
 
 
 @end
