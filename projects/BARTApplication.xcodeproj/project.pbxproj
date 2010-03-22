@@ -141,6 +141,7 @@
 /* Begin PBXFileReference section */
 		003091FE11527BF800E258D9 /* NEDesignKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignKernel.h; sourceTree = "<group>"; };
 		003091FF11527BF800E258D9 /* NEDesignKernel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignKernel.m; sourceTree = "<group>"; };
+		003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = timeBasedRegressorLydi.edl; sourceTree = "<group>"; };
 		0040B7951141470400A57967 /* BAAnalyzerGLM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAAnalyzerGLM.h; sourceTree = "<group>"; };
 		0040B7961141470400A57967 /* BAAnalyzerGLM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAAnalyzerGLM.m; sourceTree = "<group>"; };
 		0040B7971141470400A57967 /* BlockIO.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BlockIO.c; sourceTree = "<group>"; };
@@ -471,6 +472,7 @@
 		0040B85C1141472200A57967 /* CLETUSTests */ = {
 			isa = PBXGroup;
 			children = (
+				003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */,
 				0088781F1147B445009C7707 /* edlValidation_rules.xml */,
 				008878201147B445009C7707 /* edlValidation_rules.xsd */,
 				008878211147B445009C7707 /* rtExperiment_v14_w_timebased.xsd */,
@@ -1017,7 +1019,7 @@
 				COPY_PHASE_STRIP = NO;
 				DOXYGEN_CONFIG = ../docs/BARTApplicationDoxyfile;
 				DOXYGEN_OUTPUT = ../docs;
-				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
+				DOXYGEN_PATH = /opt/local/bin/doxygen;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
