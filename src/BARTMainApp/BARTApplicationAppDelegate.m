@@ -9,6 +9,7 @@
 #import "BARTApplicationAppDelegate.h"
 #import "BAGUIPrototyp.h"
 #import "BADesignElementDyn.h"
+#import "COSystemConfig.h"
 
 @implementation BARTApplicationAppDelegate
 
@@ -17,6 +18,15 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
  
+	COSystemConfig *config = [COSystemConfig getInstance];
+	
+	NSError *err = [config fillWithContentsOfEDLFile:@"../../tests/CLETUSTests/timeBasedRegressorLydi.edl"];
+	NSLog(@"%@", err);
+	if ( nil != err){
+		NSLog(@"Where the hell is the edl file");
+		return err;
+	}
+	
     gui = [[BAGUIProtoCGLayer alloc] initWithWindow:window];
     [gui initLayers];
 	//[gui doPaint];

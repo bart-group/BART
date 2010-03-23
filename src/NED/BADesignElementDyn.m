@@ -111,26 +111,34 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 -(NSError*)getPropertiesFromConfig
 {
 	COSystemConfig *config = [COSystemConfig getInstance];
-	
-	//TODO:  Will be initialized somewhere else
-	NSError *err = [config fillWithContentsOfEDLFile:@"../../tests/CLETUSTests/timeBasedRegressorLydi.edltimeBasedRegressorLydi.edl"];
-	NSLog(@"%@", err);
-	if ( nil != err){
-		NSLog(@"Where the hell is the edl file");
-		return err;
-	}
+//	
+//	//TODO:  Will be initialized somewhere else
+//	NSError *err = [config fillWithContentsOfEDLFile:@"../../tests/CLETUSTests/timeBasedRegressorLydi.edl"];
+//	NSLog(@"%@", err);
+//	if ( nil != err){
+//		NSLog(@"Where the hell is the edl file");
+//		return err;
+//	}
 	
 	NSString* config_tr = [config getProp:@"$TR"];
+	NSUInteger conf_tr = [config countNodes:@"$TR"];
+
 	NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
 	[f setNumberStyle:NSNumberFormatterDecimalStyle];
 	//TODO : Abfrage Einheit der repetition Time
 	mRepetitionTimeInMs = [[f numberFromString:config_tr] intValue];
-	NSString* config_nrTimesteps = [config getProp:@"/rtExperiment/..."];
+	NSString* config_nrTimesteps = [config getProp:@"/rtExperiment/experimentData/paradigm/gwDesignStruct/timeBasedRegressor/tbrDesign/@length"];
+
+	int l = [[f numberFromString:config_nrTimesteps] intValue];
+	NSLog(@"length of Exp: %d", l);
 	mNumberTimesteps = 720;//[[f numberFromString:config_nrTimesteps] intValue]; //TODO get from config
 	
 	mNumberRegressors = [config countNodes:@"$gwDesign/timeBasedRegressor"];
-	NSLog(@"Regressors: %@", mNumberRegressors);
+	NSLog(@"Regressors: %d", mNumberRegressors);
 	mNumberCovariates = [config countNodes:@"$gwDesign/timeBasedRegressor"];     // TODO: get from config  
+	
+	NSString *time = [config getProp:@"$gwDesign/timeBasedRegressor/tbrDesign/statEvent/@time" ];
+	NSLog(@"Time: %s", time);
 	
 	mDerivationsHrf = 0;
 	[f release];//temp for conversion purposes
