@@ -19,13 +19,15 @@
         NSString* errorString = [NSString stringWithFormat:@"Could not create URL from given path %s!", filePath];
         return [NSError errorWithDomain:errorString code:URL_CREATION userInfo:nil];
     }
-    //TODO: Use Error!
+    //TODO: Use error! Indirect returned error: reponsible for release!
 	NSXMLDocument* doc = nil;
     NSError* err = nil;
     doc = [[NSXMLDocument alloc] initWithContentsOfURL:fileURL
                                                options:(NSXMLNodePreserveWhitespace|NSXMLNodePreserveCDATA)
                                                  error:&err];
-    NSLog(@"Error: %@", err);
+    if (err) {
+        NSLog(@"%@", err);
+    }
 	
 	return doc;
 }
