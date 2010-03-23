@@ -25,12 +25,7 @@
     doc = [[NSXMLDocument alloc] initWithContentsOfURL:fileURL
                                                options:(NSXMLNodePreserveWhitespace|NSXMLNodePreserveCDATA)
                                                  error:&err];
-    if (doc == nil) {
-		err = nil;
-        doc = [[NSXMLDocument alloc] initWithContentsOfURL:fileURL
-                                                   options:NSXMLDocumentTidyXML
-                                                     error:&err];
-    }
+    NSLog(@"Error: %@", err);
 	
 	return doc;
 }
