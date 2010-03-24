@@ -30,23 +30,18 @@
 -(id)initWithContentsOfEDLFile:(NSString*)edlPath
                    andEDLRules:(NSString*)rulePath
 {
-    mEDLdoc   = nil;
-    mEDLRules = nil;
     mRules    = nil;
     mError    = nil;
-    mEDLdoc   = [COXMLUtility newParsedXMLDocument:edlPath];
-    mEDLRules = [COXMLUtility newParsedXMLDocument:rulePath];
     
-    if (mEDLdoc == nil)  {
-        mError = [NSError errorWithDomain:@"Could not read/parse EDL file. Check well-formedness of XML syntax and existence of file!" 
-                                    code:XML_DOCUMENT_READ 
-                                userInfo:nil];
+    mEDLdoc   = nil;
+    mEDLdoc   = [COXMLUtility newParsedXMLDocument:edlPath :&mError];
+    if (mError) {
         return nil;
     }
-    if (mEDLRules == nil)  {
-        mError = [NSError errorWithDomain:@"Could not read/parse EDL rules file. Check well-formedness of XML syntax and existence of file!" 
-                                    code:XML_DOCUMENT_READ 
-                                userInfo:nil];
+    
+    mEDLRules = nil;
+    mEDLRules = [COXMLUtility newParsedXMLDocument:rulePath :&mError];
+    if (mError) {
         return nil;
     }
         

@@ -45,7 +45,8 @@
  * \param edlPath  Path to the experiment configuration file (EDL file). 
  * \param rulePath Path to the XML file containing the EDL 
  *                 logical validation rules (pass nil if not needed).
- * \return         Returns the validator object. Nil in case of failure.
+ * \return         Returns the validator object. Nil in case of failure 
+ *                 (call getError to get detailed error information).
  */
 -(id)initWithContentsOfEDLFile:(NSString*)edlPath
                    andEDLRules:(NSString*)rulePath;

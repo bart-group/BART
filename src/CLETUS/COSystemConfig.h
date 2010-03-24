@@ -63,7 +63,7 @@ enum COSystemConfigError {
  * \param key   Complete XPath to the desired config entity according 
  *			    to EDL specification.
  *              Alternative: short keyword definitely identifiing the
- *			    wanted config entry (predefined, starts with letter "s").
+ *			    wanted config entry (predefined, starts with character "$").
  * \param value Value to change/insert (string representation).
  * \return      Nil if successful, error object otherwise.
  */
@@ -72,15 +72,23 @@ enum COSystemConfigError {
 /**
  * Returns a requested value for a given key.
  *
- * \param key See method setProp:key:value.
+ * \param key Complete XPath to the desired config entity according 
+ *			  to EDL specification.
+ *            Alternative: short keyword definitely identifiing the
+ *			  wanted config entry (predefined, starts with character "$").
  * \return    Value for key (string representation).
+ *            Returns nil if no value or more than 
+ *            one value is associated with key.
  */
 -(NSString*)getProp:(NSString*)key;
 
 /**
- * Returns the number of nodes for a given XPath query.
+ * Returns the number of nodes for a given key.
  *
- * \param key See method setProp:key:value.
+ * \param key Complete XPath to the desired config entity according 
+ *			  to EDL specification.
+ *            Alternative: short keyword definitely identifiing the
+ *			  wanted config entry (predefined, starts with character "$").
  * \return    Number of nodes that are referenced by key.
  */
 -(NSUInteger)countNodes:(NSString*)key;

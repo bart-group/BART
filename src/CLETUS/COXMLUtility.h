@@ -17,13 +17,19 @@
 }
 
 /**
- * Utility method for method for reading a XML file. 
+ * Utility method for method for reading a XML file.
+ * Note that even if an error occured a partially correct
+ * NSXMLDocument object could be constructed and returned. 
+ * So always check for existence of the error object instead of
+ * existence of the NSXMLDocument object.
  *
  * \param fileURL URL of the desired EDL file.
+ * \param error   Indirect returned error object if something went wrong.
  * \return        NSXMLDocument instance that represents 
  *                the content of the XML file.
  */
-+(NSXMLDocument*)newParsedXMLDocument:(NSString*)filePath;
++(NSXMLDocument*)newParsedXMLDocument:(NSString*)filePath
+                                     :(NSError**)error;
 
 /**
  * Loops through all child elements of a XML node until it finds the

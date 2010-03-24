@@ -73,18 +73,14 @@
 
 -(NSError*)fillWithContentsOfEDLFile:(NSString*)edlPath 
 {
+    NSError* error = nil;
+    
     [mSystemSetting release];
-	mSystemSetting  = [COXMLUtility newParsedXMLDocument:edlPath];
+	mSystemSetting  = [COXMLUtility newParsedXMLDocument:edlPath :&error];
     [mRuntimeSetting release];
-	mRuntimeSetting = [COXMLUtility newParsedXMLDocument:edlPath];
+	mRuntimeSetting = [COXMLUtility newParsedXMLDocument:edlPath :&error];
     
-    if (mSystemSetting == nil || mRuntimeSetting == nil)  {
-		return [NSError errorWithDomain:@"Could not read/parse EDL file. Check well-formedness of XML syntax and existence of file!" 
-                                   code:XML_DOCUMENT_READ 
-                               userInfo:nil];
-	}
-    
-	return nil;
+	return error;
 }
 
 -(NSString*)resolveKey:(NSString*)key
@@ -114,8 +110,9 @@
 		[[queryResult objectAtIndex:0] setStringValue:value];
 	} else {
 		if (err == nil) {
-			NSString* errorString = [NSString stringWithFormat:@"Found %d configuration entries for the given key (1 would be expected)!", [queryResult count]];
-			return [NSError errorWithDomain:errorString code:CONFIG_ENTRY userInfo:nil];
+			NSString* errorString = [NSString stringWithFormat:@"Found %d configuration entries for the given key (1 would be expected)!", 
+                                     [queryResult count]];
+			err = [NSError errorWithDomain:errorString code:CONFIG_ENTRY userInfo:nil];
 		}
 	}
     
@@ -129,19 +126,12 @@
 	// TODO: mRuntimeSetting correct here?
 	NSArray* queryResult = [mRuntimeSetting nodesForXPath:query error:&err];
 	
-	NSString* resultValue;
-	
-	if ([queryResult count] == 1) {
-		resultValue = [[queryResult objectAtIndex:0] stringValue];
+	if ([queryResult count] == 1
+        && err == nil) {
+		return [[queryResult objectAtIndex:0] stringValue];
 	} else {
-		resultValue = nil;
-	}
-	
-	if (err != nil) {
-		// TODO: Handle/deligate error! (return nil?)
-	}
-	
-	return resultValue;
+		return nil;
+    }
 }
 
 -(NSUInteger)countNodes:(NSString*)key
@@ -151,8 +141,8 @@
 	// TODO: mRuntimeSetting correct here?
 	NSUInteger numberOfNodes = [[mRuntimeSetting nodesForXPath:query error:&err] count];
 	
-	if (err != nil) {
-		// TODO: Handle/deligate error! (return nil?)
+	if (err) {
+		numberOfNodes = 0;
 	}
 	
 	return numberOfNodes;
