@@ -111,34 +111,77 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 -(NSError*)getPropertiesFromConfig
 {
 	COSystemConfig *config = [COSystemConfig getInstance];
-//	
-//	//TODO:  Will be initialized somewhere else
-//	NSError *err = [config fillWithContentsOfEDLFile:@"../../tests/CLETUSTests/timeBasedRegressorLydi.edl"];
-//	NSLog(@"%@", err);
-//	if ( nil != err){
-//		NSLog(@"Where the hell is the edl file");
-//		return err;
-//	}
 	
 	NSString* config_tr = [config getProp:@"$TR"];
-	NSUInteger conf_tr = [config countNodes:@"$TR"];
-
 	NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
 	[f setNumberStyle:NSNumberFormatterDecimalStyle];
 	//TODO : Abfrage Einheit der repetition Time
 	mRepetitionTimeInMs = [[f numberFromString:config_tr] intValue];
-	NSString* config_nrTimesteps = [config getProp:@"/rtExperiment/experimentData/paradigm/gwDesignStruct/timeBasedRegressor/tbrDesign/@length"];
+	NSString* config_nrTimesteps = [config getProp:@"$gwDesign/timeBasedRegressor[1]/@length"];
 
-	int l = [[f numberFromString:config_nrTimesteps] intValue];
-	NSLog(@"length of Exp: %d", l);
-	mNumberTimesteps = 720;//[[f numberFromString:config_nrTimesteps] intValue]; //TODO get from config
+	mNumberTimesteps = (unsigned int) [[f numberFromString:config_nrTimesteps] intValue] / mRepetitionTimeInMs;
+	NSLog(@"length of Exp: %d", mNumberTimesteps);
+	//mNumberTimesteps = 720;//[[f numberFromString:config_nrTimesteps] intValue]; //TODO get from config
 	
 	mNumberRegressors = [config countNodes:@"$gwDesign/timeBasedRegressor"];
 	NSLog(@"Regressors: %d", mNumberRegressors);
 	mNumberCovariates = [config countNodes:@"$gwDesign/timeBasedRegressor"];     // TODO: get from config  
 	
-	NSString *time = [config getProp:@"$gwDesign/timeBasedRegressor/tbrDesign/statEvent/@time" ];
-	NSLog(@"Time: %s", time);
+	NSString *time = [config getProp:@"$gwDesign/timeBasedRegressor[1]/tbrDesign[1]/statEvent[1]/@time" ];
+	NSString* t = [NSString stringWithFormat:@"%d", 5];
+	
+	NSUInteger nrEvents = [config countNodes:@"$gwDesign/timeBasedRegressor[1]/tbrDesign[1]/statEvent" ];
+	NSLog(@"Time: %d", nrEvents);
+	
+	
+	/**********************************/
+		
+	for (unsigned int i = 0; i < mNumberRegressors; i++)
+	{
+		NSString *requestTrialsInReg = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign[%d]/statEvent", i+1];
+		NSUInteger nrTrialsInRegr = [config countNodes:requestTrialsInReg ];
+		unsigned int trialID = i+1;
+
+		for (unsigned int k = 0; k < nrTrialsInRegr; k++)
+		{
+			NSString *requestTrialTime = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign[%d]/statEvent[%d]/@time", k+1];
+			NSString *requestTrialDuration = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign[%d]/statEvent[%d]/@duration", k+1];
+			NSString *requestTrialHeight = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign[%d]/statEvent[%d]/@height", k+1];
+			float onset = [[f numberFromString:requestTrialTime] floatValue];
+			float duration = [[f numberFromString:requestTrialDuration] floatValue];
+			float height = [[f numberFromString:requestTrialHeight] floatValue];
+				
+			if (0.0 >= duration) {//if not set or negative
+				duration = 1.0;
+			}
+			if (0.0 >= height){//if not set
+				height = 1.0;}
+			
+			Trial newTrial;
+			newTrial.id       = trialID;
+			newTrial.onset    = onset;
+			newTrial.duration = duration;
+			newTrial.height   = height;
+			
+			TrialList* newListEntry;
+			newListEntry = (TrialList*) malloc(sizeof(TrialList));
+			*newListEntry = TRIALLIST_INIT;
+			newListEntry->trial = newTrial;
+			
+			if (mTrialList[trialID - 1] == NULL) {
+				mTrialList[trialID - 1] = newListEntry;
+				mNumberEvents++;
+			} else {
+				[self tl_append:mTrialList[trialID - 1] :newListEntry];
+			}
+			
+		}		mNumberTrials++;
+	
+	}
+	
+	
+	/**********************************/
+	
 	
 	mDerivationsHrf = 0;
 	[f release];//temp for conversion purposes
@@ -147,6 +190,11 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	
 	return nil;
 }
+
+
+
+
+
 
 -(NSError*)initDesign
 {
