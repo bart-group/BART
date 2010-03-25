@@ -24,7 +24,7 @@
      <experimentData trSimulation="false">
       <paradigm ignoreScansAtStart="0">
         <gwDesignStruct>
-          <timeBasedRegressor regressorID="tbr1" name="visualStim" length="720000" useRefFct="gloverGamma1" scaleHeightToZeroMean="false">
+          <timeBasedRegressor regressorID="tbr1" name="visualStim" length="720000" useRefFct="gloverGamma1" scaleHeightToZeroMean="false" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
             <tbrDesign length="720000" repetitions="1">
 				<statEvent time="20000" duration="20000"/>
 				<statEvent time="60000" duration="20000"/>
@@ -46,7 +46,7 @@
 				<statEvent time="700000" duration="20000"/>
 			</tbrDesign>
 		  </timeBasedRegressor>
-		  <timeBasedRegressor regressorID="tbr2" name="auditStim" length="720000" useRefFct="gloverGamma1" scaleHeightToZeroMean="false">
+		  <timeBasedRegressor regressorID="tbr2" name="auditStim" length="720000" useRefFct="gloverGamma1" scaleHeightToZeroMean="false" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
             <tbrDesign length="720000" repetitions="1">
 				<statEvent time="17000" duration="13000"/>
 				<statEvent time="43000" duration="13000"/>
@@ -115,7 +115,7 @@
         <MR_TAG_READOUT_FOV vendorTag="readout_fov">210</MR_TAG_READOUT_FOV>
         <MR_TAG_PHASE_FOV vendorTag="phase_fov">100</MR_TAG_PHASE_FOV>
         <MR_TAG_FLIP_ANGLE vendorTag="angle_array.0">90</MR_TAG_FLIP_ANGLE>
-        <MR_TAG_MEASUREMENTS vendorTag="meas">180</MR_TAG_MEASUREMENTS>
+        <MR_TAG_MEASUREMENTS vendorTag="meas">720</MR_TAG_MEASUREMENTS>
     </mriParams>
     
   <preprocessing> 

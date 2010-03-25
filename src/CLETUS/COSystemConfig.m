@@ -50,10 +50,16 @@
 {
 	NSArray *shortKeys   = [NSArray arrayWithObjects:@"$TR", 
                             @"$gwDesign",
+							@"$swDesign",
+							@"$dynDesign",
+							@"$nrTimesteps",
 						    nil];
 	
 	NSArray *xpathValues = [NSArray arrayWithObjects:@"/rtExperiment/experimentData/imageModalities/TR", 
                             @"/rtExperiment/experimentData/paradigm/gwDesignStruct",
+							@"/rtExperiment/experimentData/paradigm/swDesignStruct",
+							@"/rtExperiment/experimentData/paradigm/dynamicDesignStruct",
+							@"/rtExperiment/mriParams/MR_TAG_MEASUREMENTS",
 							nil];
 	mAbbreviations = [[NSDictionary alloc] initWithObjects:xpathValues
                                                    forKeys:shortKeys];

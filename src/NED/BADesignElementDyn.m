@@ -111,15 +111,34 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 -(NSError*)getPropertiesFromConfig
 {
 	COSystemConfig *config = [COSystemConfig getInstance];
+	NSError* error = nil;
+	
+	//what kind of design we have to ask for - in edl decision between growing / sliding window and dynamic
+	NSMutableString *expType = [[NSMutableString alloc ]initWithCapacity:20];
+	if (nil != [config getProp:@"$gwDesign"]){
+		[expType setString:@"$gwDesign"];
+	}
+	else if (nil != [config getProp:@"$swDesign"]){
+		[expType setString:@"$swDesign"];
+	}
+	else if (nil != [config getProp:@"$dynDesign"]){
+		[expType setString:@"$dynDesign"];
+	}
+	else {
+		NSString* errorString = [NSString stringWithFormat:@"No design struct found in edl-file. Define gwDesignStruct or swDesignStruct or dynamicDesignStruct! "];
+		error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
+		NSLog(@"%@", errorString); 
+	}
+
 	
 	NSString* config_tr = [config getProp:@"$TR"];
 	NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
 	[f setNumberStyle:NSNumberFormatterDecimalStyle];
 	//TODO : Abfrage Einheit der repetition Time
 	mRepetitionTimeInMs = [[f numberFromString:config_tr] intValue];
-	NSString* config_nrTimesteps = [config getProp:@"$gwDesign/timeBasedRegressor[1]/@length"];
+	NSString* config_nrTimesteps = [config getProp:@"$nrTimesteps"];
 
-	mNumberTimesteps = (unsigned int) [[f numberFromString:config_nrTimesteps] intValue] / mRepetitionTimeInMs;
+	mNumberTimesteps = [[f numberFromString:config_nrTimesteps] intValue];
 	NSLog(@"length of Exp: %d", mNumberTimesteps);
 	//mNumberTimesteps = 720;//[[f numberFromString:config_nrTimesteps] intValue]; //TODO get from config
 	
@@ -188,7 +207,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	mNumberSamplesForInit = (mNumberTimesteps * mRepetitionTimeInMs) / samplingRateInMs + 10000;//add some seconds to avoid wrap around problems with fft, here defined as 10s
 	
 	
-	return nil;
+	return error;
 }
 
 
