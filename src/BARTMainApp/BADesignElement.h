@@ -22,7 +22,7 @@ enum BADesignElementError {
 };
 
 typedef struct TrialStruct{
-    int   id;               // Stimulus number.
+    unsigned int id;               // Stimulus number.
     float onset;
     float duration;         // in seconds
     float height;
