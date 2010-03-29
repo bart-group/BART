@@ -31,7 +31,7 @@
 		007932BA114FB7A6007BEB66 /* BADocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7AE1141470400A57967 /* BADocument.m */; };
 		007932BB114FB7A7007BEB66 /* BADesignElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A81141470400A57967 /* BADesignElement.m */; };
 		007932BC114FB7A8007BEB66 /* BADataElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A41141470400A57967 /* BADataElement.m */; };
-		007932BD114FB7A8007BEB66 /* BADataControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A21141470400A57967 /* BADataControl.m */; };
+		007932BD114FB7A8007BEB66 /* BAProcedureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A21141470400A57967 /* BAProcedureController.m */; };
 		007932BE114FB7A9007BEB66 /* BAAnalyzerElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A01141470400A57967 /* BAAnalyzerElement.m */; };
 		0079349E114FF120007BEB66 /* COEDLValidatorLiteral.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AD76114645A3008FC09D /* COEDLValidatorLiteral.m */; };
 		007934EC1150FBF7007BEB66 /* COErrorCode.h in Headers */ = {isa = PBXBuildFile; fileRef = 007934EB1150FBF7007BEB66 /* COErrorCode.h */; };
@@ -151,8 +151,8 @@
 		0040B79C1141470400A57967 /* gsl_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gsl_utils.h; sourceTree = "<group>"; };
 		0040B79F1141470400A57967 /* BAAnalyzerElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAAnalyzerElement.h; sourceTree = "<group>"; };
 		0040B7A01141470400A57967 /* BAAnalyzerElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAAnalyzerElement.m; sourceTree = "<group>"; };
-		0040B7A11141470400A57967 /* BADataControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataControl.h; sourceTree = "<group>"; };
-		0040B7A21141470400A57967 /* BADataControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataControl.m; sourceTree = "<group>"; };
+		0040B7A11141470400A57967 /* BAProcedureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAProcedureController.h; sourceTree = "<group>"; };
+		0040B7A21141470400A57967 /* BAProcedureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureController.m; sourceTree = "<group>"; };
 		0040B7A31141470400A57967 /* BADataElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElement.h; sourceTree = "<group>"; };
 		0040B7A41141470400A57967 /* BADataElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElement.m; sourceTree = "<group>"; };
 		0040B7A71141470400A57967 /* BADesignElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElement.h; sourceTree = "<group>"; };
@@ -373,8 +373,8 @@
 				0040B8631141483B00A57967 /* CIKernels */,
 				0040B79F1141470400A57967 /* BAAnalyzerElement.h */,
 				0040B7A01141470400A57967 /* BAAnalyzerElement.m */,
-				0040B7A11141470400A57967 /* BADataControl.h */,
-				0040B7A21141470400A57967 /* BADataControl.m */,
+				0040B7A11141470400A57967 /* BAProcedureController.h */,
+				0040B7A21141470400A57967 /* BAProcedureController.m */,
 				0040B7A31141470400A57967 /* BADataElement.h */,
 				0040B7A41141470400A57967 /* BADataElement.m */,
 				0040B7A71141470400A57967 /* BADesignElement.h */,
@@ -856,7 +856,7 @@
 				007932BA114FB7A6007BEB66 /* BADocument.m in Sources */,
 				007932BB114FB7A7007BEB66 /* BADesignElement.m in Sources */,
 				007932BC114FB7A8007BEB66 /* BADataElement.m in Sources */,
-				007932BD114FB7A8007BEB66 /* BADataControl.m in Sources */,
+				007932BD114FB7A8007BEB66 /* BAProcedureController.m in Sources */,
 				007932BE114FB7A9007BEB66 /* BAAnalyzerElement.m in Sources */,
 				0085EB2411511B2C004795FD /* NEDesignGloverKernel.m in Sources */,
 				0030920011527BF800E258D9 /* NEDesignKernel.m in Sources */,
