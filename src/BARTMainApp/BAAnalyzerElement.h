@@ -40,7 +40,9 @@ extern NSString *const kAnalyzerGLM;
 @interface BAAnalyzerElement (AbstractMethods)
 
 // abstract methods to be implemented by subclasses
--(void)anaylzeTheData:(BADataElement*)data withDesign:(BADesignElement*) design;
+-(BADataElement*)anaylzeTheData:(BADataElement*)data 
+                     withDesign:(BADesignElement*) design
+             andCurrentTimestep:(unsigned int)timestep;
 
 -(void)sendFinishNotification;
 

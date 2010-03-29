@@ -11,55 +11,54 @@
 #import "BADesignElementDyn.h"
 #import "COSystemConfig.h"
 
+
+@interface BARTApplicationAppDelegate ()
+
+-(void)newDataDidArrive:(NSNotification*)aNotification;
+-(void)analysisStepDidFinish:(NSNotification*)aNotification;
+
+@end
+
+
 @implementation BARTApplicationAppDelegate
 
 @synthesize window;
 @synthesize gui;
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
- 
-	COSystemConfig *config = [COSystemConfig getInstance];
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification 
+{    
+    COSystemConfig *config = [COSystemConfig getInstance];
 	
 	NSError *err = [config fillWithContentsOfEDLFile:@"../../tests/CLETUSTests/timeBasedRegressorLydi.edl"];
-	NSLog(@"%@", err);
-	if ( nil != err){
+	
+	if (nil != err){
+        NSLog(@"%@", err);
 		NSLog(@"Where the hell is the edl file");
-		return err;
 	}
 	
     gui = [[BAGUIProtoCGLayer alloc] initWithWindow:window];
     [gui initLayers];
 	//[gui doPaint];
 
-    dataEl = [[BADataElement alloc] initWithDatasetFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.v" ofImageDataType:IMAGE_DATA_SHORT];
-    //dataEl = [[BADataElement alloc] initWithDatasetFile:@"/Users/user/Development/KC9T/KC9T081015-functional.v" ofImageDataType:IMAGE_DATA_SHORT];
+    procedureController = [[BAProcedureController alloc] init];
     
-    [gui setBackgroundImage:dataEl];
-    
-    designEl = [[BADesignElement alloc] initWithDatasetFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-design.des" ofImageDataType:IMAGE_DATA_FLOAT];
-    //designEl = [[BADesignElement alloc] initWithDatasetFile:@"/Users/user/Development/VGenDesign/testfiles/blockDesignTest01.des" ofImageDataType:IMAGE_DATA_FLOAT];
-    
-    //designEl = [[BADesignElement alloc] initWithDatasetFile:@"/Users/user/Development/KC9T/KC9T.des.v" ofImageDataType:IMAGE_DATA_FLOAT];
+    NSTimer* timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(newDataDidArrive:) userInfo:nil repeats:YES];
+}
 
-    analyzer = [[BAAnalyzerElement alloc] initWithAnalyzerType:kAnalyzerGLM];
-    
-//    if ([analyzer isKindOfClass:[BAAnalyzerElement class]]) {
-//        printf("JIPPIE!");
-//    }
-    
-    [analyzer anaylzeTheData:dataEl withDesign:designEl];
-    
-  //  BADesignElementDyn *designTest = [[BADesignElementDyn alloc] initWithFile:@"/Users/user/Development/VGenDesign/testfiles/blockDesignTest01.des" ofImageDataType:IMAGE_DATA_FLOAT];
-  //  [designTest release];
+-(void)newDataDidArrive:(NSNotification*)aNotification
+{
+    [procedureController newDataDidArrive:aNotification];
+}
+
+-(void)analysisStepDidFinish:(NSNotification*)aNotification
+{
+    // TODO: update GUI
 }
 
 -(void)dealloc{
-
-    [analyzer release];
-    [dataEl release];
-    [designEl release];
-    [analyzer release];
     
+    [procedureController release];
+        
     [super dealloc];    
     
 }

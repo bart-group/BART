@@ -16,8 +16,8 @@
 
 const int BUFFER_LENGTH = 10000;
 const int MAX_NUMBER_EVENTS = 100;
-double samplingRateInMs = 20.0;           /* Temporal resolution for convolution is 20 ms. */
-double t1 = 30.0;              /* HRF duration / Breite der HRF.                */
+double samplingRateInMs = 20.0; /* Temporal resolution for convolution is 20 ms. */
+double t1 = 30.0;               /* HRF duration / Breite der HRF.                */
 const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 
@@ -320,7 +320,6 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 		
 		mConvolutionKernels[eventNr] = [[NEDesignKernel alloc] initWithGloverParams:params andNumberSamples:mNumberSamplesForInit];
     }
-
     
     return nil;
 }

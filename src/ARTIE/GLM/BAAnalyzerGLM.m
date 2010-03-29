@@ -23,16 +23,6 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 										gsl_vector *);
 
 @interface BAAnalyzerGLM (PrivateMethods)
-
-    BADataElement *mBetaOutput;
-    BADataElement *mResOutput;
-    BADataElement *mResMap;
-    BADataElement *mBCOVOutput;
-    // BADataElement *mKXOutput;
-    NSTimer *timerToFakeRepetitionTime;
-    int indexForTimestep;
-    int slidingWindowSize;
-	BOOL mSlidingWindowAnalysis;
      
 -(void)Regression:(short)minval
                  :(int)sliding_window_size
@@ -42,13 +32,14 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 
 -(void)createOutputImages;
 
--(void)stopTimer;
-
--(void)startTimer;
-
--(void)OnNewData:(NSTimer*)timer;
+//-(void)stopTimer;
+//
+//-(void)startTimer;
+//
+//-(void)OnNewData:(NSTimer*)timer;
 
 @end
+
 
 @implementation BAAnalyzerGLM
 
@@ -56,14 +47,13 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 {
     slidingWindowSize = 40;
 	mSlidingWindowAnalysis = YES;
-    indexForTimestep = slidingWindowSize;
-    gui = [BAGUIProtoCGLayer getGUI];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(OnNewData:) name:@"MessageName" object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(OnNewData:) name:@"MessageName" object:nil];
     return self;
 }
 
--(void)anaylzeTheData:(BADataElement*) data withDesign:(BADesignElement*) design
-//-(BOOL)anaylzeTheData:(BOOL) findParameters
+-(BADataElement*)anaylzeTheData:(BADataElement*)data 
+           withDesign:(BADesignElement*)design
+   andCurrentTimestep:(unsigned int)timestep
 {
     mDesign = design;
     mData = data;
@@ -71,75 +61,43 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
      * create output images
      */
     [self createOutputImages];
-    [self startTimer];
+    
+    NSLog(@"Time analysis: Start");
+    
+    int index = 0;
+    if (mSlidingWindowAnalysis){
+        index = slidingWindowSize;
+    } else {
+        index = timestep;
+    }
+    
+    [self Regression:2000 
+                    :index // sw: slidingWindowSize akk: indexForTimestep
+                    :timestep];
+//    [self sendFinishNotification];
 
-    return;
+    NSLog(@"Time analysis: End");
+    
+//    indexForTimestep++;
+//    if (indexForTimestep < mData.numberTimesteps){
+//        [self startTimer];
+//    } else {
+//        [mBetaOutput WriteDataElementToFile:@"/tmp/outfromBART.v"];
+//        [mResOutput WriteDataElementToFile:@"/tmp/outfromBART.v"];
+//    }
+    
+
+    return mResMap;
 }
 
 -(void)dealloc
 {
-    if (timerToFakeRepetitionTime) {
-        [timerToFakeRepetitionTime invalidate];
-        [timerToFakeRepetitionTime release];
-    }
+//    if (timerToFakeRepetitionTime) {
+//        [timerToFakeRepetitionTime invalidate];
+//        [timerToFakeRepetitionTime release];
+//    }
     [mBetaOutput release];
     [super dealloc];
-}
-
-
-// Create and start the timer that triggers a refetch every few seconds
-- (void)startTimer 
-{
-    [self stopTimer];
-    timerToFakeRepetitionTime = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(OnNewData:) userInfo:nil repeats:YES];
-    [timerToFakeRepetitionTime retain];
-}
-
-
-// Stop the timer; prevent future loads until startTimer is called again
-- (void)stopTimer 
-{
-    if (timerToFakeRepetitionTime) {
-        [timerToFakeRepetitionTime invalidate];
-        [timerToFakeRepetitionTime release];
-        timerToFakeRepetitionTime = nil;
-    }
-}
-
-
--(void)OnNewData:(NSTimer*)timer
-{
-    printf("Timestep %i\n", indexForTimestep);
-    if (timer)
-    {
-        [self stopTimer];
-        
-        NSLog(@"Time analysis: Start");
-        
-		int index = 0;
-		if (mSlidingWindowAnalysis){
-			index = slidingWindowSize;}
-		else {
-			index = indexForTimestep;}
-
-        [self Regression:2000 
-                        :index // sw: slidingWindowSize akk: indexForTimestep
-                        :indexForTimestep];
-        [self sendFinishNotification];
-        [gui setForegroundImage:mResMap];
-		[gui setTimesteps:indexForTimestep andSlidWindSize:index];
-		
-        
-        NSLog(@"Time analysis: End");
-        
-        indexForTimestep++;
-        if (indexForTimestep < mData.numberTimesteps){
-            [self startTimer];
-        } else {
-            [mBetaOutput WriteDataElementToFile:@"/tmp/outfromBART.v"];
-            [mResOutput WriteDataElementToFile:@"/tmp/outfromBART.v"];
-        }
-    }
 }
 
 -(void)sendFinishNotification

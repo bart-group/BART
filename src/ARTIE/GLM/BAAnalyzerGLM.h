@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "BAAnalyzerElement.h"
-#import "BAGUIProtoCGLayer.h"
 
 // strange MAXKONSTANTEN aus vcolorglm - sicherheitshalber noch da - Test notwendig
 #define ETMP     64   /* max number of temporary images for smoothness estim */
@@ -20,7 +19,14 @@
     
     BADesignElement *mDesign;
     BADataElement *mData;
-    BAGUIProtoCGLayer *gui;
+    
+    BADataElement *mBetaOutput;
+    BADataElement *mResOutput;
+    BADataElement *mResMap;
+    BADataElement *mBCOVOutput;
+    // BADataElement *mKXOutput;
+    unsigned int slidingWindowSize;
+	BOOL mSlidingWindowAnalysis;
 	
 }
 

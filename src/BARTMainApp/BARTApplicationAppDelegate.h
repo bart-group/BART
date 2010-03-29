@@ -11,15 +11,14 @@
 #import "BADesignElement.h"
 #import "BAAnalyzerElement.h"
 #import "BAGUIProtoCGLayer.h"
+#import "BAProcedureController.h"
 
 @interface BARTApplicationAppDelegate : NSObject <NSApplicationDelegate> {
     NSWindow *window;
     
     BAGUIProtoCGLayer *gui;
     
-    BADataElement *dataEl;
-    BADesignElement *designEl;
-    BAAnalyzerElement *analyzer;
+    BAProcedureController* procedureController;
 }
 
 @property (assign) IBOutlet NSWindow *window;
