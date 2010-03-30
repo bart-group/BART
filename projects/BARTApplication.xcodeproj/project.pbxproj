@@ -35,6 +35,7 @@
 		007932BE114FB7A9007BEB66 /* BAAnalyzerElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A01141470400A57967 /* BAAnalyzerElement.m */; };
 		0079349E114FF120007BEB66 /* COEDLValidatorLiteral.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AD76114645A3008FC09D /* COEDLValidatorLiteral.m */; };
 		007934EC1150FBF7007BEB66 /* COErrorCode.h in Headers */ = {isa = PBXBuildFile; fileRef = 007934EB1150FBF7007BEB66 /* COErrorCode.h */; };
+		007E4FB9116249D700C9D686 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		00841C0F1146451F004341CC /* TestDataset01_Orig.v in Resources */ = {isa = PBXBuildFile; fileRef = 00841C0C1146451F004341CC /* TestDataset01_Orig.v */; };
 		00841C101146451F004341CC /* TestDataset01-design.v in Resources */ = {isa = PBXBuildFile; fileRef = 00841C0D1146451F004341CC /* TestDataset01-design.v */; };
 		00841C111146451F004341CC /* TestDataset01-functional.v in Resources */ = {isa = PBXBuildFile; fileRef = 00841C0E1146451F004341CC /* TestDataset01-functional.v */; };
@@ -71,7 +72,6 @@
 		00C3A06211450B9300725668 /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C39FF11144FB2100725668 /* CLETUS.dylib */; };
 		00C3A081114510CE00725668 /* Init_Links_1.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00C3A07F114510CE00725668 /* Init_Links_1.edl */; };
 		00C3A082114510CE00725668 /* rtExperiment_v14.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 00C3A080114510CE00725668 /* rtExperiment_v14.xsd */; };
-		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		CE7D689B1113447C005A9D15 /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7D689A1113447C005A9D15 /* libfftw3.a */; };
@@ -743,7 +743,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
-				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
+				007E4FB9116249D700C9D686 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
