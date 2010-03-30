@@ -53,9 +53,9 @@
 
 -(id)initWithFile:(NSString*) path ofImageDataType:(enum ImageDataType)type
 {
-    if (( self = [super init] )){
+    if (self = [super init]) {
          //TESTZWECK - EIGENTLICH HIER NICHT GEBRAUCHT, 
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDataElement) name:@"NewDataArrived" object:nil];
+        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDataElement) name:@"NewDataArrived" object:nil];
          
         imageDataType = type;
         [self LoadImageData:[path retain] ofImageDataType:type];
@@ -69,7 +69,7 @@
 
 -(id)initWithDataType:(enum ImageDataType)type andRows:(int) rows andCols:(int)cols andSlices:(int)slices andTimesteps:(int) tsteps 
 {
-    if (self = [super init] ){
+    if (self = [super init]) {
         numberCols = cols;
         numberRows = rows;
         numberSlices = slices;

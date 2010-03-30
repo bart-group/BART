@@ -11,17 +11,76 @@
 #import "BADesignElement.h"
 #import "BAAnalyzerElement.h"
 #import "BAGUIProtoCGLayer.h"
-#import "BAProcedureController.h"
 
 @interface BARTApplicationAppDelegate : NSObject <NSApplicationDelegate> {
-    NSWindow *window;
     
-    BAGUIProtoCGLayer *gui;
+    BADataElement*   mRawDataElement;
+    BADesignElement* mDesignElement;
+    unsigned int     mCurrentTimestep;
     
-    BAProcedureController* procedureController;
+    /** GUI Boilerplate **/
+    IBOutlet NSWindow* applicationWindow;
+	
+	CGLayerRef backgroundLayer;
+    CGLayerRef foregroundLayer;
+    
+    CIFilter* colorMappingFilter;
+    CIImage* colorTable;
+    
+    IBOutlet NSSlider* minimumSlider;
+    IBOutlet NSSlider* maximumSlider;
+    IBOutlet NSTextField* minimumValueLabel;
+    IBOutlet NSTextField* maximumValueLabel;
+	IBOutlet NSTextField* timestepValueLabel;
+    IBOutlet NSTextField* slidWinSizeValueLabel;
+    
+    CIContext               *myCIContext;
+    CIImage                 *backgroundCIImage;
+    CIImage                 *foregroundCIImage;
+    CIImage                 *foregroundCIImageFiltered;
+    
+    BADataElement           *backgroundImage;
+    BADataElement           *foregroundImage;
+    
+    CGRect                  boundaries;
+    NSUInteger              short_bytes_length;
+    NSUInteger              float_bytes_length;
+    short                   *backgroundImageRaw;
+    float                   *foregroundImageRaw;
+    void                    *chunkOfMemory;
+    NSData                  *imageData;
+    size_t                  short_bytesPerRow;
+    size_t                  float_bytesPerRow;
+    CGSize                  imageSize;
+    CIFormat                shortFormat;
+    CIFormat                floatFormat;
+    CGColorSpaceRef         colorSpace;
+    
+    int                     slicesPerRow;
+    int                     slicesPerCol;
+    int                     sliceDimension;
+    
+    float                   minThreshold;
+    float                   maxThreshold;
+    
+    CGFloat                 scaleFactor;
+    
+    CGRect                  windowRect;
+    
+    CGContextRef layerOneContext;
+    CGContextRef layerTwoContext;
+    
+    float* colorTableData;
+    /** GUI Boilerplate END **/
+    
 }
 
-@property (assign) IBOutlet NSWindow *window;
-@property (assign) IBOutlet BAGUIProtoCGLayer *gui;
+/** GUI methods **/
+- (void)initLayers;
+- (void)doPaint;
+- (IBAction)setBackgroundImage:(BADataElement*)newBackgroundImage;
+- (IBAction)setForegroundImage:(BADataElement*)newForegroundImage;
+- (IBAction)updateSlider:(id)sender;
+/** GUI methods END **/
 
 @end

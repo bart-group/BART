@@ -20,9 +20,12 @@
 
 -(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
 {
-    self = [super init];
-    //TODO!!!!!!!
-    return [[BADesignElementDyn alloc] initWithFile:path ofImageDataType:type];
+    // TODO!!
+    [self release];
+    self = nil;
+    self = [[BADesignElementDyn alloc] initWithFile:path ofImageDataType:type];
+    
+    return self;
 }
 
 -(NSError*)writeDesignFile:(NSString*) path

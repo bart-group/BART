@@ -32,12 +32,6 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 
 -(void)createOutputImages;
 
-//-(void)stopTimer;
-//
-//-(void)startTimer;
-//
-//-(void)OnNewData:(NSTimer*)timer;
-
 @end
 
 
@@ -45,15 +39,17 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 
 -(id)init
 {
-    slidingWindowSize = 40;
-	mSlidingWindowAnalysis = YES;
+    if (self = [super init]) {
+        slidingWindowSize = 40;
+        mSlidingWindowAnalysis = YES;
+    }
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(OnNewData:) name:@"MessageName" object:nil];
     return self;
 }
 
 -(BADataElement*)anaylzeTheData:(BADataElement*)data 
-           withDesign:(BADesignElement*)design
-   andCurrentTimestep:(unsigned int)timestep
+                     withDesign:(BADesignElement*)design
+             andCurrentTimestep:(unsigned int)timestep
 {
     mDesign = design;
     mData = data;
@@ -87,15 +83,11 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 //    }
     
 
-    return mResMap;
+    return [mResMap autorelease];
 }
 
 -(void)dealloc
 {
-//    if (timerToFakeRepetitionTime) {
-//        [timerToFakeRepetitionTime invalidate];
-//        [timerToFakeRepetitionTime release];
-//    }
     [mBetaOutput release];
     [super dealloc];
 }

@@ -7,21 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "BADataElement.h"
-#import "BADesignElement.h"
 
 
 @interface BAProcedureController : NSObject {
-    
-    BADataElement* mRawDataElement;
-    
-    BADesignElement* mDesignEl;
-    
-    unsigned int   mCurrentTimestep;
 
 }
-
--(void)newDataDidArrive:(NSNotification*)aNotification;
-
 
 @end

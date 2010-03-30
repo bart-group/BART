@@ -30,6 +30,4 @@
 	
 }
 
--(void)dealloc;
-
 @end

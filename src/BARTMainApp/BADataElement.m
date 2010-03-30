@@ -21,7 +21,9 @@
 
 -(id)initWith:(NSArray*) aType
 {
-    self = [super init];
+    if (self = [super init]) {
+    
+    }
     
     return self;
     //if (self)
@@ -30,26 +32,26 @@
 
 -(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
 {
-    self = [super init];
+    [self release];
+    self = nil;
     //TODO!!!!!!!
-    return [[BADataElementVI alloc] initWithFile:path ofImageDataType:type];
+    self = [[BADataElementVI alloc] initWithFile:path ofImageDataType:type];
+    return self;
 }
 
 //EIGENES SIZE-ELEMENT waere angebracht
 -(id)initWithDataType:(enum ImageDataType)type andRows:(int) rows andCols:(int)cols andSlices:(int)slices andTimesteps:(int) tsteps
 {
-    if (( self = [super init])) {
-        
-    }
-    return [[BADataElementVI alloc] initWithDataType:type andRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
+    [self release];
+    self = nil;
+    self = [[BADataElementVI alloc] initWithDataType:type andRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
+    return self;
     
 }
 
 -(void)dealloc
 {
-    
     [super dealloc];
-    
 }
 
 
