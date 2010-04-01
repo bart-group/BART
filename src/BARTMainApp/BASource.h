@@ -37,7 +37,6 @@
 
 -(BADataElement*)getData;
 
--(void) dealloc;
 @end
 
 

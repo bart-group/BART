@@ -16,8 +16,10 @@
 
 -(id)init
 {
-    mKind  = EMPTY_TOKEN;
-    mValue = [[NSString alloc] initWithString:@""];
+    if (self = [super init]) {
+        mKind  = EMPTY_TOKEN;
+        mValue = [[NSString alloc] initWithString:@""];
+    }
     
     return self;
 }

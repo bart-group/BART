@@ -41,13 +41,15 @@
         Conclusions:(NSArray*)con 
          AndMessage:(NSString*)msg
 {
-    mRuleID       = [rID retain];
-    mParameters   = [par retain];
-    mPremises     = [pre retain];
-    mConclusions  = [con retain];
-    mMessage      = [msg retain];
-    
-    mError = nil;
+    if (self = [super init]) {
+        mRuleID       = [rID retain];
+        mParameters   = [par retain];
+        mPremises     = [pre retain];
+        mConclusions  = [con retain];
+        mMessage      = [msg retain];
+        
+        mError = nil;
+    }
     
     return self;
 }

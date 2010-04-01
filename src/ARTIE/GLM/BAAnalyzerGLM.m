@@ -89,6 +89,8 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 -(void)dealloc
 {
     [mBetaOutput release];
+    [mResOutput release];
+    [mBCOVOutput release];
     [super dealloc];
 }
 

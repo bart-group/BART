@@ -20,6 +20,7 @@ static NSDictionary const *sSubclassToPluginTypeMap = nil;
 
 + (void)initialize
 {
+    // TODO: memory leak
     sSubclassToPluginTypeMap = [[NSDictionary alloc] initWithObjectsAndKeys:@"BAAnalyzerGLM", kAnalyzerGLM, nil];
 }
 

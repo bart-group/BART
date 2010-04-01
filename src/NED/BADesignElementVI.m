@@ -16,11 +16,17 @@
 
 -(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
 {
-    self = [super init];
-    [self LoadDesignFromFile:path];
+    if (self = [super init]) {
+        [self LoadDesignFromFile:path];
+    }
+    
     return self;
 }
 
+-(void)dealloc
+{
+    [super dealloc];
+}
 
 -(void)LoadDesignFromFile:(NSString*)path
 {
@@ -69,9 +75,6 @@
     
     mRepetitionTimeInMs = itr;
     VFree(inputFilename);
-    
-    
-    
 }
 
 -(NSNumber*)getValueFromExplanatoryVariable: (unsigned int)cov atTimestep:(unsigned int)t 

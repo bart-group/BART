@@ -26,9 +26,11 @@
 
 -(id)initWithGloverParams:(GloverParams)gammaParams andNumberSamples:(unsigned long) numberSamplesForInit
 {
-	mParams = gammaParams;
-	mNumberSamplesForInit = numberSamplesForInit;
-	[self generateGammaKernel ];
+    if (self = [super init]) {
+        mParams = gammaParams;
+        mNumberSamplesForInit = numberSamplesForInit;
+        [self generateGammaKernel];
+    }
 	return self;
 }
 
@@ -232,6 +234,10 @@
 
 -(void)dealloc
 {
+    fftw_free(mKernelDeriv0);
+    fftw_free(mKernelDeriv1);
+    fftw_free(mKernelDeriv2);
+    
 	[super dealloc];
 }
 

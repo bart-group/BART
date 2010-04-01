@@ -884,7 +884,7 @@ enum COLiteralArithmeticOperation {
 {
     if (leftArgRange.length == 0 || rightArgRange.length == 0) {
         [mTokens removeAllObjects];
-        litValue == LIT_FALSE;
+        litValue = LIT_FALSE;
         COEDLValidatorToken* resultToken = [[COEDLValidatorToken alloc] initWithKind:BOOLEAN_TOKEN andValue:@"FALSE"];
         [mTokens addObject:resultToken];
         [resultToken release];

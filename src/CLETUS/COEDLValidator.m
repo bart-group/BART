@@ -30,19 +30,21 @@
 -(id)initWithContentsOfEDLFile:(NSString*)edlPath
                    andEDLRules:(NSString*)rulePath
 {
-    mRules    = nil;
-    mError    = nil;
-    
-    mEDLdoc   = nil;
-    mEDLdoc   = [COXMLUtility newParsedXMLDocument:edlPath :&mError];
-    if (mError) {
-        return nil;
-    }
-    
-    mEDLRules = nil;
-    mEDLRules = [COXMLUtility newParsedXMLDocument:rulePath :&mError];
-    if (mError) {
-        return nil;
+    if (self = [super init]) {
+        mRules    = nil;
+        mError    = nil;
+        
+        mEDLdoc   = nil;
+        mEDLdoc   = [COXMLUtility newParsedXMLDocument:edlPath :&mError];
+        if (mError) {
+            return nil;
+        }
+        
+        mEDLRules = nil;
+        mEDLRules = [COXMLUtility newParsedXMLDocument:rulePath :&mError];
+        if (mError) {
+            return nil;
+        }
     }
         
     return self;

@@ -15,7 +15,7 @@
 @implementation BASourceDatasetFile 
 
 
--(id) initWithDatasetFile:(NSString*) file ofImageType:(enum ImageType)type
+-(id)initWithDatasetFile:(NSString*) file ofImageType:(enum ImageType)type
 {
     self = [super init];
     
@@ -31,6 +31,12 @@
     }
     
     return self;
+}
+
+-(void)dealloc
+{
+    [mElement release];
+    [super dealloc];
 }
 
 -(void)loadFromSource

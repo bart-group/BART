@@ -20,10 +20,11 @@
 
 -(id)initWithGloverParams:(GloverParams)gammaParams andNumberSamples:(unsigned long) numberSamplesForInit
 {
-	self = [super init];
-	if (nil != self){
-		self = [[NEDesignGloverKernel alloc] initWithGloverParams:gammaParams andNumberSamples:numberSamplesForInit];
-	}
+    [self release];
+    self = nil;
+
+    self = [[NEDesignGloverKernel alloc] initWithGloverParams:gammaParams andNumberSamples:numberSamplesForInit];
+    
 	return self;
 }
 
@@ -33,14 +34,12 @@
 	return nil;
 }
 
-
--(void)dealloc
-{
-
-	fftw_free(mKernelDeriv0);
-	fftw_free(mKernelDeriv1);
-	fftw_free(mKernelDeriv2);
-	
-	[super dealloc];
-}
+//-(void)dealloc
+//{
+//	fftw_free(mKernelDeriv0);
+//	fftw_free(mKernelDeriv1);
+//	fftw_free(mKernelDeriv2);
+//	
+//	[super dealloc];
+//}
 @end

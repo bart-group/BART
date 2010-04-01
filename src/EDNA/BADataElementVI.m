@@ -51,7 +51,7 @@
 }
 
 
--(id)initWithFile:(NSString*) path ofImageDataType:(enum ImageDataType)type
+-(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
 {
     if (self = [super init]) {
          //TESTZWECK - EIGENTLICH HIER NICHT GEBRAUCHT, 
@@ -133,8 +133,6 @@
 
 }
 
-
-
 -(void)dealloc
 {
     for (int i=0; i<numberSlices; i++) {
@@ -144,8 +142,6 @@
     VFree(mImageArray);
     [super dealloc];
 }
-
-
 
 -(BOOL)sliceIsZero:(int)slice;
 {
@@ -211,13 +207,8 @@
             break;
         default:
             break;
-            
-            
     }
-    
-
 }
-
 
 -(id)getImageProperty:(enum ImagePropertyID)key
 {
@@ -229,31 +220,31 @@
         case PROPID_MODALITY:
             break;
         case PROPID_DF:
-            ret = [[NSNumber alloc] initWithFloat:m_linfo[0].info->df];
+            ret = [[[NSNumber alloc] initWithFloat:m_linfo[0].info->df] autorelease];
             break;
         case PROPID_PATIENT:
-            ret = [[NSString alloc] initWithCString:m_linfo[0].info->patient encoding:NSUTF8StringEncoding];
+            ret = [[[NSString alloc] initWithCString:m_linfo[0].info->patient encoding:NSUTF8StringEncoding] autorelease];
             break;
         case PROPID_VOXEL:
-            ret = [[NSString alloc] initWithCString:m_linfo[0].info->voxel encoding:NSUTF8StringEncoding];
+            ret = [[[NSString alloc] initWithCString:m_linfo[0].info->voxel encoding:NSUTF8StringEncoding] autorelease];
             break;
         case PROPID_REPTIME:
             break;
         case PROPID_TALAIRACH:
-            ret = [[NSString alloc] initWithCString:m_linfo[0].info->talairach encoding:NSUTF8StringEncoding];
+            ret = [[[NSString alloc] initWithCString:m_linfo[0].info->talairach encoding:NSUTF8StringEncoding] autorelease];
             break;
         case PROPID_FIXPOINT:
-            ret = [[NSString alloc] initWithCString:m_linfo[0].info->fixpoint encoding:NSUTF8StringEncoding];
+            ret = [[[NSString alloc] initWithCString:m_linfo[0].info->fixpoint encoding:NSUTF8StringEncoding] autorelease];
             break;
         case PROPID_CA:
             
-            ret = [[NSString alloc] initWithCString:m_linfo[0].info->ca encoding:NSUTF8StringEncoding];
+            ret = [[[NSString alloc] initWithCString:m_linfo[0].info->ca encoding:NSUTF8StringEncoding] autorelease];
             break;
         case PROPID_CP:
-            ret = [[NSString alloc] initWithCString:m_linfo[0].info->cp encoding:NSUTF8StringEncoding];
+            ret = [[[NSString alloc] initWithCString:m_linfo[0].info->cp encoding:NSUTF8StringEncoding] autorelease];
             break;
         case PROPID_EXTENT:
-            ret = [[NSString alloc] initWithCString:m_linfo[0].info->extent encoding:NSUTF8StringEncoding];
+            ret = [[[NSString alloc] initWithCString:m_linfo[0].info->extent encoding:NSUTF8StringEncoding] autorelease];
             break;
         case PROPID_BETA:
             break;
@@ -342,6 +333,7 @@
         
     }
     VFree(inputFilename);
+    [path release];
     return;
 }
 
