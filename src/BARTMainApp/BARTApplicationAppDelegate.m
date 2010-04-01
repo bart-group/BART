@@ -76,11 +76,12 @@
     NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
     
     [self newDataDidArrive:nil];
+
+    [NSThread sleepForTimeInterval:0.5];
+    [NSThread detachNewThreadSelector:@selector(timerThread) toTarget:self withObject:nil];
     
-    [autoreleasePool release];
-    
-    [NSThread sleepForTimeInterval:0.1];
-    [self timerThread];
+    [autoreleasePool drain];
+    [NSThread exit];
 }
 
 -(void)analysisStepDidFinish:(NSNotification*)aNotification
