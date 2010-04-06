@@ -7,8 +7,8 @@
 //
 
 #import "BADesignElement.h"
-#import "BADesignElementVI.h"
-#import "BADesignElementDyn.h"
+#import "NEDesignElementVI.h"
+#import "NEDesignElementDyn.h"
 
 
 @implementation BADesignElement
@@ -23,7 +23,7 @@
     // TODO!!
     [self release];
     self = nil;
-    self = [[BADesignElementDyn alloc] initWithFile:path ofImageDataType:type];
+    self = [[NEDesignElementDyn alloc] initWithFile:path ofImageDataType:type];
     
     return self;
 }
