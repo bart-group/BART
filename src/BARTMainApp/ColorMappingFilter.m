@@ -77,9 +77,19 @@ static NSArray* colorMappingFilterKernels = nil;
 
 - (CIImage*) outputImage {
     CISampler* src = [CISampler samplerWithImage: inputImage];
-    CISampler* cTable = [CISampler samplerWithImage: colorTable];
+    CISampler* colTable = [CISampler samplerWithImage: colorTable];
+	CIImage *ret = [self apply: [colorMappingFilterKernels objectAtIndex:kernelToUse],   src, colTable, minimum, maximum, kCIApplyOptionDefinition, [src definition], nil];
+	
 
-	return [self apply: [colorMappingFilterKernels objectAtIndex:kernelToUse],   src, cTable, minimum, maximum, kCIApplyOptionDefinition, [src definition], nil];
+	return ret;
+}
+
+-(void)dealloc
+{
+	[inputImage release];
+	[colorTable release];
+
+	[super dealloc];
 }
 
 @end

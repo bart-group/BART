@@ -37,7 +37,8 @@
     mDesignElement = [[BADesignElement alloc] initWithDatasetFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-design.des" ofImageDataType:IMAGE_DATA_FLOAT];
     mCurrentTimestep = 50;
 	
-    guiController = [guiController init];
+	
+    guiController = [guiController initWithDefault];
     [guiController setBackgroundImage:mRawDataElement];
     
     //NSTimer* timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(newDataDidArrive:) userInfo:nil repeats:YES];
@@ -47,7 +48,8 @@
 -(void)newDataDidArrive:(NSNotification*)aNotification
 {
     // TODO: hard coded max number timesteps
-    if (mCurrentTimestep < [mDesignElement mNumberTimesteps]) {
+    NSLog(@"Timestep: %d", mCurrentTimestep+1);
+	if (mCurrentTimestep < [mDesignElement mNumberTimesteps]) {
         mCurrentTimestep++;
         [NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
     }
@@ -77,7 +79,7 @@
     
     [self newDataDidArrive:nil];
 
-    [NSThread sleepForTimeInterval:0.5];
+    [NSThread sleepForTimeInterval:3.0];
     [NSThread detachNewThreadSelector:@selector(timerThread) toTarget:self withObject:nil];
     
     [autoreleasePool drain];

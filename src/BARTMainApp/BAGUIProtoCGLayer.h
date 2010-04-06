@@ -66,10 +66,12 @@
     float* colorTableData;
 }
 
-/**
- * Initializes the CGLayer objects and obtains their contexts.
+
+
+/*
+ * init the gui with colortable etc
  */
-- (void)initLayers;
+-(id)initWithDefault;
 
 /**
  * Displays all layers and image objects (already converted BADataElement objects).

@@ -34,6 +34,10 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
 
 @interface BAGUIProtoCGLayer (PrivateMethods)
 
+/**
+ * Initializes the CGLayer objects and obtains their contexts.
+ */
+- (void)initLayers;
 - (void)setupImages;
 - (CGPoint)computeMinMaxVoxelValue:(BADataElement*)image;
 - (void)convertFunctionalImage;
@@ -48,7 +52,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
 
 @implementation BAGUIProtoCGLayer
 
--(id)init
+-(id)initWithDefault
 {
     self = [super init];
     if (!self) {
@@ -76,8 +80,8 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
     
     /************************************/
     /*init CIFilter with color mapping kernel*/
-    
-    
+  
+
     NSSize ctSize;
     ctSize.width  = 512;
     ctSize.height = 1;
@@ -100,33 +104,12 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
         colorTableData[(_ctIndex + 256) * 4 + 3] = 1.0;
     }
     
-    //short colorTableData[256 * 4];
-    //    for(int _ctIndex = 0; _ctIndex < 256; _ctIndex++) {
-    //        colorTableData[_ctIndex * 4 + 0] = USHRT_MAX;
-    //        colorTableData[_ctIndex * 4 + 1] = USHRT_MAX / 255.0 *_ctIndex;
-    //        colorTableData[_ctIndex * 4 + 2] = 0;
-    //        colorTableData[_ctIndex * 4 + 3] = USHRT_MAX;
-    //    }
-    
-    colorTable = [[CIImage imageWithBitmapData:[NSData dataWithBytes:colorTableData length:256 * sizeof(float) * 4 * 2]
+    colorTable = [[CIImage alloc ] initWithBitmapData:[NSData dataWithBytes:colorTableData length:256 * sizeof(float) * 4 * 2]
                                    bytesPerRow:256 * sizeof(float) * 4 * 2
                                           size:ctSize 
                                         format:floatFormat 
-                                    colorSpace:colorSpace] retain];
+                                    colorSpace:colorSpace];
     
-    // colorTable = [[CIImage imageWithBitmapData:[NSData dataWithBytes:colorTableData length:256 * sizeof(short) * 4]
-    //                                   bytesPerRow:256 * sizeof(short) * 4
-    //                                          size:ctSize 
-    //                                        format:shortFormat 
-    //                                    colorSpace:colorSpace] retain];
-    //    
-    
-    //    NSLog(@"created color table: %@", colorTable);
-    //    NSLog(@"ColorTable[5]: %d" ,colorTableData[5]);
-    //    NSLog(@"ColorTable[25]: %d", colorTableData[25]);
-    //    NSLog(@"ColorTable[156]: %d", colorTableData[157]);
-    
-    /************************************/
     free(colorTableData);
     
     [self initLayers];
@@ -194,7 +177,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
                               @"colorTable", colorTable, nil];
         
         //        colorMappingFilter = [CIFilter filterWithName:@"ColorMappingFilter"];
-        [colorMappingFilter retain];
+        //[colorMappingFilter retain];
         
         //      [colorMappingFilter setValue:foregroundCIImage forKey:@"inputImage"];
         
@@ -213,7 +196,9 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
         //                      forKey:@"colorTable"];
         //NSLog(@"COLORMAPPINGFILTER: %@", colorMappingFilter);
         
-        foregroundCIImage = [colorMappingFilter valueForKey:@"outputImage"];
+        [foregroundCIImage release];
+		foregroundCIImage = nil;
+		foregroundCIImage = [colorMappingFilter valueForKey:@"outputImage"];
     }
     /********************************************************************************/
     
@@ -271,7 +256,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
         
         
         
-        [foregroundCIImage retain];
+        //[foregroundCIImage retain];
     }
 }
 
@@ -381,6 +366,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
     
     if (foregroundCIImage) {
         [foregroundCIImage release];
+		foregroundCIImage = nil;
     }
     
     foregroundImage = newForegroundImage;
@@ -516,6 +502,9 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
         free(foregroundImageRaw);
     }
     
+	[foregroundCIImage release];
+	
+	
     [super dealloc];
 }
 
