@@ -8,7 +8,7 @@
 
 #import "BARTApplicationAppDelegate.h"
 #import "BAGUIPrototyp.h"
-#import "BADesignElementDyn.h"
+#import "NEDesignElementDyn.h"
 #import "COSystemConfig.h"
 
 @interface BARTApplicationAppDelegate ()
