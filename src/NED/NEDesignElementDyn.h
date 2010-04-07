@@ -22,9 +22,7 @@ typedef struct ComplexStruct {
     TrialList** mTrialList;
     unsigned int mNumberTrials;
     unsigned int mNumberEvents;
-	unsigned int mNumberRegressors;
-	unsigned int mNumberCovariates;    
-
+	
 	unsigned int mDerivationsHrf;
 	//float mBlockThreshold; // in seconds
 	unsigned long mNumberSamplesForInit;
@@ -53,9 +51,10 @@ typedef struct ComplexStruct {
 
 -(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
 -(NSError*)generateDesign;
+-(void)copyValuesOfFinishedDesign:(float**)copyFromR andCovariates:(float**)copyFromC;
 
 @property (readonly) BOOL mDesignHasChanged;
-
+@property TrialList** mTrialList;
 
 @end
 

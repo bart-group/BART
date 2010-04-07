@@ -35,7 +35,7 @@ enum ImagePropertyID{
     PROPID_BETA
 };
 
-@interface BAElement : NSObject {
+@interface BAElement : NSObject <NSCopying> {
 
 }
 

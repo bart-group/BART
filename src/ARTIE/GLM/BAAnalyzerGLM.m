@@ -51,7 +51,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                      withDesign:(BADesignElement*)design
              andCurrentTimestep:(unsigned int)timestep
 {
-    mDesign = design;
+    mDesign = [design copy];
     mData = data;
     /*
      * create output images
@@ -91,6 +91,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     [mBetaOutput release];
     [mResOutput release];
     [mBCOVOutput release];
+	[mDesign release];;
     [super dealloc];
 }
 
@@ -106,11 +107,11 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     
     if (sliding_window_size <= lastTimestep) { 
         
-        int numberBands = mData.numberTimesteps;
-        int numberSlices = mData.numberSlices;
-        int numberRows = mData.numberRows;
-        int numberCols = mData.numberCols;
-        int numberExplanatoryVariables = mDesign.mNumberExplanatoryVariables;
+        unsigned int numberBands = mData.numberTimesteps;
+        unsigned int numberSlices = mData.numberSlices;
+        unsigned int numberRows = mData.numberRows;
+        unsigned int numberCols = mData.numberCols;
+        unsigned int numberExplanatoryVariables = mDesign.mNumberExplanatoryVariables;
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0); /* Global asyn. dispatch queue. */
         
         gsl_set_error_handler_off();
@@ -130,7 +131,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         X = gsl_matrix_float_alloc(sliding_window_size, numberExplanatoryVariables);
         double x; /* One entry of matrix X. */
         for (int timestep = (lastTimestep - sliding_window_size); timestep < lastTimestep; timestep++) {
-            for (int covariate = 0; covariate < numberExplanatoryVariables; covariate++) {
+            for (unsigned int covariate = 0; covariate < numberExplanatoryVariables; covariate++) {
 // TODO: use getFloatValue... (performance increase!)
                 x = [[mDesign getValueFromExplanatoryVariable:covariate atTimestep:timestep] floatValue];
                 fmset(X, timestep - (lastTimestep - sliding_window_size), covariate, (float) x);

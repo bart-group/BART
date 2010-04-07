@@ -40,14 +40,23 @@ typedef struct TrialListStruct {
     unsigned int mRepetitionTimeInMs;
     unsigned int mNumberExplanatoryVariables;
     unsigned int mNumberTimesteps;
-    enum ImageDataType mImageDataType;
+    unsigned int mNumberRegressors;
+	unsigned int mNumberCovariates;  
+	enum ImageDataType mImageDataType;
     
 }
 
-@property (readonly, assign) unsigned int mRepetitionTimeInMs;
-@property (readonly, assign) unsigned int mNumberExplanatoryVariables;
-@property (readonly, assign) unsigned int mNumberTimesteps;
-@property (readonly, assign) enum ImageDataType mImageDataType;
+//@property (readonly, assign) unsigned int mRepetitionTimeInMs;
+//@property (readonly, assign) unsigned int mNumberExplanatoryVariables;
+//@property (readonly, assign) unsigned int mNumberTimesteps;
+//@property (readonly, assign) enum ImageDataType mImageDataType;
+
+@property ( assign) unsigned int mRepetitionTimeInMs;
+@property ( assign) unsigned int mNumberExplanatoryVariables;
+@property ( assign) unsigned int mNumberTimesteps;
+@property ( assign) unsigned int mNumberRegressors;
+@property ( assign) unsigned int mNumberCovariates;   
+@property ( assign) enum ImageDataType mImageDataType;
 
 -(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
 
@@ -59,6 +68,15 @@ typedef struct TrialListStruct {
  * returns an object of DesignElement
  */
 -(id)initWithDynamicDataOfImageDataType:(enum ImageDataType)type;
+
+/**
+ * Copies a Design element from the given one
+ * 
+ * \param copyFrom design element that will be copied
+ *
+ * returns an object of DesignElement
+ */
+-(id)initWithDesignElement:(BADesignElement*)copyFrom;
 
 /**
  * write the design file to the given path

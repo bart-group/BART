@@ -17,7 +17,7 @@
 @synthesize numberSlices;
 @synthesize numberTimesteps;
 @synthesize imageDataType;
-
+ 
 
 -(id)initWith:(NSArray*) aType
 {

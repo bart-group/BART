@@ -21,6 +21,7 @@ double t1 = 30.0;               /* HRF duration / Breite der HRF.               
 const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 @synthesize mDesignHasChanged;
+@synthesize mTrialList;
 
 // TODO: check if imageDataType still needed (here: float)
 -(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
@@ -112,6 +113,56 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 }
 
 
+-(id)copyWithZone:(NSZone *)zone
+{
+	id copy = [super copyWithZone:zone];
+
+	
+	[copy copyValuesOfFinishedDesign:mDesign andCovariates: mCovariates];
+	
+	return [copy retain];
+}
+
+-(void)copyValuesOfFinishedDesign:(float**)copyFromR andCovariates:(float**)copyFromC
+{
+//	if (mDesign != copyFromR) 
+//	{
+//		mDesign = (float** ) malloc(sizeof(float*) * (mNumberExplanatoryVariables - mNumberCovariates + 1));
+//		for (unsigned int col = 0; col < (mNumberExplanatoryVariables - mNumberCovariates + 1); col++) {
+//			mDesign[col] = (float*) malloc(sizeof(float) * mNumberTimesteps);
+//			for (unsigned int ts = 0; ts < mNumberTimesteps; ts++) {
+//				mDesign[col][ts] = copyFromR[col][ts];
+//			}
+//		}
+//	}
+//	if (mCovariates != copyFromC){
+//		mCovariates = (float**) malloc(sizeof(float*) * mNumberCovariates);
+//        for (unsigned int cov = 0; cov < mNumberCovariates; cov++) {
+//            mCovariates[cov] = (float*) malloc(sizeof(float) * mNumberTimesteps);
+//			for (unsigned int ts = 0; ts < mNumberTimesteps; ts++){
+//				mCovariates[cov][ts] = copyFromC[cov][ts];
+//			}
+//            
+//        }
+//	}
+	mTrialList = nil;
+    mNumberTrials = 0;
+    mNumberEvents = 0;
+	mDerivationsHrf = 0;
+	mNumberSamplesForInit = 0;
+	mNumberSamplesNeededForExp = 0;
+	mTimeOfRepetitionStartInMs = nil;
+	mBuffersForwardIn = nil;
+	mBuffersInverseOut = nil; 
+	mBuffersForwardOut = nil;
+	mBuffersInverseIn = nil; 
+	mFftPlanForward = nil;
+	mFftPlanInverse = nil;
+	mConvolutionKernels = nil; 	
+	mDesignHasChanged = NO;
+	
+	
+}
 
 -(NSError*)getPropertiesFromConfig
 {
@@ -640,6 +691,10 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
                                  atTimestep:(unsigned int)t 
 {
     NSNumber *value = nil;
+	if (0 == mNumberRegressors && 0 == mNumberCovariates){
+		 NSLog(@"There can't be valid values - nor regressor or covariate found");
+		return [NSNumber numberWithFloat:0.0];
+	}
     if (cov < mNumberRegressors) {
         if (mDesign != NULL) {
             if (IMAGE_DATA_FLOAT == mImageDataType){
