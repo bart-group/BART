@@ -28,6 +28,8 @@
 		mNumberExplanatoryVariables = 0;
 		mNumberTimesteps = 0;
 		mImageDataType = 0;
+		mNumberRegressors = 0;
+		mNumberCovariates = 0;
 	}
 	return self;
 }
@@ -55,8 +57,8 @@
 	[newDesign setMRepetitionTimeInMs:[self mRepetitionTimeInMs]];
 	[newDesign setMNumberExplanatoryVariables: [self mNumberExplanatoryVariables]];
 	[newDesign setMNumberTimesteps: [self mNumberTimesteps]];
-	[newDesign setMNumberTimesteps: [self mNumberRegressors]];
-	[newDesign setMNumberTimesteps: [self mNumberCovariates]];
+	[newDesign setMNumberRegressors: [self mNumberRegressors]];
+	[newDesign setMNumberCovariates: [self mNumberCovariates]];
 	[newDesign setMImageDataType: [self mImageDataType]];
 	
 	

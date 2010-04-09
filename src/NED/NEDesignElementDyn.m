@@ -48,7 +48,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	
 			
     NSLog(@"GenDesign GCD: START");
-	[self parseInputFile:path];
+	//[self parseInputFile:path];
 	NSLog(@"GenDesign GCD: PARSE");
     [self initDesign];
 	NSLog(@"GenDesign GCD: INIT");   
@@ -112,57 +112,55 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     return self;
 }
 
-
 -(id)copyWithZone:(NSZone *)zone
 {
-	id copy = [super copyWithZone:zone];
-
+	id newDesign = [super copyWithZone:zone];
+	[newDesign copyValuesOfFinishedDesign:mDesign andCovariates:mCovariates];
+	return [newDesign retain];
 	
-	[copy copyValuesOfFinishedDesign:mDesign andCovariates: mCovariates];
-	
-	return [copy retain];
 }
 
 -(void)copyValuesOfFinishedDesign:(float**)copyFromR andCovariates:(float**)copyFromC
 {
-//	if (mDesign != copyFromR) 
-//	{
-//		mDesign = (float** ) malloc(sizeof(float*) * (mNumberExplanatoryVariables - mNumberCovariates + 1));
-//		for (unsigned int col = 0; col < (mNumberExplanatoryVariables - mNumberCovariates + 1); col++) {
-//			mDesign[col] = (float*) malloc(sizeof(float) * mNumberTimesteps);
-//			for (unsigned int ts = 0; ts < mNumberTimesteps; ts++) {
-//				mDesign[col][ts] = copyFromR[col][ts];
-//			}
-//		}
-//	}
-//	if (mCovariates != copyFromC){
-//		mCovariates = (float**) malloc(sizeof(float*) * mNumberCovariates);
-//        for (unsigned int cov = 0; cov < mNumberCovariates; cov++) {
-//            mCovariates[cov] = (float*) malloc(sizeof(float) * mNumberTimesteps);
-//			for (unsigned int ts = 0; ts < mNumberTimesteps; ts++){
-//				mCovariates[cov][ts] = copyFromC[cov][ts];
-//			}
-//            
-//        }
-//	}
+	if (mDesign != copyFromR)
+	{
+		unsigned int nrCols = mNumberExplanatoryVariables - mNumberCovariates;
+		mDesign = (float**) malloc(sizeof(float*) * nrCols);
+		for (unsigned int col = 0; col < nrCols; col++){
+			mDesign[col] = (float*) malloc(sizeof(float) * mNumberTimesteps);
+			for (unsigned int ts = 0; ts < mNumberTimesteps; ts ++){
+				mDesign[col][ts] = copyFromR[col][ts];
+			}
+		}
+	}
+	if (mCovariates != copyFromC)
+	{
+		mCovariates = (float**) malloc(sizeof(float*) * mNumberCovariates);
+		for (unsigned int col = 0; col < mNumberCovariates; col++){
+			mCovariates[col] = (float*) malloc(sizeof(float) * mNumberTimesteps);
+			for (unsigned int ts = 0; ts < mNumberTimesteps; ts++){
+				mCovariates[col][ts] = copyFromC[col][ts];
+			}
+		}
+	}
+	
 	mTrialList = nil;
-    mNumberTrials = 0;
-    mNumberEvents = 0;
+	mNumberEvents = 0;
 	mDerivationsHrf = 0;
 	mNumberSamplesForInit = 0;
 	mNumberSamplesNeededForExp = 0;
-	mTimeOfRepetitionStartInMs = nil;
+	mTimeOfRepetitionStartInMs = 0;
 	mBuffersForwardIn = nil;
-	mBuffersInverseOut = nil; 
 	mBuffersForwardOut = nil;
-	mBuffersInverseIn = nil; 
+	mBuffersInverseIn = nil;
+	mBuffersInverseOut = nil;
 	mFftPlanForward = nil;
 	mFftPlanInverse = nil;
-	mConvolutionKernels = nil; 	
+	mConvolutionKernels = nil;
 	mDesignHasChanged = NO;
-	
-	
 }
+
+	
 
 -(NSError*)getPropertiesFromConfig
 {
@@ -198,38 +196,35 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	NSLog(@"length of Exp: %d", mNumberTimesteps);
 	//mNumberTimesteps = 720;//[[f numberFromString:config_nrTimesteps] intValue]; //TODO get from config
 	
-	mNumberRegressors = [config countNodes:@"$gwDesign/timeBasedRegressor"];
-	NSLog(@"Regressors: %d", mNumberRegressors);
-	mNumberCovariates = [config countNodes:@"$gwDesign/timeBasedRegressor"];     // TODO: get from config  
+	mNumberEvents = [config countNodes:@"$gwDesign/timeBasedRegressor"];
+	NSLog(@"indep Regressors without derivs: %d", mNumberEvents);
+	mNumberCovariates = 0;//[config countNodes:@"$gwDesign/timeBasedRegressor"];     // TODO: get from config  
 	
-	NSString *time = [config getProp:@"$gwDesign/timeBasedRegressor[1]/tbrDesign[1]/statEvent[1]/@time" ];
-	NSString* t = [NSString stringWithFormat:@"%d", 5];
-	
-	NSUInteger nrEvents = [config countNodes:@"$gwDesign/timeBasedRegressor[1]/tbrDesign[1]/statEvent" ];
-	NSLog(@"Time: %d", nrEvents);
 	
 	
 	/**********************************/
 		
-	for (unsigned int i = 0; i < mNumberRegressors; i++)
+	for (unsigned int i = 0; i < mNumberEvents; i++)
 	{
-		NSString *requestTrialsInReg = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign[%d]/statEvent", i+1];
+		NSString *requestTrialsInReg = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent", i+1, i+1];
 		NSUInteger nrTrialsInRegr = [config countNodes:requestTrialsInReg ];
 		unsigned int trialID = i+1;
 
 		for (unsigned int k = 0; k < nrTrialsInRegr; k++)
 		{
-			NSString *requestTrialTime = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign[%d]/statEvent[%d]/@time", k+1];
-			NSString *requestTrialDuration = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign[%d]/statEvent[%d]/@duration", k+1];
-			NSString *requestTrialHeight = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign[%d]/statEvent[%d]/@height", k+1];
-			float onset = [[f numberFromString:requestTrialTime] floatValue];
-			float duration = [[f numberFromString:requestTrialDuration] floatValue];
-			float height = [[f numberFromString:requestTrialHeight] floatValue];
+			NSString *requestTrialTime = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@time", i+1, k+1];
+			NSString *requestTrialDuration = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@duration",i+1, k+1];
+			NSString *requestTrialHeight = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@height",i+1, k+1];
+			float onset = [[f numberFromString:[config getProp:requestTrialTime]] floatValue];
+			float duration = [[f numberFromString:[config getProp:requestTrialDuration]] floatValue];
+			float height = [[f numberFromString:[config getProp:requestTrialHeight]] floatValue];
 				
 			if (0.0 >= duration) {//if not set or negative
+				NSLog(@"There's a negative duration of a statEvent - that's not valid, so set to 1.0");
 				duration = 1.0;
 			}
 			if (0.0 >= height){//if not set
+				NSLog(@"There's a zero height of a statEvent - that's not valid, so set to 1.0");
 				height = 1.0;}
 			
 			Trial newTrial;
@@ -245,12 +240,12 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 			
 			if (mTrialList[trialID - 1] == NULL) {
 				mTrialList[trialID - 1] = newListEntry;
-				mNumberEvents++;
+				//mNumberEvents++;
 			} else {
 				[self tl_append:mTrialList[trialID - 1] :newListEntry];
 			}
 			
-		}		mNumberTrials++;
+		}		//mNumberTrials++;
 	
 	}
 	
@@ -405,10 +400,6 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
             t0 = currentTrial->trial.onset;
             double tmax = currentTrial->trial.onset + currentTrial->trial.duration;
             h  = currentTrial->trial.height;
-            
-            t0 *= 1000.0;
-            tmax *= 1000.0;
-            
             unsigned int k = t0 / samplingRateInMs;
             
             for (double t = t0; t <= tmax; t += samplingRateInMs) {
@@ -465,7 +456,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     float duration = 0.0;
     float height   = 0.0;
     
-    mNumberTrials = 0;
+    unsigned int numberTrials = 0;
     mNumberEvents = 0;
     
     FILE* inFile;
@@ -508,7 +499,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
                     NSString* errorString = 
                         [NSString stringWithFormat:
-                            @"Illegal design file input format (at line %d)! Expected format: one entry per line and columns separated by tabs.", mNumberTrials + 1];
+                            @"Illegal design file input format (at line %d)! Expected format: one entry per line and columns separated by tabs.", numberTrials + 1];
                     return [NSError errorWithDomain:errorString code:ILLEGAL_INPUT_FORMAT userInfo:nil];
                     
                 }
@@ -535,7 +526,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
                     [self tl_append:mTrialList[trialID - 1] :newListEntry];
                 }
                 
-                mNumberTrials++;
+                numberTrials++;
             }
         }
     }
@@ -670,7 +661,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         j = (int) (mTimeOfRepetitionStartInMs[timestep] / samplingRateInMs + 0.5);
         
         if (j >= 0 && j < mNumberSamplesForInit) {
-            mDesign[col][timestep] = mBuffersInverseOut[eventNr][j];
+			mDesign[col][timestep] = mBuffersInverseOut[eventNr][j];
         }
     }
 }
@@ -692,8 +683,8 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 {
     NSNumber *value = nil;
 	if (0 == mNumberRegressors && 0 == mNumberCovariates){
-		 NSLog(@"There can't be valid values - nor regressor or covariate found");
-		return [NSNumber numberWithFloat:0.0];
+		NSLog(@"Both Number of Regressors and Covariates is 0 - check design input!!");
+		return [NSNumber numberWithFloat: 0.0];
 	}
     if (cov < mNumberRegressors) {
         if (mDesign != NULL) {

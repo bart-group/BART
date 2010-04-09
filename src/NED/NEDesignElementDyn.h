@@ -20,7 +20,6 @@ typedef struct ComplexStruct {
 @interface NEDesignElementDyn : BADesignElement {
 
     TrialList** mTrialList;
-    unsigned int mNumberTrials;
     unsigned int mNumberEvents;
 	
 	unsigned int mDerivationsHrf;
@@ -50,6 +49,7 @@ typedef struct ComplexStruct {
 }
 
 -(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
+-(void)copyValuesOfFinishedDesign:(float**)copyFromR andCovariates:(float**)copyFromC;
 -(NSError*)generateDesign;
 -(void)copyValuesOfFinishedDesign:(float**)copyFromR andCovariates:(float**)copyFromC;
 

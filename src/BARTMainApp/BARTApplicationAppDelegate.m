@@ -79,7 +79,7 @@
     
     [self newDataDidArrive:nil];
 
-    [NSThread sleepForTimeInterval:3.0];
+    [NSThread sleepForTimeInterval:1.0];
     [NSThread detachNewThreadSelector:@selector(timerThread) toTarget:self withObject:nil];
     
     [autoreleasePool drain];
