@@ -51,7 +51,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                      withDesign:(BADesignElement*)design
              andCurrentTimestep:(unsigned int)timestep
 {
-    mDesign = [design copyWithZone:NSDefaultMallocZone()];
+    mDesign = design;
     mData = data;
     /*
      * create output images

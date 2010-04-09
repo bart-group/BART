@@ -61,7 +61,7 @@
     
     BAAnalyzerElement* analyzer = [[BAAnalyzerElement alloc] initWithAnalyzerType:kAnalyzerGLM];
     
-    BADataElement* resMap = [analyzer anaylzeTheData:mRawDataElement withDesign:mDesignElement andCurrentTimestep:mCurrentTimestep];
+    BADataElement* resMap = [analyzer anaylzeTheData:mRawDataElement withDesign:[mDesignElement copy] andCurrentTimestep:mCurrentTimestep];
     
     // TODO: Post GUI update event
     //[[BAGUIProtoCGLayer getGUI] setForegroundImage:resMap];
