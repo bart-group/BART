@@ -315,13 +315,11 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>113</integer>
-									<integer>107</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 1334}, {340, 842}}</string>
+							<string>{{0, 0}, {340, 842}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -360,7 +358,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>NEDesignElementVI.h</string>
+								<string>NEDesignElementDynTest.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -368,11 +366,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>NEDesignElementVI.h</string>
+										<string>NEDesignElementDynTest.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>00A7DF45117C612A00062AFE</string>
+										<string>00A7DF7D117C7D9100062AFE</string>
 										<key>history</key>
 										<array>
 											<string>0032CC59116E03AD005117EA</string>
@@ -390,16 +388,14 @@
 											<string>0032CEC0116F8D8C005117EA</string>
 											<string>00AC1DF311738E4400311B28</string>
 											<string>00A7DD72117C389500062AFE</string>
-											<string>00A7DD73117C389500062AFE</string>
-											<string>00A7DD74117C389500062AFE</string>
-											<string>00A7DD75117C389500062AFE</string>
-											<string>00A7DF0F117C54AB00062AFE</string>
 											<string>00A7DF12117C54AB00062AFE</string>
 											<string>00A7DF13117C54AB00062AFE</string>
 											<string>00A7DF41117C612A00062AFE</string>
-											<string>00A7DF42117C612A00062AFE</string>
-											<string>00A7DF43117C612A00062AFE</string>
-											<string>00A7DF44117C612A00062AFE</string>
+											<string>00A7DF78117C7D9100062AFE</string>
+											<string>00A7DF79117C7D9100062AFE</string>
+											<string>00A7DF7A117C7D9100062AFE</string>
+											<string>00A7DF7B117C7D9100062AFE</string>
+											<string>00A7DF7C117C7D9100062AFE</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -580,7 +576,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>293364010.45932603</real>
+	<real>293371281.29632503</real>
 	<key>ToolbarConfigUserDefaultsMinorVersion</key>
 	<string>2</string>
 	<key>ToolbarDisplayMode</key>
@@ -601,8 +597,8 @@
 		<string>00A7DF1F117C54AB00062AFE</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/projects/BARTApplication.xcodeproj</string>
 		<string>0054579D1139751700E98146</string>
+		<string>/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/projects/BARTApplication.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>0 101 1280 901 0 0 1280 1002 </string>
@@ -626,25 +622,23 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>NEDesignElementDynTest.m</string>
+								<string>&lt;No Editor&gt;</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1194, 438}}</string>
+								<string>{{0, 0}, {1194, 0}}</string>
 								<key>RubberWindowFrame</key>
 								<string>86 225 1194 777 0 0 1280 1002 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>438pt</string>
+							<string>0pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -659,14 +653,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 443}, {1194, 293}}</string>
+								<string>{{0, 5}, {1194, 731}}</string>
 								<key>RubberWindowFrame</key>
 								<string>86 225 1194 777 0 0 1280 1002 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXBuildResultsModule</string>
 							<key>Proportion</key>
-							<string>293pt</string>
+							<string>731pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -697,7 +691,7 @@
 			<key>WindowToolGUID</key>
 			<string>0054579D1139751700E98146</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
