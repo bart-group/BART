@@ -43,6 +43,14 @@
     return self;
 }
 
+-(id)initWithDynamicDataOfImageDataType:(enum ImageDataType)type
+{
+	self = [super init];
+    [self release];
+    self = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:type];
+    return self;
+	
+}
 
 -(NSError*)writeDesignFile:(NSString*) path
 {

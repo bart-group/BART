@@ -34,7 +34,9 @@
 	}
     
     mRawDataElement = [[BADataElement alloc] initWithDatasetFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.v" ofImageDataType:IMAGE_DATA_SHORT];
-    mDesignElement = [[BADesignElement alloc] initWithDatasetFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-design.des" ofImageDataType:IMAGE_DATA_FLOAT];
+    mDesignElement = [[BADesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	if (nil == mDesignElement){
+		return;}
     mCurrentTimestep = 50;
 	
 	
