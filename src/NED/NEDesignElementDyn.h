@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "BADesignElement.h"
+#import "../BARTMainApp/BADesignElement.h"
 #import <fftw3.h>
 #import "NEDesignKernel.h"
 

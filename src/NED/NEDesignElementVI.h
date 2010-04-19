@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "BADesignElement.h"
+#import "../BARTMainApp/BADesignElement.h"
 #include <viaio/Vlib.h>
 #include <viaio/VImage.h>
 #include <viaio/mu.h>
