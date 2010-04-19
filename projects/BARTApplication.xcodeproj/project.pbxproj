@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0023A75811510D4C009182F8 /* edlValidation_rules.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0088781F1147B445009C7707 /* edlValidation_rules.xml */; };
 		0030920011527BF800E258D9 /* NEDesignKernel.m in Sources */ = {isa = PBXBuildFile; fileRef = 003091FF11527BF800E258D9 /* NEDesignKernel.m */; };
+		0032CC37116E023A005117EA /* timeBasedRegressorLydi.edl in Resources */ = {isa = PBXBuildFile; fileRef = 003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */; };
+		0032CC38116E023F005117EA /* main_SW_BoldModule_2ContinousTargetROIs.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00AB18EA115246ED003BC915 /* main_SW_BoldModule_2ContinousTargetROIs.edl */; };
 		0040B8071141470400A57967 /* BAAnalyzerGLM.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7961141470400A57967 /* BAAnalyzerGLM.m */; };
 		0040B8081141470400A57967 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
 		0040B8091141470400A57967 /* gauss.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7991141470400A57967 /* gauss.c */; };
@@ -17,8 +19,6 @@
 		0040B8471141470400A57967 /* ColorMappingFilter.cikernel in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F51141470400A57967 /* ColorMappingFilter.cikernel */; };
 		0040B84A1141470400A57967 /* Negative.cikernel in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F91141470400A57967 /* Negative.cikernel */; };
 		0040B85D1141472200A57967 /* BADataElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B8551141472200A57967 /* BADataElementVITest.m */; };
-		0040B85E1141472200A57967 /* BADesignElementDynTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B8571141472200A57967 /* BADesignElementDynTest.m */; };
-		0040B85F1141472200A57967 /* BADesignElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B8591141472200A57967 /* BADesignElementVITest.m */; };
 		0040B8701141488200A57967 /* SmoothnessEstim.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B86F1141488200A57967 /* SmoothnessEstim.c */; };
 		0040B87B11414A8E00A57967 /* ColorMappingFilter.cikernel in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0040B7F51141470400A57967 /* ColorMappingFilter.cikernel */; };
 		007932B3114FB79E007BEB66 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F81141470400A57967 /* main.m */; };
@@ -46,6 +46,27 @@
 		008878241147B445009C7707 /* edlValidation_rules.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 008878201147B445009C7707 /* edlValidation_rules.xsd */; };
 		008878251147B445009C7707 /* rtExperiment_v14_w_timebased.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 008878211147B445009C7707 /* rtExperiment_v14_w_timebased.xsd */; };
 		008878261147B445009C7707 /* timeBasedRegressor.edl in Resources */ = {isa = PBXBuildFile; fileRef = 008878221147B445009C7707 /* timeBasedRegressor.edl */; };
+		00A7DD56117C374200062AFE /* NEDesignElementDynTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A7DD53117C374200062AFE /* NEDesignElementDynTest.m */; };
+		00A7DD57117C374200062AFE /* NEDesignElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A7DD55117C374200062AFE /* NEDesignElementVITest.m */; };
+		00A7DD6B117C386300062AFE /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C39FF11144FB2100725668 /* CLETUS.dylib */; };
+		00A7DD82117C38CF00062AFE /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C39FF11144FB2100725668 /* CLETUS.dylib */; };
+		00A7DD86117C390D00062AFE /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E210AC888700FAFA4F /* libvia.dylib */; };
+		00A7DD87117C390E00062AFE /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E410AC888700FAFA4F /* libviaio.dylib */; };
+		00A7DD8A117C391D00062AFE /* NEDesignElementDyn.h in Headers */ = {isa = PBXBuildFile; fileRef = 0083769F116BB12D00369B20 /* NEDesignElementDyn.h */; };
+		00A7DD8B117C391D00062AFE /* NEDesignElementDyn.m in Sources */ = {isa = PBXBuildFile; fileRef = 008376A0116BB12D00369B20 /* NEDesignElementDyn.m */; };
+		00A7DD8C117C391D00062AFE /* NEDesignElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 008376A1116BB12D00369B20 /* NEDesignElementVI.h */; };
+		00A7DD8D117C391E00062AFE /* NEDesignElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 008376A2116BB12D00369B20 /* NEDesignElementVI.m */; };
+		00A7DD8E117C391F00062AFE /* NEDesignGloverKernel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0085EB2211511B2C004795FD /* NEDesignGloverKernel.h */; };
+		00A7DD8F117C391F00062AFE /* NEDesignGloverKernel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0085EB2311511B2C004795FD /* NEDesignGloverKernel.m */; };
+		00A7DD90117C392000062AFE /* NEDesignKernel.h in Headers */ = {isa = PBXBuildFile; fileRef = 003091FE11527BF800E258D9 /* NEDesignKernel.h */; };
+		00A7DD91117C392000062AFE /* NEDesignKernel.m in Sources */ = {isa = PBXBuildFile; fileRef = 003091FF11527BF800E258D9 /* NEDesignKernel.m */; };
+		00A7DD95117C392E00062AFE /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7D689A1113447C005A9D15 /* libfftw3.a */; };
+		00A7DF02117C549000062AFE /* BADesignElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A81141470400A57967 /* BADesignElement.m */; };
+		00A7DF03117C549100062AFE /* BADesignElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 0040B7A71141470400A57967 /* BADesignElement.h */; };
+		00A7DF09117C54A600062AFE /* BAElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B01141470400A57967 /* BAElement.m */; };
+		00A7DF0A117C54A600062AFE /* BAElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 0040B7AF1141470400A57967 /* BAElement.h */; };
+		00A7DF29117C54D900062AFE /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00A7DD7D117C38B700062AFE /* NED.dylib */; };
+		00A7DF3E117C610D00062AFE /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7D689A1113447C005A9D15 /* libfftw3.a */; };
 		00B1573211459587007C02CB /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573111459587007C02CB /* libgslcblas.dylib */; };
 		00B1573C11459605007C02CB /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573B11459605007C02CB /* libgsl.0.dylib */; };
 		00B1AC24114554DB008FC09D /* COEDLValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AC22114554DB008FC09D /* COEDLValidator.h */; };
@@ -74,7 +95,6 @@
 		00C3A082114510CE00725668 /* rtExperiment_v14.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 00C3A080114510CE00725668 /* rtExperiment_v14.xsd */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		CE7D689B1113447C005A9D15 /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7D689A1113447C005A9D15 /* libfftw3.a */; };
 		CE8A28C510F51058002422B5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED1922910AC8AD600FAFA4F /* QuartzCore.framework */; };
 		CE8A28D010F5121A002422B5 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E410AC888700FAFA4F /* libviaio.dylib */; };
 		CE8A28D110F5121B002422B5 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191E210AC888700FAFA4F /* libvia.dylib */; };
@@ -106,6 +126,34 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = BARTApplication;
+		};
+		00A7DD67117C385A00062AFE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00C39FF01144FB2100725668 /* CLETUS */;
+			remoteInfo = CLETUS;
+		};
+		00A7DD80117C38CC00062AFE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00C39FF01144FB2100725668 /* CLETUS */;
+			remoteInfo = CLETUS;
+		};
+		00A7DEFA117C521E00062AFE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00A7DD7C117C38B700062AFE /* NED */;
+			remoteInfo = NED;
+		};
+		00A7DF46117C617300062AFE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00A7DD7C117C38B700062AFE /* NED */;
+			remoteInfo = NED;
 		};
 		00C3A0221144FF0C00725668 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -179,10 +227,6 @@
 		0040B7FA1141470400A57967 /* NegativeKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NegativeKernel.h; sourceTree = "<group>"; };
 		0040B8541141472200A57967 /* BADataElementVITest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElementVITest.h; sourceTree = "<group>"; };
 		0040B8551141472200A57967 /* BADataElementVITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElementVITest.m; sourceTree = "<group>"; };
-		0040B8561141472200A57967 /* BADesignElementDynTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementDynTest.h; sourceTree = "<group>"; };
-		0040B8571141472200A57967 /* BADesignElementDynTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementDynTest.m; sourceTree = "<group>"; };
-		0040B8581141472200A57967 /* BADesignElementVITest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElementVITest.h; sourceTree = "<group>"; };
-		0040B8591141472200A57967 /* BADesignElementVITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElementVITest.m; sourceTree = "<group>"; };
 		0040B86F1141488200A57967 /* SmoothnessEstim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SmoothnessEstim.c; sourceTree = "<group>"; };
 		0040B9B1114173BD00A57967 /* BARTUnitTestSuite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
 		007934EB1150FBF7007BEB66 /* COErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COErrorCode.h; sourceTree = "<group>"; };
@@ -211,6 +255,13 @@
 		008878201147B445009C7707 /* edlValidation_rules.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = edlValidation_rules.xsd; sourceTree = "<group>"; };
 		008878211147B445009C7707 /* rtExperiment_v14_w_timebased.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rtExperiment_v14_w_timebased.xsd; sourceTree = "<group>"; };
 		008878221147B445009C7707 /* timeBasedRegressor.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = timeBasedRegressor.edl; sourceTree = "<group>"; };
+		00A7DD4B117C366A00062AFE /* NEDUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NEDUnitTestSuite.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00A7DD4C117C366A00062AFE /* NEDUnitTestSuite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "NEDUnitTestSuite-Info.plist"; path = "../../projects/NEDUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
+		00A7DD52117C374200062AFE /* NEDesignElementDynTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignElementDynTest.h; sourceTree = "<group>"; };
+		00A7DD53117C374200062AFE /* NEDesignElementDynTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignElementDynTest.m; sourceTree = "<group>"; };
+		00A7DD54117C374200062AFE /* NEDesignElementVITest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignElementVITest.h; sourceTree = "<group>"; };
+		00A7DD55117C374200062AFE /* NEDesignElementVITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignElementVITest.m; sourceTree = "<group>"; };
+		00A7DD7D117C38B700062AFE /* NED.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = NED.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		00AB18EA115246ED003BC915 /* main_SW_BoldModule_2ContinousTargetROIs.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = main_SW_BoldModule_2ContinousTargetROIs.edl; sourceTree = "<group>"; };
 		00B1573111459587007C02CB /* libgslcblas.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgslcblas.dylib; path = /opt/local/lib/libgslcblas.dylib; sourceTree = "<absolute>"; };
 		00B1573B11459605007C02CB /* libgsl.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgsl.0.dylib; path = /opt/local/lib/libgsl.0.dylib; sourceTree = "<absolute>"; };
@@ -259,6 +310,27 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		00A7DD48117C366A00062AFE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00A7DD6B117C386300062AFE /* CLETUS.dylib in Frameworks */,
+				00A7DF29117C54D900062AFE /* NED.dylib in Frameworks */,
+				00A7DF3E117C610D00062AFE /* libfftw3.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00A7DD7B117C38B700062AFE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00A7DD82117C38CF00062AFE /* CLETUS.dylib in Frameworks */,
+				00A7DD86117C390D00062AFE /* libvia.dylib in Frameworks */,
+				00A7DD87117C390E00062AFE /* libviaio.dylib in Frameworks */,
+				00A7DD95117C392E00062AFE /* libfftw3.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		00C39FEF1144FB2100725668 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -288,7 +360,6 @@
 				CE8A28D710F5121F002422B5 /* CoreData.framework in Frameworks */,
 				CE8A28D810F51220002422B5 /* AppKit.framework in Frameworks */,
 				CE8A2A3A10F61713002422B5 /* Quartz.framework in Frameworks */,
-				CE7D689B1113447C005A9D15 /* libfftw3.a in Frameworks */,
 				00C3A05911450B7200725668 /* CLETUS.dylib in Frameworks */,
 				00B1573211459587007C02CB /* libgslcblas.dylib in Frameworks */,
 				00B1573C11459605007C02CB /* libgsl.0.dylib in Frameworks */,
@@ -448,6 +519,7 @@
 		0040B8521141472200A57967 /* tests */ = {
 			isa = PBXGroup;
 			children = (
+				00A7DD51117C374200062AFE /* NEDTests */,
 				0040B8531141472200A57967 /* BARTMainAppTests */,
 				0040B85C1141472200A57967 /* CLETUSTests */,
 			);
@@ -461,10 +533,6 @@
 				00841BF711464321004341CC /* testfiles */,
 				0040B8541141472200A57967 /* BADataElementVITest.h */,
 				0040B8551141472200A57967 /* BADataElementVITest.m */,
-				0040B8561141472200A57967 /* BADesignElementDynTest.h */,
-				0040B8571141472200A57967 /* BADesignElementDynTest.m */,
-				0040B8581141472200A57967 /* BADesignElementVITest.h */,
-				0040B8591141472200A57967 /* BADesignElementVITest.m */,
 			);
 			path = BARTMainAppTests;
 			sourceTree = "<group>";
@@ -520,6 +588,18 @@
 			path = testfiles;
 			sourceTree = "<group>";
 		};
+		00A7DD51117C374200062AFE /* NEDTests */ = {
+			isa = PBXGroup;
+			children = (
+				00A7DD4C117C366A00062AFE /* NEDUnitTestSuite-Info.plist */,
+				00A7DD52117C374200062AFE /* NEDesignElementDynTest.h */,
+				00A7DD53117C374200062AFE /* NEDesignElementDynTest.m */,
+				00A7DD54117C374200062AFE /* NEDesignElementVITest.h */,
+				00A7DD55117C374200062AFE /* NEDesignElementVITest.m */,
+			);
+			path = NEDTests;
+			sourceTree = "<group>";
+		};
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,6 +629,8 @@
 				CE8B709110DA988F007AEB2B /* BARTApplication.octest */,
 				00C39FF11144FB2100725668 /* CLETUS.dylib */,
 				00C39FFA1144FBD600725668 /* CLETUSUnitTestSuite.octest */,
+				00A7DD4B117C366A00062AFE /* NEDUnitTestSuite.octest */,
+				00A7DD7D117C38B700062AFE /* NED.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -603,6 +685,19 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		00A7DD79117C38B700062AFE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00A7DD8A117C391D00062AFE /* NEDesignElementDyn.h in Headers */,
+				00A7DD8C117C391D00062AFE /* NEDesignElementVI.h in Headers */,
+				00A7DD8E117C391F00062AFE /* NEDesignGloverKernel.h in Headers */,
+				00A7DD90117C392000062AFE /* NEDesignKernel.h in Headers */,
+				00A7DF03117C549100062AFE /* BADesignElement.h in Headers */,
+				00A7DF0A117C54A600062AFE /* BAElement.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		00C39FED1144FB2100725668 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -620,6 +715,44 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		00A7DD4A117C366A00062AFE /* NEDUnitTestSuite */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00A7DD4F117C366B00062AFE /* Build configuration list for PBXNativeTarget "NEDUnitTestSuite" */;
+			buildPhases = (
+				00A7DD46117C366A00062AFE /* Resources */,
+				00A7DD47117C366A00062AFE /* Sources */,
+				00A7DD48117C366A00062AFE /* Frameworks */,
+				00A7DD49117C366A00062AFE /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00A7DD68117C385A00062AFE /* PBXTargetDependency */,
+				00A7DF47117C617300062AFE /* PBXTargetDependency */,
+			);
+			name = NEDUnitTestSuite;
+			productName = NEDUnitTestSuite;
+			productReference = 00A7DD4B117C366A00062AFE /* NEDUnitTestSuite.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		00A7DD7C117C38B700062AFE /* NED */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00A7DD83117C38EE00062AFE /* Build configuration list for PBXNativeTarget "NED" */;
+			buildPhases = (
+				00A7DD79117C38B700062AFE /* Headers */,
+				00A7DD7A117C38B700062AFE /* Sources */,
+				00A7DD7B117C38B700062AFE /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00A7DD81117C38CC00062AFE /* PBXTargetDependency */,
+			);
+			name = NED;
+			productName = NED;
+			productReference = 00A7DD7D117C38B700062AFE /* NED.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
 		00C39FF01144FB2100725668 /* CLETUS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00C39FF41144FB4000725668 /* Build configuration list for PBXNativeTarget "CLETUS" */;
@@ -670,6 +803,7 @@
 			);
 			dependencies = (
 				00C3A0231144FF0C00725668 /* PBXTargetDependency */,
+				00A7DEFB117C521E00062AFE /* PBXTargetDependency */,
 			);
 			name = BARTApplication;
 			productInstallPath = "$(HOME)/Applications";
@@ -720,11 +854,20 @@
 				CE8B709010DA988F007AEB2B /* BARTUnitTestSuite */,
 				00C39FF01144FB2100725668 /* CLETUS */,
 				00C39FF91144FBD600725668 /* CLETUSUnitTestSuite */,
+				00A7DD4A117C366A00062AFE /* NEDUnitTestSuite */,
+				00A7DD7C117C38B700062AFE /* NED */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		00A7DD46117C366A00062AFE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		00C39FF51144FBD600725668 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -735,6 +878,8 @@
 				008878251147B445009C7707 /* rtExperiment_v14_w_timebased.xsd in Resources */,
 				008878261147B445009C7707 /* timeBasedRegressor.edl in Resources */,
 				0023A75811510D4C009182F8 /* edlValidation_rules.xml in Resources */,
+				0032CC37116E023A005117EA /* timeBasedRegressorLydi.edl in Resources */,
+				0032CC38116E023F005117EA /* main_SW_BoldModule_2ContinousTargetROIs.edl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -760,6 +905,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		00A7DD49117C366A00062AFE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
 		00C39FF81144FBD600725668 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -802,6 +960,28 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		00A7DD47117C366A00062AFE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00A7DD56117C374200062AFE /* NEDesignElementDynTest.m in Sources */,
+				00A7DD57117C374200062AFE /* NEDesignElementVITest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00A7DD7A117C38B700062AFE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00A7DD8B117C391D00062AFE /* NEDesignElementDyn.m in Sources */,
+				00A7DD8D117C391E00062AFE /* NEDesignElementVI.m in Sources */,
+				00A7DD8F117C391F00062AFE /* NEDesignGloverKernel.m in Sources */,
+				00A7DD91117C392000062AFE /* NEDesignKernel.m in Sources */,
+				00A7DF02117C549000062AFE /* BADesignElement.m in Sources */,
+				00A7DF09117C54A600062AFE /* BAElement.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		00C39FEE1144FB2100725668 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -868,8 +1048,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0040B85D1141472200A57967 /* BADataElementVITest.m in Sources */,
-				0040B85E1141472200A57967 /* BADesignElementDynTest.m in Sources */,
-				0040B85F1141472200A57967 /* BADesignElementVITest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -880,6 +1058,26 @@
 			isa = PBXTargetDependency;
 			target = 8D1107260486CEB800E47090 /* BARTApplication */;
 			targetProxy = 0040B9911141708D00A57967 /* PBXContainerItemProxy */;
+		};
+		00A7DD68117C385A00062AFE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00C39FF01144FB2100725668 /* CLETUS */;
+			targetProxy = 00A7DD67117C385A00062AFE /* PBXContainerItemProxy */;
+		};
+		00A7DD81117C38CC00062AFE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00C39FF01144FB2100725668 /* CLETUS */;
+			targetProxy = 00A7DD80117C38CC00062AFE /* PBXContainerItemProxy */;
+		};
+		00A7DEFB117C521E00062AFE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00A7DD7C117C38B700062AFE /* NED */;
+			targetProxy = 00A7DEFA117C521E00062AFE /* PBXContainerItemProxy */;
+		};
+		00A7DF47117C617300062AFE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00A7DD7C117C38B700062AFE /* NED */;
+			targetProxy = 00A7DF46117C617300062AFE /* PBXContainerItemProxy */;
 		};
 		00C3A0231144FF0C00725668 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -908,6 +1106,131 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		00A7DD4D117C366B00062AFE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "NEDUnitTestSuite-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = NEDUnitTestSuite;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		00A7DD4E117C366B00062AFE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "NEDUnitTestSuite-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = NEDUnitTestSuite;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		00A7DD7E117C38B800062AFE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				HEADER_SEARCH_PATHS = (
+					../BARTMainApp/,
+					/opt/local/include,
+					/usr/include,
+				);
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = NED;
+			};
+			name = Debug;
+		};
+		00A7DD7F117C38B800062AFE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = NED;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		00C39FF21144FB2200725668 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1165,6 +1488,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		00A7DD4F117C366B00062AFE /* Build configuration list for PBXNativeTarget "NEDUnitTestSuite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00A7DD4D117C366B00062AFE /* Debug */,
+				00A7DD4E117C366B00062AFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		00A7DD83117C38EE00062AFE /* Build configuration list for PBXNativeTarget "NED" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00A7DD7E117C38B800062AFE /* Debug */,
+				00A7DD7F117C38B800062AFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		00C39FF41144FB4000725668 /* Build configuration list for PBXNativeTarget "CLETUS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
