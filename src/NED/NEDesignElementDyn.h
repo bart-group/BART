@@ -16,18 +16,21 @@ typedef struct ComplexStruct {
     double im;
 } Complex;
 
+typedef struct RegressorStruct {
+	TrialList *regTrialList;
+	unsigned int regDerivations;
+	NSString *regID;
+	NSString *regDescription;
+	NEDesignKernel *regConvolKernel;
+} TRegressor;
 
 @interface NEDesignElementDyn : BADesignElement {
 
-    TrialList** mTrialList;
+	TRegressor **mRegressorList;
     unsigned int mNumberEvents;
-	
-	unsigned int mDerivationsHrf;
-	//float mBlockThreshold; // in seconds
 	unsigned long mNumberSamplesForInit;
 	unsigned long mNumberSamplesNeededForExp;
 	double *mTimeOfRepetitionStartInMs;
-	
 	/* Generated design information/resulting design image. */
 	float** mDesign;
 	float** mCovariates;
@@ -41,9 +44,6 @@ typedef struct ComplexStruct {
 	/*plans for fft*/
 	fftw_plan *mFftPlanForward;
 	fftw_plan *mFftPlanInverse;
-	
-	// the kernels to convolve with the event trials
-	NEDesignKernel **mConvolutionKernels; //one per each event
 	
 	BOOL mDesignHasChanged;
 }

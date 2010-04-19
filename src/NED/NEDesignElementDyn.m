@@ -37,12 +37,16 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	
 	mDesignHasChanged = NO;
 	
-    mTrialList = (TrialList**) malloc(sizeof(TrialList*) * MAX_NUMBER_EVENTS);
-    for (int i = 0; i < MAX_NUMBER_EVENTS; i++) {
-        mTrialList[i] = NULL;
+    mRegressorList = (TRegressor**) malloc(sizeof(TRegressor*) * MAX_NUMBER_EVENTS);
+	for (int i = 0; i < MAX_NUMBER_EVENTS; i++) {
+        mRegressorList[i] = (TRegressor*) malloc(sizeof(TRegressor));
+		mRegressorList[i]->regTrialList = NULL;
+		mRegressorList[i]->regConvolKernel = NULL;
+		mRegressorList[i]->regID = nil;
+		mRegressorList[i]->regDescription = nil;
     }
-			
-    NSLog(@"GenDesign GCD: START");
+	
+	NSLog(@"GenDesign GCD: START");
 	[self parseInputFile:path];
 	NSLog(@"GenDesign GCD: PARSE");
     [self initDesign];
@@ -57,8 +61,12 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
             memset(mCovariates[cov], 0.0, sizeof(float) * mNumberTimesteps);
         }
     }
-     
-    mNumberRegressors = mNumberEvents * (mDerivationsHrf + 1) + 1;
+    
+	unsigned int nrDerivs = 0;
+	for (unsigned int eventNr = 0; eventNr < mNumberEvents; eventNr++){
+		nrDerivs += mRegressorList[eventNr]->regDerivations;}
+	
+    mNumberRegressors = mNumberEvents + nrDerivs + 1;
     mNumberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
 	[self writeDesignFile:@"/tmp/testDesign.v"];
 	return self;
@@ -77,10 +85,16 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	
 	mDesignHasChanged = NO;
 	
-    mTrialList = (TrialList**) malloc(sizeof(TrialList*) * MAX_NUMBER_EVENTS);
-    for (int i = 0; i < MAX_NUMBER_EVENTS; i++) {
-        mTrialList[i] = NULL;
+	mRegressorList = (TRegressor**) malloc(sizeof(TRegressor*) * MAX_NUMBER_EVENTS);
+	for (int i = 0; i < MAX_NUMBER_EVENTS; i++) {
+        mRegressorList[i] = (TRegressor*) malloc(sizeof(TRegressor));
+		mRegressorList[i]->regTrialList = NULL;
+		mRegressorList[i]->regConvolKernel = NULL;
+		mRegressorList[i]->regID = nil;
+		mRegressorList[i]->regDescription = nil;
     }
+	
+	
 	
 	NSLog(@"GenDesign GCD: START");
 	NSError *error = [self getPropertiesFromConfig];
@@ -102,7 +116,11 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         }
     }
 	
-    mNumberRegressors = mNumberEvents * (mDerivationsHrf + 1) + 1;
+	unsigned int nrDerivs = 0;
+	for (unsigned int eventNr = 0; eventNr < mNumberEvents; eventNr++){
+		nrDerivs += mRegressorList[eventNr]->regDerivations;}
+	
+    mNumberRegressors = mNumberEvents + nrDerivs + 1;
     mNumberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
 	[self writeDesignFile:@"/tmp/testDesign.v"];
 	return self;
@@ -140,9 +158,8 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 		}
 	}
 	
-	mTrialList = nil;
+	mRegressorList = nil;
 	mNumberEvents = 0;
-	mDerivationsHrf = 0;
 	mNumberSamplesForInit = 0;
 	mNumberSamplesNeededForExp = 0;
 	mTimeOfRepetitionStartInMs = 0;
@@ -152,7 +169,6 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	mBuffersInverseOut = nil;
 	mFftPlanForward = nil;
 	mFftPlanInverse = nil;
-	mConvolutionKernels = nil;
 	mDesignHasChanged = NO;
 }
 
@@ -179,12 +195,14 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 		return error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
 	}
 
+	//TODO: what kind of regressor do we have - scanBased vs. timeBased
+	
 	
 	NSString* config_tr = [config getProp:@"$TR"];
 	NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
 	[f setNumberStyle:NSNumberFormatterDecimalStyle];
 	mRepetitionTimeInMs = [[f numberFromString:config_tr] unsignedIntValue];
-	if (0 <= mRepetitionTimeInMs)
+	if (0 >= mRepetitionTimeInMs)
 	{
 		NSString* errorString = [NSString stringWithFormat:@"negative TR not possible"];
 		return error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
@@ -194,31 +212,32 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	NSString* config_nrTimesteps = [config getProp:@"$nrTimesteps"];
 	mNumberTimesteps = [[f numberFromString:config_nrTimesteps] unsignedIntValue];
 	NSLog(@"length of Exp: %d", mNumberTimesteps);
-	if ( 0 <= mNumberTimesteps)
+	if ( 0 >= mNumberTimesteps)
 	{
 		NSString* errorString = [NSString stringWithFormat:@"negative number of timesteps not possible"];
 		return error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
 	}
 	
-	mNumberEvents = [config countNodes:@"$gwDesign/timeBasedRegressor"];
+	NSString* requestNrEvents = [NSString stringWithFormat:@"%@/timeBasedRegressor", expType];
+	mNumberEvents = [config countNodes:requestNrEvents];
 	NSLog(@"indep Regressors without derivs: %d", mNumberEvents);
-	mNumberCovariates = 0;//[config countNodes:@"$gwDesign/timeBasedRegressor"];     // TODO: get from config  
 	
-	
+	NSString* requestNrCovariates = [NSString stringWithFormat:@"%@/scanBasedCovariates", expType];
+	mNumberCovariates = [config countNodes:requestNrCovariates];     
 	
 	// now read all the trials for each event
 		
 	for (unsigned int i = 0; i < mNumberEvents; i++)
 	{
-		NSString *requestTrialsInReg = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent", i+1, i+1];
+		NSString *requestTrialsInReg = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent", expType, i+1, i+1];
 		NSUInteger nrTrialsInRegr = [config countNodes:requestTrialsInReg ];
 		unsigned int trialID = i+1;
 
 		for (unsigned int k = 0; k < nrTrialsInRegr; k++)
 		{
-			NSString *requestTrialTime = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@time", i+1, k+1];
-			NSString *requestTrialDuration = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@duration",i+1, k+1];
-			NSString *requestTrialHeight = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@height",i+1, k+1];
+			NSString *requestTrialTime = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@time", expType, i+1, k+1];
+			NSString *requestTrialDuration = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@duration", expType, i+1, k+1];
+			NSString *requestTrialHeight = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@height", expType, i+1, k+1];
 			float onset = [[f numberFromString:[config getProp:requestTrialTime]] floatValue];
 			float duration = [[f numberFromString:[config getProp:requestTrialDuration]] floatValue];
 			float height = [[f numberFromString:[config getProp:requestTrialHeight]] floatValue];
@@ -242,20 +261,28 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 			*newListEntry = TRIALLIST_INIT;
 			newListEntry->trial = newTrial;
 			
-			if (mTrialList[trialID - 1] == NULL) {
-				mTrialList[trialID - 1] = newListEntry;
+			if (mRegressorList[trialID - 1]->regTrialList == NULL) {
+				mRegressorList[trialID - 1]->regTrialList = newListEntry;
 			} else {
-				[self tl_append:mTrialList[trialID - 1] :newListEntry];
+				[self tl_append:mRegressorList[trialID - 1]->regTrialList :newListEntry];
 			}
 			
 		}
+		
+		mRegressorList[i]->regID = [config getProp:[NSString stringWithFormat:@"%@/timeBasedRegressor/@regressorID", expType]];
+		mRegressorList[i]->regDescription = [config getProp:[NSString stringWithFormat:@"%@/timeBasedRegressor/@name", expType]];
+
+		// number of derivations used per each event
+		if ( YES == [[config getProp:[NSString stringWithFormat:@"%@/timeBasedRegressor/@useRefFctSecondDerivative", expType]] boolValue]){
+			mRegressorList[i]->regDerivations = 2;}
+		else if (YES == [[config getProp:[NSString stringWithFormat:@"%@/timeBasedRegressor/@useRefFctFirstDerivative", expType]] boolValue]){
+			mRegressorList[i]->regDerivations = 1;}
+		else {
+			mRegressorList[i]->regDerivations = 0;}
+		
 	}
 	
 	
-	//finished reading of trials for each event
-
-	
-	mDerivationsHrf = 0;
 	// calc number of samples for the fft
 	mNumberSamplesForInit = (mNumberTimesteps * mRepetitionTimeInMs) / samplingRateInMs + 10000;//add some seconds to avoid wrap around problems with fft, here defined as 10s
 	
@@ -298,7 +325,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         xmin = FLT_MAX;
         
         TrialList* currentTrial;
-        currentTrial = mTrialList[i];
+        currentTrial = mRegressorList[i]->regTrialList;
         
         while (currentTrial != NULL) {
             if (currentTrial->trial.duration < xmin) {
@@ -307,11 +334,11 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
             currentTrial = currentTrial->next;
         }
         
-        if (0 == mDerivationsHrf) {
+        if (0 == mRegressorList[i]->regDerivations) {
             ncols++;
-        } else if (1 == mDerivationsHrf) {
+        } else if (1 == mRegressorList[i]->regDerivations) {
             ncols += 2;
-        } else if (2 == mDerivationsHrf) {
+        } else if (2 == mRegressorList[i]->regDerivations) {
             ncols += 3;
         }
     }
@@ -345,7 +372,6 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     mBuffersInverseOut = (double **) malloc(sizeof(double *) * mNumberEvents);
 
 	/* alloc gamma kernels one per each event*/
-	mConvolutionKernels = (NEDesignKernel **) malloc(sizeof(NEDesignKernel*) * mNumberEvents);
     
     for (unsigned int eventNr = 0; eventNr < mNumberEvents; eventNr++) {
         
@@ -371,7 +397,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 		params.relationP1P2 = 0.1;
 		params.heightScale = 120;
 		
-		mConvolutionKernels[eventNr] = [[NEDesignKernel alloc] initWithGloverParams:params andNumberSamples:mNumberSamplesForInit];
+		mRegressorList[eventNr]->regConvolKernel = [[NEDesignKernel alloc] initWithGloverParams:params andNumberSamples:mNumberSamplesForInit];
     }
     
     return nil;
@@ -394,7 +420,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         double h;
 		        
         TrialList* currentTrial;
-        currentTrial = mTrialList[eventNr];
+        currentTrial = mRegressorList[eventNr]->regTrialList;//mTrialList[eventNr];
         
         while (currentTrial != NULL) {
             trialcount++;
@@ -425,24 +451,23 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         
         /* fft */
         fftw_execute(mFftPlanForward[eventNr]);
-        unsigned int col = eventNr * (mDerivationsHrf + 1);
+ 		unsigned int col = eventNr + mRegressorList[eventNr]->regDerivations;
   		[self Convolve:col
 					  :eventNr
-					  :mConvolutionKernels[eventNr].mKernelDeriv0];
-        
+					  :mRegressorList[eventNr]->regConvolKernel.mKernelDeriv0]; 
         col++;
         
-        if (1 <= mDerivationsHrf) {
+        if (1 <= mRegressorList[eventNr]->regDerivations) {
             [self Convolve:col
 						  :eventNr
-                          :mConvolutionKernels[eventNr].mKernelDeriv1];
+                          :mRegressorList[eventNr]->regConvolKernel.mKernelDeriv1];
             col++;
         }
         
-        if (2 == mDerivationsHrf) {
+        if (2 == mRegressorList[eventNr]->regDerivations) {
             [self Convolve:col
 						  :eventNr
-						  :mConvolutionKernels[eventNr].mKernelDeriv2];
+						  :mRegressorList[eventNr]->regConvolKernel.mKernelDeriv2];
         }
     });
     
@@ -521,11 +546,11 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
                 *newListEntry = TRIALLIST_INIT;
                 newListEntry->trial = newTrial;
                 
-                if (mTrialList[trialID - 1] == NULL) {
-                    mTrialList[trialID - 1] = newListEntry;
+                if (NULL == mRegressorList[trialID -1]->regTrialList){
+					mRegressorList[trialID - 1]->regTrialList = newListEntry;
                     mNumberEvents++;
                 } else {
-                    [self tl_append:mTrialList[trialID - 1] :newListEntry];
+ 					[self tl_append:mRegressorList[trialID - 1]->regTrialList :newListEntry];
                 }
                 
                 numberTrials++;
@@ -548,7 +573,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     VSetAttr(VImageAttrList(outDesign), "repetition_time", NULL, VLongRepn, (VLong) mRepetitionTimeInMs);
     VSetAttr(VImageAttrList(outDesign), "ntimesteps", NULL, VLongRepn, (VLong) mNumberTimesteps);
     
-    VSetAttr(VImageAttrList(outDesign), "derivatives", NULL, VShortRepn, mDerivationsHrf);
+    VSetAttr(VImageAttrList(outDesign), "derivatives", NULL, VShortRepn, mRegressorList[0]->regDerivations);
     
     // evil: Copy&Paste from initDesign()
     float delay = 6.0;              
@@ -577,11 +602,11 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     
     // Numbers taken from Plot_gamma()
     int ncols = (int) (28.0 / 0.2);
-    int nrows = mDerivationsHrf + 2;
+    int nrows = mRegressorList[0]->regDerivations + 2;
     VImage plot_image = NULL;
     plot_image = VCreateImage(1, nrows, ncols, VFloatRepn);
     float** plot_image_raw = NULL;
-    plot_image_raw = [mConvolutionKernels[0] plotGammaWithDerivs:mDerivationsHrf];//take first event, here just one fct possible
+    plot_image_raw = [mRegressorList[0]->regConvolKernel plotGammaWithDerivs:mRegressorList[0]->regDerivations];//take first event, here just one fct possible
     
     for (int col = 0; col < ncols; col++) {
         for (int row = 0; row < nrows; row++) {
@@ -708,10 +733,9 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 -(void)setRegressor:(TrialList *)regressor
 {
-    free(mTrialList[regressor->trial.id - 1]);
-    mTrialList[regressor->trial.id - 1] = NULL;
-    mTrialList[regressor->trial.id - 1] = regressor;
-    
+    free(mRegressorList[regressor->trial.id - 1]);
+    mRegressorList[regressor->trial.id -1] = NULL;
+    mRegressorList[regressor->trial.id - 1]->regTrialList = regressor;
 	mDesignHasChanged = YES;
 
     //[self generateDesign];
@@ -725,10 +749,10 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	*newListEntry = TRIALLIST_INIT;
 	newListEntry->trial = trial;
 	
-	if (mTrialList[trial.id - 1] == NULL) {
-		mTrialList[trial.id - 1] = newListEntry;
+	if (NULL == mRegressorList[trial.id - 1]->regTrialList){
+		mRegressorList[trial.id - 1]->regTrialList = newListEntry;
 	} else {
-		[self tl_append:mTrialList[trial.id - 1] :newListEntry];
+		[self tl_append:mRegressorList[trial.id - 1]->regTrialList :newListEntry];
 	}
 	mDesignHasChanged = YES;
 
@@ -776,11 +800,10 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         fftw_free(mBuffersForwardOut[eventNr]);
         fftw_free(mBuffersInverseIn[eventNr]);
         fftw_free(mBuffersInverseOut[eventNr]);
-		free(mConvolutionKernels[eventNr]);
-        
+		
         TrialList* node;
         TrialList* tmp;
-        node = mTrialList[eventNr];
+        node = mRegressorList[eventNr]->regTrialList;
         while (node != NULL) {
             tmp = node;
             node = node -> next;
@@ -788,13 +811,12 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         }
     }
     
-    free(mTrialList);
+    free(mRegressorList);
     free(mBuffersForwardIn);
     fftw_free(mBuffersForwardOut);
     fftw_free(mBuffersInverseIn);
     free(mBuffersInverseOut);
-	free(mConvolutionKernels);
-    free(mFftPlanForward);
+	free(mFftPlanForward);
     free(mFftPlanInverse);
 
     [super dealloc];
@@ -808,7 +830,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 		float nx   = 0.0;
 		
 		TrialList* currentTrial;
-		currentTrial = mTrialList[i];
+		currentTrial = mRegressorList[i]->regTrialList;
 		
 		while (currentTrial != NULL) {
 			sum1 += currentTrial->trial.height;
@@ -824,7 +846,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 			if (sigma < 0.01) continue;  /* not a parametric covariate */
 			
 			/* correct for zero mean */
-			currentTrial = mTrialList[i];
+			currentTrial = mRegressorList[i]->regTrialList;
 			
 			while (currentTrial != NULL) {
 				currentTrial->trial.height -= mean;
