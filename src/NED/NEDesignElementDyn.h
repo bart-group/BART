@@ -51,10 +51,9 @@ typedef struct ComplexStruct {
 -(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
 -(void)copyValuesOfFinishedDesign:(float**)copyFromR andCovariates:(float**)copyFromC;
 -(NSError*)generateDesign;
--(void)copyValuesOfFinishedDesign:(float**)copyFromR andCovariates:(float**)copyFromC;
 
-@property (readonly) BOOL mDesignHasChanged;
-@property TrialList** mTrialList;
+
+
 
 @end
 

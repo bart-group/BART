@@ -20,8 +20,8 @@ double samplingRateInMs = 20.0; /* Temporal resolution for convolution is 20 ms.
 double t1 = 30.0;               /* HRF duration / Breite der HRF.                */
 const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
-@synthesize mDesignHasChanged;
-@synthesize mTrialList;
+
+
 
 // TODO: check if imageDataType still needed (here: float)
 -(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
@@ -41,14 +41,9 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     for (int i = 0; i < MAX_NUMBER_EVENTS; i++) {
         mTrialList[i] = NULL;
     }
-	
-	if (nil != [self getPropertiesFromConfig]){
-		return nil;
-	}
-	
 			
     NSLog(@"GenDesign GCD: START");
-	//[self parseInputFile:path];
+	[self parseInputFile:path];
 	NSLog(@"GenDesign GCD: PARSE");
     [self initDesign];
 	NSLog(@"GenDesign GCD: INIT");   
@@ -71,7 +66,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 -(id)initWithDynamicDataOfImageDataType:(enum ImageDataType)type
 {
-    self = [super init];
+	self = [super init];
     
     if (type == IMAGE_DATA_FLOAT) {
         mImageDataType = type;
@@ -79,18 +74,23 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         NSLog(@" BADesignElementDyn.initWithFile: defaulting to IMAGE_DATA_FLOAT (other values are not supported)!");
         mImageDataType = IMAGE_DATA_FLOAT;
     }
-    
+	
 	mDesignHasChanged = NO;
 	
     mTrialList = (TrialList**) malloc(sizeof(TrialList*) * MAX_NUMBER_EVENTS);
     for (int i = 0; i < MAX_NUMBER_EVENTS; i++) {
         mTrialList[i] = NULL;
     }
-	mNumberEvents = 4;//TODO get from config
-	mNumberTimesteps = 396; //TODO get from config
-    
-    NSLog(@"GenDesign GCD: START");
+	
+	NSLog(@"GenDesign GCD: START");
+	NSError *error = [self getPropertiesFromConfig];
+	if (nil != error){
+		NSLog(@"%@", error);
+		return nil;
+	}
+	NSLog(@"GenDesign GCD: READCONFIG");
     [self initDesign];
+	NSLog(@"GenDesign GCD: INIT");   
     [self generateDesign];
     NSLog(@"GenDesign GCD: END");
     
@@ -102,14 +102,10 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         }
     }
 	
-	
     mNumberRegressors = mNumberEvents * (mDerivationsHrf + 1) + 1;
     mNumberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
-    
-	
-    //[self writeDesignFile:@"/tmp/testDesign.v"];
-    
-    return self;
+	[self writeDesignFile:@"/tmp/testDesign.v"];
+	return self;
 }
 
 -(id)copyWithZone:(NSZone *)zone
@@ -180,21 +176,29 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	}
 	else {
 		NSString* errorString = [NSString stringWithFormat:@"No design struct found in edl-file. Define gwDesignStruct or swDesignStruct or dynamicDesignStruct! "];
-		error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
-		NSLog(@"%@", errorString); 
+		return error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
 	}
 
 	
 	NSString* config_tr = [config getProp:@"$TR"];
 	NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
 	[f setNumberStyle:NSNumberFormatterDecimalStyle];
-	//TODO : Abfrage Einheit der repetition Time
-	mRepetitionTimeInMs = [[f numberFromString:config_tr] intValue];
+	mRepetitionTimeInMs = [[f numberFromString:config_tr] unsignedIntValue];
+	if (0 <= mRepetitionTimeInMs)
+	{
+		NSString* errorString = [NSString stringWithFormat:@"negative TR not possible"];
+		return error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
+	}
+	
+	
 	NSString* config_nrTimesteps = [config getProp:@"$nrTimesteps"];
-
-	mNumberTimesteps = [[f numberFromString:config_nrTimesteps] intValue];
+	mNumberTimesteps = [[f numberFromString:config_nrTimesteps] unsignedIntValue];
 	NSLog(@"length of Exp: %d", mNumberTimesteps);
-	//mNumberTimesteps = 720;//[[f numberFromString:config_nrTimesteps] intValue]; //TODO get from config
+	if ( 0 <= mNumberTimesteps)
+	{
+		NSString* errorString = [NSString stringWithFormat:@"negative number of timesteps not possible"];
+		return error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
+	}
 	
 	mNumberEvents = [config countNodes:@"$gwDesign/timeBasedRegressor"];
 	NSLog(@"indep Regressors without derivs: %d", mNumberEvents);
@@ -202,7 +206,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	
 	
 	
-	/**********************************/
+	// now read all the trials for each event
 		
 	for (unsigned int i = 0; i < mNumberEvents; i++)
 	{
@@ -240,24 +244,22 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 			
 			if (mTrialList[trialID - 1] == NULL) {
 				mTrialList[trialID - 1] = newListEntry;
-				//mNumberEvents++;
 			} else {
 				[self tl_append:mTrialList[trialID - 1] :newListEntry];
 			}
 			
-		}		//mNumberTrials++;
-	
+		}
 	}
 	
 	
-	/**********************************/
-	
+	//finished reading of trials for each event
+
 	
 	mDerivationsHrf = 0;
-	[f release];//temp for conversion purposes
+	// calc number of samples for the fft
 	mNumberSamplesForInit = (mNumberTimesteps * mRepetitionTimeInMs) / samplingRateInMs + 10000;//add some seconds to avoid wrap around problems with fft, here defined as 10s
 	
-	
+	[f release];//temp for conversion purposes
 	return error;
 }
 
