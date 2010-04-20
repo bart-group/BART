@@ -241,7 +241,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>00A7E228117E0AAB00062AFE</string>
+						<string>00A7E23F117E0B1B00062AFE</string>
 						<key>history</key>
 						<array>
 							<string>00A7E012117C8E1300062AFE</string>
@@ -281,7 +281,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>00A7E229117E0AAB00062AFE</string>
+						<string>00A7E240117E0B1B00062AFE</string>
 						<key>history</key>
 						<array>
 							<string>00A7E132117CCCF100062AFE</string>
@@ -335,8 +335,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -383,7 +381,7 @@
 								<string>0040B7FC1141470400A57967</string>
 								<string>0040B8061141470400A57967</string>
 								<string>0040B8521141472200A57967</string>
-								<string>00A7E215117E0A0000062AFE</string>
+								<string>00A7E233117E0B0D00062AFE</string>
 								<string>0040B8531141472200A57967</string>
 								<string>0040B85C1141472200A57967</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
@@ -398,13 +396,14 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>68</integer>
+									<integer>67</integer>
+									<integer>66</integer>
 									<integer>65</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 795}, {335, 842}}</string>
+							<string>{{0, 865}, {335, 842}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -443,7 +442,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>NEDUnitTestSuite-Info.plist</string>
+								<string>NEDesignElementDynTest.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -451,11 +450,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>NEDUnitTestSuite-Info.plist</string>
+										<string>NEDesignElementDynTest.h</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>00A7E227117E0AAB00062AFE</string>
+										<string>00A7E23E117E0B1B00062AFE</string>
 										<key>history</key>
 										<array>
 											<string>0032CC59116E03AD005117EA</string>
@@ -483,10 +482,9 @@
 											<string>00A7E1E7117E088000062AFE</string>
 											<string>00A7E1E8117E088000062AFE</string>
 											<string>00A7E1F4117E08AB00062AFE</string>
-											<string>00A7E223117E0AAB00062AFE</string>
-											<string>00A7E224117E0AAB00062AFE</string>
 											<string>00A7E225117E0AAB00062AFE</string>
-											<string>00A7E226117E0AAB00062AFE</string>
+											<string>00A7E23C117E0B1B00062AFE</string>
+											<string>00A7E23D117E0B1B00062AFE</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -667,7 +665,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>293472939.07949102</real>
+	<real>293473051.97156101</real>
 	<key>ToolbarConfigUserDefaultsMinorVersion</key>
 	<string>2</string>
 	<key>ToolbarDisplayMode</key>
