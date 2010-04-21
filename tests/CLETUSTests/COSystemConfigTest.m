@@ -52,18 +52,37 @@ COSystemConfig* config;
 -(void)testWriteToFile
 {
     NSError* err = nil;
-    err = [config writeToFile:@"/tmp/cletusTestCaseWrite.edl"];
-    
     BOOL success = NO;
+    
+    // Normal write.
+    err = [config writeToFile:@"/tmp/cletusTestCaseWrite.edl"];
     if (!err) {
         success = YES;
     }
     
+    // Try to write invalid file.
     err = [config writeToFile:@".-.-.-.-.-.-.blub"];
-    
     if (err) {
         success = success && YES;
     }
+    
+    // Update value and write...
+    NSString* newTR = @"3000";
+    [config setProp:@"$TR" :newTR];
+    err = [config writeToFile:@"/tmp/cletusTestCaseWrite.edl"];
+    if (!err) {
+        success = success && YES;
+    }
+    
+    // ... reset and read file again. Check new value.
+    [self setUp];
+    err = [config fillWithContentsOfEDLFile:@"/tmp/cletusTestCaseWrite.edl"];
+    if (!err
+        && ([[config getProp:@"$TR"] compare:newTR] == 0)) {
+        success = success && YES;
+    }
+    
+    [self setUp];
     
     STAssertEquals(YES, success, @"Method writeToFile does not work properly!");
 }
