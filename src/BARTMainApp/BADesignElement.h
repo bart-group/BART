@@ -12,6 +12,8 @@
 enum BADesignElementError {
     TR_NOT_SPECIFIED,
     NUMBERTIMESTEPS_NOT_SPECIFIED,
+	NUMBERCOVARIATES_NOT_SPECIFIED,
+	NUMBERREGRESSORS_NOT_SPECIFIED,
     FILEOPEN,
     TXT_SCANFILE,
     ILLEGAL_INPUT_FORMAT,
@@ -45,11 +47,6 @@ typedef struct TrialListStruct {
 	enum ImageDataType mImageDataType;
     
 }
-
-//@property (readonly, assign) unsigned int mRepetitionTimeInMs;
-//@property (readonly, assign) unsigned int mNumberExplanatoryVariables;
-//@property (readonly, assign) unsigned int mNumberTimesteps;
-//@property (readonly, assign) enum ImageDataType mImageDataType;
 
 @property ( assign) unsigned int mRepetitionTimeInMs;
 @property ( assign) unsigned int mNumberExplanatoryVariables;
