@@ -28,15 +28,44 @@ COSystemConfig* config;
 
 -(void)testInit
 {
+    BOOL success = NO;
 	NSError* err = nil;
 	err = [config fillWithContentsOfEDLFile:@"../tests/CLETUSTests/Init_Links_1.edl"];
-    
-    BOOL success = NO;
+        
     if (err == nil) {
         success = YES;
     }
     
-    STAssertEquals(YES, success, @"Error(s) occured during initWithContentsOfEDLFile!"); 
+    STAssertEquals(YES, success, @"Error(s) occured during fillWithContentsOfEDLFile!"); 
+}
+
+-(void)testGetEDLFilePath
+{
+    NSString* edlFilePath = [config getEDLFilePath];
+    NSString* expectedEDLFilePath = @"../tests/CLETUSTests/Init_Links_1.edl";
+    
+    STAssertEqualObjects(edlFilePath, expectedEDLFilePath, @"EDL file path %@ does not match the expected %@", 
+                         [edlFilePath cStringUsingEncoding:NSUTF8StringEncoding], 
+                         [expectedEDLFilePath cStringUsingEncoding:NSUTF8StringEncoding]);
+}
+
+-(void)testWriteToFile
+{
+    NSError* err = nil;
+    err = [config writeToFile:@"/tmp/cletusTestCaseWrite.edl"];
+    
+    BOOL success = NO;
+    if (!err) {
+        success = YES;
+    }
+    
+    err = [config writeToFile:@".-.-.-.-.-.-.blub"];
+    
+    if (err) {
+        success = success && YES;
+    }
+    
+    STAssertEquals(YES, success, @"Method writeToFile does not work properly!");
 }
 
 -(void)testChallengeInitError

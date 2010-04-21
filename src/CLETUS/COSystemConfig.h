@@ -23,6 +23,12 @@ enum COSystemConfigError {
 @interface COSystemConfig : NSObject {
     
     /**
+     * Path (relative or absolute) to the EDL file used to fill
+     * the configuration.
+     */
+    NSString* mEDLFilePath;
+    
+    /**
      * Original configuration from the EDL file. Remains unchanged
      * during runtime.
      */
@@ -56,6 +62,27 @@ enum COSystemConfigError {
  * \return         Nil if successful, error object otherwise.
  */
 -(NSError*)fillWithContentsOfEDLFile:(NSString*)edlPath;
+
+/**
+ * Returns the path to the EDL file used by the configuration
+ * (including filename and extension).
+ *
+ * \return Exactly the same path used to fill the configuration
+ *         (if it was filled using a relative path it returns a
+ *          relative path; if it was filled using a absolute path
+ *          it returns a absolute path).
+ *         Returns nil if the config has not been filled yet.
+ */
+-(NSString*)getEDLFilePath;
+
+/**
+ * Writes the current configuration state into a file.
+ *
+ * \param path The file path to write the configuration state to.
+ * \return     NSError object if writing the file was not successful.
+ *             Nil otherwise.
+ */
+-(NSError*)writeToFile:(NSString*)path;
 
 /**
  * Sets a property for a given key.

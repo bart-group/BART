@@ -37,8 +37,9 @@
 
 -(id)init
 {
-    if (self = [super init]) {    
-        mSystemSetting = nil;
+    if (self = [super init]) {
+        mEDLFilePath    = nil;
+        mSystemSetting  = nil;
         mRuntimeSetting = nil;
         [self initAbbreviations];
     }
@@ -81,12 +82,39 @@
 {
     NSError* error = nil;
     
-    [mSystemSetting release];
+    if (mSystemSetting) {
+        [mSystemSetting release];
+    }
 	mSystemSetting  = [COXMLUtility newParsedXMLDocument:edlPath :&error];
-    [mRuntimeSetting release];
+    
+    if (mRuntimeSetting) {
+        [mRuntimeSetting release];
+    }
 	mRuntimeSetting = [COXMLUtility newParsedXMLDocument:edlPath :&error];
     
+    if (!error) {
+        mEDLFilePath = [edlPath copy];
+    }
+    
 	return error;
+}
+
+-(NSString*)getEDLFilePath
+{
+    return mEDLFilePath;
+}
+-(NSError*)writeToFile:(NSString*)path
+{
+    NSError* error = nil;
+    NSData* xmlData = [mRuntimeSetting XMLData];
+    NSString* expandedPath = [path stringByExpandingTildeInPath];
+    
+    if (![xmlData writeToFile:expandedPath atomically:YES]) {
+        NSString* errorString = [NSString stringWithFormat:@"Could not write the configuration to \"%@\"!", expandedPath];
+        error = [NSError errorWithDomain:errorString code:XML_DOCUMENT_WRITE userInfo:nil];
+    }
+    
+    return error;
 }
 
 -(NSString*)resolveKey:(NSString*)key
@@ -160,7 +188,9 @@
     [mRuntimeSetting release];
     [mAbbreviations release];
     
-//    [mSingleton release];
+    if (mEDLFilePath) {
+        [mEDLFilePath release];
+    }
     
 	[super dealloc];
 }
