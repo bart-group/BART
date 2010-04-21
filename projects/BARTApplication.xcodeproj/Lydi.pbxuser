@@ -3444,15 +3444,15 @@
 	00A7E234117E0B0D00062AFE /* NEDesignElementDynTest.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {862, 374}}";
-			sepNavSelRange = "{0, 0}";
+			sepNavSelRange = "{229, 59}";
 			sepNavVisRange = "{0, 289}";
 		};
 	};
 	00A7E238117E0B0D00062AFE /* timeBasedRegressorNEDTest.edl */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1447, 2756}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1447, 2860}}";
 			sepNavSelRange = "{3411, 0}";
-			sepNavVisRange = "{1963, 2589}";
+			sepNavVisRange = "{2846, 1165}";
 		};
 	};
 	00A7E23C117E0B1B00062AFE /* PlistBookmark */ = {
@@ -3722,7 +3722,6 @@
 		activeExecutable = 005457811139750B00E98146 /* BARTApplication */;
 		activeTarget = 8D1107260486CEB800E47090 /* BARTApplication */;
 		addToTargets = (
-			00A7DD4A117C366A00062AFE /* NEDUnitTestSuite */,
 		);
 		breakpoints = (
 			0032CD53116E2A84005117EA /* NEDesignElementDyn.m:723 */,

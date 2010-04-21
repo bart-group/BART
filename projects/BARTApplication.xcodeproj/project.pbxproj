@@ -265,6 +265,8 @@
 		00A7E236117E0B0D00062AFE /* NEDesignElementVITest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignElementVITest.h; sourceTree = "<group>"; };
 		00A7E237117E0B0D00062AFE /* NEDesignElementVITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignElementVITest.m; sourceTree = "<group>"; };
 		00A7E238117E0B0D00062AFE /* timeBasedRegressorNEDTest.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = timeBasedRegressorNEDTest.edl; sourceTree = "<group>"; };
+		00A7E260117E13C000062AFE /* EDDataElementTestVI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementTestVI.h; sourceTree = "<group>"; };
+		00A7E261117E13C000062AFE /* EDDataElementTestVI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDataElementTestVI.m; sourceTree = "<group>"; };
 		00AB18EA115246ED003BC915 /* main_SW_BoldModule_2ContinousTargetROIs.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = main_SW_BoldModule_2ContinousTargetROIs.edl; sourceTree = "<group>"; };
 		00B1573111459587007C02CB /* libgslcblas.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgslcblas.dylib; path = /opt/local/lib/libgslcblas.dylib; sourceTree = "<absolute>"; };
 		00B1573B11459605007C02CB /* libgsl.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgsl.0.dylib; path = /opt/local/lib/libgsl.0.dylib; sourceTree = "<absolute>"; };
@@ -523,6 +525,7 @@
 		0040B8521141472200A57967 /* tests */ = {
 			isa = PBXGroup;
 			children = (
+				00A7E25F117E13C000062AFE /* EDNATests */,
 				00A7E233117E0B0D00062AFE /* NEDTests */,
 				0040B8531141472200A57967 /* BARTMainAppTests */,
 				0040B85C1141472200A57967 /* CLETUSTests */,
@@ -603,6 +606,15 @@
 				00A7E238117E0B0D00062AFE /* timeBasedRegressorNEDTest.edl */,
 			);
 			path = NEDTests;
+			sourceTree = "<group>";
+		};
+		00A7E25F117E13C000062AFE /* EDNATests */ = {
+			isa = PBXGroup;
+			children = (
+				00A7E260117E13C000062AFE /* EDDataElementTestVI.h */,
+				00A7E261117E13C000062AFE /* EDDataElementTestVI.m */,
+			);
+			path = EDNATests;
 			sourceTree = "<group>";
 		};
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
