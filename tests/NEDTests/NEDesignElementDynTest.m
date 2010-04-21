@@ -21,6 +21,7 @@
 
 - (void) setUp {
 	config = [COSystemConfig getInstance];
+	srand(time(NULL));
 	// TODO: remove output
 	//FILE* fp = fopen("/tmp/nedTest.txt", "w");
 //	fputc('\n', fp);
@@ -33,7 +34,7 @@
 }
 
 - (void) testProperties {
-	[designEl release];
+	
 	designEl = [[BADesignElement alloc] init];
 	
 	STAssertTrue([designEl mNumberTimesteps] == 0, @"initial value timesteps in design not null");
@@ -61,6 +62,7 @@
 	STAssertTrue([designEl mNumberCovariates] == 0, @"initial value covariates variable is not null");
 	[designEl setMNumberCovariates: 456];
 	STAssertTrue([designEl mNumberCovariates] == 456, @"set value covariates variable is not correct");
+	[designEl release];
 }
 
 
@@ -82,6 +84,7 @@
 	STAssertEquals(designEl.mNumberExplanatoryVariables,(unsigned int) (3), @"Incorrect number of explanatory variables.");
     STAssertEquals(designEl.mRepetitionTimeInMs, (unsigned int) (1000), @"Incorrect repetition time.");
     STAssertEquals(designEl.mImageDataType, IMAGE_DATA_FLOAT, @"Incorrect image data type.");
+	STAssertTrue(nil != [designEl getValueFromExplanatoryVariable: 0 atTimestep: 5] , @"return value of initalized design must not be zero" );
 	[designEl release];
 	
 	//config file not available	
@@ -93,11 +96,17 @@
 	STAssertEquals(designEl.mNumberExplanatoryVariables,(unsigned int) (0), @"Incorrect number of explanatory variables.");
     STAssertEquals(designEl.mRepetitionTimeInMs, (unsigned int) (0), @"Incorrect repetition time.");
     STAssertEquals(designEl.mImageDataType, IMAGE_DATA_FLOAT, @"Incorrect image data type.");
+	STAssertTrue(nil == [designEl getValueFromExplanatoryVariable: 23 atTimestep: 5], @"return value of uninitalized design must be zero" );
+	STAssertTrue(nil == [designEl getValueFromExplanatoryVariable: 0 atTimestep: 0] , @"return value of uninitalized design must be zero" );
+	
+	
+	[designEl release];
 }
 
 -(void) testCopy
 {
 	[config fillWithContentsOfEDLFile:@"/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/tests/NEDTests/timeBasedRegressorNEDTest.edl"];
+	
 	designEl = [[NEDesignElementDyn alloc]
                 initWithDynamicDataOfImageDataType: IMAGE_DATA_FLOAT];
 	
@@ -111,9 +120,9 @@
 		NSString *stringTrialTime = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@time", 1, k+1];
 		NSString *stringTrialDuration = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@duration",1, k+1];
 		NSString *stringTrialHeight = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@height",1, k+1];
-		[config setProp:stringTrialTime :[NSString stringWithFormat:@"%d",(1) * 1000]];
+		[config setProp:stringTrialTime :[NSString stringWithFormat:@"%d",rand()%500000]];
 		[config setProp:stringTrialHeight :@"1"];
-		[config setProp:stringTrialDuration :@"20000"];
+		[config setProp:stringTrialDuration :[NSString stringWithFormat:@"%d", rand()%40000]];
 	}
 	NSUInteger nrTrialsInRegr2 = 27;
 	
@@ -122,9 +131,9 @@
 		NSString *stringTrialTime = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@time", 2, k+1];
 		NSString *stringTrialDuration = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@duration",2, k+1];
 		NSString *stringTrialHeight = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@height",2, k+1];
-		[config setProp:stringTrialTime :[NSString stringWithFormat:@"%d",(2) * 1000]];
+		[config setProp:stringTrialTime :[NSString stringWithFormat:@"%d",rand()%700000]];
 		[config setProp:stringTrialHeight :@"1"];
-		[config setProp:stringTrialDuration :@"20000"];
+		[config setProp:stringTrialDuration :[NSString stringWithFormat:@"%d", rand()%80000]];
 	}
 
 	[designEl generateDesign];
@@ -140,9 +149,6 @@
 	STAssertEquals(designEl.mNumberExplanatoryVariables,copyDesign.mNumberExplanatoryVariables, @"Incorrect number of explanatory variables.");
     STAssertEquals(designEl.mRepetitionTimeInMs, copyDesign.mRepetitionTimeInMs, @"Incorrect repetition time.");
     STAssertEquals(copyDesign.mImageDataType, IMAGE_DATA_FLOAT, @"Incorrect image data type.");
-	FILE* fp = fopen("/tmp/nedTest.txt", "w");
-	fputc('B', fp);
-	fputc(' ', fp);
 	
 	for (unsigned int i = 0; i < designEl.mNumberExplanatoryVariables; i++){
 		for (unsigned int t = 0; t < designEl.mNumberTimesteps; t++)
@@ -157,33 +163,85 @@
 	for (unsigned int i = 0; i < designEl.mNumberExplanatoryVariables-1; i++){
 		for (unsigned int t = 0; t < designEl.mNumberTimesteps; t++)
 		{
-			fprintf(fp, "%.2f\n", [[copyDesign getValueFromExplanatoryVariable: i atTimestep: t] floatValue]);	 
-		
 			if ( i == designEl.mNumberExplanatoryVariables ){
 				STAssertEquals((float)1.0, [[copyDesign getValueFromExplanatoryVariable: i atTimestep: t] floatValue], @"copied values not equal" );}
 			else{
 				STAssertEquals((float)0.00, [[copyDesign getValueFromExplanatoryVariable: i atTimestep: t] floatValue], @"copied values not equal" );}
 		}
 	}
-	fclose(fp);
-	
-	
+	[designEl release];
 }
 
 
 -(void)testGenerateDesign
 {
+	[config fillWithContentsOfEDLFile:@"/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/tests/NEDTests/timeBasedRegressorNEDTest.edl"];
+	
+	
+	
+	[config setProp:@"$nrTimesteps" :@"100"]; 
+	[config setProp:@"$TR" :@"320"];
+	
+    NSUInteger nrTrialsInRegr1 = 18;
+	
+	for (unsigned int k = 0; k < nrTrialsInRegr1; k++)
+	{
+		NSString *stringTrialTime = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@time", 1, k+1];
+		NSString *stringTrialDuration = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@duration",1, k+1];
+		NSString *stringTrialHeight = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@height",1, k+1];
+		[config setProp:stringTrialTime :[NSString stringWithFormat:@"%d",0]];
+		[config setProp:stringTrialHeight :@"1"];
+		[config setProp:stringTrialDuration :[NSString stringWithFormat:@"%d", 0]];
+
+	}
+	NSUInteger nrTrialsInRegr2 = 27;
+	
+	for (unsigned int k = 0; k < nrTrialsInRegr2; k++)
+	{
+		NSString *stringTrialTime = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@time", 2, k+1];
+		NSString *stringTrialDuration = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@duration",2, k+1];
+		NSString *stringTrialHeight = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@height",2, k+1];
+		[config setProp:stringTrialTime :[NSString stringWithFormat:@"%d",0]];
+		[config setProp:stringTrialHeight :@"1"];
+		[config setProp:stringTrialDuration :[NSString stringWithFormat:@"%d",0]];
+
+	}
+	
+	designEl = [[NEDesignElementDyn alloc]
+                initWithDynamicDataOfImageDataType: IMAGE_DATA_FLOAT];
+	
+	
+	
+	
+	[designEl release];
+	
 }
 
--(void)testWriteDesignFile
-{
-
-}
 
 -(void)testGetValues
 {
+	[config fillWithContentsOfEDLFile:@"/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/tests/NEDTests/timeBasedRegressorNEDTest.edl"];
+	designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	
+	
+	
+	[config setProp:@"$nrTimesteps" :@"120"];
+	[config setProp:@"$TR" :@"34721"];
+	
+	
+	
+	
 
+
+	[designEl release];
 }
+
+-(void)testSetRegressorAndCovariate
+{
+
+	
+}
+
 
 
 @end
