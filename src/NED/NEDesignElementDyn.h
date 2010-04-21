@@ -32,8 +32,8 @@ typedef struct RegressorStruct {
 	unsigned long mNumberSamplesNeededForExp;
 	double *mTimeOfRepetitionStartInMs;
 	/* Generated design information/resulting design image. */
-	float** mDesign;
-	float** mCovariates;
+	float** mRegressorValues;
+	float** mCovariateValues;
 	
 	/*buffers for input and output of fft*/
 	double **mBuffersForwardIn; // one per each event
@@ -48,7 +48,7 @@ typedef struct RegressorStruct {
 	BOOL mDesignHasChanged;
 }
 
--(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
+//-(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
 -(void)copyValuesOfFinishedDesign:(float**)copyFromR andCovariates:(float**)copyFromC;
 -(NSError*)generateDesign;
 
@@ -76,6 +76,10 @@ typedef struct RegressorStruct {
 -(NSError*)getPropertiesFromConfig;
 
 -(NSError*)correctForZeromean;
+-(void)initRegressorValues;
+-(void)initCovariateValues;
+
+
 
 @end
 

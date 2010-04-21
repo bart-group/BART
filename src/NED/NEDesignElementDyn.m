@@ -17,60 +17,60 @@
 const int BUFFER_LENGTH = 10000;
 const int MAX_NUMBER_EVENTS = 100;
 double samplingRateInMs = 20.0; /* Temporal resolution for convolution is 20 ms. */
-double t1 = 30.0;               /* HRF duration / Breite der HRF.                */
+//double t1 = 30.0;               /* HRF duration / Breite der HRF.                */
 const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 
 
 
 // TODO: check if imageDataType still needed (here: float)
--(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
-{
-    self = [super init];
-    
-    if (type == IMAGE_DATA_FLOAT) {
-        mImageDataType = type;
-    } else {
-        NSLog(@" BADesignElementDyn.initWithFile: defaulting to IMAGE_DATA_FLOAT (other values are not supported)!");
-        mImageDataType = IMAGE_DATA_FLOAT;
-    }
-	
-	mDesignHasChanged = NO;
-	
-    mRegressorList = (TRegressor**) malloc(sizeof(TRegressor*) * MAX_NUMBER_EVENTS);
-	for (int i = 0; i < MAX_NUMBER_EVENTS; i++) {
-        mRegressorList[i] = (TRegressor*) malloc(sizeof(TRegressor));
-		mRegressorList[i]->regTrialList = NULL;
-		mRegressorList[i]->regConvolKernel = NULL;
-		mRegressorList[i]->regID = nil;
-		mRegressorList[i]->regDescription = nil;
-    }
-	
-	NSLog(@"GenDesign GCD: START");
-	[self parseInputFile:path];
-	NSLog(@"GenDesign GCD: PARSE");
-    [self initDesign];
-	NSLog(@"GenDesign GCD: INIT");   
-    [self generateDesign];
-    NSLog(@"GenDesign GCD: END");
-    
-    if (mNumberCovariates > 0) {
-        mCovariates = (float**) malloc(sizeof(float*) * mNumberCovariates);
-        for (unsigned int cov = 0; cov < mNumberCovariates; cov++) {
-            mCovariates[cov] = (float*) malloc(sizeof(float) * mNumberTimesteps);
-            memset(mCovariates[cov], 0.0, sizeof(float) * mNumberTimesteps);
-        }
-    }
-    
-	unsigned int nrDerivs = 0;
-	for (unsigned int eventNr = 0; eventNr < mNumberEvents; eventNr++){
-		nrDerivs += mRegressorList[eventNr]->regDerivations;}
-	
-    mNumberRegressors = mNumberEvents + nrDerivs + 1;
-    mNumberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
-	[self writeDesignFile:@"/tmp/testDesign.v"];
-	return self;
-}
+//-(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
+//{
+//    self = [super init];
+//    
+//    if (type == IMAGE_DATA_FLOAT) {
+//        mImageDataType = type;
+//    } else {
+//        NSLog(@" BADesignElementDyn.initWithFile: defaulting to IMAGE_DATA_FLOAT (other values are not supported)!");
+//        mImageDataType = IMAGE_DATA_FLOAT;
+//    }
+//	
+//	mDesignHasChanged = NO;
+//	
+//    mRegressorList = (TRegressor**) malloc(sizeof(TRegressor*) * MAX_NUMBER_EVENTS);
+//	for (int i = 0; i < MAX_NUMBER_EVENTS; i++) {
+//        mRegressorList[i] = (TRegressor*) malloc(sizeof(TRegressor));
+//		mRegressorList[i]->regTrialList = NULL;
+//		mRegressorList[i]->regConvolKernel = NULL;
+//		mRegressorList[i]->regID = nil;
+//		mRegressorList[i]->regDescription = nil;
+//    }
+//	
+//	NSLog(@"GenDesign GCD: START");
+//	[self parseInputFile:path];
+//	NSLog(@"GenDesign GCD: PARSE");
+//    [self initDesign];
+//	NSLog(@"GenDesign GCD: INIT");   
+//    [self generateDesign];
+//    NSLog(@"GenDesign GCD: END");
+//    
+//    if (mNumberCovariates > 0) {
+//        mCovariates = (float**) malloc(sizeof(float*) * mNumberCovariates);
+//        for (unsigned int cov = 0; cov < mNumberCovariates; cov++) {
+//            mCovariates[cov] = (float*) malloc(sizeof(float) * mNumberTimesteps);
+//            memset(mCovariates[cov], 0.0, sizeof(float) * mNumberTimesteps);
+//        }
+//    }
+//    
+//	unsigned int nrDerivs = 0;
+//	for (unsigned int eventNr = 0; eventNr < mNumberEvents; eventNr++){
+//		nrDerivs += mRegressorList[eventNr]->regDerivations;}
+//	
+//    mNumberRegressors = mNumberEvents + nrDerivs + 1;
+//    mNumberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
+//	[self writeDesignFile:@"/tmp/testDesign.v"];
+//	return self;
+//}
 
 -(id)initWithDynamicDataOfImageDataType:(enum ImageDataType)type
 {
@@ -84,18 +84,6 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     }
 	
 	mDesignHasChanged = NO;
-	
-	mRegressorList = (TRegressor**) malloc(sizeof(TRegressor*) * MAX_NUMBER_EVENTS);
-	for (int i = 0; i < MAX_NUMBER_EVENTS; i++) {
-        mRegressorList[i] = (TRegressor*) malloc(sizeof(TRegressor));
-		mRegressorList[i]->regTrialList = NULL;
-		mRegressorList[i]->regConvolKernel = NULL;
-		mRegressorList[i]->regID = nil;
-		mRegressorList[i]->regDescription = nil;
-    }
-	
-	
-	
 	NSLog(@"GenDesign GCD: START");
 	NSError *error = [self getPropertiesFromConfig];
 	if (nil != error){
@@ -108,20 +96,8 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     [self generateDesign];
     NSLog(@"GenDesign GCD: END");
     
-    if (mNumberCovariates > 0) {
-        mCovariates = (float**) malloc(sizeof(float*) * mNumberCovariates);
-        for (unsigned int cov = 0; cov < mNumberCovariates; cov++) {
-            mCovariates[cov] = (float*) malloc(sizeof(float) * mNumberTimesteps);
-            memset(mCovariates[cov], 0.0, sizeof(float) * mNumberTimesteps);
-        }
-    }
+    	
 	
-	unsigned int nrDerivs = 0;
-	for (unsigned int eventNr = 0; eventNr < mNumberEvents; eventNr++){
-		nrDerivs += mRegressorList[eventNr]->regDerivations;}
-	
-    mNumberRegressors = mNumberEvents + nrDerivs + 1;
-    mNumberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
 	[self writeDesignFile:@"/tmp/testDesign.v"];
 	return self;
 }
@@ -129,31 +105,31 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 -(id)copyWithZone:(NSZone *)zone
 {
 	id newDesign = [super copyWithZone:zone];
-	[newDesign copyValuesOfFinishedDesign:mDesign andCovariates:mCovariates];
+	[newDesign copyValuesOfFinishedDesign:mRegressorValues andCovariates:mCovariateValues];
 	return [newDesign retain];
 	
 }
 
 -(void)copyValuesOfFinishedDesign:(float**)copyFromR andCovariates:(float**)copyFromC
 {
-	if (mDesign != copyFromR)
+	if (mRegressorValues != copyFromR)
 	{
 		unsigned int nrCols = mNumberExplanatoryVariables - mNumberCovariates;
-		mDesign = (float**) malloc(sizeof(float*) * nrCols);
+		mRegressorValues = (float**) malloc(sizeof(float*) * nrCols);
 		for (unsigned int col = 0; col < nrCols; col++){
-			mDesign[col] = (float*) malloc(sizeof(float) * mNumberTimesteps);
+			mRegressorValues[col] = (float*) malloc(sizeof(float) * mNumberTimesteps);
 			for (unsigned int ts = 0; ts < mNumberTimesteps; ts ++){
-				mDesign[col][ts] = copyFromR[col][ts];
+				mRegressorValues[col][ts] = copyFromR[col][ts];
 			}
 		}
 	}
-	if (mCovariates != copyFromC)
+	if (mCovariateValues != copyFromC)
 	{
-		mCovariates = (float**) malloc(sizeof(float*) * mNumberCovariates);
+		mCovariateValues = (float**) malloc(sizeof(float*) * mNumberCovariates);
 		for (unsigned int col = 0; col < mNumberCovariates; col++){
-			mCovariates[col] = (float*) malloc(sizeof(float) * mNumberTimesteps);
+			mCovariateValues[col] = (float*) malloc(sizeof(float) * mNumberTimesteps);
 			for (unsigned int ts = 0; ts < mNumberTimesteps; ts++){
-				mCovariates[col][ts] = copyFromC[col][ts];
+				mCovariateValues[col][ts] = copyFromC[col][ts];
 			}
 		}
 	}
@@ -178,6 +154,10 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 {
 	COSystemConfig *config = [COSystemConfig getInstance];
 	NSError* error = nil;
+	// temp formatter due to converting from string to number
+	NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+	[f setNumberStyle:NSNumberFormatterDecimalStyle];
+	
 	
 	//what kind of design we have to ask for - in edl decision between growing / sliding window and dynamic
 	NSMutableString *expType = [[NSMutableString alloc ]initWithCapacity:20];
@@ -198,35 +178,49 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	//TODO: what kind of regressor do we have - scanBased vs. timeBased
 	
 	
-	NSString* config_tr = [config getProp:@"$TR"];
-	NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-	[f setNumberStyle:NSNumberFormatterDecimalStyle];
-	mRepetitionTimeInMs = [[f numberFromString:config_tr] unsignedIntValue];
+	mRepetitionTimeInMs = [[f numberFromString:[config getProp:@"$TR"]] unsignedIntValue];
 	if (0 >= mRepetitionTimeInMs)
 	{
-		NSString* errorString = [NSString stringWithFormat:@"negative TR not possible"];
-		return error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
+		mRepetitionTimeInMs = 0;
+		return error = [NSError errorWithDomain:[NSString stringWithFormat:@"negative TR not possible"] code:TR_NOT_SPECIFIED userInfo:nil];
 	}
 	
-	
-	NSString* config_nrTimesteps = [config getProp:@"$nrTimesteps"];
-	mNumberTimesteps = [[f numberFromString:config_nrTimesteps] unsignedIntValue];
+	mNumberTimesteps = [[f numberFromString:[config getProp:@"$nrTimesteps"]] unsignedIntValue];
 	NSLog(@"length of Exp: %d", mNumberTimesteps);
 	if ( 0 >= mNumberTimesteps)
 	{
-		NSString* errorString = [NSString stringWithFormat:@"negative number of timesteps not possible"];
-		return error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
+		mNumberTimesteps = 0;
+		return error = [NSError errorWithDomain:[NSString stringWithFormat:@"negative number of timesteps not possible"] code:NUMBERTIMESTEPS_NOT_SPECIFIED userInfo:nil];
 	}
 	
-	NSString* requestNrEvents = [NSString stringWithFormat:@"%@/timeBasedRegressor", expType];
-	mNumberEvents = [config countNodes:requestNrEvents];
-	NSLog(@"indep Regressors without derivs: %d", mNumberEvents);
+	mNumberCovariates = [config countNodes:[NSString stringWithFormat:@"%@/scanBasedCovariates", expType]];
+	if (0 > mNumberCovariates)
+	{
+		mNumberCovariates = 0;
+		return error = [NSError errorWithDomain:@"negative number of covariates not possible" code:NUMBERCOVARIATES_NOT_SPECIFIED userInfo:nil];
+	}
+		
+	mNumberEvents = [config countNodes:[NSString stringWithFormat:@"%@/timeBasedRegressor", expType]];
+	if (0 >= mNumberEvents)
+	{
+		mNumberEvents = 0;
+		return error = [NSError errorWithDomain:@"numberEvents not defined" code:NUMBERREGRESSORS_NOT_SPECIFIED userInfo:nil];
+	}
 	
-	NSString* requestNrCovariates = [NSString stringWithFormat:@"%@/scanBasedCovariates", expType];
-	mNumberCovariates = [config countNodes:requestNrCovariates];     
+	NSLog(@"indep Regressors without derivs: %d", mNumberEvents);
+	// with this initialise the regressor list
+	mRegressorList = (TRegressor**) malloc(sizeof(TRegressor*) * mNumberEvents);
+	for (unsigned int i = 0; i < mNumberEvents; i++) {
+        mRegressorList[i] = (TRegressor*) malloc(sizeof(TRegressor));
+		mRegressorList[i]->regTrialList = NULL;
+		mRegressorList[i]->regConvolKernel = NULL;
+		mRegressorList[i]->regID = nil;
+		mRegressorList[i]->regDescription = nil;
+    }
+    
 	
 	// now read all the trials for each event
-		
+	
 	for (unsigned int i = 0; i < mNumberEvents; i++)
 	{
 		NSString *requestTrialsInReg = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent", expType, i+1, i+1];
@@ -282,6 +276,12 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 		
 	}
 	
+	unsigned int nrDerivs = 0;
+	for (unsigned int eventNr = 0; eventNr < mNumberEvents; eventNr++){
+		nrDerivs += mRegressorList[eventNr]->regDerivations;}
+	
+    mNumberRegressors = mNumberEvents + nrDerivs + 1;
+    mNumberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
 	
 	// calc number of samples for the fft
 	mNumberSamplesForInit = (mNumberTimesteps * mRepetitionTimeInMs) / samplingRateInMs + 10000;//add some seconds to avoid wrap around problems with fft, here defined as 10s
@@ -291,7 +291,27 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 }
 
 
+-(void)initRegressorValues
+{
+	for (int col = 0; col < mNumberRegressors; col++) {
+        mRegressorValues[col] = (float*) malloc(sizeof(float) * mNumberTimesteps);
+		for (unsigned int ts = 0; ts < mNumberTimesteps; ts++) {
+			if (col == mNumberRegressors-1) {
+				mRegressorValues[col][ts] = 1.0;
+			} else {
+				mRegressorValues[col][ts] = 0.0;
+			}
+		}
+    }
+}
 
+-(void)initCovariateValues
+{
+	for (unsigned int cov = 0; cov < mNumberCovariates; cov++) {
+		mCovariateValues[cov] = (float*) malloc(sizeof(float) * mNumberTimesteps);
+		memset(mCovariateValues[cov], 0.0, sizeof(float) * mNumberTimesteps);
+	}
+}
 
 
 
@@ -318,46 +338,44 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         return [NSError errorWithDomain:@"No events were found!" code:NO_EVENTS_FOUND userInfo:nil];
     }
     
-    float xmin;
-    int ncols = 0;
-    for (unsigned int i = 0; i < mNumberEvents; i++) {
-        
-        xmin = FLT_MAX;
-        
-        TrialList* currentTrial;
-        currentTrial = mRegressorList[i]->regTrialList;
-        
-        while (currentTrial != NULL) {
-            if (currentTrial->trial.duration < xmin) {
-                xmin = currentTrial->trial.duration;
-            }
-            currentTrial = currentTrial->next;
-        }
-        
-        if (0 == mRegressorList[i]->regDerivations) {
-            ncols++;
-        } else if (1 == mRegressorList[i]->regDerivations) {
-            ncols += 2;
-        } else if (2 == mRegressorList[i]->regDerivations) {
-            ncols += 3;
-        }
-    }
+   // float xmin;
+//    int ncols = 0;
+//    for (unsigned int i = 0; i < mNumberEvents; i++) {
+//        
+//        xmin = FLT_MAX;
+//        
+//        TrialList* currentTrial;
+//        currentTrial = mRegressorList[i]->regTrialList;
+//        
+//        while (currentTrial != NULL) {
+//            if (currentTrial->trial.duration < xmin) {
+//                xmin = currentTrial->trial.duration;
+//            }
+//            currentTrial = currentTrial->next;
+//        }
+//        
+//        if (0 == mRegressorList[i]->regDerivations) {
+//            ncols++;
+//        } else if (1 == mRegressorList[i]->regDerivations) {
+//            ncols += 2;
+//        } else if (2 == mRegressorList[i]->regDerivations) {
+//            ncols += 3;
+//        }
+//    }
+//    
+//    NSLog(@"# number of events: %d,  num columns in design matrix: %d\n", mNumberEvents, ncols + 1);
     
-    NSLog(@"# number of events: %d,  num columns in design matrix: %d\n", mNumberEvents, ncols + 1);
-    
-    mDesign = (float** ) malloc(sizeof(float*) * (ncols + 1));
-    for (int col = 0; col < ncols + 1; col++) {
-        mDesign[col] = (float*) malloc(sizeof(float) * mNumberTimesteps);
-         for (unsigned int ts = 0; ts < mNumberTimesteps; ts++) {
-             if (col == ncols) {
-                 mDesign[col][ts] = 1.0;
-             } else {
-                 mDesign[col][ts] = 0.0;
-             }
-         }
-    }
+	/* alloc memory for all NEDesignDyn specific stuff*/
 	
-    /* alloc memory */
+    mRegressorValues = (float** ) malloc(sizeof(float*) * (mNumberRegressors ));
+    [self initRegressorValues];	
+   
+	if (mNumberCovariates > 0) {
+        mCovariateValues = (float**) malloc(sizeof(float*) * mNumberCovariates);
+		[self initCovariateValues];}
+
+	
+	
          
     unsigned int numberSamplesInResult = (mNumberSamplesForInit / 2) + 1;//defined for results of fftw3
 
@@ -405,6 +423,9 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 -(NSError*)generateDesign
 {
+	
+	//reinit regressor result buffers
+	[self initRegressorValues];
     __block NSError* error = nil;
     
     dispatch_queue_t queue;       /* Global asyn. dispatch queue. */
@@ -474,94 +495,94 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     return error;
 }
 
--(NSError*)parseInputFile:(NSString *)path
-{
-    
-    int character;
-    int trialID    = 0;
-    float onset    = 0.0;
-    float duration = 0.0;
-    float height   = 0.0;
-    
-    unsigned int numberTrials = 0;
-    mNumberEvents = 0;
-    
-    FILE* inFile;
-    char* inputFilename = (char*) malloc(sizeof(char) * UINT16_MAX);
-    [path getCString:inputFilename maxLength:UINT16_MAX  encoding:NSUTF8StringEncoding];
-    
-    inFile = fopen(inputFilename, "r");
-    char buffer[BUFFER_LENGTH];
-    
-    while (!feof(inFile)) {
-        for (int j = 0; j < BUFFER_LENGTH; j++) {
-            buffer[j] = '\0';
-        }
-        fgets(buffer, BUFFER_LENGTH, inFile);
-        if (strlen(buffer) >= 2) {
-            
-            // TODO: Maybe remove this check
-            if (![self test_ascii:((int) buffer[0])]) {
-                NSLog(@" input file must be a text file");
-            }
-            
-            if (buffer[0] != '%' && buffer[0] != '#') {
-                /* remove non-alphanumeric characters */
-                for (unsigned int j = 0; j < strlen(buffer); j++) {
-                    character = (int) buffer[j];
-                    if (!isgraph(character) && buffer[j] != '\n' && buffer[j] != '\r' && buffer[j] != '\0') {
-                        buffer[j] = ' ';
-                    }
-                    
-                    /* remove tabs */
-                    if (buffer[j] == '\v') {
-                        buffer[j] = ' ';
-                    }
-                    if (buffer[j] == '\t') {
-                        buffer[j] = ' ';
-                    }
-                }
-                
-                if (sscanf(buffer, "%d %f %f %f", &trialID, &onset, &duration, &height) != 4) {
-
-                    NSString* errorString = 
-                        [NSString stringWithFormat:
-                            @"Illegal design file input format (at line %d)! Expected format: one entry per line and columns separated by tabs.", numberTrials + 1];
-                    return [NSError errorWithDomain:errorString code:ILLEGAL_INPUT_FORMAT userInfo:nil];
-                    
-                }
-                
-                if (duration < 0.5 && duration >= -0.0001) {
-                    duration = 0.5;
-                }
-
-                Trial newTrial;
-                newTrial.id       = trialID;
-                newTrial.onset    = onset;
-                newTrial.duration = duration;
-                newTrial.height   = height;
-                
-                TrialList* newListEntry;
-                newListEntry = (TrialList*) malloc(sizeof(TrialList));
-                *newListEntry = TRIALLIST_INIT;
-                newListEntry->trial = newTrial;
-                
-                if (NULL == mRegressorList[trialID -1]->regTrialList){
-					mRegressorList[trialID - 1]->regTrialList = newListEntry;
-                    mNumberEvents++;
-                } else {
- 					[self tl_append:mRegressorList[trialID - 1]->regTrialList :newListEntry];
-                }
-                
-                numberTrials++;
-            }
-        }
-    }
-    fclose(inFile);  
-    free(inputFilename);
-    
-    return nil;
-}
+//-(NSError*)parseInputFile:(NSString *)path
+//{
+//    
+//    int character;
+//    int trialID    = 0;
+//    float onset    = 0.0;
+//    float duration = 0.0;
+//    float height   = 0.0;
+//    
+//    unsigned int numberTrials = 0;
+//    mNumberEvents = 0;
+//    
+//    FILE* inFile;
+//    char* inputFilename = (char*) malloc(sizeof(char) * UINT16_MAX);
+//    [path getCString:inputFilename maxLength:UINT16_MAX  encoding:NSUTF8StringEncoding];
+//    
+//    inFile = fopen(inputFilename, "r");
+//    char buffer[BUFFER_LENGTH];
+//    
+//    while (!feof(inFile)) {
+//        for (int j = 0; j < BUFFER_LENGTH; j++) {
+//            buffer[j] = '\0';
+//        }
+//        fgets(buffer, BUFFER_LENGTH, inFile);
+//        if (strlen(buffer) >= 2) {
+//            
+//            // TODO: Maybe remove this check
+//            if (![self test_ascii:((int) buffer[0])]) {
+//                NSLog(@" input file must be a text file");
+//            }
+//            
+//            if (buffer[0] != '%' && buffer[0] != '#') {
+//                /* remove non-alphanumeric characters */
+//                for (unsigned int j = 0; j < strlen(buffer); j++) {
+//                    character = (int) buffer[j];
+//                    if (!isgraph(character) && buffer[j] != '\n' && buffer[j] != '\r' && buffer[j] != '\0') {
+//                        buffer[j] = ' ';
+//                    }
+//                    
+//                    /* remove tabs */
+//                    if (buffer[j] == '\v') {
+//                        buffer[j] = ' ';
+//                    }
+//                    if (buffer[j] == '\t') {
+//                        buffer[j] = ' ';
+//                    }
+//                }
+//                
+//                if (sscanf(buffer, "%d %f %f %f", &trialID, &onset, &duration, &height) != 4) {
+//
+//                    NSString* errorString = 
+//                        [NSString stringWithFormat:
+//                            @"Illegal design file input format (at line %d)! Expected format: one entry per line and columns separated by tabs.", numberTrials + 1];
+//                    return [NSError errorWithDomain:errorString code:ILLEGAL_INPUT_FORMAT userInfo:nil];
+//                    
+//                }
+//                
+//                if (duration < 0.5 && duration >= -0.0001) {
+//                    duration = 0.5;
+//                }
+//
+//                Trial newTrial;
+//                newTrial.id       = trialID;
+//                newTrial.onset    = onset;
+//                newTrial.duration = duration;
+//                newTrial.height   = height;
+//                
+//                TrialList* newListEntry;
+//                newListEntry = (TrialList*) malloc(sizeof(TrialList));
+//                *newListEntry = TRIALLIST_INIT;
+//                newListEntry->trial = newTrial;
+//                
+//                if (NULL == mRegressorList[trialID -1]->regTrialList){
+//					mRegressorList[trialID - 1]->regTrialList = newListEntry;
+//                    mNumberEvents++;
+//                } else {
+// 					[self tl_append:mRegressorList[trialID - 1]->regTrialList :newListEntry];
+//                }
+//                
+//                numberTrials++;
+//            }
+//        }
+//    }
+//    fclose(inFile);  
+//    free(inputFilename);
+//    
+//    return nil;
+//}
 
 -(NSError*)writeDesignFile:(NSString*) path 
 {
@@ -591,7 +612,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     
     for (unsigned int col = 0; col < mNumberRegressors; col++) {
         for (unsigned int ts = 0; ts < mNumberTimesteps; ts++) {
-				VPixel(outDesign, 0, ts, col, VFloat) = (VFloat) mDesign[col][ts];
+				VPixel(outDesign, 0, ts, col, VFloat) = (VFloat) mRegressorValues[col][ts];
         }
     }
     
@@ -688,7 +709,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         j = (int) (mTimeOfRepetitionStartInMs[timestep] / samplingRateInMs + 0.5);
         
         if (j >= 0 && j < mNumberSamplesForInit) {
-			mDesign[col][timestep] = mBuffersInverseOut[eventNr][j];
+			mRegressorValues[col][timestep] = mBuffersInverseOut[eventNr][j];
         }
     }
 }
@@ -709,14 +730,10 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
                                  atTimestep:(unsigned int)t 
 {
     NSNumber *value = nil;
-	if (0 == mNumberRegressors && 0 == mNumberCovariates){
-		NSLog(@"Both Number of Regressors and Covariates is 0 - check design input!!");
-		return [NSNumber numberWithFloat: 0.0];
-	}
     if (cov < mNumberRegressors) {
-        if (mDesign != NULL) {
+        if (mRegressorValues != NULL) {
             if (IMAGE_DATA_FLOAT == mImageDataType){
-                value = [NSNumber numberWithFloat:mDesign[cov][t]];
+                value = [NSNumber numberWithFloat:mRegressorValues[cov][t]];
             } else {
                 NSLog(@"Cannot identify type of design image - no float");
             }
@@ -725,7 +742,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         }
     } else {
         int covIndex = cov - mNumberRegressors;
-        value = [NSNumber numberWithFloat:mCovariates[covIndex][t]];
+        value = [NSNumber numberWithFloat:mCovariateValues[covIndex][t]];
     }
     
     return value;
@@ -760,10 +777,10 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 -(void)setCovariate:(float*)covariate forCovariateID:(int)covID
 {
-    if (mCovariates != NULL) {
-        free(mCovariates[covID - 1]);
-        mCovariates[covID - 1] = NULL;
-        mCovariates[covID - 1] = covariate;
+    if (mCovariateValues != NULL) {
+        free(mCovariateValues[covID - 1]);
+        mCovariateValues[covID - 1] = NULL;
+        mCovariateValues[covID - 1] = covariate;
     } else {
         NSLog(@"Could not set covariate values for CovariateID %d because number of covariates is 0.", covID);
     }
@@ -772,8 +789,8 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 -(void)setCovariateValue:(float)value forCovariateID:(int)covID atTimestep:(int)timestep
 {
-    if (mCovariates != NULL) {
-        mCovariates[covID - 1][timestep] = value;
+    if (mCovariateValues != NULL) {
+        mCovariateValues[covID - 1][timestep] = value;
     } else {
         NSLog(@"Could not set covariate value %f for CovariateID %d at timestep %d because number of covariates is 0.", value, covID, timestep);
     }
@@ -782,15 +799,15 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 -(void)dealloc
 {
     for (unsigned int col = 0; col < mNumberRegressors; col++) {
-        free(mDesign[col]);
+        free(mRegressorValues[col]);
     }
-    free(mDesign);
+    free(mRegressorValues);
     
-    if (mCovariates != NULL) {
+    if (mCovariateValues != NULL) {
         for (unsigned int cov = 0; cov < mNumberCovariates; cov++) {
-            free(mCovariates[cov]);
+            free(mCovariateValues[cov]);
         }
-        free(mCovariates);
+        free(mCovariateValues);
     }
     
     free(mTimeOfRepetitionStartInMs);
