@@ -3442,6 +3442,12 @@
 		vrLoc = 4449;
 	};
 	00A7E234117E0B0D00062AFE /* NEDesignElementDynTest.h */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.c.h;
+		name = NEDesignElementDynTest.h;
+		path = /Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/tests/NEDTests/NEDesignElementDynTest.h;
+		sourceTree = "<absolute>";
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {862, 374}}";
 			sepNavSelRange = "{229, 59}";
@@ -3449,8 +3455,14 @@
 		};
 	};
 	00A7E238117E0B0D00062AFE /* timeBasedRegressorNEDTest.edl */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = text.xml;
+		name = timeBasedRegressorNEDTest.edl;
+		path = /Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/tests/NEDTests/timeBasedRegressorNEDTest.edl;
+		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1447, 2860}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1447, 2808}}";
 			sepNavSelRange = "{3411, 0}";
 			sepNavVisRange = "{2846, 1165}";
 		};
@@ -3499,6 +3511,14 @@
 		rType = 0;
 		vrLen = 2369;
 		vrLoc = 4449;
+	};
+	00A7E260117E13C000062AFE /* EDDataElementTestVI.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1210, 896}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 284}";
+			sepNavWindowFrame = "{{-1269, 0}, {1269, 1024}}";
+		};
 	};
 	00AB18EA115246ED003BC915 /* main_SW_BoldModule_2ContinousTargetROIs.edl */ = {
 		uiCtxt = {
