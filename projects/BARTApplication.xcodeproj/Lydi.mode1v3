@@ -227,46 +227,6 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
-				<string>00A7E010117C8E1300062AFE</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>timeBasedRegressorNEDTest.edl</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>00A7E011117C8E1300062AFE</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>timeBasedRegressorNEDTest.edl</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>00A7E23F117E0B1B00062AFE</string>
-						<key>history</key>
-						<array>
-							<string>00A7E012117C8E1300062AFE</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1269, 927}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>-1269 56 1269 968 -1280 0 1280 1024 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
 				<string>00A7E130117CCCF100062AFE</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>timeBasedRegressorLydi.edl</string>
@@ -281,10 +241,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>00A7E240117E0B1B00062AFE</string>
+						<string>00E7A638117EF07F00696498</string>
 						<key>history</key>
 						<array>
-							<string>00A7E132117CCCF100062AFE</string>
+							<string>00A7E275117EEE9700062AFE</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -335,6 +295,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -375,13 +337,10 @@
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
 								<string>0040B7921141470400A57967</string>
-								<string>0040B7931141470400A57967</string>
-								<string>0040B7941141470400A57967</string>
-								<string>0040B79E1141470400A57967</string>
-								<string>0040B7FC1141470400A57967</string>
+								<string>0040B8051141470400A57967</string>
 								<string>0040B8061141470400A57967</string>
 								<string>0040B8521141472200A57967</string>
-								<string>00A7E233117E0B0D00062AFE</string>
+								<string>00A7E25F117E13C000062AFE</string>
 								<string>0040B8531141472200A57967</string>
 								<string>0040B85C1141472200A57967</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
@@ -389,21 +348,18 @@
 								<string>29B97323FDCFA39411CA2CEA</string>
 								<string>19C28FACFE9D520D11CA2CBB</string>
 								<string>1C37FBAC04509CD000000102</string>
-								<string>00A7E00A117C8E1300062AFE</string>
-								<string>00A7E00B117C8E1300062AFE</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>67</integer>
-									<integer>66</integer>
-									<integer>65</integer>
+									<integer>20</integer>
+									<integer>18</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 865}, {335, 842}}</string>
+							<string>{{0, 0}, {335, 842}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -442,7 +398,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>NEDesignElementDynTest.h</string>
+								<string>NEDUnitTestSuite-Info.plist</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -450,11 +406,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>NEDesignElementDynTest.h</string>
+										<string>NEDUnitTestSuite-Info.plist</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>00A7E23E117E0B1B00062AFE</string>
+										<string>00E7A635117EF07F00696498</string>
 										<key>history</key>
 										<array>
 											<string>0032CC59116E03AD005117EA</string>
@@ -482,9 +438,7 @@
 											<string>00A7E1E7117E088000062AFE</string>
 											<string>00A7E1E8117E088000062AFE</string>
 											<string>00A7E1F4117E08AB00062AFE</string>
-											<string>00A7E225117E0AAB00062AFE</string>
-											<string>00A7E23C117E0B1B00062AFE</string>
-											<string>00A7E23D117E0B1B00062AFE</string>
+											<string>00A7E274117EEE9700062AFE</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -496,14 +450,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {923, 431}}</string>
+								<string>{{0, 0}, {923, 421}}</string>
 								<key>RubberWindowFrame</key>
 								<string>0 101 1280 901 0 0 1280 1002 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>431pt</string>
+							<string>421pt</string>
 						</dict>
 						<dict>
 							<key>ContentConfiguration</key>
@@ -516,14 +470,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 436}, {923, 424}}</string>
+								<string>{{0, 426}, {923, 434}}</string>
 								<key>RubberWindowFrame</key>
 								<string>0 101 1280 901 0 0 1280 1002 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
 							<key>Proportion</key>
-							<string>424pt</string>
+							<string>434pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -542,9 +496,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>00A7DD77117C389500062AFE</string>
+				<string>00E7A636117EF07F00696498</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>00A7DD78117C389500062AFE</string>
+				<string>00E7A637117EF07F00696498</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -665,7 +619,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>293473051.97156101</real>
+	<real>293531775.53551298</real>
 	<key>ToolbarConfigUserDefaultsMinorVersion</key>
 	<string>2</string>
 	<key>ToolbarDisplayMode</key>
@@ -682,13 +636,9 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>00A7DF1E117C54AB00062AFE</string>
-		<string>00A7DF1F117C54AB00062AFE</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>0054579D1139751700E98146</string>
 		<string>00A7E130117CCCF100062AFE</string>
-		<string>1C78EAAD065D492600B07095</string>
-		<string>00A7E010117C8E1300062AFE</string>
 		<string>/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/projects/BARTApplication.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -713,7 +663,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>BADesignElement.m</string>
+								<string></string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -730,8 +680,6 @@
 							<string>438pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -771,7 +719,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>0054579D1139751700E98146</string>
-				<string>00A7DD60117C381D00062AFE</string>
+				<string>00E7A639117EF07F00696498</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -893,13 +841,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>00A7DF16117C54AB00062AFE</string>
+				<string>00E7A63A117EF07F00696498</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>00A7DF17117C54AB00062AFE</string>
-				<string>00A7DF18117C54AB00062AFE</string>
-				<string>00A7DF19117C54AB00062AFE</string>
-				<string>00A7DF1A117C54AB00062AFE</string>
-				<string>00A7DF1B117C54AB00062AFE</string>
+				<string>00E7A63B117EF07F00696498</string>
+				<string>00E7A63C117EF07F00696498</string>
+				<string>00E7A63D117EF07F00696498</string>
+				<string>00E7A63E117EF07F00696498</string>
+				<string>00E7A63F117EF07F00696498</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
