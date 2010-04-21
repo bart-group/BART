@@ -26,12 +26,56 @@
         <gwDesignStruct>
           <timeBasedRegressor regressorID="tbr1" name="visualStim" length="720000" useRefFct="gloverGamma1" scaleHeightToZeroMean="false" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
             <tbrDesign length="720000" repetitions="1">
-				
+				<statEvent time="20000" duration="20000"/>
+				<statEvent time="60000" duration="20000"/>
+				<statEvent time="100000" duration="20000"/>
+				<statEvent time="140000" duration="20000"/>
+				<statEvent time="180000" duration="20000"/>
+				<statEvent time="220000" duration="20000"/>
+				<statEvent time="260000" duration="20000"/>
+				<statEvent time="300000" duration="20000"/>
+				<statEvent time="340000" duration="20000"/>
+				<statEvent time="380000" duration="20000"/>
+				<statEvent time="420000" duration="20000"/>
+				<statEvent time="460000" duration="20000"/>
+				<statEvent time="500000" duration="20000"/>
+				<statEvent time="540000" duration="20000"/>
+				<statEvent time="580000" duration="20000"/>
+				<statEvent time="620000" duration="20000"/>
+				<statEvent time="660000" duration="20000"/>
+				<statEvent time="700000" duration="20000"/>
 			</tbrDesign>
 		  </timeBasedRegressor>
 		  <timeBasedRegressor regressorID="tbr2" name="auditStim" length="720000" useRefFct="gloverGamma1" scaleHeightToZeroMean="false" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
             <tbrDesign length="720000" repetitions="1">
-							  </tbrDesign>
+				<statEvent time="17000" duration="13000"/>
+				<statEvent time="43000" duration="13000"/>
+				<statEvent time="69000" duration="13000"/>
+				<statEvent time="95000" duration="13000"/>
+				<statEvent time="121000" duration="13000"/>
+				<statEvent time="147000" duration="13000"/>
+				<statEvent time="173000" duration="13000"/>
+				<statEvent time="199000" duration="13000"/>
+				<statEvent time="225000" duration="13000"/>
+				<statEvent time="251000" duration="13000"/>
+				<statEvent time="277000" duration="13000"/>
+				<statEvent time="303000" duration="13000"/>
+				<statEvent time="329000" duration="13000"/>
+				<statEvent time="355000" duration="13000"/>
+				<statEvent time="381000" duration="13000"/>
+				<statEvent time="407000" duration="13000"/>
+				<statEvent time="433000" duration="13000"/>
+				<statEvent time="459000" duration="13000"/>
+				<statEvent time="485000" duration="13000"/>
+				<statEvent time="511000" duration="13000"/>
+				<statEvent time="537000" duration="13000"/>
+				<statEvent time="563000" duration="13000"/>
+				<statEvent time="589000" duration="13000"/>
+				<statEvent time="615000" duration="13000"/>
+				<statEvent time="641000" duration="13000"/>
+				<statEvent time="667000" duration="13000"/>
+				<statEvent time="693000" duration="13000"/>
+			</tbrDesign>
 			</timeBasedRegressor>
 		 </gwDesignStruct>
 		 <covariateStruct>
