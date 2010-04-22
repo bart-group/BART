@@ -10,19 +10,66 @@
 #import "NEDesignGloverKernel.h"
 
 
+@implementation GloverParams
+
+@synthesize maxLengthHrfInMs;
+@synthesize peak1;
+@synthesize scale1; 
+@synthesize peak2; 
+@synthesize scale2; 
+@synthesize offset;	
+@synthesize relationP1P2;
+@synthesize heightScale; 
+
+-(id)initWithMaxLength:(uint)l peak1:(double_t)p1 scale1:(double_t)s1 peak2:(double_t)p2 scale2:(double_t)s2 offset:(double_t)o
+		  relationP1P2:(double_t)rel heightScale:(double_t)hs
+{
+	self = [super init];
+	if (nil != self){
+		maxLengthHrfInMs = l;
+		peak1 = p1;
+		scale1 = s1; 
+		peak2 = p2; 
+		scale2 = s2; 
+		offset = o;	
+		relationP1P2 = rel;
+		heightScale = hs; 
+	}
+	return self;
+}
+-(id)init
+{
+	self = [super init];
+	if (nil != self){
+		maxLengthHrfInMs = 0;
+		peak1 = 0;
+		scale1 = 0; 
+		peak2 = 0; 
+		scale2 = 0; 
+		offset = 0;	
+		relationP1P2 = 0;
+		heightScale = 0; 
+	}
+	return self;
+}
+
+@end
+
+
+
 @implementation NEDesignKernel
 
 @synthesize mKernelDeriv0;
 @synthesize mKernelDeriv1;
 @synthesize mKernelDeriv2;
-@synthesize mParams;
 
 
--(id)initWithGloverParams:(GloverParams)gammaParams andNumberSamples:(unsigned long) numberSamplesForInit
+
+-(id)initWithGloverParams:(GloverParams*)gammaParams andNumberSamples:(unsigned long) numberSamplesForInit
 {
-    [self release];
+	[self release];
     self = nil;
-
+	self = [super init];
     self = [[NEDesignGloverKernel alloc] initWithGloverParams:gammaParams andNumberSamples:numberSamplesForInit];
     
 	return self;
@@ -30,16 +77,18 @@
 
 -(id)initWithGeneralGammaParams:(GeneralGammaParams)gammaParams
 {
-	NSLog(@"General Gamma Function is not supported at the moment!");
+	//NSLog(@"General Gamma Function is not supported at the moment!");
+//	return nil;
+	[self doesNotRecognizeSelector:_cmd];
 	return nil;
 }
 
-//-(void)dealloc
-//{
-//	fftw_free(mKernelDeriv0);
-//	fftw_free(mKernelDeriv1);
-//	fftw_free(mKernelDeriv2);
-//	
-//	[super dealloc];
-//}
+-(void)dealloc
+{
+	fftw_free(mKernelDeriv0);
+	fftw_free(mKernelDeriv1);
+	fftw_free(mKernelDeriv2);
+	
+	[super dealloc];
+}
 @end
