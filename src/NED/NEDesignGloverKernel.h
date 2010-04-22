@@ -22,7 +22,7 @@
 
 @interface NEDesignGloverKernel : NEDesignKernel
 {
-	GloverParams mParams;
+	GloverParams *mParams;
 	unsigned long mNumberSamplesForInit;
 }
 

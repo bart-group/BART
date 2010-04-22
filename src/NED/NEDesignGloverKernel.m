@@ -24,10 +24,15 @@
 @implementation NEDesignGloverKernel
 
 
--(id)initWithGloverParams:(GloverParams)gammaParams andNumberSamples:(unsigned long) numberSamplesForInit
+
+-(id)initWithGloverParams:(GloverParams*)gammaParams andNumberSamples:(unsigned long) numberSamplesForInit
 {
-    if (self = [super init]) {
-        mParams = gammaParams;
+	if (nil == gammaParams || 0 >= numberSamplesForInit){
+		NSLog(@"GloverParams not valid - no HRF defined!");
+		return nil;
+	}
+	if (self = [super init]) {
+        mParams = [gammaParams retain] ;
         mNumberSamplesForInit = numberSamplesForInit;
         [self generateGammaKernel];
     }
@@ -234,10 +239,10 @@
 
 -(void)dealloc
 {
-    fftw_free(mKernelDeriv0);
-    fftw_free(mKernelDeriv1);
-    fftw_free(mKernelDeriv2);
-    
+ //   fftw_free(mKernelDeriv0);
+//    fftw_free(mKernelDeriv1);
+//    fftw_free(mKernelDeriv2);
+    [mParams release];
 	[super dealloc];
 }
 
