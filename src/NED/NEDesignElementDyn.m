@@ -293,7 +293,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 -(void)initRegressorValues
 {
-	for (int col = 0; col < mNumberRegressors; col++) {
+	for (unsigned int col = 0; col < mNumberRegressors; col++) {
         mRegressorValues[col] = (float*) malloc(sizeof(float) * mNumberTimesteps);
 		for (unsigned int ts = 0; ts < mNumberTimesteps; ts++) {
 			if (col == mNumberRegressors-1) {
@@ -373,10 +373,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	if (mNumberCovariates > 0) {
         mCovariateValues = (float**) malloc(sizeof(float*) * mNumberCovariates);
 		[self initCovariateValues];}
-
-	
-	
-         
+        
     unsigned int numberSamplesInResult = (mNumberSamplesForInit / 2) + 1;//defined for results of fftw3
 
     /* make plans one per each event*/
@@ -405,17 +402,20 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         mFftPlanInverse[eventNr] = fftw_plan_dft_c2r_1d(mNumberSamplesForInit, mBuffersInverseIn[eventNr], mBuffersInverseOut[eventNr], FFTW_ESTIMATE);
 		
 		//TODO get per event from config!!!!
-		GloverParams params; //TODO everything in ms!!!!
-		params.maxLengthHrfInMs = 30000;
-		params.peak1 = 6.0;
-		params.scale1 = 0.9;
-		params.peak2 = 12.0;
-		params.scale2 = 0.9;
-		params.offset = 0.0;
-		params.relationP1P2 = 0.1;
-		params.heightScale = 120;
+		GloverParams *params = [[GloverParams alloc] initWithMaxLength:30000 peak1:6.0 scale1:0.9 peak2:12.0 scale2:0.9 offset:0.0
+														  relationP1P2:0.1 heightScale:120];
+		//GloverParams *params = [[GloverParams alloc] init];
+//		params.maxLengthHrfInMs = 30000;
+//		params.peak1 = 6.0;
+//		params.scale1 = 0.9;
+//		params.peak2 = 12.0;
+//		params.scale2 = 0.9;
+//		params.offset = 0.0;
+//		params.relationP1P2 = 0.1;
+//		params.heightScale = 120;
 		
 		mRegressorList[eventNr]->regConvolKernel = [[NEDesignKernel alloc] initWithGloverParams:params andNumberSamples:mNumberSamplesForInit];
+		[params release];
     }
     
     return nil;
@@ -423,7 +423,6 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 -(NSError*)generateDesign
 {
-	
 	//reinit regressor result buffers
 	[self initRegressorValues];
     __block NSError* error = nil;
