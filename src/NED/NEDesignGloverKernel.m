@@ -15,9 +15,9 @@
 @interface NEDesignGloverKernel (PrivateMethods)
 
 -(void)generateGammaKernel;
--(double)getGammaValue:(double)xx :(double)t0;
--(double)getGammaDeriv1Value:(double)x :(double)t0;
--(double)getGammaDeriv2Value:(double)x :(double)t0;
+-(double)getGammaValue:(double)val withOffset:(double)t0;
+-(double)getGammaDeriv1Value:(double)val withOffset:(double)t0;
+-(double)getGammaDeriv2Value:(double)val withOffset:(double)t0;
 
 @end
 
@@ -57,14 +57,13 @@
 	memset(kernel1,0,sizeof(double) * mNumberSamplesForInit);
 	
 	double *kernel2 = NULL;
-	//if (mDerivationsHrf == 2) {
 	kernel2  = (double *)fftw_malloc(sizeof(double) * mNumberSamplesForInit);
 	mKernelDeriv2 = (fftw_complex *)fftw_malloc (sizeof (fftw_complex) * numberSamplesInResult);
 	memset(kernel2,0,sizeof(double) * mNumberSamplesForInit);
 	
 	unsigned int samplingRateInMs = 20; // sample the whole stuff with 20 ms;!!!!!!! NOT HERE DEFINED
 	//TODO : NOT WITH DOUBLE INDEX _ EVERYTHING IN MS BUT BE CAREFUL
-	double lengthHRF = (double) mParams.maxLengthHrfInMs / 1000.0;
+	double lengthHRF = (double) mParams.maxLengthHrfInMs/1000.0;
 	unsigned int indexS = 0;
 	double dt = samplingRateInMs / 1000.0; /* Delta (temporal resolution) in seconds. */
 	//unsigned int maxLengthHrfInMs = 30000; //=lengthHRF
@@ -73,9 +72,9 @@
 		
 		if (indexSample >= mNumberSamplesForInit) break;        
 				
-		kernel0[indexS] = [self getGammaValue:indexSample :mParams.offset];
-		kernel1[indexS] = [self getGammaDeriv1Value:indexSample :mParams.offset];
-		kernel2[indexS] = [self getGammaDeriv2Value:indexSample :mParams.offset];
+		kernel0[indexS] = [self getGammaValue:indexSample withOffset:mParams.offset];
+		kernel1[indexS] = [self getGammaDeriv1Value:indexSample withOffset:mParams.offset];
+		kernel2[indexS] = [self getGammaDeriv2Value:indexSample withOffset:mParams.offset];
 		indexS++;
 	}
 	
@@ -100,10 +99,9 @@
 /*
  * Glover kernel, gamma function
  */
--(double)getGammaValue:(double) xx
-               :(double) t0
+-(double)getGammaValue:(double)val withOffset:(double)t0
 {
-    double x = xx - t0;// div 1000 due to ms unit but here s used
+    double x = val - t0;// div 1000 due to ms unit but here s used
     if (x < 0 || x > 50) {
         return 0;
     }
@@ -121,11 +119,10 @@
 
 
 /* First derivative. */
--(double)getGammaDeriv1Value:(double) x 
-                     :(double) t0
+-(double)getGammaDeriv1Value:(double)val withOffset:(double) t0
 {
-    double xx = x - t0;
-    if (xx < 0 || xx > 50) {
+    double x = val - t0;
+    if (x < 0 || x > 50) {
         return 0;
     }
     
@@ -133,11 +130,11 @@
     double d2 = mParams.peak2 * mParams.scale2;
 
     
-    double overshootFct = pow(d1, -mParams.peak1) * mParams.peak1 * pow(xx, (mParams.peak1 - 1.0)) * exp(-(xx - d1) / mParams.scale1) 
-	- (pow((xx / d1), mParams.peak1) * exp(-(xx - d1) / mParams.scale1)) / mParams.scale1;
+    double overshootFct = pow(d1, -mParams.peak1) * mParams.peak1 * pow(x, (mParams.peak1 - 1.0)) * exp(-(x - d1) / mParams.scale1) 
+	- (pow((x / d1), mParams.peak1) * exp(-(x - d1) / mParams.scale1)) / mParams.scale1;
     
-    double undershootFct = pow(d2, -mParams.peak2) * mParams.peak2 * pow(xx, (mParams.peak2 - 1.0)) * exp(-(xx - d2) / mParams.scale2) 
-	- (pow((xx / d2), mParams.peak2) * exp(-(xx - d2) / mParams.scale2)) / mParams.scale2;
+    double undershootFct = pow(d2, -mParams.peak2) * mParams.peak2 * pow(x, (mParams.peak2 - 1.0)) * exp(-(x - d2) / mParams.scale2) 
+	- (pow((x / d2), mParams.peak2) * exp(-(x - d2) / mParams.scale2)) / mParams.scale2;
     
     double gammFct = overshootFct - mParams.relationP1P2 * undershootFct;
 	gammFct /= mParams.heightScale;
@@ -146,10 +143,9 @@
 }
 
 /* Second derivative. */
--(double)getGammaDeriv2Value:(double) x0
-                     :(double) t0
+-(double)getGammaDeriv2Value:(double)val withOffset:(double)t0
 {
-    double x = x0 - t0;
+    double x = val - t0;
     if (x < 0 || x > 50) {
         return 0;
     }
@@ -219,9 +215,9 @@
         if (j >= ncols) {
             break;
         }
-        gammaFct = [self getGammaValue:x :t0];
-        gammaDeriv1 = [self getGammaDeriv1Value:x :t0];
-        gammaDeriv2 = [self getGammaDeriv2Value:x :t0];
+        gammaFct = [self getGammaValue:x withOffset:t0];
+        gammaDeriv1 = [self getGammaDeriv1Value:x withOffset:t0];
+        gammaDeriv2 = [self getGammaDeriv2Value:x withOffset:t0];
 		
         dest[j][0] = x;
         dest[j][1] = gammaFct;
@@ -239,9 +235,6 @@
 
 -(void)dealloc
 {
- //   fftw_free(mKernelDeriv0);
-//    fftw_free(mKernelDeriv1);
-//    fftw_free(mKernelDeriv2);
     [mParams release];
 	[super dealloc];
 }
