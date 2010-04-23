@@ -38,13 +38,17 @@ NEDesignKernel *kernel;
 
 	// init and set glover params
 	//TODO: ABH numberSamples!!!!!!
-	gloverParams = [[GloverParams alloc] initWithMaxLength:30000 peak1:6.0 scale1:0.9 peak2:12.0 scale2:0.9 offset:0.0
+	gloverParams = [[GloverParams alloc] initWithMaxLength:300 peak1:6.0 scale1:0.9 peak2:12.0 scale2:0.9 offset:0.0
 													  relationP1P2:0.1 heightScale:120];
-	STAssertNoThrow( kernel = [[NEDesignKernel alloc] initWithGloverParams:gloverParams andNumberSamples:1000000], @" initWithGlover throws exception");
+	STAssertNoThrow( kernel = [[NEDesignKernel alloc] initWithGloverParams:gloverParams andNumberSamples:15], @" initWithGlover throws exception");
 	STAssertNotNil(kernel, @"init GloverGamma returns nil");
 	STAssertTrue([kernel isKindOfClass:[NEDesignGloverKernel class]], @"initWithGloverParams doesn't return correct class type");
 	[kernel release];
 	[gloverParams release];
+	
+	gloverParams = [[GloverParams alloc] initWithMaxLength:0 peak1:0 scale1:0 peak2:0 scale2:0 offset:0.0
+											  relationP1P2:0 heightScale:0];
+	STAssertNoThrow( kernel = [[NEDesignKernel alloc] initWithGloverParams:gloverParams andNumberSamples:0], @" initWithGlover throws exception");
 	
 }
 
