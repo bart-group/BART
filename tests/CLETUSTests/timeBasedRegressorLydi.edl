@@ -149,9 +149,9 @@
              <offset>0</offset>
          </dGamma>
 		 <gloverKernel refFctID="gloverGamma1">
-			<tPeak1>4000</tPeak1>
+			<tPeak1>6000</tPeak1>
 			<tPeak1Scale>0.9</tPeak1Scale>
-			<tPeak2>8000</tPeak2>
+			<tPeak2>12000</tPeak2>
 			<tPeak2Scale>0.9</tPeak2Scale>
 			<ratioTPeaks>0.1</ratioTPeaks>
 			<heightScale>120</heightScale>
@@ -159,9 +159,9 @@
 			<overallWidth>30000</overallWidth>
 		 </gloverKernel>
 		 <gloverKernel refFctID="gloverGamma2">
-			<tPeak1>0</tPeak1>
+			<tPeak1>6000</tPeak1>
 			<tPeak1Scale>0.9</tPeak1Scale>
-			<tPeak2>0</tPeak2>
+			<tPeak2>12000</tPeak2>
 			<tPeak2Scale>0.9</tPeak2Scale>
 			<ratioTPeaks>0.1</ratioTPeaks>
 			<heightScale>20</heightScale>
