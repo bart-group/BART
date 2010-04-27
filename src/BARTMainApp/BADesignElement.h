@@ -14,6 +14,7 @@ enum BADesignElementError {
     NUMBERTIMESTEPS_NOT_SPECIFIED,
 	NUMBERCOVARIATES_NOT_SPECIFIED,
 	NUMBERREGRESSORS_NOT_SPECIFIED,
+	CONVOLUTION_KERNEL_NOT_SPECIFIED,
     FILEOPEN,
     TXT_SCANFILE,
     ILLEGAL_INPUT_FORMAT,
@@ -66,14 +67,6 @@ typedef struct TrialListStruct {
  */
 -(id)initWithDynamicDataOfImageDataType:(enum ImageDataType)type;
 
-/**
- * Copies a Design element from the given one
- * 
- * \param copyFrom design element that will be copied
- *
- * returns an object of DesignElement
- */
--(id)initWithDesignElement:(BADesignElement*)copyFrom;
 
 /**
  * write the design file to the given path
