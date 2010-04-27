@@ -66,7 +66,6 @@
 	// sample the whole stuff e.g. something bout 20 ms;
 	unsigned int indexS = 0;
 	for (unsigned long timeSample = 0; timeSample < mParams.maxLengthHrfInMs; timeSample += mSamplingRateInMs) {
-		fputc('B', fp);
 		if (indexS >= mNumberSamplesForInit) break;        
 		//unsigned long indexS = (unsigned long)timeSample/mSamplingRateInMs;
 		kernel0[indexS] = [self getGammaValue:(double)timeSample withOffset:(double)mParams.offset];
