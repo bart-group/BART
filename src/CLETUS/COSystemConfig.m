@@ -55,6 +55,8 @@
 							@"$dynDesign",
 							@"$nrTimesteps",
 							@"$timeUnit",
+							@"$refFctsGamma",
+							@"$refFctsGlover",
 						    nil];
 	
 	NSArray *xpathValues = [NSArray arrayWithObjects:@"/rtExperiment/experimentData/imageModalities/TR", 
@@ -63,6 +65,8 @@
 							@"/rtExperiment/experimentData/paradigm/dynamicDesignStruct",
 							@"/rtExperiment/mriParams/MR_TAG_MEASUREMENTS",
 							@"/rtExperiment/environment/@globalTimeUnit",
+							@"/rtExperiment/statistics/referenceFunctions/dGamma",
+							@"/rtExperiment/statistics/referenceFunctions/gloverKernel",
 							nil];
 	mAbbreviations = [[NSDictionary alloc] initWithObjects:xpathValues
                                                    forKeys:shortKeys];
