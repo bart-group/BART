@@ -9,6 +9,7 @@
 #import "NEDesignGloverKernelTest.h"
 #import "NEDesignGloverKernel.h"
 #import "NEDesignGloverKernelReference.h"
+#import "../../src/CLETUS/COSystemConfig.h"
 @implementation NEDesignGloverKernelTest
 
 
@@ -74,58 +75,64 @@
     /********************************/
 	
 	//now, my way, params as in reference xgamma
-	GloverParams *params = [[GloverParams alloc] initWithMaxLength:30000 peak1:6.000 scale1:0.9 
-															 peak2:12.000 scale2:0.9 offset:0.0 
-													  relationP1P2:0.35 heightScale:20.0];
+	GloverParams *params = [[GloverParams alloc] initWithMaxLength:30000 peak1:6000 scale1:0.9 
+															 peak2:12000 scale2:0.9 offset:0.0 
+													  relationP1P2:0.35 heightScale:20.0 givenInTimeUnit:KERNEL_TIME_MS];
 	
-	NEDesignGloverKernel *kernel = [[NEDesignGloverKernel alloc] initWithGloverParams:params andNumberSamples:numberSamples];
+	NEDesignGloverKernel *kernel = [[NEDesignGloverKernel alloc] initWithGloverParams:params andNumberSamples:[NSNumber numberWithUnsignedLong:15000] andSamplingRate:[NSNumber numberWithUnsignedLong:20]];
 			
 	
 	//compare
-	// TODO: remove output
-	FILE* fp = fopen("/tmp/gloTest.txt", "w");
-//		fputc('\n', fp);
-//	//	fputc('B', fp);
-//	//	fputc(' ', fp);
-		for (unsigned int ind = 0; ind < numberSamplesResult; ind++)
-			fprintf(fp, "%.2f\n", kernel.mKernelDeriv0[ind][0]);	 
-		fclose(fp);
-	// END output
 	for (unsigned int ind = 0; ind < numberSamplesResult; ind++){
-		STAssertTrue( kernel.mKernelDeriv0[ind][0] == fkernel0[ind][0], @"value in mKernelDeriv0 wrong - re");
-		STAssertTrue( kernel.mKernelDeriv0[ind][1] == fkernel0[ind][1], @"value in mKernelDeriv0 wrong - im");
-		STAssertTrue( kernel.mKernelDeriv1[ind][0] == fkernel1[ind][0], @"value in mKernelDeriv1 wrong - re");
-		STAssertTrue( kernel.mKernelDeriv1[ind][1] == fkernel1[ind][1], @"value in mKernelDeriv1 wrong - im");
-		STAssertTrue( kernel.mKernelDeriv2[ind][0] == fkernel2[ind][0], @"value in mKernelDeriv2 wrong - re");
-		STAssertTrue( kernel.mKernelDeriv2[ind][1] == fkernel2[ind][1], @"value in mKernelDeriv2 wrong - im");
+		STAssertEqualsWithAccuracy( kernel.mKernelDeriv0[ind][0], fkernel0[ind][0], 0.0001, @"value in mKernelDeriv0 wrong - re");
+		STAssertEqualsWithAccuracy( kernel.mKernelDeriv0[ind][1], fkernel0[ind][1], 0.0001, @"value in mKernelDeriv0 wrong - im");
+		STAssertEqualsWithAccuracy( kernel.mKernelDeriv1[ind][0], fkernel1[ind][0], 0.0001, @"value in mKernelDeriv1 wrong - re");
+		STAssertEqualsWithAccuracy( kernel.mKernelDeriv1[ind][1], fkernel1[ind][1], 0.0001, @"value in mKernelDeriv1 wrong - im");
+		STAssertEqualsWithAccuracy( kernel.mKernelDeriv2[ind][0], fkernel2[ind][0], 0.0001, @"value in mKernelDeriv2 wrong - re");
+		STAssertEqualsWithAccuracy( kernel.mKernelDeriv2[ind][1], fkernel2[ind][1], 0.0001, @"value in mKernelDeriv2 wrong - im");
 	}
 	
 	//second try - params as in bgamma
 	[params release];
 	[kernel release];
-	params = [[GloverParams alloc] initWithMaxLength:30000 peak1:6.000 scale1:0.9 
-															 peak2:12.000 scale2:0.9 offset:0.0 
-													  relationP1P2:0.1 heightScale:120.0];
-	kernel = [[NEDesignGloverKernel alloc] initWithGloverParams:params andNumberSamples:numberSamples];
+	params = [[GloverParams alloc] initWithMaxLength:30000 peak1:6000 scale1:0.9 
+															 peak2:12000 scale2:0.9 offset:0.0 
+										relationP1P2:0.1 heightScale:120.0 givenInTimeUnit:KERNEL_TIME_MS];
+	
+	kernel = [[NEDesignGloverKernel alloc] initWithGloverParams:params andNumberSamples:[NSNumber numberWithUnsignedLong:numberSamples] andSamplingRate:[NSNumber numberWithUnsignedLong:20]];
 	for (unsigned int ind = 0; ind < numberSamplesResult; ind++){
-		STAssertTrue( kernel.mKernelDeriv0[ind][0] == fkernelg[ind][0], @"2nd value in mKernelDeriv0 wrong - re");
-		STAssertTrue( kernel.mKernelDeriv0[ind][1] == fkernelg[ind][1], @"2nd value in mKernelDeriv0 wrong - im");
+		STAssertEqualsWithAccuracy( kernel.mKernelDeriv0[ind][0], fkernelg[ind][0], 0.0001, @"2nd value in mKernelDeriv0 wrong - re");
+		STAssertEqualsWithAccuracy( kernel.mKernelDeriv0[ind][1], fkernelg[ind][1], 0.0001, @"2nd value in mKernelDeriv0 wrong - im");
 	}
 	
-	//everything zero
+	//params zero
 	[params release];
 	[kernel release];
 	params = [[GloverParams alloc] initWithMaxLength:0 peak1:0 scale1:0 
 											   peak2:0 scale2:0 offset:0.0 
-										relationP1P2:0 heightScale:0];
-	kernel = [[NEDesignGloverKernel alloc] initWithGloverParams:params andNumberSamples:numberSamples];
+										 relationP1P2:0 heightScale:0 givenInTimeUnit:KERNEL_TIME_S];
+	numberSamples = 100;
+	numberSamplesResult = numberSamples/2 +1;
+	kernel = [[NEDesignGloverKernel alloc] initWithGloverParams:params andNumberSamples:[NSNumber numberWithUnsignedLong:numberSamples] andSamplingRate:[NSNumber numberWithUnsignedLong:10]];
 	for (unsigned int ind = 0; ind < numberSamplesResult; ind++){
 		STAssertTrue( kernel.mKernelDeriv0[ind][0] == 0.0, @"3rd value in mKernelDeriv0 wrong - re");
-		STAssertTrue( kernel.mKernelDeriv0[ind][1] == 0.0, @"3rd value in mKernelDeriv0 wrong - im");
+		STAssertTrue( abs(kernel.mKernelDeriv0[ind][1]) == 0.0, @"3rd value in mKernelDeriv0 wrong - im");
 	}
-	
 		
+	// params nil
+	[params release];
+	params = nil;
+	[kernel release];
+
+	STAssertNil( [[NEDesignGloverKernel alloc] initWithGloverParams:params andNumberSamples:[NSNumber numberWithUnsignedLong:numberSamples] andSamplingRate:[NSNumber numberWithUnsignedLong:10]], @"params nil but not nil returned");
 	
+	// sampling rate, number samples zero
+	params = [[GloverParams alloc] initWithMaxLength:0 peak1:0 scale1:0 
+											   peak2:0 scale2:0 offset:0.0 
+										relationP1P2:0 heightScale:0 givenInTimeUnit:KERNEL_TIME_S];
+	STAssertNil( [[NEDesignGloverKernel alloc] initWithGloverParams:params andNumberSamples:[NSNumber numberWithUnsignedLong:0] andSamplingRate:[NSNumber numberWithUnsignedLong:10]], @"numberSamples nil but not nil returned");
+	STAssertNil( [[NEDesignGloverKernel alloc] initWithGloverParams:params andNumberSamples:[NSNumber numberWithUnsignedLong:100] andSamplingRate:[NSNumber numberWithUnsignedLong:0]], @"sampleRate nil but not nil returned");
+	[params release];
 }
 
 @end
