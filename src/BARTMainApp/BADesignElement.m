@@ -11,6 +11,7 @@
 #import "NEDesignElementDyn.h"
 
 
+
 @implementation BADesignElement
 
 @synthesize mRepetitionTimeInMs;
@@ -36,17 +37,19 @@
 
 -(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
 {
-    // TODO!!
-	self = [super init];
     [self release];
-    self = [[NEDesignElementDyn alloc] initWithFile:path ofImageDataType:type];
+	self = nil;
+	self = [super init];
+	if (nil != self){
+		self = [[NEDesignElementVI alloc] initWithFile:path ofImageDataType:type];}
     return self;
 }
 
 -(id)initWithDynamicDataOfImageDataType:(enum ImageDataType)type
 {
+	[self release];
+	self = nil;
 	self = [super init];
-    [self release];
     self = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:type];
     return self;
 	
@@ -73,13 +76,19 @@
 	return newDesign;
 }
 
+-(NSNumber*)getValueFromExplanatoryVariable: (unsigned int)cov atTimestep:(unsigned int)t
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
 -(void)setRegressor:(TrialList *)regressor
 {
     [self doesNotRecognizeSelector:_cmd];
 	return;
 }
 
--(void)setRegressorValue:(Trial)value forRegressorID:(int)regID atTimestep:(int)timestep
+-(void)setRegressorTrial:(Trial)trial 
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return;
@@ -96,6 +105,7 @@
 	[self doesNotRecognizeSelector:_cmd];
 	return;
 }
+
 
 @end
 
