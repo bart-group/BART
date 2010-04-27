@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <fftw3.h>
 
+typedef enum { KERNEL_TIME_MS = 0, KERNEL_TIME_S = 1 } NEDesignKernelTimeUnit;
 
 @interface GloverParams : NSObject {
     unsigned int maxLengthHrfInMs;
@@ -19,6 +20,7 @@
 	double offset;	// fka hard coded - for gamma 0.0, gauss 5.0
 	double relationP1P2; // fka cc cx - for block 0.1, event 0.35
 	double heightScale; //fka hard coded voodoo scale - for block 120, event 20
+	NEDesignKernelTimeUnit timeUnit;
 }
 
 @property (readwrite) unsigned int maxLengthHrfInMs;
@@ -29,9 +31,26 @@
 @property (readwrite) double offset;	
 @property (readwrite) double relationP1P2;
 @property (readwrite) double heightScale; 
+@property (readwrite) NEDesignKernelTimeUnit timeUnit;
+
+
+/**
+ * init a glover kernel with all it's params
+ *
+ * \param maxLength			maximum length of the Hemodynamic Response Function (HRF)
+ * \param peak1				time of the first peak (overshoot) of HRF
+ * \param scale1			scale the width of the first peak
+ * \param peak2				time of the second peak (undershoot) of HRF
+ * \param scale2			scale the width of the second peak
+ * \param offset			delay of the HRF
+ * \param relationP1P2		scale the relation of the two peaks
+ * \param heightScale		general height of the HRF
+ * \param givenInTimeUnit	time unit in which maxLength, peak1 and peak2 are given: KERNEL_TIME_MS KERNEL_TIME_S
+ * \return      a glover kernel object
+ */
 
 -(id)initWithMaxLength:(uint)l peak1:(double_t)p1 scale1:(double_t)s1 peak2:(double_t)p2 scale2:(double_t)s2 offset:(double_t)o
-		  relationP1P2:(double_t)rel heightScale:(double_t)hs;
+		  relationP1P2:(double_t)rel heightScale:(double_t)hs givenInTimeUnit:(NEDesignKernelTimeUnit)tU;
 
 @end
 
@@ -57,7 +76,7 @@ typedef struct GeneralGammaStruct {
 
 
 
--(id)initWithGloverParams:(GloverParams*)gammaParams andNumberSamples:(unsigned long) numberSamplesForInit;
+-(id)initWithGloverParams:(GloverParams*)gammaParams andNumberSamples:(NSNumber*) numberSamplesForInit andSamplingRate:(NSNumber*)samplingRate;
 -(id)initWithGeneralGammaParams:(GeneralGammaParams)gammaParams;
 
 @end

@@ -20,9 +20,10 @@
 @synthesize offset;	
 @synthesize relationP1P2;
 @synthesize heightScale; 
+@synthesize timeUnit;
 
 -(id)initWithMaxLength:(uint)l peak1:(double_t)p1 scale1:(double_t)s1 peak2:(double_t)p2 scale2:(double_t)s2 offset:(double_t)o
-		  relationP1P2:(double_t)rel heightScale:(double_t)hs
+		  relationP1P2:(double_t)rel heightScale:(double_t)hs givenInTimeUnit:(NEDesignKernelTimeUnit)tU
 {
 	self = [super init];
 	if (nil != self){
@@ -33,7 +34,8 @@
 		scale2 = s2; 
 		offset = o;	
 		relationP1P2 = rel;
-		heightScale = hs; 
+		heightScale = hs;
+		timeUnit = tU;
 	}
 	return self;
 }
@@ -48,7 +50,8 @@
 		scale2 = 0; 
 		offset = 0;	
 		relationP1P2 = 0;
-		heightScale = 0; 
+		heightScale = 0;
+		timeUnit = 0;
 	}
 	return self;
 }
@@ -65,12 +68,12 @@
 
 
 
--(id)initWithGloverParams:(GloverParams*)gammaParams andNumberSamples:(unsigned long) numberSamplesForInit
+-(id)initWithGloverParams:(GloverParams*)gammaParams andNumberSamples:(NSNumber*) numberSamplesForInit andSamplingRate:(NSNumber*)samplingRate
 {
 	[self release];
     self = nil;
 	self = [super init];
-    self = [[NEDesignGloverKernel alloc] initWithGloverParams:gammaParams andNumberSamples:numberSamplesForInit];
+    self = [[NEDesignGloverKernel alloc] initWithGloverParams:gammaParams andNumberSamples:numberSamplesForInit andSamplingRate:samplingRate];
     
 	return self;
 }
@@ -88,6 +91,10 @@
 	fftw_free(mKernelDeriv0);
 	fftw_free(mKernelDeriv1);
 	fftw_free(mKernelDeriv2);
+	mKernelDeriv0 = nil;
+	mKernelDeriv1 = nil;
+	mKernelDeriv2 = nil;
+	
 	
 	[super dealloc];
 }
