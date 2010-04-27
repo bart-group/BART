@@ -206,6 +206,9 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 		mNumberEvents = 0;
 		return error = [NSError errorWithDomain:@"numberEvents not defined" code:NUMBERREGRESSORS_NOT_SPECIFIED userInfo:nil];
 	}
+
+	// calc number of samples for the fft - also needed for KernelInit
+	mNumberSamplesForInit = (mNumberTimesteps * mRepetitionTimeInMs) / samplingRateInMs + 10000;//add some seconds to avoid wrap around problems with fft, here defined as 10s
 	
 	NSLog(@"indep Regressors without derivs: %d", mNumberEvents);
 	// with this initialise the regressor list
@@ -220,18 +223,19 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     
 	
 	// now read all the trials for each event
-	
-	for (unsigned int i = 0; i < mNumberEvents; i++)
+	unsigned int nrDerivs = 0; // count nr derivations per event - whole number of clumns needed at the end
+	for (unsigned int eventNr = 0; eventNr < mNumberEvents; eventNr++)
 	{
-		NSString *requestTrialsInReg = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent", expType, i+1, i+1];
+		unsigned int trialID = eventNr+1;
+		NSString *requestTrialsInReg = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent", expType, trialID, trialID];
 		NSUInteger nrTrialsInRegr = [config countNodes:requestTrialsInReg ];
-		unsigned int trialID = i+1;
+		
 
-		for (unsigned int k = 0; k < nrTrialsInRegr; k++)
+		for (unsigned int trialNr = 0; trialNr < nrTrialsInRegr; trialNr++)
 		{
-			NSString *requestTrialTime = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@time", expType, i+1, k+1];
-			NSString *requestTrialDuration = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@duration", expType, i+1, k+1];
-			NSString *requestTrialHeight = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@height", expType, i+1, k+1];
+			NSString *requestTrialTime = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@time", expType, trialID, trialNr+1];
+			NSString *requestTrialDuration = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@duration", expType, trialID, trialNr+1];
+			NSString *requestTrialHeight = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@height", expType, trialID, trialNr+1];
 			float onset = [[f numberFromString:[config getProp:requestTrialTime]] floatValue];
 			float duration = [[f numberFromString:[config getProp:requestTrialDuration]] floatValue];
 			float height = [[f numberFromString:[config getProp:requestTrialHeight]] floatValue];
@@ -263,29 +267,64 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 			
 		}
 		
-		mRegressorList[i]->regID = [config getProp:[NSString stringWithFormat:@"%@/timeBasedRegressor/@regressorID", expType]];
-		mRegressorList[i]->regDescription = [config getProp:[NSString stringWithFormat:@"%@/timeBasedRegressor/@name", expType]];
+		mRegressorList[eventNr]->regID = [config getProp:[NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/@regressorID", expType, trialID]];
+		mRegressorList[eventNr]->regDescription = [config getProp:[NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/@name", expType, trialID]];
 
 		// number of derivations used per each event
 		if ( YES == [[config getProp:[NSString stringWithFormat:@"%@/timeBasedRegressor/@useRefFctSecondDerivative", expType]] boolValue]){
-			mRegressorList[i]->regDerivations = 2;}
+			mRegressorList[eventNr]->regDerivations = 2;
+			nrDerivs += 2;}
 		else if (YES == [[config getProp:[NSString stringWithFormat:@"%@/timeBasedRegressor/@useRefFctFirstDerivative", expType]] boolValue]){
-			mRegressorList[i]->regDerivations = 1;}
+			mRegressorList[eventNr]->regDerivations = 1;
+			nrDerivs += 1;}
 		else {
-			mRegressorList[i]->regDerivations = 0;}
+			mRegressorList[eventNr]->regDerivations = 0;}
 		
+		// now we read and generate the HRF Kernel per event
+		//TODO get per event from config!!!!
+		NSString *hrfKernelName = [config getProp:[NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/@useRefFct", expType, trialID]];
+		NSUInteger nrRefFcts = [config countNodes:@"$refFctsGlover"];
+		nrRefFcts += [config countNodes:@"$refFctsGamma"];
+		
+		NEDesignKernelTimeUnit timeUnit = KERNEL_TIME_MS;
+		if ([[config getProp:@"$timeUnit"] isEqualToString:@"milliseconds"]){
+			timeUnit = KERNEL_TIME_MS;}
+		else {
+			NSLog(@"timeUnit in configuration is NOT milliseconds!");}
+		
+
+		for (unsigned int refNr = 0; refNr < nrRefFcts; refNr++){
+			if( [hrfKernelName isEqualToString:[config getProp:[NSString stringWithFormat:@"$refFctsGlover[%d]/@refFctID",refNr+1]]]){
+				//NSString *request = NSString stringWithFormat:@"$refFctsGlover[%d]",refNr];
+				GloverParams *params = [[GloverParams alloc] 
+										initWithMaxLength:[[config getProp:[NSString stringWithFormat:@"$refFctsGlover[%d]/overallWidth", refNr+1]] longLongValue]
+										peak1:[[config getProp:[NSString stringWithFormat:@"$refFctsGlover[%d]/tPeak1", refNr+1]] doubleValue]
+										scale1:[[config getProp:[NSString stringWithFormat:@"$refFctsGlover[%d]/tPeak1Scale", refNr+1]] doubleValue]  
+										peak2:[[config getProp:[NSString stringWithFormat:@"$refFctsGlover[%d]/tPeak2", refNr+1]] doubleValue]
+										scale2:[[config getProp:[NSString stringWithFormat:@"$refFctsGlover[%d]/tPeak2Scale", refNr+1]]  doubleValue]
+										offset:[[config getProp:[NSString stringWithFormat:@"$refFctsGlover[%d]/offset", refNr+1]] doubleValue]
+										relationP1P2:[[config getProp:[NSString stringWithFormat:@"$refFctsGlover[%d]/ratioTPeaks", refNr+1]]  doubleValue]
+										heightScale:[[config getProp:[NSString stringWithFormat:@"$refFctsGlover[%d]/heightScale", refNr+1]]  doubleValue]
+										givenInTimeUnit:timeUnit];
+				mRegressorList[eventNr]->regConvolKernel = [[NEDesignKernel alloc] initWithGloverParams:params andNumberSamples:[NSNumber numberWithLong:mNumberSamplesForInit] andSamplingRate:[NSNumber numberWithLong:samplingRateInMs]];
+				if (nil == mRegressorList[eventNr]->regConvolKernel){
+					[params release];
+					return error = [NSError errorWithDomain:@"generation of design kernel failed" code:CONVOLUTION_KERNEL_NOT_SPECIFIED userInfo:nil];
+				}
+				[params release];
+			}
+			else if ([hrfKernelName isEqualToString:[config getProp:[NSString stringWithFormat:@"$refFctsGamma[%d]/@refFctID",refNr+1]]]){
+				GeneralGammaParams params;
+				mRegressorList[eventNr]->regConvolKernel = [[NEDesignKernel alloc] initWithGeneralGammaParams:params];
+				if (nil == mRegressorList[eventNr]->regConvolKernel){
+					return error = [NSError errorWithDomain:@"generation of design kernel failed" code:CONVOLUTION_KERNEL_NOT_SPECIFIED userInfo:nil];
+				}
+			}
+		}
 	}
-	
-	unsigned int nrDerivs = 0;
-	for (unsigned int eventNr = 0; eventNr < mNumberEvents; eventNr++){
-		nrDerivs += mRegressorList[eventNr]->regDerivations;}
 	
     mNumberRegressors = mNumberEvents + nrDerivs + 1;
     mNumberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
-	
-	// calc number of samples for the fft
-	mNumberSamplesForInit = (mNumberTimesteps * mRepetitionTimeInMs) / samplingRateInMs + 10000;//add some seconds to avoid wrap around problems with fft, here defined as 10s
-	
 	[f release];//temp for conversion purposes
 	return error;
 }
@@ -401,21 +440,23 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         mFftPlanForward[eventNr] = fftw_plan_dft_r2c_1d(mNumberSamplesForInit, mBuffersForwardIn[eventNr], mBuffersForwardOut[eventNr], FFTW_ESTIMATE);
         mFftPlanInverse[eventNr] = fftw_plan_dft_c2r_1d(mNumberSamplesForInit, mBuffersInverseIn[eventNr], mBuffersInverseOut[eventNr], FFTW_ESTIMATE);
 		
-		//TODO get per event from config!!!!
-		GloverParams *params = [[GloverParams alloc] initWithMaxLength:30000 peak1:6.0 scale1:0.9 peak2:12.0 scale2:0.9 offset:0.0
-														  relationP1P2:0.1 heightScale:120];
-		//GloverParams *params = [[GloverParams alloc] init];
-//		params.maxLengthHrfInMs = 30000;
-//		params.peak1 = 6.0;
-//		params.scale1 = 0.9;
-//		params.peak2 = 12.0;
-//		params.scale2 = 0.9;
-//		params.offset = 0.0;
-//		params.relationP1P2 = 0.1;
-//		params.heightScale = 120;
-		
-		mRegressorList[eventNr]->regConvolKernel = [[NEDesignKernel alloc] initWithGloverParams:params andNumberSamples:mNumberSamplesForInit];
-		[params release];
+//		//TODO get per event from config!!!!
+//		GloverParams *params = [[GloverParams alloc] initWithMaxLength:30000 peak1:6000 scale1:0.9 peak2:12000.0 scale2:0.9 offset:0.0
+//														  relationP1P2:0.1 heightScale:120 givenInTimeUnit:KERNEL_TIME_MS];
+////		GloverParams *params = [[GloverParams alloc] initWithMaxLength:0 peak1:0 scale1:0 peak2:0.0 scale2:0.0 offset:0.0
+////														  relationP1P2:0.0 heightScale:0 givenInTimeUnit:KERNEL_TIME_MS];
+//		//GloverParams *params = [[GloverParams alloc] init];
+////		params.maxLengthHrfInMs = 30000;
+////		params.peak1 = 6.0;
+////		params.scale1 = 0.9;
+////		params.peak2 = 12.0;
+////		params.scale2 = 0.9;
+////		params.offset = 0.0;
+////		params.relationP1P2 = 0.1;
+////		params.heightScale = 120;
+//		
+//		mRegressorList[eventNr]->regConvolKernel = [[NEDesignKernel alloc] initWithGloverParams:params andNumberSamples:[NSNumber numberWithLong:mNumberSamplesForInit] andSamplingRate:[NSNumber numberWithLong:samplingRateInMs]];
+//		[params release];
     }
     
     return nil;
@@ -683,6 +724,10 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	Complex valueEventSeries;
     Complex valueGammaKernel;
     Complex multiplResult;
+	
+	if (nil == kernel){
+		NSLog(@"Convolve with zero kernel");
+		return;}
 	
 	/* convolution */
     unsigned int j;
