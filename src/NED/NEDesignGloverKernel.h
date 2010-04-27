@@ -24,6 +24,8 @@
 {
 	GloverParams *mParams;
 	unsigned long mNumberSamplesForInit;
+	unsigned long mSamplingRateInMs;
+	double	mScaleTimeUnit;
 }
 
 -(float**)plotGammaWithDerivs:(unsigned int)derivs;	
