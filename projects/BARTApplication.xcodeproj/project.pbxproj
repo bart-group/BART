@@ -28,6 +28,16 @@
 		006626FC117F9D22004980A0 /* NEDesignGloverKernel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0085EB2311511B2C004795FD /* NEDesignGloverKernel.m */; };
 		0066277211804494004980A0 /* NEDesignGloverKernelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0066277111804494004980A0 /* NEDesignGloverKernelTest.m */; };
 		006627731180449F004980A0 /* NEDesignKernelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0066276D11804476004980A0 /* NEDesignKernelTest.m */; };
+		00662AC81181CFCD004980A0 /* NEDesignGloverKernelReference.c in Sources */ = {isa = PBXBuildFile; fileRef = 00662AC71181CFCD004980A0 /* NEDesignGloverKernelReference.c */; };
+		006E07551190260500CEEF38 /* EDDataElementIsis.mm in Sources */ = {isa = PBXBuildFile; fileRef = 006E07541190260500CEEF38 /* EDDataElementIsis.mm */; };
+		006E07701190292400CEEF38 /* libutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 006E076F1190292400CEEF38 /* libutils.dylib */; };
+		006E07751190299D00CEEF38 /* libdata.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 006E07741190299D00CEEF38 /* libdata.dylib */; };
+		006E0777119029AD00CEEF38 /* libisisImageFormat_gz_proxy.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 006E0776119029AD00CEEF38 /* libisisImageFormat_gz_proxy.dylib */; };
+		006E07791190305300CEEF38 /* libisisImageFormat_Nifti.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 006E07781190305300CEEF38 /* libisisImageFormat_Nifti.dylib */; };
+		006E08341191981900CEEF38 /* libboost_date_time-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 006E08331191981900CEEF38 /* libboost_date_time-mt.dylib */; };
+		006E08361191981900CEEF38 /* libboost_filesystem-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 006E08351191981900CEEF38 /* libboost_filesystem-mt.dylib */; };
+		006E08381191981900CEEF38 /* libboost_regex-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 006E08371191981900CEEF38 /* libboost_regex-mt.dylib */; };
+		006E083A1191981A00CEEF38 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 006E08391191981A00CEEF38 /* libboost_system-mt.dylib */; };
 		007932B3114FB79E007BEB66 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F81141470400A57967 /* main.m */; };
 		007932B4114FB79E007BEB66 /* ColorMappingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F71141470400A57967 /* ColorMappingFilter.m */; };
 		007932B5114FB7A1007BEB66 /* BASourceDatasetFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F41141470400A57967 /* BASourceDatasetFile.m */; };
@@ -37,7 +47,7 @@
 		007932B9114FB7A5007BEB66 /* BAElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B01141470400A57967 /* BAElement.m */; };
 		007932BA114FB7A6007BEB66 /* BADocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7AE1141470400A57967 /* BADocument.m */; };
 		007932BB114FB7A7007BEB66 /* BADesignElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A81141470400A57967 /* BADesignElement.m */; };
-		007932BC114FB7A8007BEB66 /* BADataElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A41141470400A57967 /* BADataElement.m */; };
+		007932BC114FB7A8007BEB66 /* BADataElement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A41141470400A57967 /* BADataElement.mm */; };
 		007932BD114FB7A8007BEB66 /* BAProcedureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A21141470400A57967 /* BAProcedureController.m */; };
 		007932BE114FB7A9007BEB66 /* BAAnalyzerElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A01141470400A57967 /* BAAnalyzerElement.m */; };
 		0079349E114FF120007BEB66 /* COEDLValidatorLiteral.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AD76114645A3008FC09D /* COEDLValidatorLiteral.m */; };
@@ -206,7 +216,7 @@
 		0040B7A11141470400A57967 /* BAProcedureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAProcedureController.h; sourceTree = "<group>"; };
 		0040B7A21141470400A57967 /* BAProcedureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureController.m; sourceTree = "<group>"; };
 		0040B7A31141470400A57967 /* BADataElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElement.h; sourceTree = "<group>"; };
-		0040B7A41141470400A57967 /* BADataElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElement.m; sourceTree = "<group>"; };
+		0040B7A41141470400A57967 /* BADataElement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BADataElement.mm; sourceTree = "<group>"; };
 		0040B7A71141470400A57967 /* BADesignElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADesignElement.h; sourceTree = "<group>"; };
 		0040B7A81141470400A57967 /* BADesignElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADesignElement.m; sourceTree = "<group>"; };
 		0040B7AD1141470400A57967 /* BADocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADocument.h; sourceTree = "<group>"; };
@@ -237,6 +247,18 @@
 		0066276D11804476004980A0 /* NEDesignKernelTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignKernelTest.m; sourceTree = "<group>"; };
 		0066277011804494004980A0 /* NEDesignGloverKernelTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignGloverKernelTest.h; sourceTree = "<group>"; };
 		0066277111804494004980A0 /* NEDesignGloverKernelTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignGloverKernelTest.m; sourceTree = "<group>"; };
+		00662AC61181CFCD004980A0 /* NEDesignGloverKernelReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignGloverKernelReference.h; sourceTree = "<group>"; };
+		00662AC71181CFCD004980A0 /* NEDesignGloverKernelReference.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NEDesignGloverKernelReference.c; sourceTree = "<group>"; };
+		006E07531190260500CEEF38 /* EDDataElementIsis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementIsis.h; sourceTree = "<group>"; };
+		006E07541190260500CEEF38 /* EDDataElementIsis.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = EDDataElementIsis.mm; sourceTree = "<group>"; };
+		006E076F1190292400CEEF38 /* libutils.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libutils.dylib; path = /Users/Lydi/Development/isis/build/lib/CoreUtils/libutils.dylib; sourceTree = "<absolute>"; };
+		006E07741190299D00CEEF38 /* libdata.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libdata.dylib; path = /Users/Lydi/Development/isis/build/lib/DataStorage/libdata.dylib; sourceTree = "<absolute>"; };
+		006E0776119029AD00CEEF38 /* libisisImageFormat_gz_proxy.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisisImageFormat_gz_proxy.dylib; path = /Users/Lydi/Development/isis/build/libisisImageFormat_gz_proxy.dylib; sourceTree = "<absolute>"; };
+		006E07781190305300CEEF38 /* libisisImageFormat_Nifti.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisisImageFormat_Nifti.dylib; path = /Users/Lydi/Development/isis/build/libisisImageFormat_Nifti.dylib; sourceTree = "<absolute>"; };
+		006E08331191981900CEEF38 /* libboost_date_time-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_date_time-mt.dylib"; path = "/opt/local/lib/libboost_date_time-mt.dylib"; sourceTree = "<absolute>"; };
+		006E08351191981900CEEF38 /* libboost_filesystem-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_filesystem-mt.dylib"; path = "/opt/local/lib/libboost_filesystem-mt.dylib"; sourceTree = "<absolute>"; };
+		006E08371191981900CEEF38 /* libboost_regex-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_regex-mt.dylib"; path = "/opt/local/lib/libboost_regex-mt.dylib"; sourceTree = "<absolute>"; };
+		006E08391191981A00CEEF38 /* libboost_system-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_system-mt.dylib"; path = "/opt/local/lib/libboost_system-mt.dylib"; sourceTree = "<absolute>"; };
 		007934EB1150FBF7007BEB66 /* COErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COErrorCode.h; sourceTree = "<group>"; };
 		0083769F116BB12D00369B20 /* NEDesignElementDyn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignElementDyn.h; sourceTree = "<group>"; };
 		008376A0116BB12D00369B20 /* NEDesignElementDyn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignElementDyn.m; sourceTree = "<group>"; };
@@ -373,6 +395,14 @@
 				00B1573211459587007C02CB /* libgslcblas.dylib in Frameworks */,
 				00B1573C11459605007C02CB /* libgsl.0.dylib in Frameworks */,
 				00A7E02A117C90C600062AFE /* libfftw3.a in Frameworks */,
+				006E07701190292400CEEF38 /* libutils.dylib in Frameworks */,
+				006E07751190299D00CEEF38 /* libdata.dylib in Frameworks */,
+				006E0777119029AD00CEEF38 /* libisisImageFormat_gz_proxy.dylib in Frameworks */,
+				006E07791190305300CEEF38 /* libisisImageFormat_Nifti.dylib in Frameworks */,
+				006E08341191981900CEEF38 /* libboost_date_time-mt.dylib in Frameworks */,
+				006E08361191981900CEEF38 /* libboost_filesystem-mt.dylib in Frameworks */,
+				006E08381191981900CEEF38 /* libboost_regex-mt.dylib in Frameworks */,
+				006E083A1191981A00CEEF38 /* libboost_system-mt.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,7 +487,7 @@
 				0040B7A11141470400A57967 /* BAProcedureController.h */,
 				0040B7A21141470400A57967 /* BAProcedureController.m */,
 				0040B7A31141470400A57967 /* BADataElement.h */,
-				0040B7A41141470400A57967 /* BADataElement.m */,
+				0040B7A41141470400A57967 /* BADataElement.mm */,
 				0040B7A71141470400A57967 /* BADesignElement.h */,
 				0040B7A81141470400A57967 /* BADesignElement.m */,
 				0040B7AD1141470400A57967 /* BADocument.h */,
@@ -507,6 +537,8 @@
 			children = (
 				00B772C311417C6300B2931A /* BADataElementVI.h */,
 				00B772C411417C6300B2931A /* BADataElementVI.m */,
+				006E07531190260500CEEF38 /* EDDataElementIsis.h */,
+				006E07541190260500CEEF38 /* EDDataElementIsis.mm */,
 			);
 			path = EDNA;
 			sourceTree = "<group>";
@@ -578,6 +610,40 @@
 			name = CIKernels;
 			sourceTree = "<group>";
 		};
+		006E07711190293C00CEEF38 /* vista */ = {
+			isa = PBXGroup;
+			children = (
+				CED191E410AC888700FAFA4F /* libviaio.dylib */,
+				CED191E210AC888700FAFA4F /* libvia.dylib */,
+			);
+			name = vista;
+			sourceTree = "<group>";
+		};
+		006E07721190295400CEEF38 /* isis */ = {
+			isa = PBXGroup;
+			children = (
+				006E076F1190292400CEEF38 /* libutils.dylib */,
+				006E07741190299D00CEEF38 /* libdata.dylib */,
+				006E0776119029AD00CEEF38 /* libisisImageFormat_gz_proxy.dylib */,
+				006E07781190305300CEEF38 /* libisisImageFormat_Nifti.dylib */,
+				006E08331191981900CEEF38 /* libboost_date_time-mt.dylib */,
+				006E08351191981900CEEF38 /* libboost_filesystem-mt.dylib */,
+				006E08371191981900CEEF38 /* libboost_regex-mt.dylib */,
+				006E08391191981A00CEEF38 /* libboost_system-mt.dylib */,
+			);
+			name = isis;
+			sourceTree = "<group>";
+		};
+		006E07731190296500CEEF38 /* others */ = {
+			isa = PBXGroup;
+			children = (
+				00B1573111459587007C02CB /* libgslcblas.dylib */,
+				CE7D689A1113447C005A9D15 /* libfftw3.a */,
+				00B1573B11459605007C02CB /* libgsl.0.dylib */,
+			);
+			name = others;
+			sourceTree = "<group>";
+		};
 		00841BF711464321004341CC /* testfiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -611,6 +677,8 @@
 				0066276D11804476004980A0 /* NEDesignKernelTest.m */,
 				0066277011804494004980A0 /* NEDesignGloverKernelTest.h */,
 				0066277111804494004980A0 /* NEDesignGloverKernelTest.m */,
+				00662AC61181CFCD004980A0 /* NEDesignGloverKernelReference.h */,
+				00662AC71181CFCD004980A0 /* NEDesignGloverKernelReference.c */,
 			);
 			path = NEDTests;
 			sourceTree = "<group>";
@@ -686,13 +754,11 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				006E07731190296500CEEF38 /* others */,
+				006E07721190295400CEEF38 /* isis */,
+				006E07711190293C00CEEF38 /* vista */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
-				CED191E210AC888700FAFA4F /* libvia.dylib */,
-				CED191E410AC888700FAFA4F /* libviaio.dylib */,
-				CE7D689A1113447C005A9D15 /* libfftw3.a */,
-				00B1573111459587007C02CB /* libgslcblas.dylib */,
-				00B1573B11459605007C02CB /* libgsl.0.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -984,6 +1050,7 @@
 				00E7A656117EF60900696498 /* NEDesignElementDynTest.m in Sources */,
 				0066277211804494004980A0 /* NEDesignGloverKernelTest.m in Sources */,
 				006627731180449F004980A0 /* NEDesignKernelTest.m in Sources */,
+				00662AC81181CFCD004980A0 /* NEDesignGloverKernelReference.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1051,13 +1118,14 @@
 				007932B9114FB7A5007BEB66 /* BAElement.m in Sources */,
 				007932BA114FB7A6007BEB66 /* BADocument.m in Sources */,
 				007932BB114FB7A7007BEB66 /* BADesignElement.m in Sources */,
-				007932BC114FB7A8007BEB66 /* BADataElement.m in Sources */,
+				007932BC114FB7A8007BEB66 /* BADataElement.mm in Sources */,
 				007932BD114FB7A8007BEB66 /* BAProcedureController.m in Sources */,
 				007932BE114FB7A9007BEB66 /* BAAnalyzerElement.m in Sources */,
 				006626F5117F9D13004980A0 /* NEDesignElementDyn.m in Sources */,
 				006626F6117F9D15004980A0 /* NEDesignElementVI.m in Sources */,
 				006626F9117F9D1D004980A0 /* NEDesignKernel.m in Sources */,
 				006626FC117F9D22004980A0 /* NEDesignGloverKernel.m in Sources */,
+				006E07551190260500CEEF38 /* EDDataElementIsis.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1136,7 +1204,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "NEDUnitTestSuite-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
@@ -1205,6 +1273,7 @@
 					/usr/include,
 				);
 				INSTALL_PATH = /usr/local/lib;
+				LD_DYLIB_INSTALL_NAME = "../../../$(EXECUTABLE_PATH)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/opt/local/lib,
@@ -1263,6 +1332,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INSTALL_PATH = /usr/local/lib;
+				LD_DYLIB_INSTALL_NAME = "../../../$(EXECUTABLE_PATH)";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -1374,6 +1444,9 @@
 					opt/local/lib,
 					/usr/lib,
 					/opt/local/lib,
+					"\"$(SRCROOT)/../../../../isis/build/lib/CoreUtils\"",
+					"\"$(SRCROOT)/../../../../isis/build/lib/DataStorage\"",
+					"\"$(SRCROOT)/../../../../isis/build\"",
 				);
 				PRODUCT_NAME = BARTApplication;
 				SOURCE_ROOT = ../src;
@@ -1394,6 +1467,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/opt/local/lib,
+					"\"$(SRCROOT)/../../../../isis/build/lib/CoreUtils\"",
+					"\"$(SRCROOT)/../../../../isis/build/lib/DataStorage\"",
+					"\"$(SRCROOT)/../../../../isis/build\"",
 				);
 				PRODUCT_NAME = BARTApplication;
 			};
@@ -1408,7 +1484,11 @@
 				FRAMEWORK_SEARCH_PATHS = "\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "$(GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"_ENABLE_DEBUG=1",
+					"_ENABLE_LOG=1",
+					"$(GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1 = "BUILD_PATH=\\\"/tmp\\\"";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
@@ -1422,6 +1502,7 @@
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
+					/Users/Lydi/Development/isis/lib,
 					/opt/local/include,
 					/usr/include,
 				);
@@ -1430,6 +1511,8 @@
 					/usr/lib,
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				TEST_HOST = "";
 			};
