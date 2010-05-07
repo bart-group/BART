@@ -23,9 +23,9 @@
 	isis::image_io::enable_log<isis::util::DefaultMsgPrint>( isis::info );
 	
 	// the null-loader shall generate 5 3x3x3x10 images
-	mIsisImage = isis::data::IOFactory::load( "/tmp/test.null", "" );
+	mIsisImage = isis::data::IOFactory::load( "/tmp/TestDataset01-Orig2.nii", "" );
 	//  write images to file(s)
-	if(isis::data::IOFactory::write( images, "/tmp/delme.nii", "" ))
+	if(isis::data::IOFactory::write( mIsisImage, "/tmp/delme.nii", "" ))
 		std::cout << "Wrote Image to " << std::endl;
 	isis::data::IOFactory::load( "/tmp/delme.nii", "" );
 	//mIsisImage = isis::data::IOFactory::load( "/tmp/data_test01.nii", "" );
