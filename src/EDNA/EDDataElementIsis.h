@@ -11,7 +11,8 @@
 #include "/Users/Lydi/Development/isis/lib/DataStorage/image.hpp"
 
 @interface EDDataElementIsis : BADataElement {
-	isis::data::ImageList mIsisImage;
+	isis::data::ImageList mIsisImageList;
+    isis::data::Image mIsisImage;
 	
 }
 

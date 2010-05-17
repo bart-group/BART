@@ -7,7 +7,7 @@
 //
 
 #import "BADataElement.h"
-#import "BADataElementVI.h"
+#import "../EDNA/EDDataElementVI.h"
 #import "../EDNA/EDDataElementIsis.h"
 
 
@@ -35,7 +35,6 @@
 {
     [self release];
     self = nil;
-    //TODO!!!!!!!
     self = [[EDDataElementIsis alloc] initWithFile:path ofImageDataType:type];
     return self;
 }
@@ -45,7 +44,7 @@
 {
     [self release];
     self = nil;
-    self = [[BADataElementVI alloc] initWithDataType:type andRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
+    self = [[EDDataElementVI alloc] initWithDataType:type andRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
     return self;
     
 }
