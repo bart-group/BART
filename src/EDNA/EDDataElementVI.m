@@ -27,14 +27,14 @@
 
 // gsl libraries for matrices etc
 // Check which one you really need here
-#include <gsl/gsl_cblas.h>
-#include <gsl/gsl_matrix.h>
-#include <gsl/gsl_vector.h>
-#include <gsl/gsl_blas.h>
-#include <gsl/gsl_linalg.h>
-#include <gsl/gsl_sort.h>
-#include <gsl/gsl_cdf.h>
-#include "gsl_utils.h"
+//#include <gsl/gsl_cblas.h>
+//#include <gsl/gsl_matrix.h>
+//#include <gsl/gsl_vector.h>
+//#include <gsl/gsl_blas.h>
+//#include <gsl/gsl_linalg.h>
+//#include <gsl/gsl_sort.h>
+//#include <gsl/gsl_cdf.h>
+//#include "gsl_utils.h"
 
 
 @interface EDDataElementVI (PrivateMethods)
