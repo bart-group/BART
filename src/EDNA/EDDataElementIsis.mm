@@ -30,7 +30,8 @@
 	//isis::data::IOFactory::load( "/tmp/delme.nii", "" );
 	//mIsisImage = isis::data::IOFactory::load( "/tmp/data_test01.nii", "" );
 	
-    if (1 >= mIsisImageList.size()) {
+	
+    if (1 > mIsisImageList.size()) {
         NSLog(@"hmmm, several pics in one image");
         return nil;
     }
