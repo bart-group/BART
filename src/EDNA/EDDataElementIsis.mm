@@ -23,7 +23,7 @@
 	isis::image_io::enable_log<isis::util::DefaultMsgPrint>( isis::info );
 	
 	// the null-loader shall generate 5 3x3x3x10 images
-	mIsisImageList = isis::data::IOFactory::load( [path cStringUsingEncoding:NSUTF8StringEncoding], "" );
+	mIsisImageList = isis::data::IOFactory::load( [path cStringUsingEncoding:NSUTF8StringEncoding], "", "" );
 	//  write images to file(s)
 	//if(isis::data::IOFactory::write( mIsisImage, "/tmp/delme.nii", "" ))
 //		std::cout << "Wrote Image to " << std::endl;
@@ -64,30 +64,60 @@
     
     mIsisImage = isis::data::Image();
     if (IMAGE_DATA_FLOAT == type){
-        isis::data::MemChunk<float> ch(rows, cols, slices, tsteps);
-        mIsisImage.insertChunk(ch);
+		
+        isis::data::MemChunk<float> ch(rows, cols, slices);
+        
+		ch.setProperty("indexOrigin", isis::util::fvector4(0,0,0,0));
+		ch.setProperty<uint32_t>("acquisitionNumber", 1);
+		ch.setProperty<uint16_t>("sequenceNumber", 1);
+		ch.setProperty("voxelSize", isis::util::fvector4(1,1,1,0));
+		ch.setProperty("readVec", isis::util::fvector4(1,0,0,0));
+		ch.setProperty("phaseVec", isis::util::fvector4(0,1,0,0));
+		ch.setProperty("sliceVec", isis::util::fvector4(0,0,1,0));
+		ch.print(std::cout, true);
+		mIsisImage.insertChunk(ch);
     }
     else {
-        isis::data::MemChunk<int16_t> ch(rows, cols, slices, tsteps);
-        mIsisImage.insertChunk(ch);
+        isis::data::MemChunk<int16_t> ch(rows, cols, slices);
+		
+		ch.setProperty("indexOrigin", isis::util::fvector4(0,0,0,0));
+		ch.setProperty<uint32_t>("acquisitionNumber", 1);
+		ch.setProperty<uint16_t>("sequenceNumber", 1);
+		ch.setProperty("voxelSize", isis::util::fvector4(1,1,1,0));
+		ch.setProperty("readVec", isis::util::fvector4(1,0,0,0));
+		ch.setProperty("phaseVec", isis::util::fvector4(0,1,0,0));
+		ch.setProperty("sliceVec", isis::util::fvector4(0,0,1,0));
+		ch.print(std::cout, true);
+		mIsisImage.insertChunk(ch);
     }
+	mIsisImage.reIndex();
 
-    mIsisImage.setPropertyValue("indexOrigin", isis::util::fvector4(0,0,0,0));
-    mIsisImage.setPropertyValue("acquisitionNumber", 1);
-    mIsisImage.setPropertyValue("voxelSize", isis::util::fvector4(1,1,1,0));
-    return self;
+   return self;
 }
 
 
 -(short)getShortVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t
 {
-	return mIsisImage.voxel<int16_t>(r,c,s,t);
+	if (IMAGE_DATA_FLOAT == imageDataType){
+		//isis::data::MemChunk<int16_t> ch(mIsisImage.getChunk(0));
+		return (short)mIsisImage.voxel<float>(r,c,s,t);}
+	else {
+		
+		return mIsisImage.voxel<int16_t>(r,c,s,t);
+	}
+
 	
 }
 
 -(float)getFloatVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t
 {
-	float val = (float)mIsisImage.voxel<int16_t>(r,c,s,t);
+	float val;
+	if (IMAGE_DATA_FLOAT == imageDataType){
+		val = (float)mIsisImage.voxel<float>(r,c,s,t);
+	}
+	else{
+		val = (float)mIsisImage.voxel<int16_t>(r,c,s,t);
+	}
     return val;
 }
 
