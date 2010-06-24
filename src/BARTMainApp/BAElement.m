@@ -11,4 +11,10 @@
 
 @implementation BAElement
 
+-(id)copyWithZone:(NSZone *)zone
+{
+	return nil;
+}
+
+
 @end

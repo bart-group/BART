@@ -35,6 +35,9 @@
 {
     [self release];
     self = nil;
+	NSFileManager *fm = [[NSFileManager alloc] init];
+	if ( NO == [fm fileExistsAtPath:path]){
+		NSLog(@"No file to load");}
     self = [[EDDataElementIsis alloc] initWithFile:path ofImageDataType:type];
     return self;
 }
@@ -44,7 +47,7 @@
 {
     [self release];
     self = nil;
-    self = [[EDDataElementVI alloc] initWithDataType:type andRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
+    self = [[EDDataElementIsis alloc] initWithDataType:type andRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
     return self;
     
 }

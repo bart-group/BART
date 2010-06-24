@@ -78,7 +78,7 @@ typedef struct TrialListStruct {
 /**
  * get the value from regressor or covariate at a timestep
  * \param cov the column number the value is in
- * \parama t the row number the value is in - means timestep
+ * \param t the row number the value is in - means timestep
  */
 -(NSNumber*)getValueFromExplanatoryVariable: (unsigned int)cov atTimestep:(unsigned int)t;
 
