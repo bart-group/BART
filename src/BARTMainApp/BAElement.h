@@ -32,7 +32,12 @@ enum ImagePropertyID{
     PROPID_CA,
     PROPID_CP,
     PROPID_EXTENT,
-    PROPID_BETA
+    PROPID_BETA,
+	PROPID_READVEC,
+	PROPID_PHASEVEC,
+	PROPID_SLICEVEC,
+	PROPID_SEQNR,
+	PROPID_VOXELSIZE
 };
 
 @interface BAElement : NSObject <NSCopying> {

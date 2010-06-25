@@ -9,7 +9,7 @@
 #import "EDDataElementIsis.h"
 #include "/Users/Lydi/Development/isis/lib/DataStorage/image.hpp"
 #include "/Users/Lydi/Development/isis/lib/DataStorage/io_factory.hpp"
-
+#include <iostream>
 
 @implementation EDDataElementIsis
 
@@ -129,7 +129,12 @@
 -(void)WriteDataElementToFile:(NSString*)path
 {
     
-	isis::data::IOFactory::write( mIsisImageList, "/tmp/delme.nii", "" );
+	isis::data::ChunkList chList;
+	chList.push_back(mIsisImage.getChunk(0,0,0,0));
+	
+	isis::data::ImageList imageList(chList);
+	
+	isis::data::IOFactory::write( imageList, [path cStringUsingEncoding:NSUTF8StringEncoding], "" );
 }
 
 -(BOOL)sliceIsZero:(int)slice
@@ -139,11 +144,104 @@
 
 -(void)setImageProperty:(enum ImagePropertyID)key withValue:(id) value
 {	
+	isis::util::fvector4 readVec;
+	switch (key) {
+        case PROPID_NAME:
+			mIsisImage.setProperty<std::string>("", [value UTF8String]);
+            break;
+        case PROPID_MODALITY:
+            
+            
+            break;
+        case PROPID_DF:
+            break;
+        case PROPID_PATIENT:
+			mIsisImage.setProperty<std::string>("subjectName", [value UTF8String]);
+            break;
+        case PROPID_VOXEL:
+            break;
+        case PROPID_REPTIME:
+            break;
+        case PROPID_TALAIRACH:
+            break;
+        case PROPID_FIXPOINT:
+            break;
+        case PROPID_CA:
+            break;
+        case PROPID_CP:
+            break;
+        case PROPID_EXTENT:
+            break;
+        case PROPID_BETA:
+            break;
+		case PROPID_READVEC:
+			for (unsigned int i = 0; i<4; i++){
+				readVec[i] = [[value objectAtIndex:i] floatValue];}//, [[value objectAtIndex:1] floatValue], [[value objectAtIndex:2] floatValue], [[value objectAtIndex:3] floatValue]);
+			mIsisImage.setProperty<isis::util::fvector4>("readVec", readVec);
+			break;
+		case PROPID_PHASEVEC:
+			break;
+		case PROPID_SLICEVEC:
+			break;
+		case PROPID_SEQNR:
+			break;
+		case PROPID_VOXELSIZE:
+			break;
+        default:
+            break;
+	}
 }
 
 -(id)getImageProperty:(enum ImagePropertyID)key
 {	
-	return @"";
+	id ret = nil;
+	std::string strtest;
+	
+	
+	switch (key) {
+        case PROPID_NAME:
+			mIsisImage.getProperty<std::string>("");
+            break;
+        case PROPID_MODALITY:
+            
+            
+            break;
+        case PROPID_DF:
+            break;
+        case PROPID_PATIENT:
+			ret = [[[NSString alloc ] initWithCString:(mIsisImage.getProperty<std::string>("subjectName")).c_str() encoding:NSUTF8StringEncoding] autorelease];
+			break;
+        case PROPID_VOXEL:
+            break;
+        case PROPID_REPTIME:
+            break;
+        case PROPID_TALAIRACH:
+            break;
+        case PROPID_FIXPOINT:
+            break;
+        case PROPID_CA:
+            break;
+        case PROPID_CP:
+            break;
+        case PROPID_EXTENT:
+            break;
+        case PROPID_BETA:
+            break;
+		case PROPID_READVEC:
+			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("readVec")[0]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("readVec")[1]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("readVec")[2]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("readVec")[3]], nil ] autorelease];
+			break;
+		case PROPID_PHASEVEC:
+			break;
+		case PROPID_SLICEVEC:
+			break;
+		case PROPID_SEQNR:
+			break;
+		case PROPID_VOXELSIZE:
+			break;
+        default:
+            break;
+	}
+	return ret;
 }
 
 
