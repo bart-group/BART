@@ -72,9 +72,11 @@
 
 -(id)getImageProperty:(enum ImagePropertyID)key;
 
--(short*)getShortDataFromSlice:(int)sliceNr;
+-(short*)getDataFromSlice:(int)sliceNr atTimestep:(uint)tstep;
 
--(float*)getFloatDataFromSlice:(int)sliceNr;
+
+
+-(void)print;
 
 
 

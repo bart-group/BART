@@ -42,6 +42,11 @@
 	//[elem setVoxelValue:[NSNumber numberWithFloat:2.0] atRow:2 col:2 slice:2 timestep:1];
 	STAssertEquals([elem getFloatVoxelValueAtRow:2 col:3 slice:1 timestep:0], (float)0.0, @"set and get voxel value differs");
 }
+
+-(void)testSetProperties
+{
+
+}
 							   
 
 @end

@@ -35,17 +35,20 @@
         NSLog(@"hmmm, several pics in one image");
         return nil;
     }
-    BOOST_FOREACH(isis::data::ImageList::value_type &refImage, mIsisImageList){
-        mIsisImage = *refImage;
-    }
+    //BOOST_FOREACH(isis::data::ImageList::value_type &refImage, mIsisImageList){
+//        mIsisImage = *refImage;
+//    }
+	mIsisImage = *(mIsisImageList.front());
     numberRows = mIsisImage.sizeToVector()[isis::data::readDim];
     numberCols = mIsisImage.sizeToVector()[isis::data::phaseDim];
     numberSlices = mIsisImage.sizeToVector()[isis::data::sliceDim];
     numberTimesteps = mIsisImage.sizeToVector()[isis::data::timeDim];
     imageDataType = IMAGE_DATA_SHORT;
     
-    repetitionTimeInMs;
+    repetitionTimeInMs = (mIsisImage.getProperty<isis::util::fvector4>("voxelSize"))[3];
     
+	
+	
     
     
 	return self;
@@ -63,34 +66,26 @@
     }
     
     mIsisImage = isis::data::Image();
-    if (IMAGE_DATA_FLOAT == type){
+    	
+	for (int ts = 0; ts < tsteps; ts++){
+		for (int sl = 0; sl < slices; sl++){
+			isis::data::MemChunk<float> ch(rows, cols);
+			ch.setProperty("indexOrigin", isis::util::fvector4(0,0,sl,ts));
+			ch.setProperty<uint32_t>("acquisitionNumber", 1);
+			ch.setProperty<uint16_t>("sequenceNumber", 1);
+			ch.setProperty("voxelSize", isis::util::fvector4(1,1,1,0));
+			ch.setProperty("readVec", isis::util::fvector4(1,0,0,0));
+			ch.setProperty("phaseVec", isis::util::fvector4(0,1,0,0));
+			ch.setProperty("sliceVec", isis::util::fvector4(0,0,1,0));
 		
-        isis::data::MemChunk<float> ch(rows, cols, slices);
-        
-		ch.setProperty("indexOrigin", isis::util::fvector4(0,0,0,0));
-		ch.setProperty<uint32_t>("acquisitionNumber", 1);
-		ch.setProperty<uint16_t>("sequenceNumber", 1);
-		ch.setProperty("voxelSize", isis::util::fvector4(1,1,1,0));
-		ch.setProperty("readVec", isis::util::fvector4(1,0,0,0));
-		ch.setProperty("phaseVec", isis::util::fvector4(0,1,0,0));
-		ch.setProperty("sliceVec", isis::util::fvector4(0,0,1,0));
-		ch.print(std::cout, true);
-		mIsisImage.insertChunk(ch);
-    }
-    else {
-        isis::data::MemChunk<int16_t> ch(rows, cols, slices);
-		
-		ch.setProperty("indexOrigin", isis::util::fvector4(0,0,0,0));
-		ch.setProperty<uint32_t>("acquisitionNumber", 1);
-		ch.setProperty<uint16_t>("sequenceNumber", 1);
-		ch.setProperty("voxelSize", isis::util::fvector4(1,1,1,0));
-		ch.setProperty("readVec", isis::util::fvector4(1,0,0,0));
-		ch.setProperty("phaseVec", isis::util::fvector4(0,1,0,0));
-		ch.setProperty("sliceVec", isis::util::fvector4(0,0,1,0));
-		ch.print(std::cout, true);
-		mIsisImage.insertChunk(ch);
-    }
-	mIsisImage.reIndex();
+			mChunkList.push_back(ch);
+			mIsisImage.insertChunk(ch);
+		}
+	}
+	
+	
+	//mIsisImage.insertChunk(ch);
+    mIsisImage.reIndex();
 
    return self;
 }
@@ -128,12 +123,7 @@
 
 -(void)WriteDataElementToFile:(NSString*)path
 {
-    
-	isis::data::ChunkList chList;
-	chList.push_back(mIsisImage.getChunk(0,0,0,0));
-	
-	isis::data::ImageList imageList(chList);
-	
+	isis::data::ImageList imageList(mChunkList);
 	isis::data::IOFactory::write( imageList, [path cStringUsingEncoding:NSUTF8StringEncoding], "" );
 }
 
@@ -144,10 +134,10 @@
 
 -(void)setImageProperty:(enum ImagePropertyID)key withValue:(id) value
 {	
-	isis::util::fvector4 readVec;
+	isis::util::fvector4 vec;
 	switch (key) {
         case PROPID_NAME:
-			mIsisImage.setProperty<std::string>("", [value UTF8String]);
+			mIsisImage.setProperty<std::string>("GLM/name", [value UTF8String]);
             break;
         case PROPID_MODALITY:
             
@@ -176,16 +166,31 @@
             break;
 		case PROPID_READVEC:
 			for (unsigned int i = 0; i<4; i++){
-				readVec[i] = [[value objectAtIndex:i] floatValue];}//, [[value objectAtIndex:1] floatValue], [[value objectAtIndex:2] floatValue], [[value objectAtIndex:3] floatValue]);
-			mIsisImage.setProperty<isis::util::fvector4>("readVec", readVec);
+				vec[i] = [[value objectAtIndex:i] floatValue];}//, [[value objectAtIndex:1] floatValue], [[value objectAtIndex:2] floatValue], [[value objectAtIndex:3] floatValue]);
+			mIsisImage.setProperty<isis::util::fvector4>("readVec", vec);
 			break;
 		case PROPID_PHASEVEC:
+			for (unsigned int i = 0; i<4; i++){
+				vec[i] = [[value objectAtIndex:i] floatValue];}//, [[value objectAtIndex:1] floatValue], [[value objectAtIndex:2] floatValue], [[value objectAtIndex:3] floatValue]);
+			mIsisImage.setProperty<isis::util::fvector4>("phaseVec", vec);
 			break;
 		case PROPID_SLICEVEC:
+			for (unsigned int i = 0; i<4; i++){
+				vec[i] = [[value objectAtIndex:i] floatValue];}//, [[value objectAtIndex:1] floatValue], [[value objectAtIndex:2] floatValue], [[value objectAtIndex:3] floatValue]);
+			mIsisImage.setProperty<isis::util::fvector4>("sliceVec", vec);
 			break;
 		case PROPID_SEQNR:
+			mIsisImage.setProperty<uint16_t>("sequenceNumber", [value unsignedShortValue]);
 			break;
 		case PROPID_VOXELSIZE:
+			for (unsigned int i = 0; i<4; i++){
+				vec[i] = [[value objectAtIndex:i] floatValue];}//, [[value objectAtIndex:1] floatValue], [[value objectAtIndex:2] floatValue], [[value objectAtIndex:3] floatValue]);
+			mIsisImage.setProperty<isis::util::fvector4>("voxelSize", vec);
+			break;
+		case PROPID_ORIGIN:
+			for (unsigned int i = 0; i<4; i++){
+				vec[i] = [[value objectAtIndex:i] floatValue];}//, [[value objectAtIndex:1] floatValue], [[value objectAtIndex:2] floatValue], [[value objectAtIndex:3] floatValue]);
+			mIsisImage.setProperty<isis::util::fvector4>("indexOrigin", vec);
 			break;
         default:
             break;
@@ -231,12 +236,19 @@
 			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("readVec")[0]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("readVec")[1]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("readVec")[2]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("readVec")[3]], nil ] autorelease];
 			break;
 		case PROPID_PHASEVEC:
+			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("phaseVec")[0]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("phaseVec")[1]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("phaseVec")[2]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("phaseVec")[3]], nil ] autorelease];
 			break;
 		case PROPID_SLICEVEC:
+			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("sliceVec")[0]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("sliceVec")[1]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("sliceVec")[2]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("sliceVec")[3]], nil ] autorelease];
 			break;
 		case PROPID_SEQNR:
+			ret = [NSNumber numberWithUnsignedShort:1];
 			break;
 		case PROPID_VOXELSIZE:
+			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("voxelSize")[0]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("voxelSize")[1]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("voxelSize")[2]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("voxelSize")[3]], nil ] autorelease];
+			break;
+		case PROPID_ORIGIN:
+			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("indexOrigin")[0]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("indexOrigin")[1]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("indexOrigin")[2]], [NSNumber numberWithFloat:mIsisImage.getProperty<isis::util::fvector4>("indexOrigin")[3]], nil ] autorelease];
 			break;
         default:
             break;
@@ -245,14 +257,25 @@
 }
 
 
--(short*)getShortDataFromSlice:(int)sliceNr
+-(short*)getDataFromSlice:(int)sliceNr atTimestep:(uint)tstep;
 {	
-	return nil;
+	
+	//isis::data::MemChunk<int16_t> sliceChunk(mIsisImage.getChunk(0,0,sliceNr, tstep));
+	short *pValues = static_cast<short*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
+	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<int16_t>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
+	//mIsisImage.getChunk(0,0,sliceNr, tstep).asTypePtr<int16_t>();//  sliceChunk.getTypePtr();
+	
+	return pValues;
 }
 
 -(float*)getFloatDataFromSlice:(int)sliceNr
 {
 	return nil;
+}
+
+-(void)print
+{
+	mIsisImage.print(std::cout, true);
 }
 
 @end

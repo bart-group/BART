@@ -37,7 +37,8 @@ enum ImagePropertyID{
 	PROPID_PHASEVEC,
 	PROPID_SLICEVEC,
 	PROPID_SEQNR,
-	PROPID_VOXELSIZE
+	PROPID_VOXELSIZE, 
+	PROPID_ORIGIN
 };
 
 @interface BAElement : NSObject <NSCopying> {

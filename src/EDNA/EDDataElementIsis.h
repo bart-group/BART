@@ -13,8 +13,11 @@
 @interface EDDataElementIsis : BADataElement {
 	isis::data::ImageList mIsisImageList;
     isis::data::Image mIsisImage;
+	isis::data::ChunkList mChunkList;
 	
 	
 }
+
+
 
 @end
