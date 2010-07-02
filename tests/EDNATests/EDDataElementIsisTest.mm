@@ -21,6 +21,18 @@
 
 -(void) setUp
 {
+	unsigned int rows = 10;
+	unsigned int cols = 21;
+	unsigned int slices = 17;
+	unsigned int timesteps = 29;
+	
+	dataEl = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:rows andCols:cols andSlices:slices andTimesteps:timesteps];
+	//for (unsigned int x = 0; x < )
+	//[dataEl setVoxelValue:<#(NSNumber *)val#> atRow:<#(int)r#> col:<#(int)c#> slice:<#(int)s#> timestep:<#(int)t#>]
+	
+	
+	[dataEl WriteDataElementToFile:@""]
+	
 		dataEl = [[EDDataElementIsis alloc] initWithDatasetFile:@"../tests/BARTMainAppTests/testfiles/TestDataset01-functional.nii" ofImageDataType:IMAGE_DATA_SHORT];
 }
 
@@ -41,12 +53,15 @@
 	
 	//[elem setVoxelValue:[NSNumber numberWithFloat:2.0] atRow:2 col:2 slice:2 timestep:1];
 	STAssertEquals([elem getFloatVoxelValueAtRow:2 col:3 slice:1 timestep:0], (float)0.0, @"set and get voxel value differs");
+	
+	[elem release];
 }
 
 -(void)testSetProperties
 {
 
 }
-							   
+					
+-(void)
 
 @end

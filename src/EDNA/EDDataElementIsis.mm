@@ -47,7 +47,46 @@
     
     repetitionTimeInMs = (mIsisImage.getProperty<isis::util::fvector4>("voxelSize"))[3];
     
-	
+	if (mIsisImage.chunksBegin() == mIsisImage.chunksEnd()){//singleChunk
+		if ( 1 > numberSlices ){
+			//mehrer schichten
+			if ( 1 > numberTimesteps){
+				//mehrere zeitschritte
+			}
+		
+			//schichten und zeitschritte in chunks packen
+		
+			else {
+			//
+			}
+		}
+		else {
+			//nur 1 schicht
+			if ( 1 > numberTimesteps ){
+				
+			}
+		}
+		
+		
+
+
+	}
+	else {//more than one chunk
+		if ( 1 != numberSlices and 1 != numberTimesteps ){
+		//worst case
+		}
+		else if ( 1 == numberSlices and 1 != numberTimesteps ) {
+			//
+		}
+		else {
+			//
+		}
+
+
+	}
+
+
+
 	
     
     
@@ -270,7 +309,10 @@
 
 -(float*)getFloatDataFromSlice:(int)sliceNr
 {
-	return nil;
+//	float *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
+//	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
+	
+//	return pValues;
 }
 
 -(void)print
