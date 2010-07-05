@@ -300,20 +300,13 @@
 {	
 	
 	//isis::data::MemChunk<int16_t> sliceChunk(mIsisImage.getChunk(0,0,sliceNr, tstep));
-	short *pValues = static_cast<short*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
-	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<int16_t>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
+	short *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
+	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
 	//mIsisImage.getChunk(0,0,sliceNr, tstep).asTypePtr<int16_t>();//  sliceChunk.getTypePtr();
 	
 	return pValues;
 }
 
--(float*)getFloatDataFromSlice:(int)sliceNr
-{
-//	float *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
-//	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
-	
-//	return pValues;
-}
 
 -(void)print
 {

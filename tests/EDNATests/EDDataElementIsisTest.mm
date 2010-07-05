@@ -62,6 +62,46 @@
 
 }
 					
--(void)
+-(void)testGetSetVoxelValueAtRow
+{
+//	-(short)getShortVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t;
+//	
+//	-(float)getFloatVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t;
+//	-(void)setVoxelValue:(NSNumber*)val atRow: (int)r col:(int)c slice:(int)s timestep:(int)t;
+
+	
+}
+
+
+-(void)testGetSetImageProperty
+{
+	//-(void)setImageProperty:(enum ImagePropertyID)key withValue:(id) value;
+	
+//	-(id)getImageProperty:(enum ImagePropertyID)key;
+}
+
+-(void)testGetDataFromSlice
+{
+//-(short*)getDataFromSlice:(int)sliceNr atTimestep:(uint)tstep;
+}
+
+
+-(void)testSliceIsZero
+{
+//	-(BOOL)sliceIsZero:(int)slice;
+
+}
+
+
+-(void)testWrite
+//-(void)WriteDataElementToFile:(NSString*)path;
+
+
+
+
+
+
+
+
 
 @end
