@@ -204,18 +204,20 @@
         case PROPID_BETA:
             break;
 		case PROPID_READVEC:
-			for (unsigned int i = 0; i<4; i++){
-				vec[i] = [[value objectAtIndex:i] floatValue];}//, [[value objectAtIndex:1] floatValue], [[value objectAtIndex:2] floatValue], [[value objectAtIndex:3] floatValue]);
+			if ( 0 != [value count] ){
+				for (unsigned int i = 0; i<4; i++){
+					vec[i] = [[value objectAtIndex:i] floatValue];}}
 			mIsisImage.setProperty<isis::util::fvector4>("readVec", vec);
 			break;
 		case PROPID_PHASEVEC:
-			for (unsigned int i = 0; i<4; i++){
-				vec[i] = [[value objectAtIndex:i] floatValue];}//, [[value objectAtIndex:1] floatValue], [[value objectAtIndex:2] floatValue], [[value objectAtIndex:3] floatValue]);
+			if ( 0 != [value count] ){
+				for (unsigned int i = 0; i<4; i++){
+					vec[i] = [[value objectAtIndex:i] floatValue];}}
 			mIsisImage.setProperty<isis::util::fvector4>("phaseVec", vec);
 			break;
 		case PROPID_SLICEVEC:
 			for (unsigned int i = 0; i<4; i++){
-				vec[i] = [[value objectAtIndex:i] floatValue];}//, [[value objectAtIndex:1] floatValue], [[value objectAtIndex:2] floatValue], [[value objectAtIndex:3] floatValue]);
+				vec[i] = [[value objectAtIndex:i] floatValue];}
 			mIsisImage.setProperty<isis::util::fvector4>("sliceVec", vec);
 			break;
 		case PROPID_SEQNR:
@@ -223,12 +225,12 @@
 			break;
 		case PROPID_VOXELSIZE:
 			for (unsigned int i = 0; i<4; i++){
-				vec[i] = [[value objectAtIndex:i] floatValue];}//, [[value objectAtIndex:1] floatValue], [[value objectAtIndex:2] floatValue], [[value objectAtIndex:3] floatValue]);
+				vec[i] = [[value objectAtIndex:i] floatValue];}
 			mIsisImage.setProperty<isis::util::fvector4>("voxelSize", vec);
 			break;
 		case PROPID_ORIGIN:
 			for (unsigned int i = 0; i<4; i++){
-				vec[i] = [[value objectAtIndex:i] floatValue];}//, [[value objectAtIndex:1] floatValue], [[value objectAtIndex:2] floatValue], [[value objectAtIndex:3] floatValue]);
+				vec[i] = [[value objectAtIndex:i] floatValue];}
 			mIsisImage.setProperty<isis::util::fvector4>("indexOrigin", vec);
 			break;
         default:
@@ -244,8 +246,8 @@
 	
 	switch (key) {
         case PROPID_NAME:
-			mIsisImage.getProperty<std::string>("");
-            break;
+			ret = [[[NSString alloc ] initWithCString:(mIsisImage.getProperty<std::string>("GLM/name")).c_str() encoding:NSUTF8StringEncoding] autorelease];
+			break;
         case PROPID_MODALITY:
             
             
@@ -296,11 +298,11 @@
 }
 
 
--(short*)getDataFromSlice:(int)sliceNr atTimestep:(uint)tstep;
+-(float*)getDataFromSlice:(int)sliceNr atTimestep:(uint)tstep;
 {	
 	
 	//isis::data::MemChunk<int16_t> sliceChunk(mIsisImage.getChunk(0,0,sliceNr, tstep));
-	short *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
+	float *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
 	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
 	//mIsisImage.getChunk(0,0,sliceNr, tstep).asTypePtr<int16_t>();//  sliceChunk.getTypePtr();
 	
