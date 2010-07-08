@@ -38,10 +38,10 @@
 
 -(void)testProperties
 {
-	STAssertEquals(dataEl.numberCols, 64, @"Incorrect number of columns.");
-    STAssertEquals(dataEl.numberRows, 64, @"Incorrect number of rows.");
-    STAssertEquals(dataEl.numberTimesteps, 396, @"Incorrect number of timesteps.");
-    STAssertEquals(dataEl.numberSlices, 20, @"Incorrect number of slices.");
+	STAssertEquals(dataEl.numberCols, (unsigned int)64, @"Incorrect number of columns.");
+    STAssertEquals(dataEl.numberRows, (unsigned int)64, @"Incorrect number of rows.");
+    STAssertEquals(dataEl.numberTimesteps, (unsigned int)396, @"Incorrect number of timesteps.");
+    STAssertEquals(dataEl.numberSlices, (unsigned int)20, @"Incorrect number of slices.");
     STAssertEquals(dataEl.imageDataType, IMAGE_DATA_SHORT, @"Incorrect image data type.");
 }
 
@@ -141,11 +141,6 @@
 					
 -(void)testGetSetVoxelValueAtRow
 {
-//	-(short)getShortVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t;
-//	
-//	-(float)getFloatVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t;
-//	-(void)setVoxelValue:(NSNumber*)val atRow: (int)r col:(int)c slice:(int)s timestep:(int)t;
-
 	int nrRows = 37;
 	int nrCols = 12;
 	int nrSlices = 29;
@@ -158,25 +153,45 @@
 	NSNumber *voxel3 = [NSNumber numberWithShort:1223];
 	NSNumber *voxel4 = [NSNumber numberWithDouble:1.12312];
 		
-	[elem setVoxelValue:voxel1 atRow:0 col:0 slice:0 timestep:0];
-	[elem setVoxelValue:voxel1 atRow:1 col:1 slice:1 timestep:1];
-	[elem setVoxelValue:voxel1 atRow:2 col:1 slice:1 timestep:1];
-	[elem setVoxelValue:voxel1 atRow:3 col:1 slice:1 timestep:1];
-	
-	
 	//insert at zero and max length
-	[elem setVoxelValue:voxel1 atRow:0 col:0 slice:0 timestep:0];
-	[elem setVoxelValue:voxel2 atRow:36 col:11 slice:28 timestep:1];
+	STAssertNoThrow([elem setVoxelValue:voxel1 atRow:0 col:0 slice:0 timestep:0], @"setVoxelValue throws unexpected exception 1");
+	STAssertNoThrow([elem setVoxelValue:voxel2 atRow:nrRows-1 col:7 slice:28 timestep:1], @"setVoxelValue throws unexpected exception 2");
+	STAssertNoThrow([elem setVoxelValue:voxel4 atRow:0 col:nrCols-1 slice:0 timestep:0], @"setVoxelValue throws unexpected exception 3");
+	STAssertNoThrow([elem setVoxelValue:voxel3 atRow:0 col:0 slice:nrSlices-1 timestep:0], @"setVoxelValue throws unexpected exception 4");
+	STAssertNoThrow([elem setVoxelValue:voxel2 atRow:0 col:0 slice:0 timestep:nrTimesteps-1], @"setVoxelValue throws unexpected exception 5");
+	STAssertNoThrow([elem setVoxelValue:voxel1 atRow:nrRows-1 col:nrCols-1 slice:nrSlices-1 timestep:nrTimesteps-1], @"setVoxelValue throws unexpected exception 6");
 	
-	//insert at nonpossible
-	//[elem setVoxelValue:voxel2 atRow:-1 col:0 slice:0 timestep:0];
-//	[elem setVoxelValue:voxel2 atRow:0 col:-1 slice:0 timestep:0];
-//	[elem setVoxelValue:voxel2 atRow:0 col:0 slice:-1 timestep:0];
-//	[elem setVoxelValue:voxel2 atRow:0 col:0 slice:0 timestep:-1];
-//	[elem setVoxelValue:voxel2 atRow:nrRows col:11 slice:28 timestep:1];
-//	[elem setVoxelValue:voxel2 atRow:0 col:nrCols slice:0 timestep:0];
-//	[elem setVoxelValue:voxel1 atRow:0 col:0 slice:nrSlices timestep:0];
-//	[elem setVoxelValue:voxel1 atRow:0 col:0 slice:0 timestep:nrTimesteps];
+	//get from these ones
+	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:0 timestep:0], [voxel1 floatValue], @"getValue does not match expected one 1.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:nrRows-1 col:7 slice:28 timestep:1], [voxel2 floatValue], @"getValue does not match expected one 2.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:nrCols-1 slice:0 timestep:0], [voxel4 floatValue], @"getValue does not match expected one 3.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:nrSlices-1 timestep:0], [voxel3 floatValue], @"getValue does not match expected one 4.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:0 timestep:nrTimesteps-1 ], [voxel2 floatValue], @"getValue does not match expected one 5.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:nrRows-1 col:nrCols-1 slice:nrSlices-1 timestep:nrTimesteps-1], [voxel1 floatValue], @"getValue does not match expected one 6.");
+	
+	
+	
+	//insert at nonpossible - nothing happens
+	STAssertNoThrow([elem setVoxelValue:voxel2 atRow:-1 col:0 slice:0 timestep:0], @"setVoxelValue throws unexpected exception 7");
+	STAssertNoThrow([elem setVoxelValue:voxel3 atRow:0 col:-1 slice:0 timestep:0], @"setVoxelValue throws unexpected exception 8");
+	STAssertNoThrow([elem setVoxelValue:voxel4 atRow:0 col:0 slice:-1 timestep:0], @"setVoxelValue throws unexpected exception 9");
+	STAssertNoThrow([elem setVoxelValue:voxel2 atRow:0 col:0 slice:0 timestep:-1], @"setVoxelValue throws unexpected exception 10");
+	STAssertNoThrow([elem setVoxelValue:voxel4 atRow:nrRows col:11 slice:28 timestep:1], @"setVoxelValue throws unexpected exception 11");
+	STAssertNoThrow([elem setVoxelValue:voxel2 atRow:0 col:nrCols slice:0 timestep:0], @"setVoxelValue throws unexpected exception 12");
+	STAssertNoThrow([elem setVoxelValue:voxel3 atRow:0 col:0 slice:nrSlices timestep:0], @"setVoxelValue throws unexpected exception 13");
+	STAssertNoThrow([elem setVoxelValue:voxel1 atRow:0 col:0 slice:0 timestep:nrTimesteps], @"setVoxelValue throws unexpected exception 14");
+	
+	// get from these impossible ones - should return 0
+	STAssertEquals([elem getFloatVoxelValueAtRow:-1 col:0 slice:0 timestep:0], float(0.0), @"getValue does not match expected one 7.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:nrRows col:11 slice:28 timestep:1], float(0.0), @"getValue does not match expected one 8.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:nrCols slice:0 timestep:0], float(0.0), @"getValue does not match expected one 9.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:nrSlices timestep:0], float(0.0), @"getValue does not match expected one 10.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:0 timestep:nrTimesteps ], float(0.0), @"getValue does not match expected one 11.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:nrRows col:nrCols slice:nrSlices timestep:nrTimesteps], float(0.0), @"getValue does not match expected one 12.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:-1 slice:0 timestep:0], float(0.0), @"getValue does not match expected one 13.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:-1 timestep:0], float(0.0), @"getValue does not match expected one 14.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:0 timestep:-1], float(0.0), @"getValue does not match expected one 15.");
+	
 	
 	
 	
@@ -186,16 +201,11 @@
 }
 
 
--(void)testGetSetImageProperty
-{
-	//-(void)setImageProperty:(enum ImagePropertyID)key withValue:(id) value;
-	
-//	-(id)getImageProperty:(enum ImagePropertyID)key;
-}
-
 -(void)testGetDataFromSlice
 {
-//-(short*)getDataFromSlice:(int)sliceNr atTimestep:(uint)tstep;
+
+	
+	//-(short*)getDataFromSlice:(int)sliceNr atTimestep:(uint)tstep;
 }
 
 

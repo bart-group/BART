@@ -25,10 +25,10 @@
 }
 
 - (void) testProperties {
-    STAssertEquals(dataEl.numberCols, 64, @"Incorrect number of columns.");
-    STAssertEquals(dataEl.numberRows, 64, @"Incorrect number of rows.");
-    STAssertEquals(dataEl.numberTimesteps, 396, @"Incorrect number of timesteps.");
-    STAssertEquals(dataEl.numberSlices, 20, @"Incorrect number of slices.");
+    STAssertEquals(dataEl.numberCols, (unsigned int) 64, @"Incorrect number of columns.");
+    STAssertEquals(dataEl.numberRows, (unsigned int) 64, @"Incorrect number of rows.");
+    STAssertEquals(dataEl.numberTimesteps, (unsigned int) 396, @"Incorrect number of timesteps.");
+    STAssertEquals(dataEl.numberSlices, (unsigned int) 20, @"Incorrect number of slices.");
     STAssertEquals(dataEl.imageDataType, IMAGE_DATA_SHORT, @"Incorrect image data type.");
 }
 

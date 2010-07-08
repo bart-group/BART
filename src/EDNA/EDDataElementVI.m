@@ -122,7 +122,7 @@
     return NAN;
 }
 
--(void)setVoxelValue:(NSNumber*)val atRow: (int)r col:(int)c slice:(int)s timestep:(int)t
+-(void)setVoxelValue:(NSNumber*)val atRow: (unsigned int)r col:(unsigned int)c slice:(unsigned int)s timestep:(unsigned int)t
 {
     if (IMAGE_DATA_FLOAT == imageDataType) {
         VPixel(mImageArray[s], t, r, c, VFloat) = [val floatValue];

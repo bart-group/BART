@@ -17,42 +17,29 @@
 int main(void)
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:10 andCols:10 andSlices:10 andTimesteps:1];
+	int nrRows = 64;
+	int nrCols = 64;
+	int nrSlices = 10;
+	int nrTs = 10;
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:nrRows andCols:nrCols andSlices:nrSlices andTimesteps:nrTs];
+	
 	
 	[elem setVoxelValue:[NSNumber numberWithFloat:255.0] atRow:2 col:2 slice:2 timestep:0];
-	float t = [elem getFloatVoxelValueAtRow:2 col:2 slice:2 timestep:0];
-	NSArray *readVec1 = [[NSArray alloc] initWithObjects: [NSNumber numberWithFloat:23.0], [NSNumber numberWithFloat:23.0], [NSNumber numberWithFloat:23.0], [NSNumber numberWithFloat:23.0], nil ];
-	[elem setImageProperty:PROPID_READVEC    withValue:readVec1];
-	[elem setImageProperty:PROPID_PHASEVEC    withValue:readVec1];
-	[elem setImageProperty:PROPID_SLICEVEC    withValue:readVec1];
-	[elem setImageProperty:PROPID_VOXELSIZE    withValue:readVec1];
-	[elem setImageProperty:PROPID_ORIGIN    withValue:readVec1];
-	[elem setImageProperty:PROPID_PATIENT withValue:@"whatever name"];
-	[elem setImageProperty:PROPID_NAME withValue:@"another name"];
-
-	NSArray *emptyVec = [NSArray arrayWithObjects: nil ];
-	[elem setImageProperty:PROPID_PHASEVEC    withValue:emptyVec];
+	[elem setVoxelValue:[NSNumber numberWithFloat:255.0] atRow:0 col:0 slice:0 timestep:0];
 	
+	for (int r = 0; r < nrRows; r++){
+		for (int c = 0; c < nrCols; c++){
+			for (int  s = 0; s < nrSlices; s++){
+				for (int t = 0; t < nrTs; t++){
+					NSNumber *v = [NSNumber numberWithFloat:s*c + t];
+					[elem setVoxelValue:v atRow:r col:c slice:s timestep:t];}}}}
 	
-	NSLog(@"%@", readVec1);
-	NSLog(@"%@", [elem getImageProperty:PROPID_READVEC]);
-	NSLog(@"%@", [elem getImageProperty:PROPID_PHASEVEC]);
-	NSLog(@"%@", [elem getImageProperty:PROPID_SLICEVEC]);
-	NSLog(@"%@", [elem getImageProperty:PROPID_ORIGIN]);
-	NSLog(@"%@", [elem getImageProperty:PROPID_VOXELSIZE]);
-	NSString *str1 = [elem getImageProperty:PROPID_NAME] ;
-	NSString *str = [elem getImageProperty:PROPID_PATIENT] ;
-	NSLog(@"%@", str );
-	NSLog(@"%@", str1 );
-	//[elem print];
-	
-	
-	
+	NSLog(@"Voxel value: %.2f", [elem getFloatVoxelValueAtRow:-1 col:0 slice:0 timestep:0]);
 	
 	//NSLog([NSString stringWithFormat:@"float elem %.2f", t]);
 	
 	[elem WriteDataElementToFile:@"/tmp/test.nii"];
-	
+//	
 	[elem release];
 	
 	[pool drain];

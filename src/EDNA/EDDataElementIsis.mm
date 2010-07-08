@@ -20,7 +20,7 @@
     
 
 	isis::data::ImageList images;
-	isis::image_io::enable_log<isis::util::DefaultMsgPrint>( isis::info );
+	//isis::image_io::enable_log<isis::util::DefaultMsgPrint>( isis::info );
 	
 	// the null-loader shall generate 5 3x3x3x10 images
 	mIsisImageList = isis::data::IOFactory::load( [path cStringUsingEncoding:NSUTF8StringEncoding], "", "" );
@@ -47,46 +47,12 @@
     
     repetitionTimeInMs = (mIsisImage.getProperty<isis::util::fvector4>("voxelSize"))[3];
     
-	if (mIsisImage.chunksBegin() == mIsisImage.chunksEnd()){//singleChunk
-		if ( 1 > numberSlices ){
-			//mehrer schichten
-			if ( 1 > numberTimesteps){
-				//mehrere zeitschritte
-			}
-		
-			//schichten und zeitschritte in chunks packen
-		
-			else {
-			//
-			}
-		}
-		else {
-			//nur 1 schicht
-			if ( 1 > numberTimesteps ){
-				
-			}
-		}
-		
-		
-
-
+	isis::data::ChunkList chList(mIsisImage.chunksBegin(), mIsisImage.chunksEnd() );
+	isis::data::ChunkList chListRet;
+	BOOST_FOREACH(isis::data::Chunk &ref, chList){
+		chListRet = ref.splice(isis::data::sliceDim, ref.getProperty<isis::util::fvector4>("voxelSize"), ref.getProperty<isis::util::fvector4>("voxelGap"));
 	}
-	else {//more than one chunk
-		if ( 1 != numberSlices and 1 != numberTimesteps ){
-		//worst case
-		}
-		else if ( 1 == numberSlices and 1 != numberTimesteps ) {
-			//
-		}
-		else {
-			//
-		}
-
-
-	}
-
-
-
+	
 	
     
     
@@ -110,7 +76,7 @@
 		for (int sl = 0; sl < slices; sl++){
 			isis::data::MemChunk<float> ch(rows, cols);
 			ch.setProperty("indexOrigin", isis::util::fvector4(0,0,sl,ts));
-			ch.setProperty<uint32_t>("acquisitionNumber", 1);
+			ch.setProperty<uint32_t>("acquisitionNumber", sl+ts*slices);
 			ch.setProperty<uint16_t>("sequenceNumber", 1);
 			ch.setProperty("voxelSize", isis::util::fvector4(1,1,1,0));
 			ch.setProperty("readVec", isis::util::fvector4(1,0,0,0));
@@ -121,9 +87,7 @@
 			mIsisImage.insertChunk(ch);
 		}
 	}
-	
-	
-	//mIsisImage.insertChunk(ch);
+
     mIsisImage.reIndex();
 
    return self;
@@ -133,7 +97,6 @@
 -(short)getShortVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t
 {
 	if (IMAGE_DATA_FLOAT == imageDataType){
-		//isis::data::MemChunk<int16_t> ch(mIsisImage.getChunk(0));
 		return (short)mIsisImage.voxel<float>(r,c,s,t);}
 	else {
 		
@@ -145,25 +108,39 @@
 
 -(float)getFloatVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t
 {
-	float val;
-	if (IMAGE_DATA_FLOAT == imageDataType){
-		val = (float)mIsisImage.voxel<float>(r,c,s,t);
-	}
-	else{
-		val = (float)mIsisImage.voxel<int16_t>(r,c,s,t);
-	}
+	float val = 0.0;
+	if (r < numberRows      and 0 <= r and
+		c < numberCols      and 0 <= c and
+		s < numberSlices    and 0 <= s and
+		t < numberTimesteps and 0 <= t){
+
+		if (IMAGE_DATA_FLOAT == imageDataType){
+			val = (float)mIsisImage.voxel<float>(r,c,s,t);
+		}	
+		else{
+			val = (float)mIsisImage.voxel<int16_t>(r,c,s,t);
+		}}
     return val;
 }
 
--(void)setVoxelValue:(NSNumber*)val atRow: (int)r col:(int)c slice:(int)s timestep:(int)t
+-(void)setVoxelValue:(NSNumber*)val atRow: (unsigned int)r col:(unsigned int)c slice:(unsigned int)sl timestep:(unsigned int)t
 {
-	mIsisImage.voxel<float>(r,c,s,t) = [val floatValue];
+	if (r < numberRows      and 0 <= r and
+		c < numberCols      and 0 <= c and
+		sl < numberSlices    and 0 <= sl and
+		t < numberTimesteps and 0 <= t){
+		mIsisImage.voxel<float>(r,c,sl,t) = [val floatValue];}
 }
 
 -(void)WriteDataElementToFile:(NSString*)path
 {
-	isis::data::ImageList imageList(mChunkList);
-	isis::data::IOFactory::write( imageList, [path cStringUsingEncoding:NSUTF8StringEncoding], "" );
+	
+	mIsisImage.print(std::cout, true);
+	isis::data::MemImage<uint16_t> img(mIsisImage);
+	img.print(std::cout, true);
+	
+	//isis::data::ImageList imageList(mChunkList);
+	//isis::data::IOFactory::write( iList, [path cStringUsingEncoding:NSUTF8StringEncoding], "" );
 }
 
 -(BOOL)sliceIsZero:(int)slice
