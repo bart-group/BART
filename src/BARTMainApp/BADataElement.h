@@ -15,14 +15,14 @@
    // fuer Datenelemente ist Vorgabe der Typen okay - Vimage, isis::image - 
 
 
-    int numberRows;
-    int numberCols;
-    int numberSlices;
-    int numberTimesteps;
+    unsigned int numberRows;
+    unsigned int numberCols;
+    unsigned int numberSlices;
+    unsigned int numberTimesteps;
     //enum ImageType imageType;
     enum ImageDataType imageDataType;
     
-    int repetitionTimeInMs;
+    unsigned int repetitionTimeInMs;
    // NSArray *allDatasetProperties;
     NSDictionary *imagePropertiesMap;
     
@@ -30,10 +30,10 @@
     
 }
 
-@property (readonly, assign) int numberRows; 
-@property (readonly, assign) int numberCols; 
-@property (readonly, assign) int numberSlices; 
-@property (readonly, assign) int numberTimesteps;
+@property (readonly, assign) unsigned int numberRows; 
+@property (readonly, assign) unsigned int numberCols; 
+@property (readonly, assign) unsigned int numberSlices; 
+@property (readonly, assign) unsigned int numberTimesteps;
 @property (readonly, assign) enum ImageDataType imageDataType;
 
 
@@ -60,7 +60,7 @@
 
 -(float)getFloatVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t;
 
--(void)setVoxelValue:(NSNumber*)val atRow: (int)r col:(int)c slice:(int)s timestep:(int)t;
+-(void)setVoxelValue:(NSNumber*)val atRow: (unsigned int)r col:(unsigned int)c slice:(unsigned int)s timestep:(unsigned int)t;
 
 //-(BADataElement*)CreateNewDataElement: withSize:(NSSize*)size andType:(NSString*)type; 
 
@@ -72,7 +72,7 @@
 
 -(id)getImageProperty:(enum ImagePropertyID)key;
 
--(short*)getDataFromSlice:(int)sliceNr atTimestep:(uint)tstep;
+-(float*)getDataFromSlice:(int)sliceNr atTimestep:(uint)tstep;
 
 
 

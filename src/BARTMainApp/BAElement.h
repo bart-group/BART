@@ -41,6 +41,8 @@ enum ImagePropertyID{
 	PROPID_ORIGIN
 };
 
+
+
 @interface BAElement : NSObject <NSCopying> {
 
 }
