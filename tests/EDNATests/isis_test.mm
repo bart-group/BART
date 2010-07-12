@@ -19,7 +19,7 @@ int main(void)
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	int nrRows = 64;
 	int nrCols = 64;
-	int nrSlices = 10;
+	int nrSlices = 1;
 	int nrTs = 10;
 	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:nrRows andCols:nrCols andSlices:nrSlices andTimesteps:nrTs];
 	
@@ -40,6 +40,11 @@ int main(void)
 	
 	[elem WriteDataElementToFile:@"/tmp/test.nii"];
 //	
+	
+//	@"../../tests/BARTMainAppTests/testfiles/TestDataset01-functional.nii"
+	//BADataElement *elemOneChunk = [[BADataElement alloc] initWithDatasetFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset01-functional.nii" ofImageDataType:IMAGE_DATA_SHORT];
+	system("pwd");	
+	
 	[elem release];
 	
 	[pool drain];

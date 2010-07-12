@@ -37,7 +37,9 @@
     self = nil;
 	NSFileManager *fm = [[NSFileManager alloc] init];
 	if ( NO == [fm fileExistsAtPath:path]){
-		NSLog(@"No file to load");}
+		NSLog(@"No file to load");
+		return nil;
+	}
     self = [[EDDataElementIsis alloc] initWithFile:path ofImageDataType:type];
     return self;
 }

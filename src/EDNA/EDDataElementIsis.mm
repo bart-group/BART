@@ -35,26 +35,25 @@
         NSLog(@"hmmm, several pics in one image");
         return nil;
     }
-    //BOOST_FOREACH(isis::data::ImageList::value_type &refImage, mIsisImageList){
-//        mIsisImage = *refImage;
-//    }
+    
 	mIsisImage = *(mIsisImageList.front());
     numberRows = mIsisImage.sizeToVector()[isis::data::readDim];
     numberCols = mIsisImage.sizeToVector()[isis::data::phaseDim];
     numberSlices = mIsisImage.sizeToVector()[isis::data::sliceDim];
     numberTimesteps = mIsisImage.sizeToVector()[isis::data::timeDim];
-    imageDataType = IMAGE_DATA_SHORT;
+    imageDataType = type;
     
     repetitionTimeInMs = (mIsisImage.getProperty<isis::util::fvector4>("voxelSize"))[3];
     
 	isis::data::ChunkList chList(mIsisImage.chunksBegin(), mIsisImage.chunksEnd() );
+	unsigned int nrChunks = 0;
 	isis::data::ChunkList chListRet;
-	BOOST_FOREACH(isis::data::Chunk &ref, chList){
-		chListRet = ref.splice(isis::data::sliceDim, ref.getProperty<isis::util::fvector4>("voxelSize"), ref.getProperty<isis::util::fvector4>("voxelGap"));
-	}
+	//BOOST_FOREACH(isis::data::Chunk &ref, chList){
+//		chListRet = ref.splice(isis::data::sliceDim, ref.getProperty<isis::util::fvector4>("voxelSize"), ref.getProperty<isis::util::fvector4>("voxelGap"));
+//		nrChunks++;
+//	}
 	
-	
-    
+	NSLog(@"Number of chunks loaded %d and spliced", nrChunks, chListRet.size());
     
 	return self;
 }
@@ -89,7 +88,7 @@
 	}
 
     mIsisImage.reIndex();
-
+	std::cout << mIsisImage.sizeToString();
    return self;
 }
 
@@ -125,6 +124,8 @@
 
 -(void)setVoxelValue:(NSNumber*)val atRow: (unsigned int)r col:(unsigned int)c slice:(unsigned int)sl timestep:(unsigned int)t
 {
+	std::cout << mIsisImage.sizeToString();
+	
 	if (r < numberRows      and 0 <= r and
 		c < numberCols      and 0 <= c and
 		sl < numberSlices    and 0 <= sl and
