@@ -74,7 +74,7 @@
 	for (int ts = 0; ts < tsteps; ts++){
 		for (int sl = 0; sl < slices; sl++){
 			isis::data::MemChunk<float> ch(rows, cols);
-			ch.setProperty("indexOrigin", isis::util::fvector4(0,0,sl,ts));
+			ch.setProperty("indexOrigin", isis::util::fvector4(0,0,sl));
 			ch.setProperty<uint32_t>("acquisitionNumber", sl+ts*slices);
 			ch.setProperty<uint16_t>("sequenceNumber", 1);
 			ch.setProperty("voxelSize", isis::util::fvector4(1,1,1,0));
@@ -87,8 +87,9 @@
 		}
 	}
 
+	
     mIsisImage.reIndex();
-	std::cout << mIsisImage.sizeToString();
+	
    return self;
 }
 
@@ -124,7 +125,7 @@
 
 -(void)setVoxelValue:(NSNumber*)val atRow: (unsigned int)r col:(unsigned int)c slice:(unsigned int)sl timestep:(unsigned int)t
 {
-	std::cout << mIsisImage.sizeToString();
+
 	
 	if (r < numberRows      and 0 <= r and
 		c < numberCols      and 0 <= c and
