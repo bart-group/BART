@@ -24,7 +24,7 @@ int main(void)
 	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:nrRows andCols:nrCols andSlices:nrSlices andTimesteps:nrTs];
 	
 	
-	[elem setVoxelValue:[NSNumber numberWithFloat:255.0] atRow:2 col:2 slice:2 timestep:0];
+	[elem setVoxelValue:[NSNumber numberWithFloat:255.0] atRow:2 col:2 slice:0 timestep:0];
 	[elem setVoxelValue:[NSNumber numberWithFloat:255.0] atRow:0 col:0 slice:0 timestep:0];
 	
 	for (int r = 0; r < nrRows; r++){
