@@ -7,8 +7,13 @@
 //
 
 #import "EDDataElementIsis.h"
+
+
+
 #include "/Users/Lydi/Development/isis/lib/DataStorage/image.hpp"
 #include "/Users/Lydi/Development/isis/lib/DataStorage/io_factory.hpp"
+
+
 #include <iostream>
 
 @implementation EDDataElementIsis
@@ -20,22 +25,19 @@
     
 
 	isis::data::ImageList images;
-	//isis::image_io::enable_log<isis::util::DefaultMsgPrint>( isis::info );
+	isis::image_io::enable_log<isis::util::DefaultMsgPrint>( isis::warning );
+	isis::data::enable_log<isis::util::DefaultMsgPrint>( isis::warning );
+	isis::util::enable_log<isis::util::DefaultMsgPrint>( isis::warning );
 	
-	// the null-loader shall generate 5 3x3x3x10 images
+
 	mIsisImageList = isis::data::IOFactory::load( [path cStringUsingEncoding:NSUTF8StringEncoding], "", "" );
-	//  write images to file(s)
-	//if(isis::data::IOFactory::write( mIsisImage, "/tmp/delme.nii", "" ))
-//		std::cout << "Wrote Image to " << std::endl;
-	//isis::data::IOFactory::load( "/tmp/delme.nii", "" );
-	//mIsisImage = isis::data::IOFactory::load( "/tmp/data_test01.nii", "" );
-	
-	
+
     if (1 > mIsisImageList.size()) {
         NSLog(@"hmmm, several pics in one image");
         return nil;
     }
-    
+	
+	
 	mIsisImage = *(mIsisImageList.front());
     numberRows = mIsisImage.sizeToVector()[isis::data::readDim];
     numberCols = mIsisImage.sizeToVector()[isis::data::phaseDim];
@@ -45,15 +47,15 @@
     
     repetitionTimeInMs = (mIsisImage.getProperty<isis::util::fvector4>("voxelSize"))[3];
     
-	isis::data::ChunkList chList(mIsisImage.chunksBegin(), mIsisImage.chunksEnd() );
-	unsigned int nrChunks = 0;
-	isis::data::ChunkList chListRet;
+	//isis::data::ChunkList chList(mIsisImage.chunksBegin(), mIsisImage.chunksEnd() );
+//	unsigned int nrChunks = 0;
+//	isis::data::ChunkList chListRet;
 	//BOOST_FOREACH(isis::data::Chunk &ref, chList){
 //		chListRet = ref.splice(isis::data::sliceDim, ref.getProperty<isis::util::fvector4>("voxelSize"), ref.getProperty<isis::util::fvector4>("voxelGap"));
 //		nrChunks++;
 //	}
 	
-	NSLog(@"Number of chunks loaded %d and spliced", nrChunks, chListRet.size());
+	//NSLog(@"Number of chunks loaded %d and spliced", nrChunks, chListRet.size());
     
 	return self;
 }
@@ -148,6 +150,13 @@
 -(BOOL)sliceIsZero:(int)slice
 {
 	return TRUE;
+	//isis::util::_internal::TypeBase::Reference minV, maxV;
+//	mIsisImage.getChunk(0,0,slice, 0, false).getMinMax(minV, maxV);
+//	if (float(0.0) == maxV->is<float>()){
+//		return TRUE;}
+//	else {
+//		return FALSE;}
+
 }
 
 -(void)setImageProperty:(enum ImagePropertyID)key withValue:(id) value
