@@ -38,7 +38,7 @@
     }
 	
 	
-	mIsisImage = *(mIsisImageList.front());
+	isis::data::Image mIsisImage = *(mIsisImageList.front());
     numberRows = mIsisImage.sizeToVector()[isis::data::readDim];
     numberCols = mIsisImage.sizeToVector()[isis::data::phaseDim];
     numberSlices = mIsisImage.sizeToVector()[isis::data::sliceDim];
@@ -46,7 +46,17 @@
     imageDataType = type;
     
     repetitionTimeInMs = (mIsisImage.getProperty<isis::util::fvector4>("voxelSize"))[3];
-    
+   
+	
+	std::vector<boost::shared_ptr<isis::data::Chunk> > chVec = mIsisImage.getChunkList();
+	for (size_t i = 0; i < chVec.size(); i++){
+		const isis::data::ChunkList splices = (*chVec[i]).splice(isis::data::sliceDim, mIsisImage.getProperty<isis::util::fvector4>("indexOrigin"), mIsisImage.getProperty<isis::util::fvector4>("voxelGap"));
+		BOOST_FOREACH(isis::data::ChunkList::const_reference ref, splices){
+			mIsisImage.insertChunk(ref);	
+		}
+	}
+	
+	
 	//isis::data::ChunkList chList(mIsisImage.chunksBegin(), mIsisImage.chunksEnd() );
 //	unsigned int nrChunks = 0;
 //	isis::data::ChunkList chListRet;
@@ -136,6 +146,20 @@
 		mIsisImage.voxel<float>(r,c,sl,t) = [val floatValue];}
 }
 
+-(void)SpliceToSingleChunks
+{
+	isis::data::ChunkList newList;
+	std::vector<boost::shared_ptr<isis::data::Chunk> > chVec = mIsisImage.getChunkList();
+	for (size_t i = 0; i < chVec.size(); i++){
+		const isis::data::ChunkList splices = (*chVec[i]).splice(isis::data::sliceDim, mIsisImage.getProperty<isis::util::fvector4>("indexOrigin"), mIsisImage.getProperty<isis::util::fvector4>("voxelGap"));
+		BOOST_FOREACH(isis::data::ChunkList::const_reference ref, splices){
+			newList.push_back(ref);	
+		}
+	}
+	
+	
+}
+
 -(void)WriteDataElementToFile:(NSString*)path
 {
 	
@@ -152,10 +176,11 @@
 	return TRUE;
 	//isis::util::_internal::TypeBase::Reference minV, maxV;
 //	mIsisImage.getChunk(0,0,slice, 0, false).getMinMax(minV, maxV);
+//	//NSLog(@"slice is zero: %.2f", maxV->is<float>());
 //	if (float(0.0) == maxV->is<float>()){
 //		return TRUE;}
 //	else {
-//		return FALSE;}
+//		return TRUE;}
 
 }
 

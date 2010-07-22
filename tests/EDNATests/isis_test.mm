@@ -19,8 +19,8 @@ int main(void)
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	int nrRows = 64;
 	int nrCols = 64;
-	int nrSlices = 1;
-	int nrTs = 10;
+	int nrSlices = 20;
+	int nrTs = 1000;
 	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:nrRows andCols:nrCols andSlices:nrSlices andTimesteps:nrTs];
 	
 	
@@ -35,9 +35,10 @@ int main(void)
 					[elem setVoxelValue:v atRow:r col:c slice:s timestep:t];}}}}
 	
 	NSLog(@"Voxel value: %.2f", [elem getFloatVoxelValueAtRow:-1 col:0 slice:0 timestep:0]);
-	
-	//NSLog([NSString stringWithFormat:@"float elem %.2f", t]);
-	
+
+	NSLog(@"Start time");
+	[elem sliceIsZero:15];
+	NSLog(@"End time");
 	[elem WriteDataElementToFile:@"/tmp/test.nii"];
 //	
 	
