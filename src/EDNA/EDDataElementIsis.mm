@@ -38,35 +38,17 @@
     }
 	
 	
-	isis::data::Image mIsisImage = *(mIsisImageList.front());
-    numberRows = mIsisImage.sizeToVector()[isis::data::readDim];
+	mIsisImage = *(mIsisImageList.front());
+    mIsisImage.spliceDownTo(isis::data::sliceDim);
+	numberRows = mIsisImage.sizeToVector()[isis::data::readDim];
     numberCols = mIsisImage.sizeToVector()[isis::data::phaseDim];
     numberSlices = mIsisImage.sizeToVector()[isis::data::sliceDim];
     numberTimesteps = mIsisImage.sizeToVector()[isis::data::timeDim];
     imageDataType = type;
     
     repetitionTimeInMs = (mIsisImage.getProperty<isis::util::fvector4>("voxelSize"))[3];
-   
 	
-	std::vector<boost::shared_ptr<isis::data::Chunk> > chVec = mIsisImage.getChunkList();
-	for (size_t i = 0; i < chVec.size(); i++){
-		const isis::data::ChunkList splices = (*chVec[i]).splice(isis::data::sliceDim, mIsisImage.getProperty<isis::util::fvector4>("indexOrigin"), mIsisImage.getProperty<isis::util::fvector4>("voxelGap"));
-		BOOST_FOREACH(isis::data::ChunkList::const_reference ref, splices){
-			mIsisImage.insertChunk(ref);	
-		}
-	}
-	
-	
-	//isis::data::ChunkList chList(mIsisImage.chunksBegin(), mIsisImage.chunksEnd() );
-//	unsigned int nrChunks = 0;
-//	isis::data::ChunkList chListRet;
-	//BOOST_FOREACH(isis::data::Chunk &ref, chList){
-//		chListRet = ref.splice(isis::data::sliceDim, ref.getProperty<isis::util::fvector4>("voxelSize"), ref.getProperty<isis::util::fvector4>("voxelGap"));
-//		nrChunks++;
-//	}
-	
-	//NSLog(@"Number of chunks loaded %d and spliced", nrChunks, chListRet.size());
-    
+
 	return self;
 }
 
@@ -146,19 +128,7 @@
 		mIsisImage.voxel<float>(r,c,sl,t) = [val floatValue];}
 }
 
--(void)SpliceToSingleChunks
-{
-	isis::data::ChunkList newList;
-	std::vector<boost::shared_ptr<isis::data::Chunk> > chVec = mIsisImage.getChunkList();
-	for (size_t i = 0; i < chVec.size(); i++){
-		const isis::data::ChunkList splices = (*chVec[i]).splice(isis::data::sliceDim, mIsisImage.getProperty<isis::util::fvector4>("indexOrigin"), mIsisImage.getProperty<isis::util::fvector4>("voxelGap"));
-		BOOST_FOREACH(isis::data::ChunkList::const_reference ref, splices){
-			newList.push_back(ref);	
-		}
-	}
-	
-	
-}
+
 
 -(void)WriteDataElementToFile:(NSString*)path
 {
