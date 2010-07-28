@@ -23,33 +23,36 @@
 {
 	self = [super init];
     
-
+	// set  isis loglevels
 	isis::data::ImageList images;
-	isis::image_io::enable_log<isis::util::DefaultMsgPrint>( isis::warning );
-	isis::data::enable_log<isis::util::DefaultMsgPrint>( isis::warning );
-	isis::util::enable_log<isis::util::DefaultMsgPrint>( isis::warning );
+	isis::image_io::enable_log<isis::util::DefaultMsgPrint>( isis::error );
+	isis::data::enable_log<isis::util::DefaultMsgPrint>( isis::error );
+	isis::util::enable_log<isis::util::DefaultMsgPrint>( isis::error );
 	
-
+	// the most important thing - load with isis factory
 	mIsisImageList = isis::data::IOFactory::load( [path cStringUsingEncoding:NSUTF8StringEncoding], "", "" );
 
+	// that's unusual 
     if (1 > mIsisImageList.size()) {
         NSLog(@"hmmm, several pics in one image");
-        return nil;
-    }
+	}
 	
-	
-	mIsisImage = *(mIsisImageList.front());
+	// make a real copy including conversion to float
+	isis::data::MemImage<float> memImg = (*(mIsisImageList.front()));
+	// give this copy to our class element
+	mIsisImage = memImg; 
+	//splice the whatever build image to a slice-chunked one (each 2D is a single chunk - easier access later on)
     mIsisImage.spliceDownTo(isis::data::sliceDim);
+	// get our class params from the image itself
 	numberRows = mIsisImage.sizeToVector()[isis::data::readDim];
     numberCols = mIsisImage.sizeToVector()[isis::data::phaseDim];
     numberSlices = mIsisImage.sizeToVector()[isis::data::sliceDim];
     numberTimesteps = mIsisImage.sizeToVector()[isis::data::timeDim];
-    imageDataType = type;
-    
     repetitionTimeInMs = (mIsisImage.getProperty<isis::util::fvector4>("voxelSize"))[3];
 	
-
-	return self;
+	// the image type is now just important for writing
+	imageDataType = type;
+ 	return self;
 }
 
 
@@ -63,8 +66,10 @@
         imageDataType = type;
     }
     
+	// empty isis image
     mIsisImage = isis::data::Image();
     	
+	// create it with each slice and each timestep as a chunk and with type float (loaded ones are converted)
 	for (int ts = 0; ts < tsteps; ts++){
 		for (int sl = 0; sl < slices; sl++){
 			isis::data::MemChunk<float> ch(rows, cols);
@@ -75,29 +80,20 @@
 			ch.setProperty("readVec", isis::util::fvector4(1,0,0,0));
 			ch.setProperty("phaseVec", isis::util::fvector4(0,1,0,0));
 			ch.setProperty("sliceVec", isis::util::fvector4(0,0,1,0));
-		
 			mChunkList.push_back(ch);
 			mIsisImage.insertChunk(ch);
 		}
 	}
 
-	
     mIsisImage.reIndex();
-	
    return self;
 }
 
 
 -(short)getShortVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t
-{
-	if (IMAGE_DATA_FLOAT == imageDataType){
-		return (short)mIsisImage.voxel<float>(r,c,s,t);}
-	else {
-		
-		return mIsisImage.voxel<int16_t>(r,c,s,t);
-	}
-
-	
+{	
+	//TODO we dont want to use this!!
+	return (short)mIsisImage.voxel<float>(r,c,s,t);	//else {
 }
 
 -(float)getFloatVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t
@@ -107,24 +103,17 @@
 		c < numberCols      and 0 <= c and
 		s < numberSlices    and 0 <= s and
 		t < numberTimesteps and 0 <= t){
-
-		if (IMAGE_DATA_FLOAT == imageDataType){
 			val = (float)mIsisImage.voxel<float>(r,c,s,t);
-		}	
-		else{
-			val = (float)mIsisImage.voxel<int16_t>(r,c,s,t);
-		}}
+		}
     return val;
 }
 
 -(void)setVoxelValue:(NSNumber*)val atRow: (unsigned int)r col:(unsigned int)c slice:(unsigned int)sl timestep:(unsigned int)t
 {
-
-	
-	if (r < numberRows      and 0 <= r and
-		c < numberCols      and 0 <= c and
+	if (r  < numberRows      and 0 <= r and
+		c  < numberCols      and 0 <= c and
 		sl < numberSlices    and 0 <= sl and
-		t < numberTimesteps and 0 <= t){
+		t  < numberTimesteps and 0 <= t){
 		mIsisImage.voxel<float>(r,c,sl,t) = [val floatValue];}
 }
 
@@ -143,6 +132,7 @@
 
 -(BOOL)sliceIsZero:(int)slice
 {
+	// TODO quite slowly at the moment check performance
 	return TRUE;
 	//isis::util::_internal::TypeBase::Reference minV, maxV;
 //	mIsisImage.getChunk(0,0,slice, 0, false).getMinMax(minV, maxV);
@@ -281,15 +271,46 @@
 }
 
 
--(float*)getDataFromSlice:(int)sliceNr atTimestep:(uint)tstep;
+-(float*)getSliceData:(uint)sliceNr atTimestep:(uint)tstep
 {	
-	
-	//isis::data::MemChunk<int16_t> sliceChunk(mIsisImage.getChunk(0,0,sliceNr, tstep));
 	float *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
 	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
-	//mIsisImage.getChunk(0,0,sliceNr, tstep).asTypePtr<int16_t>();//  sliceChunk.getTypePtr();
-	
 	return pValues;
+}
+
+-(float*)getTimeseriesDataAtRow:(uint)row atCol:(uint)col atSlice:(uint)sl fromTimestep:(uint)tstart toTimestep:(uint)tend
+{	
+	//float *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
+//	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
+//	return pValues;
+}
+
+-(float*)getRowDataAt:(uint)row atSlice:(uint)sl	atTimestep:(uint)tstep
+{	//
+//	float *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
+//	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
+//	return pValues;
+}
+
+-(float*)getColDataAt:(uint)col atSlice:(uint)sl atTimestep:(uint)tstep
+{	
+	//float *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
+//	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
+//	return pValues;
+}
+
+-(void)setRowAt:(uint)row atSlice:(uint)sl	atTimestep:(uint)tstep withData:(float*)data
+{	//
+	//	float *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
+	//	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
+	//	return pValues;
+}
+
+-(void)setColAt:(uint)col atSlice:(uint)sl atTimestep:(uint)tstep withData:(float*)data
+{	
+	//float *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
+	//	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
+	//	return pValues;
 }
 
 
