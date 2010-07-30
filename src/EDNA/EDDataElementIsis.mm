@@ -280,37 +280,53 @@
 
 -(float*)getTimeseriesDataAtRow:(uint)row atCol:(uint)col atSlice:(uint)sl fromTimestep:(uint)tstart toTimestep:(uint)tend
 {	
-	//float *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
+	float *pValues = static_cast<float*> (malloc(sizeof(tend-tstart+1)));
+	//mIsisImage.getChunk(row, col, sl, <#size_t fourth#>, <#bool copy_metadata#>)
+	
 //	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
-//	return pValues;
+	return pValues;
 }
 
--(float*)getRowDataAt:(uint)row atSlice:(uint)sl	atTimestep:(uint)tstep
-{	//
-//	float *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
-//	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
-//	return pValues;
+-(float*)getRowDataAt:(uint)row atSlice:(uint)sl atTimestep:(uint)tstep
+{	
+	float *pValues = static_cast<float*> (malloc(sizeof(numberCols)));
+	isis::data::MemChunk<float> rowChunk(numberCols, 1);
+	mIsisImage.getChunk(0, 0, sl, tstep, false).copyLine(row, 0, 0, rowChunk, 0, 0, 0);
+	for (uint r=0; r < row; r++){
+		
+		NSLog(@"%.2f\n",rowChunk.voxel<float>(r, 0, 0, 0));
+	}
+	
+	float *pRun = (( boost::shared_ptr<float> )rowChunk.getTypePtr<float>()).get();
+	for (uint r=0; r < row; r++){
+		*pValues = *pRun;
+		NSLog(@"%.2f\n",*pRun++);
+	}
+	return pValues;
 }
 
 -(float*)getColDataAt:(uint)col atSlice:(uint)sl atTimestep:(uint)tstep
 {	
-	//float *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
-//	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
-//	return pValues;
+	float *pValues = static_cast<float*> (malloc(sizeof(numberRows)));
+	float *pRun = pValues;
+	isis::data::Chunk slChunk = mIsisImage.getChunk(0,0,sl,tstep);
+	for (uint row = 0; row < numberRows; row++){
+		*pRun = slChunk.voxel<float>(col, row);
+		pRun++;
+	}
+	return pValues;
 }
 
 -(void)setRowAt:(uint)row atSlice:(uint)sl	atTimestep:(uint)tstep withData:(float*)data
-{	//
+{	
 	//	float *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
 	//	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
-	//	return pValues;
 }
 
 -(void)setColAt:(uint)col atSlice:(uint)sl atTimestep:(uint)tstep withData:(float*)data
 {	
 	//float *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
 	//	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
-	//	return pValues;
 }
 
 

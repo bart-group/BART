@@ -17,35 +17,40 @@
 int main(void)
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	int nrRows = 64;
-	int nrCols = 64;
-	int nrSlices = 20;
-	int nrTs = 1000;
-	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:nrRows andCols:nrCols andSlices:nrSlices andTimesteps:nrTs];
+	uint rows = 50;
+	uint cols = 50;
+	uint sl = 20;
+	uint tsteps = 10;
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:rows andCols:cols andSlices:sl andTimesteps:tsteps	];
+	for (uint t=0; t < tsteps; t++){
+		for (uint s=0; s < sl; s++){
+			for (uint c=0; c < cols; c++){
+				for (uint r=0; r < rows; r++){
+					[elem setVoxelValue:[NSNumber numberWithFloat:r+c+s+t] atRow:r col:c slice:s timestep:t];
+				}}}}
+	
+	//float *pRowOrig = static_cast<float_t *> malloc(sizeof(cols));
+	//float *pRun = pRowOrig;
+	//float *pRow = static_cast<float_t *> (malloc(sizeof(cols)));
 	
 	
-	[elem setVoxelValue:[NSNumber numberWithFloat:255.0] atRow:2 col:2 slice:0 timestep:0];
-	[elem setVoxelValue:[NSNumber numberWithFloat:255.0] atRow:0 col:0 slice:0 timestep:0];
 	
-	for (int r = 0; r < nrRows; r++){
-		for (int c = 0; c < nrCols; c++){
-			for (int  s = 0; s < nrSlices; s++){
-				for (int t = 0; t < nrTs; t++){
-					NSNumber *v = [NSNumber numberWithFloat:s*c + t];
-					[elem setVoxelValue:v atRow:r col:c slice:s timestep:t];}}}}
+	uint rowGet = 10;
+	uint sliceGet = 10;
+	uint tGet = 2;
+	//for (uint r=0; r < rowGet, r++){
+	//		*pRun = rowGet+sliceGet+tGet-3+r;
+	//		pRun++;
+	//	}
+	//	
+	float *pRow = static_cast<float_t *>([elem getRowDataAt:10 atSlice:10 atTimestep:2]);
+	float *pRun2 = pRow;
+	for (uint r=0; r < rowGet; r++){
+		NSLog(@"%.2f\n", *pRun2);
+		pRun2++;
+	}
 	
-	NSLog(@"Voxel value: %.2f", [elem getFloatVoxelValueAtRow:-1 col:0 slice:0 timestep:0]);
-
-	NSLog(@"Start time");
-	[elem sliceIsZero:15];
-	NSLog(@"End time");
-	[elem WriteDataElementToFile:@"/tmp/test.nii"];
-//	
-	
-//	@"../../tests/BARTMainAppTests/testfiles/TestDataset01-functional.nii"
-	//BADataElement *elemOneChunk = [[BADataElement alloc] initWithDatasetFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset01-functional.nii" ofImageDataType:IMAGE_DATA_SHORT];
-	system("pwd");	
-	
+	free(pRow);
 	[elem release];
 	
 	[pool drain];

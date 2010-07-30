@@ -208,6 +208,69 @@
 	//-(short*)getDataFromSlice:(int)sliceNr atTimestep:(uint)tstep;
 }
 
+-(float*)testGetTimeseriesDataAtRow
+{	
+
+}
+
+-(void)testGetRowDataAt
+{	
+	uint rows = 50;
+	uint cols = 50;
+	uint sl = 20;
+	uint tsteps = 10;
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:rows andCols:cols andSlices:sl andTimesteps:tsteps	];
+	for (uint t=0; t < tsteps; t++){
+		for (uint s=0; s < sl; s++){
+			for (uint c=0; c < cols; c++){
+				for (uint r=0; r < rows; r++){
+					[elem setVoxelValue:[NSNumber numberWithFloat:r+c+s+t] atRow:r col:c slice:s timestep:t];
+				}}}}
+
+	//float *pRowOrig = static_cast<float_t *> malloc(sizeof(cols));
+	//float *pRun = pRowOrig;
+	float *pRow = static_cast<float_t *> (malloc(sizeof(cols)));
+	float *pRun2 = pRow;
+	
+	
+	uint rowGet = 10;
+	uint sliceGet = 10;
+	uint tGet = 2;
+	//for (uint r=0; r < rowGet, r++){
+//		*pRun = rowGet+sliceGet+tGet-3+r;
+//		pRun++;
+//	}
+//	
+	pRow = (float*)([elem getRowDataAt:10 atSlice:10 atTimestep:2]);
+	for (uint r=0; r < rowGet; r++){
+		STAssertEquals(*pRun2, static_cast<float_t> (rowGet+sliceGet+tGet-3+r), @"");
+		pRun2++;
+	}
+	
+	free(pRow);
+	
+	//testSetRowAt
+	
+}
+
+-(void)testGetColDataAt
+{	
+
+
+}
+
+-(void)testSetRowAt
+{	
+
+}
+
+-(void)testSetColAt
+{	
+
+}
+
+
+
 
 -(void)testSliceIsZero
 {
