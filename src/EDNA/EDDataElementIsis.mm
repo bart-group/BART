@@ -72,15 +72,15 @@
 	// create it with each slice and each timestep as a chunk and with type float (loaded ones are converted)
 	for (int ts = 0; ts < tsteps; ts++){
 		for (int sl = 0; sl < slices; sl++){
-			isis::data::MemChunk<float> ch(rows, cols);
+			isis::data::MemChunk<float> ch(cols, rows);
 			ch.setProperty("indexOrigin", isis::util::fvector4(0,0,sl));
-			ch.setProperty<uint32_t>("acquisitionNumber", sl+ts*slices);
-			ch.setProperty<uint16_t>("sequenceNumber", 1);
+			ch.setProperty<u_int32_t>("acquisitionNumber", sl+ts*slices);
+			ch.setProperty<u_int16_t>("sequenceNumber", 1);
 			ch.setProperty("voxelSize", isis::util::fvector4(1,1,1,0));
 			ch.setProperty("readVec", isis::util::fvector4(1,0,0,0));
 			ch.setProperty("phaseVec", isis::util::fvector4(0,1,0,0));
 			ch.setProperty("sliceVec", isis::util::fvector4(0,0,1,0));
-			mChunkList.push_back(ch);
+			//mChunkList.push_back(ch);
 			mIsisImage.insertChunk(ch);
 		}
 	}
@@ -93,7 +93,7 @@
 -(short)getShortVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t
 {	
 	//TODO we dont want to use this!!
-	return (short)mIsisImage.voxel<float>(r,c,s,t);	//else {
+	return (short)mIsisImage.voxel<float>(c,r,s,t);	//else {
 }
 
 -(float)getFloatVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t
@@ -103,7 +103,7 @@
 		c < numberCols      and 0 <= c and
 		s < numberSlices    and 0 <= s and
 		t < numberTimesteps and 0 <= t){
-			val = (float)mIsisImage.voxel<float>(r,c,s,t);
+			val = (float)mIsisImage.voxel<float>(c,r,s,t);
 		}
     return val;
 }
@@ -114,7 +114,7 @@
 		c  < numberCols      and 0 <= c and
 		sl < numberSlices    and 0 <= sl and
 		t  < numberTimesteps and 0 <= t){
-		mIsisImage.voxel<float>(r,c,sl,t) = [val floatValue];}
+		mIsisImage.voxel<float>(c,r,sl,t) = [val floatValue];}
 }
 
 
@@ -289,32 +289,15 @@
 
 -(float*)getRowDataAt:(uint)row atSlice:(uint)sl atTimestep:(uint)tstep
 {	
-	float *pValues = static_cast<float*> (malloc(sizeof(numberCols)));
-	isis::data::MemChunk<float> rowChunk(numberCols, 1);
+	isis::data::MemChunkNoDel<float> rowChunk(numberCols, 1);
 	mIsisImage.getChunk(0, 0, sl, tstep, false).copyLine(row, 0, 0, rowChunk, 0, 0, 0);
-	for (uint r=0; r < row; r++){
-		
-		NSLog(@"%.2f\n",rowChunk.voxel<float>(r, 0, 0, 0));
-	}
-	
-	float *pRun = (( boost::shared_ptr<float> )rowChunk.getTypePtr<float>()).get();
-	for (uint r=0; r < row; r++){
-		*pValues = *pRun;
-		NSLog(@"%.2f\n",*pRun++);
-	}
-	return pValues;
+	return (( boost::shared_ptr<float> )rowChunk.getTypePtr<float>()).get();	
 }
 
 -(float*)getColDataAt:(uint)col atSlice:(uint)sl atTimestep:(uint)tstep
 {	
-	float *pValues = static_cast<float*> (malloc(sizeof(numberRows)));
-	float *pRun = pValues;
-	isis::data::Chunk slChunk = mIsisImage.getChunk(0,0,sl,tstep);
-	for (uint row = 0; row < numberRows; row++){
-		*pRun = slChunk.voxel<float>(col, row);
-		pRun++;
-	}
-	return pValues;
+		
+	
 }
 
 -(void)setRowAt:(uint)row atSlice:(uint)sl	atTimestep:(uint)tstep withData:(float*)data
