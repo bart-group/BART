@@ -74,7 +74,8 @@
 
 -(float*)getDataFromSlice:(int)sliceNr atTimestep:(uint)tstep;
 
-
+-(float*)getRowDataAt:(uint)row atSlice:(uint)sl atTimestep:(uint)tstep;
+-(float*)getColDataAt:(uint)row atSlice:(uint)sl atTimestep:(uint)tstep;
 
 -(void)print;
 
