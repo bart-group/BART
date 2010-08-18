@@ -75,7 +75,14 @@
 -(float*)getDataFromSlice:(int)sliceNr atTimestep:(uint)tstep;
 
 -(float*)getRowDataAt:(uint)row atSlice:(uint)sl atTimestep:(uint)tstep;
+
+-(void)setRowAt:(uint)row atSlice:(uint)sl	atTimestep:(uint)tstep withData:(float*)data;
+
 -(float*)getColDataAt:(uint)row atSlice:(uint)sl atTimestep:(uint)tstep;
+
+-(void)setColAt:(uint)col atSlice:(uint)sl atTimestep:(uint)tstep withData:(float*)data;
+
+-(float*)getTimeseriesDataAtRow:(uint)row atCol:(uint)col atSlice:(uint)sl fromTimestep:(uint)tstart toTimestep:(uint)tend;
 
 -(void)print;
 

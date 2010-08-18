@@ -99,10 +99,7 @@
 -(float)getFloatVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t
 {
 	float val = 0.0;
-	if (r < numberRows      and 0 <= r and
-		c < numberCols      and 0 <= c and
-		s < numberSlices    and 0 <= s and
-		t < numberTimesteps and 0 <= t){
+	if ([self sizeCheckRows:r Cols:c Slices:s Timesteps:t]){
 			val = (float)mIsisImage.voxel<float>(c,r,s,t);
 		}
     return val;
@@ -110,10 +107,7 @@
 
 -(void)setVoxelValue:(NSNumber*)val atRow: (unsigned int)r col:(unsigned int)c slice:(unsigned int)sl timestep:(unsigned int)t
 {
-	if (r  < numberRows      and 0 <= r and
-		c  < numberCols      and 0 <= c and
-		sl < numberSlices    and 0 <= sl and
-		t  < numberTimesteps and 0 <= t){
+	if ([self sizeCheckRows:r Cols:c Slices:sl Timesteps:t]){
 		mIsisImage.voxel<float>(c,r,sl,t) = [val floatValue];}
 }
 
@@ -280,42 +274,74 @@
 
 -(float*)getTimeseriesDataAtRow:(uint)row atCol:(uint)col atSlice:(uint)sl fromTimestep:(uint)tstart toTimestep:(uint)tend
 {	
-	float *pValues = static_cast<float*> (malloc(sizeof(tend-tstart+1)));
-	//mIsisImage.getChunk(row, col, sl, <#size_t fourth#>, <#bool copy_metadata#>)
-	
-//	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
-	return pValues;
+	if ([self sizeCheckRows:row Cols:col Slices:sl Timesteps:tend] and (tstart < tend) ){
+		uint nrTimesteps = tend-tstart+1;
+		isis::data::MemChunkNonDel<float> chTimeSeries(nrTimesteps, 1);
+		for (uint i = tstart; i < tend+1; i++){
+			chTimeSeries.voxel<float>(i-tstart,0) = mIsisImage.getChunk(0,0,sl,i, false).voxel<float>(row, col);}
+		return (( boost::shared_ptr<float> ) chTimeSeries.getTypePtr<float>()).get();
+	}
+	return NULL;
 }
 
 -(float*)getRowDataAt:(uint)row atSlice:(uint)sl atTimestep:(uint)tstep
 {	
-	isis::data::MemChunkNoDel<float> rowChunk(numberCols, 1);
-	mIsisImage.getChunk(0, 0, sl, tstep, false).copyLine(row, 0, 0, rowChunk, 0, 0, 0);
-	return (( boost::shared_ptr<float> )rowChunk.getTypePtr<float>()).get();	
+	if ([self sizeCheckRows:row Cols:1 Slices:sl Timesteps:tstep]){
+		isis::data::MemChunkNonDel<float> rowChunk(numberCols, 1);
+		mIsisImage.getChunk(0, 0, sl, tstep, false).copyLine(row, 0, 0, rowChunk, 0, 0, 0);
+		return (( boost::shared_ptr<float> )rowChunk.getTypePtr<float>()).get();	
+	}
+	return NULL;
 }
 
 -(float*)getColDataAt:(uint)col atSlice:(uint)sl atTimestep:(uint)tstep
 {	
-		
-	
+	if ([self sizeCheckRows:1 Cols:col Slices:sl Timesteps:tstep] ){
+		isis::data::MemChunkNonDel<float> colChunk(numberRows, 1);
+		isis::data::Chunk sliceCh = mIsisImage.getChunk(0,0,sl,tstep, false);
+		for (uint i = 0; i < numberRows; i++){
+			colChunk.voxel<float>(i, 0) = sliceCh.voxel<float>(col, i, 0, 0);}
+		return (( boost::shared_ptr<float> ) colChunk.getTypePtr<float>()).get();
+	}
+	return NULL;
 }
 
 -(void)setRowAt:(uint)row atSlice:(uint)sl	atTimestep:(uint)tstep withData:(float*)data
 {	
-	//	float *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
-	//	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
+	if ([self sizeCheckRows:row Cols:1 Slices:sl Timesteps:tstep] ){
+		isis::data::MemChunk<float> dataToCopy(data, numberCols);
+		isis::data::Chunk dataInsertCh = (mIsisImage.getChunk(0, 0, sl, tstep, false));
+		dataToCopy.copyLine(0, 0, 0, dataInsertCh, row, 0, 0);}
+	return;
+	
 }
 
 -(void)setColAt:(uint)col atSlice:(uint)sl atTimestep:(uint)tstep withData:(float*)data
 {	
-	//float *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
-	//	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
+	if ([self sizeCheckRows:1 Cols:col Slices:sl Timesteps:tstep] ){
+		isis::data::MemChunk<float> dataToCopy(data, numberRows);
+		isis::data::Chunk sliceCh = mIsisImage.getChunk(0,0,sl,tstep, false);
+		for (uint i = 0; i < numberRows; i++){
+			sliceCh.voxel<float>(col, i, 0, 0) = dataToCopy.voxel<float>(i, 0);}
+	}
+	return;
 }
 
 
 -(void)print
 {
 	mIsisImage.print(std::cout, true);
+}
+
+-(BOOL)sizeCheckRows:(uint)r Cols:(uint)c Slices:(uint)s Timesteps:(uint)t
+{
+	if (r < numberRows      and 0 <= r and
+		c < numberCols      and 0 <= c and
+		s < numberSlices    and 0 <= s and
+		t < numberTimesteps and 0 <= t){
+		return YES;}
+	return NO;
+
 }
 
 @end

@@ -19,5 +19,7 @@
 }
 
 
+-(BOOL)sizeCheckRows:(uint)r Cols:(uint)c Slices:(uint)s Timesteps:(uint)t;
+
 
 @end

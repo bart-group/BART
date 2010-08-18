@@ -213,12 +213,12 @@
 
 }
 
--(void)testGetRowDataAt
+-(void)testGetSetRowDataAt
 {	
-	uint rows = 99;
-	uint cols = 31;
-	uint sl = 20;
-	uint tsteps = 10;
+	uint rows = 9;
+	uint cols = 13;
+	uint sl = 10;
+	uint tsteps = 7;
 	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:rows andCols:cols andSlices:sl andTimesteps:tsteps	];
 	for (uint t=0; t < tsteps; t++){
 		for (uint s=0; s < sl; s++){
@@ -227,49 +227,102 @@
 					[elem setVoxelValue:[NSNumber numberWithFloat:r+c+s+t] atRow:r col:c slice:s timestep:t];
 				}}}}
 	
-	//float *pRowOrig = static_cast<float_t *> malloc(sizeof(cols));
-	//float *pRun = pRowOrig;
-	//float *pRow = static_cast<float_t *> (malloc(sizeof(cols)));
-	
-	
-	
-	uint rowGet = 10;
-	uint sliceGet = 10;
+	uint rowGet = 8;
+	uint sliceGet = 9;
 	uint tGet = 2;
 	
-	
 	float *pRow = static_cast<float_t *>([elem getRowDataAt:rowGet atSlice:sliceGet atTimestep:tGet]);
-	float *pRun2 = pRow;
-	for (uint c=0; c < 5; c++){
-		STAssertEquals(*pRun2, rowGet+sliceGet+tGet+c, @"Row value not as expected");
-		pRun2++;
+	float* pRun = pRow;
+	for (uint c=0; c < cols; c++){
+		STAssertEquals((float)*pRun++, (float)rowGet+sliceGet+tGet+c, @"Row value not as expected");
 	}
-	
 	free(pRow);
+	
+	//************setRowData
+	uint rowSet = 6;
+	float *dataBuff = static_cast<float_t*> (malloc(sizeof(cols)));
+	for (uint i = 0; i < cols; i++){
+		dataBuff[i] = 3*i+17;
+	}
+	[elem setRowAt:rowSet atSlice:sliceGet atTimestep:tGet withData:dataBuff];
+	
+	pRow = static_cast<float_t *>([elem getRowDataAt:rowSet atSlice:sliceGet atTimestep:tGet]);
+	float* pRowPre = static_cast<float_t *>([elem getRowDataAt:rowSet-1 atSlice:sliceGet atTimestep:tGet]);
+	float* pRowPost = static_cast<float_t *>([elem getRowDataAt:rowSet+1 atSlice:sliceGet atTimestep:tGet]);
+	pRun = pRow;
+	float *pRunPre = pRowPre;
+	float* pRunPost = pRowPost;
+	for (uint c=0; c < cols; c++){
+		STAssertEquals((float)*pRun, (float)dataBuff[c], @"Row value not as expected");
+		STAssertEquals((float)*pRunPre, (float)(rowSet-1)+sliceGet+tGet+c, @"Pre Row value not as expected");
+		STAssertEquals((float)*pRunPost, (float)(rowSet+1)+sliceGet+tGet+c, @"Post Row value not as expected");
+		pRun++;pRunPre++;pRunPost++;
+	}
+	free(pRow);
+	free(pRowPre);
+	free(pRowPost);
+	free(dataBuff);
+	
+	[elem release];
+
+}
+
+-(void)testGetSetColDataAt
+{
+	uint rows = 9;
+	uint cols = 13;
+	uint sl = 10;
+	uint tsteps = 7;
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:rows andCols:cols andSlices:sl andTimesteps:tsteps	];
+	for (uint t=0; t < tsteps; t++){
+		for (uint s=0; s < sl; s++){
+			for (uint c=0; c < cols; c++){
+				for (uint r=0; r < rows; r++){
+					[elem setVoxelValue:[NSNumber numberWithFloat:r+c+s+t] atRow:r col:c slice:s timestep:t];
+				}}}}
+
+	
+	//************getColData
+	uint colGet = 11;
+	uint sliceGet = 9;
+	uint tGet = 2;
+	float *pCol = static_cast<float_t *>([elem getColDataAt:colGet atSlice:sliceGet atTimestep:tGet]);
+	float *pRun = pCol;
+	for (uint r=0; r < rows; r++){
+		STAssertEquals((float)*pRun++, (float)colGet+sliceGet+tGet+r, @"Col value not as expected");
+	}
+	free(pCol);
+	
+	uint colSet = 7;
+	float *dataBuff2 = static_cast<float_t*> (malloc(sizeof(rows)));
+	for (uint i = 0; i < rows; i++){
+		dataBuff2[i] = 11+i*17;
+	}
+	//************setColData
+	[elem setColAt:colSet atSlice:sliceGet atTimestep:tGet withData:dataBuff2];
+	//	
+	pCol = static_cast<float_t *>([elem getColDataAt:colSet atSlice:sliceGet atTimestep:tGet]);
+	float* pColPre = static_cast<float_t *>([elem getColDataAt:colSet-1 atSlice:sliceGet atTimestep:tGet]);
+	float* pColPost = static_cast<float_t *>([elem getColDataAt:colSet+1 atSlice:sliceGet atTimestep:tGet]);
+	pRun = pCol;
+	float *pRunPre = pColPre;
+	float *pRunPost = pColPost;
+	for (uint r=0; r < rows; r++){
+		STAssertEquals((float)*pRun++, (float)dataBuff2[r], @"Col value not as expected");
+		STAssertEquals((float)*pRunPre++, (float)(colSet-1)+sliceGet+tGet+r, @"Pre Col value not as expected");
+		STAssertEquals((float)*pRunPost++, (float)(colSet+1)+sliceGet+tGet+r, @"Post Col value not as expected");
+	}
+	free(pCol);
+	free(pColPre);
+	free(pColPost);
+	free(dataBuff2);
+	
+	
 	[elem release];
 	
 		
-	//testSetRowAt
-	
-}
-
--(void)testGetColDataAt
-{	
-
 
 }
-
--(void)testSetRowAt
-{	
-
-}
-
--(void)testSetColAt
-{	
-
-}
-
-
 
 
 -(void)testSliceIsZero
