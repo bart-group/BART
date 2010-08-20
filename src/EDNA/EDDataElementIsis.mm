@@ -6,6 +6,10 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
+#define _GLIBCXX_FULLY_DYNAMIC_STRING 1
+#undef _GLIBCXX_DEBUG
+#undef _GLIBCXX_DEBUG_PEDANTIC
+
 #import "EDDataElementIsis.h"
 
 
@@ -25,9 +29,9 @@
     
 	// set  isis loglevels
 	isis::data::ImageList images;
-	isis::image_io::enable_log<isis::util::DefaultMsgPrint>( isis::error );
-	isis::data::enable_log<isis::util::DefaultMsgPrint>( isis::error );
-	isis::util::enable_log<isis::util::DefaultMsgPrint>( isis::error );
+	isis::image_io::enable_log<isis::util::DefaultMsgPrint>( isis::warning );
+	isis::data::enable_log<isis::util::DefaultMsgPrint>( isis::warning );
+	isis::util::enable_log<isis::util::DefaultMsgPrint>( isis::warning );
 	
 	// the most important thing - load with isis factory
 	mIsisImageList = isis::data::IOFactory::load( [path cStringUsingEncoding:NSUTF8StringEncoding], "", "" );
@@ -196,7 +200,7 @@
 			mIsisImage.setProperty<isis::util::fvector4>("voxelSize", vec);
 			break;
 		case PROPID_ORIGIN:
-			for (unsigned int i = 0; i<4; i++){
+			for (unsigned int i = 0; i<3; i++){
 				vec[i] = [[value objectAtIndex:i] floatValue];}
 			mIsisImage.setProperty<isis::util::fvector4>("indexOrigin", vec);
 			break;
@@ -267,9 +271,13 @@
 
 -(float*)getSliceData:(uint)sliceNr atTimestep:(uint)tstep
 {	
-	float *pValues = static_cast<float*> (malloc(sizeof(mIsisImage.getChunk(0,0,sliceNr, tstep).volume())));
-	mIsisImage.getChunk(0,0,sliceNr, tstep).getTypePtr<float>().copyToMem(0, mIsisImage.getChunk(0,0,sliceNr, tstep).volume() - 1, pValues );
-	return pValues;
+	if ([self sizeCheckRows:1 Cols:1 Slices:sliceNr Timesteps:tstep]){
+		isis::data::MemChunkNonDel<float> chSlice(numberCols, numberRows);
+		mIsisImage.getChunk(0,0, sliceNr, tstep, false).copySlice(0, 0, chSlice, 0, 0);
+		return (( boost::shared_ptr<float> ) chSlice.getTypePtr<float>()).get();
+	}
+	return NULL;
+
 }
 
 -(float*)getTimeseriesDataAtRow:(uint)row atCol:(uint)col atSlice:(uint)sl fromTimestep:(uint)tstart toTimestep:(uint)tend

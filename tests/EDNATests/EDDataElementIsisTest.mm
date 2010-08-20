@@ -60,24 +60,6 @@
 -(void)testImageProperties
 {
 
-	//PROPID_NAME,
-//    PROPID_MODALITY,
-//    PROPID_DF,
-//    PROPID_PATIENT,
-//    PROPID_VOXEL,
-//    PROPID_REPTIME,
-//    PROPID_TALAIRACH,
-//    PROPID_FIXPOINT,
-//    PROPID_CA,
-//    PROPID_CP,
-//    PROPID_EXTENT,
-//    PROPID_BETA,
-//	PROPID_READVEC,
-//	PROPID_PHASEVEC,
-//	PROPID_SLICEVEC,
-//	PROPID_SEQNR,
-//	PROPID_VOXELSIZE, 
-//	PROPID_ORIGIN
 	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:39 andCols:19 andSlices:2 andTimesteps:190];
 	STAssertNotNil(elem, @"valid init returns nil");
 	
@@ -92,6 +74,7 @@
 	NSArray *sliceVec = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0], [NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0], [NSNumber numberWithFloat:0], nil];
 	NSArray *voxelSize = [NSArray arrayWithObjects:[NSNumber numberWithInt:23], [NSNumber numberWithInt:23.6], [NSNumber numberWithInt:12], [NSNumber numberWithInt:1], nil];
 	NSArray *indexOrigin = [NSArray arrayWithObjects:[NSNumber numberWithFloat:-98.0], [NSNumber numberWithFloat:12.0], [NSNumber numberWithFloat:34.9875645], [NSNumber numberWithFloat:0.951], nil];
+	NSArray *indexOriginR = [NSArray arrayWithObjects:[NSNumber numberWithFloat:-98.0], [NSNumber numberWithFloat:12.0], [NSNumber numberWithFloat:34.9875645], [NSNumber numberWithFloat:0.0], nil];
 	
 	
 	
@@ -119,21 +102,12 @@
 	STAssertEqualObjects( [elem getImageProperty:PROPID_PHASEVEC], phaseVec, @"PROPID_PHASEVEC does not match expected vector");
 	STAssertEqualObjects( [elem getImageProperty:PROPID_SLICEVEC], sliceVec, @"PROPID_SLICEVEC does not match expected vector");
 	STAssertEqualObjects( [elem getImageProperty:PROPID_VOXELSIZE], voxelSize, @"PROPID_VOXELSIZE  does not match expected vector");
-	STAssertEqualObjects( [elem getImageProperty:PROPID_ORIGIN], indexOrigin, @"PROPID_ORIGIN does not match expected vector");
+	STAssertEqualObjects( [elem getImageProperty:PROPID_ORIGIN], indexOriginR, @"PROPID_ORIGIN does not match expected vector");
 	
 	
 	NSArray *emptyVec = [NSArray arrayWithObjects: nil];
 	NSArray *zeroVec = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.0], nil];
 	NSArray *toolongVec = [NSArray arrayWithObjects:[NSNumber numberWithFloat:-0.0], [NSNumber numberWithFloat:-123.986], [NSNumber numberWithFloat:78976.654], [NSNumber numberWithFloat:99.0], [NSNumber numberWithFloat:9.0], nil];
-	
-
-	//TODO!!!!!!
-//	[elem setImageProperty:PROPID_PHASEVEC withValue:emptyVec];
-//	[elem setImageProperty:PROPID_SLICEVEC withValue:toolongVec];
-	
-	
-//	STAssertEqualObjects([elem getImageProperty:PROPID_PHASEVEC], zeroVec,  @"");
-	
 	
 	[elem release];
 	
@@ -203,14 +177,68 @@
 
 -(void)testGetDataFromSlice
 {
-
+	uint rows = 13;
+	uint cols = 12;
+	uint sl = 10;
+	uint tsteps = 7;
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:rows andCols:cols andSlices:sl andTimesteps:tsteps	];
+	for (uint t=0; t < tsteps; t++){
+		for (uint s=0; s < sl; s++){
+			for (uint c=0; c < cols; c++){
+				for (uint r=0; r < rows; r++){
+					[elem setVoxelValue:[NSNumber numberWithFloat:r+c+s+t] atRow:r col:c slice:s timestep:t];
+				}}}}
 	
-	//-(short*)getDataFromSlice:(int)sliceNr atTimestep:(uint)tstep;
-}
-
--(float*)testGetTimeseriesDataAtRow
-{	
-
+	//normal case
+	uint sliceGet = 3;
+	uint tGet = 2;
+	float *pSlice = [elem getSliceData:sliceGet	atTimestep:tGet ];
+	float* pRun = pSlice;
+	for (uint i = 0; i < cols; i++){
+		for (uint j = 0; j < rows; j++){
+			STAssertEquals((float)*pRun++, (float)sliceGet+tGet+i+j, @"Slice value not as expected");
+		}
+	}
+	free(pSlice);
+	
+	//first slice
+	sliceGet = 0;
+	tGet = 6;
+	pSlice = [elem getSliceData:sliceGet atTimestep:tGet ];
+	pRun = pSlice;
+	for (uint i = 0; i < cols; i++){
+		for (uint j = 0; j < rows; j++){
+			STAssertEquals((float)*pRun++, (float)sliceGet+tGet+i+j, @"Slice value not as expected");
+		}
+	}
+	free(pSlice);
+	
+	//last slice
+	sliceGet = 9;
+	tGet = 6;
+	pSlice = [elem getSliceData:sliceGet atTimestep:tGet ];
+	pRun = pSlice;
+	for (uint i = 0; i < cols; i++){
+		for (uint j = 0; j < rows; j++){
+			STAssertEquals((float)*pRun++, (float)sliceGet+tGet+i+j, @"Slice value not as expected");
+		}
+	}
+	free(pSlice);
+		
+	//out of size
+	sliceGet = 10;
+	tGet = 1;
+	pSlice = [elem getSliceData:sliceGet atTimestep:tGet ];
+	STAssertEquals(pSlice, (float*)NULL, @"Slice pointer on slice out of size not returning NULL");
+	
+	sliceGet = 2;
+	tGet = 8;
+	pSlice = [elem getSliceData:sliceGet atTimestep:tGet ];
+	STAssertEquals(pSlice, (float*)NULL, @"Slice pointer on timestep out of size not returning NULL");
+	
+	
+	
+	
 }
 
 -(void)testGetSetRowDataAt
@@ -246,9 +274,9 @@
 	}
 	[elem setRowAt:rowSet atSlice:sliceGet atTimestep:tGet withData:dataBuff];
 	
-	pRow = static_cast<float_t *>([elem getRowDataAt:rowSet atSlice:sliceGet atTimestep:tGet]);
-	float* pRowPre = static_cast<float_t *>([elem getRowDataAt:rowSet-1 atSlice:sliceGet atTimestep:tGet]);
-	float* pRowPost = static_cast<float_t *>([elem getRowDataAt:rowSet+1 atSlice:sliceGet atTimestep:tGet]);
+	pRow = [elem getRowDataAt:rowSet atSlice:sliceGet atTimestep:tGet];
+	float* pRowPre = [elem getRowDataAt:rowSet-1 atSlice:sliceGet atTimestep:tGet];
+	float* pRowPost = [elem getRowDataAt:rowSet+1 atSlice:sliceGet atTimestep:tGet];
 	pRun = pRow;
 	float *pRunPre = pRowPre;
 	float* pRunPost = pRowPost;
@@ -286,7 +314,7 @@
 	uint colGet = 11;
 	uint sliceGet = 9;
 	uint tGet = 2;
-	float *pCol = static_cast<float_t *>([elem getColDataAt:colGet atSlice:sliceGet atTimestep:tGet]);
+	float *pCol = [elem getColDataAt:colGet atSlice:sliceGet atTimestep:tGet];
 	float *pRun = pCol;
 	for (uint r=0; r < rows; r++){
 		STAssertEquals((float)*pRun++, (float)colGet+sliceGet+tGet+r, @"Col value not as expected");
@@ -301,9 +329,9 @@
 	//************setColData
 	[elem setColAt:colSet atSlice:sliceGet atTimestep:tGet withData:dataBuff2];
 	//	
-	pCol = static_cast<float_t *>([elem getColDataAt:colSet atSlice:sliceGet atTimestep:tGet]);
-	float* pColPre = static_cast<float_t *>([elem getColDataAt:colSet-1 atSlice:sliceGet atTimestep:tGet]);
-	float* pColPost = static_cast<float_t *>([elem getColDataAt:colSet+1 atSlice:sliceGet atTimestep:tGet]);
+	pCol = [elem getColDataAt:colSet atSlice:sliceGet atTimestep:tGet];
+	float* pColPre = [elem getColDataAt:colSet-1 atSlice:sliceGet atTimestep:tGet];
+	float* pColPost = [elem getColDataAt:colSet+1 atSlice:sliceGet atTimestep:tGet];
 	pRun = pCol;
 	float *pRunPre = pColPre;
 	float *pRunPost = pColPost;
@@ -318,9 +346,92 @@
 	free(dataBuff2);
 	
 	
+	
+	
 	[elem release];
 	
 		
+
+}
+
+-(void)testGetTimeSeriesDataAt
+{
+	uint rows = 17;
+	uint cols = 31;
+	uint sl = 10;
+	uint tsteps = 11;
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:rows andCols:cols andSlices:sl andTimesteps:tsteps	];
+	for (uint t=0; t < tsteps; t++){
+		for (uint s=0; s < sl; s++){
+			for (uint c=0; c < cols; c++){
+				for (uint r=0; r < rows; r++){
+					[elem setVoxelValue:[NSNumber numberWithFloat:r+c+s+t] atRow:r col:c slice:s timestep:t];
+				}}}}
+	
+	
+	//************getTimeSeriesData - working case complete
+	uint colGet = 16;
+	uint rowGet = 12;
+	uint sliceGet = 8;
+	uint tstart = 0;
+	uint tend = 10;
+	float *pTimeSeries = [elem getTimeseriesDataAtRow:rowGet atCol:colGet atSlice:sliceGet fromTimestep:tstart toTimestep:tend];
+	float *pRun = pTimeSeries;
+	for (uint t = 0; t < tend-tstart+1; t++){
+		STAssertEquals((float)*pRun++, (float)colGet+sliceGet+rowGet+tstart+t, @"Timeseries - working case value not as expected");
+	}
+	free(pTimeSeries);
+	
+	//************getTimeSeriesData - working case range
+	tstart = 3;
+	tend = 7;
+	pTimeSeries = [elem getTimeseriesDataAtRow:rowGet atCol:colGet atSlice:sliceGet fromTimestep:tstart toTimestep:tend];
+	pRun = pTimeSeries;
+	for (uint t = 0; t < tend-tstart+1; t++){
+		STAssertEquals((float)*pRun++, (float)colGet+sliceGet+rowGet+tstart+t, @"Timeseries - working case range value not as expected");
+	}
+	free(pTimeSeries);
+	//************setTimeSeriesData - limit values
+	tstart = 0;
+	tend = 1;
+	pTimeSeries = [elem getTimeseriesDataAtRow:rowGet atCol:colGet atSlice:sliceGet fromTimestep:tstart toTimestep:tend];
+	pRun = pTimeSeries;
+	for (uint t = 0; t < tend-tstart+1; t++){
+		STAssertEquals((float)*pRun++, (float)colGet+sliceGet+rowGet+tstart+t, @"Timeseries - working case range value not as expected");
+	}
+	free(pTimeSeries);
+	tstart = 9;
+	tend = 10;
+	pTimeSeries = [elem getTimeseriesDataAtRow:rowGet atCol:colGet atSlice:sliceGet fromTimestep:tstart toTimestep:tend];
+	pRun = pTimeSeries;
+	for (uint t = 0; t < tend-tstart+1; t++){
+		STAssertEquals((float)*pRun++, (float)colGet+sliceGet+rowGet+tstart+t, @"Timeseries - working case range value not as expected");
+	}
+	free(pTimeSeries);
+	
+//	//************setTimeSeriesData - out of sizes 
+//	tstart = 0;
+//	tend = 0;
+//	pTimeSeries = [elem getTimeseriesDataAtRow:rowGet atCol:colGet atSlice:sliceGet fromTimestep:tstart toTimestep:tend];
+//	STAssertEquals(pTimeSeries, (float*) NULL,  @"Timeseries - end time equals start time not returning NULL");
+//	
+//	tstart = 10;
+//	tend = 2;
+//	pTimeSeries = [elem getTimeseriesDataAtRow:rowGet atCol:colGet atSlice:sliceGet fromTimestep:tstart toTimestep:tend];
+//	STAssertEquals(pTimeSeries,(float*) NULL, @"Timeseries - end time earlier start time not returning NULL");
+//	
+//	tstart = -2;
+//	tend = 3;
+//	pTimeSeries = [elem getTimeseriesDataAtRow:rowGet atCol:colGet atSlice:sliceGet fromTimestep:tstart toTimestep:tend];
+//	STAssertEquals(pTimeSeries, (float*) NULL, @"Timeseries - negative time not returning NULL");
+//	
+//	tstart = 0;
+//	tend = 11;
+//	pTimeSeries = [elem getTimeseriesDataAtRow:rowGet atCol:colGet atSlice:sliceGet fromTimestep:tstart toTimestep:tend];
+//	STAssertEquals(pTimeSeries, (float*) NULL, @"Timeseries - end time not matching timesteps not returning NULL");
+	
+	
+	[elem release];
 
 }
 

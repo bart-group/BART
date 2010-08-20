@@ -56,6 +56,8 @@
 
 @interface BADataElement (AbstractMethods)
 
+-(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
+
 -(short)getShortVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t;
 
 -(float)getFloatVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t;
@@ -72,7 +74,7 @@
 
 -(id)getImageProperty:(enum ImagePropertyID)key;
 
--(float*)getDataFromSlice:(int)sliceNr atTimestep:(uint)tstep;
+-(float*)getSliceData:(uint)sliceNr atTimestep:(uint)tstep;
 
 -(float*)getRowDataAt:(uint)row atSlice:(uint)sl atTimestep:(uint)tstep;
 
