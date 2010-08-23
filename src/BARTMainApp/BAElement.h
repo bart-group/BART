@@ -17,7 +17,10 @@ enum ImageType {
 
 enum ImageDataType {
     IMAGE_DATA_FLOAT,
-    IMAGE_DATA_SHORT
+    IMAGE_DATA_SHORT,
+	IMAGE_DATA_BYTE,
+	IMAGE_DATA_UBYTE,
+	IMAGE_DATA_USHORT
 };
 
 enum ImagePropertyID{

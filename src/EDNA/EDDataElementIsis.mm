@@ -41,6 +41,9 @@
         NSLog(@"hmmm, several pics in one image");
 	}
 	
+	//get the type of the orig image
+	dataTypeID = (*(mIsisImageList.front())).getChunkAt(0).typeID();
+	
 	// make a real copy including conversion to float
 	isis::data::MemImage<float> memImg = (*(mIsisImageList.front()));
 	// give this copy to our class element
@@ -119,13 +122,57 @@
 
 -(void)WriteDataElementToFile:(NSString*)path
 {
+	isis::data::ImageList imgList;
+	//dataTypeID = isis::data::TypePtr<int8_t>::staticID;
 	
-	mIsisImage.print(std::cout, true);
-	isis::data::MemImage<uint16_t> img(mIsisImage);
-	img.print(std::cout, true);
-	
-	//isis::data::ImageList imageList(mChunkList);
-	//isis::data::IOFactory::write( iList, [path cStringUsingEncoding:NSUTF8StringEncoding], "" );
+	switch (dataTypeID) {
+		case isis::data::TypePtr<int8_t>::staticID:
+		{
+			imgList.push_back( (boost::shared_ptr<isis::data::Image>) new isis::data::TypedImage<int8_t> (mIsisImage));
+			break;
+		}
+		case isis::data::TypePtr<u_int8_t>::staticID:
+		{
+			imgList.push_back( (boost::shared_ptr<isis::data::Image>) new isis::data::TypedImage<u_int8_t> (mIsisImage));
+			break;
+		}
+		case isis::data::TypePtr<int16_t>::staticID:
+		{
+			imgList.push_back( (boost::shared_ptr<isis::data::Image>) new isis::data::TypedImage<int16_t> (mIsisImage));
+			break;
+		}
+		case isis::data::TypePtr<u_int16_t>::staticID:
+		{
+			imgList.push_back( (boost::shared_ptr<isis::data::Image>) new isis::data::TypedImage<u_int16_t> (mIsisImage));
+			break;
+		}
+		case isis::data::TypePtr<int32_t>::staticID:
+		{
+			imgList.push_back( (boost::shared_ptr<isis::data::Image>) new isis::data::TypedImage<int32_t> (mIsisImage));
+			break;
+		}
+		case isis::data::TypePtr<u_int32_t>::staticID:
+		{
+			imgList.push_back( (boost::shared_ptr<isis::data::Image>) new isis::data::TypedImage<u_int32_t> (mIsisImage));
+			break;
+		}
+		case isis::data::TypePtr<float>::staticID:
+		{
+			imgList.push_back( (boost::shared_ptr<isis::data::Image>) new isis::data::TypedImage<float> (mIsisImage));
+			break;
+		}
+		case isis::data::TypePtr<double>::staticID:
+		{
+			imgList.push_back( (boost::shared_ptr<isis::data::Image>) new isis::data::TypedImage<double> (mIsisImage));
+			break;
+		}
+			
+		default:
+			NSLog(@"writeDataElementToFile failed due to unknown data type");
+			return;
+	}
+
+	isis::data::IOFactory::write( imgList, [path cStringUsingEncoding:NSUTF8StringEncoding], "", "" );
 }
 
 -(BOOL)sliceIsZero:(int)slice
@@ -286,7 +333,7 @@
 		uint nrTimesteps = tend-tstart+1;
 		isis::data::MemChunkNonDel<float> chTimeSeries(nrTimesteps, 1);
 		for (uint i = tstart; i < tend+1; i++){
-			chTimeSeries.voxel<float>(i-tstart,0) = mIsisImage.getChunk(0,0,sl,i, false).voxel<float>(row, col);}
+			chTimeSeries.voxel<float>(i-tstart,0) = mIsisImage.getChunk(0,0,sl,i, false).voxel<float>(col, row);}
 		return (( boost::shared_ptr<float> ) chTimeSeries.getTypePtr<float>()).get();
 	}
 	return NULL;

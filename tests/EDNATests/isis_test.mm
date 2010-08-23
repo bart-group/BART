@@ -36,13 +36,15 @@ int main(void)
 	uint tGet = 2;
 	float *pSlice = [elem getSliceData:sliceGet	atTimestep:tGet ];
 	float* pRun = pSlice;
-	for (uint i = 0; i < cols; i++){
-		for (uint j = 0; j < rows; j++){
+	for (uint i = 0; i < rows; i++){
+		for (uint j = 0; j < cols; j++){
 			NSLog(@"%.2f", (float)*pRun++);
 			NSLog(@"%.2f", (float)sliceGet+tGet+i+j);		}
 	}
 	free(pSlice);
 	
+	
+	[elem WriteDataElementToFile:@"/tmp/firstwrittentestfile.nii"];
 	
 	[elem release];
 	

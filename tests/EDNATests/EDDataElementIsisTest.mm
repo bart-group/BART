@@ -194,8 +194,8 @@
 	uint tGet = 2;
 	float *pSlice = [elem getSliceData:sliceGet	atTimestep:tGet ];
 	float* pRun = pSlice;
-	for (uint i = 0; i < cols; i++){
-		for (uint j = 0; j < rows; j++){
+	for (uint i = 0; i < rows; i++){
+		for (uint j = 0; j < cols; j++){
 			STAssertEquals((float)*pRun++, (float)sliceGet+tGet+i+j, @"Slice value not as expected");
 		}
 	}
@@ -206,8 +206,8 @@
 	tGet = 6;
 	pSlice = [elem getSliceData:sliceGet atTimestep:tGet ];
 	pRun = pSlice;
-	for (uint i = 0; i < cols; i++){
-		for (uint j = 0; j < rows; j++){
+	for (uint i = 0; i < rows; i++){
+		for (uint j = 0; j < cols; j++){
 			STAssertEquals((float)*pRun++, (float)sliceGet+tGet+i+j, @"Slice value not as expected");
 		}
 	}
@@ -218,8 +218,8 @@
 	tGet = 6;
 	pSlice = [elem getSliceData:sliceGet atTimestep:tGet ];
 	pRun = pSlice;
-	for (uint i = 0; i < cols; i++){
-		for (uint j = 0; j < rows; j++){
+	for (uint i = 0; i < rows; i++){
+		for (uint j = 0; j < cols; j++){
 			STAssertEquals((float)*pRun++, (float)sliceGet+tGet+i+j, @"Slice value not as expected");
 		}
 	}
@@ -409,26 +409,26 @@
 	}
 	free(pTimeSeries);
 	
-//	//************setTimeSeriesData - out of sizes 
-//	tstart = 0;
-//	tend = 0;
-//	pTimeSeries = [elem getTimeseriesDataAtRow:rowGet atCol:colGet atSlice:sliceGet fromTimestep:tstart toTimestep:tend];
-//	STAssertEquals(pTimeSeries, (float*) NULL,  @"Timeseries - end time equals start time not returning NULL");
-//	
-//	tstart = 10;
-//	tend = 2;
-//	pTimeSeries = [elem getTimeseriesDataAtRow:rowGet atCol:colGet atSlice:sliceGet fromTimestep:tstart toTimestep:tend];
-//	STAssertEquals(pTimeSeries,(float*) NULL, @"Timeseries - end time earlier start time not returning NULL");
-//	
-//	tstart = -2;
-//	tend = 3;
-//	pTimeSeries = [elem getTimeseriesDataAtRow:rowGet atCol:colGet atSlice:sliceGet fromTimestep:tstart toTimestep:tend];
-//	STAssertEquals(pTimeSeries, (float*) NULL, @"Timeseries - negative time not returning NULL");
-//	
-//	tstart = 0;
-//	tend = 11;
-//	pTimeSeries = [elem getTimeseriesDataAtRow:rowGet atCol:colGet atSlice:sliceGet fromTimestep:tstart toTimestep:tend];
-//	STAssertEquals(pTimeSeries, (float*) NULL, @"Timeseries - end time not matching timesteps not returning NULL");
+	//************setTimeSeriesData - out of sizes 
+	tstart = 0;
+	tend = 0;
+	pTimeSeries = [elem getTimeseriesDataAtRow:rowGet atCol:colGet atSlice:sliceGet fromTimestep:tstart toTimestep:tend];
+	STAssertEquals(pTimeSeries, (float*) NULL,  @"Timeseries - end time equals start time not returning NULL");
+	
+	tstart = 10;
+	tend = 2;
+	pTimeSeries = [elem getTimeseriesDataAtRow:rowGet atCol:colGet atSlice:sliceGet fromTimestep:tstart toTimestep:tend];
+	STAssertEquals(pTimeSeries,(float*) NULL, @"Timeseries - end time earlier start time not returning NULL");
+	
+	tstart = -2;
+	tend = 3;
+	pTimeSeries = [elem getTimeseriesDataAtRow:rowGet atCol:colGet atSlice:sliceGet fromTimestep:tstart toTimestep:tend];
+	STAssertEquals(pTimeSeries, (float*) NULL, @"Timeseries - negative time not returning NULL");
+	
+	tstart = 0;
+	tend = 11;
+	pTimeSeries = [elem getTimeseriesDataAtRow:rowGet atCol:colGet atSlice:sliceGet fromTimestep:tstart toTimestep:tend];
+	STAssertEquals(pTimeSeries, (float*) NULL, @"Timeseries - end time not matching timesteps not returning NULL");
 	
 	
 	[elem release];

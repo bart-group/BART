@@ -21,6 +21,9 @@
     unsigned int numberTimesteps;
     //enum ImageType imageType;
     enum ImageDataType imageDataType;
+	
+	uint dataTypeID;
+	
     
     unsigned int repetitionTimeInMs;
    // NSArray *allDatasetProperties;
@@ -35,6 +38,7 @@
 @property (readonly, assign) unsigned int numberSlices; 
 @property (readonly, assign) unsigned int numberTimesteps;
 @property (readonly, assign) enum ImageDataType imageDataType;
+@property (readonly, assign) uint dataTypeID;
 
 
 
@@ -73,6 +77,11 @@
 -(void)setImageProperty:(enum ImagePropertyID)key withValue:(id) value;
 
 -(id)getImageProperty:(enum ImagePropertyID)key;
+
+/*
+ *
+ * Attention: when running through the result buffer, col is the fastest running index, i.e. get the data row by row
+ */
 
 -(float*)getSliceData:(uint)sliceNr atTimestep:(uint)tstep;
 

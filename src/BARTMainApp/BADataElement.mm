@@ -18,6 +18,8 @@
 @synthesize numberSlices;
 @synthesize numberTimesteps;
 @synthesize imageDataType;
+@synthesize dataTypeID;
+
  
 
 -(id)initWith:(NSArray*) aType
