@@ -58,7 +58,7 @@
     repetitionTimeInMs = (mIsisImage.getProperty<isis::util::fvector4>("voxelSize"))[3];
 	
 	// the image type is now just important for writing
-	imageDataType = type;
+	
  	return self;
 }
 
@@ -70,8 +70,8 @@
         numberRows = rows;
         numberSlices = slices;
         numberTimesteps = tsteps;
-        imageDataType = type;
-    }
+		dataTypeID = isis::data::TypePtr<float>::staticID;
+	}
     
 	// empty isis image
     mIsisImage = isis::data::Image();
@@ -118,9 +118,12 @@
 		mIsisImage.voxel<float>(c,r,sl,t) = [val floatValue];}
 }
 
-
-
 -(void)WriteDataElementToFile:(NSString*)path
+{
+	[self WriteDataElementToFile:path withOverwritingSuffix:@"" andDialect:@""];
+}
+
+-(void)WriteDataElementToFile:(NSString*)path withOverwritingSuffix:(NSString*)suffix andDialect:(NSString*)dialect
 {
 	isis::data::ImageList imgList;
 	//dataTypeID = isis::data::TypePtr<int8_t>::staticID;
@@ -172,7 +175,7 @@
 			return;
 	}
 
-	isis::data::IOFactory::write( imgList, [path cStringUsingEncoding:NSUTF8StringEncoding], "", "" );
+	isis::data::IOFactory::write( imgList, [path cStringUsingEncoding:NSUTF8StringEncoding], [suffix cStringUsingEncoding:NSUTF8StringEncoding], [dialect cStringUsingEncoding:NSUTF8StringEncoding] );
 }
 
 -(BOOL)sliceIsZero:(int)slice
@@ -397,6 +400,23 @@
 		return YES;}
 	return NO;
 
+}
+
+-(void)copyProps:(NSArray*)propList fromDataElement:(BADataElement*)srcElement
+{
+	for (NSString *str in propList) {
+		NSLog(@"%@", str);
+		
+	}
+}
+
+-(void)copyProps:(NSDictionary*)propDic
+{
+}
+
+-(NSDictionary*)getProps:(NSArray*)propList
+{
+	return nil;
 }
 
 @end

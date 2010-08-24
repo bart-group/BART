@@ -19,15 +19,11 @@
     unsigned int numberCols;
     unsigned int numberSlices;
     unsigned int numberTimesteps;
-    //enum ImageType imageType;
-    enum ImageDataType imageDataType;
-	
 	uint dataTypeID;
 	
     
     unsigned int repetitionTimeInMs;
-   // NSArray *allDatasetProperties;
-    NSDictionary *imagePropertiesMap;
+	NSDictionary *imagePropertiesMap;
     
     
     
@@ -72,6 +68,8 @@
 
 -(void)WriteDataElementToFile:(NSString*)path;
 
+-(void)WriteDataElementToFile:(NSString*)path withOverwritingSuffix:(NSString*)suffix andDialect:(NSString*)dialect;
+
 -(BOOL)sliceIsZero:(int)slice;
 
 -(void)setImageProperty:(enum ImagePropertyID)key withValue:(id) value;
@@ -97,8 +95,10 @@
 
 -(void)print;
 
+-(void)copyProps:(NSArray*)propList fromDataElement:(BADataElement*)srcElement;
 
+-(void)copyProps:(NSDictionary*)propDic;
 
-
+-(NSDictionary*)getProps:(NSArray*)propList;
 
 @end

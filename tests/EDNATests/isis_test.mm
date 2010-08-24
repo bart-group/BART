@@ -44,7 +44,9 @@ int main(void)
 	free(pSlice);
 	
 	
-	[elem WriteDataElementToFile:@"/tmp/firstwrittentestfile.nii"];
+	//[elem WriteDataElementToFile:@"/tmp/firstwrittentestfile.nii"];
+	NSArray* propList = [NSArray arrayWithObjects:@"prop1", @"prop2", @"prop3", nil];
+	[elem copyProps:propList fromDataElement:elem];
 	
 	[elem release];
 	
