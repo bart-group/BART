@@ -20,7 +20,7 @@
     unsigned int numberSlices;
     unsigned int numberTimesteps;
 	uint dataTypeID;
-	
+	enum ImageDataType imageDataType;
     
     unsigned int repetitionTimeInMs;
 	NSDictionary *imagePropertiesMap;
@@ -97,8 +97,8 @@
 
 -(void)copyProps:(NSArray*)propList fromDataElement:(BADataElement*)srcElement;
 
--(void)copyProps:(NSDictionary*)propDic;
-
 -(NSDictionary*)getProps:(NSArray*)propList;
+
+-(void)setProps:(NSDictionary*)propDict;
 
 @end
