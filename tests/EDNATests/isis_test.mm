@@ -32,21 +32,35 @@ int main(void)
 				}}}}
 	
 	//normal case
-	uint sliceGet = 3;
-	uint tGet = 2;
-	float *pSlice = [elem getSliceData:sliceGet	atTimestep:tGet ];
-	float* pRun = pSlice;
-	for (uint i = 0; i < rows; i++){
-		for (uint j = 0; j < cols; j++){
-			NSLog(@"%.2f", (float)*pRun++);
-			NSLog(@"%.2f", (float)sliceGet+tGet+i+j);		}
-	}
-	free(pSlice);
-	
-	
+//	uint sliceGet = 3;
+//	uint tGet = 2;
+//	float *pSlice = [elem getSliceData:sliceGet	atTimestep:tGet ];
+//	float* pRun = pSlice;
+//	for (uint i = 0; i < rows; i++){
+//		for (uint j = 0; j < cols; j++){
+//			NSLog(@"%.2f", (float)*pRun++);
+//			NSLog(@"%.2f", (float)sliceGet+tGet+i+j);		}
+//	}
+//	free(pSlice);
+//	
+//	
 	//[elem WriteDataElementToFile:@"/tmp/firstwrittentestfile.nii"];
-	NSArray* propList = [NSArray arrayWithObjects:@"prop1", @"prop2", @"prop3", nil];
-	[elem copyProps:propList fromDataElement:elem];
+	
+	NSNumber *nr = [NSNumber numberWithFloat:1.6];
+	NSDictionary *propDict = [[NSDictionary alloc] initWithObjectsAndKeys: nr, @"acquisitionNumber", @"testValue", @"testProp", nil];
+
+	NSArray* propList = [NSArray arrayWithObjects:@"acquisitionNumber", @"testProp", @"prop3", nil];
+	[elem setProps:propDict];
+	
+	NSDictionary * propDictReturn = [elem getProps:propList];
+	for (NSString *str in [propDictReturn allKeys]){
+		NSLog(@"%@", [propDictReturn objectForKey:str]);}
+	
+	
+	
+	//[elem copyProps:propList fromDataElement:elem];
+	
+	
 	
 	[elem release];
 	

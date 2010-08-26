@@ -404,19 +404,115 @@
 
 -(void)copyProps:(NSArray*)propList fromDataElement:(BADataElement*)srcElement
 {
-	for (NSString *str in propList) {
-		NSLog(@"%@", str);
-		
-	}
+	[self setProps: [srcElement getProps:propList]];
 }
 
--(void)copyProps:(NSDictionary*)propDic
-{
-}
 
 -(NSDictionary*)getProps:(NSArray*)propList
 {
-	return nil;
+	NSMutableArray *propValues = [[NSMutableArray alloc] init];
+	for (NSString *str in propList) {				// type is fvector4
+		if ( [[str lowercaseString] isEqualToString:@"indexorigin"]
+		or [[str lowercaseString] isEqualToString:@"readvec"]
+		or [[str lowercaseString] isEqualToString:@"phasevec"]
+		or [[str lowercaseString] isEqualToString:@"slicevec"]
+		or [[str lowercaseString] isEqualToString:@"capos"]
+		or [[str lowercaseString] isEqualToString:@"cppos"]
+		or [[str lowercaseString] isEqualToString:@"voxelsize"]
+		or [[str lowercaseString] isEqualToString:@"voxelgap"])
+		{
+			isis::util::fvector4 prop = mIsisImage.getProperty<isis::util::fvector4>([str cStringUsingEncoding:NSUTF8StringEncoding]);
+			NSArray* ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:prop[0]], [NSNumber numberWithFloat:prop[1]], [NSNumber numberWithFloat:prop[2]], [NSNumber numberWithFloat:prop[3]], nil ] autorelease];
+			[propValues addObject:ret];
+		}
+		else if( [[str lowercaseString] isEqualToString:@"acquisitionnumber"]) //type is u_int32_t
+		{
+			u_int32_t prop = mIsisImage.getProperty<u_int32_t>([str cStringUsingEncoding:NSUTF8StringEncoding]);
+			NSArray* ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithUnsignedLong:prop], nil ] autorelease];
+			[propValues addObject:ret];
+		}
+		else if ( [[str lowercaseString] isEqualToString:@"repetitiontime"]	// type is u_int16_t
+		or   [[str lowercaseString] isEqualToString:@"sequencenumber"]
+		or   [[str lowercaseString] isEqualToString:@"subjectage"]
+		or   [[str lowercaseString] isEqualToString:@"subjectweight"]
+		or   [[str lowercaseString] isEqualToString:@"flipangle"]
+		or   [[str lowercaseString] isEqualToString:@"numberofaverages"] )
+		{
+			u_int16_t prop = mIsisImage.getProperty<u_int16_t>([str cStringUsingEncoding:NSUTF8StringEncoding]);
+			NSArray* ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithUnsignedInt:prop], nil ] autorelease];
+			[propValues addObject:ret];
+		}
+		else if ( [[str lowercaseString] isEqualToString:@"echotime"]	 // type is float
+		or   [[str lowercaseString] isEqualToString:@"acquisitiontime"] )
+		{
+			float prop = mIsisImage.getProperty<float>([str cStringUsingEncoding:NSUTF8StringEncoding]);
+			NSArray* ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:prop], nil ] autorelease];
+			[propValues addObject:ret];
+		}
+		else									// everything else is interpreted as string (conversion by isis)
+		{
+			std::string prop = mIsisImage.getProperty<std::string>([str cStringUsingEncoding:NSUTF8StringEncoding]);
+			NSArray* ret = [[[NSArray alloc] initWithObjects:[NSString stringWithUTF8String:prop.c_str()], nil ] autorelease];
+			[propValues addObject:ret];
+		}
+	} 
+		
+	NSDictionary *propDict = [[NSDictionary alloc] initWithObjects:propValues forKeys:propList];
+	return propDict;
+}
+
+-(void)setProps:(NSDictionary*)propDict
+{
+	
+	for (NSString *str in [propDict allKeys]) {		// type is fvector4
+		if ( [[str lowercaseString] isEqualToString:@"indexorigin"]
+			or [[str lowercaseString] isEqualToString:@"readvec"]
+			or [[str lowercaseString] isEqualToString:@"phasevec"]
+			or [[str lowercaseString] isEqualToString:@"slicevec"]
+			or [[str lowercaseString] isEqualToString:@"capos"]
+			or [[str lowercaseString] isEqualToString:@"cppos"]
+			or [[str lowercaseString] isEqualToString:@"voxelsize"]
+			or [[str lowercaseString] isEqualToString:@"voxelgap"])
+		{
+			isis::util::fvector4 prop;
+			if (YES == [[propDict objectForKey:str] isKindOfClass:[NSArray class]]){
+				for (unsigned int i = 0; i < [[propDict objectForKey:str] count]; i++){
+					prop[i] = [[[propDict objectForKey:str] objectAtIndex:i] floatValue];}
+				mIsisImage.setProperty<isis::util::fvector4>([str cStringUsingEncoding: NSUTF8StringEncoding], prop);
+			}
+		}
+		else if( [[str lowercaseString] isEqualToString:@"acquisitionnumber"]) //type is u_int32_t
+		{
+			if (YES == [[propDict objectForKey:str] isKindOfClass:[NSNumber class]]){
+				u_int32_t prop = [[propDict objectForKey:str] unsignedLongValue];
+				mIsisImage.setProperty<u_int32_t>([str cStringUsingEncoding: NSUTF8StringEncoding], prop);}
+		}
+		else if ( [[str lowercaseString] isEqualToString:@"repetitiontime"] // type is u_int16_t
+			or   [[str lowercaseString] isEqualToString:@"sequencenumber"]
+			or   [[str lowercaseString] isEqualToString:@"subjectage"]
+			or   [[str lowercaseString] isEqualToString:@"subjectweight"]
+			or   [[str lowercaseString] isEqualToString:@"flipangle"]
+			or   [[str lowercaseString] isEqualToString:@"numberofaverages"] )
+		{
+			if (YES == [[propDict objectForKey:str] isKindOfClass:[NSNumber class]]){
+				u_int16_t prop = [[propDict objectForKey:str] unsignedIntValue];
+				mIsisImage.setProperty<u_int16_t>([str cStringUsingEncoding: NSUTF8StringEncoding], prop);}
+		}
+		else if ( [[str lowercaseString] isEqualToString:@"echotime"]  // type is float
+			or   [[str lowercaseString] isEqualToString:@"acquisitiontime"] )
+		{
+			if (YES == [[propDict objectForKey:str] isKindOfClass:[NSNumber class]]){
+				float prop = [[propDict objectForKey:str] floatValue];
+				mIsisImage.setProperty<float>([str cStringUsingEncoding: NSUTF8StringEncoding], prop);}
+		}
+		else									// everything else is interpreted as string (conversion by isis)
+ 		{
+			if (YES == [[propDict objectForKey:str] isKindOfClass:[NSString class]]){
+				std::string prop = [[propDict objectForKey:str] cStringUsingEncoding:NSUTF8StringEncoding];
+				mIsisImage.setProperty<std::string>([str cStringUsingEncoding: NSUTF8StringEncoding], prop);}
+		}
+	} 
+	
 }
 
 @end
