@@ -59,7 +59,7 @@
 
 -(void)testImageProperties
 {
-
+	
 	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:39 andCols:19 andSlices:2 andTimesteps:190];
 	EDDataElementIsis *elemDest = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:19 andCols:29 andSlices:1 andTimesteps:90];
 	STAssertNotNil(elem, @"valid init returns nil");
@@ -67,22 +67,21 @@
 	
 	// get empty list
 	NSArray *propListi = [NSArray arrayWithObjects:nil];
-	STAssertNil([elem getProps:propListi], @"empty list for getProps not returning nil");
+	STAssertEquals([[elem getProps:propListi] count], (NSUInteger) 0, @"empty list for getProps not returning zero size dict");
 	STAssertNoThrow([elem setProps:nil], @"empty dict for setProps throws exception");
 	
 	//strings
 	NSString *s1 = @"MyName is bunny";
 	NSString *s2 = @"Subject";
+
 	
+	NSArray *propList = [NSArray arrayWithObjects:@"prop1",@"prop2", nil];
 	NSDictionary *propDictSet = [NSDictionary dictionaryWithObjectsAndKeys:s1, @"prop1", s2, @"prop2", nil];
 	STAssertNoThrow([elem setProps:propDictSet], @"");
-	
-	
-	STAssertNil([elem getProps:propListi], @"empty list for getProps not returning nil");
-	NSArray *propList = [NSArray arrayWithObjects:@"prop1",@"prop2",nil];
+	STAssertEquals([[elem getProps:propListi] count], (NSUInteger)0, @"empty list for getProps not returning zero sice dict");
 	NSDictionary *propDictGet = [elem getProps:propList];
 	for (NSString* str in [propDictGet allKeys]){
-		STAssertEqualObjects([propDictGet objectForKey:str], [propDictSet objectForKey:str], @"set and get Props differ");}
+		STAssertEqualObjects([propDictSet valueForKey:str], [propDictGet valueForKey:str] , @"set and get Props differ");}
 	
 
 	// the special ones
@@ -103,7 +102,9 @@
 	NSNumber *na = [NSNumber numberWithInt:66];
 	NSNumber *echoTime = [NSNumber numberWithFloat:12.7];
 	NSNumber *acqtime = [NSNumber numberWithFloat:11.231];
-
+	
+	
+	
 	NSDictionary *propDictSet2 = [NSDictionary dictionaryWithObjectsAndKeys:s1, @"prop1",
 								  s2, @"prop2",
 								  readVec, @"readVec", 
@@ -115,8 +116,8 @@
 								  capos, @"capos",
 								  voxelGap, @"voxelGap", 
 								  acqNr, @"acquisitionNumber",
-								  seqNr, @"seqNr",
-								  rt, @"repetionTime",
+								  seqNr, @"sequenceNumber",
+								  rt, @"repetitionTime",
 								  sa, @"subjectAge",
 								  sw, @"subjectWEIGHT",
 								  fa, @"flipAngle",
@@ -129,15 +130,15 @@
 							 @"numberOfAverages",
 							 @"prop2",
 							 @"readVec", 
-							 @"phas	eVec", 
+							 @"phaseVec", 
 							 @"slicevec", 
 							 @"voxelSize",
 							 @"indexOrigin", 
 							 @"cppos",
 							 @"voxelGap", 
 							 @"acquisitionNumber",
-							 @"seqNr",
-							 @"repetionTime",
+							 @"sequenceNumber",
+							 @"repetitionTime",
 							 @"capos",
 							 @"subjectAge",
 							 @"subjectWEIGHT",
@@ -150,85 +151,51 @@
 	[elem setProps:propDictSet2];
 	NSDictionary *propDictGet2 = [elem getProps:propListGet2];
 	for (NSString* str in [propDictGet2 allKeys]){
-		STAssertEqualObjects([propDictGet2 objectForKey:str], [propDictSet2 objectForKey:str], @"set and get Props differ");}
+		STAssertEqualObjects([propDictGet2 valueForKey:str], [propDictSet2 valueForKey:str], [NSString stringWithFormat:@"set and get Props differ for %@", str]);}
 	
 	
 	// not a prop
 	NSArray *propListGet3 = [NSArray arrayWithObjects:
 							 @"something not defined", nil];
 	NSDictionary *propDictGet3 = [elem getProps:propListGet3];
-	STAssertEquals([propDictGet3 objectForKey:@"something not defined"], @"", @"not defined prop returns not an empty string");
+	STAssertEqualObjects([propDictGet3 valueForKey:@"something not defined"], @"", @"not defined prop returns not an empty string");
+
+	// copy from one data element to another one
 	
+	[elemDest copyProps:propListGet2 fromDataElement:elem];
+	NSDictionary *propDictGetDest = [elemDest getProps:propListGet2];
+	for (NSString* str in [propDictGetDest allKeys]){
+		STAssertEqualObjects([propDictGetDest valueForKey:str], [propDictSet2 valueForKey:str], [NSString stringWithFormat:@"copy Props differ for %@", str]);}
 	
 	//vectoren länge 1, 5
 	NSArray *arrayLength1 = [NSArray arrayWithObjects:[NSNumber numberWithFloat:18.8], nil];
 	NSArray *arrayLength5 = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.3], [NSNumber numberWithFloat:0.1], 
-													  [NSNumber numberWithFloat:0.9], [NSNumber numberWithFloat:19], 
-													  [NSNumber numberWithFloat:34], nil];
-
+							 [NSNumber numberWithFloat:0.9], [NSNumber numberWithFloat:19], 
+							 [NSNumber numberWithFloat:34], nil];
+	
 	NSArray *propListGet4 = [NSArray arrayWithObjects:
 							 @"indexOrigin", 
 							 @"sliceVec", nil];
 	
 	
 	NSDictionary *propDictSet4 = [NSDictionary dictionaryWithObjectsAndKeys:
-								 arrayLength1, @"sliceVec", 
-								 arrayLength5, @"indexOrigin", nil];
+								  arrayLength1, @"sliceVec", 
+								  arrayLength5, @"indexOrigin", nil];
 	[elem setProps:propDictSet4];
 	
 	NSDictionary *propDictGet4 = [elem getProps:propListGet4];
-	NSArray *retArrayLength1 = [propDictGet4 objectForKey:@"indexOrigin"];
-	STAssertEquals([retArrayLength1 count], 4, @"vector length 1 returns wrong array size");
+	NSArray *retArrayLength1 = [propDictGet4 valueForKey:@"sliceVec"];
+	STAssertEquals([retArrayLength1 count], (NSUInteger)4, @"vector length 1 returns wrong array size");
 	STAssertEqualObjects([retArrayLength1 objectAtIndex:0], [arrayLength1 objectAtIndex:0], @"vector length 1 not returning correct value");
 	for (uint i = 1; i < 4; i++){
 		STAssertEquals([[retArrayLength1 objectAtIndex:i] floatValue], (float) 0, @"vector length 1 not returning 0");}
 	
-	NSArray *retArrayLength5 = [propDictGet4 objectForKey:@"sliceVec"];
-	STAssertEquals([retArrayLength5 count], 4, @"vector length 5 returns wrong array size");
-	for (uint i = 0; i < 4; i++){
-		STAssertEqualObjects([retArrayLength5 objectAtIndex:0], [arrayLength5 objectAtIndex:0], @"vector length 5 not returning correct value");}
-		
-	
-	// copy from one data element to another one
-	[elemDest copyProps:propListGet2 fromDataElement:elem];
-	NSDictionary *propDictGetDest = [elemDest getProps:propListGet2];
-	for (NSString* str in [propDictGetDest allKeys]){
-		STAssertEqualObjects([propDictGetDest objectForKey:str], [propDictSet2 objectForKey:str], @"copy Props differ");}
+	NSArray *retArrayLength5 = [propDictGet4 valueForKey:@"indexOrigin"];
+	STAssertEquals([retArrayLength5 count], (NSUInteger) 4, @"vector length 5 returns wrong array size");
+	for (uint i = 1; i < 4; i++){
+		STAssertEquals([[retArrayLength5 objectAtIndex:0] floatValue], [[arrayLength5 objectAtIndex:0] floatValue], @"vector length 5 not returning correct value");}
 	
 	
-	
-	
-	//[elem setImageProperty:PROPID_NAME withValue:nameProp];
-//	[elem setImageProperty:PROPID_PATIENT withValue:patientProp];
-//	[elem setImageProperty:PROPID_READVEC withValue:readVec];
-//	[elem setImageProperty:PROPID_PHASEVEC withValue:phaseVec];
-//	[elem setImageProperty:PROPID_SLICEVEC withValue:sliceVec];
-//	[elem setImageProperty:PROPID_VOXELSIZE withValue:voxelSize];
-//	[elem setImageProperty:PROPID_ORIGIN withValue:indexOrigin];
-//	
-//	STAssertEqualObjects( [elem getImageProperty:PROPID_NAME], nameProp, @"PROPID_NAME does not match expected string");
-//	STAssertEqualObjects( [elem getImageProperty:PROPID_PATIENT], patientProp, @"PROPID_PATIENT does not match expected string");
-//	
-//	
-//	NSString *nameProp2 = @"";
-//	NSString *patientProp2 = @"";
-//	[elem setImageProperty:PROPID_NAME withValue:nameProp2];
-//	[elem setImageProperty:PROPID_PATIENT withValue:patientProp2];
-//	STAssertEqualObjects( [elem getImageProperty:PROPID_PATIENT], patientProp2, @"PROPID_PATIENT  does not match expected ");
-//	STAssertEqualObjects( [elem getImageProperty:PROPID_NAME], nameProp2, @"PROPID_NAME does not match expected string");
-//	
-//	
-//	STAssertEqualObjects( [elem getImageProperty:PROPID_READVEC], readVec, @"PROPID_READVEC  does not match expected vector");
-//	STAssertEqualObjects( [elem getImageProperty:PROPID_PHASEVEC], phaseVec, @"PROPID_PHASEVEC does not match expected vector");
-//	STAssertEqualObjects( [elem getImageProperty:PROPID_SLICEVEC], sliceVec, @"PROPID_SLICEVEC does not match expected vector");
-//	STAssertEqualObjects( [elem getImageProperty:PROPID_VOXELSIZE], voxelSize, @"PROPID_VOXELSIZE  does not match expected vector");
-//	STAssertEqualObjects( [elem getImageProperty:PROPID_ORIGIN], indexOriginR, @"PROPID_ORIGIN does not match expected vector");
-//	
-//	
-//	NSArray *emptyVec = [NSArray arrayWithObjects: nil];
-//	NSArray *zeroVec = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.0], nil];
-//	NSArray *toolongVec = [NSArray arrayWithObjects:[NSNumber numberWithFloat:-0.0], [NSNumber numberWithFloat:-123.986], [NSNumber numberWithFloat:78976.654], [NSNumber numberWithFloat:99.0], [NSNumber numberWithFloat:9.0], nil];
-//	
 	[elem release];
 	
 }
