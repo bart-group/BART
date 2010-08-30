@@ -7,7 +7,7 @@
 //
 
 #import "BARTApplicationAppDelegate.h"
-#import "BAGUIPrototyp.h"
+
 #import "NEDesignElementDyn.h"
 #import "COSystemConfig.h"
 
@@ -35,12 +35,14 @@
     
     //mRawDataElement = [[BADataElement alloc] initWithDatasetFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.v" ofImageDataType:IMAGE_DATA_SHORT];
     
-    mRawDataElement = [[BADataElement alloc] initWithDatasetFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset01-functional.nii" ofImageDataType:IMAGE_DATA_SHORT];
-    
+	
+    mRawDataElement = [[BADataElement alloc] initWithDatasetFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" ofImageDataType:IMAGE_DATA_SHORT];
+   // [mRawDataElement WriteDataElementToFile:@"/tmp/firstwrittentestfile.nii"];
     mDesignElement = [[BADesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	if (nil == mDesignElement){
 		return;}
     mCurrentTimestep = 50;
+	
 	
 	
     guiController = [guiController initWithDefault];

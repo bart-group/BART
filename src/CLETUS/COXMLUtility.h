@@ -23,7 +23,7 @@
  * So always check for existence of the error object instead of
  * existence of the NSXMLDocument object.
  *
- * \param fileURL URL of the desired EDL file.
+ * \param filePath URL of the desired EDL file.
  * \param error   Indirect returned error object if something went wrong.
  * \return        NSXMLDocument instance that represents 
  *                the content of the XML file.

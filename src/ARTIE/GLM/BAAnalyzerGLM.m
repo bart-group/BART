@@ -41,7 +41,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 {
     if (self = [super init]) {
         slidingWindowSize = 40;
-        mSlidingWindowAnalysis = YES;
+        mSlidingWindowAnalysis = NO;
     }
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(OnNewData:) name:@"MessageName" object:nil];
     return self;
