@@ -20,6 +20,8 @@
 		0006297911A5713200D369D0 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
 		00062A1C11A58E4100D369D0 /* BADataElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 0040B7A31141470400A57967 /* BADataElement.h */; };
 		00062A1E11A58E4500D369D0 /* BAElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 0040B7AF1141470400A57967 /* BAElement.h */; };
+		0006F439122BEF4F001DA2BB /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C39FF11144FB2100725668 /* CLETUS.dylib */; };
+		0006F43A122BEF54001DA2BB /* libEDNA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 007CD3DB11A042C000E6B2BB /* libEDNA.a */; };
 		000F25ED121D82D40079C8E0 /* EDDataElementIsisTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0006284211A44D9300D369D0 /* EDDataElementIsisTest.mm */; };
 		000F25EE121D82D50079C8E0 /* EDDataElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006284411A44D9300D369D0 /* EDDataElementVITest.m */; };
 		0023A75811510D4C009182F8 /* edlValidation_rules.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0088781F1147B445009C7707 /* edlValidation_rules.xml */; };
@@ -171,6 +173,20 @@
 			remoteGlobalIDString = 007CD3DA11A042C000E6B2BB;
 			remoteInfo = EDNA;
 		};
+		0006F435122BEF2D001DA2BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 007CD3DA11A042C000E6B2BB /* EDNA */;
+			remoteInfo = EDNA;
+		};
+		0006F437122BEF48001DA2BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00C39FF01144FB2100725668 /* CLETUS */;
+			remoteInfo = CLETUS;
+		};
 		0040B9911141708D00A57967 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -182,14 +198,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 00C39FF01144FB2100725668 /* CLETUS */;
+			remoteGlobalIDString = 00C39FF01144FB2100725668;
 			remoteInfo = CLETUS;
 		};
 		00A63B9212281F1800581E17 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 00A63B3412281C2F00581E17 /* NED */;
+			remoteGlobalIDString = 00A63B3412281C2F00581E17;
 			remoteInfo = NED;
 		};
 		00A7DD67117C385A00062AFE /* PBXContainerItemProxy */ = {
@@ -245,6 +261,9 @@
 		00062A2A11A58F5A00D369D0 /* libboost_filesystem-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_filesystem-mt.a"; path = "/opt/local/lib/libboost_filesystem-mt.a"; sourceTree = "<absolute>"; };
 		00062A2C11A58F5A00D369D0 /* libboost_regex-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_regex-mt.a"; path = "/opt/local/lib/libboost_regex-mt.a"; sourceTree = "<absolute>"; };
 		00062A2E11A58F5A00D369D0 /* libboost_system-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_system-mt.a"; path = "/opt/local/lib/libboost_system-mt.a"; sourceTree = "<absolute>"; };
+		0006F432122BEF27001DA2BB /* libPRINCE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libPRINCE.a; path = ../../../../runtime/Debug/libPRINCE.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		0006F441122BEFB2001DA2BB /* PRINCEUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = PRINCEUnitTestSuite.octest; path = ../../../../runtime/Debug/PRINCEUnitTestSuite.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0006F442122BEFB2001DA2BB /* PRINCEUnitTestSuite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PRINCEUnitTestSuite-Info.plist"; path = "../projects/PRINCEUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
 		003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = timeBasedRegressorLydi.edl; sourceTree = "<group>"; };
 		0036104F117F9AED00A84F44 /* NEDesignKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignKernel.h; sourceTree = "<group>"; };
 		00361050117F9AED00A84F44 /* NEDesignKernel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignKernel.m; sourceTree = "<group>"; };
@@ -393,6 +412,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0006F430122BEF27001DA2BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0006F439122BEF4F001DA2BB /* CLETUS.dylib in Frameworks */,
+				0006F43A122BEF54001DA2BB /* libEDNA.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0006F43E122BEFB2001DA2BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		005B604211D3812400812781 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -520,6 +555,21 @@
 			path = EDNATests;
 			sourceTree = "<group>";
 		};
+		0006F446122BEFD7001DA2BB /* PRINCE */ = {
+			isa = PBXGroup;
+			children = (
+				0006F442122BEFB2001DA2BB /* PRINCEUnitTestSuite-Info.plist */,
+			);
+			name = PRINCE;
+			sourceTree = "<group>";
+		};
+		0006F448122BEFED001DA2BB /* PRINCE */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = PRINCE;
+			sourceTree = "<group>";
+		};
 		0040B78F1141470400A57967 /* docs */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,6 +599,7 @@
 		0040B7921141470400A57967 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				0006F448122BEFED001DA2BB /* PRINCE */,
 				0040B7931141470400A57967 /* ARTIE */,
 				0040B79E1141470400A57967 /* BARTMainApp */,
 				0040B7FC1141470400A57967 /* CLETUS */,
@@ -665,6 +716,7 @@
 		0040B8521141472200A57967 /* tests */ = {
 			isa = PBXGroup;
 			children = (
+				0006F446122BEFD7001DA2BB /* PRINCE */,
 				0006284011A44D6E00D369D0 /* EDNATests */,
 				00E7A643117EF1B900696498 /* NEDTests */,
 				0040B8531141472200A57967 /* BARTMainAppTests */,
@@ -822,6 +874,8 @@
 				005B696811F08B4000812781 /* libdata.dylib */,
 				005B697011F08BA700812781 /* data.dylib */,
 				00A63B3512281C2F00581E17 /* libNED.a */,
+				0006F432122BEF27001DA2BB /* libPRINCE.a */,
+				0006F441122BEFB2001DA2BB /* PRINCEUnitTestSuite.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -874,6 +928,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		0006F42E122BEF27001DA2BB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		005B696411F08B4000812781 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -947,6 +1008,43 @@
 			name = EDNAUnitTestSuite;
 			productName = EDNAUnitTestSuite;
 			productReference = 0006135611A3D84C00D369D0 /* EDNAUnitTestSuite.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		0006F431122BEF27001DA2BB /* PRINCE */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0006F43B122BEF73001DA2BB /* Build configuration list for PBXNativeTarget "PRINCE" */;
+			buildPhases = (
+				0006F42E122BEF27001DA2BB /* Headers */,
+				0006F42F122BEF27001DA2BB /* Sources */,
+				0006F430122BEF27001DA2BB /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0006F436122BEF2D001DA2BB /* PBXTargetDependency */,
+				0006F438122BEF48001DA2BB /* PBXTargetDependency */,
+			);
+			name = PRINCE;
+			productName = PRINCE;
+			productReference = 0006F432122BEF27001DA2BB /* libPRINCE.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		0006F440122BEFB2001DA2BB /* PRINCEUnitTestSuite */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0006F445122BEFB2001DA2BB /* Build configuration list for PBXNativeTarget "PRINCEUnitTestSuite" */;
+			buildPhases = (
+				0006F43C122BEFB2001DA2BB /* Resources */,
+				0006F43D122BEFB2001DA2BB /* Sources */,
+				0006F43E122BEFB2001DA2BB /* Frameworks */,
+				0006F43F122BEFB2001DA2BB /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PRINCEUnitTestSuite;
+			productName = PRINCEUnitTestSuite;
+			productReference = 0006F441122BEFB2001DA2BB /* PRINCEUnitTestSuite.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 		005B604311D3812400812781 /* isis_test */ = {
@@ -1162,12 +1260,21 @@
 				005B696711F08B4000812781 /* libdata */,
 				005B696F11F08BA700812781 /* data */,
 				00A63B3412281C2F00581E17 /* NED */,
+				0006F431122BEF27001DA2BB /* PRINCE */,
+				0006F440122BEFB2001DA2BB /* PRINCEUnitTestSuite */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0006135111A3D84C00D369D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0006F43C122BEFB2001DA2BB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1220,6 +1327,19 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 		0006135411A3D84C00D369D0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		0006F43F122BEFB2001DA2BB /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1295,6 +1415,20 @@
 				0006135F11A3DB4B00D369D0 /* EDDataElementVI.m in Sources */,
 				0006136011A3DB4C00D369D0 /* EDDataElementIsis.mm in Sources */,
 				0006137111A3DC0500D369D0 /* BAElement.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0006F42F122BEF27001DA2BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0006F43D122BEFB2001DA2BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1433,6 +1567,16 @@
 			target = 007CD3DA11A042C000E6B2BB /* EDNA */;
 			targetProxy = 000628BC11A52CFF00D369D0 /* PBXContainerItemProxy */;
 		};
+		0006F436122BEF2D001DA2BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 007CD3DA11A042C000E6B2BB /* EDNA */;
+			targetProxy = 0006F435122BEF2D001DA2BB /* PBXContainerItemProxy */;
+		};
+		0006F438122BEF48001DA2BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00C39FF01144FB2100725668 /* CLETUS */;
+			targetProxy = 0006F437122BEF48001DA2BB /* PBXContainerItemProxy */;
+		};
 		0040B9921141708D00A57967 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8D1107260486CEB800E47090 /* BARTApplication */;
@@ -1548,6 +1692,106 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = EDNAUnitTestSuite;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		0006F433122BEF28001DA2BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = PRINCE;
+			};
+			name = Debug;
+		};
+		0006F434122BEF28001DA2BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = PRINCE;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		0006F443122BEFB2001DA2BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "PRINCEUnitTestSuite-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = PRINCEUnitTestSuite;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		0006F444122BEFB2001DA2BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "PRINCEUnitTestSuite-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = PRINCEUnitTestSuite;
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
@@ -2216,6 +2460,24 @@
 			buildConfigurations = (
 				0006135811A3D84C00D369D0 /* Debug */,
 				0006135911A3D84C00D369D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0006F43B122BEF73001DA2BB /* Build configuration list for PBXNativeTarget "PRINCE" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0006F433122BEF28001DA2BB /* Debug */,
+				0006F434122BEF28001DA2BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0006F445122BEFB2001DA2BB /* Build configuration list for PBXNativeTarget "PRINCEUnitTestSuite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0006F443122BEFB2001DA2BB /* Debug */,
+				0006F444122BEFB2001DA2BB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
