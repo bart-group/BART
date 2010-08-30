@@ -22,6 +22,8 @@
 		00062A1E11A58E4500D369D0 /* BAElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 0040B7AF1141470400A57967 /* BAElement.h */; };
 		0006F439122BEF4F001DA2BB /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C39FF11144FB2100725668 /* CLETUS.dylib */; };
 		0006F43A122BEF54001DA2BB /* libEDNA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 007CD3DB11A042C000E6B2BB /* libEDNA.a */; };
+		0006F46A122BF711001DA2BB /* PRPreprocessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 0006F468122BF711001DA2BB /* PRPreprocessor.h */; };
+		0006F46B122BF711001DA2BB /* PRPreprocessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F469122BF711001DA2BB /* PRPreprocessor.m */; };
 		000F25ED121D82D40079C8E0 /* EDDataElementIsisTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0006284211A44D9300D369D0 /* EDDataElementIsisTest.mm */; };
 		000F25EE121D82D50079C8E0 /* EDDataElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006284411A44D9300D369D0 /* EDDataElementVITest.m */; };
 		0023A75811510D4C009182F8 /* edlValidation_rules.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0088781F1147B445009C7707 /* edlValidation_rules.xml */; };
@@ -261,9 +263,11 @@
 		00062A2A11A58F5A00D369D0 /* libboost_filesystem-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_filesystem-mt.a"; path = "/opt/local/lib/libboost_filesystem-mt.a"; sourceTree = "<absolute>"; };
 		00062A2C11A58F5A00D369D0 /* libboost_regex-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_regex-mt.a"; path = "/opt/local/lib/libboost_regex-mt.a"; sourceTree = "<absolute>"; };
 		00062A2E11A58F5A00D369D0 /* libboost_system-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_system-mt.a"; path = "/opt/local/lib/libboost_system-mt.a"; sourceTree = "<absolute>"; };
-		0006F432122BEF27001DA2BB /* libPRINCE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libPRINCE.a; path = ../../../../runtime/Debug/libPRINCE.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		0006F441122BEFB2001DA2BB /* PRINCEUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = PRINCEUnitTestSuite.octest; path = ../../../../runtime/Debug/PRINCEUnitTestSuite.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0006F442122BEFB2001DA2BB /* PRINCEUnitTestSuite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PRINCEUnitTestSuite-Info.plist"; path = "../projects/PRINCEUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
+		0006F432122BEF27001DA2BB /* libPRINCE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPRINCE.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		0006F441122BEFB2001DA2BB /* PRINCEUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PRINCEUnitTestSuite.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0006F442122BEFB2001DA2BB /* PRINCEUnitTestSuite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PRINCEUnitTestSuite-Info.plist"; path = "../../projects/PRINCEUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
+		0006F468122BF711001DA2BB /* PRPreprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPreprocessor.h; sourceTree = "<group>"; };
+		0006F469122BF711001DA2BB /* PRPreprocessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPreprocessor.m; sourceTree = "<group>"; };
 		003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = timeBasedRegressorLydi.edl; sourceTree = "<group>"; };
 		0036104F117F9AED00A84F44 /* NEDesignKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignKernel.h; sourceTree = "<group>"; };
 		00361050117F9AED00A84F44 /* NEDesignKernel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignKernel.m; sourceTree = "<group>"; };
@@ -555,19 +559,21 @@
 			path = EDNATests;
 			sourceTree = "<group>";
 		};
-		0006F446122BEFD7001DA2BB /* PRINCE */ = {
+		0006F45E122BF3D0001DA2BB /* PRINCETests */ = {
 			isa = PBXGroup;
 			children = (
 				0006F442122BEFB2001DA2BB /* PRINCEUnitTestSuite-Info.plist */,
 			);
-			name = PRINCE;
+			path = PRINCETests;
 			sourceTree = "<group>";
 		};
-		0006F448122BEFED001DA2BB /* PRINCE */ = {
+		0006F467122BF6E9001DA2BB /* PRINCE */ = {
 			isa = PBXGroup;
 			children = (
+				0006F468122BF711001DA2BB /* PRPreprocessor.h */,
+				0006F469122BF711001DA2BB /* PRPreprocessor.m */,
 			);
-			name = PRINCE;
+			path = PRINCE;
 			sourceTree = "<group>";
 		};
 		0040B78F1141470400A57967 /* docs */ = {
@@ -599,7 +605,7 @@
 		0040B7921141470400A57967 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				0006F448122BEFED001DA2BB /* PRINCE */,
+				0006F467122BF6E9001DA2BB /* PRINCE */,
 				0040B7931141470400A57967 /* ARTIE */,
 				0040B79E1141470400A57967 /* BARTMainApp */,
 				0040B7FC1141470400A57967 /* CLETUS */,
@@ -716,7 +722,7 @@
 		0040B8521141472200A57967 /* tests */ = {
 			isa = PBXGroup;
 			children = (
-				0006F446122BEFD7001DA2BB /* PRINCE */,
+				0006F45E122BF3D0001DA2BB /* PRINCETests */,
 				0006284011A44D6E00D369D0 /* EDNATests */,
 				00E7A643117EF1B900696498 /* NEDTests */,
 				0040B8531141472200A57967 /* BARTMainAppTests */,
@@ -932,6 +938,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0006F46A122BF711001DA2BB /* PRPreprocessor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1422,6 +1429,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0006F46B122BF711001DA2BB /* PRPreprocessor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
