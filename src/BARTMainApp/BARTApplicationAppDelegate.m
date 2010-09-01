@@ -41,6 +41,7 @@
     mDesignElement = [[BADesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	if (nil == mDesignElement){
 		return;}
+	
     mCurrentTimestep = 50;
 	
 	
