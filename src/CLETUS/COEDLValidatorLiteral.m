@@ -247,7 +247,7 @@ enum COLiteralArithmeticOperation {
     } else {
         mParameters = [NSDictionary dictionary];
     }
-       
+    
     mTokens = [[NSMutableArray alloc] initWithCapacity:0];
     litValue = LIT_FALSE;
     

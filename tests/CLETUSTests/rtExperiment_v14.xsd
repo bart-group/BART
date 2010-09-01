@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
-<!--+++++++++++++ This XSD-File defines: +++++++++++++++++
+  <!--+++++++++++++ This XSD-File defines: +++++++++++++++++
       +++++++++++++    EDL Version 1.4   +++++++++++++++++++
       New in V1.4: 
  
@@ -10,18 +10,18 @@
   <!--+++++++++++++ Root: rtExperiment +++++++++++++++++-->
   <xs:element name="rtExperiment">
     <xs:annotation>
-      <xs:appinfo>Root Element - This contains all sections: environment, experimentData, </xs:appinfo>
+      <xs:appinfo>Root Element - This contains all sections: environment, experimentData, mriParams (optional), preprocessing(optional), statistics(optional), activationProcessing(optional), stimulusData(optional), viewProperties(optional)</xs:appinfo>
     </xs:annotation>
       <xs:complexType>
       <xs:sequence>
-        <xs:element ref="environment"/>
-        <xs:element ref="experimentData"/>
-        <xs:element ref="mriParams"/>
-        <xs:element ref="preprocessing"/>
-        <xs:element ref="statistics"/>
-        <xs:element ref="activationProcessing" minOccurs="0"/>
-        <xs:element ref="stimulusData"/>
-        <xs:element ref="viewProperties"/>
+        <xs:element ref="environment"          minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="experimentData"       minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="mriParams"            minOccurs="0" maxOccurs="1"/>
+        <xs:element ref="preprocessing"        minOccurs="0" maxOccurs="1"/>
+        <xs:element ref="statistics"           minOccurs="0" maxOccurs="1"/>
+        <xs:element ref="activationProcessing" minOccurs="0" maxOccurs="1"/>
+        <xs:element ref="stimulusData"         minOccurs="0" maxOccurs="1"/>
+        <xs:element ref="viewProperties"       minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
         <xs:attribute name="edlVersion" use="required"/>
     </xs:complexType>
@@ -35,11 +35,18 @@
       <xs:sequence>
         <xs:element minOccurs="1" maxOccurs="1" ref="logging"/>
         <xs:element minOccurs="1" maxOccurs="1" ref="startTrigger"/>
-        <xs:element name="dataFolder" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="dataFolder" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
         <xs:element name="dataFolderTarget" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
         <xs:element name="resultFolder" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
         <xs:element minOccurs="0" ref="resultImage"/>
        </xs:sequence>
+	   <xs:attribute name="globalTimeUnit" use="required">
+		  <xs:simpleType>
+			<xs:restriction base="xs:token">
+			  <xs:enumeration value="milliseconds"/>
+			</xs:restriction>
+		   </xs:simpleType>
+      </xs:attribute>
     </xs:complexType>
   </xs:element>
     
@@ -48,6 +55,7 @@
   <xs:element name="logging">
     <xs:complexType>
        <xs:sequence>
+			 <xs:element name="logFolder" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
         <xs:element name="logFile" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
        </xs:sequence>
       <xs:attribute name="doLogging" use="required" type="xs:boolean" />
@@ -59,7 +67,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="1" maxOccurs="1" ref="parallelPortTrigger"/>
-        </xs:sequence>
+      </xs:sequence>
       <xs:attribute name="waitForInitialTrigger" use="required"  type="xs:boolean" />
      </xs:complexType>
   </xs:element>
@@ -68,9 +76,22 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="triggerPort" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="bitOffset" type="xs:int" minOccurs="0" maxOccurs="1"/>
+        <xs:element ref="negativeLogic" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  
+  <xs:element name="negativeLogic">
+   <xs:simpleType>
+    <xs:restriction base="xs:int">
+          <xs:enumeration value="0"/>
+          <xs:enumeration value="1"/>
+    </xs:restriction>
+   </xs:simpleType>
+ </xs:element>
+
+  
   <!--+++End Trigger at Startup++++-->
      
   <xs:element name="resultImage">
@@ -105,41 +126,29 @@
     <xs:complexType>
       <xs:sequence>
          <xs:choice>
-          <xs:element ref="gwDesignStruct"/>
-          <xs:element ref="swDesignStruct"/>
+          <xs:element ref="gwDesignStruct" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="swDesignStruct" minOccurs="0" maxOccurs="1"/>
+		  <xs:element ref="dynamicDesignStruct" minOccurs="0" maxOccurs="1"/>		  
         </xs:choice>
+		<xs:element ref="covariateStruct" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
       <xs:attribute name="ignoreScansAtStart" use="required" type="xs:unsignedInt"/>
     </xs:complexType>
   </xs:element>
   
-  <xs:element name="image">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.image"/>
-    </xs:complexType>
-  </xs:element>
-  
-  <!-- number of active blocktypes is restricted to 3 -->
-  <xs:attributeGroup name="attlist.image">
-    <xs:attribute name="nr" use="required" type="xs:int"/>
-    <xs:attribute name="type" use="required">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="baseline" />
-          <xs:enumeration value="ignore"/>
-          <xs:enumeration value="active"/>
-          <xs:enumeration value="active1"/>
-          <xs:enumeration value="active2"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-  </xs:attributeGroup>
-  
-  <!--  nmbBlockTypes: Number of different blockTypes that can appear: NOT MORE THAN 3 -->
+  <!--+++ Struct for Sliding  Window designs +++-->
   <xs:element name="gwDesignStruct">
+     <xs:annotation>
+      <xs:appinfo>
+	    Struct for Growing-Window designs.
+		
+		Attributes: none 
+	  </xs:appinfo>
+    </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="1" maxOccurs="unbounded" ref="scanBasedRegressor"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="scanBasedRegressor"/>
+		<xs:element minOccurs="0" maxOccurs="unbounded" ref="timeBasedRegressor"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -147,13 +156,55 @@
   
   <!--+++ Struct for Sliding  Window designs +++-->
    <xs:element name="swDesignStruct">
+   	<xs:annotation>
+      <xs:appinfo>
+	    Struct for Sliding-Window designs.
+		
+		Attributes: none 
+	  </xs:appinfo>
+    </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="1" maxOccurs="unbounded" ref="scanBasedRegressor"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="scanBasedRegressor"/>
+		<xs:element minOccurs="0" maxOccurs="unbounded" ref="timeBasedRegressor"/>
       </xs:sequence>
      </xs:complexType>
   </xs:element>
    
+   
+   <!--+++ Struct for dynamic designs +++-->
+   <xs:element name="dynamicDesignStruct">
+   	<xs:annotation>
+      <xs:appinfo>
+	    Dynamic Design for unknown design timing. 
+		Just the maximal duration has to be given.
+		
+		Attributes: maxLength - maximal length of design [ms] 
+	  </xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="scanBasedRegressor"/>
+		<xs:element minOccurs="0" maxOccurs="unbounded" ref="timeBasedRegressor"/>
+      </xs:sequence>
+	  <xs:attribute name="maxLength" use="required" type="xs:unsignedLong"/>
+     </xs:complexType>
+  </xs:element>
+   
+   <!--+++ Struct for covriates +++-->
+   <xs:element name="covariateStruct">
+   	<xs:annotation>
+      <xs:appinfo>
+	    Defines the covriates, e.g. movement parameters.
+	  </xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="scanBasedCovariate"/>
+		<!--<xs:element minOccurs="0" maxOccurs="unbounded" ref="timeBasedRegressor"/>-->
+      </xs:sequence>
+     </xs:complexType>
+  </xs:element>
    
   <!--+++ scanBasedRegressor +++-->
   <xs:element name="scanBasedRegressor">
@@ -165,23 +216,96 @@
       <xs:attribute name="regressorID" use="required" type="xs:ID"/>
       <xs:attribute name="name" use="required" type="xs:string"/>
       <xs:attribute name="size" use="required" type="xs:unsignedInt"/>
-      <xs:attribute name="useRefFct" use="required" type="xs:IDREF"/>    
+      <xs:attribute name="useRefFct" use="required" type="xs:IDREF"/>
+	  <xs:attribute name="useRefFctFirstDerivative" use="optional" type="xs:boolean" default="false"/>
+	  <xs:attribute name="useRefFctSecondDerivative" use="optional" type="xs:boolean" default="false"/>
+	  <xs:attribute name="scaleHeightToZeroMean" use="required" type="xs:boolean"/>	  
     </xs:complexType>
   </xs:element>
    
-  <!--+++ sbrDesign +++-->
+	<!--+++ timeBasedRegressor +++-->
+  <xs:element name="timeBasedRegressor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" ref="tbrDesign"/>
+      </xs:sequence>
+      <xs:attribute name="regressorID" use="required" type="xs:ID"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+      <xs:attribute name="length" use="required" type="xs:unsignedLong"/>
+      <xs:attribute name="useRefFct" use="required" type="xs:IDREF"/>
+	  <xs:attribute name="useRefFctFirstDerivative" use="optional" type="xs:boolean" default="false"/>
+	  <xs:attribute name="useRefFctSecondDerivative" use="optional" type="xs:boolean" default="false"/>
+	  <xs:attribute name="scaleHeightToZeroMean" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+	 
+	 <!--+++ scanBasedCovariate +++-->
+  <xs:element name="scanBasedCovariate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" ref="sbrDesign"/>
+        <xs:element minOccurs="1" maxOccurs="1" ref="sbrIgnoreStruct"/>
+      </xs:sequence>
+      <xs:attribute name="covariateID" use="required" type="xs:ID"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+      <xs:attribute name="size" use="required" type="xs:unsignedInt"/>
+    </xs:complexType>
+  </xs:element>
+	 
+  <!--+++ sbrDesign (for scan based regressors)  +++-->
   <xs:element name="sbrDesign">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="scan" minOccurs="1" maxOccurs="unbounded" type="xs:boolean"/>
+        <xs:element  minOccurs="1" maxOccurs="unbounded" ref="scan"/>
       </xs:sequence>
       <xs:attribute name="size" use="required" type="xs:unsignedInt"/>
       <xs:attribute name="repetitions" use="required" type="xs:unsignedInt"/>
     </xs:complexType>
   </xs:element>
 
+	<xs:element name="scan">
+	<xs:annotation>
+      <xs:appinfo>
+	    Attributes: height - scaleFactor for parametric modulation [scalar] 
+	  </xs:appinfo>
+    </xs:annotation>
+	  <xs:complexType>
+		<xs:simpleContent>
+		  <xs:extension base="xs:boolean">
+			<xs:attribute name="height" use="required" type="xs:double"/>
+		   </xs:extension>
+		</xs:simpleContent>
+	   </xs:complexType> 
+	 </xs:element>  
+  
+  
+	<!--+++ tbrDesign (for time based regressors) +++-->
+  <xs:element name="tbrDesign">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="statEvent"/>
+      </xs:sequence>
+      <xs:attribute name="length" use="required" type="xs:unsignedLong"/>
+      <xs:attribute name="repetitions" use="required" type="xs:unsignedInt"/>
+    </xs:complexType>
+  </xs:element>
+		
+	<xs:element name="statEvent">
+	 <xs:annotation>
+      <xs:appinfo>Attributes: time - startTime of event [ms]; duration - duration of event [ms]; height(optional) - scaleFactor for parametric modulation [scalar] </xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="time"     use="required" type="xs:unsignedLong"/>
+      <xs:attribute name="duration" use="required" type="xs:unsignedInt"/>
+	  <xs:attribute name="height"   use="optional" type="xs:double"/>
+    </xs:complexType>
+  </xs:element>
   <!--+++ END Struct for Sliding Window designs +++  -->
   
+	
+	
+	
+	
   <!--+++ Struct for randomly inserted Ignores +++-->
   <xs:element name="sbrIgnoreStruct">
     <xs:complexType>
@@ -191,7 +315,6 @@
       <xs:attribute name="overallIgnores" use="required" type="xs:unsignedInt"/>
     </xs:complexType>
   </xs:element>
-  
   <xs:element name="insertIgnores">
     <xs:complexType>
       <xs:attribute name="repetitionNr" use="required" type="xs:unsignedInt"/>
@@ -200,6 +323,9 @@
   </xs:element>
   <!--+++ End Struct for randomly inserted Ignores +++-->
   
+	
+
+	
   <!-- Begin Image Modalities-->
   
   <xs:element name="imageModalities">
@@ -471,8 +597,6 @@
   
   
   
-  
-  
   <!--+++++++++++++++++++Begin Statistic+++++++++++++++++++-->
   
   <!-- +++ FIXME:  staistics sollte leere Elemente enthalten: none, tTest, corrAnalysis, GLM    -->
@@ -493,48 +617,62 @@
       </xs:attribute>
     </xs:complexType>
   </xs:element>
+
+  <!-- none -->
+	<xs:element name="none"/>
+
+	<!--Begin CorrAnalysis-->
+	<xs:element name="corrAnalysis"/>
+	 <!--Begin Reference Functions-->
+	 <xs:element name="referenceFunctions">
+	   <xs:complexType>
+		 <xs:sequence>
+		   <xs:element ref="dGamma" minOccurs="0" maxOccurs="unbounded"/>
+           <xs:element ref="gloverKernel" minOccurs="0" maxOccurs="unbounded"/>
+		  </xs:sequence>
+		 </xs:complexType>
+	</xs:element>
+	<!--End CorrAnalysis-->
   
-  
-            <!-- Begin none -->
-            <xs:element name="none"/>
-            
-            <!--Begin CorrAnalysis-->
-            <xs:element name="corrAnalysis"/>
-              
-             <!--Begin Reference Functions-->
-             <xs:element name="referenceFunctions">
-               <xs:complexType>
-                 <xs:sequence>
-                   <xs:element ref="dGamma" minOccurs="1" maxOccurs="unbounded"/>
-                  </xs:sequence>
-                 </xs:complexType>
-            </xs:element>
-  
-  
-            
-              <!--End CorrAnalysis-->
-  
-    <!-- corrGamma-->
+  <!-- doubleGamma-->
   <xs:element name="dGamma">
     <xs:complexType>
       <xs:sequence>
-        
-        <xs:element name="tPeak1"     type="xs:double" default="6" minOccurs="1" maxOccurs="1" />
-        <xs:element name="mWidth1" type="xs:double" default="5.1" minOccurs="1" maxOccurs="1" />
-        <xs:element name="scale1"     type="xs:double" default="1" minOccurs="1" maxOccurs="1" /> 
-        
-        <xs:element name="tPeak2"     type="xs:double" default="16"     minOccurs="1" maxOccurs="1" />
-        <xs:element name="mWidth2" type="xs:double" default="8"       minOccurs="1" maxOccurs="1" />
-        <xs:element name="scale2"     type="xs:double" default="0.09" minOccurs="1" maxOccurs="1" />                     
-        <xs:element name="offset"       type="xs:double" default="0"       minOccurs="1" maxOccurs="1" /> 
-        
+        <xs:element name="tPeak1"        type="xs:unsignedInt" default="6000" minOccurs="1" maxOccurs="1" />
+        <xs:element name="mWidth1"       type="xs:unsignedInt" default="51000" minOccurs="1" maxOccurs="1" />
+        <xs:element name="scale1"        type="xs:double"      default="1" minOccurs="1" maxOccurs="1" /> 
+        <xs:element name="tPeak2"        type="xs:unsignedInt" default="16000"     minOccurs="1" maxOccurs="1" />
+        <xs:element name="mWidth2"       type="xs:unsignedInt" default="8000"       minOccurs="1" maxOccurs="1" />
+        <xs:element name="scale2"        type="xs:double"      default="0.09" minOccurs="1" maxOccurs="1" />                     
+        <xs:element name="offset"        type="xs:unsignedInt" default="0"       minOccurs="1" maxOccurs="1" /> 
+        <xs:element name="overallWidth"  type="xs:unsignedInt" default="30000"       minOccurs="1" maxOccurs="1" /> 
       </xs:sequence> 
-      <xs:attribute name="refFctID" type="xs:ID"/> <!-- The map can be given as matlab data file or in an EDL-File-->
+      <xs:attribute name="refFctID" type="xs:ID"/>
     </xs:complexType>
   </xs:element>
+  <!--End doubleGamma-->
   
-     <!--End corrGamma-->
   
+  <!-- Glover Kernel-->
+  <xs:element name="gloverKernel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="tPeak1"        type="xs:unsignedInt" default="6000"   minOccurs="1" maxOccurs="1" />
+        <xs:element name="tPeak1Scale"   type="xs:double"      default="0.9"    minOccurs="1" maxOccurs="1" />
+        
+        <xs:element name="tPeak2"        type="xs:unsignedInt" default="12000"  minOccurs="1" maxOccurs="1" />
+        <xs:element name="tPeak2Scale"   type="xs:double"      default="0.9"    minOccurs="1" maxOccurs="1" />
+        
+        <xs:element name="ratioTPeaks"   type="xs:double"      default="0.35"    minOccurs="1" maxOccurs="1" />
+        
+        <xs:element name="heightScale"   type="xs:double"      default="20"      minOccurs="1" maxOccurs="1" />
+        <xs:element name="offset"        type="xs:unsignedInt" default="0"      minOccurs="1" maxOccurs="1" /> 
+        <xs:element name="overallWidth"  type="xs:unsignedInt" default="30000"  minOccurs="1" maxOccurs="1" /> 
+      </xs:sequence> 
+      <xs:attribute name="refFctID" type="xs:ID"/>
+    </xs:complexType>
+  </xs:element>
+  <!--Glover Kernel-->
   
   <!-- corr Triple Gamma
   <xs:element name="CTripleGamma">
@@ -573,76 +711,19 @@
     </xs:complexType>
   </xs:element>-->
   
-  
-  <!-- End free stat-Elements -->
-  
 
   
-          <!--Begin tTest-->
-          <xs:element name="tTest">
-          </xs:element>
-           
-             <!-- <xs:complexType>
-              <xs:sequence>
-                <xs:element minOccurs="0" ref="spatialFilter"/>
-                </xs:sequence>
-                <xs:attributeGroup ref="attlist.TTest"/>
-            </xs:complexType>
-          </xs:element>
-          
-          <xs:attributeGroup name="attlist.TTest">
-            
-            <xs:attribute name="dynamicTM" default="false">
-              <xs:simpleType>
-                <xs:restriction base="xs:token">
-                  <xs:enumeration value="true"/>
-                  <xs:enumeration value="false"/>
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:attribute>
-            
-            <xs:attribute name="windowType"  use="required">
-              <xs:simpleType>
-                <xs:restriction base="xs:token">
-                  <xs:enumeration value="growing"/>
-                  <xs:enumeration value="constant"/>
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:attribute>
-            
-          </xs:attributeGroup>
-          
-         <xs:element name="none">
-            <xs:complexType/>
-            </xs:element>-->
-  
-          <!--End TTest -->
+	<!--Begin tTest-->
+	<xs:element name="tTest">
+	</xs:element>
+  <!--End TTest -->
   
   
-  <!--Begin GLM-->
+  <!--Begin GLM
     <xs:element name="GLM">
     </xs:element>
-    <!--  <xs:complexType>
-    <xs:sequence>
-      <xs:element minOccurs="0" ref="spatialFilter" maxOccurs="1" />
-      <xs:choice>
-        <xs:element ref="CPoisson"/>
-        <xs:element ref="CGamma"/>
-        <xs:element ref="CTripleGamma"/> 
-        <xs:element ref="CBox"/> 
-      </xs:choice>
-    </xs:sequence>
-      <xs:attribute name="windowType">
-        <xs:simpleType>
-          <xs:restriction base="xs:token">
-            <xs:enumeration value="growing"/>
-            <xs:enumeration value="constant"/>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:attribute>
-   </xs:complexType>
-      </xs:element>-->
-    <!--End GLM -->
+  <<xs:complexType> -->
+  <!--End GLM -->
   
   <!--+++++++++++++++++++End Statistic+++++++++++++++++++-->
   
@@ -734,7 +815,7 @@
           <xs:element  ref="windowBasedBOLD"/>
         </xs:choice>
         <xs:element  ref="globalTargetVariables"  minOccurs="1"  maxOccurs="1" />
-        <xs:element  ref="doOutput"  minOccurs="1"  maxOccurs="1" />
+        <xs:element  ref="doOutput"  minOccurs="0"  maxOccurs="1" />
        </xs:sequence>
       <xs:attribute name="moduleID" use="required" type="xs:ID"/>
       <xs:attribute name="useRegressor" use="required" type="xs:IDREF"/>
@@ -804,12 +885,34 @@
   <xs:element name="globalTargetVariables">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="targetVar" minOccurs="1"  maxOccurs="unbounded" />
+        <xs:element ref="targetVar_BOLD_NATIVE"   minOccurs="1"  maxOccurs="1" />
+        <xs:element ref="targetVar_BOLD_ACTIVE"   minOccurs="1"  maxOccurs="1" />
+        <xs:element ref="targetVar_BOLD_BASELINE" minOccurs="1"  maxOccurs="1" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   
-  <xs:element name="targetVar">
+  <xs:element name="targetVar_BOLD_NATIVE">
+    <xs:complexType>
+      <xs:sequence>
+      </xs:sequence>
+      <xs:attribute name="tVarID" use="required" type="xs:ID"/>
+      <xs:attribute name="tVarName" use="required" type="xs:string"/>
+      <xs:attribute name="tVarDescription" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="targetVar_BOLD_ACTIVE">
+    <xs:complexType>
+      <xs:sequence>
+      </xs:sequence>
+      <xs:attribute name="tVarID" use="required" type="xs:ID"/>
+      <xs:attribute name="tVarName" use="required" type="xs:string"/>
+      <xs:attribute name="tVarDescription" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  
+   <xs:element name="targetVar_BOLD_BASELINE">
     <xs:complexType>
       <xs:sequence>
       </xs:sequence>
@@ -841,30 +944,23 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="paramName" type="xs:string" minOccurs="1"  maxOccurs="1" />
-        <xs:element name="paramType"    type="xs:string" minOccurs="1"  maxOccurs="1"/>
+        <xs:element ref="paramType"   minOccurs="1"  maxOccurs="1"/>
         <xs:element name="paramValue"  type="xs:string" minOccurs="1"  maxOccurs="1" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  
- <!--
-  <xs:element name="featureList">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="featureItem" minOccurs="0"  maxOccurs="unbounded" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  
-  <xs:element name="featureItem">
-    <xs:complexType>
-      <xs:attribute name="featureID" use="required" type="xs:IDREF"/>
-      <xs:attribute name="templateID" use="required"  type="xs:int"/>
-      <xs:attribute name="preExperimentID" use="required"  type="xs:int"/>
-      <xs:attribute name="id" use="required" type="xs:int"/>
-    </xs:complexType>
-  </xs:element>-->
-  
+   
+   
+    <xs:element name="paramType">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="INT"/>
+            <xs:enumeration value="DOUBLE"/>
+            <xs:enumeration value="BOOLEAN"/>
+			<xs:enumeration value="STRING"/>
+          </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
   <!--End analysisRuntimeModuleBOLD-->
   
   
@@ -874,11 +970,12 @@
   <xs:element name="analysisRuntimeModuleUserDefined">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="functionHandlePrepare" type="xs:string" minOccurs="1"  maxOccurs="1" />
-        <xs:element name="functionHandleRun" type="xs:string" minOccurs="1"  maxOccurs="1" />
-        <xs:element ref="prepareParamsUD" minOccurs="1"  maxOccurs="1" />
-        <xs:element  ref="globalTargetVariables"  minOccurs="1"  maxOccurs="1" />
-        <xs:element  ref="doOutput"  minOccurs="1"  maxOccurs="1" />
+        <xs:element  name="functionHandlePrepare" type="xs:string" minOccurs="1"  maxOccurs="1" />
+        <xs:element  name="functionHandleRun"     type="xs:string" minOccurs="1"  maxOccurs="1" />
+				<xs:element  name="functionHandleReset"   type="xs:string" minOccurs="1"  maxOccurs="1" />
+        <xs:element  ref="prepareParamsUD"        minOccurs="0"  maxOccurs="1" />
+        <xs:element  ref="globalTargetVariables"  minOccurs="0"  maxOccurs="1" />
+        <xs:element  ref="doOutput"               minOccurs="0"  maxOccurs="1" />
       </xs:sequence>
       <xs:attribute name="moduleID" use="required"  type="xs:ID"/>
       <xs:attribute name="useRegressor" use="required"  type="xs:IDREF"/>
@@ -895,188 +992,6 @@
   </xs:element>
   
   <!--End analysisRuntimeModuleUserDefined-->
- 
- 
- <!-- BEGIN FEATURES
-  <xs:element name="features">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0"  maxOccurs="unbounded" ref="initFeatureROI"/>
-        <xs:element minOccurs="0"  maxOccurs="unbounded" ref="initFeatureBOLD"/>
-        <xs:element minOccurs="0"  maxOccurs="unbounded" ref="initFeatureFREE"/>
-        <xs:element minOccurs="0"  maxOccurs="unbounded" ref="mainFeatureBOLD"/>
-        <xs:element minOccurs="0"  maxOccurs="unbounded" ref="mainFeatureFREE"/>       
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-
- 
-  <xs:element name="initFeatureROI">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="1"  maxOccurs="1" name="targetScan" type="xs:integer"/>
-        <xs:element minOccurs="1"  maxOccurs="1" name="ROI_size" type="xs:integer"/>
-        <xs:element minOccurs="1"  maxOccurs="1" name="dataScaling" type="xs:integer"/>
-        <xs:element minOccurs="1"  maxOccurs="1" name="threshPerc" type="xs:double"/>
-        <xs:element minOccurs="1"  maxOccurs="1" name="threshType" type="xs:string"/>
-        <xs:element minOccurs="1"  maxOccurs="1" name="filterMode" type="xs:string"/>       
-      </xs:sequence>
-      <xs:attribute name="id" use="required">
-        <xs:simpleType>
-          <xs:restriction base="xs:integer"/>
-         </xs:simpleType>
-      </xs:attribute>
-      <xs:attribute name="varName" use="required">
-        <xs:simpleType>
-          <xs:restriction base="xs:string"/>
-        </xs:simpleType>
-      </xs:attribute>
-    </xs:complexType>
-  </xs:element>
- 
-  <xs:element name="initFeatureBOLD">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="1"  maxOccurs="1" name="baseline_start" type="xs:integer"/>
-        <xs:element minOccurs="1"  maxOccurs="1" name="baseline_end" type="xs:integer"/>
-        <xs:element minOccurs="1"  maxOccurs="1" name="active_start" type="xs:integer"/>
-        <xs:element minOccurs="1"  maxOccurs="1" name="active_end" type="xs:integer"/>
-       </xs:sequence>
-      <xs:attribute name="id" use="required">
-        <xs:simpleType>
-          <xs:restriction base="xs:ID"/>
-        </xs:simpleType>
-      </xs:attribute>
-      <xs:attribute name="varName" use="required">
-        <xs:simpleType>
-          <xs:restriction base="xs:string"/>
-        </xs:simpleType>
-      </xs:attribute>
-    </xs:complexType>
-  </xs:element>
- 
-   <xs:element name="initFeatureFREE">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0"  maxOccurs="unbounded" ref="param"/>
-       </xs:sequence>
-      <xs:attribute name="id" use="required">
-        <xs:simpleType>
-          <xs:restriction base="xs:integer"/>
-        </xs:simpleType>
-      </xs:attribute>
-      <xs:attribute name="varName" use="required">
-        <xs:simpleType>
-          <xs:restriction base="xs:string"/>
-        </xs:simpleType>
-      </xs:attribute>
-    </xs:complexType>
-  </xs:element>
-  
-  <xs:element name="mainFeatureBOLD">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="1"  maxOccurs="1" ref="executeAt"/>
-        <xs:element minOccurs="1"  maxOccurs="1" name="baseline_start" type="xs:integer" />
-        <xs:element minOccurs="1"  maxOccurs="1" name="baseline_end" type="xs:integer"/>
-        <xs:element minOccurs="1"  maxOccurs="1" name="active_start" type="xs:integer"/>
-        <xs:element minOccurs="1"  maxOccurs="1" name="active_end" type="xs:integer"/>
-      </xs:sequence>
-      <xs:attribute name="id" use="required">
-        <xs:simpleType>
-          <xs:restriction base="xs:integer"/>
-        </xs:simpleType>
-      </xs:attribute>
-      <xs:attribute name="varName" use="required">
-        <xs:simpleType>
-          <xs:restriction base="xs:string"/>
-        </xs:simpleType>
-      </xs:attribute>
-    </xs:complexType>
-  </xs:element>
-  
-  
-  <xs:element name="mainFeatureFREE">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="1"  maxOccurs="1" ref="executeAt"/>
-        <xs:element minOccurs="0"  maxOccurs="unbounded" ref="param"/>
-      </xs:sequence>
-      <xs:attribute name="id" use="required" type="xs:int"/>
-       <xs:attribute name="varName" use="required" type="xs:string"/>
-     </xs:complexType>
-  </xs:element>
-  
-  
-  <xs:element name="executeAt">
-    <xs:complexType>
-      <xs:simpleContent>
-        <xs:extension base="xs:string">
-          <xs:attribute name="context" use="required">
-            <xs:simpleType>
-              <xs:restriction base="xs:token">
-                <xs:enumeration value="constantWindow"/>
-                <xs:enumeration value="growingWindow"/>
-              </xs:restriction>
-            </xs:simpleType>
-          </xs:attribute>
-          <xs:attribute name="timeUnit" use="required">
-            <xs:simpleType>
-              <xs:restriction base="xs:token">
-                <xs:enumeration value="scans"/>
-                <xs:enumeration value="seconds"/>
-              </xs:restriction>
-            </xs:simpleType>
-          </xs:attribute>
-        </xs:extension>
-      </xs:simpleContent>
-    </xs:complexType> 
-  </xs:element>
-  
- 
-  -->
-  
-  
-  
-  <!-- BEGIN TEMPLATES-->
-  
-  
- <!--  <xs:element name="preExperiment">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="1"  maxOccurs="1" name="edlFileName" type="xs:string"/>
-        </xs:sequence>
-      <xs:attribute name="id" use="required" type="xs:int"/>
-      <xs:attribute name="label" use="required" type="xs:string"/>
-     </xs:complexType>
-     </xs:element><xs:element name="preExperiment">
-     <xs:complexType>
-     <xs:sequence>
-     <xs:element minOccurs="1"  maxOccurs="1" name="edlFileName" type="xs:string"/>
-     </xs:sequence>
-     <xs:attribute name="id" use="required" type="xs:int"/>
-     <xs:attribute name="label" use="required" type="xs:string"/>
-     </xs:complexType>
-   </xs:element>-->
-  <!-- END TEMPLATES-->
-
-  
-  
-
-  
-  
-  
-  <!--Begin HRFAnalysisModule
-  <xs:element name="HRFAnalysisModule">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element  name="useResultImgNmb" type="xs:int" minOccurs="1" maxOccurs="1"/>
-        <xs:element   name="resHRFMap" type="xs:string" minOccurs="1" maxOccurs="1" />
-      </xs:sequence>
-     </xs:complexType>
-  </xs:element>-->
-  
-  <!--End HRFAnalysisModule-->
   <!--+++++++++++++++++++End activationProcessing+++++++++++++++++++-->
   
   
@@ -1141,8 +1056,8 @@
   <xs:element name="screen">
     <xs:complexType>
       <xs:sequence>
-        <xs:element   name="screenResolutionX" type="xs:int"  minOccurs="1" maxOccurs="1" />
-        <xs:element   name="screenResolutionY" type="xs:int"  minOccurs="1" maxOccurs="1" />
+        <xs:element   name="screenResolutionX" type="xs:unsignedInt"  minOccurs="1" maxOccurs="1" />
+        <xs:element   name="screenResolutionY" type="xs:unsignedInt"  minOccurs="1" maxOccurs="1" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1157,18 +1072,20 @@
   
   <xs:element name="mediaObject">
     <xs:complexType>
-      <xs:sequence>
+      <xs:choice>
         <xs:element  ref="contentText"  minOccurs="0" maxOccurs="1" />
         <xs:element  ref="contentSound"  minOccurs="0" maxOccurs="1" />
+        <xs:element  ref="contentImage"  minOccurs="0" maxOccurs="1" />
         <xs:element  ref="contentComplex"  minOccurs="0" maxOccurs="1" />
-      </xs:sequence>
-      <xs:attribute name="moID" use="required" type="xs:int"/>
+      </xs:choice>
+      <xs:attribute name="moID" use="required" type="xs:ID"/>
       <xs:attribute name="name" use="required" type="xs:string"/>
       <xs:attribute name="type" use="required">
         <xs:simpleType>
           <xs:restriction base="xs:token">
             <xs:enumeration value="TEXT"/>
             <xs:enumeration value="SOUND"/>
+            <xs:enumeration value="IMAGE"/>
             <xs:enumeration value="COMPLEX"/>
           </xs:restriction>
         </xs:simpleType>
@@ -1181,7 +1098,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element   name="text" type="xs:string" minOccurs="1" maxOccurs="1" />
-        <xs:element   ref="tColor"  minOccurs="0" maxOccurs="1" />
+        <xs:element   ref="tColor" minOccurs="1" maxOccurs="1" />
         <xs:element   name="tSize" type="xs:int" minOccurs="1" maxOccurs="1" />
         <xs:element   name="posX" type="xs:int" minOccurs="1" maxOccurs="1" />
         <xs:element   name="posY" type="xs:int" minOccurs="1" maxOccurs="1" />
@@ -1192,13 +1109,40 @@
   <xs:element name="tColor">
     <xs:complexType>
       <xs:sequence>
-        <xs:element   name="tcRed" type="xs:int" minOccurs="1" maxOccurs="1" />
-        <xs:element   name="tcGreen" type="xs:int" minOccurs="1" maxOccurs="1" />
-        <xs:element   name="tcBlue" type="xs:int" minOccurs="1" maxOccurs="1" />
+        <xs:element   ref="tcRed"    minOccurs="1" maxOccurs="1" />
+        <xs:element   ref="tcGreen"  minOccurs="1" maxOccurs="1" />
+        <xs:element   ref="tcBlue"   minOccurs="1" maxOccurs="1" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   
+	<xs:element name="tcRed">
+		<xs:simpleType>
+			<xs:restriction base="xs:double">
+				<xs:minInclusive value="0"/>
+				<xs:maxInclusive value="1"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	
+	<xs:element name="tcGreen">
+		<xs:simpleType>
+			<xs:restriction base="xs:double">
+				<xs:minInclusive value="0"/>
+				<xs:maxInclusive value="1"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	
+	<xs:element name="tcBlue">
+		<xs:simpleType>
+			<xs:restriction base="xs:double">
+				<xs:minInclusive value="0"/>
+				<xs:maxInclusive value="1"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	
   <xs:element name="contentSound">
     <xs:complexType>
       <xs:sequence>
@@ -1207,18 +1151,28 @@
     </xs:complexType>
   </xs:element>
   
+	
+	<xs:element name="contentImage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element   name="imageFile" type="xs:string" minOccurs="1" maxOccurs="1" />
+				<xs:element   name="posX" type="xs:int" minOccurs="1" maxOccurs="1" />
+        <xs:element   name="posY" type="xs:int" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   
   <xs:element name="contentComplex">
     <xs:complexType>
       <xs:sequence>
         <xs:element   name="functionHandlePrepare" type="xs:string" minOccurs="1" maxOccurs="1" />
         <xs:element   name="functionHandleRun" type="xs:string" minOccurs="1" maxOccurs="1" />
-        <xs:element   name="nmbNeededBufferPos" type="xs:int" minOccurs="0" maxOccurs="1" />
+        <xs:element   name="nmbNeededBufferPos" type="xs:unsignedInt" minOccurs="0" maxOccurs="1" />
         <xs:element   ref="stimPrepareParamsCOMPLEX" minOccurs="1" maxOccurs="1" />
         <xs:element   ref="stimRunParamsCOMPLEX" minOccurs="1" maxOccurs="1" />
        </xs:sequence>
       <xs:attribute name="type" use="required" type="xs:string"/>
-      <xs:attribute name="overallPresLength" use="required" type="xs:int"/>
+      <xs:attribute name="overallPresLength" use="required" type="xs:unsignedInt"/>
     </xs:complexType>
   </xs:element>
   
@@ -1243,13 +1197,13 @@
   <xs:element name="timeTable">
     <xs:complexType>
       <xs:sequence>
+			<xs:element   ref="intro"  minOccurs="0" maxOccurs="1" />
       <xs:choice>
-        <xs:element   ref="blockStimulusDesign"  minOccurs="0" maxOccurs="1" />
-        <xs:element   ref="freeStimulusDesign"  minOccurs="0" maxOccurs="1" />
+        <xs:element   ref="blockStimulusDesign" minOccurs="1" maxOccurs="1" />
+        <xs:element   ref="freeStimulusDesign"  minOccurs="1" maxOccurs="1" />
       </xs:choice>
-      <xs:element   ref="outro"  minOccurs="0" maxOccurs="1" />
       </xs:sequence>
-      <xs:attribute name="timeTolerance" use="required" type="xs:int"/>
+      <xs:attribute name="timeTolerance" use="required" type="xs:unsignedInt"/>
     </xs:complexType>
   </xs:element>
   
@@ -1258,8 +1212,8 @@
       <xs:sequence>
         <xs:element   ref="stimEvent"  minOccurs="1" maxOccurs="unbounded" />
       </xs:sequence>
-      <xs:attribute name="repeats" use="required" type="xs:int"/>
-      <xs:attribute name="overallPresLength" use="required" type="xs:int"/>
+      <xs:attribute name="repeats" use="required" type="xs:unsignedInt"/>
+      <xs:attribute name="overallPresLength" use="required" type="xs:unsignedLong"/>
     </xs:complexType>
   </xs:element>
   
@@ -1268,13 +1222,14 @@
       <xs:sequence>
         <xs:element   ref="stimEvent"  minOccurs="1" maxOccurs="unbounded" />
       </xs:sequence>
+			<xs:attribute name="overallPresLength" use="required" type="xs:unsignedLong"/>
     </xs:complexType>
   </xs:element>
   
-  <xs:element name="outro">
+  <xs:element name="intro">
     <xs:complexType>
       <xs:sequence>
-        <xs:element   ref="stimEvent"  minOccurs="1" maxOccurs="unbounded" />
+        <xs:element   ref="stimEvent"  minOccurs="1" maxOccurs="1" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1282,10 +1237,10 @@
   <xs:element name="stimEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element   name="mObjectID"  minOccurs="1" maxOccurs="1" type="xs:int"/>
+        <xs:element   name="mObjectID"  minOccurs="1" maxOccurs="1" type="xs:IDREF"/>
       </xs:sequence>
-      <xs:attribute name="time" use="required" type="xs:int"/>
-      <xs:attribute name="duration" use="required" type="xs:int"/>
+      <xs:attribute name="time" use="required" type="xs:unsignedLong"/>
+      <xs:attribute name="duration" use="required" type="xs:unsignedInt"/>
     </xs:complexType>
   </xs:element>
   
@@ -1293,8 +1248,11 @@
   
   
   
-    <!--+++++++++++++++++++Begin viewProperties+++++++++++++++++++-->
+  <!--+++++++++++++++++++Begin viewProperties+++++++++++++++++++-->
   <xs:element name="viewProperties">
+	    <xs:annotation>
+      <xs:appinfo>The anatomy is expected to be in analyze format!</xs:appinfo>
+    </xs:annotation>
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="view"/>
@@ -1311,7 +1269,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-    <!--+++++++++++++++++++-End viewProperties+++++++++++++++++++-->
+ <!--+++++++++++++++++++-End viewProperties+++++++++++++++++++-->
   
   <xs:element name="imgFile" type="xs:string"/>
 </xs:schema>

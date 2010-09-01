@@ -105,14 +105,79 @@
 	return error;
 }
 
+-(NSError*)validateAgainstXSD:(NSString*)xsdPath
+{
+    if (xsdPath) {
+        NSXMLElement* documentElement = [mRuntimeSetting rootElement];
+        NSMutableArray* documentAttributes = [[documentElement attributes] mutableCopy];
+        
+        NSUInteger attributeIndex = 0;
+        NSXMLNode* newSchemaLocationAttr = nil;
+        for (NSXMLNode* attribute in documentAttributes) {
+            
+            /*
+             * Two possiblities for schema location declaration:
+             * - xsi:schemaLocation="namespaceURL schemapath-or-URL"
+             * - xsi:noNamespaceSchemaLocation="schemapath-or-URL"
+             */
+            if ([[attribute name] isEqualToString:@"xsi:noNamespaceSchemaLocation"]) {
+                attributeIndex = [documentAttributes indexOfObject:attribute];
+                newSchemaLocationAttr = [NSXMLNode attributeWithName:[attribute name] 
+                                                         stringValue:xsdPath];
+                
+            } else if ([[attribute name] isEqualToString:@"xsi:schemaLocation"]) {
+                attributeIndex = [documentAttributes indexOfObject:attribute];
+
+                // Namespace url and schema location are seperated by one space character.
+                NSString* namespaceURL = [[[attribute stringValue] componentsSeparatedByString:@" "] objectAtIndex:0];
+                
+                NSString* newSchemaLocationString = nil;
+                
+                if ([xsdPath isAbsolutePath]
+                    || [[NSURL URLWithString:xsdPath] checkResourceIsReachableAndReturnError:nil]) {
+                    newSchemaLocationString = [NSString stringWithFormat:@"%@ %@", 
+                                               namespaceURL, 
+                                               xsdPath];
+                    
+                } else if (![xsdPath isAbsolutePath]) {
+                    NSString* edlDirectoryPath = [mEDLFilePath stringByDeletingLastPathComponent];
+                    NSArray* xsdAbsolutePathComponents = [[edlDirectoryPath pathComponents] arrayByAddingObjectsFromArray:[xsdPath pathComponents]];
+                    newSchemaLocationString = [NSString stringWithFormat:@"%@ %@", 
+                                                                           namespaceURL, 
+                                                                              [NSString pathWithComponents:xsdAbsolutePathComponents]];
+                }
+                
+                if (newSchemaLocationString) {
+                    newSchemaLocationAttr = [NSXMLNode attributeWithName:[attribute name] 
+                                                             stringValue:newSchemaLocationString];
+                }
+            }
+        }
+        
+        if (newSchemaLocationAttr) {
+            [documentAttributes replaceObjectAtIndex:attributeIndex
+                                          withObject:newSchemaLocationAttr];
+        }
+        
+        [documentElement setAttributes:documentAttributes];
+        [documentAttributes release];
+    }
+    
+    NSError* validationError = nil;
+    [mRuntimeSetting validateAndReturnError:&validationError];
+    
+    return validationError;
+}
+
 -(NSString*)getEDLFilePath
 {
     return mEDLFilePath;
 }
+
 -(NSError*)writeToFile:(NSString*)path
 {
     NSError* error = nil;
-    NSData* xmlData = [mRuntimeSetting XMLData];
+    NSData* xmlData = [mRuntimeSetting XMLDataWithOptions:NSXMLNodePrettyPrint];
     NSString* expandedPath = [path stringByExpandingTildeInPath];
     
     if (![xmlData writeToFile:expandedPath atomically:YES]) {
@@ -127,7 +192,7 @@
 {
     NSMutableString* query = [NSMutableString stringWithCapacity:0];
     [query appendString:key];
-
+    
     for (NSString* entryKey in mAbbreviations) {
         [query replaceOccurrencesOfString:(NSString*)entryKey 
                                withString:[mAbbreviations valueForKey:entryKey] 
@@ -186,6 +251,52 @@
 	}
 	
 	return numberOfNodes;
+}
+
+-(NSError*)replaceProp:(NSString*)key 
+              withNode:(NSXMLNode*)node
+{
+    NSError* err = nil;
+    NSString* query = [self resolveKey:key];
+    NSArray* queryResult = [mRuntimeSetting nodesForXPath:query error:&err];
+    
+    if ([queryResult count] == 1
+        && err == nil) {
+        NSXMLNode* toReplace = [queryResult objectAtIndex:0];
+        NSXMLNode* toReplaceParent = [toReplace parent];
+        
+        if ([toReplaceParent kind] == NSXMLElementKind) {
+            if (node) {
+                // Replace toReplace with node.  
+                if ([toReplace kind] == NSXMLAttributeKind
+                    && [node kind]   == NSXMLAttributeKind) {
+                    [(NSXMLElement*)toReplaceParent removeAttributeForName:[toReplace name]];
+                    [(NSXMLElement*)toReplaceParent addAttribute:node];
+                    
+                } else if ([toReplace kind] == NSXMLElementKind
+                           && [node kind]   == NSXMLElementKind) {
+                    [(NSXMLElement*)toReplaceParent replaceChildAtIndex:[toReplace index] 
+                                                               withNode:node];
+                }
+                
+            } else {
+                // Delete toReplace.
+                if ([toReplace kind] == NSXMLAttributeKind) {
+                    [(NSXMLElement*)toReplaceParent removeAttributeForName:[toReplace name]];
+                } else if ([toReplace kind] == NSXMLElementKind) {
+                    [(NSXMLElement*)toReplaceParent removeChildAtIndex:[toReplace index]];
+                }
+            }
+        }
+    } else {
+        if (err == nil) {
+            NSString* errorString = [NSString stringWithFormat:@"Found %d configuration entries for the given key (1 would be expected)!", 
+                                     [queryResult count]];
+            err = [NSError errorWithDomain:errorString code:CONFIG_ENTRY userInfo:nil];
+        }
+    }
+    
+    return err;
 }
 
 -(void)dealloc

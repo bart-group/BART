@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rtExperiment edlVersion="1.4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="rtExperiment_v14_simplified2.xsd">
+    <experimentData trSimulation="true">
+        <paradigm ignoreScansAtStart="0">
+            <swDesignStruct>
+                <scanBasedRegressor regressorID="regID" name="" size="1" useRefFct="blubFct">
+                    <sbrDesign size="1" repetitions="100">
+                        <scan>true</scan>
+                    </sbrDesign>
+                    <sbrIgnoreStruct overallIgnores="10">
+                    </sbrIgnoreStruct>
+                </scanBasedRegressor>
+            </swDesignStruct>
+        </paradigm>
+        <imageModalities imgType="IMA" imgDataExtension=".ima">
+            <imgBase></imgBase>
+            <byteOrder></byteOrder>
+            <TR>2000</TR>
+            <img3D></img3D>
+        </imageModalities>
+    </experimentData>
+
+    <stimulusData>
+
+        <stimEnvironment>	
+            <startTrigger waitForInitialTrigger="true">
+                <parallelPortTrigger>
+                    <triggerPort>0x379</triggerPort>
+                </parallelPortTrigger>
+            </startTrigger>
+
+            <logEvents writeAtRuntime="off" writeMatFile="on" writeTextFile="on">
+                <logFileBase>\LOG\logStim</logFileBase>
+            </logEvents>
+
+            <screen>
+                <screenResolutionX>800</screenResolutionX>
+                <screenResolutionY>600</screenResolutionY>  
+            </screen>  
+        </stimEnvironment>
+      
+        <mediaObjectList>
+            <mediaObject moID="1" name="text1" type="TEXT">
+                <contentText>
+                    <text>+</text>
+                    <tSize>60</tSize>
+                    <posX>150</posX>
+                    <posY>150</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="2" name="text2" type="TEXT">
+                <contentText>
+                    <text>+</text>
+                    <tSize>60</tSize>
+                    <posX>650</posX>
+                    <posY>150</posY>
+                </contentText>
+            </mediaObject>
+        </mediaObjectList>
+
+        <timeTable timeTolerance="20">
+            <blockStimulusDesign repeats="20"  overallPresLength="160000">
+                <stimEvent time="0" duration="2000">
+                    <mObjectID>1</mObjectID>
+                </stimEvent>
+
+                <stimEvent time="2000" duration="2000">
+                    <mObjectID>2</mObjectID>
+                </stimEvent>
+            </blockStimulusDesign>
+        </timeTable>
+          
+    </stimulusData>
+</rtExperiment>
