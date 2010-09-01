@@ -24,8 +24,30 @@
 		0006F43A122BEF54001DA2BB /* libEDNA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 007CD3DB11A042C000E6B2BB /* libEDNA.a */; };
 		0006F476122BFADD001DA2BB /* PRPreprocessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 0006F474122BFADD001DA2BB /* PRPreprocessor.h */; };
 		0006F477122BFADD001DA2BB /* PRPreprocessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F475122BFADD001DA2BB /* PRPreprocessor.m */; };
-		000F25ED121D82D40079C8E0 /* EDDataElementIsisTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0006284211A44D9300D369D0 /* EDDataElementIsisTest.mm */; };
-		000F25EE121D82D50079C8E0 /* EDDataElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006284411A44D9300D369D0 /* EDDataElementVITest.m */; };
+		0006F482122BFC54001DA2BB /* BAAnalyzerGLMTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F481122BFC54001DA2BB /* BAAnalyzerGLMTest.m */; };
+		0006F518122D2DEF001DA2BB /* NEDesignElementReference.c in Sources */ = {isa = PBXBuildFile; fileRef = 0006F517122D2DEF001DA2BB /* NEDesignElementReference.c */; };
+		0006F540122D3366001DA2BB /* BAAnalyzerGLMReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F53F122D3366001DA2BB /* BAAnalyzerGLMReference.m */; };
+		0006F57E122D5510001DA2BB /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573111459587007C02CB /* libgslcblas.dylib */; };
+		0006F57F122D5511001DA2BB /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7D689A1113447C005A9D15 /* libfftw3.a */; };
+		0006F580122D5512001DA2BB /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573B11459605007C02CB /* libgsl.0.dylib */; };
+		0006F581122D5516001DA2BB /* libvia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0006291611A5422800D369D0 /* libvia.a */; };
+		0006F582122D5517001DA2BB /* libviaio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0006291811A5422800D369D0 /* libviaio.a */; };
+		0006F594122D5880001DA2BB /* EDDataElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006284411A44D9300D369D0 /* EDDataElementVITest.m */; };
+		0006F595122D5881001DA2BB /* EDDataElementIsisTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0006284211A44D9300D369D0 /* EDDataElementIsisTest.mm */; };
+		0006F5E8122E5834001DA2BB /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C39FF11144FB2100725668 /* CLETUS.dylib */; };
+		0006F61D122E59EE001DA2BB /* ConfigTestDataset02.edl in Resources */ = {isa = PBXBuildFile; fileRef = 0006F61C122E59EE001DA2BB /* ConfigTestDataset02.edl */; };
+		0006F62B122E5A71001DA2BB /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C39FF11144FB2100725668 /* CLETUS.dylib */; };
+		0006F62C122E5A75001DA2BB /* libEDNA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 007CD3DB11A042C000E6B2BB /* libEDNA.a */; };
+		0006F62D122E5A78001DA2BB /* libNED.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00A63B3512281C2F00581E17 /* libNED.a */; };
+		0006F634122E5AA6001DA2BB /* glmtest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F633122E5AA6001DA2BB /* glmtest.m */; };
+		0006F709122E740C001DA2BB /* BAAnalyzerGLMReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F53F122D3366001DA2BB /* BAAnalyzerGLMReference.m */; };
+		0006F70A122E7414001DA2BB /* BAAnalyzerGLM.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7961141470400A57967 /* BAAnalyzerGLM.m */; };
+		0006F713122E747D001DA2BB /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573111459587007C02CB /* libgslcblas.dylib */; };
+		0006F714122E747E001DA2BB /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7D689A1113447C005A9D15 /* libfftw3.a */; };
+		0006F715122E747F001DA2BB /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573B11459605007C02CB /* libgsl.0.dylib */; };
+		0006F718122E748C001DA2BB /* BAAnalyzerElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A01141470400A57967 /* BAAnalyzerElement.m */; };
+		0006F7AD122E90FD001DA2BB /* pseudoStimulusDataBlock.edl in Resources */ = {isa = PBXBuildFile; fileRef = 0006F7AB122E90FD001DA2BB /* pseudoStimulusDataBlock.edl */; };
+		0006F7AE122E90FD001DA2BB /* rtExperiment_v14_simplified.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 0006F7AC122E90FD001DA2BB /* rtExperiment_v14_simplified.xsd */; };
 		0023A75811510D4C009182F8 /* edlValidation_rules.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0088781F1147B445009C7707 /* edlValidation_rules.xml */; };
 		0032CC37116E023A005117EA /* timeBasedRegressorLydi.edl in Resources */ = {isa = PBXBuildFile; fileRef = 003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */; };
 		0032CC38116E023F005117EA /* main_SW_BoldModule_2ContinousTargetROIs.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00AB18EA115246ED003BC915 /* main_SW_BoldModule_2ContinousTargetROIs.edl */; };
@@ -189,6 +211,27 @@
 			remoteGlobalIDString = 00C39FF01144FB2100725668 /* CLETUS */;
 			remoteInfo = CLETUS;
 		};
+		0006F625122E5A60001DA2BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00C39FF01144FB2100725668 /* CLETUS */;
+			remoteInfo = CLETUS;
+		};
+		0006F627122E5A64001DA2BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 007CD3DA11A042C000E6B2BB /* EDNA */;
+			remoteInfo = EDNA;
+		};
+		0006F629122E5A6A001DA2BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00A63B3412281C2F00581E17 /* NED */;
+			remoteInfo = NED;
+		};
 		0040B9911141708D00A57967 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -268,6 +311,18 @@
 		0006F442122BEFB2001DA2BB /* PRINCEUnitTestSuite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PRINCEUnitTestSuite-Info.plist"; path = "../../projects/PRINCEUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
 		0006F474122BFADD001DA2BB /* PRPreprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPreprocessor.h; sourceTree = "<group>"; };
 		0006F475122BFADD001DA2BB /* PRPreprocessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPreprocessor.m; sourceTree = "<group>"; };
+		0006F480122BFC54001DA2BB /* BAAnalyzerGLMTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAAnalyzerGLMTest.h; sourceTree = "<group>"; };
+		0006F481122BFC54001DA2BB /* BAAnalyzerGLMTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAAnalyzerGLMTest.m; sourceTree = "<group>"; };
+		0006F516122D2DEF001DA2BB /* NEDesignElementReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignElementReference.h; sourceTree = "<group>"; };
+		0006F517122D2DEF001DA2BB /* NEDesignElementReference.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NEDesignElementReference.c; sourceTree = "<group>"; };
+		0006F53E122D3366001DA2BB /* BAAnalyzerGLMReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAAnalyzerGLMReference.h; sourceTree = "<group>"; };
+		0006F53F122D3366001DA2BB /* BAAnalyzerGLMReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAAnalyzerGLMReference.m; sourceTree = "<group>"; };
+		0006F61C122E59EE001DA2BB /* ConfigTestDataset02.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ConfigTestDataset02.edl; sourceTree = "<group>"; };
+		0006F621122E5A55001DA2BB /* glmtest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = glmtest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0006F632122E5AA6001DA2BB /* glmtest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glmtest.h; sourceTree = "<group>"; };
+		0006F633122E5AA6001DA2BB /* glmtest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = glmtest.m; sourceTree = "<group>"; };
+		0006F7AB122E90FD001DA2BB /* pseudoStimulusDataBlock.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = pseudoStimulusDataBlock.edl; sourceTree = "<group>"; };
+		0006F7AC122E90FD001DA2BB /* rtExperiment_v14_simplified.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rtExperiment_v14_simplified.xsd; sourceTree = "<group>"; };
 		003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = timeBasedRegressorLydi.edl; sourceTree = "<group>"; };
 		0036104F117F9AED00A84F44 /* NEDesignKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignKernel.h; sourceTree = "<group>"; };
 		00361050117F9AED00A84F44 /* NEDesignKernel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignKernel.m; sourceTree = "<group>"; };
@@ -432,6 +487,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0006F61F122E5A55001DA2BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0006F62B122E5A71001DA2BB /* CLETUS.dylib in Frameworks */,
+				0006F62C122E5A75001DA2BB /* libEDNA.a in Frameworks */,
+				0006F62D122E5A78001DA2BB /* libNED.a in Frameworks */,
+				0006F713122E747D001DA2BB /* libgslcblas.dylib in Frameworks */,
+				0006F714122E747E001DA2BB /* libfftw3.a in Frameworks */,
+				0006F715122E747F001DA2BB /* libgsl.0.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		005B604211D3812400812781 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -539,6 +607,12 @@
 				005B5FD811D3608100812781 /* libboost_filesystem-mt.a in Frameworks */,
 				005B5FD911D3608100812781 /* libboost_regex-mt.a in Frameworks */,
 				005B5FDA11D3608200812781 /* libboost_system-mt.a in Frameworks */,
+				0006F57E122D5510001DA2BB /* libgslcblas.dylib in Frameworks */,
+				0006F57F122D5511001DA2BB /* libfftw3.a in Frameworks */,
+				0006F580122D5512001DA2BB /* libgsl.0.dylib in Frameworks */,
+				0006F581122D5516001DA2BB /* libvia.a in Frameworks */,
+				0006F582122D5517001DA2BB /* libviaio.a in Frameworks */,
+				0006F5E8122E5834001DA2BB /* CLETUS.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -738,6 +812,13 @@
 				00841BF711464321004341CC /* testfiles */,
 				0006283011A44B7F00D369D0 /* BADataElementTest.h */,
 				0006283111A44B7F00D369D0 /* BADataElementTest.m */,
+				0006F480122BFC54001DA2BB /* BAAnalyzerGLMTest.h */,
+				0006F481122BFC54001DA2BB /* BAAnalyzerGLMTest.m */,
+				0006F53E122D3366001DA2BB /* BAAnalyzerGLMReference.h */,
+				0006F53F122D3366001DA2BB /* BAAnalyzerGLMReference.m */,
+				0006F61C122E59EE001DA2BB /* ConfigTestDataset02.edl */,
+				0006F632122E5AA6001DA2BB /* glmtest.h */,
+				0006F633122E5AA6001DA2BB /* glmtest.m */,
 			);
 			path = BARTMainAppTests;
 			sourceTree = "<group>";
@@ -745,6 +826,8 @@
 		0040B85C1141472200A57967 /* CLETUSTests */ = {
 			isa = PBXGroup;
 			children = (
+				0006F7AB122E90FD001DA2BB /* pseudoStimulusDataBlock.edl */,
+				0006F7AC122E90FD001DA2BB /* rtExperiment_v14_simplified.xsd */,
 				003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */,
 				0088781F1147B445009C7707 /* edlValidation_rules.xml */,
 				008878201147B445009C7707 /* edlValidation_rules.xsd */,
@@ -840,6 +923,8 @@
 				0066277111804494004980A0 /* NEDesignGloverKernelTest.m */,
 				00662AC61181CFCD004980A0 /* NEDesignGloverKernelReference.h */,
 				00662AC71181CFCD004980A0 /* NEDesignGloverKernelReference.c */,
+				0006F516122D2DEF001DA2BB /* NEDesignElementReference.h */,
+				0006F517122D2DEF001DA2BB /* NEDesignElementReference.c */,
 			);
 			path = NEDTests;
 			sourceTree = "<group>";
@@ -882,6 +967,7 @@
 				00A63B3512281C2F00581E17 /* libNED.a */,
 				0006F432122BEF27001DA2BB /* libPRINCE.a */,
 				0006F441122BEFB2001DA2BB /* PRINCEUnitTestSuite.octest */,
+				0006F621122E5A55001DA2BB /* glmtest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1053,6 +1139,25 @@
 			productName = PRINCEUnitTestSuite;
 			productReference = 0006F441122BEFB2001DA2BB /* PRINCEUnitTestSuite.octest */;
 			productType = "com.apple.product-type.bundle";
+		};
+		0006F620122E5A55001DA2BB /* glmtest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0006F631122E5A90001DA2BB /* Build configuration list for PBXNativeTarget "glmtest" */;
+			buildPhases = (
+				0006F61E122E5A55001DA2BB /* Sources */,
+				0006F61F122E5A55001DA2BB /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0006F626122E5A60001DA2BB /* PBXTargetDependency */,
+				0006F628122E5A64001DA2BB /* PBXTargetDependency */,
+				0006F62A122E5A6A001DA2BB /* PBXTargetDependency */,
+			);
+			name = glmtest;
+			productName = glmtest;
+			productReference = 0006F621122E5A55001DA2BB /* glmtest */;
+			productType = "com.apple.product-type.tool";
 		};
 		005B604311D3812400812781 /* isis_test */ = {
 			isa = PBXNativeTarget;
@@ -1269,6 +1374,7 @@
 				00A63B3412281C2F00581E17 /* NED */,
 				0006F431122BEF27001DA2BB /* PRINCE */,
 				0006F440122BEFB2001DA2BB /* PRINCEUnitTestSuite */,
+				0006F620122E5A55001DA2BB /* glmtest */,
 			);
 		};
 /* End PBXProject section */
@@ -1308,6 +1414,8 @@
 				0023A75811510D4C009182F8 /* edlValidation_rules.xml in Resources */,
 				0032CC37116E023A005117EA /* timeBasedRegressorLydi.edl in Resources */,
 				0032CC38116E023F005117EA /* main_SW_BoldModule_2ContinousTargetROIs.edl in Resources */,
+				0006F7AD122E90FD001DA2BB /* pseudoStimulusDataBlock.edl in Resources */,
+				0006F7AE122E90FD001DA2BB /* rtExperiment_v14_simplified.xsd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1327,6 +1435,7 @@
 				00841C0F1146451F004341CC /* TestDataset01_Orig.v in Resources */,
 				00841C101146451F004341CC /* TestDataset01-design.v in Resources */,
 				00841C111146451F004341CC /* TestDataset01-functional.v in Resources */,
+				0006F61D122E59EE001DA2BB /* ConfigTestDataset02.edl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1422,6 +1531,8 @@
 				0006135F11A3DB4B00D369D0 /* EDDataElementVI.m in Sources */,
 				0006136011A3DB4C00D369D0 /* EDDataElementIsis.mm in Sources */,
 				0006137111A3DC0500D369D0 /* BAElement.m in Sources */,
+				0006F594122D5880001DA2BB /* EDDataElementVITest.m in Sources */,
+				0006F595122D5881001DA2BB /* EDDataElementIsisTest.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1437,6 +1548,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0006F61E122E5A55001DA2BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0006F634122E5AA6001DA2BB /* glmtest.m in Sources */,
+				0006F709122E740C001DA2BB /* BAAnalyzerGLMReference.m in Sources */,
+				0006F70A122E7414001DA2BB /* BAAnalyzerGLM.m in Sources */,
+				0006F718122E748C001DA2BB /* BAAnalyzerElement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1498,6 +1620,7 @@
 				0066277211804494004980A0 /* NEDesignGloverKernelTest.m in Sources */,
 				006627731180449F004980A0 /* NEDesignKernelTest.m in Sources */,
 				00662AC81181CFCD004980A0 /* NEDesignGloverKernelReference.c in Sources */,
+				0006F518122D2DEF001DA2BB /* NEDesignElementReference.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1557,8 +1680,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0006285911A44E2D00D369D0 /* BADataElementTest.m in Sources */,
-				000F25ED121D82D40079C8E0 /* EDDataElementIsisTest.mm in Sources */,
-				000F25EE121D82D50079C8E0 /* EDDataElementVITest.m in Sources */,
+				0006F482122BFC54001DA2BB /* BAAnalyzerGLMTest.m in Sources */,
+				0006F540122D3366001DA2BB /* BAAnalyzerGLMReference.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1584,6 +1707,21 @@
 			isa = PBXTargetDependency;
 			target = 00C39FF01144FB2100725668 /* CLETUS */;
 			targetProxy = 0006F437122BEF48001DA2BB /* PBXContainerItemProxy */;
+		};
+		0006F626122E5A60001DA2BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00C39FF01144FB2100725668 /* CLETUS */;
+			targetProxy = 0006F625122E5A60001DA2BB /* PBXContainerItemProxy */;
+		};
+		0006F628122E5A64001DA2BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 007CD3DA11A042C000E6B2BB /* EDNA */;
+			targetProxy = 0006F627122E5A64001DA2BB /* PBXContainerItemProxy */;
+		};
+		0006F62A122E5A6A001DA2BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00A63B3412281C2F00581E17 /* NED */;
+			targetProxy = 0006F629122E5A6A001DA2BB /* PBXContainerItemProxy */;
 		};
 		0040B9921141708D00A57967 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1801,6 +1939,60 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = PRINCEUnitTestSuite;
 				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		0006F623122E5A56001DA2BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = glmtest;
+			};
+			name = Debug;
+		};
+		0006F624122E5A56001DA2BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = glmtest;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -2486,6 +2678,15 @@
 			buildConfigurations = (
 				0006F443122BEFB2001DA2BB /* Debug */,
 				0006F444122BEFB2001DA2BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0006F631122E5A90001DA2BB /* Build configuration list for PBXNativeTarget "glmtest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0006F623122E5A56001DA2BB /* Debug */,
+				0006F624122E5A56001DA2BB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
