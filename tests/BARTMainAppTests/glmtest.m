@@ -1,86 +1,31 @@
 //
-//  BAAnalyzerGLMTest.m
+//  glmtest.m
 //  BARTApplication
 //
-//  Created by Lydia Hellrung on 8/30/10.
+//  Created by Lydia Hellrung on 9/1/10.
 //  Copyright 2010 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#import "BAAnalyzerGLMTest.h"
+#import "glmtest.h"
+
 #import "../../src/CLETUS/COSystemConfig.h"
 #import "../../src/ARTIE/GLM/BAAnalyzerGLM.h"
 #import "BAAnalyzerGLMReference.h"
 
 
-@implementation BAAnalyzerGLMTest
 
--(void)setUp
+@implementation glmtest
+
+@end
+
+int main(void)
 {
-	srand(time);
-}
-
-
--(void)testAnalyzeDataAkk
-{
-
+	
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	COSystemConfig *config = [COSystemConfig getInstance];
-	
-	STAssertNil([config fillWithContentsOfEDLFile:@"../tests/BARTMainAppTests/ConfigTestDataset02.edl"], @"error while loading config");
-	BADataElement *inputData = [[BADataElement alloc] initWithDatasetFile:@"../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" ofImageDataType:IMAGE_DATA_FLOAT];
-	BADesignElement *inputDesign = [[BADesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
-	
-	uint fwhm = 4;
-	uint minval = 2000;
-	BOOL swa = NO;
-	uint sws = 40;
-	uint nrTimesteps = 720;
-	BAAnalyzerGLMReference *glmReference = [[BAAnalyzerGLMReference alloc] initWithFwhm:fwhm 
-																	  andMinval:minval 
-															 forSlidingAnalysis:swa 
-																	   withSize:sws];
-	
-	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
-	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:nrTimesteps];
-	BADataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:nrTimesteps];
-	
-	STAssertEquals([outputAlg numberCols],      [outputRef numberCols], @"output number cols differ");
-	STAssertEquals([outputAlg numberRows],      [outputRef numberRows], @"output number rows differ");
-	STAssertEquals([outputAlg numberTimesteps], [outputRef numberTimesteps], @"output number timesteps differ");
-	STAssertEquals([outputAlg numberSlices],    [outputRef numberSlices], @"output number slices differ");
-	
-	
-	for (uint t = 0; t < [outputAlg numberTimesteps]; t++){
-		for (uint s = 0; s < [outputAlg numberSlices]; s++){
-			
-			float* sliceAlg = [outputAlg getSliceData:s atTimestep:t];
-			float* sliceRef = [outputRef getSliceData:s atTimestep:t];
-			float *pRef = sliceRef;
-			float *pAlg = sliceAlg;
-			float compAccuracy = 0.00001;
-			
-			for (uint c = 0; c < [outputAlg numberCols]; c++){
-				for (uint r = 0; r < [outputAlg numberRows]; r++){
-					STAssertEqualsWithAccuracy(*pRef++, *pAlg++, compAccuracy,
-											   [NSString stringWithFormat:@"ref and alg differ in slice %d and timestep %d",
-												s, t]);
-				}
-			}
-			
-			free(sliceAlg);
-			free(sliceRef);
-			
-		
-		}}
-	
-	
-}
-
--(void)testAnalyzeDataAkk2
-{
-	
-	COSystemConfig *config = [COSystemConfig getInstance];
-	STAssertNil([config fillWithContentsOfEDLFile:@"../tests/BARTMainAppTests/ConfigTestDataset02.edl"], @"error while loading config");
-
+	NSError *err = [config fillWithContentsOfEDLFile:@"../../tests/BARTMainAppTests/ConfigTestDataset02.edl"];
+	if (nil != err)
+		NSLog(@"%@", err);
 	
 	uint nrTimesteps = 39;
 	uint tr = 1560;
@@ -169,13 +114,19 @@
 	[elemDesign addChild:elemRegressor2];
 	[config replaceProp:elemToReplaceKey withNode: elemDesign];	
 	
-	
+	[config writeToFile:@"/tmp/myDesign.edl"];
+	[config fillWithContentsOfEDLFile:@"/tmp/myDesign.edl"];
 	//TODO has to be added to edl
 	// swa sws minval, fwhm
 	uint fwhm = 4;
 	uint minval = 2000;
 	BOOL swa = NO;
 	uint sws = 40;
+	
+	
+	
+	
+	//BADataElement *inputData = [[BADataElement alloc] initWithDatasetFile:@"../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" ofImageDataType:IMAGE_DATA_FLOAT];
 	
 	//randomized input data
 	uint rows = 32;
@@ -185,7 +136,7 @@
 	BADataElement *inputData = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT 
 															   andRows:rows andCols:cols 
 															 andSlices:slices andTimesteps:tsteps];
-
+	
 	for (uint t = 0; t < tsteps; t++){
 		for (uint s = 0; s < slices; s++){
 			for (uint c = 0; c < cols; c++){
@@ -196,7 +147,7 @@
 			}
 		}
 	}
-						
+	
 	BADesignElement *inputDesign = [[BADesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	
 	
@@ -206,14 +157,14 @@
 																			   withSize:sws];
 	
 	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
+	
+	
+	
+	
+	
+	
 	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:nrTimesteps];
 	BADataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:nrTimesteps];
-	
-	STAssertEquals([outputAlg numberCols],      [outputRef numberCols], @"output number cols differ");
-	STAssertEquals([outputAlg numberRows],      [outputRef numberRows], @"output number rows differ");
-	STAssertEquals([outputAlg numberTimesteps], [outputRef numberTimesteps], @"output number timesteps differ");
-	STAssertEquals([outputAlg numberSlices],    [outputRef numberSlices], @"output number slices differ");
-	
 	
 	for (uint t = 0; t < [outputAlg numberTimesteps]; t++){
 		for (uint s = 0; s < [outputAlg numberSlices]; s++){
@@ -226,8 +177,7 @@
 			
 			for (uint c = 0; c < [outputAlg numberCols]; c++){
 				for (uint r = 0; r < [outputAlg numberRows]; r++){
-					STAssertEqualsWithAccuracy(*pRef++, *pAlg++, compAccuracy,
-											   [NSString stringWithFormat:@"ref and alg differ in slice %d and timestep %d", s, t]);
+					NSLog(@"%.2f   %.2f\n",*pRef++, *pAlg++);
 				}
 			}
 			free(sliceAlg);
@@ -237,19 +187,9 @@
 		}}
 	
 	
-}
+	
+	[pool drain];
 
-
--(void)testAnalyzeDataWithSlidingWindow{
 	
 	
 }
-
-
--(void)testAnalyzeDataLimits
-{
-
-
-}
-
-@end
