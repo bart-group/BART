@@ -11,7 +11,7 @@
 #import "../../src/CLETUS/COSystemConfig.h"
 #import "../../src/ARTIE/GLM/BAAnalyzerGLM.h"
 #import "BAAnalyzerGLMReference.h"
-
+#import "../../src/EDNA/EDDataElementVI.h"
 
 
 @implementation glmtest
@@ -27,8 +27,9 @@ int main(void)
 	if (nil != err)
 		NSLog(@"%@", err);
 	
-	uint nrTimesteps = 39;
-	uint tr = 1560;
+	
+	uint nrTimesteps = 220;
+	uint tr = 1500;
 	uint length = tr*nrTimesteps;
 	NSString *strLength = [NSString stringWithFormat:@"%d", length];
 	[config setProp:@"$TR" :[NSString stringWithFormat:@"%d", tr] ];
@@ -38,7 +39,7 @@ int main(void)
 	NSXMLElement* elemDesign = [NSXMLElement elementWithName:@"gwDesignStruct"];
 	
 	
-	NSUInteger nrTrialsInRegr1 = 7;
+	NSUInteger nrTrialsInRegr1 = 93;
 	NSXMLElement* elemRegressor1 = [NSXMLElement elementWithName:@"timeBasedRegressor"];
 	NSXMLElement* tbrDesign = [NSXMLElement elementWithName:@"tbrDesign"];
 	[tbrDesign addAttribute:[NSXMLNode attributeWithName:@"length"  stringValue:strLength]];
@@ -61,7 +62,7 @@ int main(void)
 		NSString *stringTrialDuration = @"duration";
 		NSString *stringTrialHeight = @"height";
 		
-		NSString *strTime = [NSString stringWithFormat:@"%d", (k+4)*1000];
+		NSString *strTime = [NSString stringWithFormat:@"%d", (k+4)*10000];
 		NSXMLNode* attrTrialTime = [NSXMLNode attributeWithName:stringTrialTime stringValue:strTime];
 		NSXMLNode* attrTrialDuration = [NSXMLNode attributeWithName:stringTrialDuration stringValue:@"0"];
 		NSXMLNode* attrTrialHeight = [NSXMLNode attributeWithName:stringTrialHeight stringValue:@"1"];
@@ -76,7 +77,7 @@ int main(void)
 	
 	
 	/***reg 2**/
-	NSUInteger nrTrialsInRegr2 = 17;
+	NSUInteger nrTrialsInRegr2 = 34;
 	NSXMLElement* elemRegressor2 = [NSXMLElement elementWithName:@"timeBasedRegressor"];
 	
 	NSXMLElement* tbrDesign2 = [NSXMLElement elementWithName:@"tbrDesign"];
@@ -114,25 +115,19 @@ int main(void)
 	[elemDesign addChild:elemRegressor2];
 	[config replaceProp:elemToReplaceKey withNode: elemDesign];	
 	
-	[config writeToFile:@"/tmp/myDesign.edl"];
-	[config fillWithContentsOfEDLFile:@"/tmp/myDesign.edl"];
+	
 	//TODO has to be added to edl
 	// swa sws minval, fwhm
 	uint fwhm = 4;
 	uint minval = 2000;
-	BOOL swa = NO;
+	BOOL swa = YES;
 	uint sws = 40;
 	
-	
-	
-	
-	//BADataElement *inputData = [[BADataElement alloc] initWithDatasetFile:@"../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" ofImageDataType:IMAGE_DATA_FLOAT];
-	
 	//randomized input data
-	uint rows = 32;
-	uint cols = 17;
-	uint slices = 10;
-	uint tsteps = 21;
+	uint rows = 22;
+	uint cols = 7;
+	uint slices = 34;
+	uint tsteps = 220;
 	BADataElement *inputData = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT 
 															   andRows:rows andCols:cols 
 															 andSlices:slices andTimesteps:tsteps];
@@ -155,16 +150,18 @@ int main(void)
 																			  andMinval:minval 
 																	 forSlidingAnalysis:swa 
 																			   withSize:sws];
-	
 	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
 	
+	//TODO: will be changed with config
+	glmAlg.slidingWindowSize = sws;
+	glmAlg.mSlidingWindowAnalysis = YES;
+	glmAlg.mMinval = minval;
 	
 	
+	uint slidingWinAtTimestep = sws;
 	
-	
-	
-	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:nrTimesteps];
-	BADataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:nrTimesteps];
+	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:slidingWinAtTimestep];
+	BADataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:slidingWinAtTimestep];
 	
 	for (uint t = 0; t < [outputAlg numberTimesteps]; t++){
 		for (uint s = 0; s < [outputAlg numberSlices]; s++){
@@ -177,7 +174,60 @@ int main(void)
 			
 			for (uint c = 0; c < [outputAlg numberCols]; c++){
 				for (uint r = 0; r < [outputAlg numberRows]; r++){
-					NSLog(@"%.2f   %.2f\n",*pRef++, *pAlg++);
+					NSLog(@"%.4f   %.4f\n", *pRef++, *pAlg++);
+				}
+			}
+			free(sliceAlg);
+			free(sliceRef);
+			
+			
+		}}
+		
+	slidingWinAtTimestep = sws+67;
+	
+	outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:slidingWinAtTimestep];
+	outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:slidingWinAtTimestep];
+	
+	for (uint t = 0; t < [outputAlg numberTimesteps]; t++){
+		for (uint s = 0; s < [outputAlg numberSlices]; s++){
+			
+			float* sliceAlg = [outputAlg getSliceData:s atTimestep:t];
+			float* sliceRef = [outputRef getSliceData:s atTimestep:t];
+			float *pRef = sliceRef;
+			float *pAlg = sliceAlg;
+			float compAccuracy = 0.00001;
+			
+			for (uint c = 0; c < [outputAlg numberCols]; c++){
+				for (uint r = 0; r < [outputAlg numberRows]; r++){
+					NSLog(@"%.4f   %.4f\n", *pRef++, *pAlg++);
+				}
+			}
+			free(sliceAlg);
+			free(sliceRef);
+			
+			
+		}}
+	//[outputAlg release];
+	//	[outputRef release];
+	
+	slidingWinAtTimestep = nrTimesteps-1;
+	
+	outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:slidingWinAtTimestep];
+	outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:slidingWinAtTimestep];
+	
+	
+	for (uint t = 0; t < [outputAlg numberTimesteps]; t++){
+		for (uint s = 0; s < [outputAlg numberSlices]; s++){
+			
+			float* sliceAlg = [outputAlg getSliceData:s atTimestep:t];
+			float* sliceRef = [outputRef getSliceData:s atTimestep:t];
+			float *pRef = sliceRef;
+			float *pAlg = sliceAlg;
+			float compAccuracy = 0.00001;
+			
+			for (uint c = 0; c < [outputAlg numberCols]; c++){
+				for (uint r = 0; r < [outputAlg numberRows]; r++){
+					NSLog(@"%.4f   %.4f\n", *pRef++, *pAlg++);
 				}
 			}
 			free(sliceAlg);
