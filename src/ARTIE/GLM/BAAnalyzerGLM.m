@@ -37,6 +37,12 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 
 @implementation BAAnalyzerGLM
 
+//TODO : get from config
+@synthesize slidingWindowSize;
+@synthesize mSlidingWindowAnalysis;
+@synthesize mMinval;
+
+
 -(id)init
 {
     if (self = [super init]) {

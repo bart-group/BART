@@ -25,9 +25,17 @@
     BADataElement *mResMap;
     BADataElement *mBCOVOutput;
     // BADataElement *mKXOutput;
-    unsigned int slidingWindowSize;
+    uint slidingWindowSize;
 	BOOL mSlidingWindowAnalysis;
+	short mMinval; 
 	
 }
+
+//TODO : get from config
+
+@property(readwrite) uint slidingWindowSize;
+@property(readwrite) BOOL mSlidingWindowAnalysis;
+@property(readwrite) short mMinval;
+
 
 @end
