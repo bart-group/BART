@@ -147,6 +147,8 @@
 		00B1ADA811465349008FC09D /* COEDLValidatorToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1ADA611465349008FC09D /* COEDLValidatorToken.h */; };
 		00B1ADA911465349008FC09D /* COEDLValidatorToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1ADA711465349008FC09D /* COEDLValidatorToken.m */; };
 		00B1ADF0114670BE008FC09D /* COEDLValidatorToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1ADA711465349008FC09D /* COEDLValidatorToken.m */; };
+		00B50B3F123921B900BBCEB8 /* BAAnalyzerGLM.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7961141470400A57967 /* BAAnalyzerGLM.m */; };
+		00B50B40123921BA00BBCEB8 /* BAAnalyzerElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A01141470400A57967 /* BAAnalyzerElement.m */; };
 		00C3A0041144FBEF00725668 /* COSystemConfigTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C3A0021144FBEF00725668 /* COSystemConfigTest.m */; };
 		00C3A0271144FF5600725668 /* COSystemConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C39FEB1144FADC00725668 /* COSystemConfig.m */; };
 		00C3A02A1144FF9600725668 /* COSystemConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C39FEB1144FADC00725668 /* COSystemConfig.m */; };
@@ -201,35 +203,35 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 007CD3DA11A042C000E6B2BB /* EDNA */;
+			remoteGlobalIDString = 007CD3DA11A042C000E6B2BB;
 			remoteInfo = EDNA;
 		};
 		0006F437122BEF48001DA2BB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 00C39FF01144FB2100725668 /* CLETUS */;
+			remoteGlobalIDString = 00C39FF01144FB2100725668;
 			remoteInfo = CLETUS;
 		};
 		0006F625122E5A60001DA2BB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 00C39FF01144FB2100725668 /* CLETUS */;
+			remoteGlobalIDString = 00C39FF01144FB2100725668;
 			remoteInfo = CLETUS;
 		};
 		0006F627122E5A64001DA2BB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 007CD3DA11A042C000E6B2BB /* EDNA */;
+			remoteGlobalIDString = 007CD3DA11A042C000E6B2BB;
 			remoteInfo = EDNA;
 		};
 		0006F629122E5A6A001DA2BB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 00A63B3412281C2F00581E17 /* NED */;
+			remoteGlobalIDString = 00A63B3412281C2F00581E17;
 			remoteInfo = NED;
 		};
 		0040B9911141708D00A57967 /* PBXContainerItemProxy */ = {
@@ -1682,6 +1684,8 @@
 				0006285911A44E2D00D369D0 /* BADataElementTest.m in Sources */,
 				0006F482122BFC54001DA2BB /* BAAnalyzerGLMTest.m in Sources */,
 				0006F540122D3366001DA2BB /* BAAnalyzerGLMReference.m in Sources */,
+				00B50B3F123921B900BBCEB8 /* BAAnalyzerGLM.m in Sources */,
+				00B50B40123921BA00BBCEB8 /* BAAnalyzerElement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
