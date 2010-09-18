@@ -64,6 +64,20 @@ enum COSystemConfigError {
 -(NSError*)fillWithContentsOfEDLFile:(NSString*)edlPath;
 
 /**
+ * Validates the already filled configuration against a 
+ * XML schema definition.
+ *
+ * \param xsdPath The path to the XSD file. Pass nil to use the schema
+ *                path given in the EDL configuration file.
+ *                The path may be absolute or relative to the position of the
+ *                EDL file. Absolute URLs are also accepted, relative URL however
+ *                not (you need to convert them into absolute URLs beforehand).
+ * \return        Errors that occured during the validation. Returns nil
+ *                if the validation succeeded.
+ */
+-(NSError*)validateAgainstXSD:(NSString*)xsdPath;
+
+/**
  * Returns the path to the EDL file used by the configuration
  * (including filename and extension).
  *
@@ -119,6 +133,23 @@ enum COSystemConfigError {
  * \return    Number of nodes that are referenced by key.
  */
 -(NSUInteger)countNodes:(NSString*)key;
+
+/**
+ * Replaces a configuration property/entry with a XML node.
+ * You can only replace attributes with attribute nodes and elements 
+ * with element nodes.
+ *
+ * \param key  Complete XPath to the desired config entity according 
+ *			   to EDL specification.
+ *             Alternative: short keyword definitely identifiing the
+ *			   wanted config entry (predefined, starts with character "$").
+ * \param node XML node to replace the config entry at key. If nil: the config
+ *             entry will be deleted.
+ * \return     NSError if something went wrong during the replacement process.
+ *             
+ */
+-(NSError*)replaceProp:(NSString*)key 
+              withNode:(NSXMLNode*)node;
 
 
 @end
