@@ -7,7 +7,7 @@
 //
 
 #import "isis_test.h"
-#import "/Users/Lydi/Development/isis/lib/CoreUtils/propmap.hpp"
+#import "CoreUtils/propmap.hpp"
 
 
 @implementation isis_test

@@ -7,8 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#include "/Users/Lydi/Development/isis/lib/DataStorage/image.hpp"
-#include "/Users/Lydi/Development/isis/lib/DataStorage/io_factory.hpp"
+#include "DataStorage/image.hpp"
+#include "DataStorage/io_factory.hpp"
 #import "EDDataElementIsis.h"
 
 @interface isis_test : NSObject {
