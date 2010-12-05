@@ -62,8 +62,6 @@
 		005B57EF11C118C800812781 /* libboost_regex-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00062A2C11A58F5A00D369D0 /* libboost_regex-mt.a */; };
 		005B57F011C118C800812781 /* libboost_filesystem-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00062A2A11A58F5A00D369D0 /* libboost_filesystem-mt.a */; };
 		005B57F111C118C900812781 /* libboost_date_time-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00062A2811A58F5A00D369D0 /* libboost_date_time-mt.a */; };
-		005B5B7A11CF64DA00812781 /* libdata.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 005B5B7911CF64DA00812781 /* libdata.a */; };
-		005B5B7C11CF64F200812781 /* libutils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 005B5B7B11CF64F200812781 /* libutils.a */; };
 		005B5D7B11CFBFD900812781 /* libboost_date_time-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00062A2811A58F5A00D369D0 /* libboost_date_time-mt.a */; };
 		005B5D7C11CFBFDA00812781 /* libboost_filesystem-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00062A2A11A58F5A00D369D0 /* libboost_filesystem-mt.a */; };
 		005B5D7D11CFBFDA00812781 /* libboost_regex-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00062A2C11A58F5A00D369D0 /* libboost_regex-mt.a */; };
@@ -74,8 +72,6 @@
 		005B5FD911D3608100812781 /* libboost_regex-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00062A2C11A58F5A00D369D0 /* libboost_regex-mt.a */; };
 		005B5FDA11D3608200812781 /* libboost_system-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00062A2E11A58F5A00D369D0 /* libboost_system-mt.a */; };
 		005B604C11D3819E00812781 /* isis_test.mm in Sources */ = {isa = PBXBuildFile; fileRef = 005B604A11D3818B00812781 /* isis_test.mm */; };
-		005B604D11D381B000812781 /* libutils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 005B5B7B11CF64F200812781 /* libutils.a */; };
-		005B604E11D381B000812781 /* libdata.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 005B5B7911CF64DA00812781 /* libdata.a */; };
 		005B604F11D381B300812781 /* libboost_date_time-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00062A2811A58F5A00D369D0 /* libboost_date_time-mt.a */; };
 		005B605011D381B300812781 /* libboost_filesystem-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00062A2A11A58F5A00D369D0 /* libboost_filesystem-mt.a */; };
 		005B605111D381B400812781 /* libboost_regex-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00062A2C11A58F5A00D369D0 /* libboost_regex-mt.a */; };
@@ -88,6 +84,10 @@
 		0066277211804494004980A0 /* NEDesignGloverKernelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0066277111804494004980A0 /* NEDesignGloverKernelTest.m */; };
 		006627731180449F004980A0 /* NEDesignKernelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0066276D11804476004980A0 /* NEDesignKernelTest.m */; };
 		00662AC81181CFCD004980A0 /* NEDesignGloverKernelReference.c in Sources */ = {isa = PBXBuildFile; fileRef = 00662AC71181CFCD004980A0 /* NEDesignGloverKernelReference.c */; };
+		00664B6512ABF195005216E6 /* libisis_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00664B6412ABF192005216E6 /* libisis_core.a */; };
+		00664B8912ABF2F4005216E6 /* libisis_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00664B6412ABF192005216E6 /* libisis_core.a */; };
+		00664BF512ABF733005216E6 /* PRPreprocessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 0006F474122BFADD001DA2BB /* PRPreprocessor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		00664BF812ABF734005216E6 /* PRPreprocessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F475122BFADD001DA2BB /* PRPreprocessor.m */; };
 		007932B3114FB79E007BEB66 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F81141470400A57967 /* main.m */; };
 		007932B4114FB79E007BEB66 /* ColorMappingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F71141470400A57967 /* ColorMappingFilter.m */; };
 		007932B5114FB7A1007BEB66 /* BASourceDatasetFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F41141470400A57967 /* BASourceDatasetFile.m */; };
@@ -365,19 +365,20 @@
 		0040B7FA1141470400A57967 /* NegativeKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NegativeKernel.h; sourceTree = "<group>"; };
 		0040B86F1141488200A57967 /* SmoothnessEstim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SmoothnessEstim.c; sourceTree = "<group>"; };
 		0040B9B1114173BD00A57967 /* BARTUnitTestSuite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
-		005B5B7911CF64DA00812781 /* libdata.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdata.a; path = /Users/Lydi/Development/isis/build/lib/DataStorage/libdata.a; sourceTree = "<absolute>"; };
-		005B5B7B11CF64F200812781 /* libutils.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libutils.a; path = /Users/Lydi/Development/isis/build/lib/CoreUtils/libutils.a; sourceTree = "<absolute>"; };
 		005B604411D3812400812781 /* isis_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = isis_test; sourceTree = BUILT_PRODUCTS_DIR; };
 		005B604911D3818B00812781 /* isis_test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = isis_test.h; sourceTree = "<group>"; };
 		005B604A11D3818B00812781 /* isis_test.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = isis_test.mm; sourceTree = "<group>"; };
-		005B696811F08B4000812781 /* libdata.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libdata.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		005B697011F08BA700812781 /* data.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = data.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		0066276C11804476004980A0 /* NEDesignKernelTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignKernelTest.h; sourceTree = "<group>"; };
 		0066276D11804476004980A0 /* NEDesignKernelTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignKernelTest.m; sourceTree = "<group>"; };
 		0066277011804494004980A0 /* NEDesignGloverKernelTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignGloverKernelTest.h; sourceTree = "<group>"; };
 		0066277111804494004980A0 /* NEDesignGloverKernelTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignGloverKernelTest.m; sourceTree = "<group>"; };
 		00662AC61181CFCD004980A0 /* NEDesignGloverKernelReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignGloverKernelReference.h; sourceTree = "<group>"; };
 		00662AC71181CFCD004980A0 /* NEDesignGloverKernelReference.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NEDesignGloverKernelReference.c; sourceTree = "<group>"; };
+		00664B6412ABF192005216E6 /* libisis_core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libisis_core.a; path = /usr/local/lib/libisis_core.a; sourceTree = "<absolute>"; };
+		00664BF012ABF71D005216E6 /* PRINCE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PRINCE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		00664BF112ABF71D005216E6 /* PRINCE-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PRINCE-Info.plist"; sourceTree = "<group>"; };
+		00664BF612ABF733005216E6 /* libdata.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; name = libdata.dylib; path = /Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/runtime/Debug/libdata.dylib; sourceTree = "<absolute>"; };
+		00664BF712ABF733005216E6 /* data.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; name = data.dylib; path = /Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/runtime/Debug/data.dylib; sourceTree = "<absolute>"; };
 		006E07531190260500CEEF38 /* EDDataElementIsis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementIsis.h; sourceTree = "<group>"; };
 		006E07541190260500CEEF38 /* EDDataElementIsis.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = EDDataElementIsis.mm; sourceTree = "<group>"; };
 		007934EB1150FBF7007BEB66 /* COErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COErrorCode.h; sourceTree = "<group>"; };
@@ -506,12 +507,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				005B604D11D381B000812781 /* libutils.a in Frameworks */,
-				005B604E11D381B000812781 /* libdata.a in Frameworks */,
 				005B604F11D381B300812781 /* libboost_date_time-mt.a in Frameworks */,
 				005B605011D381B300812781 /* libboost_filesystem-mt.a in Frameworks */,
 				005B605111D381B400812781 /* libboost_regex-mt.a in Frameworks */,
 				005B605211D381B500812781 /* libboost_system-mt.a in Frameworks */,
+				00664B6512ABF195005216E6 /* libisis_core.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,18 +529,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		00664BEE12ABF71D005216E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		007CD3D911A042C000E6B2BB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				005B5B7A11CF64DA00812781 /* libdata.a in Frameworks */,
-				005B5B7C11CF64F200812781 /* libutils.a in Frameworks */,
 				005B5D7B11CFBFD900812781 /* libboost_date_time-mt.a in Frameworks */,
 				005B5D7C11CFBFDA00812781 /* libboost_filesystem-mt.a in Frameworks */,
 				005B5D7D11CFBFDA00812781 /* libboost_regex-mt.a in Frameworks */,
 				005B5D7E11CFBFDB00812781 /* libboost_system-mt.a in Frameworks */,
 				005B62D411DA3DD700812781 /* libviaio.a in Frameworks */,
 				005B62D511DA3DD700812781 /* libvia.a in Frameworks */,
+				00664B8912ABF2F4005216E6 /* libisis_core.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -870,12 +876,11 @@
 		006E07721190295400CEEF38 /* isis */ = {
 			isa = PBXGroup;
 			children = (
+				00664B6412ABF192005216E6 /* libisis_core.a */,
 				00062A2811A58F5A00D369D0 /* libboost_date_time-mt.a */,
 				00062A2A11A58F5A00D369D0 /* libboost_filesystem-mt.a */,
 				00062A2C11A58F5A00D369D0 /* libboost_regex-mt.a */,
 				00062A2E11A58F5A00D369D0 /* libboost_system-mt.a */,
-				005B5B7911CF64DA00812781 /* libdata.a */,
-				005B5B7B11CF64F200812781 /* libutils.a */,
 			);
 			name = isis;
 			sourceTree = "<group>";
@@ -964,12 +969,11 @@
 				007CD3DB11A042C000E6B2BB /* libEDNA.a */,
 				0006135611A3D84C00D369D0 /* EDNAUnitTestSuite.octest */,
 				005B604411D3812400812781 /* isis_test */,
-				005B696811F08B4000812781 /* libdata.dylib */,
-				005B697011F08BA700812781 /* data.dylib */,
 				00A63B3512281C2F00581E17 /* libNED.a */,
 				0006F432122BEF27001DA2BB /* libPRINCE.a */,
 				0006F441122BEFB2001DA2BB /* PRINCEUnitTestSuite.octest */,
 				0006F621122E5A55001DA2BB /* glmtest */,
+				00664BF012ABF71D005216E6 /* PRINCE.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -984,6 +988,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				00664BF112ABF71D005216E6 /* PRINCE-Info.plist */,
 			);
 			name = BARTApplication;
 			sourceTree = "<group>";
@@ -1041,6 +1046,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00664BEB12ABF71D005216E6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00664BF512ABF733005216E6 /* PRPreprocessor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1105,9 +1118,9 @@
 			productReference = 0006135611A3D84C00D369D0 /* EDNAUnitTestSuite.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		0006F431122BEF27001DA2BB /* PRINCE */ = {
+		0006F431122BEF27001DA2BB /* PRINCEDYL */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0006F43B122BEF73001DA2BB /* Build configuration list for PBXNativeTarget "PRINCE" */;
+			buildConfigurationList = 0006F43B122BEF73001DA2BB /* Build configuration list for PBXNativeTarget "PRINCEDYL" */;
 			buildPhases = (
 				0006F42E122BEF27001DA2BB /* Headers */,
 				0006F42F122BEF27001DA2BB /* Sources */,
@@ -1119,7 +1132,7 @@
 				0006F436122BEF2D001DA2BB /* PBXTargetDependency */,
 				0006F438122BEF48001DA2BB /* PBXTargetDependency */,
 			);
-			name = PRINCE;
+			name = PRINCEDYL;
 			productName = PRINCE;
 			productReference = 0006F432122BEF27001DA2BB /* libPRINCE.a */;
 			productType = "com.apple.product-type.library.static";
@@ -1191,7 +1204,7 @@
 			);
 			name = libdata;
 			productName = libdata;
-			productReference = 005B696811F08B4000812781 /* libdata.dylib */;
+			productReference = 00664BF612ABF733005216E6 /* libdata.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		005B696F11F08BA700812781 /* data */ = {
@@ -1208,8 +1221,26 @@
 			);
 			name = data;
 			productName = data;
-			productReference = 005B697011F08BA700812781 /* data.dylib */;
+			productReference = 00664BF712ABF733005216E6 /* data.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
+		};
+		00664BEF12ABF71D005216E6 /* PRINCE */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00664BF412ABF71D005216E6 /* Build configuration list for PBXNativeTarget "PRINCE" */;
+			buildPhases = (
+				00664BEB12ABF71D005216E6 /* Headers */,
+				00664BEC12ABF71D005216E6 /* Resources */,
+				00664BED12ABF71D005216E6 /* Sources */,
+				00664BEE12ABF71D005216E6 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PRINCE;
+			productName = PRINCE;
+			productReference = 00664BF012ABF71D005216E6 /* PRINCE.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		007CD3DA11A042C000E6B2BB /* EDNA */ = {
 			isa = PBXNativeTarget;
@@ -1355,7 +1386,14 @@
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "BARTApplication" */;
 			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* BARTApplication */;
 			projectDirPath = "";
 			projectRoots = (
@@ -1374,9 +1412,10 @@
 				005B696711F08B4000812781 /* libdata */,
 				005B696F11F08BA700812781 /* data */,
 				00A63B3412281C2F00581E17 /* NED */,
-				0006F431122BEF27001DA2BB /* PRINCE */,
+				0006F431122BEF27001DA2BB /* PRINCEDYL */,
 				0006F440122BEFB2001DA2BB /* PRINCEUnitTestSuite */,
 				0006F620122E5A55001DA2BB /* glmtest */,
+				00664BEF12ABF71D005216E6 /* PRINCE */,
 			);
 		};
 /* End PBXProject section */
@@ -1390,6 +1429,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0006F43C122BEFB2001DA2BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00664BEC12ABF71D005216E6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1586,6 +1632,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00664BED12ABF71D005216E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00664BF812ABF734005216E6 /* PRPreprocessor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2017,12 +2071,16 @@
 					"_ENABLE_LOG=1",
 					"$(GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1)",
 				);
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/isis,
+					/opt/local/include,
+					/usr/include,
+				);
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../isis/build/lib/CoreUtils\"",
-					"\"$(SRCROOT)/../../../../isis/build/lib/DataStorage\"",
 					/opt/local/lib,
+					/usr/local/lib,
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -2164,6 +2222,60 @@
 			};
 			name = Release;
 		};
+		00664BF212ABF71D005216E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "PRINCE-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = PRINCE;
+			};
+			name = Debug;
+		};
+		00664BF312ABF71D005216E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "PRINCE-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = PRINCE;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		007CD3DC11A042C000E6B2BB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2179,17 +2291,14 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
-					/Users/Lydi/Development/isis/lib,
 					/opt/local/include,
+					/usr/local/include/isis,
 					/usr/include,
 				);
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/opt/local/lib,
-					"\"$(SRCROOT)/../../../../isis/build/lib/DataStorage\"",
-					"\"$(SRCROOT)/../../../../isis/build/lib/CoreUtils\"",
-					"\"$(SRCROOT)/../../../../isis/build\"",
+					/opt/local/lib/isis,
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -2668,7 +2777,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0006F43B122BEF73001DA2BB /* Build configuration list for PBXNativeTarget "PRINCE" */ = {
+		0006F43B122BEF73001DA2BB /* Build configuration list for PBXNativeTarget "PRINCEDYL" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0006F433122BEF28001DA2BB /* Debug */,
@@ -2718,6 +2827,15 @@
 			buildConfigurations = (
 				005B697111F08BA800812781 /* Debug */,
 				005B697211F08BA800812781 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		00664BF412ABF71D005216E6 /* Build configuration list for PBXNativeTarget "PRINCE" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00664BF212ABF71D005216E6 /* Debug */,
+				00664BF312ABF71D005216E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
