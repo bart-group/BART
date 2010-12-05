@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "../BARTMainApp/BADataElement.h"
-#include "/Users/Lydi/Development/isis/lib/DataStorage/image.hpp"
+#import "DataStorage/image.hpp"
 
 @interface EDDataElementIsis : BADataElement {
 	isis::data::ImageList mIsisImageList;

@@ -14,8 +14,8 @@
 
 
 
-#include "/Users/Lydi/Development/isis/lib/DataStorage/image.hpp"
-#include "/Users/Lydi/Development/isis/lib/DataStorage/io_factory.hpp"
+#include "DataStorage/image.hpp"
+#include "DataStorage/io_factory.hpp"
 
 
 #include <iostream>
@@ -37,7 +37,8 @@
 	mIsisImageList = isis::data::IOFactory::load( [path cStringUsingEncoding:NSUTF8StringEncoding], "", "" );
 
 	// that's unusual 
-    if (1 > mIsisImageList.size()) {
+    uint s = mIsisImageList.size();
+    if (1 < mIsisImageList.size()) {
         NSLog(@"hmmm, several pics in one image");
 	}
 	
