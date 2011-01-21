@@ -271,10 +271,10 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 		mRegressorList[eventNr]->regDescription = [config getProp:[NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/@name", expType, trialID]];
 
 		// number of derivations used per each event
-		if ( YES == [[config getProp:[NSString stringWithFormat:@"%@/timeBasedRegressor/@useRefFctSecondDerivative", expType]] boolValue]){
+		if ( YES == [[config getProp:[NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/@useRefFctSecondDerivative", expType, trialID]] boolValue]){
 			mRegressorList[eventNr]->regDerivations = 2;
 			nrDerivs += 2;}
-		else if (YES == [[config getProp:[NSString stringWithFormat:@"%@/timeBasedRegressor/@useRefFctFirstDerivative", expType]] boolValue]){
+		else if (YES == [[config getProp:[NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/@useRefFctFirstDerivative", expType, trialID]] boolValue]){
 			mRegressorList[eventNr]->regDerivations = 1;
 			nrDerivs += 1;}
 		else {
