@@ -9,34 +9,29 @@
 #import "NEDesignElementDynTest.h"
 #import "../../src/NED/NEDesignElementDyn.h"
 #import "../../src/CLETUS/COSystemConfig.h"
-
-@interface NEDesignElementDynTest (MemberVariables)
-
-	NEDesignElementDyn *designEl;
-	COSystemConfig *config;
-@end
+#import "NEDesignElementReference.h"
 
 @implementation NEDesignElementDynTest
 
 
 - (void) setUp {
-	config = [COSystemConfig getInstance];
+	
 	srand(time(NULL));
 }
 
 - (void) testProperties {
 	
-	designEl = [[BADesignElement alloc] init];
+	NEDesignElementDyn *designEl = [[BADesignElement alloc] init];
 	
 	STAssertTrue([designEl mNumberTimesteps] == 0, @"initial value timesteps in design not null");
 	[designEl setMNumberTimesteps: 896];
 	STAssertTrue([designEl mNumberTimesteps] == 896, @"set positive value not correctly");
 	
 	//TODO: what to do with stupid values, negative, large?!
-	[designEl setMNumberTimesteps: 12233344422211233];
+	[designEl setMNumberTimesteps: 12233344];
 	
 	
-	STAssertTrue([designEl mNumberTimesteps] == (unsigned int)(12233344422211233), @"set value correct");
+	STAssertTrue([designEl mNumberTimesteps] == (unsigned int)(12233344), @"set value correct");
 	
 	STAssertTrue([designEl mNumberExplanatoryVariables] == 0, @"initial value explanatory variable is not null");
 	[designEl setMNumberExplanatoryVariables:123];
@@ -59,15 +54,13 @@
 
 -(void) testInitWithDynamic {
 	
-	//at the moment only values already available in edl-file can be set
-	
-	
 	//normal case: for this test file: timeBasedRegressorNEDTest.edl
-	[config fillWithContentsOfEDLFile:@"/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/tests/NEDTests/timeBasedRegressorNEDTest.edl"];
+	COSystemConfig *config = [COSystemConfig getInstance];
+	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
 	[config setProp:@"$nrTimesteps" :@"100"]; 
 	[config setProp:@"$TR" :@"1000"];
 		
-	designEl = [[NEDesignElementDyn alloc]
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc]
                 initWithDynamicDataOfImageDataType: IMAGE_DATA_FLOAT];
 	STAssertEquals(designEl.mNumberCovariates, (unsigned int)(0), @"Incorrect number of covariates.");
 	STAssertEquals(designEl.mNumberRegressors, (unsigned int)(3), @"Incorrect number of regressors.");
@@ -96,9 +89,10 @@
 
 -(void) testCopy
 {
-	[config fillWithContentsOfEDLFile:@"/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/tests/NEDTests/timeBasedRegressorNEDTest.edl"];
+	COSystemConfig *config = [COSystemConfig getInstance];
+	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
 	
-	designEl = [[NEDesignElementDyn alloc]
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc]
                 initWithDynamicDataOfImageDataType: IMAGE_DATA_FLOAT];
 	
 	[config setProp:@"$nrTimesteps" :@"100"]; 
@@ -166,7 +160,8 @@
 
 -(void)testGenerateDesign
 {
-	[config fillWithContentsOfEDLFile:@"/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/tests/NEDTests/timeBasedRegressorNEDTest.edl"];
+	COSystemConfig *config = [COSystemConfig getInstance];
+	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
 	[config setProp:@"$nrTimesteps" :@"100"]; 
 	[config setProp:@"$TR" :@"320"];
 	
@@ -176,9 +171,10 @@
 		NSString *stringTrialTime = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@time", 1, k+1];
 		NSString *stringTrialDuration = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@duration",1, k+1];
 		NSString *stringTrialHeight = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@height",1, k+1];
-		[config setProp:stringTrialTime :[NSString stringWithFormat:@"%d",0]];
+		[config setProp:stringTrialTime :[NSString stringWithFormat:@"%d", rand()%800000]];
 		[config setProp:stringTrialHeight :@"1"];
-		[config setProp:stringTrialDuration :[NSString stringWithFormat:@"%d", 0]];
+		[config setProp:stringTrialDuration :[NSString stringWithFormat:@"%d", rand()%212320]];
+		
 
 	}
 	NSUInteger nrTrialsInRegr2 = 27;
@@ -188,47 +184,129 @@
 		NSString *stringTrialTime = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@time", 2, k+1];
 		NSString *stringTrialDuration = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@duration",2, k+1];
 		NSString *stringTrialHeight = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@height",2, k+1];
-		[config setProp:stringTrialTime :[NSString stringWithFormat:@"%d",0]];
+		[config setProp:stringTrialTime :[NSString stringWithFormat:@"%d", rand()%123420]];
 		[config setProp:stringTrialHeight :@"1"];
-		[config setProp:stringTrialDuration :[NSString stringWithFormat:@"%d",0]];
+		[config setProp:stringTrialDuration :[NSString stringWithFormat:@"%d", rand()%342540]];
 
 	}
 	
-	designEl = [[NEDesignElementDyn alloc]
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc]
                 initWithDynamicDataOfImageDataType: IMAGE_DATA_FLOAT];
 	
+	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
+	float compAccuracy = 0.00001;
+	
+	for (uint ev = 0; ev < [referenceDesign mNumberExplanatoryVariables]; ev++){
+		for (uint t = 0; t < [referenceDesign mNumberTimesteps]; t++){
+			
+			NSNumber *refValue = [referenceDesign getValueFromExplanatoryVariable: ev atTimestep:t];
+			NSNumber *toTestValue = [designEl getValueFromExplanatoryVariable: ev atTimestep:t];
+			STAssertEqualsWithAccuracy([refValue floatValue], [toTestValue floatValue], compAccuracy,
+									   [NSString stringWithFormat:@"refrence and design differ in ev %d and timestep %d", ev, t]);
+		}}
 	
 	
 	[designEl release];
+	[referenceDesign release];
 	
 }
 
 
--(void)testGetValues
+-(void)testUsualBlockDesign
 {
-	[config fillWithContentsOfEDLFile:@"/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/tests/NEDTests/timeBasedRegressorNEDTest.edl"];
-	designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	//test with blockDesignTest01.edl
+	COSystemConfig *config = [COSystemConfig getInstance];
+	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/blockDesignTest01.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	
+	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
+	float compAccuracy = 0.00001;
 	
-	[config setProp:@"$nrTimesteps" :@"120"];
-	[config setProp:@"$TR" :@"34721"];
+	for (uint ev = 0; ev < [referenceDesign mNumberExplanatoryVariables]; ev++){
+		for (uint t = 0; t < [referenceDesign mNumberTimesteps]; t++){
+			
+			NSNumber *refValue = [referenceDesign getValueFromExplanatoryVariable: ev atTimestep:t];
+			NSNumber *toTestValue = [designEl getValueFromExplanatoryVariable: ev atTimestep:t];
+			STAssertEqualsWithAccuracy([refValue floatValue], [toTestValue floatValue], compAccuracy,
+									   [NSString stringWithFormat:@"testUsualBlockDesign: reference and design in differ in ev %d and timestep %d", ev, t]);
+	}}
 	
-	
-	
-	
-
-
 	[designEl release];
+	[referenceDesign release];
 }
+
+-(void)testUsualERDesign
+{
+	//test with erDesignTest01.edl
+	COSystemConfig *config = [COSystemConfig getInstance];
+	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest01.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	
+	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
+	
+	float compAccuracy = 0.00001;
+	
+	for (uint ev = 0; ev < [referenceDesign mNumberExplanatoryVariables]; ev++){
+		for (uint t = 0; t < [referenceDesign mNumberTimesteps]; t++){
+			
+			NSNumber *refValue = [referenceDesign getValueFromExplanatoryVariable: ev atTimestep:t];
+			NSNumber *toTestValue = [designEl getValueFromExplanatoryVariable: ev atTimestep:t];
+			STAssertEqualsWithAccuracy([refValue floatValue], [toTestValue floatValue], compAccuracy,
+									   [NSString stringWithFormat:@"testUsualBlockDesign: reference and design in differ in ev %d and timestep %d", ev, t]);
+		}}
+	
+	[designEl release];
+	[referenceDesign release];
+	
+}
+
+
+
+-(void)testUnsortedDesign
+{
+	
+}
+
+-(void)testDesignWithFirstDeriv
+{
+	
+	
+}
+
+
+-(void)testDesignWithSecondDeriv
+{
+	
+}
+
+
+
+
+-(void)testParametricDesign
+{
+
+	
+}
+
+-(void)testLimits
+{
+	//no regressors
+	
+	//all zeros
+	
+	//all ones
+	
+	
+}
+
 
 -(void)testSetRegressorAndCovariate
 {
-
+	
 	
 }
-
 
 
 @end
