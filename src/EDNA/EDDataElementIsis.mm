@@ -81,14 +81,13 @@
 	for (int ts = 0; ts < tsteps; ts++){
 		for (int sl = 0; sl < slices; sl++){
 			isis::data::MemChunk<float> ch(cols, rows);
-			ch.setProperty("indexOrigin", isis::util::fvector4(0,0,sl));
+			ch.setProperty<isis::util::fvector4>("indexOrigin", isis::util::fvector4(0,0,sl));
 			ch.setProperty<u_int32_t>("acquisitionNumber", sl+ts*slices);
 			ch.setProperty<u_int16_t>("sequenceNumber", 1);
-			ch.setProperty("voxelSize", isis::util::fvector4(1,1,1,0));
-			ch.setProperty("readVec", isis::util::fvector4(1,0,0,0));
-			ch.setProperty("phaseVec", isis::util::fvector4(0,1,0,0));
-			ch.setProperty("sliceVec", isis::util::fvector4(0,0,1,0));
-			//mChunkList.push_back(ch);
+			ch.setProperty<isis::util::fvector4>("voxelSize", isis::util::fvector4(1,1,1,0));
+			ch.setProperty<isis::util::fvector4>("readVec", isis::util::fvector4(1,0,0,0));
+			ch.setProperty<isis::util::fvector4>("phaseVec", isis::util::fvector4(0,1,0,0));
+			ch.setProperty<isis::util::fvector4>("sliceVec", isis::util::fvector4(0,0,1,0));
 			mIsisImage.insertChunk(ch);
 		}
 	}
@@ -515,6 +514,16 @@
 		}
 	} 
 	
+}
+
+-(BOOL)valid
+{
+	return mIsisImage.valid();
+}
+
+-(BOOL)empty
+{
+	return mIsisImage.empty();
 }
 
 @end
