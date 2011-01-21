@@ -95,7 +95,7 @@ enum BADesignElementErrorRef {
 
 -(NSError*)generateDesign;
 
--(id)initWithDynamicDataOfImageDataType;
+-(id)init;
 
 
 -(NSError*)writeDesignFile:(NSString*)path;
