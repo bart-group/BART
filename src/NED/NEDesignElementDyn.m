@@ -512,8 +512,13 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         
         /* fft */
         fftw_execute(mFftPlanForward[eventNr]);
- 		unsigned int col = eventNr + mRegressorList[eventNr]->regDerivations;
-  		[self Convolve:col
+		// the actual column is added from all events and their derivations before
+		unsigned int columnsForDerivs = 0;
+		for (unsigned int countCols = 0; countCols < eventNr; countCols++){
+			columnsForDerivs += mRegressorList[countCols]->regDerivations;}
+		
+		unsigned int col = eventNr + columnsForDerivs;
+		[self Convolve:col
 					  :eventNr
 					  :mRegressorList[eventNr]->regConvolKernel.mKernelDeriv0]; 
         col++;
