@@ -264,23 +264,101 @@
 
 
 
--(void)testUnsortedDesign
+
+-(void)testDesignAllWithFirstDeriv
 {
+	COSystemConfig *config = [COSystemConfig getInstance];
+	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest02_deriv1AllReg.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	
+	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
+	
+	float compAccuracy = 0.00001;
+	
+	for (uint ev = 0; ev < [referenceDesign mNumberExplanatoryVariables]; ev++){
+		for (uint t = 0; t < [referenceDesign mNumberTimesteps]; t++){
+			
+			NSNumber *refValue = [referenceDesign getValueFromExplanatoryVariable: ev atTimestep:t];
+			NSNumber *toTestValue = [designEl getValueFromExplanatoryVariable: ev atTimestep:t];
+			STAssertEqualsWithAccuracy([refValue floatValue], [toTestValue floatValue], compAccuracy,
+									   [NSString stringWithFormat:@"testDesignAllWithFirstDeriv: reference and design in differ in ev %d and timestep %d", ev, t]);
+		}}
+	
+	[designEl release];
+	[referenceDesign release];
 	
 }
 
--(void)testDesignWithFirstDeriv
+-(void)testDesignSomeWithFirstDeriv
 {
+	COSystemConfig *config = [COSystemConfig getInstance];
+	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest03_deriv1Reg1_3.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	
+	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
+	
+	float compAccuracy = 0.00001;
+	
+	for (uint ev = 0; ev < [referenceDesign mNumberExplanatoryVariables]; ev++){
+		for (uint t = 0; t < [referenceDesign mNumberTimesteps]; t++){
+			
+			NSNumber *refValue = [referenceDesign getValueFromExplanatoryVariable: ev atTimestep:t];
+			NSNumber *toTestValue = [designEl getValueFromExplanatoryVariable: ev atTimestep:t];
+			STAssertEqualsWithAccuracy([refValue floatValue], [toTestValue floatValue], compAccuracy,
+									   [NSString stringWithFormat:@"testDesignSomeWithFirstDeriv: reference and design in differ in ev %d and timestep %d", ev, t]);
+		}}
+	
+	[designEl release];
+	[referenceDesign release];
 	
 }
 
 
--(void)testDesignWithSecondDeriv
+-(void)testDesignAllWithSecondDeriv
 {
+	COSystemConfig *config = [COSystemConfig getInstance];
+	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest04_deriv2AllReg.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	
+	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
+	
+	float compAccuracy = 0.00001;
+	
+	for (uint ev = 0; ev < [referenceDesign mNumberExplanatoryVariables]; ev++){
+		for (uint t = 0; t < [referenceDesign mNumberTimesteps]; t++){
+			
+			NSNumber *refValue = [referenceDesign getValueFromExplanatoryVariable: ev atTimestep:t];
+			NSNumber *toTestValue = [designEl getValueFromExplanatoryVariable: ev atTimestep:t];
+			STAssertEqualsWithAccuracy([refValue floatValue], [toTestValue floatValue], compAccuracy,
+									   [NSString stringWithFormat:@"testDesignAllWithSecondDeriv: reference and design in differ in ev %d and timestep %d", ev, t]);
+		}}
+	
+	[designEl release];
+	[referenceDesign release];
 }
 
+-(void)testDesignSomeWithSecondDeriv
+{
+	COSystemConfig *config = [COSystemConfig getInstance];
+	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest05_deriv2Reg2_4.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	
+	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
+	
+	float compAccuracy = 0.00001;
+	
+	for (uint ev = 0; ev < [referenceDesign mNumberExplanatoryVariables]; ev++){
+		for (uint t = 0; t < [referenceDesign mNumberTimesteps]; t++){
+			
+			NSNumber *refValue = [referenceDesign getValueFromExplanatoryVariable: ev atTimestep:t];
+			NSNumber *toTestValue = [designEl getValueFromExplanatoryVariable: ev atTimestep:t];
+			STAssertEqualsWithAccuracy([refValue floatValue], [toTestValue floatValue], compAccuracy,
+									   [NSString stringWithFormat:@"testDesignSomeWithSecondDeriv: reference and design in differ in ev %d and timestep %d", ev, t]);
+		}}
+	
+	[designEl release];
+	[referenceDesign release];
+}
 
 
 
