@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <rtExperiment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" edlVersion="1.4" xsi:noNamespaceSchemaLocation="rtExperiment_v14.xsd">
     <environment globalTimeUnit="milliseconds">
         <logging doLogging="true">
@@ -25,7 +25,7 @@
     <experimentData trSimulation="false">
         <paradigm ignoreScansAtStart="0">
             <gwDesignStruct>
-                <timeBasedRegressor length="792000" name="Reg1" regressorID="Reg1" scaleHeightToZeroMean="false" useRefFct="gloverGammaEventRelDesign" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
+                <timeBasedRegressor length="792000" name="Reg1" regressorID="Reg1" scaleHeightToZeroMean="false" useRefFct="gloverGammaEventRelDesign" useRefFctFirstDerivative="true" useRefFctSecondDerivative="true">
                     <tbrDesign length="792000" repetitions="1">
                         <statEvent duration="1000" height="1" time="13000"/>
                         <statEvent duration="1000" height="1" time="44000"/>
@@ -61,7 +61,7 @@
                         <statEvent duration="1000" height="1" time="253500"/>
                     </tbrDesign>
                 </timeBasedRegressor>
-                <timeBasedRegressor length="792000" name="Reg2" regressorID="Reg2" scaleHeightToZeroMean="false" useRefFct="gloverGammaEventRelDesign" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
+                <timeBasedRegressor length="792000" name="Reg2" regressorID="Reg2" scaleHeightToZeroMean="false" useRefFct="gloverGammaEventRelDesign" useRefFctFirstDerivative="true" useRefFctSecondDerivative="true">
                     <tbrDesign length="792000" repetitions="1">
                         <statEvent duration="1000" height="1" time="25500"/>
                         <statEvent duration="1000" height="1" time="37000"/>
@@ -97,7 +97,7 @@
                         <statEvent duration="1000" height="1" time="757000"/>
                     </tbrDesign>
                 </timeBasedRegressor>
-                <timeBasedRegressor length="792000" name="Reg3" regressorID="Reg3" scaleHeightToZeroMean="false" useRefFct="gloverGammaEventRelDesign" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
+                <timeBasedRegressor length="792000" name="Reg3" regressorID="Reg3" scaleHeightToZeroMean="false" useRefFct="gloverGammaEventRelDesign" useRefFctFirstDerivative="true" useRefFctSecondDerivative="true">
                     <tbrDesign length="792000" repetitions="1">
                         <statEvent duration="1000" height="1" time="19000"/>
                         <statEvent duration="1000" height="1" time="31500"/>
@@ -130,7 +130,7 @@
                         <statEvent duration="1000" height="1" time="764000"/>
                     </tbrDesign>
                 </timeBasedRegressor>
-                <timeBasedRegressor length="792000" name="Reg4" regressorID="Reg4" scaleHeightToZeroMean="false" useRefFct="gloverGammaEventRelDesign" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
+                <timeBasedRegressor length="792000" name="Reg4" regressorID="Reg4" scaleHeightToZeroMean="false" useRefFct="gloverGammaEventRelDesign" useRefFctFirstDerivative="true" useRefFctSecondDerivative="true">
                     <tbrDesign length="792000" repetitions="1">
                         <statEvent duration="1000" height="1" time="73000"/>
                         <statEvent duration="1000" height="1" time="84500"/>

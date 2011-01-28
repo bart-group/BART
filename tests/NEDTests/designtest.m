@@ -28,7 +28,7 @@ int main(void)
 	//erDesignTest05_deriv2Reg2_4
 	
 	
-	NSError *err = [config fillWithContentsOfEDLFile:@"../../tests/NEDTests/erDesignTest02_deriv1AllReg.edl"];
+	NSError *err = [config fillWithContentsOfEDLFile:@"../../tests/NEDTests/blockDesignTest02_parametric.edl"];
 	if (nil != err)
 		NSLog(@"%@", err);
 	
@@ -52,8 +52,8 @@ int main(void)
 		}}
 	
 	
-	[toTestDesign writeDesignFile:@"/tmp/testDesignTest02_deriv1AllReg.v"];
-	[referenceDesign writeDesignFile:@"/tmp/referenceDesignTest02_deriv1AllReg.v"];
+	[toTestDesign writeDesignFile:@"/tmp/testblockDesignTest02_parametric.v"];
+	[referenceDesign writeDesignFile:@"/tmp/referenceblockDesignTest02_parametric.v"];
 
 	[pool drain];
 
