@@ -362,20 +362,92 @@
 
 
 
--(void)testParametricDesign
+-(void)testParametricDesignER
 {
-
+	COSystemConfig *config = [COSystemConfig getInstance];
+	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest06_parametric.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	
+	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
+	
+	float compAccuracy = 0.00001;
+	
+	for (uint ev = 0; ev < [referenceDesign mNumberExplanatoryVariables]; ev++){
+		for (uint t = 0; t < [referenceDesign mNumberTimesteps]; t++){
+			
+			NSNumber *refValue = [referenceDesign getValueFromExplanatoryVariable: ev atTimestep:t];
+			NSNumber *toTestValue = [designEl getValueFromExplanatoryVariable: ev atTimestep:t];
+			STAssertEqualsWithAccuracy([refValue floatValue], [toTestValue floatValue], compAccuracy,
+									   [NSString stringWithFormat:@"testParametricDesignER: reference and design in differ in ev %d and timestep %d", ev, t]);
+		}}
+	
+	[designEl release];
+	[referenceDesign release];
 	
 }
 
+-(void)testParametricDesignBlock
+{
+	COSystemConfig *config = [COSystemConfig getInstance];
+	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/blockDesignTest02_parametric.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	
+	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
+	
+	float compAccuracy = 0.00001;
+	
+	for (uint ev = 0; ev < [referenceDesign mNumberExplanatoryVariables]; ev++){
+		for (uint t = 0; t < [referenceDesign mNumberTimesteps]; t++){
+			
+			NSNumber *refValue = [referenceDesign getValueFromExplanatoryVariable: ev atTimestep:t];
+			NSNumber *toTestValue = [designEl getValueFromExplanatoryVariable: ev atTimestep:t];
+			STAssertEqualsWithAccuracy([refValue floatValue], [toTestValue floatValue], compAccuracy,
+									   [NSString stringWithFormat:@"testParametricDesignBlock: reference and design in differ in ev %d and timestep %d", ev, t]);
+		}}
+	
+	[designEl release];
+	[referenceDesign release];
+	
+}
+
+
 -(void)testLimits
 {
-	//no regressors
+	//TODO: ERROR MESSAGES
 	
 	//all zeros
 	
-	//all ones
+	COSystemConfig *config = [COSystemConfig getInstance];
+	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/allZeroRegressor.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	
+			
+	for (uint ev = 0; ev < [designEl mNumberExplanatoryVariables]; ev++){
+		for (uint t = 0; t < [designEl mNumberTimesteps]; t++){
+			
+			NSNumber *toTestValue = [designEl getValueFromExplanatoryVariable: ev atTimestep:t];
+			STAssertNil(toTestValue, @"testLimits all Regressors Zero: Design Element not nil");
+			STAssertEquals( [toTestValue floatValue], 0.0,
+									   [NSString stringWithFormat:@"testLimits all Regressors Zero: reference and design in differ in ev %d and timestep %d", ev, t]);
+		}}
+	
+	[designEl release];
+	
+	//no regressors
+	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/noRegressor.edl"];
+	designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	
+	
+	for (uint ev = 0; ev < [designEl mNumberExplanatoryVariables]; ev++){
+		for (uint t = 0; t < [designEl mNumberTimesteps]; t++){
+			
+			NSNumber *toTestValue = [designEl getValueFromExplanatoryVariable: ev atTimestep:t];
+			STAssertNil(toTestValue, @"testLimits no Regressors: Design Element not nil");
+			STAssertEquals( [toTestValue floatValue], 0.0,
+						   [NSString stringWithFormat:@"testLimits no Regressors: reference and design in differ in ev %d and timestep %d", ev, t]);
+		}}
+	
+	[designEl release];
 	
 }
 
