@@ -14,63 +14,11 @@
 
 @implementation NEDesignElementDyn
 
-const int BUFFER_LENGTH = 10000;
-const int MAX_NUMBER_EVENTS = 100;
 double samplingRateInMs = 20.0; /* Temporal resolution for convolution is 20 ms. */
-//double t1 = 30.0;               /* HRF duration / Breite der HRF.                */
 const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 
 
-
-// TODO: check if imageDataType still needed (here: float)
-//-(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
-//{
-//    self = [super init];
-//    
-//    if (type == IMAGE_DATA_FLOAT) {
-//        mImageDataType = type;
-//    } else {
-//        NSLog(@" BADesignElementDyn.initWithFile: defaulting to IMAGE_DATA_FLOAT (other values are not supported)!");
-//        mImageDataType = IMAGE_DATA_FLOAT;
-//    }
-//	
-//	mDesignHasChanged = NO;
-//	
-//    mRegressorList = (TRegressor**) malloc(sizeof(TRegressor*) * MAX_NUMBER_EVENTS);
-//	for (int i = 0; i < MAX_NUMBER_EVENTS; i++) {
-//        mRegressorList[i] = (TRegressor*) malloc(sizeof(TRegressor));
-//		mRegressorList[i]->regTrialList = NULL;
-//		mRegressorList[i]->regConvolKernel = NULL;
-//		mRegressorList[i]->regID = nil;
-//		mRegressorList[i]->regDescription = nil;
-//    }
-//	
-//	NSLog(@"GenDesign GCD: START");
-//	[self parseInputFile:path];
-//	NSLog(@"GenDesign GCD: PARSE");
-//    [self initDesign];
-//	NSLog(@"GenDesign GCD: INIT");   
-//    [self generateDesign];
-//    NSLog(@"GenDesign GCD: END");
-//    
-//    if (mNumberCovariates > 0) {
-//        mCovariates = (float**) malloc(sizeof(float*) * mNumberCovariates);
-//        for (unsigned int cov = 0; cov < mNumberCovariates; cov++) {
-//            mCovariates[cov] = (float*) malloc(sizeof(float) * mNumberTimesteps);
-//            memset(mCovariates[cov], 0.0, sizeof(float) * mNumberTimesteps);
-//        }
-//    }
-//    
-//	unsigned int nrDerivs = 0;
-//	for (unsigned int eventNr = 0; eventNr < mNumberEvents; eventNr++){
-//		nrDerivs += mRegressorList[eventNr]->regDerivations;}
-//	
-//    mNumberRegressors = mNumberEvents + nrDerivs + 1;
-//    mNumberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
-//	[self writeDesignFile:@"/tmp/testDesign.v"];
-//	return self;
-//}
 
 -(id)initWithDynamicDataOfImageDataType:(enum ImageDataType)type
 {
@@ -84,17 +32,25 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     }
 	
 	mDesignHasChanged = NO;
-	NSLog(@"GenDesign GCD: START");
+	//NSLog(@"GenDesign GCD: START");
 	NSError *error = [self getPropertiesFromConfig];
 	if (nil != error){
 		NSLog(@"%@", error);
 		return nil;
 	}
-	NSLog(@"GenDesign GCD: READCONFIG");
-    [self initDesign];
-	NSLog(@"GenDesign GCD: INIT");   
-    [self generateDesign];
-    NSLog(@"GenDesign GCD: END");
+	//NSLog(@"GenDesign GCD: READCONFIG");
+    error = [self initDesign];
+	if (nil != error){
+		NSLog(@"%@", error);
+		return nil;
+	}
+	//NSLog(@"GenDesign GCD: INIT");   
+    error = [self generateDesign];
+	if (nil != error){
+		NSLog(@"%@", error);
+		return nil;
+	}
+    //NSLog(@"GenDesign GCD: END");
     
     	
 	
@@ -175,7 +131,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 		return error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
 	}
 
-	//TODO: what kind of regressor do we have - scanBased vs. timeBased
+	//TODO: dynamic implementation
 	
 	
 	mRepetitionTimeInMs = [[f numberFromString:[config getProp:@"$TR"]] unsignedIntValue];
@@ -241,12 +197,15 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 			float height = [[f numberFromString:[config getProp:requestTrialHeight]] floatValue];
 				
 			if (0.0 >= duration) {//if not set or negative
-				NSLog(@"There's a negative duration of a statEvent - that's not valid, so set to 1.0");
-				duration = 1.0;
+				return error = [NSError errorWithDomain:@"negative duration of a statEvent" code:REGRESSOR_DURATION_NOT_SPECIFIED userInfo:nil];
+				//NSLog(@"There's a negative duration of a statEvent - that's not valid, so set to 1.0");
+				//duration = 1.0;
 			}
 			if (0.0 >= height){//if not set
 				NSLog(@"There's a zero height of a statEvent - that's not valid, so set to 1.0");
-				height = 1.0;}
+				height = 1.0;
+				//TODO: REGRESSOR_PARAMETRIC_SCALE_NOT_SPECIFIED ,
+			}
 			
 			Trial newTrial;
 			newTrial.id       = trialID;
@@ -281,7 +240,6 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 			mRegressorList[eventNr]->regDerivations = 0;}
 		
 		// now we read and generate the HRF Kernel per event
-		//TODO get per event from config!!!!
 		NSString *hrfKernelName = [config getProp:[NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/@useRefFct", expType, trialID]];
 		NSUInteger nrRefFcts = [config countNodes:@"$refFctsGlover"];
 		nrRefFcts += [config countNodes:@"$refFctsGamma"];
@@ -295,7 +253,6 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 		for (unsigned int refNr = 0; refNr < nrRefFcts; refNr++){
 			if( [hrfKernelName isEqualToString:[config getProp:[NSString stringWithFormat:@"$refFctsGlover[%d]/@refFctID",refNr+1]]]){
-				//NSString *request = NSString stringWithFormat:@"$refFctsGlover[%d]",refNr];
 				GloverParams *params = [[GloverParams alloc] 
 										initWithMaxLength:[[config getProp:[NSString stringWithFormat:@"$refFctsGlover[%d]/overallWidth", refNr+1]] longLongValue]
 										peak1:[[config getProp:[NSString stringWithFormat:@"$refFctsGlover[%d]/tPeak1", refNr+1]] doubleValue]
@@ -377,33 +334,6 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         return [NSError errorWithDomain:@"No events were found!" code:NO_EVENTS_FOUND userInfo:nil];
     }
     
-   // float xmin;
-//    int ncols = 0;
-//    for (unsigned int i = 0; i < mNumberEvents; i++) {
-//        
-//        xmin = FLT_MAX;
-//        
-//        TrialList* currentTrial;
-//        currentTrial = mRegressorList[i]->regTrialList;
-//        
-//        while (currentTrial != NULL) {
-//            if (currentTrial->trial.duration < xmin) {
-//                xmin = currentTrial->trial.duration;
-//            }
-//            currentTrial = currentTrial->next;
-//        }
-//        
-//        if (0 == mRegressorList[i]->regDerivations) {
-//            ncols++;
-//        } else if (1 == mRegressorList[i]->regDerivations) {
-//            ncols += 2;
-//        } else if (2 == mRegressorList[i]->regDerivations) {
-//            ncols += 3;
-//        }
-//    }
-//    
-//    NSLog(@"# number of events: %d,  num columns in design matrix: %d\n", mNumberEvents, ncols + 1);
-    
 	/* alloc memory for all NEDesignDyn specific stuff*/
 	
     mRegressorValues = (float** ) malloc(sizeof(float*) * (mNumberRegressors ));
@@ -439,25 +369,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
         mFftPlanForward[eventNr] = fftw_plan_dft_r2c_1d(mNumberSamplesForInit, mBuffersForwardIn[eventNr], mBuffersForwardOut[eventNr], FFTW_ESTIMATE);
         mFftPlanInverse[eventNr] = fftw_plan_dft_c2r_1d(mNumberSamplesForInit, mBuffersInverseIn[eventNr], mBuffersInverseOut[eventNr], FFTW_ESTIMATE);
-		
-//		//TODO get per event from config!!!!
-//		GloverParams *params = [[GloverParams alloc] initWithMaxLength:30000 peak1:6000 scale1:0.9 peak2:12000.0 scale2:0.9 offset:0.0
-//														  relationP1P2:0.1 heightScale:120 givenInTimeUnit:KERNEL_TIME_MS];
-////		GloverParams *params = [[GloverParams alloc] initWithMaxLength:0 peak1:0 scale1:0 peak2:0.0 scale2:0.0 offset:0.0
-////														  relationP1P2:0.0 heightScale:0 givenInTimeUnit:KERNEL_TIME_MS];
-//		//GloverParams *params = [[GloverParams alloc] init];
-////		params.maxLengthHrfInMs = 30000;
-////		params.peak1 = 6.0;
-////		params.scale1 = 0.9;
-////		params.peak2 = 12.0;
-////		params.scale2 = 0.9;
-////		params.offset = 0.0;
-////		params.relationP1P2 = 0.1;
-////		params.heightScale = 120;
-//		
-//		mRegressorList[eventNr]->regConvolKernel = [[NEDesignKernel alloc] initWithGloverParams:params andNumberSamples:[NSNumber numberWithLong:mNumberSamplesForInit] andSamplingRate:[NSNumber numberWithLong:samplingRateInMs]];
-//		[params release];
-    }
+	}
     
     return nil;
 }
@@ -536,98 +448,9 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 						  :mRegressorList[eventNr]->regConvolKernel.mKernelDeriv2];
         }
     });
-    
+    mDesignHasChanged = NO;
     return error;
 }
-
-//-(NSError*)parseInputFile:(NSString *)path
-//{
-//    
-//    int character;
-//    int trialID    = 0;
-//    float onset    = 0.0;
-//    float duration = 0.0;
-//    float height   = 0.0;
-//    
-//    unsigned int numberTrials = 0;
-//    mNumberEvents = 0;
-//    
-//    FILE* inFile;
-//    char* inputFilename = (char*) malloc(sizeof(char) * UINT16_MAX);
-//    [path getCString:inputFilename maxLength:UINT16_MAX  encoding:NSUTF8StringEncoding];
-//    
-//    inFile = fopen(inputFilename, "r");
-//    char buffer[BUFFER_LENGTH];
-//    
-//    while (!feof(inFile)) {
-//        for (int j = 0; j < BUFFER_LENGTH; j++) {
-//            buffer[j] = '\0';
-//        }
-//        fgets(buffer, BUFFER_LENGTH, inFile);
-//        if (strlen(buffer) >= 2) {
-//            
-//            // TODO: Maybe remove this check
-//            if (![self test_ascii:((int) buffer[0])]) {
-//                NSLog(@" input file must be a text file");
-//            }
-//            
-//            if (buffer[0] != '%' && buffer[0] != '#') {
-//                /* remove non-alphanumeric characters */
-//                for (unsigned int j = 0; j < strlen(buffer); j++) {
-//                    character = (int) buffer[j];
-//                    if (!isgraph(character) && buffer[j] != '\n' && buffer[j] != '\r' && buffer[j] != '\0') {
-//                        buffer[j] = ' ';
-//                    }
-//                    
-//                    /* remove tabs */
-//                    if (buffer[j] == '\v') {
-//                        buffer[j] = ' ';
-//                    }
-//                    if (buffer[j] == '\t') {
-//                        buffer[j] = ' ';
-//                    }
-//                }
-//                
-//                if (sscanf(buffer, "%d %f %f %f", &trialID, &onset, &duration, &height) != 4) {
-//
-//                    NSString* errorString = 
-//                        [NSString stringWithFormat:
-//                            @"Illegal design file input format (at line %d)! Expected format: one entry per line and columns separated by tabs.", numberTrials + 1];
-//                    return [NSError errorWithDomain:errorString code:ILLEGAL_INPUT_FORMAT userInfo:nil];
-//                    
-//                }
-//                
-//                if (duration < 0.5 && duration >= -0.0001) {
-//                    duration = 0.5;
-//                }
-//
-//                Trial newTrial;
-//                newTrial.id       = trialID;
-//                newTrial.onset    = onset;
-//                newTrial.duration = duration;
-//                newTrial.height   = height;
-//                
-//                TrialList* newListEntry;
-//                newListEntry = (TrialList*) malloc(sizeof(TrialList));
-//                *newListEntry = TRIALLIST_INIT;
-//                newListEntry->trial = newTrial;
-//                
-//                if (NULL == mRegressorList[trialID -1]->regTrialList){
-//					mRegressorList[trialID - 1]->regTrialList = newListEntry;
-//                    mNumberEvents++;
-//                } else {
-// 					[self tl_append:mRegressorList[trialID - 1]->regTrialList :newListEntry];
-//                }
-//                
-//                numberTrials++;
-//            }
-//        }
-//    }
-//    fclose(inFile);  
-//    free(inputFilename);
-//    
-//    return nil;
-//}
 
 -(NSError*)writeDesignFile:(NSString*) path 
 {
@@ -645,7 +468,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     float delay = 6.0;              
     float understrength = 0.35;
     float undershoot = 12.0;
-    char buf[BUFFER_LENGTH];
+    char buf[10000];
     
     VSetAttr(VImageAttrList(outDesign), "delay", NULL, VFloatRepn, delay);
     VSetAttr(VImageAttrList(outDesign), "undershoot", NULL, VFloatRepn, undershoot);
@@ -685,7 +508,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     
     char* outputFilename = (char*) malloc(sizeof(char) * UINT16_MAX);
     [path getCString:outputFilename maxLength:UINT16_MAX  encoding:NSUTF8StringEncoding];
-    FILE *out_file = fopen(outputFilename, "w"); //fopen("/tmp/testDesign.v", "w");
+    FILE *out_file = fopen(outputFilename, "w"); 
 
     if (!VWriteFile(out_file, out_list)) {
         return [NSError errorWithDomain:@"Writing output design image failed." code:WRITE_OUTPUT userInfo:nil];
@@ -778,6 +601,14 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 -(NSNumber*)getValueFromExplanatoryVariable:(unsigned int)cov 
                                  atTimestep:(unsigned int)t 
 {
+	// At first check if design is still valid or something has changed
+	if (YES == mDesignHasChanged){
+		NSError *error = [self generateDesign];
+		if (nil != error){
+			NSLog(@"%@", error);
+			return nil;
+	}}
+		
     NSNumber *value = nil;
     if (cov < mNumberRegressors) {
         if (mRegressorValues != NULL) {
@@ -803,8 +634,6 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     mRegressorList[regressor->trial.id -1] = NULL;
     mRegressorList[regressor->trial.id - 1]->regTrialList = regressor;
 	mDesignHasChanged = YES;
-
-    //[self generateDesign];
 }
 
 -(void)setRegressorTrial:(Trial)trial 

@@ -145,12 +145,16 @@ const TrialListRef R_TRIALLIST_INIT = { {0,0,0,0}, NULL};
 			float height = [[f numberFromString:[config getProp:requestTrialHeight]] floatValue];
 			
 			if (0.0 >= duration) {//if not set or negative
-				NSLog(@"There's a negative duration of a statEvent - that's not valid, so set to 1.0");
-				duration = 1.0;
+				return error = [NSError errorWithDomain:@"negative duration of a statEvent" code:R_REGRESSOR_DURATION_NOT_SPECIFIED userInfo:nil];
+				//NSLog(@"There's a negative duration of a statEvent - that's not valid, so set to 1.0");
+				//duration = 1.0;
 			}
 			if (0.0 >= height){//if not set
 				NSLog(@"There's a zero height of a statEvent - that's not valid, so set to 1.0");
-				height = 1.0;}
+				height = 1.0;
+				//TODO: REGRESSOR_PARAMETRIC_SCALE_NOT_SPECIFIED ,
+			}
+			
 			
 			TrialRef newTrial;
 			newTrial.id       = trialID;
@@ -398,7 +402,7 @@ const TrialListRef R_TRIALLIST_INIT = { {0,0,0,0}, NULL};
 						  :mRegressorList[eventNr]->regConvolKernel.mKernelDeriv2];
         }
     });
-    
+	mDesignHasChanged = NO;
     return error;
 }
 
@@ -551,6 +555,14 @@ const TrialListRef R_TRIALLIST_INIT = { {0,0,0,0}, NULL};
 -(NSNumber*)getValueFromExplanatoryVariable:(unsigned int)cov 
                                  atTimestep:(unsigned int)t 
 {
+	// At first check if design is still valid or something has changed
+	if (YES == mDesignHasChanged){
+		NSError *error = [self generateDesign];
+		if (nil != error){
+			NSLog(@"%@", error);
+			return nil;
+	}}
+		
     NSNumber *value = nil;
     if (cov < mNumberRegressors) {
         if (mRegressorValues != NULL) {

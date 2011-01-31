@@ -9,7 +9,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <fftw3.h>
-#import "NEDesignKernel.h"
+#import "../../src/NED/NEDesignKernel.h"
 
 typedef struct ComplexRefStruct {
     double re;
@@ -43,6 +43,7 @@ enum BADesignElementErrorRef {
 	R_NUMBERCOVARIATES_NOT_SPECIFIED,
 	R_NUMBERREGRESSORS_NOT_SPECIFIED,
 	R_CONVOLUTION_KERNEL_NOT_SPECIFIED,
+	R_REGRESSOR_DURATION_NOT_SPECIFIED,
     R_FILEOPEN,
     R_TXT_SCANFILE,
     R_ILLEGAL_INPUT_FORMAT,
