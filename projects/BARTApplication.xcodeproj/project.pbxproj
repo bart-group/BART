@@ -65,7 +65,6 @@
 		0056D7DF12D335AE002AC73F /* NEDesignElementDyn.m in Sources */ = {isa = PBXBuildFile; fileRef = 008376A0116BB12D00369B20 /* NEDesignElementDyn.m */; };
 		0056D7E012D335AF002AC73F /* NEDesignElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 008376A2116BB12D00369B20 /* NEDesignElementVI.m */; };
 		0056D7E112D335B0002AC73F /* NEDesignGloverKernel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0085EB2311511B2C004795FD /* NEDesignGloverKernel.m */; };
-		0056D7E712D335D4002AC73F /* designtest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0056D7E612D335D4002AC73F /* designtest.m */; };
 		0056DA1112D36577002AC73F /* NEDesignElementReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F517122D2DEF001DA2BB /* NEDesignElementReference.m */; };
 		005B57EE11C118C700812781 /* libboost_system-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00062A2E11A58F5A00D369D0 /* libboost_system-mt.a */; };
 		005B57EF11C118C800812781 /* libboost_regex-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00062A2C11A58F5A00D369D0 /* libboost_regex-mt.a */; };
@@ -166,6 +165,7 @@
 		00C3A06211450B9300725668 /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C39FF11144FB2100725668 /* CLETUS.dylib */; };
 		00C3A081114510CE00725668 /* Init_Links_1.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00C3A07F114510CE00725668 /* Init_Links_1.edl */; };
 		00C3A082114510CE00725668 /* rtExperiment_v14.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 00C3A080114510CE00725668 /* rtExperiment_v14.xsd */; };
+		00DE9C6F12F6EBB50089B99A /* designtest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DE9C6E12F6EBB50089B99A /* designtest.m */; };
 		00E7A648117EF24F00696498 /* NEDesignElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E7A646117EF24F00696498 /* NEDesignElementVITest.m */; };
 		00E7A649117EF24F00696498 /* blockDesignTest01.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00E7A647117EF24F00696498 /* blockDesignTest01.edl */; };
 		00E7A656117EF60900696498 /* NEDesignElementDynTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E7A655117EF60900696498 /* NEDesignElementDynTest.m */; };
@@ -390,7 +390,6 @@
 		0040B9B1114173BD00A57967 /* BARTUnitTestSuite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
 		0056D7D112D3354D002AC73F /* designtest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = designtest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0056D7E512D335D4002AC73F /* designtest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = designtest.h; sourceTree = "<group>"; };
-		0056D7E612D335D4002AC73F /* designtest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = designtest.m; sourceTree = "<group>"; };
 		005B604411D3812400812781 /* isis_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = isis_test; sourceTree = BUILT_PRODUCTS_DIR; };
 		005B604911D3818B00812781 /* isis_test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = isis_test.h; sourceTree = "<group>"; };
 		005B604A11D3818B00812781 /* isis_test.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = isis_test.mm; sourceTree = "<group>"; };
@@ -409,7 +408,6 @@
 		00709E4B12E86A06006389C4 /* timeBasedRegressorNEDTest.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = timeBasedRegressorNEDTest.edl; sourceTree = "<group>"; };
 		00709ED012EA04A5006389C4 /* erDesignTest02_deriv1AllReg.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest02_deriv1AllReg.edl; sourceTree = "<group>"; };
 		00709ED112EA04A5006389C4 /* erDesignTest03_deriv1Reg1_3.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest03_deriv1Reg1_3.edl; sourceTree = "<group>"; };
-		00709ED212EA04A5006389C4 /* erDesignTest04_deriv2AllReg.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest04_deriv2AllReg.edl; sourceTree = "<group>"; };
 		00709ED312EA04A5006389C4 /* erDesignTest05_deriv2Reg2_4.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest05_deriv2Reg2_4.edl; sourceTree = "<group>"; };
 		00709ED412EA04A5006389C4 /* erDesignTest06_parametric.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest06_parametric.edl; sourceTree = "<group>"; };
 		007934EB1150FBF7007BEB66 /* COErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COErrorCode.h; sourceTree = "<group>"; };
@@ -470,6 +468,10 @@
 		00C3A0021144FBEF00725668 /* COSystemConfigTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COSystemConfigTest.m; sourceTree = "<group>"; };
 		00C3A07F114510CE00725668 /* Init_Links_1.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Init_Links_1.edl; sourceTree = "<group>"; };
 		00C3A080114510CE00725668 /* rtExperiment_v14.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rtExperiment_v14.xsd; sourceTree = "<group>"; };
+		00DE9C6C12F316230089B99A /* blockDesignTest02_parametric.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = blockDesignTest02_parametric.edl; sourceTree = "<group>"; };
+		00DE9C6E12F6EBB50089B99A /* designtest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = designtest.m; sourceTree = "<group>"; };
+		00DE9C7C12F6FE690089B99A /* allZeroRegressor.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = allZeroRegressor.edl; sourceTree = "<group>"; };
+		00DE9CBB12F72AF40089B99A /* noRegressor.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = noRegressor.edl; sourceTree = "<group>"; };
 		00E7A644117EF24F00696498 /* NEDesignElementDynTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignElementDynTest.h; sourceTree = "<group>"; };
 		00E7A645117EF24F00696498 /* NEDesignElementVITest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignElementVITest.h; sourceTree = "<group>"; };
 		00E7A646117EF24F00696498 /* NEDesignElementVITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignElementVITest.m; sourceTree = "<group>"; };
@@ -961,9 +963,11 @@
 		00E7A643117EF1B900696498 /* NEDTests */ = {
 			isa = PBXGroup;
 			children = (
+				00DE9CBB12F72AF40089B99A /* noRegressor.edl */,
+				00DE9C7C12F6FE690089B99A /* allZeroRegressor.edl */,
+				00DE9C6C12F316230089B99A /* blockDesignTest02_parametric.edl */,
 				00709ED012EA04A5006389C4 /* erDesignTest02_deriv1AllReg.edl */,
 				00709ED112EA04A5006389C4 /* erDesignTest03_deriv1Reg1_3.edl */,
-				00709ED212EA04A5006389C4 /* erDesignTest04_deriv2AllReg.edl */,
 				00709ED312EA04A5006389C4 /* erDesignTest05_deriv2Reg2_4.edl */,
 				00709ED412EA04A5006389C4 /* erDesignTest06_parametric.edl */,
 				00709E4B12E86A06006389C4 /* timeBasedRegressorNEDTest.edl */,
@@ -983,7 +987,7 @@
 				0006F516122D2DEF001DA2BB /* NEDesignElementReference.h */,
 				0006F517122D2DEF001DA2BB /* NEDesignElementReference.m */,
 				0056D7E512D335D4002AC73F /* designtest.h */,
-				0056D7E612D335D4002AC73F /* designtest.m */,
+				00DE9C6E12F6EBB50089B99A /* designtest.m */,
 			);
 			path = NEDTests;
 			sourceTree = "<group>";
@@ -1692,8 +1696,8 @@
 				0056D7DF12D335AE002AC73F /* NEDesignElementDyn.m in Sources */,
 				0056D7E012D335AF002AC73F /* NEDesignElementVI.m in Sources */,
 				0056D7E112D335B0002AC73F /* NEDesignGloverKernel.m in Sources */,
-				0056D7E712D335D4002AC73F /* designtest.m in Sources */,
 				0056DA1112D36577002AC73F /* NEDesignElementReference.m in Sources */,
+				00DE9C6F12F6EBB50089B99A /* designtest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1938,6 +1942,11 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/isis,
+					/opt/local/include,
+					/usr/include,
+				);
 				INFOPLIST_FILE = "EDNAUnitTestSuite-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
