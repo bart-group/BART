@@ -25,8 +25,8 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 @interface BAAnalyzerGLM (PrivateMethods)
      
 -(void)Regression:(short)minval
-                 :(int)sliding_window_size
-                 :(int)last_timestep;
+                 :(size_t)sliding_window_size
+                 :(size_t)last_timestep;
 
 -(float_t)CalcSigma:(float_t)fwhm;
 
@@ -55,7 +55,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 
 -(BADataElement*)anaylzeTheData:(BADataElement*)data 
                      withDesign:(BADesignElement*)design
-             andCurrentTimestep:(unsigned int)timestep
+             andCurrentTimestep:(size_t)timestep
 {
     mDesign = design;
     mData = data;
@@ -108,8 +108,8 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 
 
 -(void)Regression:(short)minval
-                 :(int)sliding_window_size
-                 :(int)lastTimestep {
+                 :(size_t)sliding_window_size
+                 :(size_t)lastTimestep {
     
     if (sliding_window_size <= lastTimestep) { 
         
@@ -136,8 +136,8 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         gsl_matrix_float *X = NULL; /* mDesign matrix. */
         X = gsl_matrix_float_alloc(sliding_window_size, numberExplanatoryVariables);
         double x; /* One entry of matrix X. */
-        for (int timestep = (lastTimestep - sliding_window_size); timestep < lastTimestep; timestep++) {
-            for (unsigned int covariate = 0; covariate < numberExplanatoryVariables; covariate++) {
+        for (size_t timestep = (lastTimestep - sliding_window_size); timestep < lastTimestep; timestep++) {
+            for (size_t covariate = 0; covariate < numberExplanatoryVariables; covariate++) {
 // TODO: use getFloatValue... (performance increase!)
                 x = [[mDesign getValueFromExplanatoryVariable:covariate atTimestep:timestep] floatValue];
                 fmset(X, timestep - (lastTimestep - sliding_window_size), covariate, (float) x);
@@ -176,14 +176,14 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         RV = fmat_x_mat(R, Vc, NULL);
         
         float trace = 0.0;
-        for (int timestep = (lastTimestep - sliding_window_size); timestep < lastTimestep; timestep++) {
+        for (size_t timestep = (lastTimestep - sliding_window_size); timestep < lastTimestep; timestep++) {
             trace += fmget(RV, timestep - (lastTimestep - sliding_window_size), timestep - (lastTimestep - sliding_window_size));
         }
         
         P = fmat_x_mat(RV, RV, P);
         
         float trace2 = 0.0;
-        for (int timestep = (lastTimestep - sliding_window_size); timestep < lastTimestep; timestep++) {
+        for (size_t timestep = (lastTimestep - sliding_window_size); timestep < lastTimestep; timestep++) {
             trace2 += fmget(P, timestep - (lastTimestep - sliding_window_size), timestep - (lastTimestep - sliding_window_size));
         }
 
@@ -205,8 +205,8 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         NSNumber *val;
         float *fPointer;
         fPointer = F->data;
-        for (int row = 0; row < numberExplanatoryVariables; row++) {
-            for (int col = 0; col < numberExplanatoryVariables; col++) {
+        for (size_t row = 0; row < numberExplanatoryVariables; row++) {
+            for (size_t col = 0; col < numberExplanatoryVariables; col++) {
                 val = [NSNumber numberWithFloat:(*fPointer)];
                 [mBCOVOutput setVoxelValue:val atRow:row col:col slice:0 timestep:0];
                 fPointer++;
@@ -219,8 +219,8 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         gsl_matrix_float *betaCovariates = NULL;
         betaCovariates = gsl_matrix_float_alloc(numberExplanatoryVariables, numberExplanatoryVariables);  
         fPointer = betaCovariates->data;
-        for (int row = 0; row < numberExplanatoryVariables; row++) {
-            for (int col = 0; col < numberExplanatoryVariables; col++) {
+        for (size_t row = 0; row < numberExplanatoryVariables; row++) {
+            for (size_t col = 0; col < numberExplanatoryVariables; col++) {
                 *fPointer++ = [mBCOVOutput getFloatVoxelValueAtRow:row col:col slice:0 timestep:0];
             }
         }
@@ -250,10 +250,10 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         
         /* Process. */
         __block int npix = 0;
-        for (int slice = 0; slice < numberSlices; slice++) {
+        for (size_t slice = 0; slice < numberSlices; slice++) {
             
             if (slice % 5 == 0) {
-                fprintf(stderr, " slice: %3d\r", slice);
+                fprintf(stderr, " slice: %3ld\r", slice);
             }
             
             if (TRUE == [mData sliceIsZero:slice ]) {
@@ -268,7 +268,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                             float nx = 0.0;
                             gsl_vector_float *y = gsl_vector_float_alloc(sliding_window_size);
                             float *ptr1 = y->data;
-                            int i;
+                            size_t i;
                             float u;
                             
                             for (i = (lastTimestep - sliding_window_size); i < lastTimestep; i++) {

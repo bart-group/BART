@@ -100,7 +100,7 @@ fmat_x_mat(gsl_matrix_float *A,gsl_matrix_float *B,gsl_matrix_float *C)
 gsl_vector_float *
 dmat_x_fvector(gsl_matrix *A, gsl_vector_float *x, gsl_vector_float *y)
 {
-  int i,j,nrows,ncols;
+  size_t i,j,nrows,ncols;
   float *ptr2,*ptr3,sum;
   double *ptr1;
 
@@ -137,12 +137,12 @@ dmat_x_fvector(gsl_matrix *A, gsl_vector_float *x, gsl_vector_float *y)
 float
 fskalarproduct(gsl_vector_float *x,gsl_vector_float *y)
 {
-  int i,n;
+  size_t i,n;
   float *ptr1,*ptr2,sum;
 
   n = x->size;
   if (y->size != n) {
-    fprintf(stderr," fskalarproduct: incongruent vector sizes: %d %d",n,y->size);
+    fprintf(stderr," fskalarproduct: incongruent vector sizes: %ld %ld",n,y->size);
     exit(0);
   }
 
@@ -163,7 +163,7 @@ fskalarproduct(gsl_vector_float *x,gsl_vector_float *y)
 void
 fmatprint(FILE *fp,gsl_matrix_float *A,const char *format)
 {
-  int i,j;
+  size_t i,j;
   for (i=0; i<A->size1; i++) {
     for (j=0; j<A->size2; j++) {
       fprintf(fp,format,fmget(A,i,j));
@@ -180,7 +180,7 @@ fmatprint(FILE *fp,gsl_matrix_float *A,const char *format)
 gsl_matrix_float *
 ftranspose(gsl_matrix_float *A,gsl_matrix_float *B)
 {
-  int i,j,n,m;
+  size_t i,j,n,m;
 
   n = A->size1;
   m = A->size2;
@@ -208,7 +208,7 @@ ftranspose(gsl_matrix_float *A,gsl_matrix_float *B)
 gsl_matrix_float *
 fmat_PseudoInv(gsl_matrix_float *A,gsl_matrix_float *B)
 {
-  int i,j,k,l,n,m;
+  size_t i,j,k,l,n,m;
   double u,x;
   double *dbl_pp;
   float *flt_pp;
@@ -256,7 +256,7 @@ fmat_PseudoInv(gsl_matrix_float *A,gsl_matrix_float *B)
   gsl_linalg_SV_decomp_mod (U,X,V,w,work);
 
   /* exception from Gaby */
-  int j0 = 0;
+  size_t j0 = 0;
   double xmin, xmax, tiny=10.0e-6;
   xmax = gsl_vector_get(w,0);
   xmin = tiny;
@@ -305,7 +305,7 @@ trace(gsl_matrix_float *M){
 
     gsl_vector_float_view diag = gsl_matrix_float_diagonal(M);
     float sum = 0;
-    int i = 0;
+    size_t i = 0;
     for(i = 0;i<diag.vector.size;i++)
         sum += gsl_vector_float_get(&diag.vector,i);
 
@@ -318,9 +318,9 @@ trace(gsl_matrix_float *M){
 int 
 rank(gsl_matrix_float* mat) {
 
-    int m = mat->size1;
-    int n = mat->size2;
-    int i;
+    size_t m = mat->size1;
+    size_t n = mat->size2;
+    size_t i;
     
     /* Create matrix buffer from source matrix. This prevents the overwriting of
      * matrix mat by gsl_linalg_SV_decomp().*/
@@ -369,7 +369,7 @@ rank(gsl_matrix_float* mat) {
 gsl_vector_float* 
 fsum(gsl_matrix_float* matrix, int dim, gsl_vector_float* v) {
         
-    int row,col;
+    size_t row,col;
     float sum;
     
     /* build sum over all columns */
@@ -432,7 +432,7 @@ funique(gsl_vector_float* V) {
     /* holds value of last saved element */
     float max=0;
     /* counter */
-    int i;
+    size_t i;
     
     gsl_vector_float_memcpy(v,V);
         
@@ -440,7 +440,7 @@ funique(gsl_vector_float* V) {
     gsl_sort_vector_float(v);
 
     /* count number of different elements */
-    int nelements = 0;
+    size_t nelements = 0;
     
     /* first run: count different values */
     float* p = v->data;
@@ -511,7 +511,7 @@ fmat_subcols(gsl_matrix_float* mat,gsl_vector_float* cols) {
     /* the copy buffer */
     gsl_vector_float* buff = gsl_vector_float_alloc(mat->size1);        
     /* counter */
-    int i;
+    size_t i;
     
     /* copy columns from matrix to return buffer */
     for (i = 0; i < cols->size; ++i) {
@@ -531,7 +531,7 @@ fmat_subcols(gsl_matrix_float* mat,gsl_vector_float* cols) {
 gsl_matrix_float* 
 fmat_toeplitz(gsl_vector_float* v, gsl_matrix_float* A){
 
-    int i,j;
+    size_t i,j;
 
     if(A == NULL)
         A = gsl_matrix_float_alloc(v->size, v->size);
@@ -563,10 +563,10 @@ fInv(gsl_matrix_float *M, gsl_matrix_float *result) {
     static gsl_matrix *ludecomp=NULL, *res=NULL; 
     static gsl_permutation *perm=NULL;
     int s; /*permutation signum for LU-Decomposition*/
-    int i;
+    size_t i;
 
-    int m = M->size1;
-    int n = M->size2;
+    size_t m = M->size1;
+    size_t n = M->size2;
 
     if(m != n) {
         fprintf(stderr, "dInv: not a square matrix\n");

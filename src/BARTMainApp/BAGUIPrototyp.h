@@ -15,12 +15,12 @@
 
 #include "BlockIO.h"
 
-static const int NUMBER_OF_CHANNELS = 4;
-static const int DISPLAY_IMAGE_WIDTH = 320;
-static const int DISPLAY_IMAGE_HEIGHT = 256;
-static const int SLICES_PER_ROW = 5;
-static const int SLICES_PER_COL = 4;
-static const int SLICE_DIMENSION = 64;
+static const size_t NUMBER_OF_CHANNELS = 4;
+static const size_t DISPLAY_IMAGE_WIDTH = 320;
+static const size_t DISPLAY_IMAGE_HEIGHT = 256;
+static const size_t SLICES_PER_ROW = 5;
+static const size_t SLICES_PER_COL = 4;
+static const size_t SLICE_DIMENSION = 64;
 
 @interface BAGUIPrototyp : NSOpenGLView {
 

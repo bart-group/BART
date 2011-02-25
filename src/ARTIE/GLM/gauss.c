@@ -54,7 +54,7 @@ GaussKernel(double sigma)
 void
 GaussMatrix(double sigma,gsl_matrix_float *S)
 {
-  int i,j,k,m,dim;
+  unsigned int i,j,k,m,dim;
   float x,sum;
   gsl_vector *kernel;
 

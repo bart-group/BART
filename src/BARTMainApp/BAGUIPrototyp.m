@@ -74,7 +74,7 @@ static BAGUIPrototyp *gui;
         ctx = [self openGLContext];
 		
 		// Turn on VBL syncing for swaps
-		long VBL = 1;
+		GLint VBL = 1;
 		[ctx setValues:&VBL forParameter:NSOpenGLCPSwapInterval];
 	}
 	return self;
@@ -416,8 +416,8 @@ static BAGUIPrototyp *gui;
     short value;
     int pos;
     
-    for (int col = 0; col < DISPLAY_IMAGE_WIDTH; col++) {
-        for (int row = 0; row < DISPLAY_IMAGE_HEIGHT; row++) {
+    for (size_t col = 0; col < DISPLAY_IMAGE_WIDTH; col++) {
+        for (size_t row = 0; row < DISPLAY_IMAGE_HEIGHT; row++) {
             slice = ((row / SLICE_DIMENSION) * SLICES_PER_ROW) + (col / SLICE_DIMENSION);
             pos = SLICES_PER_COL * ((row * DISPLAY_IMAGE_WIDTH) + col);
             value = [functionalImage getShortVoxelValueAtRow:(row % SLICE_DIMENSION) col:(col % SLICE_DIMENSION) slice:slice timestep:0];//VPixel(functionalImage[slice], 0, (row % SLICE_DIMENSION), (col % SLICE_DIMENSION), VShort);
@@ -438,12 +438,12 @@ static BAGUIPrototyp *gui;
         [activationCIImage release];
     }
     
-    int slice;
-    int row;
-    int col;
+    size_t slice;
+    size_t row;
+    size_t col;
     float contrastVector[3] = {1.0, 0.0, 0.0};
     
-    int pos;
+    size_t pos;
     
     float minValue = 0.0;
     float maxValue = 0.0;
@@ -453,7 +453,7 @@ static BAGUIPrototyp *gui;
             slice = ((row / SLICE_DIMENSION) * SLICES_PER_ROW) + (col / SLICE_DIMENSION);
             pos = NUMBER_OF_CHANNELS * ((row * DISPLAY_IMAGE_WIDTH) + col);
             float value = 0.0;
-            for (int icontrast = 0; icontrast < newActivationImage.numberSlices; icontrast++){
+            for (size_t icontrast = 0; icontrast < newActivationImage.numberSlices; icontrast++){
                 value += (contrastVector[icontrast]) * [newActivationImage getFloatVoxelValueAtRow:(row % SLICE_DIMENSION) col:(col % SLICE_DIMENSION) slice:icontrast timestep:slice];} // (timestep and slice are swapped in beta images)
             if (value > maxValue) {
                 maxValue = value;
@@ -472,7 +472,7 @@ static BAGUIPrototyp *gui;
             
             
             //multiply all betas with given contrast vector 
-            for (int icontrast = 0; icontrast < newActivationImage.numberSlices; icontrast++ ){
+            for (size_t icontrast = 0; icontrast < newActivationImage.numberSlices; icontrast++ ){
                 value += (contrastVector[icontrast]) * [newActivationImage getFloatVoxelValueAtRow:(row % SLICE_DIMENSION) col:(col % SLICE_DIMENSION) slice:icontrast timestep:slice];} // (timestep and slice are swapped in beta images)
           //  activationImageRaw[pos] = value;
 //            activationImageRaw[pos + 1] = 0;

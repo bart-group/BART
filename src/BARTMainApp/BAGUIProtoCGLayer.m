@@ -336,9 +336,9 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
     float max = 0.0;
     float tmpFloat = 0.0;
     
-    for (int slice = 0; slice < image.numberSlices; slice++) {
-        for (int col = 0; col < image.numberCols; col++) {
-            for (int row = 0; row < image.numberRows; row++) {
+    for (size_t slice = 0; slice < image.numberSlices; slice++) {
+        for (size_t col = 0; col < image.numberCols; col++) {
+            for (size_t row = 0; row < image.numberRows; row++) {
                 if (imageDataType == IMAGE_DATA_SHORT) {
                     tmpFloat = (float) [image getShortVoxelValueAtRow:row col:col slice:slice timestep:0];
                 } else if (imageDataType == IMAGE_DATA_FLOAT) {
@@ -389,7 +389,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
                 pos = NUMBER_OF_CHANNELS * ((row * displayImageWidth) + col);
                 float value = 0.0;
                 
-                for (int icontrast = 0; icontrast < foregroundImage.numberSlices; icontrast++) {
+                for (size_t icontrast = 0; icontrast < foregroundImage.numberSlices; icontrast++) {
                     value += (contrastVector[icontrast]) * [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:icontrast timestep:slice]; // (timestep and slice are swapped in beta images)
                 }
                 
@@ -419,7 +419,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
             
             if (slice < numSlices) {
                 //multiply all betas with given contrast vector 
-                for (int icontrast = 0; icontrast < foregroundImage.numberSlices; icontrast++ ) {
+                for (size_t icontrast = 0; icontrast < foregroundImage.numberSlices; icontrast++ ) {
                     value += (contrastVector[icontrast]) * [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:icontrast timestep:slice]; // (timestep and slice are swapped in beta images)
                 }
             } else {
