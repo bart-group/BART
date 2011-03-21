@@ -33,7 +33,7 @@
         NSLog(@"%@", err);
 	}
     
-    mRawDataElement = [[BADataElement alloc] initWithDatasetFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" ofImageDataType:IMAGE_DATA_SHORT];
+    mRawDataElement = [[BADataElement alloc] initWithDataFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii"  andSuffix:@"" andDialect:@""];
     //for (unsigned int i = 0; i < 15; i++){
 //        short val = [mRawDataElement getShortVoxelValueAtRow:i+27 col:i+33 slice:9 timestep:45];
 //        NSLog(@"%d\n", val);
@@ -43,7 +43,7 @@
  
     
 	
-    mRawDataElement = [[BADataElement alloc] initWithDatasetFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" ofImageDataType:IMAGE_DATA_SHORT];
+    mRawDataElement = [[BADataElement alloc] initWithDataFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@""];
    // [mRawDataElement WriteDataElementToFile:@"/tmp/firstwrittentestfile.nii"];
     mDesignElement = [[BADesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	if (nil == mDesignElement){

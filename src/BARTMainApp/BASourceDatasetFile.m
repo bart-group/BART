@@ -25,7 +25,7 @@
             mElement = [[BADesignElement alloc] initWithDatasetFile:file ofImageDataType:IMAGE_DATA_FLOAT];
         }
         if (IMAGE_FCTDATA == type) {
-            mElement = [[BADataElement alloc] initWithDatasetFile:file ofImageDataType:IMAGE_DATA_SHORT];
+            mElement = [[BADataElement alloc] initWithDatasetFile:file ofImageDataType:IMAGE_DATA_INT16];
         }
     
     }

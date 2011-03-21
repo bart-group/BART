@@ -21,15 +21,16 @@
 - (void) setUp {
     dataEl = [[EDDataElementVI alloc] 
               initWithFile:@"../tests/BARTMainAppTests/testfiles/TestDataset01-functional.v" 
-              ofImageDataType:IMAGE_DATA_SHORT];
+              ofImageDataType:IMAGE_DATA_INT16];
 }
 
 - (void) testProperties {
-    STAssertEquals(dataEl.numberCols, (unsigned int) 64, @"Incorrect number of columns.");
-    STAssertEquals(dataEl.numberRows, (unsigned int) 64, @"Incorrect number of rows.");
-    STAssertEquals(dataEl.numberTimesteps, (unsigned int) 396, @"Incorrect number of timesteps.");
-    STAssertEquals(dataEl.numberSlices, (unsigned int) 20, @"Incorrect number of slices.");
-    STAssertEquals(dataEl.imageDataType, IMAGE_DATA_SHORT, @"Incorrect image data type.");
+	ImageSize imSize = [dataEl imageSize];
+    STAssertEquals(imSize.columns, (size_t) 64, @"Incorrect number of columns.");
+    STAssertEquals(imSize.rows, (size_t) 64, @"Incorrect number of rows.");
+    STAssertEquals(imSize.timesteps, (size_t) 396, @"Incorrect number of timesteps.");
+    STAssertEquals(imSize.slices, (size_t) 20, @"Incorrect number of slices.");
+    STAssertEquals([dataEl getImageDataType], IMAGE_DATA_INT16, @"Incorrect image data type.");
 }
 
 - (void) tearDown {

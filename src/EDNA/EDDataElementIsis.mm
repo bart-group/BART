@@ -23,7 +23,7 @@
 @implementation EDDataElementIsis
 
 
--(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
+-(id)initWithFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect
 {
 	self = [super init];
     
@@ -35,7 +35,7 @@
 	isis::util::enableLog<isis::util::DefaultMsgPrint>( isis::warning );
 	
 	// the most important thing - load with isis factory
-	mIsisImageList = isis::data::IOFactory::load( [path cStringUsingEncoding:NSUTF8StringEncoding], "", "" );
+	mIsisImageList = isis::data::IOFactory::load( [path cStringUsingEncoding:NSUTF8StringEncoding], [suffix cStringUsingEncoding:NSUTF8StringEncoding], [dialect cStringUsingEncoding:NSUTF8StringEncoding]);
 
 	// that's unusual 
     //uint s = mIsisImageList.size();
@@ -53,10 +53,10 @@
 	//splice the whatever build image to a slice-chunked one (each 2D is a single chunk - easier access later on)
     mIsisImage.spliceDownTo(isis::data::sliceDim);
 	// get our class params from the image itself
-	numberRows = mIsisImage.getNrOfRows(); // getDimSize(isis::data::colDim)
-    numberCols = mIsisImage.getNrOfColumms();
-    numberSlices = mIsisImage.getNrOfSlices();
-    numberTimesteps = mIsisImage.getNrOfTimesteps();
+	imageSize.rows = mIsisImage.getNrOfRows(); // getDimSize(isis::data::colDim)
+    imageSize.columns = mIsisImage.getNrOfColumms();
+    imageSize.slices = mIsisImage.getNrOfSlices();
+    imageSize.timesteps = mIsisImage.getNrOfTimesteps();
     repetitionTimeInMs = (mIsisImage.getPropertyAs<isis::util::fvector4>("voxelSize"))[3];
 	
 	// the image type is now just important for writing
@@ -65,13 +65,13 @@
 }
 
 
--(id)initWithDataType:(enum ImageDataType)type andRows:(int) rows andCols:(int)cols andSlices:(int)slices andTimesteps:(int) tsteps 
+-(id)initEmptyWithSize:(ImageSize*)s
 {
     if (self = [super init]) {
-        numberCols = cols;
-        numberRows = rows;
-        numberSlices = slices;
-        numberTimesteps = tsteps;
+        imageSize.columns = s->columns;
+        imageSize.rows = s->rows;
+        imageSize.slices = s->slices;
+        imageSize.timesteps = s->timesteps;
 		dataTypeID = isis::data::ValuePtr<float>::staticID;
 	}
     
@@ -79,11 +79,11 @@
     mIsisImage = isis::data::Image();
     	
 	// create it with each slice and each timestep as a chunk and with type float (loaded ones are converted)
-	for (int ts = 0; ts < tsteps; ts++){
-		for (int sl = 0; sl < slices; sl++){
-			isis::data::MemChunk<float> ch(cols, rows);
+	for (size_t ts = 0; ts < imageSize.timesteps; ts++){
+		for (size_t sl = 0; sl < imageSize.slices; sl++){
+			isis::data::MemChunk<float> ch(imageSize.columns, imageSize.rows);
 			ch.setPropertyAs<isis::util::fvector4>("indexOrigin", isis::util::fvector4(0,0,sl));
-			ch.setPropertyAs<u_int32_t>("acquisitionNumber", sl+ts*slices);
+			ch.setPropertyAs<u_int32_t>("acquisitionNumber", sl+ts*imageSize.slices);
 			ch.setPropertyAs<u_int16_t>("sequenceNumber", 1);
 			ch.setPropertyAs<isis::util::fvector4>("voxelSize", isis::util::fvector4(1,1,1,0));
 			ch.setPropertyAs<isis::util::fvector4>("rowVec", isis::util::fvector4(1,0,0,0));
@@ -119,12 +119,12 @@
 		mIsisImage.voxel<float>(c,r,sl,t) = [val floatValue];}
 }
 
--(void)WriteDataElementToFile:(NSString*)path
+-(BOOL)WriteDataElementToFile:(NSString*)path
 {
-	[self WriteDataElementToFile:path withOverwritingSuffix:@"" andDialect:@""];
+	return [self WriteDataElementToFile:path withOverwritingSuffix:@"" andDialect:@""];
 }
 
--(void)WriteDataElementToFile:(NSString*)path withOverwritingSuffix:(NSString*)suffix andDialect:(NSString*)dialect
+-(BOOL)WriteDataElementToFile:(NSString*)path withOverwritingSuffix:(NSString*)suffix andDialect:(NSString*)dialect
 {
 	//isis::data::ImageList imgList;
 	//dataTypeID = isis::data::TypePtr<int8_t>::staticID;
@@ -173,10 +173,10 @@
 			
 		default:
 			NSLog(@"writeDataElementToFile failed due to unknown data type");
-			return;
+			return FALSE;
 	}
 
-	isis::data::IOFactory::write( imgList, [path cStringUsingEncoding:NSUTF8StringEncoding], [suffix cStringUsingEncoding:NSUTF8StringEncoding], [dialect cStringUsingEncoding:NSUTF8StringEncoding] );
+	return isis::data::IOFactory::write( imgList, [path cStringUsingEncoding:NSUTF8StringEncoding], [suffix cStringUsingEncoding:NSUTF8StringEncoding], [dialect cStringUsingEncoding:NSUTF8StringEncoding] );
 }
 
 -(BOOL)sliceIsZero:(int)slice
@@ -323,7 +323,7 @@
 -(float*)getSliceData:(uint)sliceNr atTimestep:(uint)tstep
 {	
 	if ([self sizeCheckRows:1 Cols:1 Slices:sliceNr Timesteps:tstep]){
-		isis::data::MemChunkNonDel<float> chSlice(numberCols, numberRows);
+		isis::data::MemChunkNonDel<float> chSlice(imageSize.columns, imageSize.rows);
 		mIsisImage.getChunk(0,0, sliceNr, tstep, false).copySlice(0, 0, chSlice, 0, 0);
 		return (( boost::shared_ptr<float> ) chSlice.getValuePtr<float>()).get();
 	}
@@ -346,7 +346,7 @@
 -(float*)getRowDataAt:(uint)row atSlice:(uint)sl atTimestep:(uint)tstep
 {	
 	if ([self sizeCheckRows:row Cols:1 Slices:sl Timesteps:tstep]){
-		isis::data::MemChunkNonDel<float> rowChunk(numberCols, 1);
+		isis::data::MemChunkNonDel<float> rowChunk(imageSize.columns, 1);
 		mIsisImage.getChunk(0, 0, sl, tstep, false).copyLine(row, 0, 0, rowChunk, 0, 0, 0);
 		return (( boost::shared_ptr<float> )rowChunk.getValuePtr<float>()).get();	
 	}
@@ -356,9 +356,9 @@
 -(float*)getColDataAt:(uint)col atSlice:(uint)sl atTimestep:(uint)tstep
 {	
 	if ([self sizeCheckRows:1 Cols:col Slices:sl Timesteps:tstep] ){
-		isis::data::MemChunkNonDel<float> colChunk(numberRows, 1);
+		isis::data::MemChunkNonDel<float> colChunk(imageSize.rows, 1);
 		isis::data::Chunk sliceCh = mIsisImage.getChunk(0,0,sl,tstep, false);
-		for (uint i = 0; i < numberRows; i++){
+		for (uint i = 0; i < imageSize.rows; i++){
 			colChunk.voxel<float>(i, 0) = sliceCh.voxel<float>(col, i, 0, 0);}
 		return (( boost::shared_ptr<float> ) colChunk.getValuePtr<float>()).get();
 	}
@@ -368,7 +368,7 @@
 -(void)setRowAt:(uint)row atSlice:(uint)sl	atTimestep:(uint)tstep withData:(float*)data
 {	
 	if ([self sizeCheckRows:row Cols:1 Slices:sl Timesteps:tstep] ){
-		isis::data::MemChunk<float> dataToCopy(data, numberCols);
+		isis::data::MemChunk<float> dataToCopy(data, imageSize.columns);
 		isis::data::Chunk dataInsertCh = (mIsisImage.getChunk(0, 0, sl, tstep, false));
 		dataToCopy.copyLine(0, 0, 0, dataInsertCh, row, 0, 0);}
 	return;
@@ -378,9 +378,9 @@
 -(void)setColAt:(uint)col atSlice:(uint)sl atTimestep:(uint)tstep withData:(float*)data
 {	
 	if ([self sizeCheckRows:1 Cols:col Slices:sl Timesteps:tstep] ){
-		isis::data::MemChunk<float> dataToCopy(data, numberRows);
+		isis::data::MemChunk<float> dataToCopy(data, imageSize.rows);
 		isis::data::Chunk sliceCh = mIsisImage.getChunk(0,0,sl,tstep, false);
-		for (uint i = 0; i < numberRows; i++){
+		for (uint i = 0; i < imageSize.rows; i++){
 			sliceCh.voxel<float>(col, i, 0, 0) = dataToCopy.voxel<float>(i, 0);}
 	}
 	return;
@@ -394,10 +394,10 @@
 
 -(BOOL)sizeCheckRows:(uint)r Cols:(uint)c Slices:(uint)s Timesteps:(uint)t
 {
-	if (r < numberRows      and 0 <= r and
-		c < numberCols      and 0 <= c and
-		s < numberSlices    and 0 <= s and
-		t < numberTimesteps and 0 <= t){
+	if (r < imageSize.rows      and 0 <= r and
+		c < imageSize.columns      and 0 <= c and
+		s < imageSize.slices    and 0 <= s and
+		t < imageSize.timesteps and 0 <= t){
 		return YES;}
 	return NO;
 
@@ -525,6 +525,57 @@
 -(BOOL)empty
 {
 	return mIsisImage.isEmpty();
+}
+
+-(enum ImageDataType)getImageDataType
+{
+	switch (dataTypeID) {
+		case isis::data::ValuePtr<int8_t>::staticID:
+		{
+			return IMAGE_DATA_INT8;
+			break;
+		}
+		case isis::data::ValuePtr<u_int8_t>::staticID:
+		{
+			return IMAGE_DATA_UINT8;
+			break;
+		}
+		case isis::data::ValuePtr<int16_t>::staticID:
+		{
+			return IMAGE_DATA_INT16;
+			break;
+		}
+		case isis::data::ValuePtr<u_int16_t>::staticID:
+		{
+			return IMAGE_DATA_UINT16;
+			break;
+		}
+		case isis::data::ValuePtr<int32_t>::staticID:
+		{
+			return IMAGE_DATA_FLOAT;
+			break;
+		}
+		case isis::data::ValuePtr<u_int32_t>::staticID:
+		{
+			return IMAGE_DATA_UINT32;
+			break;
+		}
+		case isis::data::ValuePtr<float>::staticID:
+		{
+			return IMAGE_DATA_FLOAT;
+			break;
+		}
+		case isis::data::ValuePtr<double>::staticID:
+		{
+			return IMAGE_DATA_DOUBLE;
+			break;
+		}
+			
+		default:
+			return IMAGE_DATA_UNKNOWN;
+			break;
+	}
+	
 }
 
 @end

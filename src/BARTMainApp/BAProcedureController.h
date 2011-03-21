@@ -13,4 +13,9 @@
 
 }
 
+-(BOOL) initData;
+-(BOOL) initDesign;
+-(BOOL) initPresentation;
+-(BOOL) analyzeOneStep;
+
 @end

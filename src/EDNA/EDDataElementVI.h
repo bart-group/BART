@@ -29,9 +29,15 @@
     ListInfo *m_linfo;
     VAttrList m_out_list;
     //VImage m_DesignImage;
+	
+	
+	
+	
     
     NSDictionary *mImagePropertyToFctMap;
 }
+
+
 
 -(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
 

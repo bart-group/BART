@@ -7,6 +7,7 @@
 //
 
 #import "isis_test.h"
+#import "EDDataElementVI.h"
 #import "CoreUtils/propmap.hpp"
 
 
@@ -17,13 +18,16 @@
 int main(void)
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
-	
 	uint rows = 13;
 	uint cols = 12;
 	uint sl = 10;
 	uint tsteps = 7;
-	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:rows andCols:cols andSlices:sl andTimesteps:tsteps	];
+	
+
+	EDDataElementVI *elemVI = [[EDDataElementVI alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:rows andCols:cols andSlices:sl andTimesteps:tsteps	];
+	
+	
+		EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:rows andCols:cols andSlices:sl andTimesteps:tsteps	];
 	for (uint t=0; t < tsteps; t++){
 		for (uint s=0; s < sl; s++){
 			for (uint c=0; c < cols; c++){

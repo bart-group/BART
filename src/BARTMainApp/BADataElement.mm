@@ -13,26 +13,10 @@
 
 @implementation BADataElement
 
-@synthesize numberRows;
-@synthesize numberCols;
-@synthesize numberSlices;
-@synthesize numberTimesteps;
-@synthesize imageDataType;
 @synthesize dataTypeID;
+@synthesize imageSize;
 
  
-
--(id)initWith:(NSArray*) aType
-{
-    if (self = [super init]) {
-    
-    }
-    
-    return self;
-    //if (self)
-        //return [[BADataElementVI alloc] init ];
-}
-
 -(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
 {
     [self release];
@@ -42,7 +26,7 @@
 		NSLog(@"No file to load");
 		return nil;
 	}
-    self = [[EDDataElementIsis alloc] initWithFile:path ofImageDataType:type];
+    self = [[EDDataElementVI alloc] initWithFile:path ofImageDataType:type];
     return self;
 }
 
@@ -51,10 +35,34 @@
 {
     [self release];
     self = nil;
-    self = [[EDDataElementIsis alloc] initWithDataType:type andRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
+    self = [[EDDataElementVI alloc] initWithDataType:type andRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
     return self;
     
 }
+
+-(id)initWithDataFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect
+{
+	[self release];
+    self = nil;
+	NSFileManager *fm = [[NSFileManager alloc] init];
+	if ( NO == [fm fileExistsAtPath:path]){
+		NSLog(@"No file to load");
+		return nil;
+	}
+    self = [[EDDataElementIsis alloc] initWithFile:path andSuffix:suffix andDialect:dialect];
+    return self;
+}
+
+-(id)initEmptyWithSize:(ImageSize*) s
+{
+	[self release];
+    self = nil;
+    self = [[EDDataElementIsis alloc] initEmptyWithSize:s];
+    return self;
+	
+}
+
+
 
 -(void)dealloc
 {

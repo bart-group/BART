@@ -51,6 +51,8 @@
 }
 
 
+
+
 -(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
 {
     if (self = [super init]) {
@@ -70,10 +72,10 @@
 -(id)initWithDataType:(enum ImageDataType)type andRows:(int) rows andCols:(int)cols andSlices:(int)slices andTimesteps:(int) tsteps 
 {
     if (self = [super init]) {
-        numberCols = cols;
-        numberRows = rows;
-        numberSlices = slices;
-        numberTimesteps = tsteps;
+        imageSize.columns = cols;
+        imageSize.rows = rows;
+        imageSize.slices = slices;
+        imageSize.timesteps = tsteps;
         imageDataType = type;
     }
     
@@ -83,7 +85,7 @@
             mImageArray[i] = VCreateImage(tsteps,rows,cols,VFloatRepn);
             VFillImage(mImageArray[i], VAllBands, 0);
         }
-        if (IMAGE_DATA_SHORT == type){
+        if (IMAGE_DATA_INT16 == type){
             mImageArray[i] = VCreateImage(tsteps,rows,cols,VShortRepn);
             VFillImage(mImageArray[i], VAllBands, 0);
         
@@ -115,7 +117,7 @@
 {
     if (IMAGE_DATA_FLOAT == imageDataType) {
         return VPixel(mImageArray[s], t, r, c, VFloat);
-    } else if (IMAGE_DATA_SHORT == imageDataType) {
+    } else if (IMAGE_DATA_INT16 == imageDataType) {
         return (float) VPixel(mImageArray[s], t, r, c, VShort);
     }
 
@@ -127,7 +129,7 @@
     if (IMAGE_DATA_FLOAT == imageDataType) {
         VPixel(mImageArray[s], t, r, c, VFloat) = [val floatValue];
     }
-    if (IMAGE_DATA_SHORT == imageDataType) {
+    if (IMAGE_DATA_INT16 == imageDataType) {
         VPixel(mImageArray[s], t, r, c, VShort) = [val shortValue];
     }
 
@@ -135,7 +137,7 @@
 
 -(void)dealloc
 {
-    for (int i=0; i<numberSlices; i++) {
+    for (size_t i=0; i<imageSize.slices; i++) {
         VFree(mImageArray[i]);
     }
     VFree(m_linfo);
@@ -155,54 +157,54 @@
 
     switch (key) {
         case PROPID_NAME:
-            for (int i = 0; i < numberSlices; i++)
+            for (size_t i = 0; i < imageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "name", NULL, VStringRepn, [value UTF8String]);
             break;
         case PROPID_MODALITY:
-            for (int i = 0; i < numberSlices; i++)
+            for (size_t i = 0; i < imageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "modality", NULL, VStringRepn, [value UTF8String]);
             
             break;
         case PROPID_DF:
-            for (int i = 0; i < numberSlices; i++)
+            for (size_t i = 0; i < imageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "df", NULL, VFloatRepn, [value floatValue]);
             break;
         case PROPID_PATIENT:
-            for (int i = 0; i < numberSlices; i++)
+            for (size_t i = 0; i < imageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "patient", NULL, VStringRepn, [value UTF8String]);
             break;
         case PROPID_VOXEL:
-            for (int i = 0; i < numberSlices; i++)
+            for (size_t i = 0; i < imageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "voxel", NULL, VStringRepn, [value UTF8String]);
             break;
         case PROPID_REPTIME:
-            for (int i = 0; i < numberSlices; i++)
+            for (size_t i = 0; i < imageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "repetition_time", NULL, VLongRepn, [value longValue]);
             break;
         case PROPID_TALAIRACH:
-            for (int i = 0; i < numberSlices; i++)
+            for (size_t i = 0; i < imageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "talairach", NULL, VStringRepn, [value UTF8String]);
             break;
         case PROPID_FIXPOINT:
-            for (int i = 0; i < numberSlices; i++){
+            for (size_t i = 0; i < imageSize.slices; i++){
                  VSetAttr(VImageAttrList(mImageArray[i]), "fixpoint", NULL, VStringRepn, [value UTF8String]);
                 }
             
             break;
         case PROPID_CA:
-            for (int i = 0; i < numberSlices; i++)
+            for (size_t i = 0; i < imageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "ca", NULL, VStringRepn, [value UTF8String]);
             break;
         case PROPID_CP:
-            for (int i = 0; i < numberSlices; i++)
+            for (size_t i = 0; i < imageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "cp", NULL, VStringRepn,[value UTF8String]);
             break;
         case PROPID_EXTENT:
-            for (int i = 0; i < numberSlices; i++)
+            for (size_t i = 0; i < imageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "extent", NULL, VStringRepn, [value UTF8String]);
             break;
         case PROPID_BETA:
-            for (int i = 0; i < numberSlices; i++)
+            for (size_t i = 0; i < imageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "beta", NULL, VShortRepn,[value intValue]);
             break;
         default:
@@ -256,25 +258,25 @@
     return ret; 
 }
 
--(void)WriteDataElementToFile:(NSString*)path
+-(BOOL)WriteDataElementToFile:(NSString*)path
 {
     char* outputFilename = VMalloc(sizeof(char)*UINT16_MAX);
     [path getCString:outputFilename maxLength:UINT16_MAX  encoding:NSUTF8StringEncoding];
     
     m_out_list = VCreateAttrList();
-    for (int i = 0; i < numberSlices; i++){
+    for (size_t i = 0; i < imageSize.slices; i++){
         VAppendAttr(m_out_list, "image", NULL, VImageRepn, mImageArray[i]);
     }
     
     FILE* f = VOpenOutputFile(outputFilename, TRUE);
 	if (!f) {
-		VError(" error opening outout file %s", outputFilename);
+		return FALSE;
 	}
 	if (!VWriteFile(f, m_out_list)) {
-		exit(1);
+		return FALSE;
 	}
-    
-	printf("GLM with %s: done.\n", outputFilename);
+    return TRUE;
+	//printf("GLM with %s: done.\n", outputFilename);
 	    
 }
 
@@ -291,7 +293,7 @@
     char* inputFilename = VMalloc(sizeof(char) *UINT16_MAX);// = "/Users/user/Development/BR5T-functional.v";
     [path getCString:inputFilename maxLength:UINT16_MAX  encoding:NSUTF8StringEncoding]; //path lastPathComponent];
    
-    if ( IMAGE_DATA_SHORT == type){
+    if ( IMAGE_DATA_INT16 == type){
     
         //AS BEFORE
         VAttrList list;		//attribute list from vista image header
@@ -325,10 +327,10 @@
         GetListInfo(inputFilename, &m_linfo[0]);
         fclose(in_file);
         
-        numberRows = m_linfo[0].nrows;
-        numberCols = m_linfo[0].ncols;
-        numberSlices = m_linfo[0].nslices;
-        numberTimesteps  = m_linfo[0].ntimesteps;
+        imageSize.rows = m_linfo[0].nrows;
+        imageSize.columns = m_linfo[0].ncols;
+        imageSize.slices = m_linfo[0].nslices;
+        imageSize.timesteps  = m_linfo[0].ntimesteps;
         
         
     }
@@ -347,6 +349,10 @@
     return (float*)VImageData(mImageArray[sliceNr]);
 }
 
+-(enum ImageDataType)getImageDataType
+{
+	return imageDataType;
+}
 
 @end
 

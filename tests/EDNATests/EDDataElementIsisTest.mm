@@ -21,33 +21,23 @@
 
 -(void) setUp
 {
-	unsigned int rows = 10;
-	unsigned int cols = 21;
-	unsigned int slices = 17;
-	unsigned int timesteps = 29;
-	
-	//dataEl = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:rows andCols:cols andSlices:slices andTimesteps:timesteps];
-	//for (unsigned int x = 0; x < )
-	//[dataEl setVoxelValue:<#(NSNumber *)val#> atRow:<#(int)r#> col:<#(int)c#> slice:<#(int)s#> timestep:<#(int)t#>]
-	
-	
-	//[dataEl WriteDataElementToFile:@""];
-	
-		dataEl = [[EDDataElementIsis alloc] initWithDatasetFile:@"../tests/BARTMainAppTests/testfiles/TestDataset01-functional.nii" ofImageDataType:IMAGE_DATA_SHORT];
+	dataEl = [[EDDataElementIsis alloc] initWithFile:@"../tests/BARTMainAppTests/testfiles/TestDataset01-functional.nii" andSuffix:@"" andDialect:@""];
 }
 
 -(void)testProperties
 {
-	STAssertEquals(dataEl.numberCols, (unsigned int)64, @"Incorrect number of columns.");
-    STAssertEquals(dataEl.numberRows, (unsigned int)64, @"Incorrect number of rows.");
-    STAssertEquals(dataEl.numberTimesteps, (unsigned int)396, @"Incorrect number of timesteps.");
-    STAssertEquals(dataEl.numberSlices, (unsigned int)20, @"Incorrect number of slices.");
+	ImageSize imSize = [dataEl imageSize];
+	STAssertEquals(imSize.columns, (size_t)64, @"Incorrect number of columns.");
+    STAssertEquals(imSize.rows, (size_t)64, @"Incorrect number of rows.");
+    STAssertEquals(imSize.timesteps, (size_t)396, @"Incorrect number of timesteps.");
+    STAssertEquals(imSize.slices, (size_t)20, @"Incorrect number of slices.");
    // STAssertEquals(dataEl.imageDataType, IMAGE_DATA_SHORT, @"Incorrect image data type.");
 }
 
 -(void)testInitWithDatatype
 {
-	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:10 andCols:10 andSlices:10 andTimesteps:1];
+	ImageSize s;
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:&s];
 	
 	STAssertNotNil(elem, @"initWithDataType returns nil");
 	
@@ -59,9 +49,14 @@
 
 -(void)testImageProperties
 {
-	
-	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:39 andCols:19 andSlices:2 andTimesteps:190];
-	EDDataElementIsis *elemDest = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:19 andCols:29 andSlices:1 andTimesteps:90];
+	struct ImageSizeStruct imSize = {39,19,2,190};
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:&imSize];
+	ImageSize imSizeDest;
+	imSizeDest.rows = 19; 
+	imSizeDest.columns = 29;
+	imSizeDest.slices = 1;
+	imSizeDest.timesteps = 90;
+	EDDataElementIsis *elemDest = [[EDDataElementIsis alloc] initEmptyWithSize:&imSizeDest];
 	STAssertNotNil(elem, @"valid init returns nil");
 	STAssertNotNil(elemDest, @"valid init returns nil");
 	
@@ -85,8 +80,8 @@
 	
 
 	// the special ones
-	NSArray *readVec = [NSArray arrayWithObjects:[NSNumber numberWithFloat:2.765], [NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:123.76], [NSNumber numberWithFloat:1], nil];
-	NSArray *phaseVec = [NSArray arrayWithObjects:[NSNumber numberWithFloat:-0.0], [NSNumber numberWithFloat:-123.986], [NSNumber numberWithFloat:78976.654], [NSNumber numberWithFloat:99.0], nil];
+	NSArray *rowVec = [NSArray arrayWithObjects:[NSNumber numberWithFloat:2.765], [NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:123.76], [NSNumber numberWithFloat:1], nil];
+	NSArray *columnVec = [NSArray arrayWithObjects:[NSNumber numberWithFloat:-0.0], [NSNumber numberWithFloat:-123.986], [NSNumber numberWithFloat:78976.654], [NSNumber numberWithFloat:99.0], nil];
 	NSArray *sliceVec = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0], [NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0], [NSNumber numberWithFloat:0], nil];
 	NSArray *voxelSize = [NSArray arrayWithObjects:[NSNumber numberWithInt:23], [NSNumber numberWithInt:23.6], [NSNumber numberWithInt:12], [NSNumber numberWithInt:1], nil];
 	NSArray *indexOrigin = [NSArray arrayWithObjects:[NSNumber numberWithFloat:-98.0], [NSNumber numberWithFloat:12.0], [NSNumber numberWithFloat:34.9875645], [NSNumber numberWithFloat:0.951], nil];
@@ -107,8 +102,8 @@
 	
 	NSDictionary *propDictSet2 = [NSDictionary dictionaryWithObjectsAndKeys:s1, @"prop1",
 								  s2, @"prop2",
-								  readVec, @"readVec", 
-								  phaseVec, @"phaseVec", 
+								  rowVec, @"rowVec", 
+								  columnVec, @"columnVec", 
 								  sliceVec, @"slicevec", 
 								  voxelSize, @"voxelSize",
 								  indexOrigin, @"indexOrigin", 
@@ -129,8 +124,8 @@
 	NSArray *propListGet2 = [NSArray arrayWithObjects:
 							 @"numberOfAverages",
 							 @"prop2",
-							 @"readVec", 
-							 @"phaseVec", 
+							 @"rowVec", 
+							 @"columnVec", 
 							 @"slicevec", 
 							 @"voxelSize",
 							 @"indexOrigin", 
@@ -202,12 +197,13 @@
 					
 -(void)testGetSetVoxelValueAtRow
 {
-	int nrRows = 37;
-	int nrCols = 12;
-	int nrSlices = 29;
-	int nrTimesteps = 2;
+	ImageSize imSize;
+	imSize.rows = 37;
+	imSize.columns = 12;
+	imSize.slices = 29;
+	imSize.timesteps = 2;
 	
-	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:nrRows andCols:nrCols andSlices:nrSlices andTimesteps:nrTimesteps];
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:&imSize];
 	
 	NSNumber *voxel1 = [NSNumber numberWithInt:12];
 	NSNumber *voxel2 = [NSNumber numberWithFloat:1.6];
@@ -216,19 +212,19 @@
 		
 	//insert at zero and max length
 	STAssertNoThrow([elem setVoxelValue:voxel1 atRow:0 col:0 slice:0 timestep:0], @"setVoxelValue throws unexpected exception 1");
-	STAssertNoThrow([elem setVoxelValue:voxel2 atRow:nrRows-1 col:7 slice:28 timestep:1], @"setVoxelValue throws unexpected exception 2");
-	STAssertNoThrow([elem setVoxelValue:voxel4 atRow:0 col:nrCols-1 slice:0 timestep:0], @"setVoxelValue throws unexpected exception 3");
-	STAssertNoThrow([elem setVoxelValue:voxel3 atRow:0 col:0 slice:nrSlices-1 timestep:0], @"setVoxelValue throws unexpected exception 4");
-	STAssertNoThrow([elem setVoxelValue:voxel2 atRow:0 col:0 slice:0 timestep:nrTimesteps-1], @"setVoxelValue throws unexpected exception 5");
-	STAssertNoThrow([elem setVoxelValue:voxel1 atRow:nrRows-1 col:nrCols-1 slice:nrSlices-1 timestep:nrTimesteps-1], @"setVoxelValue throws unexpected exception 6");
+	STAssertNoThrow([elem setVoxelValue:voxel2 atRow:imSize.rows-1 col:7 slice:28 timestep:1], @"setVoxelValue throws unexpected exception 2");
+	STAssertNoThrow([elem setVoxelValue:voxel4 atRow:0 col:imSize.columns-1 slice:0 timestep:0], @"setVoxelValue throws unexpected exception 3");
+	STAssertNoThrow([elem setVoxelValue:voxel3 atRow:0 col:0 slice:imSize.slices-1 timestep:0], @"setVoxelValue throws unexpected exception 4");
+	STAssertNoThrow([elem setVoxelValue:voxel2 atRow:0 col:0 slice:0 timestep:imSize.timesteps-1], @"setVoxelValue throws unexpected exception 5");
+	STAssertNoThrow([elem setVoxelValue:voxel1 atRow:imSize.rows-1 col:imSize.columns-1 slice:imSize.slices-1 timestep:imSize.timesteps-1], @"setVoxelValue throws unexpected exception 6");
 	
 	//get from these ones
 	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:0 timestep:0], [voxel1 floatValue], @"getValue does not match expected one 1.");
-	STAssertEquals([elem getFloatVoxelValueAtRow:nrRows-1 col:7 slice:28 timestep:1], [voxel2 floatValue], @"getValue does not match expected one 2.");
-	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:nrCols-1 slice:0 timestep:0], [voxel4 floatValue], @"getValue does not match expected one 3.");
-	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:nrSlices-1 timestep:0], [voxel3 floatValue], @"getValue does not match expected one 4.");
-	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:0 timestep:nrTimesteps-1 ], [voxel2 floatValue], @"getValue does not match expected one 5.");
-	STAssertEquals([elem getFloatVoxelValueAtRow:nrRows-1 col:nrCols-1 slice:nrSlices-1 timestep:nrTimesteps-1], [voxel1 floatValue], @"getValue does not match expected one 6.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:imSize.rows-1 col:7 slice:28 timestep:1], [voxel2 floatValue], @"getValue does not match expected one 2.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:imSize.columns-1 slice:0 timestep:0], [voxel4 floatValue], @"getValue does not match expected one 3.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:imSize.slices-1 timestep:0], [voxel3 floatValue], @"getValue does not match expected one 4.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:0 timestep:imSize.timesteps-1 ], [voxel2 floatValue], @"getValue does not match expected one 5.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:imSize.rows-1 col:imSize.columns-1 slice:imSize.slices-1 timestep:imSize.timesteps-1], [voxel1 floatValue], @"getValue does not match expected one 6.");
 	
 	
 	
@@ -237,18 +233,18 @@
 	STAssertNoThrow([elem setVoxelValue:voxel3 atRow:0 col:-1 slice:0 timestep:0], @"setVoxelValue throws unexpected exception 8");
 	STAssertNoThrow([elem setVoxelValue:voxel4 atRow:0 col:0 slice:-1 timestep:0], @"setVoxelValue throws unexpected exception 9");
 	STAssertNoThrow([elem setVoxelValue:voxel2 atRow:0 col:0 slice:0 timestep:-1], @"setVoxelValue throws unexpected exception 10");
-	STAssertNoThrow([elem setVoxelValue:voxel4 atRow:nrRows col:11 slice:28 timestep:1], @"setVoxelValue throws unexpected exception 11");
-	STAssertNoThrow([elem setVoxelValue:voxel2 atRow:0 col:nrCols slice:0 timestep:0], @"setVoxelValue throws unexpected exception 12");
-	STAssertNoThrow([elem setVoxelValue:voxel3 atRow:0 col:0 slice:nrSlices timestep:0], @"setVoxelValue throws unexpected exception 13");
-	STAssertNoThrow([elem setVoxelValue:voxel1 atRow:0 col:0 slice:0 timestep:nrTimesteps], @"setVoxelValue throws unexpected exception 14");
+	STAssertNoThrow([elem setVoxelValue:voxel4 atRow:imSize.rows col:11 slice:28 timestep:1], @"setVoxelValue throws unexpected exception 11");
+	STAssertNoThrow([elem setVoxelValue:voxel2 atRow:0 col:imSize.columns slice:0 timestep:0], @"setVoxelValue throws unexpected exception 12");
+	STAssertNoThrow([elem setVoxelValue:voxel3 atRow:0 col:0 slice:imSize.slices timestep:0], @"setVoxelValue throws unexpected exception 13");
+	STAssertNoThrow([elem setVoxelValue:voxel1 atRow:0 col:0 slice:0 timestep:imSize.timesteps], @"setVoxelValue throws unexpected exception 14");
 	
 	// get from these impossible ones - should return 0
 	STAssertEquals([elem getFloatVoxelValueAtRow:-1 col:0 slice:0 timestep:0], float(0.0), @"getValue does not match expected one 7.");
-	STAssertEquals([elem getFloatVoxelValueAtRow:nrRows col:11 slice:28 timestep:1], float(0.0), @"getValue does not match expected one 8.");
-	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:nrCols slice:0 timestep:0], float(0.0), @"getValue does not match expected one 9.");
-	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:nrSlices timestep:0], float(0.0), @"getValue does not match expected one 10.");
-	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:0 timestep:nrTimesteps ], float(0.0), @"getValue does not match expected one 11.");
-	STAssertEquals([elem getFloatVoxelValueAtRow:nrRows col:nrCols slice:nrSlices timestep:nrTimesteps], float(0.0), @"getValue does not match expected one 12.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:imSize.rows col:11 slice:28 timestep:1], float(0.0), @"getValue does not match expected one 8.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:imSize.columns slice:0 timestep:0], float(0.0), @"getValue does not match expected one 9.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:imSize.slices timestep:0], float(0.0), @"getValue does not match expected one 10.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:0 timestep:imSize.timesteps ], float(0.0), @"getValue does not match expected one 11.");
+	STAssertEquals([elem getFloatVoxelValueAtRow:imSize.rows col:imSize.columns slice:imSize.slices timestep:imSize.timesteps], float(0.0), @"getValue does not match expected one 12.");
 	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:-1 slice:0 timestep:0], float(0.0), @"getValue does not match expected one 13.");
 	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:-1 timestep:0], float(0.0), @"getValue does not match expected one 14.");
 	STAssertEquals([elem getFloatVoxelValueAtRow:0 col:0 slice:0 timestep:-1], float(0.0), @"getValue does not match expected one 15.");
@@ -264,15 +260,16 @@
 
 -(void)testGetDataFromSlice
 {
-	uint rows = 13;
-	uint cols = 12;
-	uint sl = 10;
-	uint tsteps = 7;
-	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:rows andCols:cols andSlices:sl andTimesteps:tsteps	];
-	for (uint t=0; t < tsteps; t++){
-		for (uint s=0; s < sl; s++){
-			for (uint c=0; c < cols; c++){
-				for (uint r=0; r < rows; r++){
+	ImageSize imSize;
+	imSize.rows = 13;
+	imSize.columns = 12;
+	imSize.slices = 10;
+	imSize.timesteps = 7;
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:&imSize	];
+	for (uint t=0; t < imSize.timesteps; t++){
+		for (uint s=0; s < imSize.slices; s++){
+			for (uint c=0; c < imSize.columns; c++){
+				for (uint r=0; r < imSize.rows; r++){
 					[elem setVoxelValue:[NSNumber numberWithFloat:r+c+s+t] atRow:r col:c slice:s timestep:t];
 				}}}}
 	
@@ -281,8 +278,8 @@
 	uint tGet = 2;
 	float *pSlice = [elem getSliceData:sliceGet	atTimestep:tGet ];
 	float* pRun = pSlice;
-	for (uint i = 0; i < rows; i++){
-		for (uint j = 0; j < cols; j++){
+	for (uint i = 0; i < imSize.rows; i++){
+		for (uint j = 0; j < imSize.columns; j++){
 			STAssertEquals((float)*pRun++, (float)sliceGet+tGet+i+j, @"Slice value not as expected");
 		}
 	}
@@ -293,8 +290,8 @@
 	tGet = 6;
 	pSlice = [elem getSliceData:sliceGet atTimestep:tGet ];
 	pRun = pSlice;
-	for (uint i = 0; i < rows; i++){
-		for (uint j = 0; j < cols; j++){
+	for (uint i = 0; i < imSize.rows; i++){
+		for (uint j = 0; j < imSize.columns; j++){
 			STAssertEquals((float)*pRun++, (float)sliceGet+tGet+i+j, @"Slice value not as expected");
 		}
 	}
@@ -305,8 +302,8 @@
 	tGet = 6;
 	pSlice = [elem getSliceData:sliceGet atTimestep:tGet ];
 	pRun = pSlice;
-	for (uint i = 0; i < rows; i++){
-		for (uint j = 0; j < cols; j++){
+	for (uint i = 0; i < imSize.rows; i++){
+		for (uint j = 0; j < imSize.columns; j++){
 			STAssertEquals((float)*pRun++, (float)sliceGet+tGet+i+j, @"Slice value not as expected");
 		}
 	}
@@ -330,15 +327,16 @@
 
 -(void)testGetSetRowDataAt
 {	
-	uint rows = 9;
-	uint cols = 13;
-	uint sl = 10;
-	uint tsteps = 7;
-	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:rows andCols:cols andSlices:sl andTimesteps:tsteps	];
-	for (uint t=0; t < tsteps; t++){
-		for (uint s=0; s < sl; s++){
-			for (uint c=0; c < cols; c++){
-				for (uint r=0; r < rows; r++){
+	ImageSize imSize;
+	imSize.rows = 9;
+	imSize.columns = 13;
+	imSize.slices = 10;
+	imSize.timesteps = 7;
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:&imSize];
+	for (uint t=0; t < imSize.timesteps; t++){
+		for (uint s=0; s < imSize.slices; s++){
+			for (uint c=0; c < imSize.columns; c++){
+				for (uint r=0; r < imSize.rows; r++){
 					[elem setVoxelValue:[NSNumber numberWithFloat:r+c+s+t] atRow:r col:c slice:s timestep:t];
 				}}}}
 	
@@ -348,15 +346,15 @@
 	
 	float *pRow = static_cast<float_t *>([elem getRowDataAt:rowGet atSlice:sliceGet atTimestep:tGet]);
 	float* pRun = pRow;
-	for (uint c=0; c < cols; c++){
+	for (uint c=0; c < imSize.columns; c++){
 		STAssertEquals((float)*pRun++, (float)rowGet+sliceGet+tGet+c, @"Row value not as expected");
 	}
 	free(pRow);
 	
 	//************setRowData
 	uint rowSet = 6;
-	float *dataBuff = static_cast<float_t*> (malloc(sizeof(cols)));
-	for (uint i = 0; i < cols; i++){
+	float *dataBuff = static_cast<float_t*> (malloc(sizeof(imSize.columns)));
+	for (uint i = 0; i < imSize.columns; i++){
 		dataBuff[i] = 3*i+17;
 	}
 	[elem setRowAt:rowSet atSlice:sliceGet atTimestep:tGet withData:dataBuff];
@@ -367,7 +365,7 @@
 	pRun = pRow;
 	float *pRunPre = pRowPre;
 	float* pRunPost = pRowPost;
-	for (uint c=0; c < cols; c++){
+	for (uint c=0; c < imSize.columns; c++){
 		STAssertEquals((float)*pRun, (float)dataBuff[c], @"Row value not as expected");
 		STAssertEquals((float)*pRunPre, (float)(rowSet-1)+sliceGet+tGet+c, @"Pre Row value not as expected");
 		STAssertEquals((float)*pRunPost, (float)(rowSet+1)+sliceGet+tGet+c, @"Post Row value not as expected");
@@ -384,15 +382,16 @@
 
 -(void)testGetSetColDataAt
 {
-	uint rows = 9;
-	uint cols = 13;
-	uint sl = 10;
-	uint tsteps = 7;
-	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:rows andCols:cols andSlices:sl andTimesteps:tsteps	];
-	for (uint t=0; t < tsteps; t++){
-		for (uint s=0; s < sl; s++){
-			for (uint c=0; c < cols; c++){
-				for (uint r=0; r < rows; r++){
+	ImageSize imSize;
+	imSize.rows = 9;
+	imSize.columns = 12;
+	imSize.slices = 10;
+	imSize.timesteps = 7;
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:&imSize];
+	for (uint t=0; t < imSize.timesteps; t++){
+		for (uint s=0; s < imSize.slices; s++){
+			for (uint c=0; c < imSize.columns; c++){
+				for (uint r=0; r < imSize.rows; r++){
 					[elem setVoxelValue:[NSNumber numberWithFloat:r+c+s+t] atRow:r col:c slice:s timestep:t];
 				}}}}
 
@@ -403,14 +402,14 @@
 	uint tGet = 2;
 	float *pCol = [elem getColDataAt:colGet atSlice:sliceGet atTimestep:tGet];
 	float *pRun = pCol;
-	for (uint r=0; r < rows; r++){
+	for (uint r=0; r < imSize.rows; r++){
 		STAssertEquals((float)*pRun++, (float)colGet+sliceGet+tGet+r, @"Col value not as expected");
 	}
 	free(pCol);
 	
 	uint colSet = 7;
-	float *dataBuff2 = static_cast<float_t*> (malloc(sizeof(rows)));
-	for (uint i = 0; i < rows; i++){
+	float *dataBuff2 = static_cast<float_t*> (malloc(sizeof(imSize.rows)));
+	for (uint i = 0; i < imSize.rows; i++){
 		dataBuff2[i] = 11+i*17;
 	}
 	//************setColData
@@ -422,7 +421,7 @@
 	pRun = pCol;
 	float *pRunPre = pColPre;
 	float *pRunPost = pColPost;
-	for (uint r=0; r < rows; r++){
+	for (uint r=0; r < imSize.rows; r++){
 		STAssertEquals((float)*pRun++, (float)dataBuff2[r], @"Col value not as expected");
 		STAssertEquals((float)*pRunPre++, (float)(colSet-1)+sliceGet+tGet+r, @"Pre Col value not as expected");
 		STAssertEquals((float)*pRunPost++, (float)(colSet+1)+sliceGet+tGet+r, @"Post Col value not as expected");
@@ -441,15 +440,16 @@
 
 -(void)testGetTimeSeriesDataAt
 {
-	uint rows = 17;
-	uint cols = 31;
-	uint sl = 10;
-	uint tsteps = 11;
-	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:rows andCols:cols andSlices:sl andTimesteps:tsteps	];
-	for (uint t=0; t < tsteps; t++){
-		for (uint s=0; s < sl; s++){
-			for (uint c=0; c < cols; c++){
-				for (uint r=0; r < rows; r++){
+	ImageSize imSize;
+	imSize.rows = 17;
+	imSize.columns = 31;
+	imSize.slices = 10;
+	imSize.timesteps = 11;
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:&imSize	];
+	for (uint t=0; t < imSize.timesteps; t++){
+		for (uint s=0; s < imSize.slices; s++){
+			for (uint c=0; c < imSize.columns; c++){
+				for (uint r=0; r < imSize.rows; r++){
 					[elem setVoxelValue:[NSNumber numberWithFloat:r+c+s+t] atRow:r col:c slice:s timestep:t];
 				}}}}
 	

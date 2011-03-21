@@ -453,7 +453,7 @@ static BAGUIPrototyp *gui;
             slice = ((row / SLICE_DIMENSION) * SLICES_PER_ROW) + (col / SLICE_DIMENSION);
             pos = NUMBER_OF_CHANNELS * ((row * DISPLAY_IMAGE_WIDTH) + col);
             float value = 0.0;
-            for (size_t icontrast = 0; icontrast < newActivationImage.numberSlices; icontrast++){
+            for (size_t icontrast = 0; icontrast < newActivationImage.imageSize.slices; icontrast++){
                 value += (contrastVector[icontrast]) * [newActivationImage getFloatVoxelValueAtRow:(row % SLICE_DIMENSION) col:(col % SLICE_DIMENSION) slice:icontrast timestep:slice];} // (timestep and slice are swapped in beta images)
             if (value > maxValue) {
                 maxValue = value;
@@ -472,7 +472,7 @@ static BAGUIPrototyp *gui;
             
             
             //multiply all betas with given contrast vector 
-            for (size_t icontrast = 0; icontrast < newActivationImage.numberSlices; icontrast++ ){
+            for (size_t icontrast = 0; icontrast < newActivationImage.imageSize.slices; icontrast++ ){
                 value += (contrastVector[icontrast]) * [newActivationImage getFloatVoxelValueAtRow:(row % SLICE_DIMENSION) col:(col % SLICE_DIMENSION) slice:icontrast timestep:slice];} // (timestep and slice are swapped in beta images)
           //  activationImageRaw[pos] = value;
 //            activationImageRaw[pos + 1] = 0;

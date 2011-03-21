@@ -17,10 +17,14 @@ enum ImageType {
 
 enum ImageDataType {
     IMAGE_DATA_FLOAT,
-    IMAGE_DATA_SHORT,
-	IMAGE_DATA_BYTE,
-	IMAGE_DATA_UBYTE,
-	IMAGE_DATA_USHORT
+    IMAGE_DATA_INT16,
+	IMAGE_DATA_UINT16,
+	IMAGE_DATA_UINT8,
+	IMAGE_DATA_INT8,
+	IMAGE_DATA_DOUBLE,
+	IMAGE_DATA_INT32,
+	IMAGE_DATA_UINT32,
+	IMAGE_DATA_UNKNOWN
 };
 
 enum ImagePropertyID{
@@ -43,6 +47,17 @@ enum ImagePropertyID{
 	PROPID_VOXELSIZE, 
 	PROPID_ORIGIN
 };
+
+typedef struct ImageSizeStruct {
+	//default constructor
+	//ImageSizeStruct() : rows(1), columns(1), slices(1), timesteps(1) { }
+	size_t rows;
+	size_t columns;
+	size_t slices;
+	size_t timesteps;
+	
+} ImageSize;
+
 
 
 
