@@ -85,7 +85,6 @@
 		005B605111D381B400812781 /* libboost_regex-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00062A2C11A58F5A00D369D0 /* libboost_regex-mt.a */; };
 		005B605211D381B500812781 /* libboost_system-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00062A2E11A58F5A00D369D0 /* libboost_system-mt.a */; };
 		005B605A11D3839400812781 /* EDDataElementIsis.mm in Sources */ = {isa = PBXBuildFile; fileRef = 006E07541190260500CEEF38 /* EDDataElementIsis.mm */; };
-		005B605B11D3839800812781 /* BADataElement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A41141470400A57967 /* BADataElement.mm */; };
 		005B605D11D3839C00812781 /* BAElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B01141470400A57967 /* BAElement.m */; };
 		005B62D411DA3DD700812781 /* libviaio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0006291811A5422800D369D0 /* libviaio.a */; };
 		005B62D511DA3DD700812781 /* libvia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0006291611A5422800D369D0 /* libvia.a */; };
@@ -138,6 +137,8 @@
 		00A7DD6B117C386300062AFE /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C39FF11144FB2100725668 /* CLETUS.dylib */; };
 		00A7DF3E117C610D00062AFE /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7D689A1113447C005A9D15 /* libfftw3.a */; };
 		00A7E02A117C90C600062AFE /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7D689A1113447C005A9D15 /* libfftw3.a */; };
+		00AE3E5F1337B17800F2D01D /* libEDNA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 007CD3DB11A042C000E6B2BB /* libEDNA.a */; };
+		00AE3EBC1337C97E00F2D01D /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
 		00B1573211459587007C02CB /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573111459587007C02CB /* libgslcblas.dylib */; };
 		00B1573C11459605007C02CB /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573B11459605007C02CB /* libgsl.0.dylib */; };
 		00B1AC24114554DB008FC09D /* COEDLValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AC22114554DB008FC09D /* COEDLValidator.h */; };
@@ -557,6 +558,7 @@
 				005B605111D381B400812781 /* libboost_regex-mt.a in Frameworks */,
 				005B605211D381B500812781 /* libboost_system-mt.a in Frameworks */,
 				00664B6512ABF195005216E6 /* libisis_core.a in Frameworks */,
+				00AE3E5F1337B17800F2D01D /* libEDNA.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -769,33 +771,11 @@
 		0040B79E1141470400A57967 /* BARTMainApp */ = {
 			isa = PBXGroup;
 			children = (
+				00AE3E0B1337980800F2D01D /* View */,
+				00AE3E0A1337980200F2D01D /* Model */,
+				00AE3E09133797FA00F2D01D /* Controller */,
 				0040B8631141483B00A57967 /* CIKernels */,
-				0040B79F1141470400A57967 /* BAAnalyzerElement.h */,
-				0040B7A01141470400A57967 /* BAAnalyzerElement.m */,
-				0040B7A11141470400A57967 /* BAProcedureController.h */,
-				0040B7A21141470400A57967 /* BAProcedureController.m */,
-				0040B7A31141470400A57967 /* BADataElement.h */,
-				0040B7A41141470400A57967 /* BADataElement.mm */,
-				0040B7A71141470400A57967 /* BADesignElement.h */,
-				0040B7A81141470400A57967 /* BADesignElement.m */,
-				0040B7AD1141470400A57967 /* BADocument.h */,
-				0040B7AE1141470400A57967 /* BADocument.m */,
-				0040B7AF1141470400A57967 /* BAElement.h */,
-				0040B7B01141470400A57967 /* BAElement.m */,
-				0040B7B11141470400A57967 /* BAGUIProtoCGLayer.h */,
-				0040B7B21141470400A57967 /* BAGUIProtoCGLayer.m */,
-				0040B7B31141470400A57967 /* BAGUIPrototyp.h */,
-				0040B7B41141470400A57967 /* BAGUIPrototyp.m */,
-				0040B7EF1141470400A57967 /* BARTApplicationAppDelegate.h */,
-				0040B7F01141470400A57967 /* BARTApplicationAppDelegate.m */,
-				0040B7F11141470400A57967 /* BASource.h */,
-				0040B7F21141470400A57967 /* BASource.m */,
-				0040B7F31141470400A57967 /* BASourceDatasetFile.h */,
-				0040B7F41141470400A57967 /* BASourceDatasetFile.m */,
-				0040B7F61141470400A57967 /* ColorMappingFilter.h */,
-				0040B7F71141470400A57967 /* ColorMappingFilter.m */,
 				0040B7F81141470400A57967 /* main.m */,
-				0040B7FA1141470400A57967 /* NegativeKernel.h */,
 			);
 			path = BARTMainApp;
 			sourceTree = "<group>";
@@ -903,6 +883,9 @@
 		0040B8631141483B00A57967 /* CIKernels */ = {
 			isa = PBXGroup;
 			children = (
+				0040B7FA1141470400A57967 /* NegativeKernel.h */,
+				0040B7F61141470400A57967 /* ColorMappingFilter.h */,
+				0040B7F71141470400A57967 /* ColorMappingFilter.m */,
 				0040B7F51141470400A57967 /* ColorMappingFilter.cikernel */,
 				0040B7F91141470400A57967 /* Negative.cikernel */,
 			);
@@ -958,6 +941,49 @@
 				00841C0411464321004341CC /* erDesignTest01_deriv2.des.v */,
 			);
 			path = testfiles;
+			sourceTree = "<group>";
+		};
+		00AE3E09133797FA00F2D01D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0040B7A11141470400A57967 /* BAProcedureController.h */,
+				0040B7A21141470400A57967 /* BAProcedureController.m */,
+				0040B7EF1141470400A57967 /* BARTApplicationAppDelegate.h */,
+				0040B7F01141470400A57967 /* BARTApplicationAppDelegate.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		00AE3E0A1337980200F2D01D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0040B79F1141470400A57967 /* BAAnalyzerElement.h */,
+				0040B7A01141470400A57967 /* BAAnalyzerElement.m */,
+				0040B7A31141470400A57967 /* BADataElement.h */,
+				0040B7A41141470400A57967 /* BADataElement.mm */,
+				0040B7A71141470400A57967 /* BADesignElement.h */,
+				0040B7A81141470400A57967 /* BADesignElement.m */,
+				0040B7F11141470400A57967 /* BASource.h */,
+				0040B7F21141470400A57967 /* BASource.m */,
+				0040B7F31141470400A57967 /* BASourceDatasetFile.h */,
+				0040B7F41141470400A57967 /* BASourceDatasetFile.m */,
+				0040B7AD1141470400A57967 /* BADocument.h */,
+				0040B7AE1141470400A57967 /* BADocument.m */,
+				0040B7AF1141470400A57967 /* BAElement.h */,
+				0040B7B01141470400A57967 /* BAElement.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		00AE3E0B1337980800F2D01D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0040B7B11141470400A57967 /* BAGUIProtoCGLayer.h */,
+				0040B7B21141470400A57967 /* BAGUIProtoCGLayer.m */,
+				0040B7B31141470400A57967 /* BAGUIPrototyp.h */,
+				0040B7B41141470400A57967 /* BAGUIPrototyp.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		00E7A643117EF1B900696498 /* NEDTests */ = {
@@ -1707,8 +1733,8 @@
 			files = (
 				005B604C11D3819E00812781 /* isis_test.mm in Sources */,
 				005B605A11D3839400812781 /* EDDataElementIsis.mm in Sources */,
-				005B605B11D3839800812781 /* BADataElement.mm in Sources */,
 				005B605D11D3839C00812781 /* BAElement.m in Sources */,
+				00AE3EBC1337C97E00F2D01D /* EDDataElementVI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2564,7 +2590,7 @@
 		00A7DD4D117C366B00062AFE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2574,6 +2600,12 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/isis,
+					/opt/local/include,
+					/usr/include,
+					../../src/CLETUS,
+				);
 				INFOPLIST_FILE = "NEDUnitTestSuite-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
@@ -2596,7 +2628,7 @@
 		00A7DD4E117C366B00062AFE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
@@ -2679,7 +2711,7 @@
 		00C39FFC1144FBD700725668 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2706,7 +2738,7 @@
 		00C39FFD1144FBD700725668 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
@@ -2769,16 +2801,7 @@
 				GCC_PREFIX_HEADER = BARTApplication_Prefix.pch;
 				INFOPLIST_FILE = "BARTApplication-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					/opt/local/lib,
-					"\"$(SRCROOT)/../../../../isis/build/lib/CoreUtils\"",
-					"\"$(SRCROOT)/../../../../isis/build/lib/DataStorage\"",
-					"\"$(SRCROOT)/../../../../isis/build\"",
-					"\"$(SRCROOT)/../../../../isis_test/trunk/build/lib/DataStorage\"",
-					"\"$(SRCROOT)/../../../../isis_test/trunk/build/lib/CoreUtils\"",
-					"\"$(SRCROOT)/../../../../isis_test/trunk/build\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = BARTApplication;
 			};
 			name = Release;
