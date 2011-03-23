@@ -8,12 +8,13 @@
 
 
 #import "DataStorage/image.hpp"
+#import "DataStorage/io_factory.hpp"
 #import "../BARTMainApp/BADataElementRealTimeLoader.h"
 #import "EDDataElementIsis.h"
 
-@interface EDDataElementRealTimeLoader : BADataElementRealTimeLoader {
+@interface EDDataElementRealTimeLoader <BADataElementRealTimeLoader> {
 	
-	NSMutableArray *arrayLoadedDataElements = [[NSMutableArray alloc] init];
+	NSMutableArray *arrayLoadedDataElements;
 	
 }
 
@@ -24,6 +25,12 @@
 
 @implementation EDDataElementRealTimeLoader
 
+
+-(id)init
+{
+	arrayLoadedDataElements = [[NSMutableArray alloc] init];
+	[arrayLoadedDataElements autorelease];
+}
 
 -(void)startRealTimeInput
 {

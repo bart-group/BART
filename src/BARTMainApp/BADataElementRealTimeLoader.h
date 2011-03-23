@@ -6,14 +6,14 @@
 //  Copyright 2011 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+//#import <UIKit/UIKit.h>
 
 
-@protocol BADataElementRealTimeLoader
+@protocol BADataElementRealTimeLoader 
 
 -(void)startRealTimeInput;
 
-
-
-
 @end
+
+
+
