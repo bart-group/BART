@@ -13,7 +13,7 @@
 
 @implementation BADataElement
 
-@synthesize dataTypeID;
+@synthesize imageType;
 @synthesize imageSize;
 
  
@@ -40,7 +40,7 @@
     
 }
 
--(id)initWithDataFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect
+-(id)initWithDataFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect ofImageType:(enum ImageType)iType
 {
 	[self release];
     self = nil;
@@ -49,15 +49,15 @@
 		NSLog(@"No file to load");
 		return nil;
 	}
-    self = [[EDDataElementIsis alloc] initWithFile:path andSuffix:suffix andDialect:dialect];
+    self = [[EDDataElementIsis alloc] initWithFile:path andSuffix:suffix andDialect:dialect ofImageType:iType];
     return self;
 }
 
--(id)initEmptyWithSize:(ImageSize*) s
+-(id)initEmptyWithSize:(ImageSize*)s  ofImageType:(enum ImageType)iType
 {
 	[self release];
     self = nil;
-    self = [[EDDataElementIsis alloc] initEmptyWithSize:s];
+    self = [[EDDataElementIsis alloc] initEmptyWithSize:s ofImageType:(enum ImageType)iType];
     return self;
 	
 }

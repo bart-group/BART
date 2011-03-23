@@ -12,7 +12,11 @@
 enum ImageType {
     IMAGE_DESIGN,
     IMAGE_FCTDATA,
-    IMAGE_BETAS
+    IMAGE_BETAS,
+	IMAGE_ANADATA,
+	IMAGE_TMAP,
+	IMAGE_ZMAP,
+	IMAGE_MOCO
 };
 
 enum ImageDataType {

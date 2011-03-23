@@ -23,7 +23,7 @@
 @implementation EDDataElementIsis
 
 
--(id)initWithFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect
+-(id)initWithFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect ofImageType:(enum ImageType)iType
 {
 	self = [super init];
     
@@ -37,6 +37,8 @@
 	// the most important thing - load with isis factory
 	mIsisImageList = isis::data::IOFactory::load( [path cStringUsingEncoding:NSUTF8StringEncoding], [suffix cStringUsingEncoding:NSUTF8StringEncoding], [dialect cStringUsingEncoding:NSUTF8StringEncoding]);
 
+	//set the type of the image
+	imageType = iType;
 	// that's unusual 
     //uint s = mIsisImageList.size();
     if (1 < mIsisImageList.size()) {
@@ -65,7 +67,7 @@
 }
 
 
--(id)initEmptyWithSize:(ImageSize*)s
+-(id)initEmptyWithSize:(ImageSize*)s ofImageType:(enum ImageType)iType
 {
     if (self = [super init]) {
         imageSize.columns = s->columns;
@@ -73,6 +75,7 @@
         imageSize.slices = s->slices;
         imageSize.timesteps = s->timesteps;
 		dataTypeID = isis::data::ValuePtr<float>::staticID;
+		imageType = iType;
 	}
     
 	// empty isis image
@@ -97,6 +100,10 @@
    return self;
 }
 
+-(id)initFromImage:(isis::data::Image) img
+{
+	mIsisImage = img;
+}
 
 -(short)getShortVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t
 {	
@@ -576,6 +583,21 @@
 			break;
 	}
 	
+}
+
+-(void)startRealTimeInput
+{
+
+}
+
+-(void)loadNextVolume
+{
+
+}
+
+-(void)appendVolume
+{
+
 }
 
 @end

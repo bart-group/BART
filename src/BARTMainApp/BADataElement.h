@@ -11,26 +11,25 @@
 
 
 @interface BADataElement : BAElement {
-    
-   // fuer Datenelemente ist Vorgabe der Typen okay - Vimage, isis::image - 
-
-
+	
 	ImageSize imageSize;
     uint dataTypeID;
     unsigned int repetitionTimeInMs;
 	NSDictionary *imagePropertiesMap;
     
     enum ImageDataType imageDataType;
+	enum ImageType imageType;
     
 }
 @property (readonly, assign) ImageSize imageSize;
-@property (readonly, assign) uint dataTypeID;
+//@property (readonly, assign) uint dataTypeID;
+@property (readonly, assign) enum ImageType imageType;
 
 
 
--(id)initWithDataFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect;
+-(id)initWithDataFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect ofImageType:(enum ImageType)iType;
 
--(id)initEmptyWithSize:(ImageSize*) imageSize;
+-(id)initEmptyWithSize:(ImageSize*) imageSize ofImageType:(enum ImageType)iType;
 
 -(void)dealloc;
 
@@ -48,7 +47,7 @@
 
 @interface BADataElement (AbstractMethods)
 
--(id)initWithFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect;
+-(id)initWithFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect ofImageType:(enum ImageType)iType;
 
 -(short)getShortVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t;
 
@@ -94,5 +93,6 @@
 -(NSDictionary*)getProps:(NSArray*)propList;
 
 -(void)setProps:(NSDictionary*)propDict;
+
 
 @end

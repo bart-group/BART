@@ -21,8 +21,9 @@
 	
 }
 
-
+-(void)appendVolume;
 -(BOOL)sizeCheckRows:(uint)r Cols:(uint)c Slices:(uint)s Timesteps:(uint)t;
+-(id)initFromImage:(isis::data::Image) img;
 
 
 @end
