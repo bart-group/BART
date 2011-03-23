@@ -414,7 +414,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 	//s->columns = mData.imageSize.columns;
 	s.slices = mDesign.mNumberExplanatoryVariables;
 	//s->timesteps = mData.imageSize.slices;
-    mBetaOutput = [[BADataElement alloc] initEmptyWithSize:&s];
+    mBetaOutput = [[BADataElement alloc] initEmptyWithSize:&s ofImageType:IMAGE_BETAS];
 				
     [mBetaOutput setImageProperty:PROPID_PATIENT    withValue:[mData getImageProperty:PROPID_PATIENT]];
     [mBetaOutput setImageProperty:PROPID_VOXEL      withValue:[mData getImageProperty:PROPID_VOXEL]];
@@ -441,7 +441,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     //mBCOVOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mDesign.numberCols andCols:mDesign.numberCols andSlices:1 andTimesteps:1];
 
 	s.slices = 1;
-    mResOutput = [[BADataElement alloc] initEmptyWithSize:&s];
+    mResOutput = [[BADataElement alloc] initEmptyWithSize:&s ofImageType:IMAGE_TMAP];
 	[mResOutput setImageProperty:PROPID_NAME        withValue:@"RES/trRV"];
     [mResOutput setImageProperty:PROPID_MODALITY    withValue:@"RES/trRV"];
     [mResOutput setImageProperty:PROPID_PATIENT     withValue:[mData getImageProperty:PROPID_PATIENT]];
@@ -457,7 +457,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     [mResOutput setImageProperty:PROPID_EXTENT     withValue:[mData getImageProperty:PROPID_EXTENT]];
 	//}
     
-    mResMap = [[BADataElement alloc] initEmptyWithSize:&s];
+    mResMap = [[BADataElement alloc] initEmptyWithSize:&s ofImageType:IMAGE_TMAP];
     [mResMap setImageProperty:PROPID_NAME        withValue:@"tmap"]; // TODO: name variably based on ResMap type
     [mResMap setImageProperty:PROPID_MODALITY    withValue:@"tmap"]; // TODO: name variably based on ResMap type
     //[mResMap setImageProperty:PROPID_CONTRAST    withValue:<#(id)value#>]
