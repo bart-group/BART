@@ -28,8 +28,12 @@
 
 -(id)init
 {
+	[self super];
+
 	arrayLoadedDataElements = [[NSMutableArray alloc] init];
 	[arrayLoadedDataElements autorelease];
+	
+	return self;
 }
 
 -(void)startRealTimeInput
