@@ -1,0 +1,13 @@
+//
+//  BARTNotifications.h
+//  BARTApplication
+//
+//  Created by Lydia Hellrung on 3/24/11.
+//  Copyright 2011 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
+//
+
+
+extern NSString *const BARTDidLoadNextDataNotification;
+extern NSString *const BARTDidCalcNextResultNotification ;
+extern NSString *const BARTDidLoadBackgroundImageNotification;
+extern NSString *const BARTDidReceiveNextTriggerNotification;
