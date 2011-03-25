@@ -7,46 +7,42 @@
 //
 
 
-#import "DataStorage/image.hpp"
+
 #import "DataStorage/io_factory.hpp"
-#import "../BARTMainApp/BADataElementRealTimeLoader.h"
+#import "DataStorage/image.hpp"
 #import "EDDataElementIsis.h"
+#import "BARTNotifications.h"
+#import "EDDataElementRealTimeLoader.h"
 
-@interface EDDataElementRealTimeLoader <BADataElementRealTimeLoader> {
-	
-	NSMutableArray *arrayLoadedDataElements;
-	
-}
+@interface EDDataElementRealTimeLoader ()
 
--(void)loadNextVolume;
-
+-(void)loadNextVolumeOfImageType:(enum ImageType)imgType;
+-(BOOL)isImage:(isis::data::Image)img ofImageType:(enum ImageType)imgType;
 @end
 
 
 @implementation EDDataElementRealTimeLoader
 
-
 -(id)init
 {
-	[self super];
-
-	arrayLoadedDataElements = [[NSMutableArray alloc] init];
+	self = [super init];
+	arrayLoadedDataElements = [[NSMutableArray alloc] initWithCapacity:1];
 	[arrayLoadedDataElements autorelease];
-	
+
 	return self;
 }
 
--(void)startRealTimeInput
+-(void)startRealTimeInputOfImageType:(enum ImageType)imgType
 {
 	[[NSThread currentThread] setThreadPriority:1.0];
 	while (![[NSThread currentThread] isCancelled]) {
-		[self loadNextVolume];
+		[self loadNextVolumeOfImageType:imgType];
 	}
 	
 }
 
 
--(void)loadNextVolume
+-(void)loadNextVolumeOfImageType:(enum ImageType)imgType
 {
 	isis::image_io::enableLog<isis::util::DefaultMsgPrint>( isis::error );
 	isis::data::enableLog<isis::util::DefaultMsgPrint>( isis::error );
@@ -61,17 +57,50 @@
     }
 	//[arrayLoadedDataElements removeAllObjects];
 	std::list<isis::data::Image>::const_iterator it ;
+	EDDataElementIsis *dataElem;
     for (it = tempList.begin(); it != tempList.end(); it++) {
-		EDDataElementIsis *dataElem = [[EDDataElementIsis alloc] initFromImage:*it];
+		if (TRUE == [self isImage:*it ofImageType:imgType]){
+			dataElem = [[EDDataElementIsis alloc] initFromImage:*it ofImageType:imgType];}
         //imageList.push_back(*it);
 		[arrayLoadedDataElements addObject:dataElem];
     }
-	//TODO: Notification
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadNextDataNotification object:dataElem];
 }
 
--(NSArray*)getDataElements
+-(BADataElement*)getDataElements
 {
-	
+	return nil;
+}
+
+-(BOOL)isImage:(isis::data::Image)img ofImageType:(enum ImageType)imgType
+{
+	std::string seqDescr;
+	switch (imgType) {
+		case IMAGE_MOCO:
+			seqDescr = img.getPropertyAs<std::string>("sequenceDescription");
+			if (0 == seqDescr.compare("epi_2D")){
+				return TRUE;}
+			return FALSE;
+			break;
+		case IMAGE_FCTDATA:
+			
+			break;
+		case IMAGE_ANADATA:
+			break;
+		case IMAGE_TMAP:
+			
+			break;
+		case IMAGE_BETAS:
+			
+			break;
+
+
+		default:
+			return FALSE;
+			break;
+	}
+	return FALSE;
 }
 
 @end

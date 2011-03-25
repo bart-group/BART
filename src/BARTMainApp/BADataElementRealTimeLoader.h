@@ -6,14 +6,18 @@
 //  Copyright 2011 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-//#import <UIKit/UIKit.h>
+#import <Cocoa/Cocoa.h>
+#import "BADataElement.h"
 
 
-@protocol BADataElementRealTimeLoader 
+@protocol RealTimeLoaderProtocol
 
--(void)startRealTimeInput;
+-(void)startRealTimeInputOfImageType:(enum ImageType)imgType;
 
 @end
 
+@interface  BADataElementRealTimeLoader : NSObject
+{
 
-
+}
+@end

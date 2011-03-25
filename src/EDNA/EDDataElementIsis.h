@@ -21,9 +21,9 @@
 	
 }
 
--(void)appendVolume;
+-(void)appendVolume:(EDDataElementIsis*)nextVolume;
 -(BOOL)sizeCheckRows:(uint)r Cols:(uint)c Slices:(uint)s Timesteps:(uint)t;
--(id)initFromImage:(isis::data::Image) img;
+-(id)initFromImage:(isis::data::Image)img ofImageType:(enum ImageType)imgType;
 
 
 @end

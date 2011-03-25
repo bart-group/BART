@@ -267,12 +267,13 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
     }
     
     backgroundImage = newBackgroundImage;
-    if (backgroundImage.imageSize.columns != backgroundImage.imageSize.rows) {
+	ImageSize imSize = [backgroundImage imageSize];
+    if (imSize.columns != imSize.rows) {
         NSLog(@"Incompatible image dimensions (numberCols != numberRows). Choosing numberCols for display image.");
     }
-    sliceDimension = backgroundImage.imageSize.columns;
+    sliceDimension = imSize.columns;
     
-    double numSlices = (double) backgroundImage.imageSize.slices;
+    double numSlices = (double) imSize.slices;
     double sqrtSlices = sqrt(numSlices);
     if (floor(sqrtSlices) + 0.5 > sqrtSlices) {
         [self setSlicesPerRow:(int) ceil(sqrtSlices) col:(int) floor(sqrtSlices)];

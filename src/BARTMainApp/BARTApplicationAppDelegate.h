@@ -7,18 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "BADataElement.h"
-#import "BADesignElement.h"
-#import "BAAnalyzerElement.h"
+
 #import "BAGUIProtoCGLayer.h"
 
 @interface BARTApplicationAppDelegate : NSObject <NSApplicationDelegate> {
-    
     IBOutlet BAGUIProtoCGLayer* guiController;
-    
-    BADataElement*   mRawDataElement;
-    BADesignElement* mDesignElement;
-    unsigned int     mCurrentTimestep;
     
 }
 

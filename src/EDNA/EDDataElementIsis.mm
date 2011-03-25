@@ -100,9 +100,18 @@
    return self;
 }
 
--(id)initFromImage:(isis::data::Image) img
+-(id)initFromImage:(isis::data::Image) img  ofImageType:(enum ImageType)imgType
 {
+	self = [super init];
 	mIsisImage = img;
+	imageType = imgType;
+	imageSize.rows = mIsisImage.getNrOfRows(); // getDimSize(isis::data::colDim)
+    imageSize.columns = mIsisImage.getNrOfColumms();
+    imageSize.slices = mIsisImage.getNrOfSlices();
+    imageSize.timesteps = mIsisImage.getNrOfTimesteps();
+    repetitionTimeInMs = (mIsisImage.getPropertyAs<isis::util::fvector4>("voxelSize"))[3];
+	
+	return self;
 }
 
 -(short)getShortVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t
@@ -595,9 +604,9 @@
 
 }
 
--(void)appendVolume
+-(void)appendVolume:(EDDataElementIsis*)nextVolume
 {
-
+	
 }
 
 @end

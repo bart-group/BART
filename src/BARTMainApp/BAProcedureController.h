@@ -10,12 +10,15 @@
 
 
 @interface BAProcedureController : NSObject {
-
+	
+	
 }
+
 
 -(BOOL) initData;
 -(BOOL) initDesign;
 -(BOOL) initPresentation;
--(BOOL) analyzeOneStep;
+-(BOOL) initAnalyzer;
+-(BOOL) startAnalysis;
 
 @end
