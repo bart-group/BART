@@ -141,6 +141,8 @@
 		00AE3EBC1337C97E00F2D01D /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
 		00AE42B1133CB00400F2D01D /* BARTNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AE42B0133CB00400F2D01D /* BARTNotifications.m */; };
 		00AE434D133CE8AF00F2D01D /* BADataElementRealTimeLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AE434C133CE8AF00F2D01D /* BADataElementRealTimeLoader.m */; };
+		00AE43A81343912400F2D01D /* EDDataElementIsisRealTime.h in Headers */ = {isa = PBXBuildFile; fileRef = 00AE43A61343912400F2D01D /* EDDataElementIsisRealTime.h */; };
+		00AE43A91343912400F2D01D /* EDDataElementIsisRealTime.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00AE43A71343912400F2D01D /* EDDataElementIsisRealTime.mm */; };
 		00B1573211459587007C02CB /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573111459587007C02CB /* libgslcblas.dylib */; };
 		00B1573C11459605007C02CB /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573B11459605007C02CB /* libgsl.0.dylib */; };
 		00B1AC24114554DB008FC09D /* COEDLValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AC22114554DB008FC09D /* COEDLValidator.h */; };
@@ -451,6 +453,8 @@
 		00AE42B0133CB00400F2D01D /* BARTNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BARTNotifications.m; sourceTree = "<group>"; };
 		00AE434C133CE8AF00F2D01D /* BADataElementRealTimeLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElementRealTimeLoader.m; sourceTree = "<group>"; };
 		00AE4356133CEC4A00F2D01D /* EDDataElementRealTimeLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementRealTimeLoader.h; sourceTree = "<group>"; };
+		00AE43A61343912400F2D01D /* EDDataElementIsisRealTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementIsisRealTime.h; sourceTree = "<group>"; };
+		00AE43A71343912400F2D01D /* EDDataElementIsisRealTime.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EDDataElementIsisRealTime.mm; sourceTree = "<group>"; };
 		00B1573111459587007C02CB /* libgslcblas.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgslcblas.dylib; path = /usr/local/lib/libgslcblas.dylib; sourceTree = "<absolute>"; };
 		00B1573B11459605007C02CB /* libgsl.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgsl.0.dylib; path = /usr/local/lib/libgsl.0.dylib; sourceTree = "<absolute>"; };
 		00B1AC22114554DB008FC09D /* COEDLValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COEDLValidator.h; sourceTree = "<group>"; };
@@ -818,6 +822,8 @@
 				006E07541190260500CEEF38 /* EDDataElementIsis.mm */,
 				E54934E21339151E003264FE /* EDDataElementRealTimeLoader.mm */,
 				00AE4356133CEC4A00F2D01D /* EDDataElementRealTimeLoader.h */,
+				00AE43A61343912400F2D01D /* EDDataElementIsisRealTime.h */,
+				00AE43A71343912400F2D01D /* EDDataElementIsisRealTime.mm */,
 			);
 			path = EDNA;
 			sourceTree = "<group>";
@@ -1166,6 +1172,7 @@
 				0006297811A5713200D369D0 /* BlockIO.h in Headers */,
 				00062A1C11A58E4100D369D0 /* BADataElement.h in Headers */,
 				00062A1E11A58E4500D369D0 /* BAElement.h in Headers */,
+				00AE43A81343912400F2D01D /* EDDataElementIsisRealTime.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1784,6 +1791,7 @@
 				0006297911A5713200D369D0 /* BlockIO.c in Sources */,
 				005B5F8211D3522300812781 /* BADataElement.mm in Sources */,
 				E54934E41339151E003264FE /* EDDataElementRealTimeLoader.mm in Sources */,
+				00AE43A91343912400F2D01D /* EDDataElementIsisRealTime.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
