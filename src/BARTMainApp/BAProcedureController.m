@@ -70,23 +70,23 @@ BADataElementRealTimeLoader *mRtLoader;
 		[mInputData release];
 		mInputData = nil;
 	}
-	BOOL thisisafileload = FALSE;
+	BOOL thisisafileload = TRUE;
 	//FILE LOAD STUFF
 	if (TRUE == thisisafileload){
 		// setup the input data
-		//mInputData = [[BADataElement alloc] initWithDataFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
-		//if (nil == mInputData) {
-		//	return FALSE;
-		//}
+		mInputData = [[BADataElement alloc] initWithDataFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
+		if (nil == mInputData) {
+			return FALSE;
+		}
 		//POST 
 	
-		//[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadBackgroundImageNotification object:mInputData];
+		[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadBackgroundImageNotification object:mInputData];
 	}
 	else{
 		//REALTIMESTUFF
 		mRtLoader = [[BADataElementRealTimeLoader alloc] init];
-		ImageSize imSize = {64,64,30,1000};
-		mInputData = [[BADataElement alloc] initEmptyWithSize:&imSize ofImageType:IMAGE_FCTDATA];
+		BARTImageSize *imSize = [[BARTImageSize alloc] init];
+		mInputData = [[BADataElement alloc] initEmptyWithSize:imSize ofImageType:IMAGE_FCTDATA];
 	}
 	
 	//register as observer for new data

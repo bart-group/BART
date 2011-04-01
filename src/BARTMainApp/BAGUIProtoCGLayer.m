@@ -265,9 +265,11 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
     if (backgroundCIImage) {
         [backgroundCIImage release];
     }
-    
+    NSString *t = [newBackgroundImage justatest];
     backgroundImage = newBackgroundImage;
-	ImageSize imSize = [backgroundImage imageSize];
+	BARTImageSize *imSize = [backgroundImage getImageSize];
+	//iSize.rows = 10;
+	NSLog(@"GUI IMAGE SIZE: %@", imSize);
     if (imSize.columns != imSize.rows) {
         NSLog(@"Incompatible image dimensions (numberCols != numberRows). Choosing numberCols for display image.");
     }
@@ -295,7 +297,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
     
     int displayImageWidth = slicesPerRow * sliceDimension;
     int displayImageHeight = slicesPerCol * sliceDimension;
-    int numSlices = backgroundImage.imageSize.slices;
+    int numSlices = backgroundImage.mImageSize.slices;
     int slice;
     short value;
     int pos;
@@ -337,9 +339,9 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
     float max = 0.0;
     float tmpFloat = 0.0;
     
-    for (size_t slice = 0; slice < image.imageSize.slices; slice++) {
-        for (size_t col = 0; col < image.imageSize.columns; col++) {
-            for (size_t row = 0; row < image.imageSize.rows; row++) {
+    for (size_t slice = 0; slice < image.mImageSize.slices; slice++) {
+        for (size_t col = 0; col < image.mImageSize.columns; col++) {
+            for (size_t row = 0; row < image.mImageSize.rows; row++) {
                 if (imageDataType == IMAGE_DATA_INT16) {
                     tmpFloat = (float) [image getShortVoxelValueAtRow:row col:col slice:slice timestep:0];
                 } else if (imageDataType == IMAGE_DATA_FLOAT) {
@@ -371,7 +373,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
     }
     
     foregroundImage = newForegroundImage;
-    int numSlices = backgroundImage.imageSize.slices;
+    int numSlices = backgroundImage.mImageSize.slices;
     
     int slice;
     int row;
@@ -390,7 +392,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
                 pos = NUMBER_OF_CHANNELS * ((row * displayImageWidth) + col);
                 float value = 0.0;
                 
-                for (size_t icontrast = 0; icontrast < foregroundImage.imageSize.slices; icontrast++) {
+                for (size_t icontrast = 0; icontrast < foregroundImage.mImageSize.slices; icontrast++) {
                     value += (contrastVector[icontrast]) * [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:icontrast timestep:slice]; // (timestep and slice are swapped in beta images)
                 }
                 
@@ -420,7 +422,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
             
             if (slice < numSlices) {
                 //multiply all betas with given contrast vector 
-                for (size_t icontrast = 0; icontrast < foregroundImage.imageSize.slices; icontrast++ ) {
+                for (size_t icontrast = 0; icontrast < foregroundImage.mImageSize.slices; icontrast++ ) {
                     value += (contrastVector[icontrast]) * [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:icontrast timestep:slice]; // (timestep and slice are swapped in beta images)
                 }
             } else {

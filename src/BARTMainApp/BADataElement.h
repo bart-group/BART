@@ -12,24 +12,25 @@
 
 @interface BADataElement : BAElement {
 	
-	ImageSize imageSize;
-    uint dataTypeID;
-    unsigned int repetitionTimeInMs;
-	NSDictionary *imagePropertiesMap;
+	BARTImageSize *mImageSize;
+    uint mDataTypeID;
+    size_t mRepetitionTimeInMs;
+	NSDictionary *mImagePropertiesMap;
     
-    enum ImageDataType imageDataType;
-	enum ImageType imageType;
+    enum ImageDataType mImageDataType;
+	enum ImageType mImageType;
+	NSString *justatest;
     
 }
-@property (readonly, assign) ImageSize imageSize;
-//@property (readonly, assign) uint dataTypeID;
-@property (readonly, assign) enum ImageType imageType;
+@property (retain) BARTImageSize *mImageSize;
+@property (retain) NSString *justatest;
+@property (readonly, assign) enum ImageType mImageType;
 
 
 
 -(id)initWithDataFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect ofImageType:(enum ImageType)iType;
 
--(id)initEmptyWithSize:(ImageSize*) imageSize ofImageType:(enum ImageType)iType;
+-(id)initEmptyWithSize:(BARTImageSize*) imageSize ofImageType:(enum ImageType)iType;
 
 -(void)dealloc;
 
@@ -38,7 +39,7 @@
 
 -(id)initWithDataType:(enum ImageDataType)type andRows:(int) rows andCols:(int)cols andSlices:(int)slices andTimesteps:(int) tsteps;
 
-
+-(BARTImageSize*)getImageSize;
 
 @end
 
@@ -46,6 +47,7 @@
 #pragma mark -
 
 @interface BADataElement (AbstractMethods)
+
 
 -(id)initWithFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect ofImageType:(enum ImageType)iType;
 

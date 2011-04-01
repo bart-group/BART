@@ -59,7 +59,7 @@
          //TESTZWECK - EIGENTLICH HIER NICHT GEBRAUCHT, 
         //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDataElement) name:@"NewDataArrived" object:nil];
          
-        imageDataType = type;
+        mImageDataType = type;
         [self LoadImageData:[path retain] ofImageDataType:type];
     }
     
@@ -72,11 +72,11 @@
 -(id)initWithDataType:(enum ImageDataType)type andRows:(int) rows andCols:(int)cols andSlices:(int)slices andTimesteps:(int) tsteps 
 {
     if (self = [super init]) {
-        imageSize.columns = cols;
-        imageSize.rows = rows;
-        imageSize.slices = slices;
-        imageSize.timesteps = tsteps;
-        imageDataType = type;
+        mImageSize.columns = cols;
+        mImageSize.rows = rows;
+        mImageSize.slices = slices;
+        mImageSize.timesteps = tsteps;
+        mImageDataType = type;
     }
     
     mImageArray = (VImage *)VMalloc(sizeof(VImage)*slices);
@@ -115,9 +115,9 @@
 }
 -(float)getFloatVoxelValueAtRow:(int)r col:(int)c slice:(int)s timestep:(int)t
 {
-    if (IMAGE_DATA_FLOAT == imageDataType) {
+    if (IMAGE_DATA_FLOAT == mImageDataType) {
         return VPixel(mImageArray[s], t, r, c, VFloat);
-    } else if (IMAGE_DATA_INT16 == imageDataType) {
+    } else if (IMAGE_DATA_INT16 == mImageDataType) {
         return (float) VPixel(mImageArray[s], t, r, c, VShort);
     }
 
@@ -126,10 +126,10 @@
 
 -(void)setVoxelValue:(NSNumber*)val atRow: (unsigned int)r col:(unsigned int)c slice:(unsigned int)s timestep:(unsigned int)t
 {
-    if (IMAGE_DATA_FLOAT == imageDataType) {
+    if (IMAGE_DATA_FLOAT == mImageDataType) {
         VPixel(mImageArray[s], t, r, c, VFloat) = [val floatValue];
     }
-    if (IMAGE_DATA_INT16 == imageDataType) {
+    if (IMAGE_DATA_INT16 == mImageDataType) {
         VPixel(mImageArray[s], t, r, c, VShort) = [val shortValue];
     }
 
@@ -137,7 +137,7 @@
 
 -(void)dealloc
 {
-    for (size_t i=0; i<imageSize.slices; i++) {
+    for (size_t i=0; i<mImageSize.slices; i++) {
         VFree(mImageArray[i]);
     }
     VFree(m_linfo);
@@ -157,54 +157,54 @@
 
     switch (key) {
         case PROPID_NAME:
-            for (size_t i = 0; i < imageSize.slices; i++)
+            for (size_t i = 0; i < mImageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "name", NULL, VStringRepn, [value UTF8String]);
             break;
         case PROPID_MODALITY:
-            for (size_t i = 0; i < imageSize.slices; i++)
+            for (size_t i = 0; i < mImageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "modality", NULL, VStringRepn, [value UTF8String]);
             
             break;
         case PROPID_DF:
-            for (size_t i = 0; i < imageSize.slices; i++)
+            for (size_t i = 0; i < mImageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "df", NULL, VFloatRepn, [value floatValue]);
             break;
         case PROPID_PATIENT:
-            for (size_t i = 0; i < imageSize.slices; i++)
+            for (size_t i = 0; i < mImageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "patient", NULL, VStringRepn, [value UTF8String]);
             break;
         case PROPID_VOXEL:
-            for (size_t i = 0; i < imageSize.slices; i++)
+            for (size_t i = 0; i < mImageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "voxel", NULL, VStringRepn, [value UTF8String]);
             break;
         case PROPID_REPTIME:
-            for (size_t i = 0; i < imageSize.slices; i++)
+            for (size_t i = 0; i < mImageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "repetition_time", NULL, VLongRepn, [value longValue]);
             break;
         case PROPID_TALAIRACH:
-            for (size_t i = 0; i < imageSize.slices; i++)
+            for (size_t i = 0; i < mImageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "talairach", NULL, VStringRepn, [value UTF8String]);
             break;
         case PROPID_FIXPOINT:
-            for (size_t i = 0; i < imageSize.slices; i++){
+            for (size_t i = 0; i < mImageSize.slices; i++){
                  VSetAttr(VImageAttrList(mImageArray[i]), "fixpoint", NULL, VStringRepn, [value UTF8String]);
                 }
             
             break;
         case PROPID_CA:
-            for (size_t i = 0; i < imageSize.slices; i++)
+            for (size_t i = 0; i < mImageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "ca", NULL, VStringRepn, [value UTF8String]);
             break;
         case PROPID_CP:
-            for (size_t i = 0; i < imageSize.slices; i++)
+            for (size_t i = 0; i < mImageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "cp", NULL, VStringRepn,[value UTF8String]);
             break;
         case PROPID_EXTENT:
-            for (size_t i = 0; i < imageSize.slices; i++)
+            for (size_t i = 0; i < mImageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "extent", NULL, VStringRepn, [value UTF8String]);
             break;
         case PROPID_BETA:
-            for (size_t i = 0; i < imageSize.slices; i++)
+            for (size_t i = 0; i < mImageSize.slices; i++)
                 VSetAttr(VImageAttrList(mImageArray[i]), "beta", NULL, VShortRepn,[value intValue]);
             break;
         default:
@@ -264,7 +264,7 @@
     [path getCString:outputFilename maxLength:UINT16_MAX  encoding:NSUTF8StringEncoding];
     
     m_out_list = VCreateAttrList();
-    for (size_t i = 0; i < imageSize.slices; i++){
+    for (size_t i = 0; i < mImageSize.slices; i++){
         VAppendAttr(m_out_list, "image", NULL, VImageRepn, mImageArray[i]);
     }
     
@@ -327,10 +327,10 @@
         GetListInfo(inputFilename, &m_linfo[0]);
         fclose(in_file);
         
-        imageSize.rows = m_linfo[0].nrows;
-        imageSize.columns = m_linfo[0].ncols;
-        imageSize.slices = m_linfo[0].nslices;
-        imageSize.timesteps  = m_linfo[0].ntimesteps;
+        mImageSize.rows = m_linfo[0].nrows;
+        mImageSize.columns = m_linfo[0].ncols;
+        mImageSize.slices = m_linfo[0].nslices;
+        mImageSize.timesteps  = m_linfo[0].ntimesteps;
         
         
     }
@@ -351,7 +351,7 @@
 
 -(enum ImageDataType)getImageDataType
 {
-	return imageDataType;
+	return mImageDataType;
 }
 
 @end

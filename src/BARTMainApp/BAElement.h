@@ -16,7 +16,8 @@ enum ImageType {
 	IMAGE_ANADATA,
 	IMAGE_TMAP,
 	IMAGE_ZMAP,
-	IMAGE_MOCO
+	IMAGE_MOCO,
+	IMAGE_UNKNOWN
 };
 
 enum ImageDataType {
@@ -52,15 +53,31 @@ enum ImagePropertyID{
 	PROPID_ORIGIN
 };
 
-typedef struct ImageSizeStruct {
-	//default constructor
-	//ImageSizeStruct() : rows(1), columns(1), slices(1), timesteps(1) { }
+//typedef struct ImageSizeStruct {
+//	//default constructor
+//	//ImageSizeStruct() : rows(1), columns(1), slices(1), timesteps(1) { }
+//	size_t rows;
+//	size_t columns;
+//	size_t slices;
+//	size_t timesteps;
+//	
+//} ImageSize;
+
+@interface BARTImageSize : NSObject <NSCopying> {
 	size_t rows;
 	size_t columns;
 	size_t slices;
 	size_t timesteps;
 	
-} ImageSize;
+}
+
+@property size_t rows;
+@property size_t columns;
+@property size_t slices;
+@property size_t timesteps;
+
+
+@end
 
 
 

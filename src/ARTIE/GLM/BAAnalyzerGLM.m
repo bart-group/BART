@@ -113,10 +113,10 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     
     if (sliding_window_size <= lastTimestep) { 
         
-        size_t numberBands = mData.imageSize.timesteps;
-		size_t numberSlices = mData.imageSize.slices;
-        size_t numberRows = mData.imageSize.rows;
-        size_t numberCols = mData.imageSize.columns;
+        size_t numberBands = mData.mImageSize.timesteps;
+		size_t numberSlices = mData.mImageSize.slices;
+        size_t numberRows = mData.mImageSize.rows;
+        size_t numberCols = mData.mImageSize.columns;
         size_t numberExplanatoryVariables = mDesign.mNumberExplanatoryVariables;
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0); /* Global asyn. dispatch queue. */
         
@@ -409,12 +409,12 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 //                          PROPID_VOXEL, 
 //                          nil];
 //   /*mData.numberRows*/
-	ImageSize s = [mData imageSize];
+	BARTImageSize *s = [[mData mImageSize] copy];
 	
-	//s->columns = mData.imageSize.columns;
+	//s->columns = mData.mImageSize.columns;
 	s.slices = mDesign.mNumberExplanatoryVariables;
-	//s->timesteps = mData.imageSize.slices;
-    mBetaOutput = [[BADataElement alloc] initEmptyWithSize:&s ofImageType:IMAGE_BETAS];
+	//s->timesteps = mData.mImageSize.slices;
+    mBetaOutput = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_BETAS];
 				
     [mBetaOutput setImageProperty:PROPID_PATIENT    withValue:[mData getImageProperty:PROPID_PATIENT]];
     [mBetaOutput setImageProperty:PROPID_VOXEL      withValue:[mData getImageProperty:PROPID_VOXEL]];
@@ -441,7 +441,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     //mBCOVOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mDesign.numberCols andCols:mDesign.numberCols andSlices:1 andTimesteps:1];
 
 	s.slices = 1;
-    mResOutput = [[BADataElement alloc] initEmptyWithSize:&s ofImageType:IMAGE_TMAP];
+    mResOutput = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
 	[mResOutput setImageProperty:PROPID_NAME        withValue:@"RES/trRV"];
     [mResOutput setImageProperty:PROPID_MODALITY    withValue:@"RES/trRV"];
     [mResOutput setImageProperty:PROPID_PATIENT     withValue:[mData getImageProperty:PROPID_PATIENT]];
@@ -457,7 +457,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     [mResOutput setImageProperty:PROPID_EXTENT     withValue:[mData getImageProperty:PROPID_EXTENT]];
 	//}
     
-    mResMap = [[BADataElement alloc] initEmptyWithSize:&s ofImageType:IMAGE_TMAP];
+    mResMap = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
     [mResMap setImageProperty:PROPID_NAME        withValue:@"tmap"]; // TODO: name variably based on ResMap type
     [mResMap setImageProperty:PROPID_MODALITY    withValue:@"tmap"]; // TODO: name variably based on ResMap type
     //[mResMap setImageProperty:PROPID_CONTRAST    withValue:<#(id)value#>]

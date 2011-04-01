@@ -13,10 +13,11 @@
 
 @implementation BADataElement
 
-@synthesize imageType;
-@synthesize imageSize;
+@synthesize mImageType;
+@synthesize mImageSize;
+@synthesize justatest;
 
- 
+
 -(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
 {
     [self release];
@@ -49,14 +50,16 @@
 		NSLog(@"No file to load");
 		return nil;
 	}
+	
     self = [[EDDataElementIsis alloc] initWithFile:path andSuffix:suffix andDialect:dialect ofImageType:iType];
     return self;
 }
 
--(id)initEmptyWithSize:(ImageSize*)s  ofImageType:(enum ImageType)iType
+-(id)initEmptyWithSize:(BARTImageSize*)s  ofImageType:(enum ImageType)iType
 {
 	[self release];
     self = nil;
+	
     self = [[EDDataElementIsis alloc] initEmptyWithSize:s ofImageType:(enum ImageType)iType];
     return self;
 	
@@ -69,6 +72,10 @@
     [super dealloc];
 }
 
-
+-(BARTImageSize*)getImageSize
+{
+	NSLog(@"%@", mImageSize);
+	return mImageSize;
+}
 
 @end

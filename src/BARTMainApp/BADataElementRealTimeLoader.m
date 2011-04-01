@@ -15,7 +15,7 @@
 
 -(id)init
 {
-	[self release];
+	//[self release];
 	self = nil;
 	self = [[EDDataElementRealTimeLoader alloc] init];
 	return self;
