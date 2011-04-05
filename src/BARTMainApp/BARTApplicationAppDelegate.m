@@ -50,7 +50,8 @@
 -(void)setGUIBackgroundImage:(NSNotification*)aNotification
 {
 	//set this as background for viewer
-	[guiController setBackgroundImage:[aNotification object]];
+	BADataElement *elem = (BADataElement*) [aNotification object];
+	[guiController setBackgroundImage:elem];
 }
 
 -(void)setGUIResultImage:(NSNotification*)aNotification

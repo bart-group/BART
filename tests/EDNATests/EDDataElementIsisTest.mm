@@ -26,7 +26,7 @@
 
 -(void)testProperties
 {
-	ImageSize imSize = [dataEl imageSize];
+	ImageSize imSize = [dataEl mImageSize];
 	STAssertEquals(imSize.columns, (size_t)64, @"Incorrect number of columns.");
     STAssertEquals(imSize.rows, (size_t)64, @"Incorrect number of rows.");
     STAssertEquals(imSize.timesteps, (size_t)396, @"Incorrect number of timesteps.");

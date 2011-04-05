@@ -137,7 +137,7 @@ BADataElementRealTimeLoader *mRtLoader;
 {
 	//[aNotification object]
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadBackgroundImageNotification object:mInputData];
+	//[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadNextDataNotification object:mInputData];
 	
 	// TODO: hard coded max number timesteps
 	NSLog(@"Timestep: %d", mCurrentTimestep+1);

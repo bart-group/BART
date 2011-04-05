@@ -52,10 +52,12 @@
 	
 	// make a real copy including conversion to float
 	isis::data::MemImage<float> memImg = ((mIsisImageList.front()));
+	memImg.spliceDownTo(isis::data::sliceDim);
 	// give this copy to our class element
-	mIsisImage = &memImg; 
+	//mIsisImage = (isis::data::Image*)malloc(sizeof(isis::data::Image));
+	mIsisImage = new isis::data::Image(memImg); 
 	//splice the whatever build image to a slice-chunked one (each 2D is a single chunk - easier access later on)
-    mIsisImage->spliceDownTo(isis::data::sliceDim);
+    //mIsisImage->spliceDownTo(isis::data::sliceDim);
 	// get our class params from the image itself
 	mImageSize.rows = mIsisImage->getNrOfRows(); // getDimSize(isis::data::colDim)
     mImageSize.columns = mIsisImage->getNrOfColumms();
@@ -107,12 +109,13 @@
 -(void)dealloc
 {
     free(mIsisImage);
+	[super dealloc];
 }
 
 -(id)initFromImage:(isis::data::Image) img  ofImageType:(enum ImageType)imgType
 {
 	self = [super init];
-	mIsisImage = &img;
+	mIsisImage = new isis::data::Image(img);
 	mImageType = imgType;
 	mImageSize.rows = mIsisImage->getNrOfRows(); // getDimSize(isis::data::colDim)
     mImageSize.columns = mIsisImage->getNrOfColumms();
@@ -302,7 +305,7 @@
         case PROPID_DF:
             break;
         case PROPID_PATIENT:
-			ret = [[[NSString alloc ] initWithCString:(mIsisImage->getPropertyAs<std::string>("subjectName")).c_str() encoding:NSUTF8StringEncoding] autorelease];
+			ret = @"";//[[[NSString alloc ] initWithCString:(mIsisImage->getPropertyAs<std::string>("subjectName")).c_str() encoding:NSUTF8StringEncoding] autorelease];
 			break;
         case PROPID_VOXEL:
             break;
