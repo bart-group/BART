@@ -7,8 +7,8 @@
 //
 
 #import "BADataElement.h"
-//#import "../EDNA/EDDataElementVI.h"
-//#import "../EDNA/EDDataElementIsis.h"
+#import "../EDNA/EDDataElementVI.h"
+#import "../EDNA/EDDataElementIsis.h"
 
 
 @implementation BADataElement
@@ -27,7 +27,7 @@
 		NSLog(@"No file to load");
 		return nil;
 	}
-   // self = [[EDDataElementVI alloc] initWithFile:path ofImageDataType:type];
+    self = [[EDDataElementVI alloc] initWithFile:path ofImageDataType:type];
     return self;
 }
 
@@ -36,7 +36,7 @@
 {
     [self release];
     self = nil;
-    //self = [[EDDataElementVI alloc] initWithDataType:type andRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
+    self = [[EDDataElementVI alloc] initWithDataType:type andRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
     return self;
     
 }
@@ -51,7 +51,7 @@
 		return nil;
 	}
 	
-  //  self = [[EDDataElementIsis alloc] initWithFile:path andSuffix:suffix andDialect:dialect ofImageType:iType];
+    self = [[EDDataElementIsis alloc] initWithFile:path andSuffix:suffix andDialect:dialect ofImageType:iType];
     return self;
 }
 
@@ -60,7 +60,7 @@
 	[self release];
     self = nil;
 	
-   // self = [[EDDataElementIsis alloc] initEmptyWithSize:s ofImageType:(enum ImageType)iType];
+    self = [[EDDataElementIsis alloc] initEmptyWithSize:s ofImageType:(enum ImageType)iType];
     return self;
 	
 }
