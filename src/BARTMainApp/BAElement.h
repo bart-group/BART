@@ -76,6 +76,7 @@ enum ImagePropertyID{
 @property size_t slices;
 @property size_t timesteps;
 
+-(id)initWithRows:(size_t)r andCols:(size_t)c andSlices:(size_t)s andTimesteps:(size_t)t;
 
 @end
 

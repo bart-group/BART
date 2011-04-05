@@ -7,8 +7,10 @@
 //
 
 #import "isis_test.h"
-#import "EDDataElementVI.h"
-#import "CoreUtils/propmap.hpp"
+#import "EDDataElementIsisRealTime.h"
+#import "../../src/BARTMainApp/BADataElement.h"
+#import "CoreUtils/common.hpp"
+
 
 
 @implementation isis_test
@@ -18,55 +20,52 @@
 int main(void)
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	uint rows = 13;
-	uint cols = 12;
-	uint sl = 10;
-	uint tsteps = 7;
+    
+    std::list<isis::data::Chunk> chList;
+    
+    isis::image_io::enableLog<isis::util::DefaultMsgPrint>( isis::info );
+	isis::data::enableLog<isis::util::DefaultMsgPrint>( isis::info );
+	isis::util::enableLog<isis::util::DefaultMsgPrint>( isis::warning );
 	
-
-	EDDataElementVI *elemVI = [[EDDataElementVI alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:rows andCols:cols andSlices:sl andTimesteps:tsteps	];
+    BARTImageSize *imSize = [[BARTImageSize alloc] init];
+    EDDataElementIsisRealTime *dataElem = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:imSize ofImageType:IMAGE_FCTDATA];
 	
-	
-		EDDataElementIsis *elem = [[EDDataElementIsis alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:rows andCols:cols andSlices:sl andTimesteps:tsteps	];
-	for (uint t=0; t < tsteps; t++){
-		for (uint s=0; s < sl; s++){
-			for (uint c=0; c < cols; c++){
-				for (uint r=0; r < rows; r++){
-					[elem setVoxelValue:[NSNumber numberWithFloat:r+c+s+t] atRow:r col:c slice:s timestep:t];
-				}}}}
-	
-	//normal case
-//	uint sliceGet = 3;
-//	uint tGet = 2;
-//	float *pSlice = [elem getSliceData:sliceGet	atTimestep:tGet ];
-//	float* pRun = pSlice;
-//	for (uint i = 0; i < rows; i++){
-//		for (uint j = 0; j < cols; j++){
-//			NSLog(@"%.2f", (float)*pRun++);
-//			NSLog(@"%.2f", (float)sliceGet+tGet+i+j);		}
-//	}
-//	free(pSlice);
-//	
-//	
-	//[elem WriteDataElementToFile:@"/tmp/firstwrittentestfile.nii"];
-	
-	NSNumber *nr = [NSNumber numberWithFloat:1.6];
-	NSDictionary *propDict = [[NSDictionary alloc] initWithObjectsAndKeys: nr, @"acquisitionNumber", @"testValue", @"testProp", nil];
-
-	NSArray* propList = [NSArray arrayWithObjects:@"acquisitionNumber", @"testProp", @"prop3", nil];
-	[elem setProps:propDict];
-	
-	NSDictionary * propDictReturn = [elem getProps:propList];
-	for (NSString *str in [propDictReturn allKeys]){
-		NSLog(@"%@", [propDictReturn objectForKey:str]);}
-	
-	
-	
-	//[elem copyProps:propList fromDataElement:elem];
-	
-	
-	
-	[elem release];
-	
+    
+    size_t i = 0;
+    for (size_t t = 0; t < 123; t++) {
+        
+        for (size_t sl = 0; sl < 10;sl++){
+            isis::data::MemChunk<float> ch(20,30);
+            for (size_t r = 0; r < 30; r++) {
+                for (size_t c = 0; c < 20; c++) {
+                    ch.voxel<float>(c,r) = i++;
+                }
+            }
+            ch.setPropertyAs<isis::util::fvector4>("indexOrigin", isis::util::fvector4(0,0,sl));
+            ch.setPropertyAs<u_int32_t>("acquisitionNumber", sl+t*10);
+            ch.setPropertyAs<u_int16_t>("sequenceNumber", 1);
+            ch.setPropertyAs<isis::util::fvector4>("voxelSize", isis::util::fvector4(1,1,1,0));
+            ch.setPropertyAs<isis::util::fvector4>("rowVec", isis::util::fvector4(1,0,0,0));
+            ch.setPropertyAs<isis::util::fvector4>("columnVec", isis::util::fvector4(0,1,0,0));
+            ch.setPropertyAs<isis::util::fvector4>("sliceVec", isis::util::fvector4(0,0,1,0));
+            chList.push_back(ch);
+        
+        }
+        isis::data::Image img(chList);
+        [dataElem appendVolume:img];
+    }
+   
+    
+    for (size_t t =0; t < 10;t++){
+        for (size_t sl = 0; sl < 10; sl++) {
+            
+            float val = [dataElem getFloatVoxelValueAtRow:1 col:1 slice:sl timestep:t];  
+            NSLog(@"%.0f", val);
+            }
+        }
+        
+    [dataElem WriteDataElementToFile:@"/tmp/ohmygoodness.nii"];
+    
+    [dataElem release];
 	[pool drain];
 }

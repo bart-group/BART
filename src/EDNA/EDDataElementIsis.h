@@ -14,7 +14,7 @@
 @interface EDDataElementIsis : BADataElement {
 	//isis::data::ImageList mIsisImageList;
 	std::list<isis::data::Image> mIsisImageList; 
-    isis::data::Image mIsisImage;
+    isis::data::Image *mIsisImage;
 	//isis::data::ChunkList mChunkList;
 	std::list<isis::data::Chunk> mChunkList;
 	

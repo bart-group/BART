@@ -60,7 +60,9 @@
 	EDDataElementIsis *dataElem;
     for (it = tempList.begin(); it != tempList.end(); it++) {
 		if (TRUE == [self isImage:*it ofImageType:imgType]){
-			dataElem = [[EDDataElementIsis alloc] initFromImage:*it ofImageType:imgType];}
+            //TODO: appendNextVolume
+        }
+			//dataElem = [[EDDataElementIsis alloc] initFromImage:*it ofImageType:imgType];}
         //imageList.push_back(*it);
 		[arrayLoadedDataElements addObject:dataElem];
     }
