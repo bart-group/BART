@@ -43,7 +43,7 @@ BADataElementRealTimeLoader *mRtLoader;
 {
     if (self = [super init]) {
         // TODO: appropriate init
-        mCurrentTimestep = 50;
+        mCurrentTimestep = 0;
 		
 		
     }
@@ -146,17 +146,20 @@ BADataElementRealTimeLoader *mRtLoader;
 	//[aNotification object];
 		
 	//TODO: just do this for first loaded image! 
+	//if (50 == mCurrentTimestep){
+	mInputData = [aNotification object];
 	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadBackgroundImageNotification object:[aNotification object]];
 	
 	NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_%d.nii", mCurrentTimestep];
 	[[aNotification object] WriteDataElementToFile:fname];
+	//}
 	//TODO: put in again, just commented out for test purposes!!!
 	// TODO: hard coded max number timesteps
 //	NSLog(@"Timestep: %d", mCurrentTimestep+1);
-//	if (mCurrentTimestep < [mDesignData mNumberTimesteps]) {
-		mCurrentTimestep++;
-//		[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
-//	}
+	if ((mCurrentTimestep > 17 ) && (mCurrentTimestep < [mDesignData mNumberTimesteps])) {
+		[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
+	}
+	mCurrentTimestep++;
 }
 
 -(void)processDataThread
