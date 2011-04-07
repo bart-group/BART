@@ -265,12 +265,10 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
     if (backgroundCIImage) {
         [backgroundCIImage release];
     }
-    NSString *t = [newBackgroundImage justatest];
     backgroundImage = newBackgroundImage;
 	BARTImageSize *imSize = [backgroundImage getImageSize];
-	//iSize.rows = 10;
-	NSLog(@"GUI IMAGE SIZE: %@", imSize);
-    if (imSize.columns != imSize.rows) {
+	
+	if (imSize.columns != imSize.rows) {
         NSLog(@"Incompatible image dimensions (numberCols != numberRows). Choosing numberCols for display image.");
     }
     sliceDimension = imSize.columns;
