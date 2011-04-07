@@ -49,8 +49,8 @@
 
 -(void)loadNextVolumeOfImageType:(enum ImageType)imgType
 {
-	isis::image_io::enableLog<isis::util::DefaultMsgPrint>( isis::error );
-	isis::data::enableLog<isis::util::DefaultMsgPrint>( isis::error );
+	//isis::image_io::enableLog<isis::util::DefaultMsgPrint>( isis::error );
+	//isis::data::enableLog<isis::util::DefaultMsgPrint>( isis::error );
 	
     
 	std::list<isis::data::Image> tempList = isis::data::IOFactory::load("", ".tcpip", "");
