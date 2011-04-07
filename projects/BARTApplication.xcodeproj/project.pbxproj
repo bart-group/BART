@@ -157,7 +157,7 @@
 		00D4418C134B587600094A51 /* EDDataElementIsisRealTime.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00AE43A71343912400F2D01D /* EDDataElementIsisRealTime.mm */; };
 		00D44192134B589300094A51 /* BADataElement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A41141470400A57967 /* BADataElement.mm */; };
 		00D441A7134B592200094A51 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
-		00D441AC134B598500094A51 /* BADataElementRealTimeLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AE434C133CE8AF00F2D01D /* BADataElementRealTimeLoader.m */; };
+		00D441AC134B598500094A51 /* BADataElementRealTimeLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00AE434C133CE8AF00F2D01D /* BADataElementRealTimeLoader.mm */; };
 		00D441BA134B59D600094A51 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		00D441D8134B5AE300094A51 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44160134B57BD00094A51 /* EDNA.dylib */; };
 		00D4422F134B5CDA00094A51 /* BAElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B01141470400A57967 /* BAElement.m */; };
@@ -165,6 +165,11 @@
 		00D44264134B5EB200094A51 /* BADataElementRealTimeLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = E54934E51339160F003264FE /* BADataElementRealTimeLoader.h */; };
 		00D44265134B5EB300094A51 /* BAElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 0040B7AF1141470400A57967 /* BAElement.h */; };
 		00D44266134B5EB500094A51 /* BADataElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 0040B7A31141470400A57967 /* BADataElement.h */; };
+		00D444D6134DEB3000094A51 /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
+		00D444D7134DEB3100094A51 /* EDDataElementIsis.mm in Sources */ = {isa = PBXBuildFile; fileRef = 006E07541190260500CEEF38 /* EDDataElementIsis.mm */; };
+		00D444DC134DEB4100094A51 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
+		00D444DD134DEB4200094A51 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
+		00D444E2134DEB5300094A51 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
 		00DE9C6F12F6EBB50089B99A /* designtest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DE9C6E12F6EBB50089B99A /* designtest.m */; };
 		00E7A648117EF24F00696498 /* NEDesignElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E7A646117EF24F00696498 /* NEDesignElementVITest.m */; };
 		00E7A649117EF24F00696498 /* blockDesignTest01.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00E7A647117EF24F00696498 /* blockDesignTest01.edl */; };
@@ -425,7 +430,7 @@
 		00AB18EA115246ED003BC915 /* main_SW_BoldModule_2ContinousTargetROIs.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = main_SW_BoldModule_2ContinousTargetROIs.edl; sourceTree = "<group>"; };
 		00AE410D133B9EF100F2D01D /* BARTNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BARTNotifications.h; sourceTree = "<group>"; };
 		00AE42B0133CB00400F2D01D /* BARTNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BARTNotifications.m; sourceTree = "<group>"; };
-		00AE434C133CE8AF00F2D01D /* BADataElementRealTimeLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElementRealTimeLoader.m; sourceTree = "<group>"; };
+		00AE434C133CE8AF00F2D01D /* BADataElementRealTimeLoader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BADataElementRealTimeLoader.mm; sourceTree = "<group>"; };
 		00AE4356133CEC4A00F2D01D /* EDDataElementRealTimeLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementRealTimeLoader.h; sourceTree = "<group>"; };
 		00AE43A61343912400F2D01D /* EDDataElementIsisRealTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementIsisRealTime.h; sourceTree = "<group>"; };
 		00AE43A71343912400F2D01D /* EDDataElementIsisRealTime.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EDDataElementIsisRealTime.mm; sourceTree = "<group>"; };
@@ -547,6 +552,8 @@
 				00D440BD134B4F8800094A51 /* libboost_filesystem-mt.dylib in Frameworks */,
 				00D440BF134B4F8800094A51 /* libboost_regex-mt.dylib in Frameworks */,
 				00D440C1134B4F8800094A51 /* libboost_system-mt.dylib in Frameworks */,
+				00D444DC134DEB4100094A51 /* libvia.dylib in Frameworks */,
+				00D444DD134DEB4200094A51 /* libviaio.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -794,8 +801,8 @@
 				00B772C411417C6300B2931A /* EDDataElementVI.m */,
 				006E07531190260500CEEF38 /* EDDataElementIsis.h */,
 				006E07541190260500CEEF38 /* EDDataElementIsis.mm */,
-				E54934E21339151E003264FE /* EDDataElementRealTimeLoader.mm */,
 				00AE4356133CEC4A00F2D01D /* EDDataElementRealTimeLoader.h */,
+				E54934E21339151E003264FE /* EDDataElementRealTimeLoader.mm */,
 				00AE43A61343912400F2D01D /* EDDataElementIsisRealTime.h */,
 				00AE43A71343912400F2D01D /* EDDataElementIsisRealTime.mm */,
 			);
@@ -967,7 +974,7 @@
 				0040B7AF1141470400A57967 /* BAElement.h */,
 				0040B7B01141470400A57967 /* BAElement.m */,
 				E54934E51339160F003264FE /* BADataElementRealTimeLoader.h */,
-				00AE434C133CE8AF00F2D01D /* BADataElementRealTimeLoader.m */,
+				00AE434C133CE8AF00F2D01D /* BADataElementRealTimeLoader.mm */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1732,6 +1739,9 @@
 				00161023134B1FDD00373D77 /* BADataElement.mm in Sources */,
 				00161024134B1FEC00373D77 /* BAElement.m in Sources */,
 				00161027134B1FF500373D77 /* EDDataElementIsisRealTime.mm in Sources */,
+				00D444D6134DEB3000094A51 /* EDDataElementVI.m in Sources */,
+				00D444D7134DEB3100094A51 /* EDDataElementIsis.mm in Sources */,
+				00D444E2134DEB5300094A51 /* BlockIO.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1821,7 +1831,7 @@
 				00D4418C134B587600094A51 /* EDDataElementIsisRealTime.mm in Sources */,
 				00D44192134B589300094A51 /* BADataElement.mm in Sources */,
 				00D441A7134B592200094A51 /* BlockIO.c in Sources */,
-				00D441AC134B598500094A51 /* BADataElementRealTimeLoader.m in Sources */,
+				00D441AC134B598500094A51 /* BADataElementRealTimeLoader.mm in Sources */,
 				00D4422F134B5CDA00094A51 /* BAElement.m in Sources */,
 				00D44261134B5E8C00094A51 /* BARTNotifications.m in Sources */,
 			);
