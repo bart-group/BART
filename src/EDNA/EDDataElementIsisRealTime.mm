@@ -133,7 +133,7 @@
 
 -(BOOL)sliceIsZero:(int)slice
 {
-	return FALSE;
+	return TRUE;
 }
 
 -(void)setImageProperty:(enum ImagePropertyID)key withValue:(id) value;
