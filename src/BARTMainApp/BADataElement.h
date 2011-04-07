@@ -32,6 +32,8 @@
 
 -(id)initEmptyWithSize:(BARTImageSize*) imageSize ofImageType:(enum ImageType)iType;
 
+-(id)initForRealTimeTCPIPWithSize:(BARTImageSize*)s ofImageType:(enum ImageType)iType;
+
 -(void)dealloc;
 
 // DEPRECATED == VI stuff

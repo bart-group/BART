@@ -9,6 +9,7 @@
 #import "BADataElement.h"
 #import "../EDNA/EDDataElementVI.h"
 #import "../EDNA/EDDataElementIsis.h"
+#import "../EDNA/EDDataElementIsisRealTime.h"
 
 
 @implementation BADataElement
@@ -65,7 +66,15 @@
 	
 }
 
-
+-(id)initForRealTimeTCPIPWithSize:(BARTImageSize*)s ofImageType:(enum ImageType)iType
+{
+	[self release];
+    self = [super init];
+	
+    self = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:s ofImageType:(enum ImageType)iType];
+    return self;
+	
+}
 
 -(void)dealloc
 {

@@ -25,20 +25,25 @@
 
 -(id)init
 {
-	self = [super init];
-	arrayLoadedDataElements = [[NSMutableArray alloc] initWithCapacity:1];
-	[arrayLoadedDataElements autorelease];
-
+	//self = [super init];
+	//arrayLoadedDataElements = [[NSMutableArray alloc] initWithCapacity:1];
+	//[arrayLoadedDataElements autorelease];
+	mDataElement = nil;
 	return self;
 }
 
--(void)startRealTimeInputOfImageType:(enum ImageType)imgType
+-(void)startRealTimeInputOfImageType
 {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	mDataElement = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:[[BARTImageSize alloc] init] ofImageType:IMAGE_FCTDATA];
+	
 	[[NSThread currentThread] setThreadPriority:1.0];
 	while (![[NSThread currentThread] isCancelled]) {
-		[self loadNextVolumeOfImageType:imgType];
+		[self loadNextVolumeOfImageType:IMAGE_FCTDATA];
 	}
 	
+	[pool drain];
 }
 
 
@@ -55,28 +60,28 @@
         NSLog(@"cancel thread now");
         return;
     }
-	//[arrayLoadedDataElements removeAllObjects];
+
 	std::list<isis::data::Image>::const_iterator it ;
-	EDDataElementIsis *dataElem;
     for (it = tempList.begin(); it != tempList.end(); it++) {
 		if (TRUE == [self isImage:*it ofImageType:imgType]){
-            //TODO: appendNextVolume
+            
+			[mDataElement appendVolume:*it];
         }
-			//dataElem = [[EDDataElementIsis alloc] initFromImage:*it ofImageType:imgType];}
-        //imageList.push_back(*it);
-		[arrayLoadedDataElements addObject:dataElem];
+		else {
+			// TODO what to do with other data
+			//[arrayLoadedDataElements addObject:dataElem];
+		}
+
+		
     }
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadNextDataNotification object:dataElem];
+	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadNextDataNotification object:mDataElement];
 }
 
--(BADataElement*)getDataElements
-{
-	return nil;
-}
 
 -(BOOL)isImage:(isis::data::Image)img ofImageType:(enum ImageType)imgType
 {
+	//TODO: kriterien festlegen!!!
 	std::string seqDescr;
 	switch (imgType) {
 		case IMAGE_MOCO:
@@ -87,6 +92,7 @@
 			break;
 		case IMAGE_FCTDATA:
 			
+			return TRUE;
 			break;
 		case IMAGE_ANADATA:
 			break;

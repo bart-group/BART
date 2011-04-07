@@ -80,7 +80,7 @@
     std::vector<boost::shared_ptr<isis::data::Chunk> > vecSlices = mAllDataMap[t];
     boost::shared_ptr<isis::data::Chunk> ptrChunk = vecSlices[sl];
     
-	return (short)ptrChunk->voxel<float>(c,r);
+	return (short)ptrChunk->voxel<uint16_t>(c,r);
 }
 
 -(float)getFloatVoxelValueAtRow: (int)r col:(int)c slice:(int)sl timestep:(int)t
@@ -148,7 +148,7 @@
 
 -(enum ImageDataType)getImageDataType
 {
-	return IMAGE_DATA_UNKNOWN;
+	return IMAGE_DATA_INT16;
 }
 
 

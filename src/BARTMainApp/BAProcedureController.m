@@ -70,7 +70,7 @@ BADataElementRealTimeLoader *mRtLoader;
 		[mInputData release];
 		mInputData = nil;
 	}
-	BOOL thisisafileload = TRUE;
+	BOOL thisisafileload = FALSE;
 	//FILE LOAD STUFF
 	if (TRUE == thisisafileload){
 		// setup the input data
@@ -84,15 +84,19 @@ BADataElementRealTimeLoader *mRtLoader;
 	}
 	else{
 		//REALTIMESTUFF
+		//TODO: Unterscheidung Verzeichnis laden oder rtExport laden - zweiter RealTimeLoader
 		mRtLoader = [[BADataElementRealTimeLoader alloc] init];
-		BARTImageSize *imSize = [[BARTImageSize alloc] init];
-		mInputData = [[BADataElement alloc] initEmptyWithSize:imSize ofImageType:IMAGE_FCTDATA];
+		//BARTImageSize *imSize = [[BARTImageSize alloc] init];
+		//mInputData = [[BADataElement alloc] initForRealTimeTCPIPWithSize:imSize ofImageType:IMAGE_FCTDATA];
+		//register as observer for new data
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(nextDataArrived:)
+													 name:BARTDidLoadNextDataNotification object:nil];
+		
+		
 	}
 	
-	//register as observer for new data
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(nextDataArrived:)
-												 name:BARTDidLoadNextDataNotification object:nil];
+	
 	return TRUE;
 }
 
@@ -128,23 +132,31 @@ BADataElementRealTimeLoader *mRtLoader;
 
 -(BOOL)startAnalysis
 {
-	[NSThread detachNewThreadSelector:@selector(timerThread) toTarget:self withObject:nil];
+	//[NSThread detachNewThreadSelector:@selector(timerThread) toTarget:self withObject:nil];
 	
+	NSError *err = [[NSError alloc] init];
+	NSThread *t = [[NSThread alloc] initWithTarget:mRtLoader selector:@selector(startRealTimeInputOfImageType) object:err]; //TODO error object 
+	
+	[t start];
 	return TRUE;
 }
 
 -(void)nextDataArrived:(NSNotification*)aNotification
 {
-	//[aNotification object]
+	//[aNotification object];
+		
+	//TODO: just do this for first loaded image! 
+	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadBackgroundImageNotification object:[aNotification object]];
 	
-	//[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadNextDataNotification object:mInputData];
-	
+	NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_%d.nii", mCurrentTimestep];
+	[[aNotification object] WriteDataElementToFile:fname];
+	//TODO: put in again, just commented out for test purposes!!!
 	// TODO: hard coded max number timesteps
-	NSLog(@"Timestep: %d", mCurrentTimestep+1);
-	if (mCurrentTimestep < [mDesignData mNumberTimesteps]) {
+//	NSLog(@"Timestep: %d", mCurrentTimestep+1);
+//	if (mCurrentTimestep < [mDesignData mNumberTimesteps]) {
 		mCurrentTimestep++;
-		[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
-	}
+//		[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
+//	}
 }
 
 -(void)processDataThread
@@ -169,7 +181,7 @@ BADataElementRealTimeLoader *mRtLoader;
 {
 	NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
 	
-	[self nextDataArrived:nil];
+	//[self nextDataArrived:nil];
 	
 	[NSThread sleepForTimeInterval:1.0];
 	[NSThread detachNewThreadSelector:@selector(timerThread) toTarget:self withObject:nil];

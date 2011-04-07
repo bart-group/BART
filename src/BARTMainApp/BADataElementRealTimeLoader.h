@@ -10,14 +10,16 @@
 #import "BADataElement.h"
 
 
-@protocol RealTimeLoaderProtocol
 
--(void)startRealTimeInputOfImageType:(enum ImageType)imgType;
 
-@end
-
-@interface  BADataElementRealTimeLoader : NSObject
+@interface  BADataElementRealTimeLoader : NSObject 
 {
 
 }
+@end
+
+@interface BADataElementRealTimeLoader (AbstractMethods)
+
+-(void)startRealTimeInputOfImageType;
+
 @end

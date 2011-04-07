@@ -11,10 +11,11 @@
 #import "Cocoa/Cocoa.h"
 
 #import "../BARTMainApp/BADataElementRealTimeLoader.h"
+#import "EDDataElementIsisRealTime.h"
 
-@interface EDDataElementRealTimeLoader : BADataElementRealTimeLoader <RealTimeLoaderProtocol> 
+@interface EDDataElementRealTimeLoader : BADataElementRealTimeLoader  
 {
-	
+	EDDataElementIsisRealTime *mDataElement;
 	NSMutableArray *arrayLoadedDataElements;
 	
 }
