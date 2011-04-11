@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rtExperiment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" edlVersion="1.4" xsi:noNamespaceSchemaLocation="C:\Nutzer\mhollman\BOLD\rtExplorer\experiments\config\rtExperiment_v14.xsd">
+<rtExperiment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" edlVersion="1.5" xsi:noNamespaceSchemaLocation="/res/xsd/rtExperiment_v14.xsd">
     <environment globalTimeUnit="milliseconds">
         <logging doLogging="true">
             <logFile>logRT_main.txt</logFile>
@@ -23,18 +23,18 @@
     <experimentData trSimulation="false">
         <paradigm ignoreScansAtStart="0">
             <gwDesignStruct>
-                <timeBasedRegressor length="720000" name="visualStim" regressorID="tbr1" scaleHeightToZeroMean="false" useRefFct="gloverGamma1" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
-                    <tbrDesign length="720000" repetitions="1">
+                <timeBasedRegressor length="126000" name="visualStim" regressorID="tbr1" scaleHeightToZeroMean="false" useRefFct="gloverGamma1" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
+                    <tbrDesign length="126000" repetitions="1">
                         <statEvent duration="0" time="0"/>
                     </tbrDesign>
                 </timeBasedRegressor>
-                <timeBasedRegressor length="720000" name="3" regressorID="tbr3" scaleHeightToZeroMean="false" useRefFct="gloverGamma1" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
-                    <tbrDesign length="720000" repetitions="1">
+                <timeBasedRegressor length="126000" name="3" regressorID="tbr3" scaleHeightToZeroMean="false" useRefFct="gloverGamma1" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
+                    <tbrDesign length="126000" repetitions="1">
                         <statEvent duration="0" time="0"/>
                     </tbrDesign>
                 </timeBasedRegressor>
-                <timeBasedRegressor length="720000" name="auditStim" regressorID="tbr2" scaleHeightToZeroMean="false" useRefFct="gloverGamma1" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
-                    <tbrDesign length="720000" repetitions="1">
+                <timeBasedRegressor length="126000" name="auditStim" regressorID="tbr2" scaleHeightToZeroMean="false" useRefFct="gloverGamma1" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
+                    <tbrDesign length="126000" repetitions="1">
                         <statEvent duration="0" time="0"/>
                     </tbrDesign>
                 </timeBasedRegressor>

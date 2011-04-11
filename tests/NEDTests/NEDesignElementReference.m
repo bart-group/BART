@@ -139,7 +139,7 @@ const TrialListRef R_TRIALLIST_INIT = { {0,0,0,0}, NULL};
 		{
 			NSString *requestTrialTime = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@time", expType, trialID, trialNr+1];
 			NSString *requestTrialDuration = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@duration", expType, trialID, trialNr+1];
-			NSString *requestTrialHeight = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@height", expType, trialID, trialNr+1];
+			NSString *requestTrialHeight = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@parametricScaleFactor", expType, trialID, trialNr+1];
 			float onset = [[f numberFromString:[config getProp:requestTrialTime]] floatValue];
 			float duration = [[f numberFromString:[config getProp:requestTrialDuration]] floatValue];
 			float height = [[f numberFromString:[config getProp:requestTrialHeight]] floatValue];

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<rtExperiment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" edlVersion="1.4" xsi:noNamespaceSchemaLocation="rtExperiment_v14.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<rtExperiment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" edlVersion="1.5" xsi:noNamespaceSchemaLocation="/res/xsd/rtExperiment_v15.xsd">
     <environment globalTimeUnit="milliseconds">
         <logging doLogging="true">
             <logFile>logRT_main.txt</logFile>
@@ -27,143 +27,143 @@
             <gwDesignStruct>
                 <timeBasedRegressor length="792000" name="Reg1" regressorID="Reg1" scaleHeightToZeroMean="false" useRefFct="gloverGammaEventRelDesign" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
                     <tbrDesign length="792000" repetitions="1">
-                        <statEvent duration="1000" height="1" time="13000"/>
-                        <statEvent duration="1000" height="1" time="44000"/>
-                        <statEvent duration="1000" height="1" time="97000"/>
-                        <statEvent duration="1000" height="1" time="115000"/>
-                        <statEvent duration="1000" height="1" time="120500"/>
-                        <statEvent duration="1000" height="1" time="259500"/>
-                        <statEvent duration="1000" height="1" time="295000"/>
-                        <statEvent duration="1000" height="1" time="330500"/>
-                        <statEvent duration="1000" height="1" time="355500"/>
-                        <statEvent duration="1000" height="1" time="360500"/>
-                        <statEvent duration="1000" height="1" time="421500"/>
-                        <statEvent duration="1000" height="1" time="426500"/>
-                        <statEvent duration="1000" height="1" time="643500"/>
-                        <statEvent duration="1000" height="1" time="446000"/>
-                        <statEvent duration="1000" height="1" time="480500"/>
-                        <statEvent duration="1000" height="1" time="488000"/>
-                        <statEvent duration="1000" height="1" time="505500"/>
-                        <statEvent duration="1000" height="1" time="517000"/>
-                        <statEvent duration="1000" height="1" time="535000"/>
-                        <statEvent duration="1000" height="1" time="540500"/>
-                        <statEvent duration="1000" height="1" time="572000"/>
-                        <statEvent duration="1000" height="1" time="577500"/>
-                        <statEvent duration="1000" height="1" time="595000"/>
-                        <statEvent duration="1000" height="1" time="620000"/>
-                        <statEvent duration="1000" height="1" time="650000"/>
-                        <statEvent duration="1000" height="1" time="673000"/>
-                        <statEvent duration="1000" height="1" time="283500"/>
-                        <statEvent duration="1000" height="1" time="696500"/>
-                        <statEvent duration="1000" height="1" time="710000"/>
-                        <statEvent duration="1000" height="1" time="720500"/>
-                        <statEvent duration="1000" height="1" time="770000"/>
-                        <statEvent duration="1000" height="1" time="253500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="13000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="44000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="97000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="115000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="120500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="259500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="295000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="330500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="355500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="360500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="421500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="426500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="643500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="446000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="480500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="488000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="505500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="517000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="535000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="540500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="572000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="577500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="595000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="620000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="650000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="673000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="283500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="696500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="710000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="720500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="770000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="253500"/>
                     </tbrDesign>
                 </timeBasedRegressor>
                 <timeBasedRegressor length="792000" name="Reg2" regressorID="Reg2" scaleHeightToZeroMean="false" useRefFct="gloverGammaEventRelDesign" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
                     <tbrDesign length="792000" repetitions="1">
-                        <statEvent duration="1000" height="1" time="25500"/>
-                        <statEvent duration="1000" height="1" time="37000"/>
-                        <statEvent duration="1000" height="1" time="50000"/>
-                        <statEvent duration="1000" height="1" time="68000"/>
-                        <statEvent duration="1000" height="1" time="79000"/>
-                        <statEvent duration="1000" height="1" time="104000"/>
-                        <statEvent duration="1000" height="1" time="144500"/>
-                        <statEvent duration="1000" height="1" time="156500"/>
-                        <statEvent duration="1000" height="1" time="162500"/>
-                        <statEvent duration="1000" height="1" time="176000"/>
-                        <statEvent duration="1000" height="1" time="181000"/>
-                        <statEvent duration="1000" height="1" time="242000"/>
-                        <statEvent duration="1000" height="1" time="247000"/>
-                        <statEvent duration="1000" height="1" time="278000"/>
-                        <statEvent duration="1000" height="1" time="289500"/>
-                        <statEvent duration="1000" height="1" time="337500"/>
-                        <statEvent duration="1000" height="1" time="373500"/>
-                        <statEvent duration="1000" height="1" time="379500"/>
-                        <statEvent duration="1000" height="1" time="403000"/>
-                        <statEvent duration="1000" height="1" time="410000"/>
-                        <statEvent duration="1000" height="1" time="451500"/>
-                        <statEvent duration="1000" height="1" time="475000"/>
-                        <statEvent duration="1000" height="1" time="494000"/>
-                        <statEvent duration="1000" height="1" time="498500"/>
-                        <statEvent duration="1000" height="1" time="565000"/>
-                        <statEvent duration="1000" height="1" time="582500"/>
-                        <statEvent duration="1000" height="1" time="654500"/>
-                        <statEvent duration="1000" height="1" time="691500"/>
-                        <statEvent duration="1000" height="1" time="732500"/>
-                        <statEvent duration="1000" height="1" time="739500"/>
-                        <statEvent duration="1000" height="1" time="750500"/>
-                        <statEvent duration="1000" height="1" time="757000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="25500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="37000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="50000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="68000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="79000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="104000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="144500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="156500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="162500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="176000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="181000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="242000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="247000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="278000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="289500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="337500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="373500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="379500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="403000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="410000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="451500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="475000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="494000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="498500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="565000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="582500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="654500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="691500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="732500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="739500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="750500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="757000"/>
                     </tbrDesign>
                 </timeBasedRegressor>
                 <timeBasedRegressor length="792000" name="Reg3" regressorID="Reg3" scaleHeightToZeroMean="false" useRefFct="gloverGammaEventRelDesign" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
                     <tbrDesign length="792000" repetitions="1">
-                        <statEvent duration="1000" height="1" time="19000"/>
-                        <statEvent duration="1000" height="1" time="31500"/>
-                        <statEvent duration="1000" height="1" time="55000"/>
-                        <statEvent duration="1000" height="1" time="61000"/>
-                        <statEvent duration="1000" height="1" time="109000"/>
-                        <statEvent duration="1000" height="1" time="126500"/>
-                        <statEvent duration="1000" height="1" time="152000"/>
-                        <statEvent duration="1000" height="1" time="188000"/>
-                        <statEvent duration="1000" height="1" time="204500"/>
-                        <statEvent duration="1000" height="1" time="210500"/>
-                        <statEvent duration="1000" height="1" time="223500"/>
-                        <statEvent duration="1000" height="1" time="230000"/>
-                        <statEvent duration="1000" height="1" time="270500"/>
-                        <statEvent duration="1000" height="1" time="307000"/>
-                        <statEvent duration="1000" height="1" time="313500"/>
-                        <statEvent duration="1000" height="1" time="366500"/>
-                        <statEvent duration="1000" height="1" time="386000"/>
-                        <statEvent duration="1000" height="1" time="434000"/>
-                        <statEvent duration="1000" height="1" time="469500"/>
-                        <statEvent duration="1000" height="1" time="511500"/>
-                        <statEvent duration="1000" height="1" time="524000"/>
-                        <statEvent duration="1000" height="1" time="530000"/>
-                        <statEvent duration="1000" height="1" time="559000"/>
-                        <statEvent duration="1000" height="1" time="588500"/>
-                        <statEvent duration="1000" height="1" time="601000"/>
-                        <statEvent duration="1000" height="1" time="625500"/>
-                        <statEvent duration="1000" height="1" time="636500"/>
-                        <statEvent duration="1000" height="1" time="667500"/>
-                        <statEvent duration="1000" height="1" time="764000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="19000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="31500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="55000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="61000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="109000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="126500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="152000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="188000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="204500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="210500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="223500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="230000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="270500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="307000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="313500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="366500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="386000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="434000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="469500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="511500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="524000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="530000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="559000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="588500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="601000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="625500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="636500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="667500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="764000"/>
                     </tbrDesign>
                 </timeBasedRegressor>
                 <timeBasedRegressor length="792000" name="Reg4" regressorID="Reg4" scaleHeightToZeroMean="false" useRefFct="gloverGammaEventRelDesign" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
                     <tbrDesign length="792000" repetitions="1">
-                        <statEvent duration="1000" height="1" time="73000"/>
-                        <statEvent duration="1000" height="1" time="84500"/>
-                        <statEvent duration="1000" height="1" time="90500"/>
-                        <statEvent duration="1000" height="1" time="133500"/>
-                        <statEvent duration="1000" height="1" time="140000"/>
-                        <statEvent duration="1000" height="1" time="169000"/>
-                        <statEvent duration="1000" height="1" time="199500"/>
-                        <statEvent duration="1000" height="1" time="217500"/>
-                        <statEvent duration="1000" height="1" time="234500"/>
-                        <statEvent duration="1000" height="1" time="264500"/>
-                        <statEvent duration="1000" height="1" time="302000"/>
-                        <statEvent duration="1000" height="1" time="319000"/>
-                        <statEvent duration="1000" height="1" time="324500"/>
-                        <statEvent duration="1000" height="1" time="342500"/>
-                        <statEvent duration="1000" height="1" time="350000"/>
-                        <statEvent duration="1000" height="1" time="397000"/>
-                        <statEvent duration="1000" height="1" time="415000"/>
-                        <statEvent duration="1000" height="1" time="458000"/>
-                        <statEvent duration="1000" height="1" time="463500"/>
-                        <statEvent duration="1000" height="1" time="548000"/>
-                        <statEvent duration="1000" height="1" time="553500"/>
-                        <statEvent duration="1000" height="1" time="608000"/>
-                        <statEvent duration="1000" height="1" time="613500"/>
-                        <statEvent duration="1000" height="1" time="631500"/>
-                        <statEvent duration="1000" height="1" time="662000"/>
-                        <statEvent duration="1000" height="1" time="678500"/>
-                        <statEvent duration="1000" height="1" time="686000"/>
-                        <statEvent duration="1000" height="1" time="703500"/>
-                        <statEvent duration="1000" height="1" time="714500"/>
-                        <statEvent duration="1000" height="1" time="727000"/>
-                        <statEvent duration="1000" height="1" time="745000"/>
-                        <statEvent duration="1000" height="1" time="775000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="73000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="84500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="90500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="133500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="140000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="169000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="199500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="217500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="234500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="264500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="302000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="319000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="324500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="342500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="350000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="397000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="415000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="458000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="463500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="548000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="553500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="608000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="613500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="631500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="662000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="678500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="686000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="703500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="714500"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="727000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="745000"/>
+                        <statEvent duration="1000" parametricScaleFactor="1" time="775000"/>
                     </tbrDesign>
                 </timeBasedRegressor>
             </gwDesignStruct>
@@ -288,7 +288,7 @@
             </mediaObject>
         </mediaObjectList>
         <timeTable timeTolerance="20">
-            <freeStimulusDesign overallPresLength="120000">
+            <freeStimulusDesign overallPresLength="792000">
                 <stimEvent duration="4000" time="0">
                     <mObjectID>mo1</mObjectID>
                 </stimEvent>

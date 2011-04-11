@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rtExperiment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" edlVersion="1.4" xsi:noNamespaceSchemaLocation="C:\Nutzer\mhollman\BOLD\rtExplorer\experiments\config\rtExperiment_v14.xsd">
+<rtExperiment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" edlVersion="1.5" xsi:noNamespaceSchemaLocation="/res/xsd/rtExperiment_v15.xsd">
     <environment globalTimeUnit="milliseconds">
         <logging doLogging="true">
             <logFile>logRT_main.txt</logFile>
@@ -72,13 +72,23 @@
                 <offset>0</offset>
                 <overallWidth>30000</overallWidth>
             </dGamma>
-            <gloverKernel refFctID="gloverGamma1">
+            <gloverKernel refFctID="gloverGammaBlockDesign">
                 <tPeak1>6000</tPeak1>
                 <tPeak1Scale>0.9</tPeak1Scale>
                 <tPeak2>12000</tPeak2>
                 <tPeak2Scale>0.9</tPeak2Scale>
                 <ratioTPeaks>0.1</ratioTPeaks>
                 <heightScale>120</heightScale>
+                <offset>0</offset>
+                <overallWidth>30000</overallWidth>
+            </gloverKernel>
+            <gloverKernel refFctID="gloverGammaEventRelDesign">
+                <tPeak1>6000</tPeak1>
+                <tPeak1Scale>0.9</tPeak1Scale>
+                <tPeak2>12000</tPeak2>
+                <tPeak2Scale>0.9</tPeak2Scale>
+                <ratioTPeaks>0.35</ratioTPeaks>
+                <heightScale>20</heightScale>
                 <offset>0</offset>
                 <overallWidth>30000</overallWidth>
             </gloverKernel>

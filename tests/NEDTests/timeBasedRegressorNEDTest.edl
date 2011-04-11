@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<rtExperiment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" edlVersion="1.4" xsi:noNamespaceSchemaLocation="C:\Nutzer\mhollman\BOLD\rtExplorer\experiments\config\rtExperiment_v14.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<rtExperiment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" edlVersion="1.5" xsi:noNamespaceSchemaLocation="rtExperiment_v15.xsd">
     <environment globalTimeUnit="milliseconds">
         <logging doLogging="true">
             <logFile>logRT_main.txt</logFile>
@@ -7,11 +7,13 @@
         <startTrigger waitForInitialTrigger="true">
             <parallelPortTrigger>
                 <triggerPort>0x379</triggerPort>
+                <bitOffset>6</bitOffset>
+                <negativeLogic>0</negativeLogic>
             </parallelPortTrigger>
         </startTrigger>
-        <dataFolder/>
-        <dataFolderTarget/>
-        <resultFolder/>
+        <dataFolder>/Users/Lydi/data/TestDirectory/dicom</dataFolder>
+        <dataFolderTarget>/Users/Lydi/data/TestDirectory/dicom</dataFolderTarget>
+        <resultFolder>/Users/Lydi/data/TestDirectory/results</resultFolder>
         <resultImage>
             <imageModalities imgDataExtension=".hdr" imgDataType="image" imgType="ANALYZE">
                 <imgBase>results_</imgBase>
@@ -23,57 +25,57 @@
     <experimentData trSimulation="false">
         <paradigm ignoreScansAtStart="0">
             <gwDesignStruct>
-                <timeBasedRegressor length="720000" name="visualStim" regressorID="tbr1" scaleHeightToZeroMean="false" useRefFct="gloverGamma1" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
+                <timeBasedRegressor length="720000" name="visualStim" regressorID="tbr1" scaleHeightToZeroMean="false" useRefFct="gloverGammaBlockDesign" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
                     <tbrDesign length="720000" repetitions="1">
-                        <statEvent duration="20000" time="20000"/>
-                        <statEvent duration="20000" time="60000"/>
-                        <statEvent duration="20000" time="100000"/>
-                        <statEvent duration="20000" time="140000"/>
-                        <statEvent duration="20000" time="180000"/>
-                        <statEvent duration="20000" time="220000"/>
-                        <statEvent duration="20000" time="260000"/>
-                        <statEvent duration="20000" time="300000"/>
-                        <statEvent duration="20000" time="340000"/>
-                        <statEvent duration="20000" time="380000"/>
-                        <statEvent duration="20000" time="420000"/>
-                        <statEvent duration="20000" time="460000"/>
-                        <statEvent duration="20000" time="500000"/>
-                        <statEvent duration="20000" time="540000"/>
-                        <statEvent duration="20000" time="580000"/>
-                        <statEvent duration="20000" time="620000"/>
-                        <statEvent duration="20000" time="660000"/>
-                        <statEvent duration="20000" time="700000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="20000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="60000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="100000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="140000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="180000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="220000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="260000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="300000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="340000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="380000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="420000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="460000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="500000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="540000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="580000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="620000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="660000"/>
+                        <statEvent duration="20000" parametricScaleFactor="1" time="700000"/>
                     </tbrDesign>
                 </timeBasedRegressor>
-                <timeBasedRegressor length="720000" name="auditStim" regressorID="tbr2" scaleHeightToZeroMean="false" useRefFct="gloverGamma1" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
+                <timeBasedRegressor length="720000" name="auditStim" regressorID="tbr2" scaleHeightToZeroMean="false" useRefFct="gloverGammaBlockDesign" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
                     <tbrDesign length="720000" repetitions="1">
-                        <statEvent duration="13000" time="17000"/>
-                        <statEvent duration="13000" time="43000"/>
-                        <statEvent duration="13000" time="69000"/>
-                        <statEvent duration="13000" time="95000"/>
-                        <statEvent duration="13000" time="121000"/>
-                        <statEvent duration="13000" time="147000"/>
-                        <statEvent duration="13000" time="173000"/>
-                        <statEvent duration="13000" time="199000"/>
-                        <statEvent duration="13000" time="225000"/>
-                        <statEvent duration="13000" time="251000"/>
-                        <statEvent duration="13000" time="277000"/>
-                        <statEvent duration="13000" time="303000"/>
-                        <statEvent duration="13000" time="329000"/>
-                        <statEvent duration="13000" time="355000"/>
-                        <statEvent duration="13000" time="381000"/>
-                        <statEvent duration="13000" time="407000"/>
-                        <statEvent duration="13000" time="433000"/>
-                        <statEvent duration="13000" time="459000"/>
-                        <statEvent duration="13000" time="485000"/>
-                        <statEvent duration="13000" time="511000"/>
-                        <statEvent duration="13000" time="537000"/>
-                        <statEvent duration="13000" time="563000"/>
-                        <statEvent duration="13000" time="589000"/>
-                        <statEvent duration="13000" time="615000"/>
-                        <statEvent duration="13000" time="641000"/>
-                        <statEvent duration="13000" time="667000"/>
-                        <statEvent duration="13000" time="693000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="17000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="43000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="69000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="95000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="121000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="147000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="173000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="199000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="225000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="251000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="277000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="303000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="329000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="355000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="381000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="407000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="433000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="459000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="485000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="511000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="537000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="563000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="589000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="615000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="641000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="667000"/>
+                        <statEvent duration="13000" parametricScaleFactor="1" time="693000"/>
                     </tbrDesign>
                 </timeBasedRegressor>
             </gwDesignStruct>
@@ -126,13 +128,23 @@
                 <offset>0</offset>
                 <overallWidth>30000</overallWidth>
             </dGamma>
-            <gloverKernel refFctID="gloverGamma1">
+            <gloverKernel refFctID="gloverGammaBlockDesign">
                 <tPeak1>6000</tPeak1>
                 <tPeak1Scale>0.9</tPeak1Scale>
                 <tPeak2>12000</tPeak2>
                 <tPeak2Scale>0.9</tPeak2Scale>
                 <ratioTPeaks>0.1</ratioTPeaks>
                 <heightScale>120</heightScale>
+                <offset>0</offset>
+                <overallWidth>30000</overallWidth>
+            </gloverKernel>
+            <gloverKernel refFctID="gloverGammaEventRelDesign">
+                <tPeak1>6000</tPeak1>
+                <tPeak1Scale>0.9</tPeak1Scale>
+                <tPeak2>12000</tPeak2>
+                <tPeak2Scale>0.9</tPeak2Scale>
+                <ratioTPeaks>0.35</ratioTPeaks>
+                <heightScale>20</heightScale>
                 <offset>0</offset>
                 <overallWidth>30000</overallWidth>
             </gloverKernel>
@@ -157,6 +169,11 @@
             <mediaObject moID="mo1" name="text1" type="TEXT">
                 <contentText>
                     <text>+</text>
+                    <tColor>
+                        <tcRed>1.0</tcRed>
+                        <tcGreen>1.0</tcGreen>
+                        <tcBlue>1.0</tcBlue>
+                    </tColor>
                     <tSize>40</tSize>
                     <posX>150</posX>
                     <posY>150</posY>
@@ -174,7 +191,7 @@
             </mediaObject>
         </mediaObjectList>
         <timeTable timeTolerance="20">
-            <blockStimulusDesign overallPresLength="126000" repeats="1">
+            <blockStimulusDesign overallPresLength="720000" repeats="1">
                 <stimEvent duration="10000" time="0">
                     <mObjectID>mo1</mObjectID>
                 </stimEvent>
