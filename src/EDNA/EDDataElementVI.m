@@ -327,6 +327,7 @@
         GetListInfo(inputFilename, &m_linfo[0]);
         fclose(in_file);
         
+		mImageSize = [[BARTImageSize alloc] init];
         mImageSize.rows = m_linfo[0].nrows;
         mImageSize.columns = m_linfo[0].ncols;
         mImageSize.slices = m_linfo[0].nslices;
