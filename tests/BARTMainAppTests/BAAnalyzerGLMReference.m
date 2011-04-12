@@ -368,7 +368,7 @@ skip: ;
 
 -(BADataElement*)anaylzeTheData:(BADataElement*)data 
                      withDesign:(BADesignElement*)design
-             andCurrentTimestep:(unsigned int)timestep
+             andCurrentTimestep:(size_t)timestep
 {
     mDesign = design;
     mData = data;
@@ -406,10 +406,11 @@ skip: ;
     
     if (sliding_window_size <= lastTimestep) { 
         
-        unsigned int numberBands = mData.numberTimesteps;
-        unsigned int numberSlices = mData.numberSlices;
-        unsigned int numberRows = mData.numberRows;
-        unsigned int numberCols = mData.numberCols;
+        BARTImageSize *imSize = [[mData getImageSize] copy];
+		unsigned int numberBands = imSize.timesteps;
+        unsigned int numberSlices = imSize.slices;
+        unsigned int numberRows = imSize.rows;
+        unsigned int numberCols = imSize.columns;
         unsigned int numberExplanatoryVariables = mDesign.mNumberExplanatoryVariables;
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0); /* Global asyn. dispatch queue. */
         
@@ -674,11 +675,16 @@ skip: ;
 
 - (void)createOutputImages
 {
+	BARTImageSize *imSize = [[mData getImageSize] copy];
 	
-	mBetaOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mData.numberRows andCols:mData.numberCols andSlices:mDesign.mNumberExplanatoryVariables andTimesteps:mData.numberSlices];
-	mResOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mData.numberRows andCols:mData.numberCols andSlices:1 andTimesteps:mData.numberSlices];
-    mResMap = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mData.numberRows andCols:mData.numberCols andSlices:1 andTimesteps:mData.numberSlices];
-    mBCOVOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mDesign.mNumberExplanatoryVariables andCols:mDesign.mNumberExplanatoryVariables andSlices:1 andTimesteps:1];
+	mBetaOutput = [[BADataElement alloc] initEmptyWithSize:[[BARTImageSize alloc] initWithRows:imSize.rows andCols:imSize.columns andSlices:mDesign.mNumberExplanatoryVariables andTimesteps:imSize.slices] ofImageType:IMAGE_BETAS];
+	
+	mResOutput = [[BADataElement alloc] initEmptyWithSize:[[BARTImageSize alloc] initWithRows:imSize.rows andCols:imSize.columns andSlices:1 andTimesteps:imSize.slices] ofImageType:IMAGE_UNKNOWN]; 
+    mResMap = [[BADataElement alloc] initEmptyWithSize:[[BARTImageSize alloc] initWithRows:imSize.rows andCols:imSize.columns andSlices:1 andTimesteps:imSize.slices] ofImageType:IMAGE_TMAP];
+		
+	mBCOVOutput = [[BADataElement alloc] initEmptyWithSize:[[BARTImageSize alloc] initWithRows:mDesign.mNumberExplanatoryVariables andCols:mDesign.mNumberExplanatoryVariables andSlices:1 andTimesteps:1] ofImageType:IMAGE_UNKNOWN];
+	[imSize release];	   
+	
 }
 
 
