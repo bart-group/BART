@@ -7,7 +7,7 @@
 //
 
 #import "EDDataElementVITest.h"
-#import "EDDataElementVI.h"
+#import "../../src/EDNA/EDDataElementVI.h"
 
 @interface EDDataElementVITest (MemberVariables)
 
@@ -33,7 +33,8 @@
     STAssertEquals([dataEl getImageDataType], IMAGE_DATA_INT16, @"Incorrect image data type.");
 }
 
-- (void) tearDown {
+- (void) tearDown 
+{
 }
 
 

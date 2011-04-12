@@ -7,12 +7,12 @@
 //
 
 #import "EDDataElementIsisTest.h"
-#import "EDDataElementIsis.h"
+#import "../../src/EDNA/EDDataElementIsis.h"
 
 
 @interface EDDataElementIsisTest (MemberVariables)
 
-	EDDataElementIsis *dataEl;
+	
 
 @end
 
@@ -21,23 +21,26 @@
 
 -(void) setUp
 {
-	dataEl = [[EDDataElementIsis alloc] initWithFile:@"../tests/BARTMainAppTests/testfiles/TestDataset01-functional.nii" andSuffix:@"" andDialect:@""];
+	
 }
 
 -(void)testProperties
 {
-	ImageSize imSize = [dataEl mImageSize];
+	EDDataElementIsis *dataEl = [[EDDataElementIsis alloc] initWithFile:@"/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/tests/BARTMainAppTests/testfiles/TestDataset01-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
+	BARTImageSize *imSize = [[dataEl getImageSize] copy];
 	STAssertEquals(imSize.columns, (size_t)64, @"Incorrect number of columns.");
     STAssertEquals(imSize.rows, (size_t)64, @"Incorrect number of rows.");
     STAssertEquals(imSize.timesteps, (size_t)396, @"Incorrect number of timesteps.");
     STAssertEquals(imSize.slices, (size_t)20, @"Incorrect number of slices.");
+	[imSize release];
+	[dataEl release];
    // STAssertEquals(dataEl.imageDataType, IMAGE_DATA_SHORT, @"Incorrect image data type.");
 }
 
 -(void)testInitWithDatatype
 {
-	ImageSize s;
-	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:&s];
+	BARTImageSize *s = [[BARTImageSize alloc] init];
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:s ofImageType:IMAGE_FCTDATA];
 	
 	STAssertNotNil(elem, @"initWithDataType returns nil");
 	
@@ -49,14 +52,10 @@
 
 -(void)testImageProperties
 {
-	struct ImageSizeStruct imSize = {39,19,2,190};
-	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:&imSize];
-	ImageSize imSizeDest;
-	imSizeDest.rows = 19; 
-	imSizeDest.columns = 29;
-	imSizeDest.slices = 1;
-	imSizeDest.timesteps = 90;
-	EDDataElementIsis *elemDest = [[EDDataElementIsis alloc] initEmptyWithSize:&imSizeDest];
+	BARTImageSize *imSize = [[BARTImageSize alloc] initWithRows:39 andCols:19 andSlices:2 andTimesteps:190];
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:imSize ofImageType:IMAGE_UNKNOWN];
+	BARTImageSize *imSizeDest = [[BARTImageSize alloc] initWithRows:19 andCols:29 andSlices:1 andTimesteps:90];
+	EDDataElementIsis *elemDest = [[EDDataElementIsis alloc] initEmptyWithSize:imSizeDest ofImageType:IMAGE_UNKNOWN];
 	STAssertNotNil(elem, @"valid init returns nil");
 	STAssertNotNil(elemDest, @"valid init returns nil");
 	
@@ -197,13 +196,13 @@
 					
 -(void)testGetSetVoxelValueAtRow
 {
-	ImageSize imSize;
+	BARTImageSize *imSize = [[BARTImageSize alloc] init];
 	imSize.rows = 37;
 	imSize.columns = 12;
 	imSize.slices = 29;
 	imSize.timesteps = 2;
 	
-	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:&imSize];
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:imSize ofImageType:IMAGE_UNKNOWN];
 	
 	NSNumber *voxel1 = [NSNumber numberWithInt:12];
 	NSNumber *voxel2 = [NSNumber numberWithFloat:1.6];
@@ -260,12 +259,12 @@
 
 -(void)testGetDataFromSlice
 {
-	ImageSize imSize;
+	BARTImageSize *imSize = [[BARTImageSize alloc] init];
 	imSize.rows = 13;
 	imSize.columns = 12;
 	imSize.slices = 10;
 	imSize.timesteps = 7;
-	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:&imSize	];
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:imSize ofImageType:IMAGE_TMAP];
 	for (uint t=0; t < imSize.timesteps; t++){
 		for (uint s=0; s < imSize.slices; s++){
 			for (uint c=0; c < imSize.columns; c++){
@@ -308,7 +307,7 @@
 		}
 	}
 	free(pSlice);
-		
+//		
 	//out of size
 	sliceGet = 10;
 	tGet = 1;
@@ -327,12 +326,12 @@
 
 -(void)testGetSetRowDataAt
 {	
-	ImageSize imSize;
+	BARTImageSize *imSize = [[BARTImageSize alloc] init];
 	imSize.rows = 9;
 	imSize.columns = 13;
 	imSize.slices = 10;
 	imSize.timesteps = 7;
-	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:&imSize];
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:imSize ofImageType:IMAGE_UNKNOWN];
 	for (uint t=0; t < imSize.timesteps; t++){
 		for (uint s=0; s < imSize.slices; s++){
 			for (uint c=0; c < imSize.columns; c++){
@@ -382,24 +381,24 @@
 
 -(void)testGetSetColDataAt
 {
-	ImageSize imSize;
+	BARTImageSize *imSize = [[BARTImageSize alloc] init];
 	imSize.rows = 9;
 	imSize.columns = 12;
 	imSize.slices = 10;
 	imSize.timesteps = 7;
-	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:&imSize];
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:imSize ofImageType:IMAGE_UNKNOWN];
 	for (uint t=0; t < imSize.timesteps; t++){
 		for (uint s=0; s < imSize.slices; s++){
 			for (uint c=0; c < imSize.columns; c++){
 				for (uint r=0; r < imSize.rows; r++){
 					[elem setVoxelValue:[NSNumber numberWithFloat:r+c+s+t] atRow:r col:c slice:s timestep:t];
 				}}}}
-
+	
 	
 	//************getColData
-	uint colGet = 11;
-	uint sliceGet = 9;
-	uint tGet = 2;
+	size_t colGet = 11;
+	size_t sliceGet = 9;
+	size_t tGet = 2;
 	float *pCol = [elem getColDataAt:colGet atSlice:sliceGet atTimestep:tGet];
 	float *pRun = pCol;
 	for (uint r=0; r < imSize.rows; r++){
@@ -407,8 +406,8 @@
 	}
 	free(pCol);
 	
-	uint colSet = 7;
-	float *dataBuff2 = static_cast<float_t*> (malloc(sizeof(imSize.rows)));
+	size_t colSet = 7;
+	float_t *dataBuff2 = static_cast<float_t*> (malloc(sizeof(imSize.rows-1)));
 	for (uint i = 0; i < imSize.rows; i++){
 		dataBuff2[i] = 11+i*17;
 	}
@@ -416,36 +415,36 @@
 	[elem setColAt:colSet atSlice:sliceGet atTimestep:tGet withData:dataBuff2];
 	//	
 	pCol = [elem getColDataAt:colSet atSlice:sliceGet atTimestep:tGet];
-	float* pColPre = [elem getColDataAt:colSet-1 atSlice:sliceGet atTimestep:tGet];
-	float* pColPost = [elem getColDataAt:colSet+1 atSlice:sliceGet atTimestep:tGet];
+	float_t* pColPre = [elem getColDataAt:colSet-1 atSlice:sliceGet atTimestep:tGet];
+	float_t* pColPost = [elem getColDataAt:colSet+1 atSlice:sliceGet atTimestep:tGet];
 	pRun = pCol;
-	float *pRunPre = pColPre;
-	float *pRunPost = pColPost;
+	float_t *pRunPre = pColPre;
+	float_t *pRunPost = pColPost;
 	for (uint r=0; r < imSize.rows; r++){
-		STAssertEquals((float)*pRun++, (float)dataBuff2[r], @"Col value not as expected");
-		STAssertEquals((float)*pRunPre++, (float)(colSet-1)+sliceGet+tGet+r, @"Pre Col value not as expected");
-		STAssertEquals((float)*pRunPost++, (float)(colSet+1)+sliceGet+tGet+r, @"Post Col value not as expected");
+		STAssertEquals((float_t)*pRun++, (float_t)dataBuff2[r], @"Col value not as expected");
+		STAssertEquals((float_t)*pRunPre++, (float_t)(colSet-1)+sliceGet+tGet+r, @"Pre Col value not as expected");
+		STAssertEquals((float_t)*pRunPost++, (float_t)(colSet+1)+sliceGet+tGet+r, @"Post Col value not as expected");
 	}
 	free(pCol);
 	free(pColPre);
 	free(pColPost);
 	free(dataBuff2);
 	
-	
+	[imSize release];
 	[elem release];
 	
-		
-
+	
+	
 }
 
 -(void)testGetTimeSeriesDataAt
 {
-	ImageSize imSize;
+	BARTImageSize *imSize = [[BARTImageSize alloc] init];
 	imSize.rows = 17;
 	imSize.columns = 31;
 	imSize.slices = 10;
 	imSize.timesteps = 11;
-	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:&imSize	];
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:imSize ofImageType:IMAGE_UNKNOWN];
 	for (uint t=0; t < imSize.timesteps; t++){
 		for (uint s=0; s < imSize.slices; s++){
 			for (uint c=0; c < imSize.columns; c++){
@@ -535,7 +534,8 @@
 
 
 
-
+-(void)tearDown
+{}
 
 
 
