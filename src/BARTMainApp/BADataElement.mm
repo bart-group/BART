@@ -21,8 +21,8 @@
 
 -(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
 {
-    [self release];
-    self = nil;
+    //[self release];
+    self = [super init];
 	NSFileManager *fm = [[NSFileManager alloc] init];
 	if ( NO == [fm fileExistsAtPath:path]){
 		NSLog(@"No file to load");
@@ -35,8 +35,8 @@
 //EIGENES SIZE-ELEMENT waere angebracht
 -(id)initWithDataType:(enum ImageDataType)type andRows:(int) rows andCols:(int)cols andSlices:(int)slices andTimesteps:(int) tsteps
 {
-    [self release];
-    self = nil;
+    //[self release];
+    self = [super init];
     self = [[EDDataElementVI alloc] initWithDataType:type andRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
     return self;
     
@@ -44,8 +44,8 @@
 
 -(id)initWithDataFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect ofImageType:(enum ImageType)iType
 {
-	[self release];
-    self = nil;
+	//[self release];
+    self = [super init];
 	NSFileManager *fm = [[NSFileManager alloc] init];
 	if ( NO == [fm fileExistsAtPath:path]){
 		NSLog(@"No file to load");
@@ -58,8 +58,8 @@
 
 -(id)initEmptyWithSize:(BARTImageSize*)s  ofImageType:(enum ImageType)iType
 {
-	[self release];
-    self = nil;
+	//[self release];
+    self = [super init];
 	
     self = [[EDDataElementIsis alloc] initEmptyWithSize:s ofImageType:(enum ImageType)iType];
     return self;
@@ -68,7 +68,7 @@
 
 -(id)initForRealTimeTCPIPWithSize:(BARTImageSize*)s ofImageType:(enum ImageType)iType
 {
-	[self release];
+	//[self release];
     self = [super init];
 	
     self = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:s ofImageType:(enum ImageType)iType];
