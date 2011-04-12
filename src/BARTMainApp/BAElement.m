@@ -43,7 +43,6 @@
 {
 	BARTImageSize *newImageSize = [[BARTImageSize allocWithZone: zone] init];
 	newImageSize.rows = rows;
-	NSLog(@"BARTImageSize: rows: %d", rows);
 	newImageSize.columns = columns;
 	newImageSize.slices = slices;
 	newImageSize.timesteps = timesteps;
