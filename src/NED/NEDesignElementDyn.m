@@ -54,7 +54,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     
     	
 	
-	[self writeDesignFile:@"/tmp/testDesign.v"];
+	//[self writeDesignFile:@"/tmp/testDesign.v"];
 	return self;
 }
 
