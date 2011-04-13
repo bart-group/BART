@@ -120,7 +120,13 @@
     std::list<isis::data::Chunk> chunkList;
     for (itMap = mAllDataMap.begin(); itMap != mAllDataMap.end() ; itMap++) {
         for (itVector=(*itMap).second.begin(); itVector != (*itMap).second.end(); itVector++) {
-            chunkList.push_back(*(*itVector));
+            
+			//TODO: INCLUDE THIS WHEN PROBLEM WITH ACQ NR IS CLEAR
+			//(*itVector)->join(mPropMapImage);
+			//std::cout << mPropMapImage.print(std::cout) << std::endl;
+			//isis::util::PropertyMap propsOfChunk = isis::util::PropertyMap(**itVector);
+			//std::cout << propsOfChunk.print(std::cout) << std::endl;
+			chunkList.push_back(*(*itVector));
         }
         
     }
@@ -143,7 +149,63 @@
 
 -(id)getImageProperty:(enum ImagePropertyID)key
 {
-	return nil;
+	id ret = nil;
+	std::string strtest;
+	std::vector<boost::shared_ptr<isis::data::Chunk> > vecSlices = mAllDataMap[0];
+	boost::shared_ptr<isis::data::Chunk> ptrChunk = vecSlices[0];
+	
+	switch (key) {
+        case PROPID_NAME:
+			ret = [[[NSString alloc ] initWithCString:(ptrChunk->getPropertyAs<std::string>("GLM/name")).c_str() encoding:NSUTF8StringEncoding] autorelease];
+			break;
+        case PROPID_MODALITY:
+            
+            
+            break;
+        case PROPID_DF:
+            break;
+        case PROPID_PATIENT:
+			ret = [[[NSString alloc ] initWithCString:(ptrChunk->getPropertyAs<std::string>("subjectName")).c_str() encoding:NSUTF8StringEncoding] autorelease];
+			break;
+        case PROPID_VOXEL:
+            break;
+        case PROPID_REPTIME:
+            break;
+        case PROPID_TALAIRACH:
+            break;
+        case PROPID_FIXPOINT:
+            break;
+        case PROPID_CA:
+            break;
+        case PROPID_CP:
+            break;
+        case PROPID_EXTENT:
+            break;
+        case PROPID_BETA:
+            break;
+		case PROPID_READVEC:
+			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("rowVec")[0]], [NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("rowVec")[1]], [NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("rowVec")[2]], [NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("rowVec")[3]], nil ] autorelease];
+			break;
+		case PROPID_PHASEVEC:
+			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("columnVec")[0]], [NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("columnVec")[1]], [NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("columnVec")[2]], [NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("columnVec")[3]], nil ] autorelease];
+			break;
+		case PROPID_SLICEVEC:
+			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("sliceVec")[0]], [NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("sliceVec")[1]], [NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("sliceVec")[2]], [NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("sliceVec")[3]], nil ] autorelease];
+			break;
+		case PROPID_SEQNR:
+			ret = [NSNumber numberWithUnsignedShort:1];
+			break;
+		case PROPID_VOXELSIZE:
+			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("voxelSize")[0]], [NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("voxelSize")[1]], [NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("voxelSize")[2]], [NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("voxelSize")[3]], nil ] autorelease];
+			break;
+		case PROPID_ORIGIN:
+			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("indexOrigin")[0]], [NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("indexOrigin")[1]], [NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("indexOrigin")[2]], [NSNumber numberWithFloat:ptrChunk->getPropertyAs<isis::util::fvector4>("indexOrigin")[3]], nil ] autorelease];
+			break;
+        default:
+            break;
+	}
+	return ret;
+	
 }
 
 -(enum ImageDataType)getImageDataType
@@ -192,19 +254,125 @@
 
 -(void)copyProps:(NSArray*)propList fromDataElement:(BADataElement*)srcElement
 {
-	
+	[self setProps: [srcElement getProps:propList]];
 }
+
 
 -(NSDictionary*)getProps:(NSArray*)propList
 {
-	NSDictionary *props = [[NSDictionary alloc] init];
-	return props;
+	
+	//TODO: arbeite mit DIctionary
+	std::vector<boost::shared_ptr<isis::data::Chunk> > vecSlices = mAllDataMap[0];
+	boost::shared_ptr<isis::data::Chunk> ptrChunk = vecSlices[0];
+	NSMutableArray *propValues = [[NSMutableArray alloc] init];
+	for (NSString *str in propList) {				// type is fvector4
+		if ( [[str lowercaseString] isEqualToString:@"indexorigin"]
+			or [[str lowercaseString] isEqualToString:@"rowvec"]
+			or [[str lowercaseString] isEqualToString:@"columnvec"]
+			or [[str lowercaseString] isEqualToString:@"slicevec"]
+			or [[str lowercaseString] isEqualToString:@"capos"]
+			or [[str lowercaseString] isEqualToString:@"cppos"]
+			or [[str lowercaseString] isEqualToString:@"voxelsize"]
+			or [[str lowercaseString] isEqualToString:@"voxelgap"])
+		{
+			isis::util::fvector4 prop = ptrChunk->getPropertyAs<isis::util::fvector4>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);
+			NSArray* ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:prop[0]], [NSNumber numberWithFloat:prop[1]], [NSNumber numberWithFloat:prop[2]], [NSNumber numberWithFloat:prop[3]], nil ] autorelease];
+			[propValues addObject:ret];
+		}
+		else if( [[str lowercaseString] isEqualToString:@"acquisitionnumber"]) //type is u_int32_t
+		{
+			u_int32_t prop = ptrChunk->getPropertyAs<u_int32_t>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);
+			NSNumber* ret = [[NSNumber numberWithUnsignedLong:prop] autorelease];
+			[propValues addObject:ret];
+		}
+		else if ( [[str lowercaseString] isEqualToString:@"repetitiontime"]	// type is u_int16_t
+				 or   [[str lowercaseString] isEqualToString:@"sequencenumber"]
+				 or   [[str lowercaseString] isEqualToString:@"subjectage"]
+				 or   [[str lowercaseString] isEqualToString:@"subjectweight"]
+				 or   [[str lowercaseString] isEqualToString:@"flipangle"]
+				 or   [[str lowercaseString] isEqualToString:@"numberofaverages"] )
+		{
+			u_int16_t prop = ptrChunk->getPropertyAs<u_int16_t>([str  cStringUsingEncoding:NSISOLatin1StringEncoding ]);
+			NSNumber* ret = [[NSNumber numberWithUnsignedInt:prop] autorelease];
+			[propValues addObject:ret];
+		}
+		else if ( [[str lowercaseString] isEqualToString:@"echotime"]	 // type is float
+				 or   [[str lowercaseString] isEqualToString:@"acquisitiontime"] )
+		{
+			float prop = ptrChunk->getPropertyAs<float>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);
+			NSNumber* ret = [[NSNumber numberWithFloat:prop] autorelease];
+			[propValues addObject:ret];
+		}
+		else									// everything else is interpreted as string (conversion by isis)
+		{
+			std::string prop = "";
+			if (ptrChunk->hasProperty([str cStringUsingEncoding:NSISOLatin1StringEncoding])){
+				prop = ptrChunk->getPropertyAs<std::string>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);}
+			NSString* ret = [[NSString stringWithCString:prop.c_str() encoding:NSISOLatin1StringEncoding] autorelease];
+			[propValues addObject:ret];
+		}
+	} 
+	NSDictionary *propDict = [[NSDictionary alloc] initWithObjects:propValues forKeys:propList];
+	return propDict;
 }
 
 -(void)setProps:(NSDictionary*)propDict
 {
+	//TODO: arbeite mit DIctionary
+	std::vector<boost::shared_ptr<isis::data::Chunk> > vecSlices = mAllDataMap[0];
+	boost::shared_ptr<isis::data::Chunk> ptrChunk = vecSlices[0];
+	for (NSString *str in [propDict allKeys]) {		// type is fvector4
+		if ( [[str lowercaseString] isEqualToString:@"indexorigin"]
+			or [[str lowercaseString] isEqualToString:@"rowvec"]
+			or [[str lowercaseString] isEqualToString:@"columnvec"]
+			or [[str lowercaseString] isEqualToString:@"slicevec"]
+			or [[str lowercaseString] isEqualToString:@"capos"]
+			or [[str lowercaseString] isEqualToString:@"cppos"]
+			or [[str lowercaseString] isEqualToString:@"voxelsize"]
+			or [[str lowercaseString] isEqualToString:@"voxelgap"])
+		{
+			isis::util::fvector4 prop;
+			if (YES == [[propDict valueForKey:str] isKindOfClass:[NSArray class]]){
+				for (unsigned int i = 0; i < [[propDict valueForKey:str] count]; i++){
+					prop[i] = [[[propDict valueForKey:str] objectAtIndex:i] floatValue];}
+				ptrChunk->setPropertyAs<isis::util::fvector4>([str cStringUsingEncoding:NSISOLatin1StringEncoding], prop);
+			}
+		}
+		else if( [[str lowercaseString] isEqualToString:@"acquisitionnumber"]) //type is u_int32_t
+		{
+			if (YES == [[propDict valueForKey:str] isKindOfClass:[NSNumber class]]){
+				u_int32_t prop = [[propDict valueForKey:str] unsignedLongValue];
+				ptrChunk->setPropertyAs<u_int32_t>([str  cStringUsingEncoding:NSISOLatin1StringEncoding], prop);}
+		}
+		else if ( [[str lowercaseString] isEqualToString:@"repetitiontime"] // type is u_int16_t
+				 or   [[str lowercaseString] isEqualToString:@"sequencenumber"]
+				 or   [[str lowercaseString] isEqualToString:@"subjectage"]
+				 or   [[str lowercaseString] isEqualToString:@"subjectweight"]
+				 or   [[str lowercaseString] isEqualToString:@"flipangle"]
+				 or   [[str lowercaseString] isEqualToString:@"numberofaverages"] )
+		{
+			if (YES == [[propDict valueForKey:str] isKindOfClass:[NSNumber class]]){
+				u_int16_t prop = [[propDict valueForKey:str] unsignedIntValue];
+				ptrChunk->setPropertyAs<u_int16_t>([str  cStringUsingEncoding:NSISOLatin1StringEncoding], prop);}
+		}
+		else if ( [[str lowercaseString] isEqualToString:@"echotime"]  // type is float
+				 or   [[str lowercaseString] isEqualToString:@"acquisitiontime"] )
+		{
+			if (YES == [[propDict valueForKey:str] isKindOfClass:[NSNumber class]]){
+				float prop = [[propDict valueForKey:str] floatValue];
+				ptrChunk->setPropertyAs<float>([str  cStringUsingEncoding:NSISOLatin1StringEncoding], prop);}
+		}
+		else									// everything else is interpreted as string (conversion by isis)
+ 		{
+			if (YES == [[propDict valueForKey:str] isKindOfClass:[NSString class]]){
+				std::string prop = [[propDict valueForKey:str]  cStringUsingEncoding:NSISOLatin1StringEncoding];
+				NSLog(@"%s", prop.c_str());
+				ptrChunk->setPropertyAs<std::string>([str  cStringUsingEncoding:NSISOLatin1StringEncoding], prop.c_str());}
+		}
+	} 
 	
 }
+
 
 -(void)appendVolume:(isis::data::Image)img
 {
@@ -214,6 +382,8 @@
         mImageSize.columns = img.getNrOfColumms();
         mImageSize.slices = img.getNrOfSlices();
         mImageSize.timesteps = 1;
+		mDataTypeID = img.getMajorTypeID();
+		mPropMapImage = isis::util::PropertyMap(img);
     }
     else {
         if ((mImageSize.rows == img.getNrOfRows())

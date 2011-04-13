@@ -15,6 +15,7 @@
 	//isis::data::Image mIsisImage;
 	map<size_t, std::vector<boost::shared_ptr<isis::data::Chunk> > > mAllDataMap;
     //size_t mRepetitionNumber;
+	isis::util::PropertyMap mPropMapImage;
 }
 
 -(void)appendVolume:(isis::data::Image)img;

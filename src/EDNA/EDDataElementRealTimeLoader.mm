@@ -60,11 +60,12 @@
         NSLog(@"cancel thread now");
         return;
     }
-
+	EDDataElementIsisRealTime *elem = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:[[BARTImageSize alloc] init] ofImageType:IMAGE_FCTDATA];
+	
 	std::list<isis::data::Image>::const_iterator it ;
     for (it = tempList.begin(); it != tempList.end(); it++) {
 		if (TRUE == [self isImage:*it ofImageType:imgType]){
-            
+            [elem appendVolume:*it];
 			[mDataElement appendVolume:*it];
         }
 		else {
@@ -76,6 +77,8 @@
     }
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadNextDataNotification object:mDataElement];
+	[[NSNotificationCenter defaultCenter] postNotificationName:BARTTestBackroundNotification object:elem];
+	
 }
 
 
