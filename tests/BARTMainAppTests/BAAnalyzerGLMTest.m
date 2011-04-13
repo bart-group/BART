@@ -17,6 +17,7 @@
 
 -(void)setUp
 {
+	contrastVector = [NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0], [NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.0], nil];
 	srand(time(0));
 }
 
@@ -41,7 +42,9 @@
 																	   withSize:sws];
 	
 	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
-	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:nrTimesteps];
+	
+
+	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
 	BADataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:nrTimesteps];
 	
 	STAssertEquals([outputAlg getImageSize].columns,      [outputRef getImageSize].columns, @"output number cols differ");
@@ -210,7 +213,7 @@
 																			   withSize:sws];
 	
 	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
-	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:nrTimesteps];
+	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
 	BADataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:nrTimesteps];
 	
 	STAssertEquals([outputAlg getImageSize].columns,      [outputRef getImageSize].columns, @"output number cols differ");
@@ -440,7 +443,7 @@
 	
 	uint slidingWinAtTimestep = sws;
 	
-	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:slidingWinAtTimestep];
+	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign atCurrentTimestep:slidingWinAtTimestep forContrastVector:contrastVector andWriteResultInto:nil];
 	BADataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:slidingWinAtTimestep];
 	
 	STAssertEquals([outputAlg getImageSize].columns,      [outputRef getImageSize].columns, @"output number cols differ");
@@ -473,7 +476,7 @@
 	
 	slidingWinAtTimestep = sws+67;
 	
-	outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:slidingWinAtTimestep];
+	outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign atCurrentTimestep:slidingWinAtTimestep forContrastVector:contrastVector andWriteResultInto:nil];
 	outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:slidingWinAtTimestep];
 	
 	STAssertEquals([outputAlg getImageSize].columns,      [outputRef getImageSize].columns, @"output number cols differ");
@@ -505,7 +508,7 @@
 		
 	slidingWinAtTimestep = nrTimesteps-1;
 	
-	outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:slidingWinAtTimestep];
+	outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign atCurrentTimestep:slidingWinAtTimestep forContrastVector:contrastVector andWriteResultInto:nil];
 	outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:slidingWinAtTimestep];
 	
 	STAssertEquals([outputAlg getImageSize].columns,      [outputRef getImageSize].columns, @"output number cols differ");

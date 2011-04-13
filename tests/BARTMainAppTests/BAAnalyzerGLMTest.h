@@ -10,7 +10,7 @@
 
 
 @interface BAAnalyzerGLMTest : SenTestCase {
-
+	NSArray *contrastVector;
 }
 
 @end
