@@ -83,7 +83,7 @@
 
 -(BARTImageSize*)getImageSize
 {
-	NSLog(@"%@", mImageSize);
+	//NSLog(@"%@", mImageSize);
 	return mImageSize;
 }
 
