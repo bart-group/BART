@@ -56,6 +56,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 -(BADataElement*)anaylzeTheData:(BADataElement*)data 
                      withDesign:(BADesignElement*)design
              andCurrentTimestep:(size_t)timestep
+//TODO:Ergebnis als Referenz reingeben, nicht hier drin erzeugen UND Contrasts UND MINVAL mitgeben!!
 {
     mDesign = design;
     mData = data;
@@ -89,7 +90,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 //    }
     
 
-    return [mResMap autorelease];
+    return [mResMap retain];
 }
 
 -(void)dealloc
@@ -387,6 +388,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     
 	if (repetitionTime > 0.001 && fwhm > 0.001) {
 		printf(" TR: %.3f seconds\n", repetitionTime);
+		// the relation between fwhm and sigma for gauss is: fwhm = sqrt(8*ln(2))*sigma what is approx. 2.35482
 		sigma = fwhm / 2.35482;
 		sigma /= repetitionTime;
 		if (sigma < 0.1) {
@@ -411,28 +413,42 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 //   /*mData.numberRows*/
 	BARTImageSize *s = [[mData mImageSize] copy];
 	
-	//s->columns = mData.mImageSize.columns;
 	s.slices = mDesign.mNumberExplanatoryVariables;
-	//s->timesteps = mData.mImageSize.slices;
+	s.timesteps = mData.mImageSize.slices;
     mBetaOutput = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_BETAS];
-				
-    [mBetaOutput setImageProperty:PROPID_PATIENT    withValue:[mData getImageProperty:PROPID_PATIENT]];
-    [mBetaOutput setImageProperty:PROPID_VOXEL      withValue:[mData getImageProperty:PROPID_VOXEL]];
-    [mBetaOutput setImageProperty:PROPID_REPTIME    withValue:[NSNumber numberWithLong:mDesign.mRepetitionTimeInMs]];
-    [mBetaOutput setImageProperty:PROPID_TALAIRACH  withValue:[mData getImageProperty:PROPID_TALAIRACH]];
-    //if ('N' != [[mData getImageProperty:PROPID_FIXPOINT] UTF8String]){
-    [mBetaOutput setImageProperty:PROPID_FIXPOINT   withValue:[mData getImageProperty:PROPID_FIXPOINT]];//}
-    
-//    if ('N' != [[mData getImageProperty:PROPID_CA] charValue]){
-    [mBetaOutput setImageProperty:PROPID_CA         withValue:[mData getImageProperty:PROPID_CA]];
-    [mBetaOutput setImageProperty:PROPID_CP         withValue:[mData getImageProperty:PROPID_CP]];
-    [mBetaOutput setImageProperty:PROPID_EXTENT     withValue:[mData getImageProperty:PROPID_EXTENT]];
-  //  }
-    
-    [mBetaOutput setImageProperty:PROPID_NAME       withValue:@"BETA"];
-    [mBetaOutput setImageProperty:PROPID_MODALITY   withValue:@"BETA"];
-    //[mBetaOutput setImageProperty:PROPID_DF         withValue:[NSNumber numberWithFloat:*df]];
-    [mBetaOutput setImageProperty:PROPID_VOXEL      withValue:[mData getImageProperty:PROPID_VOXEL]];
+	
+	NSArray *propsToCopy = [NSArray arrayWithObjects:
+							 @"voxelsize",
+							 @"subjectName",
+							 @"caPos",
+							 @"voxelGap", 
+							 @"repetitionTime",
+							 @"capos",
+							 @"subjectAge",
+							 @"subjectWEIGHT",
+							 @"flipAngle",
+							 @"echoTime",
+							 @"acquisitionTime",
+							 nil];
+	[mBetaOutput copyProps:propsToCopy fromDataElement:mData];
+//	[mBetaOutput setImageProperty:PROPID_VOXEL      withValue:[mData getImageProperty:PROPID_VOXEL]];			
+//    [mBetaOutput setImageProperty:PROPID_PATIENT    withValue:[mData getImageProperty:PROPID_PATIENT]];
+//    
+//    [mBetaOutput setImageProperty:PROPID_REPTIME    withValue:[NSNumber numberWithLong:mDesign.mRepetitionTimeInMs]];
+//    [mBetaOutput setImageProperty:PROPID_TALAIRACH  withValue:[mData getImageProperty:PROPID_TALAIRACH]];
+//    //if ('N' != [[mData getImageProperty:PROPID_FIXPOINT] UTF8String]){
+//    [mBetaOutput setImageProperty:PROPID_FIXPOINT   withValue:[mData getImageProperty:PROPID_FIXPOINT]];//}
+//    
+////    if ('N' != [[mData getImageProperty:PROPID_CA] charValue]){
+//    [mBetaOutput setImageProperty:PROPID_CA         withValue:[mData getImageProperty:PROPID_CA]];
+//    [mBetaOutput setImageProperty:PROPID_CP         withValue:[mData getImageProperty:PROPID_CP]];
+//    [mBetaOutput setImageProperty:PROPID_EXTENT     withValue:[mData getImageProperty:PROPID_EXTENT]];
+//  //  }
+//    
+//    [mBetaOutput setImageProperty:PROPID_NAME       withValue:@"BETA"];
+//    [mBetaOutput setImageProperty:PROPID_MODALITY   withValue:@"BETA"];
+//    //[mBetaOutput setImageProperty:PROPID_DF         withValue:[NSNumber numberWithFloat:*df]];
+//    [mBetaOutput setImageProperty:PROPID_VOXEL      withValue:[mData getImageProperty:PROPID_VOXEL]];
     
     
     //m_BetaImages[i] = VCreateImage(nslices, nrows, ncols, VFloatRepn);
@@ -442,24 +458,25 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 
 	s.slices = 1;
     mResOutput = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
-	[mResOutput setImageProperty:PROPID_NAME        withValue:@"RES/trRV"];
-    [mResOutput setImageProperty:PROPID_MODALITY    withValue:@"RES/trRV"];
-    [mResOutput setImageProperty:PROPID_PATIENT     withValue:[mData getImageProperty:PROPID_PATIENT]];
-    [mResOutput setImageProperty:PROPID_VOXEL       withValue:[mData getImageProperty:PROPID_VOXEL]];
-    [mResOutput setImageProperty:PROPID_REPTIME     withValue:[NSNumber numberWithLong:mDesign.mRepetitionTimeInMs]];
-    [mResOutput setImageProperty:PROPID_TALAIRACH   withValue:[mData getImageProperty:PROPID_TALAIRACH]];
-    //if ('N' != [[mData getImageProperty:PROPID_FIXPOINT] UTF8String]) {
-	[mResOutput setImageProperty:PROPID_FIXPOINT    withValue:[mData getImageProperty:PROPID_FIXPOINT]];
-	//}
-	//if ('N' != [[mData getImageProperty:PROPID_CA] charValue]) {
-	[mResOutput setImageProperty:PROPID_CA         withValue:[mData getImageProperty:PROPID_CA]];
-    [mResOutput setImageProperty:PROPID_CP         withValue:[mData getImageProperty:PROPID_CP]];
-    [mResOutput setImageProperty:PROPID_EXTENT     withValue:[mData getImageProperty:PROPID_EXTENT]];
-	//}
-    
+	//[mResOutput setImageProperty:PROPID_NAME        withValue:@"RES/trRV"];
+//    [mResOutput setImageProperty:PROPID_MODALITY    withValue:@"RES/trRV"];
+//    [mResOutput setImageProperty:PROPID_PATIENT     withValue:[mData getImageProperty:PROPID_PATIENT]];
+//    [mResOutput setImageProperty:PROPID_VOXEL       withValue:[mData getImageProperty:PROPID_VOXEL]];
+//    [mResOutput setImageProperty:PROPID_REPTIME     withValue:[NSNumber numberWithLong:mDesign.mRepetitionTimeInMs]];
+//    [mResOutput setImageProperty:PROPID_TALAIRACH   withValue:[mData getImageProperty:PROPID_TALAIRACH]];
+//    //if ('N' != [[mData getImageProperty:PROPID_FIXPOINT] UTF8String]) {
+//	[mResOutput setImageProperty:PROPID_FIXPOINT    withValue:[mData getImageProperty:PROPID_FIXPOINT]];
+//	//}
+//	//if ('N' != [[mData getImageProperty:PROPID_CA] charValue]) {
+//	[mResOutput setImageProperty:PROPID_CA         withValue:[mData getImageProperty:PROPID_CA]];
+//    [mResOutput setImageProperty:PROPID_CP         withValue:[mData getImageProperty:PROPID_CP]];
+//    [mResOutput setImageProperty:PROPID_EXTENT     withValue:[mData getImageProperty:PROPID_EXTENT]];
+//	//}
+//    [mResOutput copyProps:propsToCopy fromDataElement:mData];
     mResMap = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
-    [mResMap setImageProperty:PROPID_NAME        withValue:@"tmap"]; // TODO: name variably based on ResMap type
-    [mResMap setImageProperty:PROPID_MODALITY    withValue:@"tmap"]; // TODO: name variably based on ResMap type
+//	[mResMap copyProps:propsToCopy fromDataElement:mData];
+//    [mResMap setImageProperty:PROPID_NAME        withValue:@"tmap"]; // TODO: name variably based on ResMap type
+//    [mResMap setImageProperty:PROPID_MODALITY    withValue:@"tmap"]; // TODO: name variably based on ResMap type
     //[mResMap setImageProperty:PROPID_CONTRAST    withValue:<#(id)value#>]
     
     mBCOVOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mDesign.mNumberExplanatoryVariables andCols:mDesign.mNumberExplanatoryVariables andSlices:1 andTimesteps:1];
