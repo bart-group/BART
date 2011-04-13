@@ -19,9 +19,9 @@
 -(id)initWithFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect ofImageType:(enum ImageType)iType
 {
 	// set  isis loglevels
-	isis::image_io::enableLog<isis::util::DefaultMsgPrint>( isis::info );
-	isis::data::enableLog<isis::util::DefaultMsgPrint>( isis::info );
-	isis::util::enableLog<isis::util::DefaultMsgPrint>( isis::warning );
+	isis::image_io::enableLog<isis::util::DefaultMsgPrint>( isis::error );
+	isis::data::enableLog<isis::util::DefaultMsgPrint>( isis::error );
+	isis::util::enableLog<isis::util::DefaultMsgPrint>( isis::error );
 	
 	self = [super init];
     //mRepetitionNumber = 0;
