@@ -48,16 +48,14 @@
 	}
 	
 	//get the type of the orig image
-	mDataTypeID = ((mIsisImageList.front())).getChunkAt(0).getTypeID();
+	mDataTypeID = (mIsisImageList.front()).getMajorTypeID();
 	
 	// make a real copy including conversion to float
 	isis::data::MemImage<float> memImg = ((mIsisImageList.front()));
-	memImg.spliceDownTo(isis::data::sliceDim);
-	// give this copy to our class element
-	//mIsisImage = (isis::data::Image*)malloc(sizeof(isis::data::Image));
-	mIsisImage = new isis::data::Image(memImg); 
 	//splice the whatever build image to a slice-chunked one (each 2D is a single chunk - easier access later on)
-    //mIsisImage->spliceDownTo(isis::data::sliceDim);
+    memImg.spliceDownTo(isis::data::sliceDim);
+	// give this copy to our class element
+	mIsisImage = new isis::data::Image(memImg); 
 	// get our class params from the image itself
 	mImageSize.rows = mIsisImage->getNrOfRows(); // getDimSize(isis::data::colDim)
     mImageSize.columns = mIsisImage->getNrOfColumms();
@@ -305,7 +303,7 @@
         case PROPID_DF:
             break;
         case PROPID_PATIENT:
-			ret = @"";//[[[NSString alloc ] initWithCString:(mIsisImage->getPropertyAs<std::string>("subjectName")).c_str() encoding:NSUTF8StringEncoding] autorelease];
+			ret = [[[NSString alloc ] initWithCString:(mIsisImage->getPropertyAs<std::string>("subjectName")).c_str() encoding:NSUTF8StringEncoding] autorelease];
 			break;
         case PROPID_VOXEL:
             break;
@@ -480,7 +478,9 @@
 		}
 		else									// everything else is interpreted as string (conversion by isis)
 		{
-			std::string prop = mIsisImage->getPropertyAs<std::string>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);
+			std::string prop = "";
+			if (mIsisImage->hasProperty([str cStringUsingEncoding:NSISOLatin1StringEncoding])){
+				std::string prop = mIsisImage->getPropertyAs<std::string>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);}
 			NSString* ret = [[NSString stringWithCString:prop.c_str() encoding:NSISOLatin1StringEncoding] autorelease];
 			[propValues addObject:ret];
 		}
