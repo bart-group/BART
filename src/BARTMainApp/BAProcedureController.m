@@ -171,6 +171,10 @@ size_t startAnalysisAtTimeStep;
 	else {
 		//get data to analyse out of notification
 		mInputData = [aNotification object];
+
+		if ([mInputData getImageSize].timesteps == 1){
+			[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadBackgroundImageNotification object:mInputData];
+		}
 		
 		NSLog(@"Nr of Timesteps in InputData: %d", [mInputData getImageSize].timesteps);
 		if (([mInputData getImageSize].timesteps > startAnalysisAtTimeStep-1 ) && ([mInputData getImageSize].timesteps < [mDesignData mNumberTimesteps])) {
@@ -184,14 +188,15 @@ size_t startAnalysisAtTimeStep;
 
 -(void)processDataThread
 {
+	NSLog(@"processDataThread START");
 	NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
 	BADataElement *resData;
 	
 	
 	//TODO : get from config or gui
 	float cVecFromConfig[mDesignData.mNumberExplanatoryVariables];
-	cVecFromConfig[0] = 1.0;
-	cVecFromConfig[1] = 0.0;
+	cVecFromConfig[0] = -1.0;
+	cVecFromConfig[1] = 1.0;
 	cVecFromConfig[2] = 0.0;
 	NSMutableArray *contrastVector = [[NSMutableArray alloc] init];
 	for (size_t i = 0; i < mDesignData.mNumberExplanatoryVariables; i++){
@@ -206,10 +211,12 @@ size_t startAnalysisAtTimeStep;
 		NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%d.nii", [mInputData getImageSize].timesteps];
 		[resData WriteDataElementToFile:fname];
 	}
-
+	//NSLog(@"!!!!resData retainCoung pre notification %d", [resData retainCount]);
 	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidCalcNextResultNotification object:[resData retain]];
+	//NSLog(@"!!!!!resData retainCoung post notification %d", [resData retainCount]);
 
 	[autoreleasePool drain];
+	NSLog(@"processDataThread END");
 	[NSThread exit];
 }
 
