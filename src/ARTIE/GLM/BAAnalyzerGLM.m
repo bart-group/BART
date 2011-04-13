@@ -17,6 +17,7 @@
 #import "gsl/gsl_blas.h"
 #import "gsl_utils.h"
 
+
 extern gsl_vector *GaussKernel(double);
 extern void GaussMatrix(double, gsl_matrix_float *);
 extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
@@ -26,7 +27,8 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
      
 -(void)Regression:(short)minval
                  :(size_t)sliding_window_size
-                 :(size_t)last_timestep;
+                 :(size_t)last_timestep
+				 :(NSArray*)contrastVector;
 
 -(float_t)CalcSigma:(float_t)fwhm;
 
@@ -53,9 +55,14 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     return self;
 }
 
+//-(BADataElement*)anaylzeTheData:(BADataElement*)data 
+//                     withDesign:(BADesignElement*)design
+//             andCurrentTimestep:(size_t)timestep
 -(BADataElement*)anaylzeTheData:(BADataElement*)data 
                      withDesign:(BADesignElement*)design
-             andCurrentTimestep:(size_t)timestep
+			  atCurrentTimestep:(size_t)timestep
+			  forContrastVector:(NSArray*)contrastVector
+			 andWriteResultInto:(BADataElement*)resData;
 //TODO:Ergebnis als Referenz reingeben, nicht hier drin erzeugen UND Contrasts UND MINVAL mitgeben!!
 {
     mDesign = design;
@@ -76,7 +83,8 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     
     [self Regression:2000 
                     :index // sw: slidingWindowSize akk: indexForTimestep
-                    :timestep];
+                    :timestep
+					:contrastVector];
 //    [self sendFinishNotification];
 
     NSLog(@"Time analysis: End");
@@ -109,8 +117,9 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 
 
 -(void)Regression:(short)minval
-                 :(size_t)sliding_window_size
-                 :(size_t)lastTimestep {
+				 :(size_t)sliding_window_size
+				 :(size_t)lastTimestep
+				 :(NSArray*)contrastVector{
     
     if (sliding_window_size <= lastTimestep) { 
         
@@ -227,21 +236,20 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         }
         gsl_matrix_float_transpose(betaCovariates);
         
-		float contrast[mDesign.mNumberExplanatoryVariables];
+		//float contrast[mDesign.mNumberExplanatoryVariables];
 		//TODO
 		//for (int i = 0; i < mDesign.numberExplanatoryVariables; i++){
-		contrast[0] = 1.0;
-		contrast[1] = 0.0;
-		contrast[2] = 0.0;
+		//contrast[0] = 1.0;
+		//contrast[1] = 0.0;
+		//contrast[2] = 0.0;
         //float contrast[3] = {1.0, -1.0, 0.0};
-        gsl_vector_float *contrastVector;
-        contrastVector = gsl_vector_float_alloc(mDesign.mNumberExplanatoryVariables);
-        //contrastVector = gsl_vector_float_alloc(3);
-        contrastVector->data = contrast;
+        gsl_vector_float *gslContrastVector = gsl_vector_float_alloc([contrastVector count]);
+		for (size_t i = 0; i < [contrastVector count]; i++){
+			gslContrastVector->data[i] = [[contrastVector objectAtIndex:i] floatValue];	}
         
         gsl_vector_float *tmp = NULL;
-        tmp = fmat_x_vector(betaCovariates, contrastVector, tmp);
-        float variance = fskalarproduct(tmp, contrastVector);
+        tmp = fmat_x_vector(betaCovariates, gslContrastVector, tmp);
+        float variance = fskalarproduct(tmp, gslContrastVector);
         float new_sigma = sqrt(variance);
         
         gsl_matrix_float_free(betaCovariates);
@@ -341,7 +349,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                                 for (i = 0; i < numberExplanatoryVariables; i++) {
                                     *ptr1++ = [mBetaOutput getFloatVoxelValueAtRow:row col:col slice:i timestep:slice];
                                 }
-                                sum = fskalarproduct(beta, contrastVector);
+                                sum = fskalarproduct(beta, gslContrastVector);
                                 if (fabs(sum) >= 1.0e-10) {
                                     s = [mResOutput getFloatVoxelValueAtRow:row col:col slice:0 timestep:slice];
                                     tsigma = sqrt(s) * new_sigma;
@@ -370,7 +378,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                 });
             }
         }
-        gsl_vector_float_free(contrastVector);
+        gsl_vector_float_free(gslContrastVector);
         gsl_matrix_float_free(XInv);
         gsl_matrix_float_free(SX);
         
