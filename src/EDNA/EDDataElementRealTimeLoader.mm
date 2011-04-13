@@ -34,6 +34,7 @@
 
 -(void)startRealTimeInputOfImageType
 {
+	NSLog(@"startRealTimeInputOfImageType START");
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	mDataElement = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:[[BARTImageSize alloc] init] ofImageType:IMAGE_FCTDATA];
@@ -42,7 +43,8 @@
 	while (![[NSThread currentThread] isCancelled]) {
 		[self loadNextVolumeOfImageType:IMAGE_FCTDATA];
 	}
-	
+	NSLog(@"startRealTimeInputOfImageType END");
+
 	[pool drain];
 }
 
@@ -52,7 +54,8 @@
 	//isis::image_io::enableLog<isis::util::DefaultMsgPrint>( isis::error );
 	//isis::data::enableLog<isis::util::DefaultMsgPrint>( isis::error );
 	
-    
+    NSLog(@"loadNextVolumeOfImageType START");
+
 	std::list<isis::data::Image> tempList = isis::data::IOFactory::load("", ".tcpip", "");
     
     if (0 == tempList.size() && (YES == [[NSThread currentThread] isExecuting])){
@@ -77,8 +80,9 @@
     }
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadNextDataNotification object:mDataElement];
-	[[NSNotificationCenter defaultCenter] postNotificationName:BARTTestBackroundNotification object:elem];
-	
+	//[[NSNotificationCenter defaultCenter] postNotificationName:BARTTestBackroundNotification object:elem];
+	NSLog(@"loadNextVolumeOfImageType END loaded imageNR: %ld", [mDataElement getImageSize].timesteps);
+
 }
 
 
