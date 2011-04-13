@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+
 @class BASource;
 @class BAElement;
 @class BADesignElement;
@@ -42,7 +43,10 @@ extern NSString *const kAnalyzerGLM;
 // abstract methods to be implemented by subclasses
 -(BADataElement*)anaylzeTheData:(BADataElement*)data 
                      withDesign:(BADesignElement*) design
-             andCurrentTimestep:(size_t)timestep;
+			  atCurrentTimestep:(size_t)timestep
+			  forContrastVector:(NSArray*)contrastVector
+			 andWriteResultInto:(BADataElement*)resData;
+
 
 -(void)sendFinishNotification;
 

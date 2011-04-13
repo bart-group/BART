@@ -376,7 +376,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
     int slice;
     int row;
     int col;
-    float contrastVector[3] = {1.0, 0.0, 0.0};
+   // float contrastVector[3] = {1.0, 0.0, 0.0};
     
     int pos;
     
@@ -390,10 +390,10 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
                 pos = NUMBER_OF_CHANNELS * ((row * displayImageWidth) + col);
                 float value = 0.0;
                 
-                for (size_t icontrast = 0; icontrast < foregroundImage.mImageSize.slices; icontrast++) {
-                    value += (contrastVector[icontrast]) * [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:icontrast timestep:slice]; // (timestep and slice are swapped in beta images)
-                }
-                
+               // for (size_t icontrast = 0; icontrast < foregroundImage.mImageSize.slices; icontrast++) {
+//                    value += (contrastVector[icontrast]) * [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:icontrast timestep:slice]; // (timestep and slice are swapped in beta images)
+//                }
+                value = [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:0 timestep:slice]; // (timestep and slice are swapped in beta images)
                 if (value > maxValue) {
                     maxValue = value;
                 } else if (value < minValue) {
@@ -420,9 +420,10 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
             
             if (slice < numSlices) {
                 //multiply all betas with given contrast vector 
-                for (size_t icontrast = 0; icontrast < foregroundImage.mImageSize.slices; icontrast++ ) {
-                    value += (contrastVector[icontrast]) * [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:icontrast timestep:slice]; // (timestep and slice are swapped in beta images)
-                }
+                //for (size_t icontrast = 0; icontrast < foregroundImage.mImageSize.slices; icontrast++ ) {
+//                    value += (contrastVector[icontrast]) * [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:icontrast timestep:slice]; // (timestep and slice are swapped in beta images)
+//                }
+				value = [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:0 timestep:slice];
             } else {
                 value = 0.0;
             }
