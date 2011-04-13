@@ -8,7 +8,7 @@
 
 #import "BARTApplicationAppDelegate.h"
 
-#import "COSystemConfig.h"
+#import "../CLETUS/COSystemConfig.h"
 #import "BAProcedureController.h"
 #import "BARTNotifications.h"
 
@@ -25,7 +25,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification 
 {    
     COSystemConfig *config = [COSystemConfig getInstance];
-	NSError *err = [config fillWithContentsOfEDLFile:@"../../tests/CLETUSTests/timeBasedRegressorLydi.edl"];
+	NSError *err = [config fillWithContentsOfEDLFile:@"../../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
 	
 	if (err) {
         NSLog(@"%@", err);
@@ -36,6 +36,9 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(setGUIBackgroundImage:)
 												 name:BARTDidLoadBackgroundImageNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(setGUIBackgroundImage:)
+												 name:BARTTestBackroundNotification object:nil];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(setGUIResultImage:)

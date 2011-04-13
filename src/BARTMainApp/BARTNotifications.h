@@ -11,3 +11,4 @@ extern NSString *const BARTDidLoadNextDataNotification;
 extern NSString *const BARTDidCalcNextResultNotification ;
 extern NSString *const BARTDidLoadBackgroundImageNotification;
 extern NSString *const BARTDidReceiveNextTriggerNotification;
+extern NSString * const BARTTestBackroundNotification;

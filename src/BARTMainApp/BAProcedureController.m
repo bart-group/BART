@@ -12,7 +12,7 @@
 #import "BAAnalyzerElement.h"
 #import "BADataElementRealTimeLoader.h"
 #import "BARTNotifications.h"
-
+#import "../CLETUS/COSystemConfig.h"
 
 
 @interface BAProcedureController ()
@@ -24,6 +24,13 @@ BADataElement *mResultData;
 BAAnalyzerElement *mAnalyzer;
 size_t mCurrentTimestep;
 BADataElementRealTimeLoader *mRtLoader;
+COSystemConfig *config;
+//TODO: define enum and take a switch where needed
+BOOL isRealTimeTCPInput;
+// isRealTimeFileInput;
+// isDemoFileInput;
+size_t startAnalysisAtTimeStep;
+
 
 
 -(void)nextDataArrived:(NSNotification*)aNotification;
@@ -44,8 +51,10 @@ BADataElementRealTimeLoader *mRtLoader;
     if (self = [super init]) {
         // TODO: appropriate init
         mCurrentTimestep = 0;
-		
-		
+		//justatest = [[BADataElement alloc ] initEmptyWithSize:[[BARTImageSize alloc] init] ofImageType:IMAGE_ZMAP];
+		 config = [COSystemConfig getInstance];
+		isRealTimeTCPInput = TRUE;
+		startAnalysisAtTimeStep = 15;
     }
     return self;
 }
@@ -70,9 +79,9 @@ BADataElementRealTimeLoader *mRtLoader;
 		[mInputData release];
 		mInputData = nil;
 	}
-	BOOL thisisafileload = FALSE;
+	//TODO: switch for different versions!!
 	//FILE LOAD STUFF
-	if (TRUE == thisisafileload){
+	if (FALSE == isRealTimeTCPInput){
 		// setup the input data
 		mInputData = [[BADataElement alloc] initWithDataFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
 		if (nil == mInputData) {
@@ -132,50 +141,62 @@ BADataElementRealTimeLoader *mRtLoader;
 
 -(BOOL)startAnalysis
 {
-	//[NSThread detachNewThreadSelector:@selector(timerThread) toTarget:self withObject:nil];
-	
-	NSError *err = [[NSError alloc] init];
-	NSThread *t = [[NSThread alloc] initWithTarget:mRtLoader selector:@selector(startRealTimeInputOfImageType) object:err]; //TODO error object 
-	
-	[t start];
+	if (FALSE == isRealTimeTCPInput){
+		[NSThread detachNewThreadSelector:@selector(timerThread) toTarget:self withObject:nil];}
+	else {
+		NSError *err = [[NSError alloc] init];
+		NSThread *t = [[NSThread alloc] initWithTarget:mRtLoader selector:@selector(startRealTimeInputOfImageType) object:err]; //TODO error object 
+		[t start];
+	}
+
 	return TRUE;
 }
 
 -(void)nextDataArrived:(NSNotification*)aNotification
 {
-	//[aNotification object];
-		
-	//TODO: just do this for first loaded image! 
-	//if (50 == mCurrentTimestep){
-	mInputData = [aNotification object];
-	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadBackgroundImageNotification object:[aNotification object]];
 	
-	NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_%d.nii", mCurrentTimestep];
-	[[aNotification object] WriteDataElementToFile:fname];
-	//}
-	//TODO: put in again, just commented out for test purposes!!!
-	// TODO: hard coded max number timesteps
-//	NSLog(@"Timestep: %d", mCurrentTimestep+1);
-	if ((mCurrentTimestep > 17 ) && (mCurrentTimestep < [mDesignData mNumberTimesteps])) {
-		[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
+	
+	if (FALSE == isRealTimeTCPInput){
+		NSLog(@"Timestep: %d", mCurrentTimestep+1);
+		if ((mCurrentTimestep > startAnalysisAtTimeStep-1 ) && (mCurrentTimestep < [mDesignData mNumberTimesteps])) {
+			[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
+		}
+		mCurrentTimestep++;
+		
+		//JUST FOR TEST
+		NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_%d.nii", mCurrentTimestep];
+		[[aNotification object] WriteDataElementToFile:fname];
 	}
-	mCurrentTimestep++;
+	else {
+		//get data to analyse out of notification
+		mInputData = [aNotification object];
+		
+		NSLog(@"Nr of Timesteps in InputData: %d", [mInputData getImageSize].timesteps);
+		if (([mInputData getImageSize].timesteps > startAnalysisAtTimeStep-1 ) && ([mInputData getImageSize].timesteps < [mDesignData mNumberTimesteps])) {
+			[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
+		}
+		// JUST FOR TEST
+		NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_%d.nii", [mInputData getImageSize].timesteps];
+		[[aNotification object] WriteDataElementToFile:fname];
+	}
 }
 
 -(void)processDataThread
 {
 	NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
+	BADataElement *resData;
 	
-	// TODO: copy of DataElement
-	BADataElement *resData = [mAnalyzer anaylzeTheData:mInputData withDesign:[mDesignData copy] andCurrentTimestep:mCurrentTimestep];
-	
-	// TODO: Post GUI update event
-	//[[BAGUIProtoCGLayer getGUI] setForegroundImage:resMap];
-	//[NSApp sendAction:@selector(setForegroundImage:) to:guiController from:resMap];
-	//[guiController setForegroundImage:resData];
-	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidCalcNextResultNotification object:resData];
-	
-	
+	if (FALSE == isRealTimeTCPInput){
+		 resData = [mAnalyzer anaylzeTheData:mInputData withDesign:[mDesignData copy] andCurrentTimestep:mCurrentTimestep-1];
+	}
+	else {
+		resData = [mAnalyzer anaylzeTheData:mInputData withDesign:[mDesignData copy] andCurrentTimestep:[mInputData getImageSize].timesteps];
+		NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%d.nii", [mInputData getImageSize].timesteps];
+		[resData WriteDataElementToFile:fname];
+	}
+
+	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidCalcNextResultNotification object:[resData retain]];
+
 	[autoreleasePool drain];
 	[NSThread exit];
 }
@@ -184,7 +205,7 @@ BADataElementRealTimeLoader *mRtLoader;
 {
 	NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
 	
-	//[self nextDataArrived:nil];
+	[self nextDataArrived:nil];
 	
 	[NSThread sleepForTimeInterval:1.0];
 	[NSThread detachNewThreadSelector:@selector(timerThread) toTarget:self withObject:nil];

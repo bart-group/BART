@@ -11,3 +11,4 @@ NSString * const BARTDidLoadNextDataNotification = @"BARTNextDataNotification";
 NSString * const BARTDidCalcNextResultNotification = @"BARTNextResultNotification";
 NSString * const BARTDidLoadBackgroundImageNotification = @"BARTLoadedBackgroundImageFinished";
 NSString * const BARTDidReceiveNextTriggerNotification = @"BARTNextTriggerNotification";
+NSString * const BARTTestBackroundNotification = @"BARTTestBackroundNotification";
