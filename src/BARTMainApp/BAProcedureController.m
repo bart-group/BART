@@ -52,7 +52,7 @@ size_t startAnalysisAtTimeStep;
 {
     if (self = [super init]) {
         // TODO: appropriate init
-        mCurrentTimestep = 0;
+        mCurrentTimestep = 50;
 		//justatest = [[BADataElement alloc ] initEmptyWithSize:[[BARTImageSize alloc] init] ofImageType:IMAGE_ZMAP];
 		 config = [COSystemConfig getInstance];
 		isRealTimeTCPInput = TRUE;
@@ -195,8 +195,8 @@ size_t startAnalysisAtTimeStep;
 	
 	//TODO : get from config or gui
 	float cVecFromConfig[mDesignData.mNumberExplanatoryVariables];
-	cVecFromConfig[0] = -1.0;
-	cVecFromConfig[1] = 1.0;
+	cVecFromConfig[0] = 1.0;
+	cVecFromConfig[1] = 0.0;
 	cVecFromConfig[2] = 0.0;
 	NSMutableArray *contrastVector = [[NSMutableArray alloc] init];
 	for (size_t i = 0; i < mDesignData.mNumberExplanatoryVariables; i++){
@@ -207,10 +207,11 @@ size_t startAnalysisAtTimeStep;
 		resData = [mAnalyzer anaylzeTheData:mInputData withDesign:[mDesignData copy] atCurrentTimestep:mCurrentTimestep-1 forContrastVector:contrastVector andWriteResultInto:nil];
 	}
 	else {
-		resData = [mAnalyzer anaylzeTheData:mInputData withDesign:[mDesignData copy] atCurrentTimestep:[mInputData getImageSize].timesteps forContrastVector:contrastVector andWriteResultInto:nil];
+		resData = [mAnalyzer anaylzeTheData:mInputData withDesign:[[mDesignData copy] autorelease] atCurrentTimestep:[mInputData getImageSize].timesteps forContrastVector:contrastVector andWriteResultInto:nil];
 		NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%d.nii", [mInputData getImageSize].timesteps];
 		[resData WriteDataElementToFile:fname];
 	}
+	
 	//NSLog(@"!!!!resData retainCoung pre notification %d", [resData retainCount]);
 	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidCalcNextResultNotification object:[resData retain]];
 	//NSLog(@"!!!!!resData retainCoung post notification %d", [resData retainCount]);
