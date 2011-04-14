@@ -40,6 +40,7 @@ size_t startAnalysisAtTimeStep;
 
 -(void)processDataThread;
 -(void)timerThread;
+-(void)lastScanArrived:(NSNotification*)aNotification;
 
 
 
@@ -86,7 +87,7 @@ size_t startAnalysisAtTimeStep;
 	//FILE LOAD STUFF
 	if (FALSE == isRealTimeTCPInput){
 		// setup the input data
-		mInputData = [[BADataElement alloc] initWithDataFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
+		mInputData = [[BADataElement alloc] initWithDataFile:@"/Users/lydi/RealTimeProject/tests/BARTfirstruns/test_imagenr_218.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
 		if (nil == mInputData) {
 			return FALSE;
 		}
@@ -104,6 +105,10 @@ size_t startAnalysisAtTimeStep;
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(nextDataArrived:)
 													 name:BARTDidLoadNextDataNotification object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(lastScanArrived:)
+													 name:BARTScannerSentTerminusNotification object:nil];
 		
 		
 	}
@@ -165,8 +170,8 @@ size_t startAnalysisAtTimeStep;
 		mCurrentTimestep++;
 		
 		//JUST FOR TEST
-		NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_%d.nii", mCurrentTimestep];
-		[[aNotification object] WriteDataElementToFile:fname];
+		//NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_%d.nii", mCurrentTimestep];
+		//[[aNotification object] WriteDataElementToFile:fname];
 	}
 	else {
 		//get data to analyse out of notification
@@ -181,8 +186,9 @@ size_t startAnalysisAtTimeStep;
 			[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
 		}
 		// JUST FOR TEST
-		NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_%d.nii", [mInputData getImageSize].timesteps];
-		[[aNotification object] WriteDataElementToFile:fname];
+		if ([mInputData getImageSize].timesteps == 312){
+			NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_dedumm%d.nii", [mInputData getImageSize].timesteps];
+			[[aNotification object] WriteDataElementToFile:fname];}
 	}
 }
 
@@ -239,5 +245,10 @@ size_t startAnalysisAtTimeStep;
 	// TODO: update GUI
 }
 
+-(void)lastScanArrived:(NSNotification*)aNotification
+{
+	NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_%d.nii", [mInputData getImageSize].timesteps];
+	[mInputData WriteDataElementToFile:fname];
+}
 
 @end
