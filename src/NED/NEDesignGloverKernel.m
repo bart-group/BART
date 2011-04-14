@@ -236,6 +236,9 @@
 
 -(void)dealloc
 {
+	fftw_free(mKernelDeriv0);
+	fftw_free(mKernelDeriv1);
+	fftw_free(mKernelDeriv2);
     [mParams release];
 	[super dealloc];
 }
