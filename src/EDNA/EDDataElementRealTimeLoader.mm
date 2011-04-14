@@ -62,6 +62,7 @@
     if (0 == tempList.size() && (YES == [[NSThread currentThread] isExecuting])){
         [[NSThread currentThread] cancel];
         NSLog(@"cancel thread now");
+		[[NSNotificationCenter defaultCenter] postNotificationName:BARTScannerSentTerminusNotification object:nil];
         return;
     }
 	//EDDataElementIsisRealTime *elem = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:[[BARTImageSize alloc] init] ofImageType:IMAGE_FCTDATA];
@@ -71,6 +72,8 @@
 		if (TRUE == [self isImage:*it ofImageType:imgType]){
             //[elem appendVolume:*it];
 			[mDataElementInterest appendVolume:*it];
+			[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadNextDataNotification object:mDataElementInterest];
+			
         }
 		else {
 			// TODO what to do with other data
@@ -81,7 +84,6 @@
 		
     }
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadNextDataNotification object:mDataElementInterest];
 	//[[NSNotificationCenter defaultCenter] postNotificationName:BARTTestBackroundNotification object:elem];
 	//NSLog(@"loadNextVolumeOfImageType END loaded imageNR: %ld", [mDataElementInterest getImageSize].timesteps);
 
