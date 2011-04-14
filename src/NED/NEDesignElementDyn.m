@@ -283,6 +283,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     mNumberRegressors = mNumberEvents + nrDerivs + 1;
     mNumberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
 	[f release];//temp for conversion purposes
+	[expType release];
 	return error;
 }
 
@@ -502,7 +503,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
             VPixel(plot_image, 0, row, col, VFloat) = (VFloat) plot_image_raw[col][row];
         }
     }
-	
+	free(plot_image_raw);
 
     VAppendAttr(out_list, "plot_gamma", NULL, VImageRepn, plot_image);
     
