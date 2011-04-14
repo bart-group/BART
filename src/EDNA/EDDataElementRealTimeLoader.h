@@ -15,7 +15,8 @@
 
 @interface EDDataElementRealTimeLoader : BADataElementRealTimeLoader  
 {
-	EDDataElementIsisRealTime *mDataElement;
+	EDDataElementIsisRealTime *mDataElementInterest;
+	EDDataElementIsisRealTime *mDataElementRest;
 	NSMutableArray *arrayLoadedDataElements;
 	
 }
