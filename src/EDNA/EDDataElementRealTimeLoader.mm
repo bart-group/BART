@@ -28,7 +28,7 @@
 	//self = [super init];
 	//arrayLoadedDataElements = [[NSMutableArray alloc] initWithCapacity:1];
 	//[arrayLoadedDataElements autorelease];
-	mDataElement = nil;
+	mDataElementInterest = nil;
 	return self;
 }
 
@@ -37,11 +37,12 @@
 	NSLog(@"startRealTimeInputOfImageType START");
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-	mDataElement = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:[[BARTImageSize alloc] init] ofImageType:IMAGE_FCTDATA];
+	mDataElementInterest = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:[[BARTImageSize alloc] init] ofImageType:IMAGE_MOCO];
+	mDataElementRest = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:[[BARTImageSize alloc] init] ofImageType:IMAGE_FCTDATA];
 	
 	[[NSThread currentThread] setThreadPriority:1.0];
 	while (![[NSThread currentThread] isCancelled]) {
-		[self loadNextVolumeOfImageType:IMAGE_FCTDATA];
+		[self loadNextVolumeOfImageType:IMAGE_MOCO];
 	}
 	NSLog(@"startRealTimeInputOfImageType END");
 
@@ -63,25 +64,26 @@
         NSLog(@"cancel thread now");
         return;
     }
-	EDDataElementIsisRealTime *elem = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:[[BARTImageSize alloc] init] ofImageType:IMAGE_FCTDATA];
-	
+	//EDDataElementIsisRealTime *elem = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:[[BARTImageSize alloc] init] ofImageType:IMAGE_FCTDATA];
+	//EDDataElementIsisRealTime *elemMOCO = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:[[BARTImageSize alloc] init] ofImageType:IMAGE_MOCO];
 	std::list<isis::data::Image>::const_iterator it ;
     for (it = tempList.begin(); it != tempList.end(); it++) {
 		if (TRUE == [self isImage:*it ofImageType:imgType]){
-            [elem appendVolume:*it];
-			[mDataElement appendVolume:*it];
+            //[elem appendVolume:*it];
+			[mDataElementInterest appendVolume:*it];
         }
 		else {
 			// TODO what to do with other data
+			[mDataElementRest appendVolume:*it];
 			//[arrayLoadedDataElements addObject:dataElem];
 		}
 
 		
     }
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadNextDataNotification object:mDataElement];
+	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadNextDataNotification object:mDataElementInterest];
 	//[[NSNotificationCenter defaultCenter] postNotificationName:BARTTestBackroundNotification object:elem];
-	NSLog(@"loadNextVolumeOfImageType END loaded imageNR: %ld", [mDataElement getImageSize].timesteps);
+	//NSLog(@"loadNextVolumeOfImageType END loaded imageNR: %ld", [mDataElementInterest getImageSize].timesteps);
 
 }
 
@@ -90,16 +92,19 @@
 {
 	//TODO: kriterien festlegen!!!
 	std::string seqDescr;
+	u_int16_t segNr = img.getPropertyAs<u_int16_t>("sequenceNumber");
 	switch (imgType) {
 		case IMAGE_MOCO:
-			seqDescr = img.getPropertyAs<std::string>("sequenceDescription");
-			if (0 == seqDescr.compare("epi_2D")){
+			//seqDescr = img.getPropertyAs<std::string>("sequenceDescription");
+			 
+			if ( static_cast<u_int16_t>(0) == segNr){
 				return TRUE;}
 			return FALSE;
 			break;
 		case IMAGE_FCTDATA:
-			
-			return TRUE;
+			if ( static_cast<u_int16_t>(1) == segNr){
+				return TRUE;}
+			return FALSE;
 			break;
 		case IMAGE_ANADATA:
 			break;
