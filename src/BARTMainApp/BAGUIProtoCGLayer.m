@@ -199,6 +199,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
         [foregroundCIImage release];
 		foregroundCIImage = nil;
 		foregroundCIImage = [colorMappingFilter valueForKey:@"outputImage"];
+		
     }
     /********************************************************************************/
     
@@ -295,7 +296,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
     
     int displayImageWidth = slicesPerRow * sliceDimension;
     int displayImageHeight = slicesPerCol * sliceDimension;
-    int numSlices = backgroundImage.mImageSize.slices;
+    int numSlices = [backgroundImage getImageSize].slices;
     int slice;
     short value;
     int pos;
@@ -393,7 +394,9 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
                // for (size_t icontrast = 0; icontrast < foregroundImage.mImageSize.slices; icontrast++) {
 //                    value += (contrastVector[icontrast]) * [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:icontrast timestep:slice]; // (timestep and slice are swapped in beta images)
 //                }
-                value = [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:0 timestep:slice]; // (timestep and slice are swapped in beta images)
+				//STCHANGE
+                //value = [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:0 timestep:slice]; // (timestep and slice are swapped in beta images)
+				value = [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:slice timestep:0]; 
                 if (value > maxValue) {
                     maxValue = value;
                 } else if (value < minValue) {
@@ -423,7 +426,9 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
                 //for (size_t icontrast = 0; icontrast < foregroundImage.mImageSize.slices; icontrast++ ) {
 //                    value += (contrastVector[icontrast]) * [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:icontrast timestep:slice]; // (timestep and slice are swapped in beta images)
 //                }
-				value = [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:0 timestep:slice];
+				//STCHANGE!
+				//value = [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:0 timestep:slice];
+				value = [foregroundImage getFloatVoxelValueAtRow:(row % sliceDimension) col:(col % sliceDimension) slice:slice timestep:0];
             } else {
                 value = 0.0;
             }
