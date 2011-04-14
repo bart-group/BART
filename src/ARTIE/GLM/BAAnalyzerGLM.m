@@ -97,8 +97,11 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 //        [mResOutput WriteDataElementToFile:@"/tmp/outfromBART.v"];
 //    }
     
-
-    return [mResMap retain];
+	[mBetaOutput release];
+	[mResOutput release];
+	[mBCOVOutput release];
+	[mDesign release];
+    return [mResMap autorelease];
 }
 
 -(void)dealloc
@@ -324,13 +327,17 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                                 NSNumber *val = [NSNumber numberWithFloat:var];
                                 
                                 /* Write residuals output. */
-                                [mResOutput setVoxelValue:val atRow:row col:col slice:0 timestep:slice];
+								//STCHANGE!
+                                //[mResOutput setVoxelValue:val atRow:row col:col slice:0 timestep:slice];
+								[mResOutput setVoxelValue:val atRow:row col:col slice:slice timestep:0];
                                 
                                 /* Write beta output. */
                                 ptr1 = beta->data;
                                 for (i = 0; i < numberExplanatoryVariables; i++) {
                                     val = [NSNumber numberWithFloat:(*ptr1)];
-                                    [mBetaOutput setVoxelValue: val atRow:row col:col slice:i timestep:slice];
+									//STCHANGE!
+                                    //[mBetaOutput setVoxelValue: val atRow:row col:col slice:i timestep:slice];
+									[mBetaOutput setVoxelValue: val atRow:row col:col slice:slice timestep:i];
                                     ptr1++;
                                 }
                                 gsl_vector_float_free(beta);
@@ -347,11 +354,15 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                                 
                                 ptr1 = beta->data;
                                 for (i = 0; i < numberExplanatoryVariables; i++) {
-                                    *ptr1++ = [mBetaOutput getFloatVoxelValueAtRow:row col:col slice:i timestep:slice];
+									//STCHANGE!
+                                    //*ptr1++ = [mBetaOutput getFloatVoxelValueAtRow:row col:col slice:i timestep:slice];
+									*ptr1++ = [mBetaOutput getFloatVoxelValueAtRow:row col:col slice:slice timestep:i];
                                 }
                                 sum = fskalarproduct(beta, gslContrastVector);
                                 if (fabs(sum) >= 1.0e-10) {
-                                    s = [mResOutput getFloatVoxelValueAtRow:row col:col slice:0 timestep:slice];
+									//STCHANGE!!
+                                    //s = [mResOutput getFloatVoxelValueAtRow:row col:col slice:0 timestep:slice];
+									s = [mResOutput getFloatVoxelValueAtRow:row col:col slice:slice timestep:0];
                                     tsigma = sqrt(s) * new_sigma;
                                     if (tsigma > 0.00001) {
                                         t = sum / tsigma;
@@ -366,7 +377,9 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                                         z_value = 0.0;
                                     }
                                     val = [NSNumber numberWithFloat:z_value];
-                                    [mResMap setVoxelValue:val atRow:row col:col slice:0 timestep:slice];
+									//STCHANGE!
+                                    //[mResMap setVoxelValue:val atRow:row col:col slice:0 timestep:slice];
+									[mResMap setVoxelValue:val atRow:row col:col slice:slice timestep:0];
                                 }
                                 
                                 gsl_vector_float_free(beta);
@@ -410,19 +423,15 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 - (void)createOutputImages
 {
         
-   // NSArray *betaProps = [[NSArray alloc] initWithObjects:PROPID_CA, 
-//                          PROPID_CP, 
-//                          PROPID_FIXPOINT, 
-//                          PROPID_EXTENT, 
-//                          PROPID_PATIENT, 
-//                          PROPID_TALAIRACH, 
-//                          PROPID_VOXEL, 
-//                          nil];
-//   /*mData.numberRows*/
+  
 	BARTImageSize *s = [[mData mImageSize] copy];
 	
-	s.slices = mDesign.mNumberExplanatoryVariables;
-	s.timesteps = mData.mImageSize.slices;
+	//STCHANGE!
+	//s.slices = mDesign.mNumberExplanatoryVariables;
+	//s.timesteps = mData.mImageSize.slices;
+	s.timesteps = mDesign.mNumberExplanatoryVariables;
+	
+	//STCHANGE!
     mBetaOutput = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_BETAS];
 	
 	NSArray *propsToCopy = [NSArray arrayWithObjects:
@@ -439,55 +448,15 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 							 @"acquisitionTime",
 							 nil];
 	[mBetaOutput copyProps:propsToCopy fromDataElement:mData];
-//	[mBetaOutput setImageProperty:PROPID_VOXEL      withValue:[mData getImageProperty:PROPID_VOXEL]];			
-//    [mBetaOutput setImageProperty:PROPID_PATIENT    withValue:[mData getImageProperty:PROPID_PATIENT]];
-//    
-//    [mBetaOutput setImageProperty:PROPID_REPTIME    withValue:[NSNumber numberWithLong:mDesign.mRepetitionTimeInMs]];
-//    [mBetaOutput setImageProperty:PROPID_TALAIRACH  withValue:[mData getImageProperty:PROPID_TALAIRACH]];
-//    //if ('N' != [[mData getImageProperty:PROPID_FIXPOINT] UTF8String]){
-//    [mBetaOutput setImageProperty:PROPID_FIXPOINT   withValue:[mData getImageProperty:PROPID_FIXPOINT]];//}
-//    
-////    if ('N' != [[mData getImageProperty:PROPID_CA] charValue]){
-//    [mBetaOutput setImageProperty:PROPID_CA         withValue:[mData getImageProperty:PROPID_CA]];
-//    [mBetaOutput setImageProperty:PROPID_CP         withValue:[mData getImageProperty:PROPID_CP]];
-//    [mBetaOutput setImageProperty:PROPID_EXTENT     withValue:[mData getImageProperty:PROPID_EXTENT]];
-//  //  }
-//    
-//    [mBetaOutput setImageProperty:PROPID_NAME       withValue:@"BETA"];
-//    [mBetaOutput setImageProperty:PROPID_MODALITY   withValue:@"BETA"];
-//    //[mBetaOutput setImageProperty:PROPID_DF         withValue:[NSNumber numberWithFloat:*df]];
-//    [mBetaOutput setImageProperty:PROPID_VOXEL      withValue:[mData getImageProperty:PROPID_VOXEL]];
-    
-    
-    //m_BetaImages[i] = VCreateImage(nslices, nrows, ncols, VFloatRepn);
-    //
-    //mResOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mData.numberRows andCols:mData.numberCols andSlices:mData.numberSlices andTimesteps:1];
-    //mBCOVOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mDesign.numberCols andCols:mDesign.numberCols andSlices:1 andTimesteps:1];
 
-	s.slices = 1;
+	//STCHANGE!
+	//s.slices = 1;
+	s.timesteps = 1;
     mResOutput = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
-	//[mResOutput setImageProperty:PROPID_NAME        withValue:@"RES/trRV"];
-//    [mResOutput setImageProperty:PROPID_MODALITY    withValue:@"RES/trRV"];
-//    [mResOutput setImageProperty:PROPID_PATIENT     withValue:[mData getImageProperty:PROPID_PATIENT]];
-//    [mResOutput setImageProperty:PROPID_VOXEL       withValue:[mData getImageProperty:PROPID_VOXEL]];
-//    [mResOutput setImageProperty:PROPID_REPTIME     withValue:[NSNumber numberWithLong:mDesign.mRepetitionTimeInMs]];
-//    [mResOutput setImageProperty:PROPID_TALAIRACH   withValue:[mData getImageProperty:PROPID_TALAIRACH]];
-//    //if ('N' != [[mData getImageProperty:PROPID_FIXPOINT] UTF8String]) {
-//	[mResOutput setImageProperty:PROPID_FIXPOINT    withValue:[mData getImageProperty:PROPID_FIXPOINT]];
-//	//}
-//	//if ('N' != [[mData getImageProperty:PROPID_CA] charValue]) {
-//	[mResOutput setImageProperty:PROPID_CA         withValue:[mData getImageProperty:PROPID_CA]];
-//    [mResOutput setImageProperty:PROPID_CP         withValue:[mData getImageProperty:PROPID_CP]];
-//    [mResOutput setImageProperty:PROPID_EXTENT     withValue:[mData getImageProperty:PROPID_EXTENT]];
-//	//}
-//    [mResOutput copyProps:propsToCopy fromDataElement:mData];
-    mResMap = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
-//	[mResMap copyProps:propsToCopy fromDataElement:mData];
-//    [mResMap setImageProperty:PROPID_NAME        withValue:@"tmap"]; // TODO: name variably based on ResMap type
-//    [mResMap setImageProperty:PROPID_MODALITY    withValue:@"tmap"]; // TODO: name variably based on ResMap type
-    //[mResMap setImageProperty:PROPID_CONTRAST    withValue:<#(id)value#>]
-    
-    mBCOVOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mDesign.mNumberExplanatoryVariables andCols:mDesign.mNumberExplanatoryVariables andSlices:1 andTimesteps:1];
+	
+	mResMap = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
+	
+	mBCOVOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mDesign.mNumberExplanatoryVariables andCols:mDesign.mNumberExplanatoryVariables andSlices:1 andTimesteps:1];
 }
 
 @end
