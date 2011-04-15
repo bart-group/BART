@@ -425,14 +425,8 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         
   
 	BARTImageSize *s = [[mData mImageSize] copy];
-	
-	//STCHANGE!
-	//s.slices = mDesign.mNumberExplanatoryVariables;
-	//s.timesteps = mData.mImageSize.slices;
 	s.timesteps = mDesign.mNumberExplanatoryVariables;
-	
-	//STCHANGE!
-    mBetaOutput = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_BETAS];
+	mBetaOutput = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_BETAS];
 	
 	NSArray *propsToCopy = [NSArray arrayWithObjects:
 							 @"voxelsize",
@@ -446,16 +440,20 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 							 @"flipAngle",
 							 @"echoTime",
 							 @"acquisitionTime",
+							@"rowVec",
+							@"sliceVec",
+							@"columnVec",
+							@"sequenceNumber",
+							@"indexOrigin",
 							 nil];
+	
 	[mBetaOutput copyProps:propsToCopy fromDataElement:mData];
 
-	//STCHANGE!
-	//s.slices = 1;
 	s.timesteps = 1;
     mResOutput = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
-	
+	[mResOutput copyProps:propsToCopy fromDataElement:mData];
 	mResMap = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
-	
+	[ mResMap copyProps:propsToCopy fromDataElement:mData];
 	mBCOVOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mDesign.mNumberExplanatoryVariables andCols:mDesign.mNumberExplanatoryVariables andSlices:1 andTimesteps:1];
 }
 
