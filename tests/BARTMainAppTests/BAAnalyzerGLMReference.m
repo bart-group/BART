@@ -594,13 +594,13 @@ skip: ;
                                 NSNumber *val = [NSNumber numberWithFloat:var];
                                 
                                 /* Write residuals output. */
-                                [mResOutput setVoxelValue:val atRow:row col:col slice:0 timestep:slice];
+                                [mResOutput setVoxelValue:val atRow:row col:col slice:slice timestep:0];
                                 
                                 /* Write beta output. */
                                 ptr1 = beta->data;
                                 for (i = 0; i < numberExplanatoryVariables; i++) {
                                     val = [NSNumber numberWithFloat:(*ptr1)];
-                                    [mBetaOutput setVoxelValue: val atRow:row col:col slice:i timestep:slice];
+                                    [mBetaOutput setVoxelValue: val atRow:row col:col slice:slice timestep:i];
                                     ptr1++;
                                 }
                                 gsl_vector_float_free(beta);
@@ -617,11 +617,11 @@ skip: ;
                                 
                                 ptr1 = beta->data;
                                 for (i = 0; i < numberExplanatoryVariables; i++) {
-                                    *ptr1++ = [mBetaOutput getFloatVoxelValueAtRow:row col:col slice:i timestep:slice];
+                                    *ptr1++ = [mBetaOutput getFloatVoxelValueAtRow:row col:col slice:slice timestep:i];
                                 }
                                 sum = fskalarproduct(beta, contrastVector);
                                 if (fabs(sum) >= 1.0e-10) {
-                                    s = [mResOutput getFloatVoxelValueAtRow:row col:col slice:0 timestep:slice];
+                                    s = [mResOutput getFloatVoxelValueAtRow:row col:col slice:slice timestep:0];
                                     tsigma = sqrt(s) * new_sigma;
                                     if (tsigma > 0.00001) {
                                         t = sum / tsigma;
@@ -636,7 +636,7 @@ skip: ;
                                         z_value = 0.0;
                                     }
                                     val = [NSNumber numberWithFloat:z_value];
-                                    [mResMap setVoxelValue:val atRow:row col:col slice:0 timestep:slice];
+                                    [mResMap setVoxelValue:val atRow:row col:col slice:slice timestep:0];
                                 }
                                 
                                 gsl_vector_float_free(beta);
@@ -675,15 +675,14 @@ skip: ;
 
 - (void)createOutputImages
 {
-	BARTImageSize *imSize = [[mData getImageSize] copy];
-	
-	mBetaOutput = [[BADataElement alloc] initEmptyWithSize:[[BARTImageSize alloc] initWithRows:imSize.rows andCols:imSize.columns andSlices:mDesign.mNumberExplanatoryVariables andTimesteps:imSize.slices] ofImageType:IMAGE_BETAS];
-	
-	mResOutput = [[BADataElement alloc] initEmptyWithSize:[[BARTImageSize alloc] initWithRows:imSize.rows andCols:imSize.columns andSlices:1 andTimesteps:imSize.slices] ofImageType:IMAGE_UNKNOWN]; 
-    mResMap = [[BADataElement alloc] initEmptyWithSize:[[BARTImageSize alloc] initWithRows:imSize.rows andCols:imSize.columns andSlices:1 andTimesteps:imSize.slices] ofImageType:IMAGE_TMAP];
-		
+	BARTImageSize *s = [[mData mImageSize] copy];
+	s.timesteps = mDesign.mNumberExplanatoryVariables;
+	mBetaOutput = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_BETAS];
+	s.timesteps = 1;
+    mResOutput = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
+	mResMap = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
 	mBCOVOutput = [[BADataElement alloc] initEmptyWithSize:[[BARTImageSize alloc] initWithRows:mDesign.mNumberExplanatoryVariables andCols:mDesign.mNumberExplanatoryVariables andSlices:1 andTimesteps:1] ofImageType:IMAGE_UNKNOWN];
-	[imSize release];	   
+	[s release];	   
 	
 }
 
