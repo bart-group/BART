@@ -62,7 +62,7 @@
     if (0 == tempList.size() && (YES == [[NSThread currentThread] isExecuting])){
         [[NSThread currentThread] cancel];
         NSLog(@"cancel thread now");
-		[[NSNotificationCenter defaultCenter] postNotificationName:BARTScannerSentTerminusNotification object:nil];
+		[[NSNotificationCenter defaultCenter] postNotificationName:BARTScannerSentTerminusNotification object:mDataElementInterest];
         return;
     }
 	//EDDataElementIsisRealTime *elem = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:[[BARTImageSize alloc] init] ofImageType:IMAGE_FCTDATA];

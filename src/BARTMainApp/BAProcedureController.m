@@ -36,7 +36,6 @@ size_t startAnalysisAtTimeStep;
 
 
 -(void)nextDataArrived:(NSNotification*)aNotification;
--(void)analysisStepDidFinish:(NSNotification*)aNotification;
 
 -(void)processDataThread;
 -(void)timerThread;
@@ -65,6 +64,11 @@ size_t startAnalysisAtTimeStep;
 
 -(void)dealloc
 {
+	//just for security reasons
+	if (1 > [mInputData getImageSize].timesteps){
+		NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_SECURITY%d.nii", [mInputData getImageSize].timesteps];
+		[mInputData WriteDataElementToFile:fname];}
+	
 	
 	[mInputData release];
 	[mResultData release];
@@ -92,15 +96,13 @@ size_t startAnalysisAtTimeStep;
 			return FALSE;
 		}
 		//POST 
-	
 		[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadBackgroundImageNotification object:mInputData];
 	}
 	else{
 		//REALTIMESTUFF
-		//TODO: Unterscheidung Verzeichnis laden oder rtExport laden - zweiter RealTimeLoader
+		//TODO: Unterscheidung Verzeichnis laden oder rtExport laden - zweiter RealTimeLoader??
 		mRtLoader = [[BADataElementRealTimeLoader alloc] init];
-		//BARTImageSize *imSize = [[BARTImageSize alloc] init];
-		//mInputData = [[BADataElement alloc] initForRealTimeTCPIPWithSize:imSize ofImageType:IMAGE_FCTDATA];
+	
 		//register as observer for new data
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(nextDataArrived:)
@@ -240,15 +242,13 @@ size_t startAnalysisAtTimeStep;
 	[NSThread exit];
 }
 
--(void)analysisStepDidFinish:(NSNotification*)aNotification
-{
-	// TODO: update GUI
-}
 
 -(void)lastScanArrived:(NSNotification*)aNotification
 {
-	NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_%d.nii", [mInputData getImageSize].timesteps];
-	[mInputData WriteDataElementToFile:fname];
+	//TODO: folder from edl
+	NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_%d.nii", [[aNotification object] getImageSize].timesteps];
+	[[aNotification object] WriteDataElementToFile:fname];
 }
+
 
 @end
