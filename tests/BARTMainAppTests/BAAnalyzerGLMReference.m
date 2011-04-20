@@ -388,7 +388,12 @@ skip: ;
                     :index // sw: mSlidingWindowSize akk: indexForTimestep
                     :timestep];
 	
+	[mBetaOutput release];
+	[mResOutput release];
+	[mBCOVOutput release];
+	[mDesign release];
     return [mResMap autorelease];
+	
 }
 
 -(void)dealloc

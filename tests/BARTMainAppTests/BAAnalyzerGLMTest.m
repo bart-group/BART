@@ -10,7 +10,7 @@
 #import "../../src/CLETUS/COSystemConfig.h"
 #import "../../src/ARTIE/GLM/BAAnalyzerGLM.h"
 #import "BAAnalyzerGLMReference.h"
-#import "../../src/EDNA/EDDataElementVI.h"
+#import "../../src/BARTMainApp/BADataElement.h"
 
 
 @implementation BAAnalyzerGLMTest
@@ -44,8 +44,8 @@
 	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
 	
 
-	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
-	BADataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:nrTimesteps];
+	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:[inputDesign copy] atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
+	BADataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
 	
 	STAssertEquals([outputAlg getImageSize].columns,      [outputRef getImageSize].columns, @"output number cols differ");
 	STAssertEquals([outputAlg getImageSize].rows,      [outputRef getImageSize].rows, @"output number rows differ");
@@ -213,8 +213,8 @@
 																			   withSize:sws];
 	
 	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
-	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
-	BADataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:nrTimesteps];
+	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:[inputDesign copy] atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
+	BADataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
 	
 	STAssertEquals([outputAlg getImageSize].columns,      [outputRef getImageSize].columns, @"output number cols differ");
 	STAssertEquals([outputAlg getImageSize].rows,      [outputRef getImageSize].rows, @"output number rows differ");
@@ -268,8 +268,8 @@
 //																			   withSize:sws];
 //	
 //	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
-//	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:nrTimesteps];
-//	BADataElement* outputRef = [glmReference anaylzeTheData:inputDataRef withDesign:inputDesign andCurrentTimestep:nrTimesteps];
+//	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
+//	BADataElement* outputRef = [glmReference anaylzeTheData:inputDataRef withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
 //	
 //	STAssertEquals([outputAlg getImageSize].columns,      [outputRef getImageSize].columns, @"output number cols differ");
 //	STAssertEquals([outputAlg getImageSize].rows,      [outputRef getImageSize].rows, @"output number rows differ");
@@ -443,8 +443,8 @@
 	
 	uint slidingWinAtTimestep = sws;
 	
-	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign atCurrentTimestep:slidingWinAtTimestep forContrastVector:contrastVector andWriteResultInto:nil];
-	BADataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:slidingWinAtTimestep];
+	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:[inputDesign copy] atCurrentTimestep:slidingWinAtTimestep forContrastVector:contrastVector andWriteResultInto:nil];
+	BADataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:[inputDesign copy] andCurrentTimestep:slidingWinAtTimestep];
 	
 	STAssertEquals([outputAlg getImageSize].columns,      [outputRef getImageSize].columns, @"output number cols differ");
 	STAssertEquals([outputAlg getImageSize].rows,      [outputRef getImageSize].rows, @"output number rows differ");
@@ -476,8 +476,8 @@
 	
 	slidingWinAtTimestep = sws+67;
 	
-	outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign atCurrentTimestep:slidingWinAtTimestep forContrastVector:contrastVector andWriteResultInto:nil];
-	outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:slidingWinAtTimestep];
+	outputAlg = [glmAlg anaylzeTheData:inputData withDesign:[inputDesign copy] atCurrentTimestep:slidingWinAtTimestep forContrastVector:contrastVector andWriteResultInto:nil];
+	outputRef = [glmReference anaylzeTheData:inputData withDesign:[inputDesign copy] andCurrentTimestep:slidingWinAtTimestep];
 	
 	STAssertEquals([outputAlg getImageSize].columns,      [outputRef getImageSize].columns, @"output number cols differ");
 	STAssertEquals([outputAlg getImageSize].rows,      [outputRef getImageSize].rows, @"output number rows differ");
@@ -508,8 +508,8 @@
 		
 	slidingWinAtTimestep = nrTimesteps-1;
 	
-	outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign atCurrentTimestep:slidingWinAtTimestep forContrastVector:contrastVector andWriteResultInto:nil];
-	outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:slidingWinAtTimestep];
+	outputAlg = [glmAlg anaylzeTheData:inputData withDesign:[inputDesign copy] atCurrentTimestep:slidingWinAtTimestep forContrastVector:contrastVector andWriteResultInto:nil];
+	outputRef = [glmReference anaylzeTheData:inputData withDesign:[inputDesign copy] andCurrentTimestep:slidingWinAtTimestep];
 	
 	STAssertEquals([outputAlg getImageSize].columns,      [outputRef getImageSize].columns, @"output number cols differ");
 	STAssertEquals([outputAlg getImageSize].rows,      [outputRef getImageSize].rows, @"output number rows differ");
@@ -727,15 +727,15 @@
 //	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
 //	
 //	
-//	BADataElement* outputAlg1TS = [glmAlg anaylzeTheData:inputData1TS withDesign:inputDesign andCurrentTimestep:nrTimesteps];
-//	BADataElement* outputAlg1S = [glmAlg anaylzeTheData:inputData1S withDesign:inputDesign andCurrentTimestep:nrTimesteps];
-//	BADataElement* outputAlg1R = [glmAlg anaylzeTheData:inputData1R withDesign:inputDesign andCurrentTimestep:nrTimesteps];
-//	BADataElement* outputAlg1C = [glmAlg anaylzeTheData:inputData1C withDesign:inputDesign andCurrentTimestep:nrTimesteps];
+//	BADataElement* outputAlg1TS = [glmAlg anaylzeTheData:inputData1TS withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
+//	BADataElement* outputAlg1S = [glmAlg anaylzeTheData:inputData1S withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
+//	BADataElement* outputAlg1R = [glmAlg anaylzeTheData:inputData1R withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
+//	BADataElement* outputAlg1C = [glmAlg anaylzeTheData:inputData1C withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
 //	
-//	BADataElement* outputRef1TS = [glmReference anaylzeTheData:inputData1TS withDesign:inputDesign andCurrentTimestep:nrTimesteps];
-//	BADataElement* outputRef1S = [glmReference anaylzeTheData:inputData1S withDesign:inputDesign andCurrentTimestep:nrTimesteps];
-//	BADataElement* outputRef1R = [glmReference anaylzeTheData:inputData1R withDesign:inputDesign andCurrentTimestep:nrTimesteps];
-//	BADataElement* outputRef1C = [glmReference anaylzeTheData:inputData1C withDesign:inputDesign andCurrentTimestep:nrTimesteps];
+//	BADataElement* outputRef1TS = [glmReference anaylzeTheData:inputData1TS withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
+//	BADataElement* outputRef1S = [glmReference anaylzeTheData:inputData1S withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
+//	BADataElement* outputRef1R = [glmReference anaylzeTheData:inputData1R withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
+//	BADataElement* outputRef1C = [glmReference anaylzeTheData:inputData1C withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
 //	
 //	STAssertEquals([outputAlg1TS getImageSize].columns,      [outputRef1TS getImageSize].columns, @"output number cols differ");
 //	STAssertEquals([outputAlg1TS getImageSize].rows,      [outputRef1TS getImageSize].rows, @"output number rows differ");
