@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "BAAnalyzerElement.h"
+#import "../../BARTMainApp/BAAnalyzerElement.h"
 
 // strange MAXKONSTANTEN aus vcolorglm - sicherheitshalber noch da - Test notwendig
 #define ETMP     64   /* max number of temporary images for smoothness estim */
