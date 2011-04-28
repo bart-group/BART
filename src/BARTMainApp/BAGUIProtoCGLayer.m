@@ -308,8 +308,9 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
     
     backgroundImageRaw = (short*) malloc(sizeof(short) * NUMBER_OF_CHANNELS * displayImageWidth * displayImageHeight);
     
-    CGPoint minmax;
-    minmax = [self computeMinMaxVoxelValue:backgroundImage];
+    NSArray *minmaxArray = [backgroundImage getMinMaxOfDataElement];
+    CGPoint minmax = {[[minmaxArray objectAtIndex:0] floatValue], [[minmaxArray objectAtIndex:1] floatValue]};
+   // minmax = [self computeMinMaxVoxelValue:backgroundImage];
     
     float valueScale = ((float) SHRT_MAX) / (minmax.y - minmax.x);  
     
