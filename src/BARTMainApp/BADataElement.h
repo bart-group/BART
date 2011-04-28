@@ -98,5 +98,10 @@
 
 -(void)setProps:(NSDictionary*)propDict;
 
+-(BOOL)isEmpty;
+
+-(BOOL)isValid;
+
+-(NSArray*)getMinMaxOfDataElement;
 
 @end
