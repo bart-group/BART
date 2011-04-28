@@ -93,6 +93,12 @@
 		00C3A06211450B9300725668 /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C39FF11144FB2100725668 /* CLETUS.dylib */; };
 		00C3A081114510CE00725668 /* Init_Links_1.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00C3A07F114510CE00725668 /* Init_Links_1.edl */; };
 		00C3A082114510CE00725668 /* rtExperiment_v14.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 00C3A080114510CE00725668 /* rtExperiment_v14.xsd */; };
+		00C730B21369F02B00FC8546 /* libboost_date_time-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BA134B4F8800094A51 /* libboost_date_time-mt.dylib */; };
+		00C730B31369F02C00FC8546 /* libboost_filesystem-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BC134B4F8800094A51 /* libboost_filesystem-mt.dylib */; };
+		00C730B41369F02D00FC8546 /* libboost_regex-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BE134B4F8800094A51 /* libboost_regex-mt.dylib */; };
+		00C730B51369F03000FC8546 /* libfftw3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A15135C6F5000562F3B /* libfftw3.dylib */; };
+		00C730B61369F03500FC8546 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
+		00C730B71369F03600FC8546 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00D4409B134B4DCC00094A51 /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D4409A134B4DCC00094A51 /* libisis_core.dylib */; };
 		00D440ED134B52AE00094A51 /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D4409A134B4DCC00094A51 /* libisis_core.dylib */; };
 		00D440EE134B52B100094A51 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440C0134B4F8800094A51 /* libboost_system-mt.dylib */; };
@@ -195,13 +201,13 @@
 		00EA8DD4135D870700562F3B /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D4409A134B4DCC00094A51 /* libisis_core.dylib */; };
 		00EA8DDA135D871A00562F3B /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
 		00EA8DDB135D871B00562F3B /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
-		00EA8DE7135D876900562F3B /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A2F135C6FC700562F3B /* NED.dylib */; };
+		00EA8DE7135D876900562F3B /* NEDd.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A2F135C6FC700562F3B /* NEDd.dylib */; };
 		00EA8DF2135D879B00562F3B /* libfftw3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A15135C6F5000562F3B /* libfftw3.dylib */; };
 		00EA8E11135D88E000562F3B /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573111459587007C02CB /* libgslcblas.dylib */; };
 		00EA8E13135D88E100562F3B /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573B11459605007C02CB /* libgsl.0.dylib */; };
-		00EA8E18135D88F000562F3B /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A2F135C6FC700562F3B /* NED.dylib */; };
+		00EA8E18135D88F000562F3B /* NEDd.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A2F135C6FC700562F3B /* NEDd.dylib */; };
 		00EA8E50135D8B8400562F3B /* BAAnalyzerGLMReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F53F122D3366001DA2BB /* BAAnalyzerGLMReference.m */; };
-		00EA8E51135D8B9600562F3B /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A2F135C6FC700562F3B /* NED.dylib */; };
+		00EA8E51135D8B9600562F3B /* NEDd.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A2F135C6FC700562F3B /* NEDd.dylib */; };
 		00EA8E54135D8B9D00562F3B /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44160134B57BD00094A51 /* EDNA.dylib */; };
 		00EA8E59135D8BA700562F3B /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573111459587007C02CB /* libgslcblas.dylib */; };
 		00EA8E5B135D8BA800562F3B /* libfftw3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A15135C6F5000562F3B /* libfftw3.dylib */; };
@@ -258,6 +264,34 @@
 			remoteGlobalIDString = 00C39FF01144FB2100725668;
 			remoteInfo = CLETUS;
 		};
+		0089F99413605CCF00051A35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00D4415F134B57BD00094A51;
+			remoteInfo = EDNA;
+		};
+		0089F99613605CD200051A35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00C39FF01144FB2100725668;
+			remoteInfo = CLETUS;
+		};
+		0089F99813605CD800051A35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00EA8A2E135C6FC700562F3B;
+			remoteInfo = NEDd;
+		};
+		00A00DAB135F7C15003895F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00EA8A2E135C6FC700562F3B;
+			remoteInfo = NEDd;
+		};
 		00A7DD67117C385A00062AFE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -297,21 +331,21 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 00C39FF01144FB2100725668 /* CLETUS */;
+			remoteGlobalIDString = 00C39FF01144FB2100725668;
 			remoteInfo = CLETUS;
 		};
 		00EA8B58135C83EA00562F3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 00C39FF01144FB2100725668 /* CLETUS */;
+			remoteGlobalIDString = 00C39FF01144FB2100725668;
 			remoteInfo = CLETUS;
 		};
 		00EA8B5A135C83EE00562F3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 00D4415F134B57BD00094A51 /* EDNA */;
+			remoteGlobalIDString = 00D4415F134B57BD00094A51;
 			remoteInfo = EDNA;
 		};
 /* End PBXContainerItemProxy section */
@@ -462,8 +496,8 @@
 		00AE4356133CEC4A00F2D01D /* EDDataElementRealTimeLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementRealTimeLoader.h; sourceTree = "<group>"; };
 		00AE43A61343912400F2D01D /* EDDataElementIsisRealTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementIsisRealTime.h; sourceTree = "<group>"; };
 		00AE43A71343912400F2D01D /* EDDataElementIsisRealTime.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EDDataElementIsisRealTime.mm; sourceTree = "<group>"; };
-		00B1573111459587007C02CB /* libgslcblas.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgslcblas.dylib; path = /usr/local/lib/libgslcblas.dylib; sourceTree = "<absolute>"; };
-		00B1573B11459605007C02CB /* libgsl.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgsl.0.dylib; path = /usr/local/lib/libgsl.0.dylib; sourceTree = "<absolute>"; };
+		00B1573111459587007C02CB /* libgslcblas.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgslcblas.dylib; path = /opt/local/lib/libgslcblas.dylib; sourceTree = "<absolute>"; };
+		00B1573B11459605007C02CB /* libgsl.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgsl.0.dylib; path = /opt/local/lib/libgsl.0.dylib; sourceTree = "<absolute>"; };
 		00B1AC22114554DB008FC09D /* COEDLValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COEDLValidator.h; sourceTree = "<group>"; };
 		00B1AC23114554DB008FC09D /* COEDLValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COEDLValidator.m; sourceTree = "<group>"; };
 		00B1AC32114556C3008FC09D /* COEDLValidatorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COEDLValidatorTest.h; sourceTree = "<group>"; };
@@ -505,9 +539,9 @@
 		00E7A647117EF24F00696498 /* blockDesignTest01.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = blockDesignTest01.edl; sourceTree = "<group>"; };
 		00E7A655117EF60900696498 /* NEDesignElementDynTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignElementDynTest.m; sourceTree = "<group>"; };
 		00EA8A15135C6F5000562F3B /* libfftw3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfftw3.dylib; path = /opt/local/lib/libfftw3.dylib; sourceTree = "<absolute>"; };
-		00EA8A2F135C6FC700562F3B /* NED.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = NED.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		00EA8A2F135C6FC700562F3B /* NEDd.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = NEDd.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		00EA8ABD135C764F00562F3B /* libboost_date_time.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; name = libboost_date_time.dylib; path = /opt/local/lib/libboost_date_time.dylib; sourceTree = "<absolute>"; };
-		00EA8ABE135C764F00562F3B /* libboost_filesystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_filesystem.dylib; path = /opt/local/var/macports/software/boost/1.44.0_0/opt/local/lib/libboost_filesystem.dylib; sourceTree = "<absolute>"; };
+		00EA8ABE135C764F00562F3B /* libboost_filesystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_filesystem.dylib; path = /opt/local/lib/libboost_filesystem.dylib; sourceTree = "<absolute>"; };
 		00EA8ABF135C764F00562F3B /* libboost_regex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_regex.dylib; path = /opt/local/lib/libboost_regex.dylib; sourceTree = "<absolute>"; };
 		00EA8AC0135C764F00562F3B /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = /opt/local/lib/libboost_system.dylib; sourceTree = "<absolute>"; };
 		00EA8B52135C83E100562F3B /* glmtest2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = glmtest2; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -527,7 +561,7 @@
 		8D1107310486CEB800E47090 /* BARTApplication-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTApplication-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* BARTApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BARTApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE8A2A3910F61713002422B5 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
-		CE8B709110DA988F007AEB2B /* BARTApplication.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BARTApplication.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE8B709110DA988F007AEB2B /* BARTUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BARTUnitTestSuite.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		CED191F510AC8A7B00FAFA4F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		CED1922910AC8AD600FAFA4F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
@@ -578,7 +612,7 @@
 				00EA8AC6135C764F00562F3B /* libboost_filesystem.dylib in Frameworks */,
 				00EA8AC7135C764F00562F3B /* libboost_regex.dylib in Frameworks */,
 				00EA8AC8135C764F00562F3B /* libboost_system.dylib in Frameworks */,
-				00EA8E51135D8B9600562F3B /* NED.dylib in Frameworks */,
+				00EA8E51135D8B9600562F3B /* NEDd.dylib in Frameworks */,
 				00EA8E54135D8B9D00562F3B /* EDNA.dylib in Frameworks */,
 				00EA8E59135D8BA700562F3B /* libgslcblas.dylib in Frameworks */,
 				00EA8E5B135D8BA800562F3B /* libfftw3.dylib in Frameworks */,
@@ -712,7 +746,13 @@
 				00D440ED134B52AE00094A51 /* libisis_core.dylib in Frameworks */,
 				00D440EE134B52B100094A51 /* libboost_system-mt.dylib in Frameworks */,
 				00D441D8134B5AE300094A51 /* EDNA.dylib in Frameworks */,
-				00EA8E18135D88F000562F3B /* NED.dylib in Frameworks */,
+				00EA8E18135D88F000562F3B /* NEDd.dylib in Frameworks */,
+				00C730B21369F02B00FC8546 /* libboost_date_time-mt.dylib in Frameworks */,
+				00C730B31369F02C00FC8546 /* libboost_filesystem-mt.dylib in Frameworks */,
+				00C730B41369F02D00FC8546 /* libboost_regex-mt.dylib in Frameworks */,
+				00C730B51369F03000FC8546 /* libfftw3.dylib in Frameworks */,
+				00C730B61369F03500FC8546 /* libvia.dylib in Frameworks */,
+				00C730B71369F03600FC8546 /* libviaio.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,7 +771,7 @@
 				00EA8DD4135D870700562F3B /* libisis_core.dylib in Frameworks */,
 				00EA8DDA135D871A00562F3B /* libvia.dylib in Frameworks */,
 				00EA8DDB135D871B00562F3B /* libviaio.dylib in Frameworks */,
-				00EA8DE7135D876900562F3B /* NED.dylib in Frameworks */,
+				00EA8DE7135D876900562F3B /* NEDd.dylib in Frameworks */,
 				00EA8DF2135D879B00562F3B /* libfftw3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1125,7 +1165,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* BARTApplication.app */,
-				CE8B709110DA988F007AEB2B /* BARTApplication.octest */,
+				CE8B709110DA988F007AEB2B /* BARTUnitTestSuite.octest */,
 				00C39FF11144FB2100725668 /* CLETUS.dylib */,
 				00C39FFA1144FBD600725668 /* CLETUSUnitTestSuite.octest */,
 				00A7DD4B117C366A00062AFE /* NEDUnitTestSuite.octest */,
@@ -1139,7 +1179,7 @@
 				008AEADD12B2381700130F74 /* data.dylib */,
 				0056D7D112D3354D002AC73F /* designtest */,
 				00D44160134B57BD00094A51 /* EDNA.dylib */,
-				00EA8A2F135C6FC700562F3B /* NED.dylib */,
+				00EA8A2F135C6FC700562F3B /* NEDd.dylib */,
 				00EA8B52135C83E100562F3B /* glmtest2 */,
 			);
 			name = Products;
@@ -1334,6 +1374,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				0089F99513605CCF00051A35 /* PBXTargetDependency */,
+				0089F99713605CD200051A35 /* PBXTargetDependency */,
+				0089F99913605CD800051A35 /* PBXTargetDependency */,
 			);
 			name = glmtest;
 			productName = glmtest;
@@ -1512,7 +1555,7 @@
 			);
 			name = NEDd;
 			productName = NEDd;
-			productReference = 00EA8A2F135C6FC700562F3B /* NED.dylib */;
+			productReference = 00EA8A2F135C6FC700562F3B /* NEDd.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		00EA8B51135C83E100562F3B /* glmtest2 */ = {
@@ -1549,6 +1592,7 @@
 			dependencies = (
 				00C3A0231144FF0C00725668 /* PBXTargetDependency */,
 				00D441EF134B5B5400094A51 /* PBXTargetDependency */,
+				00A00DAC135F7C15003895F5 /* PBXTargetDependency */,
 			);
 			name = BARTApplication;
 			productInstallPath = "$(HOME)/Applications";
@@ -1573,7 +1617,7 @@
 			);
 			name = BARTUnitTestSuite;
 			productName = BARTUnitTestSuite;
-			productReference = CE8B709110DA988F007AEB2B /* BARTApplication.octest */;
+			productReference = CE8B709110DA988F007AEB2B /* BARTUnitTestSuite.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -2003,6 +2047,26 @@
 			target = 00C39FF01144FB2100725668 /* CLETUS */;
 			targetProxy = 0056D7D712D3355E002AC73F /* PBXContainerItemProxy */;
 		};
+		0089F99513605CCF00051A35 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00D4415F134B57BD00094A51 /* EDNA */;
+			targetProxy = 0089F99413605CCF00051A35 /* PBXContainerItemProxy */;
+		};
+		0089F99713605CD200051A35 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00C39FF01144FB2100725668 /* CLETUS */;
+			targetProxy = 0089F99613605CD200051A35 /* PBXContainerItemProxy */;
+		};
+		0089F99913605CD800051A35 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00EA8A2E135C6FC700562F3B /* NEDd */;
+			targetProxy = 0089F99813605CD800051A35 /* PBXContainerItemProxy */;
+		};
+		00A00DAC135F7C15003895F5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00EA8A2E135C6FC700562F3B /* NEDd */;
+			targetProxy = 00A00DAB135F7C15003895F5 /* PBXContainerItemProxy */;
+		};
 		00A7DD68117C385A00062AFE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 00C39FF01144FB2100725668 /* CLETUS */;
@@ -2387,9 +2451,7 @@
 					/usr/include,
 				);
 				INSTALL_PATH = /usr/local/bin;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = isis_test;
@@ -2870,18 +2932,27 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/usr/local/include/isis,
+					/usr/include,
+					/opt/local/include,
+				);
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/opt/local/lib,
+					/usr/local/share/isis/plugins,
+					/usr/local/lib,
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -3017,7 +3088,7 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				BUNDLE_LOADER = "";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"";
@@ -3026,7 +3097,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"_ENABLE_DEBUG=0",
-					"_ENABLE_LOG=1",
+					"_ENABLE_LOG=0",
 					"$(GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1)",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1 = "BUILD_PATH=/tmp/test/";
@@ -3052,7 +3123,7 @@
 					/opt/local/lib,
 					/usr/lib,
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-fvisibility=default",
@@ -3068,8 +3139,13 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"_ENABLE_DEBUG=0",
+					"_ENABLE_LOG=0",
+					"$(GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1)",
+				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
