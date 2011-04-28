@@ -53,7 +53,7 @@
 	// make a real copy including conversion to float
 	isis::data::MemImage<float> memImg = ((mIsisImageList.front()));
 	//splice the whatever build image to a slice-chunked one (each 2D is a single chunk - easier access later on)
-    memImg.spliceDownTo(isis::data::sliceDim);
+   // memImg.spliceDownTo(isis::data::sliceDim);
 	// give this copy to our class element
 	mIsisImage = new isis::data::Image(memImg); 
 	// get our class params from the image itself
@@ -87,19 +87,19 @@
     std::list<isis::data::Chunk> chList;
     
 	// create it with each slice and each timestep as a chunk and with type float (loaded ones are converted)
-	for (size_t ts = 0; ts < mImageSize.timesteps; ts++){
-		for (size_t sl = 0; sl < mImageSize.slices; sl++){
-			isis::data::MemChunk<float> ch(mImageSize.columns, mImageSize.rows);
-			ch.setPropertyAs<isis::util::fvector4>("indexOrigin", isis::util::fvector4(0,0,sl));
-			ch.setPropertyAs<u_int32_t>("acquisitionNumber", sl+ts*mImageSize.slices);
+	//for (size_t ts = 0; ts < mImageSize.timesteps; ts++){
+	//	for (size_t sl = 0; sl < mImageSize.slices; sl++){
+			isis::data::MemChunk<float> ch(mImageSize.columns, mImageSize.rows, mImageSize.slices, mImageSize.timesteps);
+			ch.setPropertyAs<isis::util::fvector4>("indexOrigin", isis::util::fvector4(0,0,1));//sl
+			ch.setPropertyAs<u_int32_t>("acquisitionNumber", 1);//sl+ts*mImageSize.slices
 			ch.setPropertyAs<u_int16_t>("sequenceNumber", 1);
 			ch.setPropertyAs<isis::util::fvector4>("voxelSize", isis::util::fvector4(1,1,1,0));
 			ch.setPropertyAs<isis::util::fvector4>("rowVec", isis::util::fvector4(1,0,0,0));
 			ch.setPropertyAs<isis::util::fvector4>("columnVec", isis::util::fvector4(0,1,0,0));
 			ch.setPropertyAs<isis::util::fvector4>("sliceVec", isis::util::fvector4(0,0,1,0));
 			chList.push_back(ch);
-		}
-	}
+	//	}
+	//}
 
     mIsisImage = new isis::data::Image(chList);
    return self;
@@ -545,12 +545,12 @@
 	
 }
 
--(BOOL)valid
+-(BOOL)isValid
 {
 	return mIsisImage->isValid();
 }
 
--(BOOL)empty
+-(BOOL)isEmpty
 {
 	return mIsisImage->isEmpty();
 }
@@ -620,5 +620,14 @@
 {
 	
 }
+
+-(NSArray*)getMinMaxOfDataElement
+{
+    
+    std::pair<float, float> minMax = mIsisImage->getMinMaxAs<float>();
+    NSArray *ret = [NSArray arrayWithObjects:[NSNumber numberWithFloat:minMax.first], [NSNumber numberWithFloat:minMax.second], nil];
+    return ret;
+}
+
 
 @end
