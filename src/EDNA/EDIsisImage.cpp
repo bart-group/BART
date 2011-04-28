@@ -16,22 +16,48 @@
 EDIsisImage::EDIsisImage(const isis::data::Image &src) : isis::data::Image(src)
 {
 	//clear the set table to make clear it's not an usual image
-		set.clear();
+    set.clear();
+    
+    std::vector<boost::shared_ptr<isis::data::Chunk> >::iterator itVector;
+    for (itVector = lookup.begin(); itVector != lookup.end(); itVector++) {
+        (**itVector).join(src);
+    }
+    
 }
-	
-void EDIsisImage::addVolume(std::vector< boost::shared_ptr< isis::data::Chunk > > chunks){
-	BOOST_FOREACH(boost::shared_ptr< isis::data::Chunk > p,chunks){
+
+void EDIsisImage::appendVolume(isis::data::Image &img){
+    
+    std::vector<boost::shared_ptr<isis::data::Chunk> > chVector = img.getChunksAsVector();
+    std::vector<boost::shared_ptr<isis::data::Chunk> >::iterator itVector;
+    for (itVector = chVector.begin(); itVector != chVector.end(); itVector++) {
+        (**itVector).join(img);
+    }
+    
+	BOOST_FOREACH(boost::shared_ptr< isis::data::Chunk > p,chVector){
+        
 		lookup.push_back(p);
 	}
 	isis::util::FixedVector<size_t,4> sizeVector=getSizeAsVector();
 	sizeVector[isis::data::timeDim] += 1;
 	const size_t sizeForInit[4] = {sizeVector[0], sizeVector[1], sizeVector[2], sizeVector[3]};
 	init(sizeForInit);
-	//set clean to avoid reIndex() when accessing the image
-	isis::data::Image::clean = true;
+ 	//set clean to avoid reIndex() when accessing the image
+    printf("the clean variable says: %d\n", clean);
+	clean = true;
 }
+
+void EDIsisImage::prepareToWrite()
+{
+    printf("the clean variable says: %d\n", clean);
+    clean = false;
+}
+
 
 EDIsisImage::~EDIsisImage()
 {
-
+    
 }
+
+//template<typename T> std::pair<T, T> EDIsisImage::getMinMaxAs()const {
+  //  return getMinMaxAs<T>();
+//}
