@@ -52,8 +52,7 @@
 
 -(void)loadNextVolumeOfImageType:(enum ImageType)imgType
 {
-	//isis::image_io::enableLog<isis::util::DefaultMsgPrint>( isis::error );
-	//isis::data::enableLog<isis::util::DefaultMsgPrint>( isis::error );
+	isis::data::enableLog<isis::util::DefaultMsgPrint>( isis::warning );
 	
     NSLog(@"loadNextVolumeOfImageType START");
 
@@ -63,30 +62,28 @@
         [[NSThread currentThread] cancel];
         NSLog(@"cancel thread now");
 		[[NSNotificationCenter defaultCenter] postNotificationName:BARTScannerSentTerminusNotification object:mDataElementInterest];
+        //TODO : decide by isEmpty()
+        if (1 < [mDataElementRest getImageSize].timesteps){
+            [mDataElementRest WriteDataElementToFile:@"/tmp/TheNotUsedDataElement.nii"];
+        }
         return;
     }
-	//EDDataElementIsisRealTime *elem = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:[[BARTImageSize alloc] init] ofImageType:IMAGE_FCTDATA];
-	//EDDataElementIsisRealTime *elemMOCO = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:[[BARTImageSize alloc] init] ofImageType:IMAGE_MOCO];
-	std::list<isis::data::Image>::const_iterator it ;
+	
+    std::list<isis::data::Image>::const_iterator it ;
     for (it = tempList.begin(); it != tempList.end(); it++) {
 		if (TRUE == [self isImage:*it ofImageType:imgType]){
-            //[elem appendVolume:*it];
-			[mDataElementInterest appendVolume:*it];
+            [mDataElementInterest appendVolume:*it];
 			[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadNextDataNotification object:mDataElementInterest];
 			
         }
 		else {
 			// TODO what to do with other data
 			[mDataElementRest appendVolume:*it];
-			//[arrayLoadedDataElements addObject:dataElem];
-		}
+        }
 
 		
     }
 	
-	//[[NSNotificationCenter defaultCenter] postNotificationName:BARTTestBackroundNotification object:elem];
-	//NSLog(@"loadNextVolumeOfImageType END loaded imageNR: %ld", [mDataElementInterest getImageSize].timesteps);
-
 }
 
 
