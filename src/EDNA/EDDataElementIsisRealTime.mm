@@ -13,7 +13,11 @@
 #include <iostream>
 
 
+@interface EDDataElementIsisRealTime (PrivateMethods)
 
+-(BOOL)sizeCheckRows:(uint)r Cols:(uint)c Slices:(uint)s Timesteps:(uint)t;
+
+@end
 
 @implementation EDDataElementIsisRealTime
 
@@ -130,17 +134,19 @@
 //        
 //    }
 	
-	
+	mIsisImage->prepareToWrite();
 	std::list<isis::data::Chunk> chList;
 	std::vector<boost::shared_ptr<isis::data::Chunk> > chVector = mIsisImage->getChunksAsVector();
 	std::vector<boost::shared_ptr<isis::data::Chunk> >::iterator itVector;
 	for (itVector = chVector.begin(); itVector != chVector.end(); itVector++) {
-		(**itVector).join(*mIsisImage);
+		//(**itVector).join(*mIsisImage);
 		chList.push_back(**itVector);
 	}
-	//std::copy(chvector.begin(), chvector.end(), chList.end();
+	//std::copy(chVector.begin(), chVector.end(), chList.end())
+    NSLog(@"ChunkList size: %d", chList.size());
     isis::data::Image img(chList);
-	
+    NSLog(@"ChunkList size: %d", chList.size());
+   	
 	return isis::data::IOFactory::write(img, [path cStringUsingEncoding:NSUTF8StringEncoding], 
                                  [suffix cStringUsingEncoding:NSUTF8StringEncoding], 
                                  [dialect cStringUsingEncoding:NSUTF8StringEncoding]);
@@ -226,10 +232,12 @@
 
 -(float*)getSliceData:(uint)sliceNr atTimestep:(uint)tstep
 {
-    //std::vector<boost::shared_ptr<isis::data::Chunk> > vecSlices = mAllDataMap[tstep];
-//    boost::shared_ptr<isis::data::Chunk> ptrChunk = vecSlices[sliceNr];
-//    return (( boost::shared_ptr<float> ) ptrChunk->getValuePtr<float>()).get();
-	
+    if ([self sizeCheckRows:1 Cols:1 Slices:sliceNr Timesteps:tstep]){
+		isis::data::MemChunkNonDel<float> chSlice(mImageSize.columns, mImageSize.rows);
+		mIsisImage->getChunk(0,0, sliceNr, tstep, false).copySlice(0, 0, chSlice, 0, 0);
+		return (( boost::shared_ptr<float> ) chSlice.getValuePtr<float>()).get();
+	}
+	return NULL;	
 }
 
 -(float*)getRowDataAt:(uint)row atSlice:(uint)sl atTimestep:(uint)tstep
@@ -393,7 +401,6 @@
         mImageSize.slices = img.getNrOfSlices();
         mImageSize.timesteps = 1;
 		mDataTypeID = img.getMajorTypeID();
-		//mPropMapImage = isis::util::PropertyMap(img);
 		mIsisImage = new EDIsisImage(img);
     }
     else {
@@ -402,6 +409,8 @@
             && (mImageSize.slices == img.getNrOfSlices()))
         {
             mImageSize.timesteps += 1;
+            mIsisImage->appendVolume(img);
+            
         }
         else {
             NSLog(@"Size of appended Volume does not match all other volumes");
@@ -409,18 +418,30 @@
         }
     }
 
-	mIsisImage->addVolume(img.getChunksAsVector());
-   //std::vector<boost::shared_ptr<isis::data::Chunk> > chVector = img.getChunksAsVector();
-//    std::vector<boost::shared_ptr<isis::data::Chunk> >::iterator it;
-//    
-//    for (it = chVector.begin(); it != chVector.end(); it++) {
-//        (*it)->join(img);
-//    }
-//    mAllDataMap[mImageSize.timesteps-1] = chVector;
-    
-    //increase the counter used as index in map
-    //mRepetitionNumber++;
 }
 
+-(BOOL)isEmpty
+{
+	return mIsisImage->isEmpty();
+}
+
+-(BOOL)sizeCheckRows:(uint)r Cols:(uint)c Slices:(uint)s Timesteps:(uint)t
+{
+	if (r < mImageSize.rows      and 0 <= r and
+		c < mImageSize.columns      and 0 <= c and
+		s < mImageSize.slices    and 0 <= s and
+		t < mImageSize.timesteps and 0 <= t){
+		return YES;}
+	return NO;
+    
+}
+
+-(NSArray*)getMinMaxOfDataElement
+{
+
+    std::pair<float, float> minMax = mIsisImage->getMinMaxAs<float>();
+    NSArray *ret = [NSArray arrayWithObjects:[NSNumber numberWithFloat:minMax.first], [NSNumber numberWithFloat:minMax.second], nil];
+    return ret;
+}
 
 @end
