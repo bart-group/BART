@@ -59,7 +59,7 @@ size_t startAnalysisAtTimeStep;
 		startAnalysisAtTimeStep = 15;
 		
     }
-    return self;
+	return self;
 }
 
 -(void)dealloc
@@ -245,8 +245,9 @@ size_t startAnalysisAtTimeStep;
 
 -(void)lastScanArrived:(NSNotification*)aNotification
 {
+	NSTimeInterval ti = [[NSDate date] timeIntervalSince1970];
 	//TODO: folder from edl
-	NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_%d.nii", [[aNotification object] getImageSize].timesteps];
+	NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_%d_{subjectName}_{sequenceNumber}_%d.nii", [[aNotification object] getImageSize].timesteps, ti];
 	[[aNotification object] WriteDataElementToFile:fname];
 }
 

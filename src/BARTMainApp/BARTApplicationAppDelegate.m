@@ -25,7 +25,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification 
 {    
     COSystemConfig *config = [COSystemConfig getInstance];
-	NSError *err = [config fillWithContentsOfEDLFile:@"../../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
+	NSError *err = [config fillWithContentsOfEDLFile:@"/Users/lydi/Development/BART/tests/NEDTests/prrofOfConcept_motor_LongBlocks.edl"];
 	
 	if (err) {
         NSLog(@"%@", err);
@@ -36,9 +36,9 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(setGUIBackgroundImage:)
 												 name:BARTDidLoadBackgroundImageNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(setGUIBackgroundImage:)
-												 name:BARTTestBackroundNotification object:nil];
+	//[[NSNotificationCenter defaultCenter] addObserver:self
+//											 selector:@selector(setGUIBackgroundImage:)
+//												 name:BARTTestBackroundNotification object:nil];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(setGUIResultImage:)
