@@ -39,7 +39,7 @@
 						<statEvent duration="16000" parametricScaleFactor="1" time="612000"/>
 					</tbrDesign>
                 </timeBasedRegressor>
-                <timeBasedRegressor length="628000" name="B" regressorID="tbr2" scaleHeightToZeroMean="false" useRefFct="gloverGammaBlockDesign" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
+                <timeBasedRegressor length="628000" name="V" regressorID="tbr3" scaleHeightToZeroMean="false" useRefFct="gloverGammaBlockDesign" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
                     <tbrDesign length="628000" repetitions="1">
                         <statEvent duration="16000" parametricScaleFactor="1" time="64000"/>
                         <statEvent duration="16000" parametricScaleFactor="1" time="128000"/>

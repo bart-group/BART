@@ -25,8 +25,8 @@
     <experimentData trSimulation="false">
         <paradigm ignoreScansAtStart="0">
             <gwDesignStruct>
-                <timeBasedRegressor length="624000" name="B" regressorID="tbr2" scaleHeightToZeroMean="false" useRefFct="gloverGammaBlockDesign" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
-                    <tbrDesign length="624000" repetitions="1">
+                <timeBasedRegressor length="628000" name="B" regressorID="tbr2" scaleHeightToZeroMean="false" useRefFct="gloverGammaBlockDesign" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false">
+                    <tbrDesign length="628000" repetitions="1">
                         <statEvent duration="16000" parametricScaleFactor="1" time="32000"/>
                         <statEvent duration="16000" parametricScaleFactor="1" time="64000"/>
                         <statEvent duration="16000" parametricScaleFactor="1" time="96000"/>
@@ -76,7 +76,7 @@
         <MR_TAG_READOUT_FOV vendorTag="readout_fov">192</MR_TAG_READOUT_FOV>
         <MR_TAG_PHASE_FOV vendorTag="phase_fov">100</MR_TAG_PHASE_FOV>
         <MR_TAG_FLIP_ANGLE vendorTag="angle_array.0">90</MR_TAG_FLIP_ANGLE>
-        <MR_TAG_MEASUREMENTS vendorTag="meas">312</MR_TAG_MEASUREMENTS>
+        <MR_TAG_MEASUREMENTS vendorTag="meas">320</MR_TAG_MEASUREMENTS>
     </mriParams>
     <preprocessing>
         <spatialFilter>
