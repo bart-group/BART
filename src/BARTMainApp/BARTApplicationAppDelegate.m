@@ -14,6 +14,7 @@
 
 
 @interface BARTApplicationAppDelegate ()
+BAProcedureController *procController;
 -(void)setGUIBackgroundImage:(NSNotification*)aNotification;
 -(void)setGUIResultImage:(NSNotification*)aNotification;
 
@@ -25,20 +26,18 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification 
 {    
     COSystemConfig *config = [COSystemConfig getInstance];
-	NSError *err = [config fillWithContentsOfEDLFile:@"/Users/lydi/Development/BART/tests/NEDTests/prrofOfConcept_motor_LongBlocks.edl"];
+	NSError *err = [config fillWithContentsOfEDLFile:@"/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/tests/NEDTests/prrofOfConcept_motor_LongBlocks.edl"];
 	
 	if (err) {
         NSLog(@"%@", err);
 	}
 	guiController = [guiController initWithDefault];
 	
-    BAProcedureController *procController = [[BAProcedureController alloc] init];
+    procController = [[BAProcedureController alloc] init];
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(setGUIBackgroundImage:)
 												 name:BARTDidLoadBackgroundImageNotification object:nil];
-	//[[NSNotificationCenter defaultCenter] addObserver:self
-//											 selector:@selector(setGUIBackgroundImage:)
-//												 name:BARTTestBackroundNotification object:nil];
+	
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(setGUIResultImage:)
@@ -63,9 +62,9 @@
 	[guiController setForegroundImage:[aNotification object]];
 }
 
--(void)dealloc
+-(void)applicationWillTerminate:(NSNotification*)aNotification
 {
-        
+	[procController release];
     [super dealloc];
 }
 
