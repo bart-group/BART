@@ -61,7 +61,7 @@ NSThread *triggerThread;
 		
 		// setup the serial port for the eye tracker device
 		//TODO get from config:
-		useSerialPortEyeTrac = YES;
+		useSerialPortEyeTrac = NO;
 		if (YES == useSerialPortEyeTrac){
 			[self setupSerialPortEyeTrac];
 		}
@@ -291,7 +291,7 @@ NSThread *triggerThread;
 {
 	
 	NSLog(@"The arrived trigger is: %@", [aNotification object]);
-	[[aNotification object] release];
+	
 }
 
 
