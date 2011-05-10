@@ -37,6 +37,9 @@
 		0040B8471141470400A57967 /* ColorMappingFilter.cikernel in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F51141470400A57967 /* ColorMappingFilter.cikernel */; };
 		0040B84A1141470400A57967 /* Negative.cikernel in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F91141470400A57967 /* Negative.cikernel */; };
 		0040B87B11414A8E00A57967 /* ColorMappingFilter.cikernel in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0040B7F51141470400A57967 /* ColorMappingFilter.cikernel */; };
+		004ABAF41378791400B13077 /* BADynamicDesignController.m in Sources */ = {isa = PBXBuildFile; fileRef = 004ABAF31378791400B13077 /* BADynamicDesignController.m */; };
+		004ABB5F137887AC00B13077 /* BARTSerialIOFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 004ABB5E137887AC00B13077 /* BARTSerialIOFramework.framework */; };
+		004ABB8313788A1700B13077 /* BARTSerialIOPluginFTDITriggerButton.bundle in Copy PlugIns */ = {isa = PBXBuildFile; fileRef = 004ABB82137889ED00B13077 /* BARTSerialIOPluginFTDITriggerButton.bundle */; };
 		0056D7DC12D33580002AC73F /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C39FF11144FB2100725668 /* CLETUS.dylib */; };
 		0056D7DE12D335AE002AC73F /* NEDesignKernel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00361050117F9AED00A84F44 /* NEDesignKernel.m */; };
 		0056D7DF12D335AE002AC73F /* NEDesignElementDyn.m in Sources */ = {isa = PBXBuildFile; fileRef = 008376A0116BB12D00369B20 /* NEDesignElementDyn.m */; };
@@ -257,6 +260,13 @@
 			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = BARTApplication;
 		};
+		004ABB81137889ED00B13077 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 004ABB7D137889ED00B13077 /* BARTSerialIOPluginFTDITriggerButton.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
+			remoteInfo = BARTSerialIOPluginFTDITriggerButton;
+		};
 		0056D7D712D3355E002AC73F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -360,6 +370,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		004ABB7C137889D800B13077 /* Copy PlugIns */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				004ABB8313788A1700B13077 /* BARTSerialIOPluginFTDITriggerButton.bundle in Copy PlugIns */,
+			);
+			name = "Copy PlugIns";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CE8A333210F77DE4002422B5 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -438,6 +459,10 @@
 		0040B7FA1141470400A57967 /* NegativeKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NegativeKernel.h; sourceTree = "<group>"; };
 		0040B86F1141488200A57967 /* SmoothnessEstim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SmoothnessEstim.c; sourceTree = "<group>"; };
 		0040B9B1114173BD00A57967 /* BARTUnitTestSuite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
+		004ABAF21378791400B13077 /* BADynamicDesignController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADynamicDesignController.h; sourceTree = "<group>"; };
+		004ABAF31378791400B13077 /* BADynamicDesignController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADynamicDesignController.m; sourceTree = "<group>"; };
+		004ABB5E137887AC00B13077 /* BARTSerialIOFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BARTSerialIOFramework.framework; path = /Users/Lydi/Library/Frameworks/BARTSerialIOFramework.framework; sourceTree = "<absolute>"; };
+		004ABB7D137889ED00B13077 /* BARTSerialIOPluginFTDITriggerButton.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BARTSerialIOPluginFTDITriggerButton.xcodeproj; path = ../../../../BARTSerialIOPluginFTDITriggerButton/BARTSerialIOPluginFTDITriggerButton.xcodeproj; sourceTree = SOURCE_ROOT; };
 		0056D7D112D3354D002AC73F /* designtest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = designtest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0056D7E512D335D4002AC73F /* designtest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = designtest.h; sourceTree = "<group>"; };
 		005B604411D3812400812781 /* isis_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = isis_test; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -551,6 +576,8 @@
 		00EA8ED6135F02DA00562F3B /* EDIsisImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDIsisImage.h; sourceTree = "<group>"; };
 		00EC5D301153CAEA006691F5 /* BARTApplicationDoxyfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BARTApplicationDoxyfile; sourceTree = "<group>"; };
 		00EC5DDA1153E8F3006691F5 /* doxygenstyle.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = doxygenstyle.css; sourceTree = "<group>"; };
+		00F337041374105700FDABCE /* proofOfConcept_motor_LongBlocks_Contrast.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = proofOfConcept_motor_LongBlocks_Contrast.edl; sourceTree = "<group>"; };
+		00F337071374108800FDABCE /* prrofOfConcept_motor_LongBlocks.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = prrofOfConcept_motor_LongBlocks.edl; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -753,6 +780,7 @@
 				00C730B51369F03000FC8546 /* libfftw3.dylib in Frameworks */,
 				00C730B61369F03500FC8546 /* libvia.dylib in Frameworks */,
 				00C730B71369F03600FC8546 /* libviaio.dylib in Frameworks */,
+				004ABB5F137887AC00B13077 /* BARTSerialIOFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -839,6 +867,7 @@
 		0040B7921141470400A57967 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				004ABB7B137889D800B13077 /* SELMA */,
 				0006F473122BFADD001DA2BB /* PRINCE */,
 				0040B7931141470400A57967 /* ARTIE */,
 				0040B79E1141470400A57967 /* BARTMainApp */,
@@ -1005,6 +1034,22 @@
 			name = CIKernels;
 			sourceTree = "<group>";
 		};
+		004ABB7B137889D800B13077 /* SELMA */ = {
+			isa = PBXGroup;
+			children = (
+				004ABB7D137889ED00B13077 /* BARTSerialIOPluginFTDITriggerButton.xcodeproj */,
+			);
+			name = SELMA;
+			sourceTree = "<group>";
+		};
+		004ABB7E137889ED00B13077 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				004ABB82137889ED00B13077 /* BARTSerialIOPluginFTDITriggerButton.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		006E07711190293C00CEEF38 /* vista */ = {
 			isa = PBXGroup;
 			children = (
@@ -1063,6 +1108,8 @@
 		00AE3E09133797FA00F2D01D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				004ABAF21378791400B13077 /* BADynamicDesignController.h */,
+				004ABAF31378791400B13077 /* BADynamicDesignController.m */,
 				0040B7A11141470400A57967 /* BAProcedureController.h */,
 				0040B7A21141470400A57967 /* BAProcedureController.m */,
 				0040B7EF1141470400A57967 /* BARTApplicationAppDelegate.h */,
@@ -1110,6 +1157,8 @@
 		00E7A643117EF1B900696498 /* NEDTests */ = {
 			isa = PBXGroup;
 			children = (
+				00F337071374108800FDABCE /* prrofOfConcept_motor_LongBlocks.edl */,
+				00F337041374105700FDABCE /* proofOfConcept_motor_LongBlocks_Contrast.edl */,
 				00DE9CBB12F72AF40089B99A /* noRegressor.edl */,
 				00DE9C7C12F6FE690089B99A /* allZeroRegressor.edl */,
 				00DE9C6C12F316230089B99A /* blockDesignTest02_parametric.edl */,
@@ -1227,6 +1276,7 @@
 				006E07711190293C00CEEF38 /* vista */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+				004ABB5E137887AC00B13077 /* BARTSerialIOFramework.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1585,6 +1635,8 @@
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				CE8A333210F77DE4002422B5 /* CopyFiles */,
 				00EC5D7E1153CFAB006691F5 /* ShellScript */,
+				004ABB79137889B200B13077 /* ShellScript */,
+				004ABB7C137889D800B13077 /* Copy PlugIns */,
 			);
 			buildRules = (
 				CE8A2B3610F6250A002422B5 /* PBXBuildRule */,
@@ -1641,6 +1693,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* BARTApplication */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 004ABB7E137889ED00B13077 /* Products */;
+					ProjectRef = 004ABB7D137889ED00B13077 /* BARTSerialIOPluginFTDITriggerButton.xcodeproj */;
+				},
+			);
 			projectRoots = (
 				.,
 				..,
@@ -1666,6 +1724,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		004ABB82137889ED00B13077 /* BARTSerialIOPluginFTDITriggerButton.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = BARTSerialIOPluginFTDITriggerButton.bundle;
+			remoteRef = 004ABB81137889ED00B13077 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0006135111A3D84C00D369D0 /* Resources */ = {
@@ -1759,6 +1827,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		004ABB79137889B200B13077 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
 		};
 		00A7DD49117C366A00062AFE /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2013,6 +2094,7 @@
 				007932BE114FB7A9007BEB66 /* BAAnalyzerElement.m in Sources */,
 				00AE42B1133CB00400F2D01D /* BARTNotifications.m in Sources */,
 				00D44159134B569400094A51 /* BAProcedureController.m in Sources */,
+				004ABAF41378791400B13077 /* BADynamicDesignController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3032,6 +3114,10 @@
 				DOXYGEN_CONFIG = ../docs/BARTApplicationDoxyfile;
 				DOXYGEN_OUTPUT = ../docs;
 				DOXYGEN_PATH = /opt/local/bin/doxygen;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../Library/Frameworks\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -3060,7 +3146,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"",
+					"\"$(SRCROOT)/../../../../../Library/Frameworks\"",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = BARTApplication_Prefix.pch;
