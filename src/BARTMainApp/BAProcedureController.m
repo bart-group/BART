@@ -49,7 +49,7 @@ size_t startAnalysisAtTimeStep;
         // TODO: appropriate init
         mCurrentTimestep = 300;
 		config = [COSystemConfig getInstance];
-		isRealTimeTCPInput = FALSE;
+		isRealTimeTCPInput = TRUE;
 		startAnalysisAtTimeStep = 15;
 		
 		dynamicDesignController = [[BADynamicDesignController alloc] init]; 
@@ -60,12 +60,7 @@ size_t startAnalysisAtTimeStep;
 
 -(void)dealloc
 {
-	//just for security reasons
-	if (1 > [mInputData getImageSize].timesteps){
-		NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_SECURITY%d.nii", [mInputData getImageSize].timesteps];
-		[mInputData WriteDataElementToFile:fname];}
-	
-	
+
 	[mInputData release];
 	[mResultData release];
     [dynamicDesignController release];
@@ -188,9 +183,9 @@ size_t startAnalysisAtTimeStep;
 			[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
 		}
 		// JUST FOR TEST
-		if ([mInputData getImageSize].timesteps == 312){
-			NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_dedumm%d.nii", [mInputData getImageSize].timesteps];
-			[[aNotification object] WriteDataElementToFile:fname];}
+		//if ([mInputData getImageSize].timesteps == 312){
+//			NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_dedumm%d.nii", [mInputData getImageSize].timesteps];
+//			[[aNotification object] WriteDataElementToFile:fname];}
 	}
 }
 
@@ -204,7 +199,7 @@ size_t startAnalysisAtTimeStep;
 	//TODO : get from config or gui
 	float cVecFromConfig[[dynamicDesignController designElement].mNumberExplanatoryVariables];
 	cVecFromConfig[0] = 1.0;
-	cVecFromConfig[1] = 0.0;
+	cVecFromConfig[1] = -1.0;
 	//cVecFromConfig[2] = 0.0;
 	NSMutableArray *contrastVector = [[NSMutableArray alloc] init];
 	for (size_t i = 0; i < [dynamicDesignController designElement].mNumberExplanatoryVariables; i++){
@@ -249,7 +244,7 @@ size_t startAnalysisAtTimeStep;
 {
 	NSTimeInterval ti = [[NSDate date] timeIntervalSince1970];
 	//TODO: folder from edl
-	NSString *fname =[NSString stringWithFormat:@"/tmp/test_imagenr_%d_{subjectName}_{sequenceNumber}_%d.nii", [[aNotification object] getImageSize].timesteps, ti];
+	NSString *fname =[NSString stringWithFormat:@"/tmp/{subjectName}_{sequenceNumber}_volumes_%d_%d.nii", [[aNotification object] getImageSize].timesteps, ti];
 	[[aNotification object] WriteDataElementToFile:fname];
 }
 
