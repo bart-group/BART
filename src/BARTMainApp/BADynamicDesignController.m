@@ -60,12 +60,7 @@ NSThread *triggerThread;
 		
 		
 		
-		// setup the serial port for the eye tracker device
-		//TODO get from config:
-		useSerialPortEyeTrac = NO;
-		if (YES == useSerialPortEyeTrac){
-			[self setupSerialPortEyeTrac];
-		}
+		
 
 		// setup the serial port for the eye tracker device
 		//TODO get from config
@@ -73,7 +68,12 @@ NSThread *triggerThread;
 		if (YES == useSerialPortTriggerAndButtonBox){
 			[self setupSerialPortTriggerAndButtonBox];
 		}
-		
+		// setup the serial port for the eye tracker device
+		//TODO get from config:
+		useSerialPortEyeTrac = YES;
+		if (YES == useSerialPortEyeTrac){
+			[self setupSerialPortEyeTrac];
+		}
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(triggerArrived:)
@@ -103,7 +103,7 @@ NSThread *triggerThread;
 -(void)setupSerialPortEyeTrac
 {
 	//TODO: get from config
-	NSString *devPath = [[NSString alloc] initWithString:@"cu.usbserial"];
+	NSString *devPath = [[NSString alloc] initWithString:@"cu.usbserial   "];
 	NSString *descr = @"ASLEyeTrac";
 	
 	serialPortEyeTrac = [[SerialPort alloc] initSerialPortWithDevicePath:devPath deviceDescript:descr
@@ -128,7 +128,7 @@ NSThread *triggerThread;
 	}
 	
 	err = [[NSError alloc] init];
-	eyeTracThread = [[NSThread alloc] initWithTarget:serialPortEyeTrac selector:@selector(start:) object:err]; //TODO error object    
+	eyeTracThread = [[NSThread alloc] initWithTarget:serialPortEyeTrac selector:@selector(startSerialPortThread:) object:err]; //TODO error object    
 	[eyeTracThread start];
 }
 
@@ -161,7 +161,7 @@ NSThread *triggerThread;
 	}
 	
 	err = [[NSError alloc] init];
-	triggerThread = [[NSThread alloc] initWithTarget:serialPortTriggerAndButtonBox selector:@selector(start:) object:err]; //TODO error object    
+	triggerThread = [[NSThread alloc] initWithTarget:serialPortTriggerAndButtonBox selector:@selector(startSerialPortThread:) object:err]; //TODO error object    
 	[triggerThread start];
 }
 
@@ -300,6 +300,9 @@ NSThread *triggerThread;
 -(void)buttonWasPressed:(NSNotification*)aNotification
 {
 	NSLog(@"The button pressed was: %@", [aNotification object]);
+	[eyeTracThread cancel];
+	NSError *err;
+	[serialPortEyeTrac closeSerialPort:err];
 }
 
 

@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "BADesignElement.h"
-#import "../../../../../BARTSerialIOFramework/SerialPort.h"
+#import "../../../BARTSerialIOFramework/SerialPort.h"
 
 @interface BADynamicDesignController : NSObject {
 
