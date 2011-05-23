@@ -17,7 +17,7 @@
 
 #import "BADynamicDesignController.h"
 #import "../CLETUS/COSystemConfig.h"
-#import "../../../../../BARTSerialIOFramework/BARTSerialPortIONotifications.h"
+#import "../../../BARTSerialIOFramework/BARTSerialPortIONotifications.h"
 
 @interface BADynamicDesignController (PrivateMethods)
 
@@ -27,6 +27,7 @@
 -(NSArray*) loadPluginWithID:(NSString*)bundleIDStr;
 
 -(void)triggerArrived:(NSNotification*)aNotification;
+-(void)buttonWasPressed:(NSNotification*)aNotification;
 @end
 
 
@@ -77,6 +78,10 @@ NSThread *triggerThread;
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(triggerArrived:)
 													 name:BARTSerialIOScannerTriggerArrived object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(triggerArrived:)
+													 name:BARTSerialIOButtonBoxPressedKey object:nil];
 		
 	}
 	return self;
@@ -289,9 +294,12 @@ NSThread *triggerThread;
 
 -(void)triggerArrived:(NSNotification*)aNotification
 {
-	
 	NSLog(@"The arrived trigger is: %@", [aNotification object]);
-	
+}
+
+-(void)buttonWasPressed:(NSNotification*)aNotification
+{
+	NSLog(@"The button pressed was: %@", [aNotification object]);
 }
 
 
