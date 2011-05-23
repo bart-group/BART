@@ -80,7 +80,7 @@ NSThread *triggerThread;
 													 name:BARTSerialIOScannerTriggerArrived object:nil];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(triggerArrived:)
+												 selector:@selector(buttonWasPressed:)
 													 name:BARTSerialIOButtonBoxPressedKey object:nil];
 		
 	}
