@@ -1,0 +1,14 @@
+#ignore xcode user specific settings
+*.pbxuser
+*.mode1v3
+*.mode2v3
+xcuserdata
+
+#ignore temp files
+*~
+*.swp
+*.DS_STORE
+*.perspective
+
+#ignore directories
+runtime
