@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0000B16C13E15F7D00029A41 /* BAFunctor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0000B16B13E15F7D00029A41 /* BAFunctor.m */; };
+		0000B18513E1C92400029A41 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18413E1C92400029A41 /* Cocoa.framework */; };
+		0000B18F13E1C92400029A41 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18413E1C92400029A41 /* Cocoa.framework */; };
+		0000B19213E1C92400029A41 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
+		0000B19813E1C92400029A41 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0000B19613E1C92400029A41 /* InfoPlist.strings */; };
+		0000B19B13E1C92400029A41 /* TROYTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 0000B19A13E1C92400029A41 /* TROYTests.h */; };
+		0000B19D13E1C92400029A41 /* TROYTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0000B19C13E1C92400029A41 /* TROYTests.m */; };
 		0006285911A44E2D00D369D0 /* BADataElementTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006283111A44B7F00D369D0 /* BADataElementTest.m */; };
 		0006F439122BEF4F001DA2BB /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C39FF11144FB2100725668 /* CLETUS.dylib */; };
 		0006F476122BFADD001DA2BB /* PRPreprocessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 0006F474122BFADD001DA2BB /* PRPreprocessor.h */; };
@@ -238,6 +245,13 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
+		0000B19013E1C92400029A41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0000B18213E1C92400029A41;
+			remoteInfo = TROY;
+		};
 		0006F437122BEF48001DA2BB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -364,6 +378,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0000B16A13E15F7D00029A41 /* BAFunctor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAFunctor.h; sourceTree = "<group>"; };
+		0000B16B13E15F7D00029A41 /* BAFunctor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAFunctor.m; sourceTree = "<group>"; };
+		0000B18313E1C92400029A41 /* TROY.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = TROY.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		0000B18413E1C92400029A41 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		0000B18813E1C92400029A41 /* TROY-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TROY-Prefix.pch"; sourceTree = "<group>"; };
+		0000B18E13E1C92400029A41 /* TROYTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TROYTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0000B19513E1C92400029A41 /* TROYTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TROYTests-Info.plist"; sourceTree = "<group>"; };
+		0000B19713E1C92400029A41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0000B19913E1C92400029A41 /* TROYTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TROYTests-Prefix.pch"; sourceTree = "<group>"; };
+		0000B19A13E1C92400029A41 /* TROYTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TROYTests.h; sourceTree = "<group>"; };
+		0000B19C13E1C92400029A41 /* TROYTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TROYTests.m; sourceTree = "<group>"; };
 		0006135611A3D84C00D369D0 /* EDNAUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EDNAUnitTestSuite.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0006135711A3D84C00D369D0 /* EDNAUnitTestSuite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "EDNAUnitTestSuite-Info.plist"; path = "../../projects/EDNAUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
 		0006283011A44B7F00D369D0 /* BADataElementTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElementTest.h; sourceTree = "<group>"; };
@@ -567,6 +592,23 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0000B18013E1C92400029A41 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0000B18513E1C92400029A41 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0000B18A13E1C92400029A41 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0000B18F13E1C92400029A41 /* Cocoa.framework in Frameworks */,
+				0000B19213E1C92400029A41 /* TROY.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0006135311A3D84C00D369D0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -754,6 +796,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0000B18613E1C92400029A41 /* TROY */ = {
+			isa = PBXGroup;
+			children = (
+				0000B18713E1C92400029A41 /* Supporting Files */,
+			);
+			path = TROY;
+			sourceTree = "<group>";
+		};
+		0000B18713E1C92400029A41 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0000B18813E1C92400029A41 /* TROY-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0000B19313E1C92400029A41 /* TROYTests */ = {
+			isa = PBXGroup;
+			children = (
+				0000B19A13E1C92400029A41 /* TROYTests.h */,
+				0000B19C13E1C92400029A41 /* TROYTests.m */,
+				0000B19413E1C92400029A41 /* Supporting Files */,
+			);
+			name = TROYTests;
+			path = ../projects/TROYTests;
+			sourceTree = "<group>";
+		};
+		0000B19413E1C92400029A41 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0000B19513E1C92400029A41 /* TROYTests-Info.plist */,
+				0000B19613E1C92400029A41 /* InfoPlist.strings */,
+				0000B19913E1C92400029A41 /* TROYTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		0006284011A44D6E00D369D0 /* EDNATests */ = {
 			isa = PBXGroup;
 			children = (
@@ -916,6 +995,7 @@
 		0040B8521141472200A57967 /* tests */ = {
 			isa = PBXGroup;
 			children = (
+				0000B19313E1C92400029A41 /* TROYTests */,
 				0006F45E122BF3D0001DA2BB /* PRINCETests */,
 				0006284011A44D6E00D369D0 /* EDNATests */,
 				00E7A643117EF1B900696498 /* NEDTests */,
@@ -1075,6 +1155,8 @@
 				0040B7B01141470400A57967 /* BAElement.m */,
 				E54934E51339160F003264FE /* BADataElementRealTimeLoader.h */,
 				00AE434C133CE8AF00F2D01D /* BADataElementRealTimeLoader.mm */,
+				0000B16A13E15F7D00029A41 /* BAFunctor.h */,
+				0000B16B13E15F7D00029A41 /* BAFunctor.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1161,6 +1243,8 @@
 				00664BF012ABF71D005216E6 /* PRINCE.framework */,
 				0056D7D112D3354D002AC73F /* designtest */,
 				00D44160134B57BD00094A51 /* EDNA.dylib */,
+				0000B18313E1C92400029A41 /* TROY.dylib */,
+				0000B18E13E1C92400029A41 /* TROYTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1178,6 +1262,7 @@
 				00BCD71713DEC457001C091A /* AppKit.framework */,
 				0040B78F1141470400A57967 /* docs */,
 				0040B7921141470400A57967 /* src */,
+				0000B18613E1C92400029A41 /* TROY */,
 				0040B8521141472200A57967 /* tests */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -1214,6 +1299,7 @@
 				006E07721190295400CEEF38 /* isis */,
 				006E07711190293C00CEEF38 /* vista */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				0000B18413E1C92400029A41 /* Cocoa.framework */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 				004ABB5E137887AC00B13077 /* BARTSerialIOFramework.framework */,
 			);
@@ -1223,6 +1309,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		0000B18113E1C92400029A41 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0006F42E122BEF27001DA2BB /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1284,6 +1377,42 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		0000B18213E1C92400029A41 /* TROY */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0000B19E13E1C92400029A41 /* Build configuration list for PBXNativeTarget "TROY" */;
+			buildPhases = (
+				0000B17F13E1C92400029A41 /* Sources */,
+				0000B18013E1C92400029A41 /* Frameworks */,
+				0000B18113E1C92400029A41 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TROY;
+			productName = TROY;
+			productReference = 0000B18313E1C92400029A41 /* TROY.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		0000B18D13E1C92400029A41 /* TROYTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0000B1A113E1C92400029A41 /* Build configuration list for PBXNativeTarget "TROYTests" */;
+			buildPhases = (
+				0000B18913E1C92400029A41 /* Sources */,
+				0000B18A13E1C92400029A41 /* Frameworks */,
+				0000B18B13E1C92400029A41 /* Resources */,
+				0000B18C13E1C92400029A41 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0000B19113E1C92400029A41 /* PBXTargetDependency */,
+			);
+			name = TROYTests;
+			productName = TROYTests;
+			productReference = 0000B18E13E1C92400029A41 /* TROYTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		0006135511A3D84C00D369D0 /* EDNAUnitTestSuite */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0006135A11A3D84C00D369D0 /* Build configuration list for PBXNativeTarget "EDNAUnitTestSuite" */;
@@ -1563,6 +1692,7 @@
 				Japanese,
 				French,
 				German,
+				en,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* BARTApplication */;
 			projectDirPath = "";
@@ -1585,11 +1715,22 @@
 				0006F431122BEF27001DA2BB /* PRINCEDYL */,
 				0006F440122BEFB2001DA2BB /* PRINCEUnitTestSuite */,
 				00664BEF12ABF71D005216E6 /* PRINCE */,
+				0000B18213E1C92400029A41 /* TROY */,
+				0000B18D13E1C92400029A41 /* TROYTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0000B18B13E1C92400029A41 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0000B19813E1C92400029A41 /* InfoPlist.strings in Resources */,
+				0000B19B13E1C92400029A41 /* TROYTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0006135111A3D84C00D369D0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1656,6 +1797,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0000B18C13E1C92400029A41 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
 		0006135411A3D84C00D369D0 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1750,6 +1904,21 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0000B17F13E1C92400029A41 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0000B18913E1C92400029A41 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0000B19D13E1C92400029A41 /* TROYTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0006135211A3D84C00D369D0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1923,6 +2092,7 @@
 				00AE42B1133CB00400F2D01D /* BARTNotifications.m in Sources */,
 				00D44159134B569400094A51 /* BAProcedureController.m in Sources */,
 				004ABAF41378791400B13077 /* BADynamicDesignController.m in Sources */,
+				0000B16C13E15F7D00029A41 /* BAFunctor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1942,6 +2112,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0000B19113E1C92400029A41 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0000B18213E1C92400029A41 /* TROY */;
+			targetProxy = 0000B19013E1C92400029A41 /* PBXContainerItemProxy */;
+		};
 		0006F438122BEF48001DA2BB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 00C39FF01144FB2100725668 /* CLETUS */;
@@ -2010,6 +2185,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		0000B19613E1C92400029A41 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0000B19713E1C92400029A41 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2029,6 +2212,100 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0000B19F13E1C92400029A41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TROY/TROY-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		0000B1A013E1C92400029A41 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TROY/TROY-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		0000B1A213E1C92400029A41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TROYTests/TROYTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "TROYTests/TROYTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		0000B1A313E1C92400029A41 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TROYTests/TROYTests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "TROYTests/TROYTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 		0006135811A3D84C00D369D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2984,6 +3261,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0000B19E13E1C92400029A41 /* Build configuration list for PBXNativeTarget "TROY" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0000B19F13E1C92400029A41 /* Debug */,
+				0000B1A013E1C92400029A41 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		0000B1A113E1C92400029A41 /* Build configuration list for PBXNativeTarget "TROYTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0000B1A213E1C92400029A41 /* Debug */,
+				0000B1A313E1C92400029A41 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		0006135A11A3D84C00D369D0 /* Build configuration list for PBXNativeTarget "EDNAUnitTestSuite" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
