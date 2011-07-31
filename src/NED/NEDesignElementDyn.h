@@ -1,5 +1,5 @@
 //
-//  BADesignElementDyn.h
+//  NEDesignElementDyn.h
 //  BARTApplication
 //
 //  Created by Lydia Hellrung on 1/29/10.
@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "../BARTMainApp/BADesignElement.h"
+#import "NEDesignElement.h"
 #import <fftw3.h>
 #import "NEDesignKernel.h"
 
@@ -24,7 +24,7 @@ typedef struct RegressorStruct {
 	NEDesignKernel *regConvolKernel;
 } TRegressor;
 
-@interface NEDesignElementDyn : BADesignElement {
+@interface NEDesignElementDyn : NEDesignElement {
 
 	TRegressor **mRegressorList;
     unsigned int mNumberEvents;

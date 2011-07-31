@@ -37,7 +37,7 @@ typedef struct RegressorRefStruct {
 	NEDesignKernel *regConvolKernel;
 } TRegressorRef;
 
-enum BADesignElementErrorRef {
+enum NEDesignElementErrorRef {
     R_TR_NOT_SPECIFIED,
     R_NUMBERTIMESTEPS_NOT_SPECIFIED,
 	R_NUMBERCOVARIATES_NOT_SPECIFIED,

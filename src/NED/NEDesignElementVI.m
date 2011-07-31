@@ -1,5 +1,5 @@
 //
-//  BADesignElementVI.m
+//  NEDesignElementVI.m
 //  BARTCommandLine
 //
 //  Created by Lydia Hellrung on 11/11/09.

@@ -7,19 +7,19 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "BADesignElement.h"
+#import "NEDesignElement.h"
 #import "../../../BARTSerialIOFramework/SerialPort.h"
 
 @interface BADynamicDesignController : NSObject {
 
 	SerialPort *serialPortEyeTrac;
 	SerialPort *serialPortTriggerAndButtonBox;
-	BADesignElement *designElement;
+	NEDesignElement *designElement;
 }
 
 @property (readonly, assign) SerialPort *serialPortEyeTrac;
 @property (readonly, assign) SerialPort *serialPortTriggerAndButtonBox;
-@property (readonly, assign) BADesignElement *designElement;
+@property (readonly, assign) NEDesignElement *designElement;
 
 
 -(BOOL) initDesign;

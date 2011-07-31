@@ -8,7 +8,7 @@
 
 #import "BAProcedureController.h"
 #import "BADataElement.h"
-#import "BADesignElement.h"
+#import "NEDesignElement.h"
 #import "BAAnalyzerElement.h"
 #import "BADataElementRealTimeLoader.h"
 #import "BARTNotifications.h"
@@ -20,7 +20,7 @@
 
 //
 BADataElement *mInputData;
-//BADesignElement *mDesignData;
+//NEDesignElement *mDesignData;
 BADynamicDesignController *dynamicDesignController;
 BADataElement *mResultData;
 BAAnalyzerElement *mAnalyzer;
@@ -120,7 +120,7 @@ size_t startAnalysisAtTimeStep;
 //		[mDesignData release];
 //		mDesignData = nil;}
 //	
-//	mDesignData = [[BADesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+//	mDesignData = [[NEDesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 //	if (nil == mDesignData){
 //		return FALSE;}
 //	

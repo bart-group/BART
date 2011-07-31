@@ -367,7 +367,7 @@ skip: ;
 }
 
 -(BADataElement*)anaylzeTheData:(BADataElement*)data 
-                     withDesign:(BADesignElement*)design
+                     withDesign:(NEDesignElement*)design
              andCurrentTimestep:(size_t)timestep
 {
     mDesign = design;

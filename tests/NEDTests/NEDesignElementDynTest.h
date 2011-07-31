@@ -1,5 +1,5 @@
 //
-//  BADesignElementDynTest.h
+//  NEDesignElementDynTest.h
 //  BARTApplication
 //
 //  Created by Lydia Hellrung on 3/2/10.

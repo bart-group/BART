@@ -93,7 +93,7 @@ NSThread *triggerThread;
 		[designElement release];
 		designElement = nil;}
 	
-	designElement = [[BADesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	designElement = [[NEDesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	if (nil == designElement){
 		return FALSE;}
 	

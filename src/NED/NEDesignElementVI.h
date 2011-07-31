@@ -1,5 +1,5 @@
 //
-//  BADesignElementVI.h
+//  NEDesignElementVI.h
 //  BARTCommandLine
 //
 //  Created by Lydia Hellrung on 11/6/09.
@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "../BARTMainApp/BADesignElement.h"
+#import "NEDesignElement.h"
 #include <viaio/Vlib.h>
 #include <viaio/VImage.h>
 #include <viaio/mu.h>
@@ -15,7 +15,7 @@
 
 #include "BlockIO.h"
 
-@interface NEDesignElementVI : BADesignElement
+@interface NEDesignElementVI : NEDesignElement
 {
     VImage mDesign;
 }

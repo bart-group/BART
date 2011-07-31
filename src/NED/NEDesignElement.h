@@ -1,15 +1,15 @@
 //
-//  BADesignElement.h
-//  BARTCommandLine
+//  NEDesignElement.h
+//  BARTApplication
 //
-//  Created by First Last on 11/6/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Created by Lydia Hellrung on 11/6/09.
+//  Copyright 2009 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
 #import "BAElement.h"
 
-enum BADesignElementError {
+enum NEDesignElementError {
     TR_NOT_SPECIFIED,
     NUMBERTIMESTEPS_NOT_SPECIFIED,
 	NUMBERCOVARIATES_NOT_SPECIFIED,
@@ -40,7 +40,7 @@ typedef struct TrialListStruct {
 
 
 
-@interface BADesignElement : BAElement {
+@interface NEDesignElement : NSObject {
 
     unsigned int mRepetitionTimeInMs;
     unsigned int mNumberExplanatoryVariables;

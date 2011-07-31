@@ -1,5 +1,5 @@
 //
-//  BADesignElementDyn.m
+//  NEDesignElementDyn.m
 //  BARTApplication
 //
 //  Created by Lydia Hellrung on 1/29/10.

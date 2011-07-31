@@ -1,5 +1,5 @@
 //
-//  BADesignElementDynTest.m
+//  NEDesignElementDynTest.m
 //  BARTApplication
 //
 //  Created by Lydia Hellrung on 3/2/10.
@@ -21,7 +21,7 @@
 
 - (void) testProperties {
 	
-	NEDesignElementDyn *designEl = [[BADesignElement alloc] init];
+	NEDesignElementDyn *designEl = [[NEDesignElement alloc] init];
 	
 	STAssertTrue([designEl mNumberTimesteps] == 0, @"initial value timesteps in design not null");
 	[designEl setMNumberTimesteps: 896];

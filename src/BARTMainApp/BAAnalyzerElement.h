@@ -11,7 +11,7 @@
 
 @class BASource;
 @class BAElement;
-@class BADesignElement;
+@class NEDesignElement;
 @class BADataElement;
 
 
@@ -42,7 +42,7 @@ extern NSString *const kAnalyzerGLM;
 
 // abstract methods to be implemented by subclasses
 -(BADataElement*)anaylzeTheData:(BADataElement*)data 
-                     withDesign:(BADesignElement*) design
+                     withDesign:(NEDesignElement*) design
 			  atCurrentTimestep:(size_t)timestep
 			  forContrastVector:(NSArray*)contrastVector
 			 andWriteResultInto:(BADataElement*)resData;

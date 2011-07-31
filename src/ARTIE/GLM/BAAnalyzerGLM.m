@@ -8,7 +8,7 @@
 
 #import "BAAnalyzerGLM.h"
 #import "BADataElement.h"
-#import "BADesignElement.h"
+#import "NEDesignElement.h"
 #import "BAGUIProtoCGLayer.h"
 
 #import "gsl/gsl_cblas.h"
@@ -56,10 +56,10 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 }
 
 //-(BADataElement*)anaylzeTheData:(BADataElement*)data 
-//                     withDesign:(BADesignElement*)design
+//                     withDesign:(NEDesignElement*)design
 //             andCurrentTimestep:(size_t)timestep
 -(BADataElement*)anaylzeTheData:(BADataElement*)data 
-                     withDesign:(BADesignElement*)design
+                     withDesign:(NEDesignElement*)design
 			  atCurrentTimestep:(size_t)timestep
 			  forContrastVector:(NSArray*)contrastVector
 			 andWriteResultInto:(BADataElement*)resData;

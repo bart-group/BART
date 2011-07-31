@@ -8,14 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 #import "../../src/BARTMainApp/BADataElement.h"
-#import "../../src/BARTMainApp/BADesignElement.h"
+#import "../../src/BARTMainApp/NEDesignElement.h"
 
 
 #define MBETA    64   /* max number of covariates */
 @interface BAAnalyzerGLMReference : NSObject {
 
 	
-	BADesignElement *mDesign;
+	NEDesignElement *mDesign;
     BADataElement *mData;
     
     BADataElement *mBetaOutput;
@@ -37,7 +37,7 @@
 -(id)initWithFwhm:(uint) fwhm andMinval:(uint)minval forSlidingAnalysis:(BOOL)swa withSize:(uint)sws;
 
 -(BADataElement*)anaylzeTheData:(BADataElement*)data 
-                     withDesign:(BADesignElement*) design
+                     withDesign:(NEDesignElement*) design
              andCurrentTimestep:(size_t)timestep;
 
 

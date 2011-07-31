@@ -1,18 +1,18 @@
 //
-//  BADesignElement.m
+//  NEDesignElement.m
 //  BARTCommandLine
 //
-//  Created by First Last on 11/6/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Created by Lydia Hellrung on 11/6/09.
+//  Copyright 2009 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#import "BADesignElement.h"
+#import "NEDesignElement.h"
 #import "NEDesignElementVI.h"
 #import "NEDesignElementDyn.h"
 
 
 
-@implementation BADesignElement
+@implementation NEDesignElement
 
 @synthesize mRepetitionTimeInMs;
 @synthesize mNumberExplanatoryVariables;

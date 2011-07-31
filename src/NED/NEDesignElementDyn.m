@@ -1,5 +1,5 @@
 //
-//  BADesignElementDyn.m
+//  NEDesignElementDyn.m
 //  BARTApplication
 //
 //  Created by Lydia Hellrung on 1/29/10.
@@ -27,7 +27,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     if (type == IMAGE_DATA_FLOAT) {
         mImageDataType = type;
     } else {
-        NSLog(@" BADesignElementDyn.initWithFile: defaulting to IMAGE_DATA_FLOAT (other values are not supported)!");
+        NSLog(@" NEDesignElementDyn.initWithFile: defaulting to IMAGE_DATA_FLOAT (other values are not supported)!");
         mImageDataType = IMAGE_DATA_FLOAT;
     }
 	

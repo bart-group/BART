@@ -17,7 +17,7 @@
 
 @interface BAAnalyzerGLM : BAAnalyzerElement {
     
-    BADesignElement *mDesign;
+    NEDesignElement *mDesign;
     BADataElement *mData;
     
     BADataElement *mBetaOutput;

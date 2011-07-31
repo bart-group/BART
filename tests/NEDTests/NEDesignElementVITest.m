@@ -1,5 +1,5 @@
 //
-//  BADesignElementVITest.m
+//  NEDesignElementVITest.m
 //  BARTApplication
 //
 //  Created by First Last on 12/17/09.
@@ -12,7 +12,7 @@
 
 @interface NEDesignElementVITest (MemberVariables)
 
-BADesignElement *designEl;
+NEDesignElement *designEl;
 
 @end
 
