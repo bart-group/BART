@@ -20,16 +20,16 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 
 
--(id)initWithDynamicDataOfImageDataType:(enum ImageDataType)type
+-(id)init
 {
 	self = [super init];
     
-    if (type == IMAGE_DATA_FLOAT) {
-        mImageDataType = type;
-    } else {
-        NSLog(@" NEDesignElementDyn.initWithFile: defaulting to IMAGE_DATA_FLOAT (other values are not supported)!");
-        mImageDataType = IMAGE_DATA_FLOAT;
-    }
+//    if (type == IMAGE_DATA_FLOAT) {
+//        mImageDataType = type;
+//    } else {
+//        NSLog(@" NEDesignElementDyn.initWithFile: defaulting to IMAGE_DATA_FLOAT (other values are not supported)!");
+//        mImageDataType = IMAGE_DATA_FLOAT;
+//    }
 	
 	mDesignHasChanged = NO;
 	//NSLog(@"GenDesign GCD: START");
@@ -613,11 +613,11 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     NSNumber *value = nil;
     if (cov < mNumberRegressors) {
         if (mRegressorValues != NULL) {
-            if (IMAGE_DATA_FLOAT == mImageDataType){
+            //if (IMAGE_DATA_FLOAT == mImageDataType){
                 value = [NSNumber numberWithFloat:mRegressorValues[cov][t]];
-            } else {
-                NSLog(@"Cannot identify type of design image - no float");
-            }
+            //} else {
+              //  NSLog(@"Cannot identify type of design image - no float");
+            //}
         } else {
             NSLog(@"%@: generateDesign has not been called yet! (initial design information NULL)", self);
         }

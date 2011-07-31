@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "BAElement.h"
+//#import "BAElement.h"
 
 enum NEDesignElementError {
     TR_NOT_SPECIFIED,
@@ -47,7 +47,7 @@ typedef struct TrialListStruct {
     unsigned int mNumberTimesteps;
     unsigned int mNumberRegressors;
 	unsigned int mNumberCovariates;  
-	enum ImageDataType mImageDataType;
+	//enum ImageDataType mImageDataType;
     
 }
 
@@ -56,18 +56,18 @@ typedef struct TrialListStruct {
 @property ( assign) unsigned int mNumberTimesteps;
 @property ( assign) unsigned int mNumberRegressors;
 @property ( assign) unsigned int mNumberCovariates;   
-@property ( assign) enum ImageDataType mImageDataType;
+//@property ( assign) enum ImageDataType mImageDataType;
 
--(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
+-(id)initWithDatasetFile:(NSString*)path;// ofImageDataType:(enum ImageDataType)type;
 
 /**
  * Initialize a Design  element from an edl configuration
  * the edl configuration has to be initialized
- * \param type the type of the image data - IMAGE_DATA_FLOAT || IMAGE_DATA_SHORT
+ * 
  *
  * returns an object of DesignElement
  */
--(id)initWithDynamicDataOfImageDataType:(enum ImageDataType)type;
+-(id)initWithDynamicData;
 
 
 /**

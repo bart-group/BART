@@ -64,13 +64,13 @@ NSThread *triggerThread;
 
 		// setup the serial port for the eye tracker device
 		//TODO get from config
-		useSerialPortTriggerAndButtonBox = YES;
+		useSerialPortTriggerAndButtonBox = NO;
 		if (YES == useSerialPortTriggerAndButtonBox){
 			[self setupSerialPortTriggerAndButtonBox];
 		}
 		// setup the serial port for the eye tracker device
 		//TODO get from config:
-		useSerialPortEyeTrac = YES;
+		useSerialPortEyeTrac = NO;
 		if (YES == useSerialPortEyeTrac){
 			[self setupSerialPortEyeTrac];
 		}
@@ -93,7 +93,7 @@ NSThread *triggerThread;
 		[designElement release];
 		designElement = nil;}
 	
-	designElement = [[NEDesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	designElement = [[NEDesignElement alloc] initWithDynamicData];
 	if (nil == designElement){
 		return FALSE;}
 	

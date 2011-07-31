@@ -48,7 +48,6 @@ typedef struct RegressorStruct {
 	BOOL mDesignHasChanged;
 }
 
-//-(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
 -(void)copyValuesOfFinishedDesign:(float**)copyFromR andCovariates:(float**)copyFromC;
 -(NSError*)generateDesign;
 

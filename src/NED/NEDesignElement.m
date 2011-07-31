@@ -17,7 +17,7 @@
 @synthesize mRepetitionTimeInMs;
 @synthesize mNumberExplanatoryVariables;
 @synthesize mNumberTimesteps;
-@synthesize mImageDataType;
+//@synthesize mImageDataType;
 @synthesize mNumberRegressors;
 @synthesize mNumberCovariates;
 
@@ -28,29 +28,29 @@
 		mRepetitionTimeInMs = 0;
 		mNumberExplanatoryVariables = 0;
 		mNumberTimesteps = 0;
-		mImageDataType = 0;
+//		mImageDataType = 0;
 		mNumberRegressors = 0;
 		mNumberCovariates = 0;
 	}
 	return self;
 }
 
--(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
+-(id)initWithDatasetFile:(NSString*)path //ofImageDataType:(enum ImageDataType)type
 {
     [self release];
 	self = nil;
 	self = [super init];
 	if (nil != self){
-		self = [[NEDesignElementVI alloc] initWithFile:path ofImageDataType:type];}
+		self = [[NEDesignElementVI alloc] initWithFile:path];} //ofImageDataType:type];}
     return self;
 }
 
--(id)initWithDynamicDataOfImageDataType:(enum ImageDataType)type
+-(id)initWithDynamicData
 {
 	[self release];
 	self = nil;
 	self = [super init];
-    self = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:type];
+    self = [[NEDesignElementDyn alloc] init];
     return self;
 	
 }
@@ -70,7 +70,7 @@
 	[newDesign setMNumberTimesteps: [self mNumberTimesteps]];
 	[newDesign setMNumberRegressors: [self mNumberRegressors]];
 	[newDesign setMNumberCovariates: [self mNumberCovariates]];
-	[newDesign setMImageDataType: [self mImageDataType]];
+	//[newDesign setMImageDataType: [self mImageDataType]];
 	
 	
 	return newDesign;

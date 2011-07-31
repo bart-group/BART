@@ -173,7 +173,6 @@
 		00EA8A76135C726100562F3B /* NEDesignGloverKernel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0085EB2211511B2C004795FD /* NEDesignGloverKernel.h */; };
 		00EA8A78135C726200562F3B /* NEDesignGloverKernel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0085EB2311511B2C004795FD /* NEDesignGloverKernel.m */; };
 		00EA8A7F135C727800562F3B /* BAElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 0040B7AF1141470400A57967 /* BAElement.h */; };
-		00EA8A88135C728800562F3B /* BAElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B01141470400A57967 /* BAElement.m */; };
 		00EA8A99135C72B200562F3B /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
 		00EA8A9B135C72B300562F3B /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00EA8AAD135C73A100562F3B /* BAElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B01141470400A57967 /* BAElement.m */; };
@@ -1899,7 +1898,6 @@
 				00EA8A70135C725E00562F3B /* NEDesignElementDyn.m in Sources */,
 				00EA8A74135C726000562F3B /* NEDesignElementVI.m in Sources */,
 				00EA8A78135C726200562F3B /* NEDesignGloverKernel.m in Sources */,
-				00EA8A88135C728800562F3B /* BAElement.m in Sources */,
 				009266AF13E5B4590025B384 /* NEDesignElement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

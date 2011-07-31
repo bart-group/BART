@@ -20,7 +20,7 @@
     VImage mDesign;
 }
 
--(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
+-(id)initWithFile:(NSString*)path; //ofImageDataType:(enum ImageDataType)type;
 -(void)LoadDesignFromFile:(NSString*)path; 
 
 @end

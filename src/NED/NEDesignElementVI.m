@@ -14,7 +14,7 @@
 @implementation NEDesignElementVI 
 
 
--(id)initWithFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
+-(id)initWithFile:(NSString*)path// ofImageDataType:(enum ImageDataType)type
 {
     if (self = [super init]) {
         [self LoadDesignFromFile:path];
@@ -80,11 +80,11 @@
 -(NSNumber*)getValueFromExplanatoryVariable: (unsigned int)cov atTimestep:(unsigned int)t 
 {
     NSNumber *ret;
-    if (IMAGE_DATA_FLOAT == mImageDataType){
+    //if (IMAGE_DATA_FLOAT == mImageDataType){
         ret = [NSNumber numberWithFloat:VGetPixel(mDesign, 0, t, cov)];
-    } else {
-        NSLog(@"Cannot identify type of design image - no float");
-    }
+    //} else {
+    //    NSLog(@"Cannot identify type of design image - no float");
+    //}
 
     return ret;
 }
