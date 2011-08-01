@@ -2,8 +2,8 @@
 //  EDDataElement.m
 //  BARTCommandLine
 //
-//  Created by First Last on 10/29/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Created by Lydia Hellrung on 10/29/09.
+//  Copyright 2009 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
 #import "EDDataElement.h"
