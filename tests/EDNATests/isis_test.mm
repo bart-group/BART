@@ -8,7 +8,7 @@
 
 #import "isis_test.h"
 #import "EDDataElementIsisRealTime.h"
-#import "../../src/BARTMainApp/BADataElement.h"
+#import "../../src/EDNA/EDDataElement.h"
 #import "CoreUtils/common.hpp"
 
 

@@ -1,5 +1,5 @@
 //
-//  BADataElement.h
+//  EDDataElement.h
 //  BARTCommandLine
 //
 //  Created by First Last on 10/29/09.
@@ -7,10 +7,73 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "BAElement.h"
+
+enum ImageType {
+    IMAGE_FCTDATA,
+    IMAGE_BETAS,
+	IMAGE_ANADATA,
+	IMAGE_TMAP,
+	IMAGE_ZMAP,
+	IMAGE_MOCO,
+	IMAGE_UNKNOWN
+};
+
+enum ImageDataType {
+    IMAGE_DATA_FLOAT,
+    IMAGE_DATA_INT16,
+	IMAGE_DATA_UINT16,
+	IMAGE_DATA_UINT8,
+	IMAGE_DATA_INT8,
+	IMAGE_DATA_DOUBLE,
+	IMAGE_DATA_INT32,
+	IMAGE_DATA_UINT32,
+	IMAGE_DATA_UNKNOWN
+};
+
+enum ImagePropertyID{
+    PROPID_NAME,
+    PROPID_MODALITY,
+    PROPID_DF,
+    PROPID_PATIENT,
+    PROPID_VOXEL,
+    PROPID_REPTIME,
+    PROPID_TALAIRACH,
+    PROPID_FIXPOINT,
+    PROPID_CA,
+    PROPID_CP,
+    PROPID_EXTENT,
+    PROPID_BETA,
+	PROPID_READVEC,
+	PROPID_PHASEVEC,
+	PROPID_SLICEVEC,
+	PROPID_SEQNR,
+	PROPID_VOXELSIZE, 
+	PROPID_ORIGIN
+};
+
+@interface BARTImageSize : NSObject <NSCopying> {
+	size_t rows;
+	size_t columns;
+	size_t slices;
+	size_t timesteps;
+	
+}
+
+@property size_t rows;
+@property size_t columns;
+@property size_t slices;
+@property size_t timesteps;
+
+-(id)initWithRows:(size_t)r andCols:(size_t)c andSlices:(size_t)s andTimesteps:(size_t)t;
+
+@end
 
 
-@interface BADataElement : BAElement {
+
+
+
+
+@interface EDDataElement : NSObject {
 	
 	BARTImageSize *mImageSize;
     uint mDataTypeID;
@@ -48,7 +111,7 @@
 
 #pragma mark -
 
-@interface BADataElement (AbstractMethods)
+@interface EDDataElement (AbstractMethods)
 
 
 -(id)initWithFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect ofImageType:(enum ImageType)iType;
@@ -59,7 +122,7 @@
 
 -(void)setVoxelValue:(NSNumber*)val atRow: (unsigned int)r col:(unsigned int)c slice:(unsigned int)s timestep:(unsigned int)t;
 
-//-(BADataElement*)CreateNewDataElement: withSize:(NSSize*)size andType:(NSString*)type; 
+//-(EDDataElement*)CreateNewDataElement: withSize:(NSSize*)size andType:(NSString*)type; 
 
 -(BOOL)WriteDataElementToFile:(NSString*)path;
 
@@ -92,7 +155,7 @@
 
 -(void)print;
 
--(void)copyProps:(NSArray*)propList fromDataElement:(BADataElement*)srcElement;
+-(void)copyProps:(NSArray*)propList fromDataElement:(EDDataElement*)srcElement;
 
 -(NSDictionary*)getProps:(NSArray*)propList;
 

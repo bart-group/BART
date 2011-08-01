@@ -53,7 +53,7 @@ NSThread *triggerThread;
 -(id)init
 {
 	
-	if (self = [super init]){
+	if ((self = [super init])){
 		
 		
 		config = [COSystemConfig getInstance];

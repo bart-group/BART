@@ -52,7 +52,7 @@ BAProcedureController *procController;
 -(void)setGUIBackgroundImage:(NSNotification*)aNotification
 {
 	//set this as background for viewer
-	BADataElement *elem = (BADataElement*) [aNotification object];
+	EDDataElement *elem = (EDDataElement*) [aNotification object];
 	[guiController setBackgroundImage:elem];
 }
 

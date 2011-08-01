@@ -1,5 +1,5 @@
 //
-//  BADataElementVI.h
+//  EDDataElementVI.h
 //  BARTCommandLine
 //
 //  Created by First Last on 10/29/09.
@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "BADataElement.h"
+#import "EDDataElement.h"
 
 #include <viaio/Vlib.h>
 #include <viaio/VImage.h>
@@ -17,7 +17,7 @@
 #include "BlockIO.h"
 
 
-@interface EDDataElementVI : BADataElement{
+@interface EDDataElementVI : EDDataElement{
 
     //hier wird das olle VImage versteckt!
     VImage *mImageArray;

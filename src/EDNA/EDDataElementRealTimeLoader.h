@@ -10,10 +10,9 @@
 
 #import "Cocoa/Cocoa.h"
 
-#import "../BARTMainApp/BADataElementRealTimeLoader.h"
 #import "EDDataElementIsisRealTime.h"
 
-@interface EDDataElementRealTimeLoader : BADataElementRealTimeLoader  
+@interface EDDataElementRealTimeLoader : NSObject  
 {
 	EDDataElementIsisRealTime *mDataElementInterest;
 	EDDataElementIsisRealTime *mDataElementRest;

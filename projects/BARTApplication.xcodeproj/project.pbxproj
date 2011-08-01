@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0006285911A44E2D00D369D0 /* BADataElementTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006283111A44B7F00D369D0 /* BADataElementTest.m */; };
 		0006F439122BEF4F001DA2BB /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C39FF11144FB2100725668 /* CLETUS.dylib */; };
 		0006F476122BFADD001DA2BB /* PRPreprocessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 0006F474122BFADD001DA2BB /* PRPreprocessor.h */; };
 		0006F477122BFADD001DA2BB /* PRPreprocessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F475122BFADD001DA2BB /* PRPreprocessor.m */; };
@@ -25,13 +24,12 @@
 		0006F7AE122E90FD001DA2BB /* rtExperiment_v14_simplified.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 0006F7AC122E90FD001DA2BB /* rtExperiment_v14_simplified.xsd */; };
 		00116A9613E00FC2009D383A /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00116A9513E00FB2009D383A /* NED.dylib */; };
 		00116A9713E00FD7009D383A /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00116A9513E00FB2009D383A /* NED.dylib */; };
-		00161023134B1FDD00373D77 /* BADataElement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A41141470400A57967 /* BADataElement.mm */; };
-		00161024134B1FEC00373D77 /* BAElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B01141470400A57967 /* BAElement.m */; };
 		00161027134B1FF500373D77 /* EDDataElementIsisRealTime.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00AE43A71343912400F2D01D /* EDDataElementIsisRealTime.mm */; };
 		0016102A134B200800373D77 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		0023A75811510D4C009182F8 /* edlValidation_rules.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0088781F1147B445009C7707 /* edlValidation_rules.xml */; };
 		0032CC37116E023A005117EA /* timeBasedRegressorLydi.edl in Resources */ = {isa = PBXBuildFile; fileRef = 003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */; };
 		0032CC38116E023F005117EA /* main_SW_BoldModule_2ContinousTargetROIs.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00AB18EA115246ED003BC915 /* main_SW_BoldModule_2ContinousTargetROIs.edl */; };
+		003D803713E6CC77004DE6E9 /* EDDataElementTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D803613E6CC77004DE6E9 /* EDDataElementTest.m */; };
 		0040B8071141470400A57967 /* BAAnalyzerGLM.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7961141470400A57967 /* BAAnalyzerGLM.m */; };
 		0040B8091141470400A57967 /* gauss.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7991141470400A57967 /* gauss.c */; };
 		0040B80A1141470400A57967 /* gsl_futils.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B79A1141470400A57967 /* gsl_futils.c */; };
@@ -55,8 +53,6 @@
 		00664BF812ABF734005216E6 /* PRPreprocessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F475122BFADD001DA2BB /* PRPreprocessor.m */; };
 		007932B3114FB79E007BEB66 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F81141470400A57967 /* main.m */; };
 		007932B4114FB79E007BEB66 /* ColorMappingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F71141470400A57967 /* ColorMappingFilter.m */; };
-		007932B5114FB7A1007BEB66 /* BASourceDatasetFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F41141470400A57967 /* BASourceDatasetFile.m */; };
-		007932B6114FB7A2007BEB66 /* BASource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F21141470400A57967 /* BASource.m */; };
 		007932B7114FB7A3007BEB66 /* BAGUIPrototyp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B41141470400A57967 /* BAGUIPrototyp.m */; };
 		007932B8114FB7A4007BEB66 /* BAGUIProtoCGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B21141470400A57967 /* BAGUIProtoCGLayer.m */; };
 		007932BA114FB7A6007BEB66 /* BADocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7AE1141470400A57967 /* BADocument.m */; };
@@ -68,7 +64,7 @@
 		008878241147B445009C7707 /* edlValidation_rules.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 008878201147B445009C7707 /* edlValidation_rules.xsd */; };
 		008878251147B445009C7707 /* rtExperiment_v14_w_timebased.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 008878211147B445009C7707 /* rtExperiment_v14_w_timebased.xsd */; };
 		008878261147B445009C7707 /* timeBasedRegressor.edl in Resources */ = {isa = PBXBuildFile; fileRef = 008878221147B445009C7707 /* timeBasedRegressor.edl */; };
-		009266AE13E5B4590025B384 /* NEDesignElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 009266AC13E5B4590025B384 /* NEDesignElement.h */; };
+		009266AE13E5B4590025B384 /* NEDesignElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 009266AC13E5B4590025B384 /* NEDesignElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		009266AF13E5B4590025B384 /* NEDesignElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 009266AD13E5B4590025B384 /* NEDesignElement.m */; };
 		00A7DD6B117C386300062AFE /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C39FF11144FB2100725668 /* CLETUS.dylib */; };
 		00AE42B1133CB00400F2D01D /* BARTNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AE42B0133CB00400F2D01D /* BARTNotifications.m */; };
@@ -113,36 +109,30 @@
 		00D4409B134B4DCC00094A51 /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D4409A134B4DCC00094A51 /* libisis_core.dylib */; };
 		00D440ED134B52AE00094A51 /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D4409A134B4DCC00094A51 /* libisis_core.dylib */; };
 		00D440EE134B52B100094A51 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440C0134B4F8800094A51 /* libboost_system-mt.dylib */; };
-		00D44159134B569400094A51 /* BAProcedureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A21141470400A57967 /* BAProcedureController.m */; };
+		00D44159134B569400094A51 /* BAProcedureController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A21141470400A57967 /* BAProcedureController.mm */; };
 		00D44165134B57E600094A51 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
 		00D44167134B57E600094A51 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00D44169134B57F200094A51 /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D4409A134B4DCC00094A51 /* libisis_core.dylib */; };
-		00D44185134B587100094A51 /* EDDataElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B772C311417C6300B2931A /* EDDataElementVI.h */; };
+		00D44185134B587100094A51 /* EDDataElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B772C311417C6300B2931A /* EDDataElementVI.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00D44186134B587200094A51 /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
-		00D44187134B587200094A51 /* EDDataElementIsis.h in Headers */ = {isa = PBXBuildFile; fileRef = 006E07531190260500CEEF38 /* EDDataElementIsis.h */; };
+		00D44187134B587200094A51 /* EDDataElementIsis.h in Headers */ = {isa = PBXBuildFile; fileRef = 006E07531190260500CEEF38 /* EDDataElementIsis.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00D44188134B587400094A51 /* EDDataElementIsis.mm in Sources */ = {isa = PBXBuildFile; fileRef = 006E07541190260500CEEF38 /* EDDataElementIsis.mm */; };
 		00D44189134B587400094A51 /* EDDataElementRealTimeLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = E54934E21339151E003264FE /* EDDataElementRealTimeLoader.mm */; };
-		00D4418A134B587500094A51 /* EDDataElementRealTimeLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 00AE4356133CEC4A00F2D01D /* EDDataElementRealTimeLoader.h */; };
-		00D4418B134B587600094A51 /* EDDataElementIsisRealTime.h in Headers */ = {isa = PBXBuildFile; fileRef = 00AE43A61343912400F2D01D /* EDDataElementIsisRealTime.h */; };
+		00D4418A134B587500094A51 /* EDDataElementRealTimeLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 00AE4356133CEC4A00F2D01D /* EDDataElementRealTimeLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		00D4418B134B587600094A51 /* EDDataElementIsisRealTime.h in Headers */ = {isa = PBXBuildFile; fileRef = 00AE43A61343912400F2D01D /* EDDataElementIsisRealTime.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00D4418C134B587600094A51 /* EDDataElementIsisRealTime.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00AE43A71343912400F2D01D /* EDDataElementIsisRealTime.mm */; };
-		00D44192134B589300094A51 /* BADataElement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A41141470400A57967 /* BADataElement.mm */; };
-		00D441A7134B592200094A51 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
-		00D441AC134B598500094A51 /* BADataElementRealTimeLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00AE434C133CE8AF00F2D01D /* BADataElementRealTimeLoader.mm */; };
 		00D441BA134B59D600094A51 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		00D441D8134B5AE300094A51 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44160134B57BD00094A51 /* EDNA.dylib */; };
-		00D4422F134B5CDA00094A51 /* BAElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B01141470400A57967 /* BAElement.m */; };
 		00D44261134B5E8C00094A51 /* BARTNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AE42B0133CB00400F2D01D /* BARTNotifications.m */; };
-		00D44264134B5EB200094A51 /* BADataElementRealTimeLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = E54934E51339160F003264FE /* BADataElementRealTimeLoader.h */; };
-		00D44265134B5EB300094A51 /* BAElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 0040B7AF1141470400A57967 /* BAElement.h */; };
-		00D44266134B5EB500094A51 /* BADataElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 0040B7A31141470400A57967 /* BADataElement.h */; };
 		00D444D6134DEB3000094A51 /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
 		00D444D7134DEB3100094A51 /* EDDataElementIsis.mm in Sources */ = {isa = PBXBuildFile; fileRef = 006E07541190260500CEEF38 /* EDDataElementIsis.mm */; };
 		00D444DC134DEB4100094A51 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
 		00D444DD134DEB4200094A51 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00D444E2134DEB5300094A51 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
 		00DE9C6F12F6EBB50089B99A /* designtest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DE9C6E12F6EBB50089B99A /* designtest.m */; };
-		00E63AD61352FC4900DC8A50 /* BAElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B01141470400A57967 /* BAElement.m */; };
-		00E63AE41353002D00DC8A50 /* BAElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B01141470400A57967 /* BAElement.m */; };
+		00E0434A13E6A53F006B17B0 /* EDDataElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E0434813E6A53F006B17B0 /* EDDataElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		00E0434B13E6A540006B17B0 /* EDDataElement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00E0434913E6A53F006B17B0 /* EDDataElement.mm */; };
+		00E0434C13E6A901006B17B0 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
 		00E63B81135325D100DC8A50 /* libboost_date_time-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BA134B4F8800094A51 /* libboost_date_time-mt.dylib */; };
 		00E63B82135325D200DC8A50 /* libboost_filesystem-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BC134B4F8800094A51 /* libboost_filesystem-mt.dylib */; };
 		00E63B83135325D300DC8A50 /* libboost_regex-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BE134B4F8800094A51 /* libboost_regex-mt.dylib */; };
@@ -164,19 +154,16 @@
 		00EA8A34135C6FEE00562F3B /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
 		00EA8A35135C6FEE00562F3B /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00EA8A36135C6FFF00562F3B /* libfftw3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A15135C6F5000562F3B /* libfftw3.dylib */; };
-		00EA8A6B135C725C00562F3B /* NEDesignKernel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0036104F117F9AED00A84F44 /* NEDesignKernel.h */; };
+		00EA8A6B135C725C00562F3B /* NEDesignKernel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0036104F117F9AED00A84F44 /* NEDesignKernel.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00EA8A6D135C725D00562F3B /* NEDesignKernel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00361050117F9AED00A84F44 /* NEDesignKernel.m */; };
-		00EA8A6E135C725E00562F3B /* NEDesignElementDyn.h in Headers */ = {isa = PBXBuildFile; fileRef = 0083769F116BB12D00369B20 /* NEDesignElementDyn.h */; };
+		00EA8A6E135C725E00562F3B /* NEDesignElementDyn.h in Headers */ = {isa = PBXBuildFile; fileRef = 0083769F116BB12D00369B20 /* NEDesignElementDyn.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00EA8A70135C725E00562F3B /* NEDesignElementDyn.m in Sources */ = {isa = PBXBuildFile; fileRef = 008376A0116BB12D00369B20 /* NEDesignElementDyn.m */; };
-		00EA8A72135C725F00562F3B /* NEDesignElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 008376A1116BB12D00369B20 /* NEDesignElementVI.h */; };
+		00EA8A72135C725F00562F3B /* NEDesignElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 008376A1116BB12D00369B20 /* NEDesignElementVI.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00EA8A74135C726000562F3B /* NEDesignElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 008376A2116BB12D00369B20 /* NEDesignElementVI.m */; };
-		00EA8A76135C726100562F3B /* NEDesignGloverKernel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0085EB2211511B2C004795FD /* NEDesignGloverKernel.h */; };
+		00EA8A76135C726100562F3B /* NEDesignGloverKernel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0085EB2211511B2C004795FD /* NEDesignGloverKernel.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00EA8A78135C726200562F3B /* NEDesignGloverKernel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0085EB2311511B2C004795FD /* NEDesignGloverKernel.m */; };
-		00EA8A7F135C727800562F3B /* BAElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 0040B7AF1141470400A57967 /* BAElement.h */; };
 		00EA8A99135C72B200562F3B /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
 		00EA8A9B135C72B300562F3B /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
-		00EA8AAD135C73A100562F3B /* BAElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B01141470400A57967 /* BAElement.m */; };
-		00EA8AAF135C73A400562F3B /* BADataElement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A41141470400A57967 /* BADataElement.mm */; };
 		00EA8AC1135C764F00562F3B /* libboost_date_time.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABD135C764F00562F3B /* libboost_date_time.dylib */; };
 		00EA8AC2135C764F00562F3B /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABE135C764F00562F3B /* libboost_filesystem.dylib */; };
 		00EA8AC3135C764F00562F3B /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABF135C764F00562F3B /* libboost_regex.dylib */; };
@@ -211,7 +198,7 @@
 		00EA8E65135D8BC500562F3B /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C39FF11144FB2100725668 /* CLETUS.dylib */; };
 		00EA8ECB135F006200562F3B /* EDIsisImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00EA8ECA135F006200562F3B /* EDIsisImage.cpp */; };
 		00EA8ECC135F00C100562F3B /* EDIsisImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00EA8ECA135F006200562F3B /* EDIsisImage.cpp */; };
-		00EA8ED7135F02DA00562F3B /* EDIsisImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 00EA8ED6135F02DA00562F3B /* EDIsisImage.h */; };
+		00EA8ED7135F02DA00562F3B /* EDIsisImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 00EA8ED6135F02DA00562F3B /* EDIsisImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		CE8A28C510F51058002422B5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED1922910AC8AD600FAFA4F /* QuartzCore.framework */; };
@@ -365,8 +352,6 @@
 /* Begin PBXFileReference section */
 		0006135611A3D84C00D369D0 /* EDNAUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EDNAUnitTestSuite.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0006135711A3D84C00D369D0 /* EDNAUnitTestSuite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "EDNAUnitTestSuite-Info.plist"; path = "../../projects/EDNAUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
-		0006283011A44B7F00D369D0 /* BADataElementTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElementTest.h; sourceTree = "<group>"; };
-		0006283111A44B7F00D369D0 /* BADataElementTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataElementTest.m; sourceTree = "<group>"; };
 		0006284111A44D9300D369D0 /* EDDataElementIsisTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementIsisTest.h; sourceTree = "<group>"; };
 		0006284211A44D9300D369D0 /* EDDataElementIsisTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EDDataElementIsisTest.mm; sourceTree = "<group>"; };
 		0006284311A44D9300D369D0 /* EDDataElementVITest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementVITest.h; sourceTree = "<group>"; };
@@ -392,6 +377,8 @@
 		003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = timeBasedRegressorLydi.edl; sourceTree = "<group>"; };
 		0036104F117F9AED00A84F44 /* NEDesignKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignKernel.h; sourceTree = "<group>"; };
 		00361050117F9AED00A84F44 /* NEDesignKernel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignKernel.m; sourceTree = "<group>"; };
+		003D803513E6CC77004DE6E9 /* EDDataElementTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementTest.h; sourceTree = "<group>"; };
+		003D803613E6CC77004DE6E9 /* EDDataElementTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDataElementTest.m; sourceTree = "<group>"; };
 		0040B7951141470400A57967 /* BAAnalyzerGLM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BAAnalyzerGLM.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0040B7961141470400A57967 /* BAAnalyzerGLM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BAAnalyzerGLM.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0040B7971141470400A57967 /* BlockIO.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BlockIO.c; sourceTree = "<group>"; };
@@ -402,23 +389,15 @@
 		0040B79F1141470400A57967 /* BAAnalyzerElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BAAnalyzerElement.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0040B7A01141470400A57967 /* BAAnalyzerElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAAnalyzerElement.m; sourceTree = "<group>"; };
 		0040B7A11141470400A57967 /* BAProcedureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAProcedureController.h; sourceTree = "<group>"; };
-		0040B7A21141470400A57967 /* BAProcedureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BAProcedureController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		0040B7A31141470400A57967 /* BADataElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElement.h; sourceTree = "<group>"; };
-		0040B7A41141470400A57967 /* BADataElement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BADataElement.mm; sourceTree = "<group>"; };
+		0040B7A21141470400A57967 /* BAProcedureController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = BAProcedureController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0040B7AD1141470400A57967 /* BADocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADocument.h; sourceTree = "<group>"; };
 		0040B7AE1141470400A57967 /* BADocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADocument.m; sourceTree = "<group>"; };
-		0040B7AF1141470400A57967 /* BAElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAElement.h; sourceTree = "<group>"; };
-		0040B7B01141470400A57967 /* BAElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAElement.m; sourceTree = "<group>"; };
-		0040B7B11141470400A57967 /* BAGUIProtoCGLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAGUIProtoCGLayer.h; sourceTree = "<group>"; };
-		0040B7B21141470400A57967 /* BAGUIProtoCGLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAGUIProtoCGLayer.m; sourceTree = "<group>"; };
-		0040B7B31141470400A57967 /* BAGUIPrototyp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAGUIPrototyp.h; sourceTree = "<group>"; };
-		0040B7B41141470400A57967 /* BAGUIPrototyp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAGUIPrototyp.m; sourceTree = "<group>"; };
+		0040B7B11141470400A57967 /* BAGUIProtoCGLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BAGUIProtoCGLayer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		0040B7B21141470400A57967 /* BAGUIProtoCGLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BAGUIProtoCGLayer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		0040B7B31141470400A57967 /* BAGUIPrototyp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BAGUIPrototyp.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		0040B7B41141470400A57967 /* BAGUIPrototyp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BAGUIPrototyp.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0040B7EF1141470400A57967 /* BARTApplicationAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BARTApplicationAppDelegate.h; sourceTree = "<group>"; };
-		0040B7F01141470400A57967 /* BARTApplicationAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BARTApplicationAppDelegate.m; sourceTree = "<group>"; };
-		0040B7F11141470400A57967 /* BASource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASource.h; sourceTree = "<group>"; };
-		0040B7F21141470400A57967 /* BASource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASource.m; sourceTree = "<group>"; };
-		0040B7F31141470400A57967 /* BASourceDatasetFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASourceDatasetFile.h; sourceTree = "<group>"; };
-		0040B7F41141470400A57967 /* BASourceDatasetFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BASourceDatasetFile.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		0040B7F01141470400A57967 /* BARTApplicationAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BARTApplicationAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0040B7F51141470400A57967 /* ColorMappingFilter.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ColorMappingFilter.cikernel; sourceTree = "<group>"; };
 		0040B7F61141470400A57967 /* ColorMappingFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorMappingFilter.h; sourceTree = "<group>"; };
 		0040B7F71141470400A57967 /* ColorMappingFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorMappingFilter.m; sourceTree = "<group>"; };
@@ -434,7 +413,7 @@
 		0056D7E512D335D4002AC73F /* designtest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = designtest.h; sourceTree = "<group>"; };
 		005B604411D3812400812781 /* isis_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = isis_test; sourceTree = BUILT_PRODUCTS_DIR; };
 		005B604911D3818B00812781 /* isis_test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = isis_test.h; sourceTree = "<group>"; };
-		005B604A11D3818B00812781 /* isis_test.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = isis_test.mm; sourceTree = "<group>"; };
+		005B604A11D3818B00812781 /* isis_test.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = isis_test.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0066276C11804476004980A0 /* NEDesignKernelTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignKernelTest.h; sourceTree = "<group>"; };
 		0066276D11804476004980A0 /* NEDesignKernelTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignKernelTest.m; sourceTree = "<group>"; };
 		0066277011804494004980A0 /* NEDesignGloverKernelTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignGloverKernelTest.h; sourceTree = "<group>"; };
@@ -443,8 +422,8 @@
 		00662AC71181CFCD004980A0 /* NEDesignGloverKernelReference.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NEDesignGloverKernelReference.c; sourceTree = "<group>"; };
 		00664BF012ABF71D005216E6 /* PRINCE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PRINCE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		00664BF112ABF71D005216E6 /* PRINCE-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PRINCE-Info.plist"; sourceTree = "<group>"; };
-		006E07531190260500CEEF38 /* EDDataElementIsis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementIsis.h; sourceTree = "<group>"; };
-		006E07541190260500CEEF38 /* EDDataElementIsis.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = EDDataElementIsis.mm; sourceTree = "<group>"; };
+		006E07531190260500CEEF38 /* EDDataElementIsis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EDDataElementIsis.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		006E07541190260500CEEF38 /* EDDataElementIsis.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; lineEnding = 0; path = EDDataElementIsis.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		00709E3212E74B05006389C4 /* erDesignTest01.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest01.edl; sourceTree = "<group>"; };
 		00709E4B12E86A06006389C4 /* timeBasedRegressorNEDTest.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = timeBasedRegressorNEDTest.edl; sourceTree = "<group>"; };
 		00709ED012EA04A5006389C4 /* erDesignTest02_deriv1AllReg.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest02_deriv1AllReg.edl; sourceTree = "<group>"; };
@@ -485,10 +464,9 @@
 		00AB18EA115246ED003BC915 /* main_SW_BoldModule_2ContinousTargetROIs.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = main_SW_BoldModule_2ContinousTargetROIs.edl; sourceTree = "<group>"; };
 		00AE410D133B9EF100F2D01D /* BARTNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BARTNotifications.h; sourceTree = "<group>"; };
 		00AE42B0133CB00400F2D01D /* BARTNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BARTNotifications.m; sourceTree = "<group>"; };
-		00AE434C133CE8AF00F2D01D /* BADataElementRealTimeLoader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BADataElementRealTimeLoader.mm; sourceTree = "<group>"; };
-		00AE4356133CEC4A00F2D01D /* EDDataElementRealTimeLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementRealTimeLoader.h; sourceTree = "<group>"; };
-		00AE43A61343912400F2D01D /* EDDataElementIsisRealTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementIsisRealTime.h; sourceTree = "<group>"; };
-		00AE43A71343912400F2D01D /* EDDataElementIsisRealTime.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EDDataElementIsisRealTime.mm; sourceTree = "<group>"; };
+		00AE4356133CEC4A00F2D01D /* EDDataElementRealTimeLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EDDataElementRealTimeLoader.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		00AE43A61343912400F2D01D /* EDDataElementIsisRealTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EDDataElementIsisRealTime.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		00AE43A71343912400F2D01D /* EDDataElementIsisRealTime.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = EDDataElementIsisRealTime.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		00B1573111459587007C02CB /* libgslcblas.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgslcblas.dylib; path = /opt/local/lib/libgslcblas.dylib; sourceTree = "<absolute>"; };
 		00B1573B11459605007C02CB /* libgsl.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgsl.0.dylib; path = /opt/local/lib/libgsl.0.dylib; sourceTree = "<absolute>"; };
 		00B1AC22114554DB008FC09D /* COEDLValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COEDLValidator.h; sourceTree = "<group>"; };
@@ -503,8 +481,8 @@
 		00B1AD76114645A3008FC09D /* COEDLValidatorLiteral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COEDLValidatorLiteral.m; sourceTree = "<group>"; };
 		00B1ADA611465349008FC09D /* COEDLValidatorToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COEDLValidatorToken.h; sourceTree = "<group>"; };
 		00B1ADA711465349008FC09D /* COEDLValidatorToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COEDLValidatorToken.m; sourceTree = "<group>"; };
-		00B772C311417C6300B2931A /* EDDataElementVI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementVI.h; sourceTree = "<group>"; };
-		00B772C411417C6300B2931A /* EDDataElementVI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDataElementVI.m; sourceTree = "<group>"; };
+		00B772C311417C6300B2931A /* EDDataElementVI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EDDataElementVI.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		00B772C411417C6300B2931A /* EDDataElementVI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EDDataElementVI.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		00BCD71713DEC457001C091A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = ../../../../../System/Library/Frameworks/AppKit.framework; sourceTree = "<group>"; };
 		00BCD71913DEC469001C091A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = ../../../../../System/Library/Frameworks/Foundation.framework; sourceTree = "<group>"; };
 		00BCD71B13DEEF08001C091A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = ../../../../../System/Library/Frameworks/AppKit.framework; sourceTree = "<group>"; };
@@ -532,6 +510,8 @@
 		00DE9C6E12F6EBB50089B99A /* designtest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = designtest.m; sourceTree = "<group>"; };
 		00DE9C7C12F6FE690089B99A /* allZeroRegressor.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = allZeroRegressor.edl; sourceTree = "<group>"; };
 		00DE9CBB12F72AF40089B99A /* noRegressor.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = noRegressor.edl; sourceTree = "<group>"; };
+		00E0434813E6A53F006B17B0 /* EDDataElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EDDataElement.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		00E0434913E6A53F006B17B0 /* EDDataElement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = EDDataElement.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		00E7A644117EF24F00696498 /* NEDesignElementDynTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NEDesignElementDynTest.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		00E7A645117EF24F00696498 /* NEDesignElementVITest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NEDesignElementVITest.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		00E7A646117EF24F00696498 /* NEDesignElementVITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NEDesignElementVITest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -563,7 +543,6 @@
 		CED191F510AC8A7B00FAFA4F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		CED1922910AC8AD600FAFA4F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		E54934E21339151E003264FE /* EDDataElementRealTimeLoader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EDDataElementRealTimeLoader.mm; sourceTree = "<group>"; };
-		E54934E51339160F003264FE /* BADataElementRealTimeLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataElementRealTimeLoader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -757,6 +736,8 @@
 		0006284011A44D6E00D369D0 /* EDNATests */ = {
 			isa = PBXGroup;
 			children = (
+				003D803513E6CC77004DE6E9 /* EDDataElementTest.h */,
+				003D803613E6CC77004DE6E9 /* EDDataElementTest.m */,
 				0006135711A3D84C00D369D0 /* EDNAUnitTestSuite-Info.plist */,
 				0006284111A44D9300D369D0 /* EDDataElementIsisTest.h */,
 				0006284211A44D9300D369D0 /* EDDataElementIsisTest.mm */,
@@ -884,6 +865,8 @@
 		0040B8051141470400A57967 /* EDNA */ = {
 			isa = PBXGroup;
 			children = (
+				00E0434813E6A53F006B17B0 /* EDDataElement.h */,
+				00E0434913E6A53F006B17B0 /* EDDataElement.mm */,
 				00B772C311417C6300B2931A /* EDDataElementVI.h */,
 				00B772C411417C6300B2931A /* EDDataElementVI.m */,
 				006E07531190260500CEEF38 /* EDDataElementIsis.h */,
@@ -932,8 +915,6 @@
 			isa = PBXGroup;
 			children = (
 				00841BF711464321004341CC /* testfiles */,
-				0006283011A44B7F00D369D0 /* BADataElementTest.h */,
-				0006283111A44B7F00D369D0 /* BADataElementTest.m */,
 				0006F480122BFC54001DA2BB /* BAAnalyzerGLMTest.h */,
 				0006F481122BFC54001DA2BB /* BAAnalyzerGLMTest.m */,
 				0006F53E122D3366001DA2BB /* BAAnalyzerGLMReference.h */,
@@ -1049,7 +1030,7 @@
 				004ABAF21378791400B13077 /* BADynamicDesignController.h */,
 				004ABAF31378791400B13077 /* BADynamicDesignController.m */,
 				0040B7A11141470400A57967 /* BAProcedureController.h */,
-				0040B7A21141470400A57967 /* BAProcedureController.m */,
+				0040B7A21141470400A57967 /* BAProcedureController.mm */,
 				0040B7EF1141470400A57967 /* BARTApplicationAppDelegate.h */,
 				0040B7F01141470400A57967 /* BARTApplicationAppDelegate.m */,
 				00AE410D133B9EF100F2D01D /* BARTNotifications.h */,
@@ -1063,18 +1044,8 @@
 			children = (
 				0040B79F1141470400A57967 /* BAAnalyzerElement.h */,
 				0040B7A01141470400A57967 /* BAAnalyzerElement.m */,
-				0040B7A31141470400A57967 /* BADataElement.h */,
-				0040B7A41141470400A57967 /* BADataElement.mm */,
-				0040B7F11141470400A57967 /* BASource.h */,
-				0040B7F21141470400A57967 /* BASource.m */,
-				0040B7F31141470400A57967 /* BASourceDatasetFile.h */,
-				0040B7F41141470400A57967 /* BASourceDatasetFile.m */,
 				0040B7AD1141470400A57967 /* BADocument.h */,
 				0040B7AE1141470400A57967 /* BADocument.m */,
-				0040B7AF1141470400A57967 /* BAElement.h */,
-				0040B7B01141470400A57967 /* BAElement.m */,
-				E54934E51339160F003264FE /* BADataElementRealTimeLoader.h */,
-				00AE434C133CE8AF00F2D01D /* BADataElementRealTimeLoader.mm */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1258,13 +1229,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00E0434A13E6A53F006B17B0 /* EDDataElement.h in Headers */,
+				00D4418A134B587500094A51 /* EDDataElementRealTimeLoader.h in Headers */,
 				00D44185134B587100094A51 /* EDDataElementVI.h in Headers */,
 				00D44187134B587200094A51 /* EDDataElementIsis.h in Headers */,
-				00D4418A134B587500094A51 /* EDDataElementRealTimeLoader.h in Headers */,
 				00D4418B134B587600094A51 /* EDDataElementIsisRealTime.h in Headers */,
-				00D44264134B5EB200094A51 /* BADataElementRealTimeLoader.h in Headers */,
-				00D44265134B5EB300094A51 /* BAElement.h in Headers */,
-				00D44266134B5EB500094A51 /* BADataElement.h in Headers */,
 				00EA8ED7135F02DA00562F3B /* EDIsisImage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1273,12 +1242,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				009266AE13E5B4590025B384 /* NEDesignElement.h in Headers */,
 				00EA8A6B135C725C00562F3B /* NEDesignKernel.h in Headers */,
 				00EA8A6E135C725E00562F3B /* NEDesignElementDyn.h in Headers */,
 				00EA8A72135C725F00562F3B /* NEDesignElementVI.h in Headers */,
 				00EA8A76135C726100562F3B /* NEDesignGloverKernel.h in Headers */,
-				00EA8A7F135C727800562F3B /* BAElement.h in Headers */,
-				009266AE13E5B4590025B384 /* NEDesignElement.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1758,6 +1726,7 @@
 				0006F594122D5880001DA2BB /* EDDataElementVITest.m in Sources */,
 				0006F595122D5881001DA2BB /* EDDataElementIsisTest.mm in Sources */,
 				00E63C9F13533ED900DC8A50 /* BlockIO.c in Sources */,
+				003D803713E6CC77004DE6E9 /* EDDataElementTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1785,8 +1754,6 @@
 				00EA89E2135C6CB600562F3B /* EDDataElementVI.m in Sources */,
 				00EA89E5135C6CB800562F3B /* EDDataElementIsisRealTime.mm in Sources */,
 				00EA89EA135C6CC900562F3B /* BlockIO.c in Sources */,
-				00EA8AAD135C73A100562F3B /* BAElement.m in Sources */,
-				00EA8AAF135C73A400562F3B /* BADataElement.mm in Sources */,
 				00EA8E50135D8B8400562F3B /* BAAnalyzerGLMReference.m in Sources */,
 				00EA8E62135D8BBA00562F3B /* BAAnalyzerGLM.m in Sources */,
 				00EA8E64135D8BBD00562F3B /* BAAnalyzerElement.m in Sources */,
@@ -1804,7 +1771,6 @@
 				0056D7E112D335B0002AC73F /* NEDesignGloverKernel.m in Sources */,
 				0056DA1112D36577002AC73F /* NEDesignElementReference.m in Sources */,
 				00DE9C6F12F6EBB50089B99A /* designtest.m in Sources */,
-				00E63AD61352FC4900DC8A50 /* BAElement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1813,8 +1779,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				005B604C11D3819E00812781 /* isis_test.mm in Sources */,
-				00161023134B1FDD00373D77 /* BADataElement.mm in Sources */,
-				00161024134B1FEC00373D77 /* BAElement.m in Sources */,
 				00161027134B1FF500373D77 /* EDDataElementIsisRealTime.mm in Sources */,
 				00D444D6134DEB3000094A51 /* EDDataElementVI.m in Sources */,
 				00D444D7134DEB3100094A51 /* EDDataElementIsis.mm in Sources */,
@@ -1840,7 +1804,6 @@
 				006627731180449F004980A0 /* NEDesignKernelTest.m in Sources */,
 				00662AC81181CFCD004980A0 /* NEDesignGloverKernelReference.c in Sources */,
 				0006F518122D2DEF001DA2BB /* NEDesignElementReference.m in Sources */,
-				00E63AE41353002D00DC8A50 /* BAElement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1877,16 +1840,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00E0434C13E6A901006B17B0 /* BlockIO.c in Sources */,
 				00D44186134B587200094A51 /* EDDataElementVI.m in Sources */,
 				00D44188134B587400094A51 /* EDDataElementIsis.mm in Sources */,
 				00D44189134B587400094A51 /* EDDataElementRealTimeLoader.mm in Sources */,
 				00D4418C134B587600094A51 /* EDDataElementIsisRealTime.mm in Sources */,
-				00D44192134B589300094A51 /* BADataElement.mm in Sources */,
-				00D441A7134B592200094A51 /* BlockIO.c in Sources */,
-				00D441AC134B598500094A51 /* BADataElementRealTimeLoader.mm in Sources */,
-				00D4422F134B5CDA00094A51 /* BAElement.m in Sources */,
 				00D44261134B5E8C00094A51 /* BARTNotifications.m in Sources */,
 				00EA8ECC135F00C100562F3B /* EDIsisImage.cpp in Sources */,
+				00E0434B13E6A540006B17B0 /* EDDataElement.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1914,14 +1875,12 @@
 				0040B84A1141470400A57967 /* Negative.cikernel in Sources */,
 				007932B3114FB79E007BEB66 /* main.m in Sources */,
 				007932B4114FB79E007BEB66 /* ColorMappingFilter.m in Sources */,
-				007932B5114FB7A1007BEB66 /* BASourceDatasetFile.m in Sources */,
-				007932B6114FB7A2007BEB66 /* BASource.m in Sources */,
 				007932B7114FB7A3007BEB66 /* BAGUIPrototyp.m in Sources */,
 				007932B8114FB7A4007BEB66 /* BAGUIProtoCGLayer.m in Sources */,
 				007932BA114FB7A6007BEB66 /* BADocument.m in Sources */,
 				007932BE114FB7A9007BEB66 /* BAAnalyzerElement.m in Sources */,
 				00AE42B1133CB00400F2D01D /* BARTNotifications.m in Sources */,
-				00D44159134B569400094A51 /* BAProcedureController.m in Sources */,
+				00D44159134B569400094A51 /* BAProcedureController.mm in Sources */,
 				004ABAF41378791400B13077 /* BADynamicDesignController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1930,7 +1889,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0006285911A44E2D00D369D0 /* BADataElementTest.m in Sources */,
 				0006F482122BFC54001DA2BB /* BAAnalyzerGLMTest.m in Sources */,
 				0006F540122D3366001DA2BB /* BAAnalyzerGLMReference.m in Sources */,
 				00B50B3F123921B900BBCEB8 /* BAAnalyzerGLM.m in Sources */,
@@ -2629,6 +2587,12 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					/usr/include,
+					/usr/local/include/isis,
+					/opt/local/include/boost,
+				);
 				INSTALL_PATH = /usr/local/lib;
 				LD_DYLIB_INSTALL_NAME = "$(EXECUTABLE_PATH)";
 				LIBRARY_SEARCH_PATHS = (
@@ -2670,6 +2634,7 @@
 					/usr/local/include,
 					/usr/local/include/isis,
 					/opt/local/include,
+					/opt/local/include/boost,
 				);
 				INSTALL_PATH = /usr/local/lib;
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
@@ -2678,7 +2643,6 @@
 					"$(inherited)",
 					/opt/local/lib,
 					/usr/lib,
-					/opt/local/var/macports/software/boost/1.44.0_0/opt/local/lib,
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -2782,6 +2746,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BARTApplication_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1 = "";
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					/usr/include,
+					/usr/local/include/isis,
+					/opt/local/include/boost,
+				);
 				INFOPLIST_FILE = "BARTApplication-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (

@@ -366,7 +366,7 @@ skip: ;
     return self;
 }
 
--(BADataElement*)anaylzeTheData:(BADataElement*)data 
+-(EDDataElement*)anaylzeTheData:(EDDataElement*)data 
                      withDesign:(NEDesignElement*)design
              andCurrentTimestep:(size_t)timestep
 {
@@ -682,11 +682,11 @@ skip: ;
 {
 	BARTImageSize *s = [[mData mImageSize] copy];
 	s.timesteps = mDesign.mNumberExplanatoryVariables;
-	mBetaOutput = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_BETAS];
+	mBetaOutput = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_BETAS];
 	s.timesteps = 1;
-    mResOutput = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
-	mResMap = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
-	mBCOVOutput = [[BADataElement alloc] initEmptyWithSize:[[BARTImageSize alloc] initWithRows:mDesign.mNumberExplanatoryVariables andCols:mDesign.mNumberExplanatoryVariables andSlices:1 andTimesteps:1] ofImageType:IMAGE_UNKNOWN];
+    mResOutput = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
+	mResMap = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
+	mBCOVOutput = [[EDDataElement alloc] initEmptyWithSize:[[BARTImageSize alloc] initWithRows:mDesign.mNumberExplanatoryVariables andCols:mDesign.mNumberExplanatoryVariables andSlices:1 andTimesteps:1] ofImageType:IMAGE_UNKNOWN];
 	[s release];	   
 	
 }

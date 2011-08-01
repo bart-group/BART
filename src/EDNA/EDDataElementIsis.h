@@ -7,11 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "../BARTMainApp/BADataElement.h"
+#import "EDDataElement.h"
 #import "DataStorage/image.hpp"
 
 
-@interface EDDataElementIsis : BADataElement {
+@interface EDDataElementIsis : EDDataElement {
 	//isis::data::ImageList mIsisImageList;
 	std::list<isis::data::Image> mIsisImageList; 
     isis::data::Image *mIsisImage;
@@ -21,7 +21,7 @@
 	
 }
 
--(void)appendVolume:(BADataElement*)nextVolume;
+-(void)appendVolume:(EDDataElement*)nextVolume;
 -(BOOL)sizeCheckRows:(uint)r Cols:(uint)c Slices:(uint)s Timesteps:(uint)t;
 -(id)initFromImage:(isis::data::Image)img ofImageType:(enum ImageType)imgType;
 

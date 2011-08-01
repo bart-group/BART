@@ -28,7 +28,7 @@ int main(void)
 		NSLog(@"%@", err);
 	
 	
-	BADataElement *inputData = [[BADataElement alloc] initWithDataFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
+	EDDataElement *inputData = [[EDDataElement alloc] initWithDataFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
 	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	
 	uint fwhm = 4;
@@ -45,8 +45,8 @@ int main(void)
 	NSArray* contrastVector = [NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0], [NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.0], nil];
 	
 	
-	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
-	BADataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:nrTimesteps];
+	EDDataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
+	EDDataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:nrTimesteps];
 	
 	NSLog(@"%ld %ld", [outputAlg getImageSize].columns,      [outputRef getImageSize].columns);
 	NSLog(@"%ld %ld", [outputAlg getImageSize].rows,      [outputRef getImageSize].rows);

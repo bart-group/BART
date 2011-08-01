@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "BADataElement.h"
+#import "../EDNA/EDDataElement.h"
 
 
 @interface BAGUIProtoCGLayer : NSObject {
@@ -32,8 +32,8 @@
     CIImage                 *foregroundCIImage;
     CIImage                 *foregroundCIImageFiltered;
     
-    BADataElement           *backgroundImage;
-    BADataElement           *foregroundImage;
+    EDDataElement           *backgroundImage;
+    EDDataElement           *foregroundImage;
     
     CGRect                  boundaries;
     NSUInteger              short_bytes_length;
@@ -74,21 +74,21 @@
 -(id)initWithDefault;
 
 /**
- * Displays all layers and image objects (already converted BADataElement objects).
+ * Displays all layers and image objects (already converted EDDataElement objects).
  */
 - (void)doPaint;
 
 /**
- * Converts, retains and displays a BADataElement in the background layer 
+ * Converts, retains and displays a EDDataElement in the background layer 
  * (usually used for anatomy data).
  */
-- (IBAction)setBackgroundImage:(BADataElement*)newBackgroundImage;
+- (IBAction)setBackgroundImage:(EDDataElement*)newBackgroundImage;
 
 /**
- * Converts, retains and displays a BADataElement in the background layer 
+ * Converts, retains and displays a EDDataElement in the background layer 
  * (usually used for functional/activation data).
  */
-- (IBAction)setForegroundImage:(BADataElement*)newForegroundImage;
+- (IBAction)setForegroundImage:(EDDataElement*)newForegroundImage;
 
 - (IBAction)updateSlider:(id)sender;
 

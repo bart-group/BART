@@ -9,10 +9,9 @@
 #import <Cocoa/Cocoa.h>
 
 
-@class BASource;
 @class BAElement;
 @class NEDesignElement;
-@class BADataElement;
+@class EDDataElement;
 
 
 // Supported Analyzer types:
@@ -41,11 +40,11 @@ extern NSString *const kAnalyzerGLM;
 @interface BAAnalyzerElement (AbstractMethods)
 
 // abstract methods to be implemented by subclasses
--(BADataElement*)anaylzeTheData:(BADataElement*)data 
+-(EDDataElement*)anaylzeTheData:(EDDataElement*)data 
                      withDesign:(NEDesignElement*) design
 			  atCurrentTimestep:(size_t)timestep
 			  forContrastVector:(NSArray*)contrastVector
-			 andWriteResultInto:(BADataElement*)resData;
+			 andWriteResultInto:(EDDataElement*)resData;
 
 
 -(void)sendFinishNotification;
@@ -58,6 +57,6 @@ extern NSString *const kAnalyzerGLM;
 
 // Private, concrete methods used by subclasses:
 -(void)whatever:(BOOL) findParameters;
--(void)setDataToAnalyze:(BASource*) src;
+-(void)setDataToAnalyze:(EDDataElement*) src;
 
 @end

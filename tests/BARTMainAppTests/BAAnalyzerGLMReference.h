@@ -7,8 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "../../src/BARTMainApp/BADataElement.h"
-#import "../../src/BARTMainApp/NEDesignElement.h"
+#import "../../src/EDNA/EDDataElement.h"
+#import "../../src/NED/NEDesignElement.h"
 
 
 #define MBETA    64   /* max number of covariates */
@@ -16,12 +16,12 @@
 
 	
 	NEDesignElement *mDesign;
-    BADataElement *mData;
+    EDDataElement *mData;
     
-    BADataElement *mBetaOutput;
-    BADataElement *mResOutput;
-    BADataElement *mResMap;
-    BADataElement *mBCOVOutput;
+    EDDataElement *mBetaOutput;
+    EDDataElement *mResOutput;
+    EDDataElement *mResMap;
+    EDDataElement *mBCOVOutput;
     
 	uint mSlidingWindowSize;
 	BOOL mSlidingWindowAnalysis;
@@ -36,7 +36,7 @@
 
 -(id)initWithFwhm:(uint) fwhm andMinval:(uint)minval forSlidingAnalysis:(BOOL)swa withSize:(uint)sws;
 
--(BADataElement*)anaylzeTheData:(BADataElement*)data 
+-(EDDataElement*)anaylzeTheData:(EDDataElement*)data 
                      withDesign:(NEDesignElement*) design
              andCurrentTimestep:(size_t)timestep;
 

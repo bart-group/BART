@@ -18,13 +18,13 @@
 @interface BAAnalyzerGLM : BAAnalyzerElement {
     
     NEDesignElement *mDesign;
-    BADataElement *mData;
+    EDDataElement *mData;
     
-    BADataElement *mBetaOutput;
-    BADataElement *mResOutput;
-    BADataElement *mResMap;
-    BADataElement *mBCOVOutput;
-    // BADataElement *mKXOutput;
+    EDDataElement *mBetaOutput;
+    EDDataElement *mResOutput;
+    EDDataElement *mResMap;
+    EDDataElement *mBCOVOutput;
+    // EDDataElement *mKXOutput;
     uint slidingWindowSize;
 	BOOL mSlidingWindowAnalysis;
 	short mMinval; 

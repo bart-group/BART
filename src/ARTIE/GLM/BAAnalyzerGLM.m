@@ -7,7 +7,7 @@
 //
 
 #import "BAAnalyzerGLM.h"
-#import "BADataElement.h"
+#import "../../EDNA/EDDataElement.h"
 #import "NEDesignElement.h"
 #import "BAGUIProtoCGLayer.h"
 
@@ -55,14 +55,14 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     return self;
 }
 
-//-(BADataElement*)anaylzeTheData:(BADataElement*)data 
+//-(EDDataElement*)anaylzeTheData:(EDDataElement*)data 
 //                     withDesign:(NEDesignElement*)design
 //             andCurrentTimestep:(size_t)timestep
--(BADataElement*)anaylzeTheData:(BADataElement*)data 
+-(EDDataElement*)anaylzeTheData:(EDDataElement*)data 
                      withDesign:(NEDesignElement*)design
 			  atCurrentTimestep:(size_t)timestep
 			  forContrastVector:(NSArray*)contrastVector
-			 andWriteResultInto:(BADataElement*)resData;
+			 andWriteResultInto:(EDDataElement*)resData;
 //TODO:Ergebnis als Referenz reingeben, nicht hier drin erzeugen UND Contrasts UND MINVAL mitgeben!!
 {
     mDesign = design;
@@ -426,7 +426,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
   
 	BARTImageSize *s = [[mData mImageSize] copy];
 	s.timesteps = mDesign.mNumberExplanatoryVariables;
-	mBetaOutput = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_BETAS];
+	mBetaOutput = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_BETAS];
 	
 	NSArray *propsToCopy = [NSArray arrayWithObjects:
 							 @"voxelsize",
@@ -450,11 +450,11 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 	[mBetaOutput copyProps:propsToCopy fromDataElement:mData];
 
 	s.timesteps = 1;
-    mResOutput = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
+    mResOutput = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
 	[mResOutput copyProps:propsToCopy fromDataElement:mData];
-	mResMap = [[BADataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
+	mResMap = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
 	[ mResMap copyProps:propsToCopy fromDataElement:mData];
-	mBCOVOutput = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mDesign.mNumberExplanatoryVariables andCols:mDesign.mNumberExplanatoryVariables andSlices:1 andTimesteps:1];
+	mBCOVOutput = [[EDDataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mDesign.mNumberExplanatoryVariables andCols:mDesign.mNumberExplanatoryVariables andSlices:1 andTimesteps:1];
 }
 
 @end

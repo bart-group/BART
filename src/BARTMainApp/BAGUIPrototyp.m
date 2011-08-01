@@ -389,7 +389,7 @@ static BAGUIPrototyp *gui;
 	[[self openGLContext] flushBuffer];
 }
 
-- (void)setFunctionalImage:(BADataElement*)newFunctionalImage {
+- (void)setFunctionalImage:(EDDataElement*)newFunctionalImage {
 	functionalImage = newFunctionalImage;
     [self convertFunctionalImage];
     
@@ -430,7 +430,7 @@ static BAGUIPrototyp *gui;
     }
 }
 
-- (void)updateImage:(BADataElement*)newActivationImage {
+- (void)updateImage:(EDDataElement*)newActivationImage {
 
     activationOverlayAlpha = 1.0;
     

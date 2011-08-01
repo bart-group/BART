@@ -7,10 +7,10 @@
 //
 
 #import "BAProcedureController.h"
-#import "BADataElement.h"
+#import "../EDNA/EDDataElement.h"
 #import "NEDesignElement.h"
 #import "BAAnalyzerElement.h"
-#import "BADataElementRealTimeLoader.h"
+#import "../EDNA/EDDataElementRealTimeLoader.h"
 #import "BARTNotifications.h"
 #import "../CLETUS/COSystemConfig.h"
 #import "BADynamicDesignController.h"
@@ -19,13 +19,13 @@
 @interface BAProcedureController (PrivateMethods)
 
 //
-BADataElement *mInputData;
+EDDataElement *mInputData;
 //NEDesignElement *mDesignData;
 BADynamicDesignController *dynamicDesignController;
-BADataElement *mResultData;
+EDDataElement *mResultData;
 BAAnalyzerElement *mAnalyzer;
 size_t mCurrentTimestep;
-BADataElementRealTimeLoader *mRtLoader;
+EDDataElementRealTimeLoader *mRtLoader;
 COSystemConfig *config;
 //TODO: define enum and take a switch where needed
 BOOL isRealTimeTCPInput;
@@ -45,11 +45,11 @@ size_t startAnalysisAtTimeStep;
 
 -(id)init
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         // TODO: appropriate init
         mCurrentTimestep = 300;
 		config = [COSystemConfig getInstance];
-		isRealTimeTCPInput = TRUE;
+		isRealTimeTCPInput = FALSE;
 		startAnalysisAtTimeStep = 15;
 		
 		dynamicDesignController = [[BADynamicDesignController alloc] init]; 
@@ -82,7 +82,7 @@ size_t startAnalysisAtTimeStep;
 	//FILE LOAD STUFF
 	if (FALSE == isRealTimeTCPInput){
 		// setup the input data
-		mInputData = [[BADataElement alloc] initWithDataFile:@"/Users/Lydi/RealTimeProject/BARTTests/29_04_2011/analysisWithBart/tmaps/HL3T_simpleMotorLongBlocks_move.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
+		mInputData = [[EDDataElement alloc] initWithDataFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
 		if (nil == mInputData) {
 			return FALSE;
 		}
@@ -92,7 +92,7 @@ size_t startAnalysisAtTimeStep;
 	else{
 		//REALTIMESTUFF
 		//TODO: Unterscheidung Verzeichnis laden oder rtExport laden - zweiter RealTimeLoader??
-		mRtLoader = [[BADataElementRealTimeLoader alloc] init];
+		mRtLoader = [[EDDataElementRealTimeLoader alloc] init];
 	
 		//register as observer for new data
 		[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -160,7 +160,7 @@ size_t startAnalysisAtTimeStep;
 -(void)nextDataArrived:(NSNotification*)aNotification
 {
 	if (FALSE == isRealTimeTCPInput){
-		NSLog(@"Timestep: %d", mCurrentTimestep+1);
+		NSLog(@"Timestep: %lu", mCurrentTimestep+1);
 		if ((mCurrentTimestep > startAnalysisAtTimeStep-1 ) && (mCurrentTimestep < [[dynamicDesignController designElement] mNumberTimesteps])) {
 			[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
 		}
@@ -193,7 +193,7 @@ size_t startAnalysisAtTimeStep;
 {
 	NSLog(@"processDataThread START");
 	NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
-	BADataElement *resData;
+	EDDataElement *resData;
 	
 	
 	//TODO : get from config or gui

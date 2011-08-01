@@ -39,7 +39,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
  */
 - (void)initLayers;
 - (void)setupImages;
-- (CGPoint)computeMinMaxVoxelValue:(BADataElement*)image;
+- (CGPoint)computeMinMaxVoxelValue:(EDDataElement*)image;
 - (void)convertFunctionalImage;
 /**
  * Sets the number of rows/columns of the display matrix.
@@ -261,7 +261,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
     }
 }
 
-- (IBAction)setBackgroundImage:(BADataElement*)newBackgroundImage {
+- (IBAction)setBackgroundImage:(EDDataElement*)newBackgroundImage {
     
     if (backgroundCIImage) {
         [backgroundCIImage release];
@@ -333,7 +333,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
         }
     }
 }
-- (CGPoint)computeMinMaxVoxelValue:(BADataElement*)image {
+- (CGPoint)computeMinMaxVoxelValue:(EDDataElement*)image {
     enum ImageDataType imageDataType = [image getImageDataType];
     float min = 0.0;
     float max = 0.0;
@@ -360,7 +360,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
     return (CGPoint) {min, max};
 } 
 
-- (IBAction)setForegroundImage:(BADataElement*)newForegroundImage {
+- (IBAction)setForegroundImage:(EDDataElement*)newForegroundImage {
     
     [newForegroundImage retain];
     
@@ -414,7 +414,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
         free(foregroundImageRaw);
     }
     
-    // Convert BADataElement to raw color/pixel data.
+    // Convert EDDataElement to raw color/pixel data.
     foregroundImageRaw = (float*) malloc(sizeof(float) * NUMBER_OF_CHANNELS * displayImageWidth * displayImageHeight);
     for (col = 0; col < displayImageWidth; col++) {
         for (row = 0; row < displayImageHeight; row++) {

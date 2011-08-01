@@ -1,18 +1,68 @@
 //
-//  BADataElement.m
+//  EDDataElement.m
 //  BARTCommandLine
 //
 //  Created by First Last on 10/29/09.
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
-#import "BADataElement.h"
-#import "../EDNA/EDDataElementVI.h"
-#import "../EDNA/EDDataElementIsis.h"
-#import "../EDNA/EDDataElementIsisRealTime.h"
+#import "EDDataElement.h"
+#import "EDDataElementVI.h"
+#import "EDDataElementIsis.h"
+#import "EDDataElementIsisRealTime.h"
 
 
-@implementation BADataElement
+/**************************************************
+ BARTImageSize is a small class for better handling of the here mostly needed 4-value size
+ **************************************************/
+
+@implementation BARTImageSize
+
+@synthesize rows;
+@synthesize columns;
+@synthesize slices;
+@synthesize timesteps;
+
+-(id)init
+{
+	self = [super init];
+	rows = 1;
+	columns = 1;
+	slices = 1;
+	timesteps = 1;
+	return self;
+}
+
+-(id)initWithRows:(size_t)r andCols:(size_t)c andSlices:(size_t)s andTimesteps:(size_t)t
+{
+    self = [super init];
+	rows = r;
+	columns = c;
+	slices = s;
+	timesteps = t;
+	return self;
+}
+
+-(id)copyWithZone:(NSZone *)zone
+{
+	BARTImageSize *newImageSize = [[BARTImageSize allocWithZone: zone] init];
+	newImageSize.rows = rows;
+	newImageSize.columns = columns;
+	newImageSize.slices = slices;
+	newImageSize.timesteps = timesteps;
+	
+	return newImageSize;
+}
+
+@end
+
+
+/**************************************************
+ EDDataElement 
+ **************************************************/
+
+
+@implementation EDDataElement
 
 @synthesize mImageType;
 @synthesize mImageSize;

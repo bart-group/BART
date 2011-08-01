@@ -11,7 +11,7 @@
 #import <OpenGL/OpenGL.h>
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
-#import "BADataElement.h"
+#import "../EDNA/EDDataElement.h"
 
 #include "BlockIO.h"
 
@@ -55,13 +55,13 @@ static const size_t SLICE_DIMENSION = 64;
     CGColorSpaceRef         colorSpace;
     
     // Functional image
-    BADataElement           *functionalImage;
+    EDDataElement           *functionalImage;
 
 }
 
-- (void)setFunctionalImage:(BADataElement*)newFunctionalImage;
+- (void)setFunctionalImage:(EDDataElement*)newFunctionalImage;
 - (void)convertFunctionalImage;
-- (void)updateImage:(BADataElement*)newActivationImage;
+- (void)updateImage:(EDDataElement*)newActivationImage;
 
 + (BAGUIPrototyp*)getGUI;
 

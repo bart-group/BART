@@ -10,7 +10,7 @@
 #import "../../src/CLETUS/COSystemConfig.h"
 #import "../../src/ARTIE/GLM/BAAnalyzerGLM.h"
 #import "BAAnalyzerGLMReference.h"
-#import "../../src/BARTMainApp/BADataElement.h"
+#import "../../src/EDNA/EDDataElement.h"
 
 
 @implementation BAAnalyzerGLMTest
@@ -28,7 +28,7 @@
 	COSystemConfig *config = [COSystemConfig getInstance];
 	
 	STAssertNil([config fillWithContentsOfEDLFile:@"../tests/BARTMainAppTests/ConfigTestDataset02.edl"], @"error while loading config");
-	BADataElement *inputData = [[BADataElement alloc] initWithDataFile:@"../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
+	EDDataElement *inputData = [[EDDataElement alloc] initWithDataFile:@"../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
 	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	
 	uint fwhm = 4;
@@ -44,8 +44,8 @@
 	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
 	
 
-	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:[inputDesign copy] atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
-	BADataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
+	EDDataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:[inputDesign copy] atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
+	EDDataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
 	
 	STAssertEquals([outputAlg getImageSize].columns,      [outputRef getImageSize].columns, @"output number cols differ");
 	STAssertEquals([outputAlg getImageSize].rows,      [outputRef getImageSize].rows, @"output number rows differ");
@@ -187,11 +187,11 @@
 	uint slices = 10;
 	uint tsteps = 21;
 	BARTImageSize *imSize = [[BARTImageSize alloc] initWithRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
-	//BADataElement *inputData = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT 
+	//EDDataElement *inputData = [[EDDataElement alloc] initWithDataType:IMAGE_DATA_FLOAT 
 //															   andRows:rows andCols:cols 
 //															 andSlices:slices andTimesteps:tsteps];
 	
-	BADataElement *inputData = [[BADataElement alloc] initEmptyWithSize:imSize ofImageType:IMAGE_FCTDATA];
+	EDDataElement *inputData = [[EDDataElement alloc] initEmptyWithSize:imSize ofImageType:IMAGE_FCTDATA];
 
 	for (uint t = 0; t < tsteps; t++){
 		for (uint s = 0; s < slices; s++){
@@ -213,8 +213,8 @@
 																			   withSize:sws];
 	
 	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
-	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:[inputDesign copy] atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
-	BADataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
+	EDDataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:[inputDesign copy] atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
+	EDDataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
 	
 	STAssertEquals([outputAlg getImageSize].columns,      [outputRef getImageSize].columns, @"output number cols differ");
 	STAssertEquals([outputAlg getImageSize].rows,      [outputRef getImageSize].rows, @"output number rows differ");
@@ -252,8 +252,8 @@
 //	COSystemConfig *config = [COSystemConfig getInstance];
 //	
 //	STAssertNil([config fillWithContentsOfEDLFile:@"../tests/BARTMainAppTests/ConfigTestDataset02.edl"], @"error while loading config");
-//	BADataElement *inputData = [[BADataElement alloc] initWithDatasetFile:@"../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" ofImageDataType:IMAGE_DATA_FLOAT];
-//	BADataElement *inputDataRef = [[EDDataElementVI alloc] initWithFile:@"../tests/BARTMainAppTests/testfiles/TestDataset02-functional.v" ofImageDataType:IMAGE_DATA_SHORT];
+//	EDDataElement *inputData = [[EDDataElement alloc] initWithDatasetFile:@"../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" ofImageDataType:IMAGE_DATA_FLOAT];
+//	EDDataElement *inputDataRef = [[EDDataElementVI alloc] initWithFile:@"../tests/BARTMainAppTests/testfiles/TestDataset02-functional.v" ofImageDataType:IMAGE_DATA_SHORT];
 //	
 //	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 //	
@@ -268,8 +268,8 @@
 //																			   withSize:sws];
 //	
 //	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
-//	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
-//	BADataElement* outputRef = [glmReference anaylzeTheData:inputDataRef withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
+//	EDDataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
+//	EDDataElement* outputRef = [glmReference anaylzeTheData:inputDataRef withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
 //	
 //	STAssertEquals([outputAlg getImageSize].columns,      [outputRef getImageSize].columns, @"output number cols differ");
 //	STAssertEquals([outputAlg getImageSize].rows,      [outputRef getImageSize].rows, @"output number rows differ");
@@ -409,11 +409,11 @@
 	uint cols = 7;
 	uint slices = 32;
 	uint tsteps = 220;
-//	BADataElement *inputData = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT 
+//	EDDataElement *inputData = [[EDDataElement alloc] initWithDataType:IMAGE_DATA_FLOAT 
 //															   andRows:rows andCols:cols 
 //															 andSlices:slices andTimesteps:tsteps];
 	BARTImageSize *imSize = [[BARTImageSize alloc] initWithRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
-	BADataElement *inputData = [[BADataElement alloc] initEmptyWithSize:imSize ofImageType:IMAGE_FCTDATA];
+	EDDataElement *inputData = [[EDDataElement alloc] initEmptyWithSize:imSize ofImageType:IMAGE_FCTDATA];
 	
 	for (uint t = 0; t < tsteps; t++){
 		for (uint s = 0; s < slices; s++){
@@ -443,8 +443,8 @@
 	
 	uint slidingWinAtTimestep = sws;
 	
-	BADataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:[inputDesign copy] atCurrentTimestep:slidingWinAtTimestep forContrastVector:contrastVector andWriteResultInto:nil];
-	BADataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:[inputDesign copy] andCurrentTimestep:slidingWinAtTimestep];
+	EDDataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:[inputDesign copy] atCurrentTimestep:slidingWinAtTimestep forContrastVector:contrastVector andWriteResultInto:nil];
+	EDDataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:[inputDesign copy] andCurrentTimestep:slidingWinAtTimestep];
 	
 	STAssertEquals([outputAlg getImageSize].columns,      [outputRef getImageSize].columns, @"output number cols differ");
 	STAssertEquals([outputAlg getImageSize].rows,      [outputRef getImageSize].rows, @"output number rows differ");
@@ -645,11 +645,11 @@
 	uint tsteps = 121;
 	
 	//just 1 timestep
-//	BADataElement *inputData1TS = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT 
+//	EDDataElement *inputData1TS = [[EDDataElement alloc] initWithDataType:IMAGE_DATA_FLOAT 
 //															   andRows:rows andCols:cols 
 //															 andSlices:slices andTimesteps:1];
 	BARTImageSize *imSize = [[BARTImageSize alloc] initWithRows:rows andCols:cols andSlices:slices andTimesteps:1];
-	BADataElement *inputData1TS = [[BADataElement alloc] initEmptyWithSize:imSize ofImageType:IMAGE_FCTDATA];
+	EDDataElement *inputData1TS = [[EDDataElement alloc] initEmptyWithSize:imSize ofImageType:IMAGE_FCTDATA];
 	
 	for (uint t = 0; t < 1; t++){
 		for (uint s = 0; s < slices; s++){
@@ -660,11 +660,11 @@
 				}}}}
 	
 	//just 1 row
-	//BADataElement *inputData1R = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT 
+	//EDDataElement *inputData1R = [[EDDataElement alloc] initWithDataType:IMAGE_DATA_FLOAT 
 //																  andRows:1 andCols:cols 
 //																andSlices:slices andTimesteps:slices];
 	//BARTImageSize *imSize2 = [[BARTImageSize alloc] initWithRows:1 andCols:cols andSlices:slices andTimesteps:tsteps];
-//	BADataElement *inputData1R = [[BADataElement alloc] initEmptyWithSize:imSize2 ofImageType:IMAGE_FCTDATA];
+//	EDDataElement *inputData1R = [[EDDataElement alloc] initEmptyWithSize:imSize2 ofImageType:IMAGE_FCTDATA];
 //
 //	for (uint t = 0; t < tsteps; t++){
 //		for (uint s = 0; s < slices; s++){
@@ -675,11 +675,11 @@
 //				}}}}
 //	
 //	//just 1 column
-//	//BADataElement *inputData1C = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT 
+//	//EDDataElement *inputData1C = [[EDDataElement alloc] initWithDataType:IMAGE_DATA_FLOAT 
 ////																  andRows:rows andCols:1 
 ////																andSlices:slices andTimesteps:slices];
 //	BARTImageSize *imSize3 = [[BARTImageSize alloc] initWithRows:rows andCols:1 andSlices:slices andTimesteps:tsteps];
-//	BADataElement *inputData1C = [[BADataElement alloc] initEmptyWithSize:imSize3 ofImageType:IMAGE_FCTDATA];
+//	EDDataElement *inputData1C = [[EDDataElement alloc] initEmptyWithSize:imSize3 ofImageType:IMAGE_FCTDATA];
 //
 //	for (uint t = 0; t < tsteps; t++){
 //		for (uint s = 0; s < slices; s++){
@@ -690,11 +690,11 @@
 //				}}}}
 //	
 	//just 1 slice
-	//BADataElement *inputData1S = [[BADataElement alloc] initWithDataType:IMAGE_DATA_FLOAT 
+	//EDDataElement *inputData1S = [[EDDataElement alloc] initWithDataType:IMAGE_DATA_FLOAT 
 //																  andRows:rows andCols:cols 
 //																andSlices:1 andTimesteps:1];
 	BARTImageSize *imSize4 = [[BARTImageSize alloc] initWithRows:rows andCols:cols andSlices:1 andTimesteps:tsteps];
-	BADataElement *inputData1S = [[BADataElement alloc] initEmptyWithSize:imSize4 ofImageType:IMAGE_FCTDATA];
+	EDDataElement *inputData1S = [[EDDataElement alloc] initEmptyWithSize:imSize4 ofImageType:IMAGE_FCTDATA];
 
 	for (uint t = 0; t < tsteps; t++){
 		for (uint s = 0; s < 1; s++){
@@ -727,15 +727,15 @@
 	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
 	
 	
-	BADataElement* outputAlg1TS = [glmAlg anaylzeTheData:inputData1TS withDesign:[inputDesign copy] atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
-	BADataElement* outputAlg1S = [glmAlg anaylzeTheData:inputData1S withDesign:[inputDesign copy] atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
-//	BADataElement* outputAlg1R = [glmAlg anaylzeTheData:inputData1R withDesign:[inputDesign copy] atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
-//	BADataElement* outputAlg1C = [glmAlg anaylzeTheData:inputData1C withDesign:[inputDesign copy] atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
+	EDDataElement* outputAlg1TS = [glmAlg anaylzeTheData:inputData1TS withDesign:[inputDesign copy] atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
+	EDDataElement* outputAlg1S = [glmAlg anaylzeTheData:inputData1S withDesign:[inputDesign copy] atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
+//	EDDataElement* outputAlg1R = [glmAlg anaylzeTheData:inputData1R withDesign:[inputDesign copy] atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
+//	EDDataElement* outputAlg1C = [glmAlg anaylzeTheData:inputData1C withDesign:[inputDesign copy] atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
 	
-	BADataElement* outputRef1TS = [glmReference anaylzeTheData:inputData1TS withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
-	BADataElement* outputRef1S = [glmReference anaylzeTheData:inputData1S withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
-//	BADataElement* outputRef1R = [glmReference anaylzeTheData:inputData1R withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
-//	BADataElement* outputRef1C = [glmReference anaylzeTheData:inputData1C withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
+	EDDataElement* outputRef1TS = [glmReference anaylzeTheData:inputData1TS withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
+	EDDataElement* outputRef1S = [glmReference anaylzeTheData:inputData1S withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
+//	EDDataElement* outputRef1R = [glmReference anaylzeTheData:inputData1R withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
+//	EDDataElement* outputRef1C = [glmReference anaylzeTheData:inputData1C withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
 	
 	STAssertEquals([outputAlg1TS getImageSize].columns,      [outputRef1TS getImageSize].columns, @"output number cols differ");
 	STAssertEquals([outputAlg1TS getImageSize].rows,      [outputRef1TS getImageSize].rows, @"output number rows differ");

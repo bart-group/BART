@@ -270,7 +270,7 @@
 	
 }
 
--(void)copyProps:(NSArray*)propList fromDataElement:(BADataElement*)srcElement
+-(void)copyProps:(NSArray*)propList fromDataElement:(EDDataElement*)srcElement
 {
 	[self setProps: [srcElement getProps:propList]];
 }
