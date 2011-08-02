@@ -26,7 +26,7 @@ BAProcedureController *procController;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification 
 {    
     COSystemConfig *config = [COSystemConfig getInstance];
-	NSError *err = [config fillWithContentsOfEDLFile:@"/Users/Lydi/Development/BARTProcedure/BARTApplication/trunk/tests/NEDTests/prrofOfConcept_motor_LongBlocks.edl"];
+	NSError *err = [config fillWithContentsOfEDLFile:@"../../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
 	
 	if (err) {
         NSLog(@"%@", err);

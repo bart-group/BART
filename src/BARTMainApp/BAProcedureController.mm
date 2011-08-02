@@ -47,7 +47,7 @@ size_t startAnalysisAtTimeStep;
 {
     if ((self = [super init])) {
         // TODO: appropriate init
-        mCurrentTimestep = 300;
+        mCurrentTimestep = 50;
 		config = [COSystemConfig getInstance];
 		isRealTimeTCPInput = FALSE;
 		startAnalysisAtTimeStep = 15;
