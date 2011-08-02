@@ -47,7 +47,6 @@
 		0041E41D13E8057C00169848 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E41713E804AB00169848 /* AppKit.framework */; };
 		0041E4B113E819A600169848 /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AF13E805FF00169848 /* CLETUS.dylib */; };
 		004ABAF41378791400B13077 /* BADynamicDesignController.m in Sources */ = {isa = PBXBuildFile; fileRef = 004ABAF31378791400B13077 /* BADynamicDesignController.m */; };
-		004ABB5F137887AC00B13077 /* BARTSerialIOFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 004ABB5E137887AC00B13077 /* BARTSerialIOFramework.framework */; };
 		0056D7DE12D335AE002AC73F /* NEDesignKernel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00361050117F9AED00A84F44 /* NEDesignKernel.m */; };
 		0056D7DF12D335AE002AC73F /* NEDesignElementDyn.m in Sources */ = {isa = PBXBuildFile; fileRef = 008376A0116BB12D00369B20 /* NEDesignElementDyn.m */; };
 		0056D7E012D335AF002AC73F /* NEDesignElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 008376A2116BB12D00369B20 /* NEDesignElementVI.m */; };
@@ -124,6 +123,7 @@
 		00D444DC134DEB4100094A51 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
 		00D444DD134DEB4200094A51 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00D444E2134DEB5300094A51 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
+		00DB76B613E84BFC00BB6484 /* BARTSerialIOFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DB76B513E84BFC00BB6484 /* BARTSerialIOFramework.framework */; };
 		00DE9C6F12F6EBB50089B99A /* designtest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DE9C6E12F6EBB50089B99A /* designtest.m */; };
 		00E0434A13E6A53F006B17B0 /* EDDataElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E0434813E6A53F006B17B0 /* EDDataElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00E0434B13E6A540006B17B0 /* EDDataElement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00E0434913E6A53F006B17B0 /* EDDataElement.mm */; };
@@ -364,7 +364,6 @@
 		0006284211A44D9300D369D0 /* EDDataElementIsisTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EDDataElementIsisTest.mm; sourceTree = "<group>"; };
 		0006284311A44D9300D369D0 /* EDDataElementVITest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementVITest.h; sourceTree = "<group>"; };
 		0006284411A44D9300D369D0 /* EDDataElementVITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDataElementVITest.m; sourceTree = "<group>"; };
-		0006F432122BEF27001DA2BB /* libPRINCE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libPRINCE.a; path = /Users/Lydi/Development/BART_lydiatgit/runtime/Release/libPRINCE.a; sourceTree = "<absolute>"; };
 		0006F441122BEFB2001DA2BB /* PRINCEUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PRINCEUnitTestSuite.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0006F442122BEFB2001DA2BB /* PRINCEUnitTestSuite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PRINCEUnitTestSuite-Info.plist"; path = "../../projects/PRINCEUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
 		0006F474122BFADD001DA2BB /* PRPreprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPreprocessor.h; sourceTree = "<group>"; };
@@ -509,6 +508,8 @@
 		00D440C0134B4F8800094A51 /* libboost_system-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_system-mt.dylib"; path = "/opt/local/lib/libboost_system-mt.dylib"; sourceTree = "<absolute>"; };
 		00D44164134B57E600094A51 /* libvia.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvia.dylib; path = /usr/local/lib/libvia.dylib; sourceTree = "<absolute>"; };
 		00D44166134B57E600094A51 /* libviaio.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libviaio.dylib; path = /usr/local/lib/libviaio.dylib; sourceTree = "<absolute>"; };
+		00DB76B413E84B6C00BB6484 /* libPRINCE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPRINCE.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		00DB76B513E84BFC00BB6484 /* BARTSerialIOFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BARTSerialIOFramework.framework; path = Library/Frameworks/BARTSerialIOFramework.framework; sourceTree = SDKROOT; };
 		00DE9C6C12F316230089B99A /* blockDesignTest02_parametric.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = blockDesignTest02_parametric.edl; sourceTree = "<group>"; };
 		00DE9C6E12F6EBB50089B99A /* designtest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = designtest.m; sourceTree = "<group>"; };
 		00DE9C7C12F6FE690089B99A /* allZeroRegressor.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = allZeroRegressor.edl; sourceTree = "<group>"; };
@@ -695,10 +696,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00DB76B613E84BFC00BB6484 /* BARTSerialIOFramework.framework in Frameworks */,
 				007A6DB313E81CC700F5DE58 /* NED.dylib in Frameworks */,
 				007A6DB113E81CB700F5DE58 /* EDNA.dylib in Frameworks */,
 				007A6DB213E81CBC00F5DE58 /* CLETUS.dylib in Frameworks */,
-				004ABB5F137887AC00B13077 /* BARTSerialIOFramework.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				CE8A28C510F51058002422B5 /* QuartzCore.framework in Frameworks */,
 				CE8A28D410F5121D002422B5 /* OpenGL.framework in Frameworks */,
@@ -1172,9 +1173,9 @@
 				0006F621122E5A55001DA2BB /* glmtest */,
 				00664BF012ABF71D005216E6 /* PRINCE.framework */,
 				0056D7D112D3354D002AC73F /* designtest */,
-				00D44160134B57BD00094A51 /* EDNA.dylib */,
 				0000B18313E1C92400029A41 /* TROY.dylib */,
 				0000B18E13E1C92400029A41 /* TROYTests.octest */,
+				00DB76B413E84B6C00BB6484 /* libPRINCE.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1182,6 +1183,7 @@
 		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
 			isa = PBXGroup;
 			children = (
+				00DB76B513E84BFC00BB6484 /* BARTSerialIOFramework.framework */,
 				0040B78F1141470400A57967 /* docs */,
 				0040B7921141470400A57967 /* src */,
 				0000B18613E1C92400029A41 /* TROY */,
@@ -1369,7 +1371,7 @@
 			);
 			name = PRINCEDYL;
 			productName = PRINCE;
-			productReference = 0006F432122BEF27001DA2BB /* libPRINCE.a */;
+			productReference = 00DB76B413E84B6C00BB6484 /* libPRINCE.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		0006F440122BEFB2001DA2BB /* PRINCEUnitTestSuite */ = {
@@ -3022,7 +3024,10 @@
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				BUNDLE_LOADER = "";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"",
+					/Library/Frameworks,
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_MODEL_TUNING = "";
@@ -3049,6 +3054,7 @@
 					/usr/include,
 					/usr/local/include/isis,
 					/usr/local/include,
+					/Library/Frameworks,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
@@ -3073,7 +3079,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
-				FRAMEWORK_SEARCH_PATHS = "\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"",
+					/Library/Frameworks,
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_MODEL_TUNING = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -3091,6 +3100,7 @@
 					/usr/include,
 					/usr/local/include/isis,
 					/usr/local/include,
+					/Library/Frameworks,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
@@ -3191,6 +3201,7 @@
 				0000B1A013E1C92400029A41 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0000B1A113E1C92400029A41 /* Build configuration list for PBXNativeTarget "TROYTests" */ = {
 			isa = XCConfigurationList;
@@ -3199,6 +3210,7 @@
 				0000B1A313E1C92400029A41 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0006135A11A3D84C00D369D0 /* Build configuration list for PBXNativeTarget "EDNAUnitTestSuite" */ = {
 			isa = XCConfigurationList;

@@ -17,7 +17,7 @@
 
 #import "BADynamicDesignController.h"
 #import "../CLETUS/COSystemConfig.h"
-#import "../../../BARTSerialIOFramework/BARTSerialPortIONotifications.h"
+#import "BARTSerialIOFramework/BARTSerialPortIONotifications.h"
 
 @interface BADynamicDesignController (PrivateMethods)
 
