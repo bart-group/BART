@@ -21,20 +21,10 @@
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		002E93211372F7F100F69A26 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 002E931D1372F7F100F69A26 /* BARTSerialIOPluginEyeTrac.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
-			remoteInfo = BARTSerialIOPluginEyeTrac;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		002E97871375699200F69A26 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
@@ -51,7 +41,6 @@
 		002E8D6213715BA400F69A26 /* SerialPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SerialPort.h; sourceTree = "<group>"; };
 		002E8D6313715BA400F69A26 /* SerialPort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SerialPort.m; sourceTree = "<group>"; };
 		002E8D6413715BA400F69A26 /* SerialPortSample.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SerialPortSample.c; sourceTree = "<group>"; };
-		002E931D1372F7F100F69A26 /* BARTSerialIOPluginEyeTrac.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BARTSerialIOPluginEyeTrac.xcodeproj; path = ../BARTSerialIOPluginEyeTrac/BARTSerialIOPluginEyeTrac.xcodeproj; sourceTree = SOURCE_ROOT; };
 		002E96A41375598300F69A26 /* BARTSerialPortIONotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BARTSerialPortIONotifications.m; sourceTree = "<group>"; };
 		002E96A51375598300F69A26 /* BARTSerialPortIONotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BARTSerialPortIONotifications.h; sourceTree = "<group>"; };
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -78,22 +67,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		002E8D6C13715BB900F69A26 /* BARTSerialIOPlugins */ = {
-			isa = PBXGroup;
-			children = (
-				002E931D1372F7F100F69A26 /* BARTSerialIOPluginEyeTrac.xcodeproj */,
-			);
-			name = BARTSerialIOPlugins;
-			sourceTree = "<group>";
-		};
-		002E931E1372F7F100F69A26 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				002E93221372F7F100F69A26 /* BARTSerialIOPluginEyeTrac.bundle */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		002E969E1375593E00F69A26 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,7 +87,6 @@
 			isa = PBXGroup;
 			children = (
 				002E969E1375593E00F69A26 /* Protocols */,
-				002E8D6C13715BB900F69A26 /* BARTSerialIOPlugins */,
 				08FB77AEFE84172EC02AAC07 /* Classes */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
@@ -239,28 +211,12 @@
 			mainGroup = 0867D691FE84028FC02AAC07 /* BARTSerialIOFramework */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 002E931E1372F7F100F69A26 /* Products */;
-					ProjectRef = 002E931D1372F7F100F69A26 /* BARTSerialIOPluginEyeTrac.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				8DC2EF4F0486A6940098B216 /* BARTSerialIOFramework */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		002E93221372F7F100F69A26 /* BARTSerialIOPluginEyeTrac.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = BARTSerialIOPluginEyeTrac.bundle;
-			remoteRef = 002E93211372F7F100F69A26 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8DC2EF520486A6940098B216 /* Resources */ = {
@@ -351,7 +307,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BARTSerialIOFramework_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = /Library/Frameworks;
+				INSTALL_PATH = $HOME/Library/Frameworks;
 				PRODUCT_NAME = BARTSerialIOFramework;
 				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = framework;
@@ -362,10 +318,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				DEPLOYMENT_LOCATION = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = $HOME/Library/Frameworks;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.6;
@@ -382,7 +340,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INSTALL_PATH = /Library/Frameworks;
+				INSTALL_PATH = $HOME/Library/Frameworks;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.6;

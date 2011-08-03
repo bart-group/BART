@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#include "../BARTSerialIOFramework/BARTSerialIOProtocol.h"
+#include "BARTSerialIOFramework/BARTSerialIOProtocol.h"
 
 
 

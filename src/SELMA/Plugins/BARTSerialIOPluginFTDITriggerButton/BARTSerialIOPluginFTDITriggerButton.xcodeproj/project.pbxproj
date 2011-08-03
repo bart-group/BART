@@ -208,10 +208,7 @@
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../Library/Frameworks/BARTSerialIOFramework.framework\"",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = BARTSerialIOPluginFTDITriggerButton;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -227,10 +224,7 @@
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../Library/Frameworks/BARTSerialIOFramework.framework\"",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = BARTSerialIOPluginFTDITriggerButton;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -245,13 +239,22 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = $HOME/Library/Frameworks;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-framework",
+					BARTSerialIOFramework,
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-framework",
+					BARTSerialIOFramework,
+				);
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRIVATE_HEADERS_FOLDER_PATH = BARTSerialIOPluginFTDITriggerButton.bundle/Contents/PrivateHeaders;
 				PRODUCT_NAME = BARTSerialIOPluginFTDITriggerButton;
 				PUBLIC_HEADERS_FOLDER_PATH = BARTSerialIOPluginFTDITriggerButton.bundle/Contents/Headers;
-				SDKROOT = "";
+				SDKROOT = macosx10.6;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -266,12 +269,20 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Info.plist;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-framework",
+					BARTSerialIOFramework,
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-framework",
+					BARTSerialIOFramework,
+				);
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRIVATE_HEADERS_FOLDER_PATH = BARTSerialIOPluginFTDITriggerButton.bundle/Contents/PrivateHeaders;
 				PRODUCT_NAME = BARTSerialIOPluginFTDITriggerButton;
 				PUBLIC_HEADERS_FOLDER_PATH = BARTSerialIOPluginFTDITriggerButton.bundle/Contents/Headers;
-				SDKROOT = "";
+				SDKROOT = macosx10.6;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;

@@ -7,7 +7,7 @@
 //
 
 #import "TriggerButtonInterpret.h"
-#include "../BARTSerialIOFramework/BARTSerialPortIONotifications.h"
+#include "BARTSerialIOFramework/BARTSerialPortIONotifications.h"
 
 
 @interface TriggerButtonInterpret (PrivateMethods)
