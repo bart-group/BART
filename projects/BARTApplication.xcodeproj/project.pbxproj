@@ -2946,12 +2946,7 @@
 				DOXYGEN_CONFIG = ../docs/BARTApplicationDoxyfile;
 				DOXYGEN_OUTPUT = ../docs;
 				DOXYGEN_PATH = /opt/local/bin/doxygen;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../Library/Frameworks\"",
-					"\"$(SRCROOT)/../../../Library/Frameworks\"",
-					"\"$(SRCROOT)/../../../BARTSerialIOFramework/Debug\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = $inherited;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -2969,9 +2964,9 @@
 				INFOPLIST_FILE = "BARTApplication-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
 					/opt/local/lib,
 					/usr/lib,
-					/usr/local/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = "-ObjC";
@@ -2988,12 +2983,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"",
-					"\"$(SRCROOT)/../../../../../Library/Frameworks\"",
-					"\"$(SRCROOT)/../../../Library/Frameworks\"",
-					"\"$(SRCROOT)/../../../BARTSerialIOFramework/Debug\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = $inherited;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -3011,7 +3001,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
 					/opt/local/lib,
-					"\"$(SRCROOT)/../runtime/Debug\"",
+					/usr/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = "-ObjC";
@@ -3028,7 +3018,7 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"",
-					/Library/Frameworks,
+					$HOME/Library/Frameworks,
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -3083,7 +3073,7 @@
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"",
-					/Library/Frameworks,
+					$HOME/Library/Frameworks,
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_MODEL_TUNING = "";

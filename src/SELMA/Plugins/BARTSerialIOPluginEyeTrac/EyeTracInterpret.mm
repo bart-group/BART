@@ -7,49 +7,12 @@
 //
 
 #import "EyeTracInterpret.h"
-#include <sys/time.h>
-#import "math.h"
-#include <vector>
 
 
 @interface EyeTracInterpret (PrivateMethods)
 
-enum PARAMS {
-    PDIAM = 0,
-	PREC,
-    HGAZE,
-    VGAZE,
-    CDIAM,
-	CREC,
-    STATUS
-};
 
-typedef struct EyeTracParams{
-    unsigned int pupilDiam;
-	unsigned int pupilRec;
-    float horGaze;
-    float verGaze;
-    unsigned int corneaDiam;
-	unsigned int corneaRec;
-	int status;
-}TEyeTracParams;
 
-std::vector<TEyeTracParams> eyeTracParamsVector;
-
-size_t mWindowSize;
-
-size_t dispersionThreshold;
-size_t validMissingsInFixation;
-float distanceFromMidpointToBeValid;
-size_t halfScenePOGResolutionHeight;
-size_t halfScenePOGResolutionWidth;
-dispatch_queue_t serialQueue;
-
-//for timing log
-struct timeval timeval;
-time_t actualtime;
-struct tm *actualtm;
-char actualtmbuf[64], usecbuf[64];
 
 
 -(BOOL)isFixation;
@@ -72,7 +35,7 @@ char actualtmbuf[64], usecbuf[64];
 
 -(id)init
 {
-	if (self = [super init])
+	if ((self = [super init]))
 	{//load the plugin own config file to read all the EyeTrac special configuration stuff
 		NSString *errDescr = nil;
 		NSPropertyListFormat format;
@@ -94,7 +57,7 @@ char actualtmbuf[64], usecbuf[64];
 																			   errorDescription:&errDescr];
 		if (!temp)
 		{
-			NSLog(@"Error reading plist from BARTSerialIOPluginEyeTrac: %@, format: %d", errDescr, format);
+			NSLog(@"Error reading plist from BARTSerialIOPluginEyeTrac: %@, format: %lu", errDescr, format);
 		}
 		self.logfilePath = [temp objectForKey:@"LogfilePath"];
 		self.relevantBytes = [temp objectForKey:@"RelevantBytes"];
@@ -280,7 +243,7 @@ char actualtmbuf[64], usecbuf[64];
 {
     size_t ret = 0;
 	ret =  (size_t)(((tan((float)angle * M_PI / 180.0) * (float)dist)*(float)res)/(float)heightScr + 0.5);
-	NSLog(@"dispThresh: %d", ret);
+	NSLog(@"dispThresh: %lu", ret);
 	return ret;
     
 }
@@ -398,7 +361,7 @@ char actualtmbuf[64], usecbuf[64];
     if (nrOfValues > 0){
         *meanValue = sum/(float_t)nrOfValues;
     }
-    NSLog(@"NRUnrocgnized: %d", nrOfUnrecognized);
+    NSLog(@"NRUnrocgnized: %lu", nrOfUnrecognized);
     if (nrOfUnrecognized > validMissingsInFixation){
         return NO;
     }
@@ -407,6 +370,11 @@ char actualtmbuf[64], usecbuf[64];
 }
 
 
+-(void)connectionIsOpen
+{}
+
+-(void)connectionIsClosed
+{}
 
 
 -(NSString*) pluginTitle

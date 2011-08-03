@@ -8,13 +8,13 @@
 
 #import "BARTApplicationAppDelegate.h"
 
-#import "../CLETUS/COSystemConfig.h"
+#import "CLETUS/COSystemConfig.h"
 #import "BAProcedureController.h"
 #import "BARTNotifications.h"
 
 
 @interface BARTApplicationAppDelegate ()
-BAProcedureController *procController;
+
 -(void)setGUIBackgroundImage:(NSNotification*)aNotification;
 -(void)setGUIResultImage:(NSNotification*)aNotification;
 
@@ -26,7 +26,7 @@ BAProcedureController *procController;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification 
 {    
     COSystemConfig *config = [COSystemConfig getInstance];
-	NSError *err = [config fillWithContentsOfEDLFile:@"../../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
+	NSError *err = [config fillWithContentsOfEDLFile:@"../../../../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
 	
 	if (err) {
         NSLog(@"%@", err);

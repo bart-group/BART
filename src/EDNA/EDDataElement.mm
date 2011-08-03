@@ -137,4 +137,9 @@
 	return mImageSize;
 }
 
+-(id)copyWithZone:(NSZone *)zone
+{
+   [self doesNotRecognizeSelector:_cmd];
+}
+
 @end

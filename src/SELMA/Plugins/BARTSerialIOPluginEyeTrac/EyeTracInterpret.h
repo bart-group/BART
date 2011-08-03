@@ -8,7 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 #include "BARTSerialIOFramework/BARTSerialIOProtocol.h"
-//#import </Users/Lydi/Development/BARTSerialIOFramework/BARTSerialIOProtocol.h>
+#include <sys/time.h>
+#import "math.h"
+#include <vector>
+
 
 // This class is to interpret the incoming data from ASL EyeTrac 6 into the BARTApplication
 
@@ -20,6 +23,16 @@
 #define BITMASKOVERFLOWLSBHGAZ 0x00000001
 #define BITMASKOVERFLOWHSBVGAZ 0x00000002
 #define BITMASKOVERFLOWLSBVGAZ 0x00000004
+
+typedef struct EyeTracParams{
+    unsigned int pupilDiam;
+    unsigned int pupilRec;
+    float horGaze;
+    float verGaze;
+    unsigned int corneaDiam;
+    unsigned int corneaRec;
+    int status;
+}TEyeTracParams;
 
 
 @interface EyeTracInterpret : NSObject <BARTSerialIOProtocol> {
@@ -42,6 +55,36 @@
 	NSUInteger posLSBCRDiam;
 	NSString *logfilePath;
     BOOL isStarted;
+    
+    @private
+    enum PARAMS {
+        PDIAM = 0,
+        PREC,
+        HGAZE,
+        VGAZE,
+        CDIAM,
+        CREC,
+        STATUS
+    };
+    
+    
+    
+    std::vector<TEyeTracParams> eyeTracParamsVector;
+    
+    size_t mWindowSize;
+    
+    size_t dispersionThreshold;
+    size_t validMissingsInFixation;
+    float distanceFromMidpointToBeValid;
+    size_t halfScenePOGResolutionHeight;
+    size_t halfScenePOGResolutionWidth;
+    dispatch_queue_t serialQueue;
+    
+    //for timing log
+    struct timeval timeval;
+    time_t actualtime;
+    struct tm *actualtm;
+    char actualtmbuf[64], usecbuf[64];
 
 	
 }

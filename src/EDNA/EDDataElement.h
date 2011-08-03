@@ -73,7 +73,7 @@ enum ImagePropertyID{
 
 
 
-@interface EDDataElement : NSObject {
+@interface EDDataElement : NSObject <NSCopying> {
 	
 	BARTImageSize *mImageSize;
     uint mDataTypeID;

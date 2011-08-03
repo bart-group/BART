@@ -7,30 +7,18 @@
 //
 
 #import "BAProcedureController.h"
-#import "../EDNA/EDDataElement.h"
-#import "NEDesignElement.h"
+#import "EDNA/EDDataElement.h"
+#import "NED/NEDesignElement.h"
 #import "BAAnalyzerElement.h"
-#import "../EDNA/EDDataElementRealTimeLoader.h"
+#import "EDNA/EDDataElementRealTimeLoader.h"
 #import "BARTNotifications.h"
-#import "../CLETUS/COSystemConfig.h"
+#import "CLETUS/COSystemConfig.h"
 #import "BADynamicDesignController.h"
 
 
 @interface BAProcedureController (PrivateMethods)
 
 //
-EDDataElement *mInputData;
-//NEDesignElement *mDesignData;
-BADynamicDesignController *dynamicDesignController;
-EDDataElement *mResultData;
-BAAnalyzerElement *mAnalyzer;
-size_t mCurrentTimestep;
-EDDataElementRealTimeLoader *mRtLoader;
-COSystemConfig *config;
-//TODO: define enum and take a switch where needed
-BOOL isRealTimeTCPInput;
-size_t startAnalysisAtTimeStep;
-
 
 -(void)nextDataArrived:(NSNotification*)aNotification;
 
@@ -82,7 +70,7 @@ size_t startAnalysisAtTimeStep;
 	//FILE LOAD STUFF
 	if (FALSE == isRealTimeTCPInput){
 		// setup the input data
-		mInputData = [[EDDataElement alloc] initWithDataFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
+		mInputData = [[EDDataElement alloc] initWithDataFile:@"../../../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
 		if (nil == mInputData) {
 			return FALSE;
 		}

@@ -12,7 +12,7 @@
 
 @interface TriggerButtonInterpret (PrivateMethods)
 
-unsigned int countTrigger;
+
 
 @end
 
@@ -23,7 +23,7 @@ unsigned int countTrigger;
 
 -(id)init
 {
-	if (self = [super init]){
+	if ((self = [super init])){
 		//load the plugin own config file to read all the EyeTrac special configuration stuff
 		NSString *errDescr = nil;
 		NSPropertyListFormat format;
@@ -45,11 +45,11 @@ unsigned int countTrigger;
 																			   errorDescription:&errDescr];
 		if (!temp)
 		{
-			NSLog(@"Error reading plist from BARTSerialIOPluginFTDITriggerButton: %@, format: %d", errDescr, format);
+			NSLog(@"Error reading plist from BARTSerialIOPluginFTDITriggerButton: %@, format: %lu", errDescr, format);
 		}
 		self.triggerID = [temp objectForKey:@"triggerID"];
 		triggerIDChar = [self.triggerID unsignedCharValue];
-		NSLog(@"%TriggerID: %d and as uchar: %d", [self.triggerID intValue], triggerIDChar);
+		NSLog(@"TriggerID: %d and as uchar: %d", [self.triggerID intValue], triggerIDChar);
 		
 		countTrigger = 0;
         

@@ -40,7 +40,7 @@ typedef struct TrialListStruct {
 
 
 
-@interface NEDesignElement : NSObject {
+@interface NEDesignElement : NSObject  <NSCopying> {
 
     unsigned int mRepetitionTimeInMs;
     unsigned int mNumberExplanatoryVariables;

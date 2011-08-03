@@ -15,6 +15,8 @@
 
 	NSNumber *triggerID;
 	unsigned char triggerIDChar;
+    @private
+    size_t countTrigger;
 }
 
 @property (copy, nonatomic) NSNumber *triggerID;

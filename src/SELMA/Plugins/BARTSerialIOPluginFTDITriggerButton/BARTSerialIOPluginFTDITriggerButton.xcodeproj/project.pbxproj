@@ -208,7 +208,7 @@
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = $HOME/Library/Frameworks;
 				PRODUCT_NAME = BARTSerialIOPluginFTDITriggerButton;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -224,7 +224,7 @@
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = $HOME/Library/Frameworks;
 				PRODUCT_NAME = BARTSerialIOPluginFTDITriggerButton;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -268,6 +268,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = $HOME/Library/Frameworks;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"-framework",

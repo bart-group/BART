@@ -10,8 +10,12 @@
 
 #import "BAGUIProtoCGLayer.h"
 
+@class BAProcedureController;
+
 @interface BARTApplicationAppDelegate : NSObject <NSApplicationDelegate> {
+    
     IBOutlet BAGUIProtoCGLayer* guiController;
+    BAProcedureController *procController;
     
 }
 
