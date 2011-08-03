@@ -1183,7 +1183,6 @@
 		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
 			isa = PBXGroup;
 			children = (
-				00DB76B513E84BFC00BB6484 /* BARTSerialIOFramework.framework */,
 				0040B78F1141470400A57967 /* docs */,
 				0040B7921141470400A57967 /* src */,
 				0000B18613E1C92400029A41 /* TROY */,
@@ -1219,6 +1218,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				00DB76B513E84BFC00BB6484 /* BARTSerialIOFramework.framework */,
 				0041E4AE13E805FF00169848 /* NED.dylib */,
 				0041E4B013E805FF00169848 /* EDNA.dylib */,
 				0041E4AF13E805FF00169848 /* CLETUS.dylib */,
@@ -2950,6 +2950,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../../Library/Frameworks\"",
 					"\"$(SRCROOT)/../../../Library/Frameworks\"",
+					"\"$(SRCROOT)/../../../BARTSerialIOFramework/Debug\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -2991,6 +2992,7 @@
 					"\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"",
 					"\"$(SRCROOT)/../../../../../Library/Frameworks\"",
 					"\"$(SRCROOT)/../../../Library/Frameworks\"",
+					"\"$(SRCROOT)/../../../BARTSerialIOFramework/Debug\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
