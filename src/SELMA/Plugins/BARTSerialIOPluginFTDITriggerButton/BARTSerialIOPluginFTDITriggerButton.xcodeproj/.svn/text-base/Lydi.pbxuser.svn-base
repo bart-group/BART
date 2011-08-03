@@ -1,0 +1,280 @@
+// !$*UTF8*$!
+{
+	0012438D137935D400397D19 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D5B49B7048680CD000E48DA /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleSignature,
+		);
+		name = /Users/Lydi/Development/BARTSerialIOPluginFTDITriggerButton/Info.plist;
+		rLen = 0;
+		rLoc = 9223372036854775808;
+	};
+	0012438E137935D400397D19 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 002E96411375512800F69A26 /* TriggerButtonInterpret.h */;
+		name = "TriggerButtonInterpret.h: 15";
+		rLen = 0;
+		rLoc = 365;
+		rType = 0;
+		vrLen = 476;
+		vrLoc = 0;
+	};
+	00124390137935D400397D19 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 002E96421375512800F69A26 /* TriggerButtonInterpret.m */;
+		name = "TriggerButtonInterpret.m: 66";
+		rLen = 0;
+		rLoc = 2146;
+		rType = 0;
+		vrLen = 1149;
+		vrLoc = 207;
+	};
+	001243DE1379364100397D19 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 002E96421375512800F69A26 /* TriggerButtonInterpret.m */;
+		name = "TriggerButtonInterpret.m: 66";
+		rLen = 0;
+		rLoc = 2146;
+		rType = 0;
+		vrLen = 1149;
+		vrLoc = 207;
+	};
+	001243F31379382200397D19 /* Info.plist */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text.plist.xml;
+		path = Info.plist;
+		sourceTree = "<group>";
+	};
+	001244AF13793C1700397D19 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 002E96421375512800F69A26 /* TriggerButtonInterpret.m */;
+		name = "TriggerButtonInterpret.m: 66";
+		rLen = 0;
+		rLoc = 2146;
+		rType = 0;
+		vrLen = 1148;
+		vrLoc = 208;
+	};
+	001244B013793C1700397D19 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D5B49B7048680CD000E48DA /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/Lydi/Development/BARTSerialIOPluginFTDITriggerButton/Info.plist;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	001244B113793C1700397D19 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 001244B213793C1700397D19 /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/Lydi/Development/BARTSerialIOPluginFTDITriggerButton/Release/BARTSerialIOPluginFTDITriggerButton.bundle/Contents/Info.plist;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	001244B213793C1700397D19 /* Info.plist */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text.plist.xml;
+		name = Info.plist;
+		path = /Users/Lydi/Development/BARTSerialIOPluginFTDITriggerButton/Release/BARTSerialIOPluginFTDITriggerButton.bundle/Contents/Info.plist;
+		sourceTree = "<absolute>";
+	};
+	001244B313793C1700397D19 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 001244B413793C1700397D19 /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/Lydi/Development/BARTSerialIOPluginFTDITriggerButton/Release/BARTSerialIOPluginFTDITriggerButton.bundle/Contents/Info.plist;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	001244B413793C1700397D19 /* Info.plist */ = {
+		isa = PBXFileReference;
+		name = Info.plist;
+		path = /Users/Lydi/Development/BARTSerialIOPluginFTDITriggerButton/Release/BARTSerialIOPluginFTDITriggerButton.bundle/Contents/Info.plist;
+		sourceTree = "<absolute>";
+	};
+	001244BF13793C4C00397D19 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 001244B213793C1700397D19 /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/Lydi/Development/BARTSerialIOPluginFTDITriggerButton/Release/BARTSerialIOPluginFTDITriggerButton.bundle/Contents/Info.plist;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	001244D513793D4E00397D19 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D5B49B7048680CD000E48DA /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/Lydi/Development/BARTSerialIOPluginFTDITriggerButton/Info.plist;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	001244D613793D4E00397D19 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 001243F31379382200397D19 /* Info.plist */;
+	};
+	001244D713793D4E00397D19 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 001244B213793C1700397D19 /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/Lydi/Development/BARTSerialIOPluginFTDITriggerButton/Release/BARTSerialIOPluginFTDITriggerButton.bundle/Contents/Info.plist;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	001C70EA1375791C00B2090A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 089C167EFE841241C02AAC07 /* English */;
+		name = "InfoPlist.strings: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 45;
+		vrLoc = 0;
+	};
+	002E963C1375503D00F69A26 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = Misc;
+			};
+		};
+	};
+	002E963D1375503D00F69A26 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	002E963F137550BC00F69A26 /* ConfigSerialIOFTDITriggerButton.plist */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{0, 46}, {1280, 956}}";
+		};
+	};
+	002E96411375512800F69A26 /* TriggerButtonInterpret.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {703, 451}}";
+			sepNavSelRange = "{365, 0}";
+			sepNavVisRange = "{0, 476}";
+		};
+	};
+	002E96421375512800F69A26 /* TriggerButtonInterpret.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1097, 1261}}";
+			sepNavSelRange = "{2146, 0}";
+			sepNavVisRange = "{208, 1148}";
+			sepNavWindowFrame = "{{0, 46}, {1280, 956}}";
+		};
+	};
+	089C1669FE841209C02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeTarget = 8D5B49AC048680CD000E48DA /* BARTSerialIOPluginFTDITriggerButton */;
+		addToTargets = (
+			8D5B49AC048680CD000E48DA /* BARTSerialIOPluginFTDITriggerButton */,
+		);
+		codeSenseManager = 002E963D1375503D00F69A26 /* Code sense */;
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					525,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					485,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 326711315;
+			PBXWorkspaceStateSaveDate = 326711315;
+		};
+		perUserProjectItems = {
+			0012438D137935D400397D19 /* PlistBookmark */ = 0012438D137935D400397D19 /* PlistBookmark */;
+			0012438E137935D400397D19 /* PBXTextBookmark */ = 0012438E137935D400397D19 /* PBXTextBookmark */;
+			00124390137935D400397D19 /* PBXTextBookmark */ = 00124390137935D400397D19 /* PBXTextBookmark */;
+			001243DE1379364100397D19 /* PBXTextBookmark */ = 001243DE1379364100397D19 /* PBXTextBookmark */;
+			001244AF13793C1700397D19 /* PBXTextBookmark */ = 001244AF13793C1700397D19 /* PBXTextBookmark */;
+			001244B013793C1700397D19 /* PlistBookmark */ = 001244B013793C1700397D19 /* PlistBookmark */;
+			001244B113793C1700397D19 /* PlistBookmark */ = 001244B113793C1700397D19 /* PlistBookmark */;
+			001244B313793C1700397D19 /* PlistBookmark */ = 001244B313793C1700397D19 /* PlistBookmark */;
+			001244BF13793C4C00397D19 /* PlistBookmark */ = 001244BF13793C4C00397D19 /* PlistBookmark */;
+			001244D513793D4E00397D19 /* PlistBookmark */ = 001244D513793D4E00397D19 /* PlistBookmark */;
+			001244D613793D4E00397D19 /* PBXBookmark */ = 001244D613793D4E00397D19 /* PBXBookmark */;
+			001244D713793D4E00397D19 /* PlistBookmark */ = 001244D713793D4E00397D19 /* PlistBookmark */;
+			001C70EA1375791C00B2090A /* PBXTextBookmark */ = 001C70EA1375791C00B2090A /* PBXTextBookmark */;
+		};
+		sourceControlManager = 002E963C1375503D00F69A26 /* Source Control */;
+		userBuildSettings = {
+			OBJROOT = /Users/Lydi/Development/BARTSerialIOPluginFTDITriggerButton/temp;
+			SYMROOT = /Users/Lydi/Development/BARTSerialIOPluginFTDITriggerButton/;
+		};
+	};
+	089C167EFE841241C02AAC07 /* English */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1221, 828}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 45}";
+			sepNavWindowFrame = "{{0, 46}, {1280, 956}}";
+		};
+	};
+	8D5B49AC048680CD000E48DA /* BARTSerialIOPluginFTDITriggerButton */ = {
+		activeExec = 0;
+	};
+	8D5B49B7048680CD000E48DA /* Info.plist */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{0, 46}, {1280, 956}}";
+		};
+	};
+}

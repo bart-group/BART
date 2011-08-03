@@ -1,0 +1,417 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		002E8D5B13715B4800F69A26 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 002E8D5A13715B4800F69A26 /* IOKit.framework */; };
+		002E8D5E13715B5A00F69A26 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
+		002E8D6513715BA400F69A26 /* BARTSerialIOProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 002E8D5F13715BA400F69A26 /* BARTSerialIOProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		002E8D6613715BA400F69A26 /* SerialPort_C.c in Sources */ = {isa = PBXBuildFile; fileRef = 002E8D6013715BA400F69A26 /* SerialPort_C.c */; };
+		002E8D6713715BA400F69A26 /* SerialPort_C.h in Headers */ = {isa = PBXBuildFile; fileRef = 002E8D6113715BA400F69A26 /* SerialPort_C.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		002E8D6813715BA400F69A26 /* SerialPort.h in Headers */ = {isa = PBXBuildFile; fileRef = 002E8D6213715BA400F69A26 /* SerialPort.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		002E8D6913715BA400F69A26 /* SerialPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E8D6313715BA400F69A26 /* SerialPort.m */; };
+		002E8D6A13715BA400F69A26 /* SerialPortSample.c in Sources */ = {isa = PBXBuildFile; fileRef = 002E8D6413715BA400F69A26 /* SerialPortSample.c */; };
+		002E96A61375598300F69A26 /* BARTSerialPortIONotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E96A41375598300F69A26 /* BARTSerialPortIONotifications.m */; };
+		002E96A71375598300F69A26 /* BARTSerialPortIONotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 002E96A51375598300F69A26 /* BARTSerialPortIONotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
+		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		002E93211372F7F100F69A26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 002E931D1372F7F100F69A26 /* BARTSerialIOPluginEyeTrac.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
+			remoteInfo = BARTSerialIOPluginEyeTrac;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		002E97871375699200F69A26 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		002E8D5A13715B4800F69A26 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		002E8D5F13715BA400F69A26 /* BARTSerialIOProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BARTSerialIOProtocol.h; sourceTree = "<group>"; };
+		002E8D6013715BA400F69A26 /* SerialPort_C.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SerialPort_C.c; sourceTree = "<group>"; };
+		002E8D6113715BA400F69A26 /* SerialPort_C.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SerialPort_C.h; sourceTree = "<group>"; };
+		002E8D6213715BA400F69A26 /* SerialPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SerialPort.h; sourceTree = "<group>"; };
+		002E8D6313715BA400F69A26 /* SerialPort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SerialPort.m; sourceTree = "<group>"; };
+		002E8D6413715BA400F69A26 /* SerialPortSample.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SerialPortSample.c; sourceTree = "<group>"; };
+		002E931D1372F7F100F69A26 /* BARTSerialIOPluginEyeTrac.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BARTSerialIOPluginEyeTrac.xcodeproj; path = ../BARTSerialIOPluginEyeTrac/BARTSerialIOPluginEyeTrac.xcodeproj; sourceTree = SOURCE_ROOT; };
+		002E96A41375598300F69A26 /* BARTSerialPortIONotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BARTSerialPortIONotifications.m; sourceTree = "<group>"; };
+		002E96A51375598300F69A26 /* BARTSerialPortIONotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BARTSerialPortIONotifications.h; sourceTree = "<group>"; };
+		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		32DBCF5E0370ADEE00C91783 /* BARTSerialIOFramework_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BARTSerialIOFramework_Prefix.pch; sourceTree = "<group>"; };
+		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DC2EF5B0486A6940098B216 /* BARTSerialIOFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BARTSerialIOFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DC2EF560486A6940098B216 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
+				002E8D5B13715B4800F69A26 /* IOKit.framework in Frameworks */,
+				002E8D5E13715B5A00F69A26 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		002E8D6C13715BB900F69A26 /* BARTSerialIOPlugins */ = {
+			isa = PBXGroup;
+			children = (
+				002E931D1372F7F100F69A26 /* BARTSerialIOPluginEyeTrac.xcodeproj */,
+			);
+			name = BARTSerialIOPlugins;
+			sourceTree = "<group>";
+		};
+		002E931E1372F7F100F69A26 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				002E93221372F7F100F69A26 /* BARTSerialIOPluginEyeTrac.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		002E969E1375593E00F69A26 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				002E8D5F13715BA400F69A26 /* BARTSerialIOProtocol.h */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2EF5B0486A6940098B216 /* BARTSerialIOFramework.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* BARTSerialIOFramework */ = {
+			isa = PBXGroup;
+			children = (
+				002E969E1375593E00F69A26 /* Protocols */,
+				002E8D6C13715BB900F69A26 /* BARTSerialIOPlugins */,
+				08FB77AEFE84172EC02AAC07 /* Classes */,
+				32C88DFF0371C24200C91783 /* Other Sources */,
+				089C1665FE841158C02AAC07 /* Resources */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DFFF38A50411DB9C8B /* Products */,
+			);
+			name = BARTSerialIOFramework;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */,
+				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C1665FE841158C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2EF5A0486A6940098B216 /* Info.plist */,
+				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AEFE84172EC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				002E96A41375598300F69A26 /* BARTSerialPortIONotifications.m */,
+				002E96A51375598300F69A26 /* BARTSerialPortIONotifications.h */,
+				002E8D6013715BA400F69A26 /* SerialPort_C.c */,
+				002E8D6113715BA400F69A26 /* SerialPort_C.h */,
+				002E8D6213715BA400F69A26 /* SerialPort.h */,
+				002E8D6313715BA400F69A26 /* SerialPort.m */,
+				002E8D6413715BA400F69A26 /* SerialPortSample.c */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0867D6A5FE840307C02AAC07 /* AppKit.framework */,
+				D2F7E79907B2D74100F64583 /* CoreData.framework */,
+				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
+				002E8D5A13715B4800F69A26 /* IOKit.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		32C88DFF0371C24200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32DBCF5E0370ADEE00C91783 /* BARTSerialIOFramework_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8DC2EF500486A6940098B216 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				002E8D6513715BA400F69A26 /* BARTSerialIOProtocol.h in Headers */,
+				002E8D6713715BA400F69A26 /* SerialPort_C.h in Headers */,
+				002E8D6813715BA400F69A26 /* SerialPort.h in Headers */,
+				002E96A71375598300F69A26 /* BARTSerialPortIONotifications.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8DC2EF4F0486A6940098B216 /* BARTSerialIOFramework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "BARTSerialIOFramework" */;
+			buildPhases = (
+				8DC2EF500486A6940098B216 /* Headers */,
+				8DC2EF520486A6940098B216 /* Resources */,
+				8DC2EF540486A6940098B216 /* Sources */,
+				8DC2EF560486A6940098B216 /* Frameworks */,
+				002E94A813730C9B00F69A26 /* ShellScript */,
+				002E97871375699200F69A26 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BARTSerialIOFramework;
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = BARTSerialIOFramework;
+			productReference = 8DC2EF5B0486A6940098B216 /* BARTSerialIOFramework.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "BARTSerialIOFramework" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* BARTSerialIOFramework */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 002E931E1372F7F100F69A26 /* Products */;
+					ProjectRef = 002E931D1372F7F100F69A26 /* BARTSerialIOPluginEyeTrac.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				8DC2EF4F0486A6940098B216 /* BARTSerialIOFramework */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		002E93221372F7F100F69A26 /* BARTSerialIOPluginEyeTrac.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = BARTSerialIOPluginEyeTrac.bundle;
+			remoteRef = 002E93211372F7F100F69A26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8DC2EF520486A6940098B216 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		002E94A813730C9B00F69A26 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DC2EF540486A6940098B216 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				002E8D6613715BA400F69A26 /* SerialPort_C.c in Sources */,
+				002E8D6913715BA400F69A26 /* SerialPort.m in Sources */,
+				002E8D6A13715BA400F69A26 /* SerialPortSample.c in Sources */,
+				002E96A61375598300F69A26 /* BARTSerialPortIONotifications.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1667FE841158C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB91AE08733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				PRODUCT_NAME = BARTSerialIOFramework;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		1DEB91AF08733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_LOCATION = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = BARTSerialIOFramework_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = /Library/Frameworks;
+				PRODUCT_NAME = BARTSerialIOFramework;
+				SKIP_INSTALL = NO;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		1DEB91B208733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		1DEB91B308733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				DEPLOYMENT_LOCATION = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				DSTROOT = /;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = /Library/Frameworks;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+				SKIP_INSTALL = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "BARTSerialIOFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91AE08733DA50010E9CD /* Debug */,
+				1DEB91AF08733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "BARTSerialIOFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91B208733DA50010E9CD /* Debug */,
+				1DEB91B308733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}

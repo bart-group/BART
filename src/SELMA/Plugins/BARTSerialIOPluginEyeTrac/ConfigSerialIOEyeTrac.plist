@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LogfilePath</key>
+	<string>/tmp/</string>
+	<key>RelevantBytes</key>
+	<integer>12</integer>
+	<key>ByteMeaning</key>
+	<array>
+		<string>Status</string>
+		<string>PupilDiameterHSB</string>
+		<string>PupilDiameterLSB</string>
+		<string>CorneaDiameterHSB</string>
+		<string>CorneaDiameterLSB</string>
+		<string>Mysterious</string>
+		<string>HorizontalGazeHSB</string>
+		<string>Overflow1</string>
+		<string>HorizontalGazeLSB</string>
+		<string>VerticalGazeHSB</string>
+		<string>VerticalGazeLSB</string>
+		<string>Overflow2</string>
+	</array>
+	<key>StartValue</key>
+	<integer>128</integer>
+	<key>Limits</key>
+	<string>test</string>
+</dict>
+</plist>
