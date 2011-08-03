@@ -20,6 +20,6 @@
 	
 }
 
-
+-(void)startRealTimeInputOfImageType;
 
 @end
