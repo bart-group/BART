@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:BARTApplication.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../src/SELMA/BARTSerialIOFramework/BARTSerialIOFramework.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../src/SELMA/Plugins/BARTSerialIOPluginEyeTrac/BARTSerialIOPluginEyeTrac.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../src/SELMA/Plugins/BARTSerialIOPluginFTDITriggerButton/BARTSerialIOPluginFTDITriggerButton.xcodeproj">
+   </FileRef>
+</Workspace>
