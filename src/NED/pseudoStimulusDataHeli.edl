@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rtExperiment edlVersion="1.4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="rtExperiment_v14.xsd">
+    <experimentData>
+        <imageModalities>
+            <TR>2000</TR>
+        </imageModalities>
+    </experimentData>
+
+    <stimulusData>
+
+        <stimEnvironment>	
+            <startTrigger waitForInitialTrigger="true">
+                <parallelPortTrigger>
+                    <triggerPort>0x379</triggerPort>
+                </parallelPortTrigger>
+            </startTrigger>
+
+            <logEvents writeAtRuntime="off" writeMatFile="on" writeTextFile="on">
+                <logFileBase>\LOG\logStim</logFileBase>
+            </logEvents>
+
+            <screen>
+                <screenResolutionX>800</screenResolutionX>
+                <screenResolutionY>600</screenResolutionY>  
+            </screen>  
+        </stimEnvironment>
+      
+        <mediaObjectList>
+            <mediaObject moID="up" name="text1" type="TEXT">
+                <contentText>
+                    <text>up</text>
+                    <tSize>14</tSize>
+                    <posX>650</posX>
+                    <posY>150</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="down" name="text2" type="TEXT">
+                <contentText>
+                    <text>down</text>
+                    <tSize>14</tSize>
+                    <posX>650</posX>
+                    <posY>150</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="fire0" name="text3" type="TEXT">
+                <contentText>
+                    <text>[0] Pacifist mode!</text>
+                    <tSize>14</tSize>
+                    <posX>150</posX>
+                    <posY>150</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="fire1" name="text4" type="TEXT">
+                <contentText>
+                    <text>[1] Slow-mo mode!</text>
+                    <tSize>14</tSize>
+                    <posX>150</posX>
+                    <posY>150</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="fire2" name="text5" type="TEXT">
+                <contentText>
+                    <text>[2] Killer mode!</text>
+                    <tSize>14</tSize>
+                    <posX>150</posX>
+                    <posY>150</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="fire3" name="text6" type="TEXT">
+                <contentText>
+                    <text>[3] Rampage! NOW!</text>
+                    <tSize>14</tSize>
+                    <posX>150</posX>
+                    <posY>150</posY>
+                </contentText>
+            </mediaObject>
+        </mediaObjectList>
+
+        <timeTable timeTolerance="20">
+            <freeStimulusDesign overallPresLength="80000">
+                <stimEvent time="75000" duration="5000">
+                    <mObjectID>down</mObjectID>
+                </stimEvent>
+            </freeStimulusDesign>
+        </timeTable>
+          
+    </stimulusData>
+</rtExperiment>

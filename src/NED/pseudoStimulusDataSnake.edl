@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rtExperiment edlVersion="1.4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="rtExperiment_v14.xsd">
+    <experimentData>
+        <imageModalities>
+            <TR>2000</TR>
+        </imageModalities>
+    </experimentData>
+
+    <stimulusData>
+
+        <stimEnvironment>	
+            <startTrigger waitForInitialTrigger="true">
+                <parallelPortTrigger>
+                    <triggerPort>0x379</triggerPort>
+                </parallelPortTrigger>
+            </startTrigger>
+
+            <logEvents writeAtRuntime="off" writeMatFile="on" writeTextFile="on">
+                <logFileBase>\LOG\logStim</logFileBase>
+            </logEvents>
+
+            <screen>
+                <screenResolutionX>480</screenResolutionX>
+                <screenResolutionY>640</screenResolutionY>  
+            </screen>  
+        </stimEnvironment>
+      
+        <mediaObjectList>
+            <mediaObject moID="mo1" name="text1" type="TEXT">
+                <contentText>
+                    <text>+------#-+</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>10</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="mo2" name="text2" type="TEXT">
+                <contentText>
+                    <text>|        |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>65</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="mo3" name="text3" type="TEXT">
+                <contentText>
+                    <text>|        |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>130</posY>
+                </contentText>
+            </mediaObject>
+            
+            
+            <mediaObject moID="mo4" name="text3" type="TEXT">
+                <contentText>
+                    <text>|        |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>195</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="mo5" name="text3" type="TEXT">
+                <contentText>
+                    <text>|        |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>260</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="mo6" name="text2" type="TEXT">
+                <contentText>
+                    <text>|        |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>325</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="mo7" name="text3" type="TEXT">
+                <contentText>
+                    <text>|        |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>390</posY>
+                </contentText>
+            </mediaObject>
+            
+            
+            <mediaObject moID="mo8" name="text3" type="TEXT">
+                <contentText>
+                    <text>|        |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>455</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="mo9" name="text3" type="TEXT">
+                <contentText>
+                    <text>|        |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>520</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="mo10" name="text1" type="TEXT">
+                <contentText>
+                    <text>+#-------+</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>585</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="s11" name="text1" type="TEXT">
+                <contentText>
+                    <text>|O       |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>520</posY>
+                </contentText>
+            </mediaObject>
+            <mediaObject moID="s12" name="text1" type="TEXT">
+                <contentText>
+                    <text>|O       |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>455</posY>
+                </contentText>
+            </mediaObject>
+            <mediaObject moID="s13" name="text1" type="TEXT">
+                <contentText>
+                    <text>|O       |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>390</posY>
+                </contentText>
+            </mediaObject>
+            <mediaObject moID="s14" name="text1" type="TEXT">
+                <contentText>
+                    <text>|O       |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>325</posY>
+                </contentText>
+            </mediaObject>
+            <mediaObject moID="s15" name="text1" type="TEXT">
+                <contentText>
+                    <text>|O       |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>260</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="s25" name="text1" type="TEXT">
+                <contentText>
+                    <text>| O      |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>260</posY>
+                </contentText>
+            </mediaObject>
+            <mediaObject moID="s35" name="text1" type="TEXT">
+                <contentText>
+                    <text>|  O     |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>260</posY>
+                </contentText>
+            </mediaObject>
+            <mediaObject moID="s45" name="text1" type="TEXT">
+                <contentText>
+                    <text>|   O    |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>260</posY>
+                </contentText>
+            </mediaObject>
+            <mediaObject moID="s55" name="text1" type="TEXT">
+                <contentText>
+                    <text>|    O   |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>260</posY>
+                </contentText>
+            </mediaObject>
+            <mediaObject moID="s65" name="text1" type="TEXT">
+                <contentText>
+                    <text>|     O  |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>260</posY>
+                </contentText>
+            </mediaObject>
+            <mediaObject moID="s75" name="text1" type="TEXT">
+                <contentText>
+                    <text>|      O |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>260</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="s76" name="text1" type="TEXT">
+                <contentText>
+                    <text>|      O |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>195</posY>
+                </contentText>
+            </mediaObject>
+            <mediaObject moID="s77" name="text1" type="TEXT">
+                <contentText>
+                    <text>|      O |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>130</posY>
+                </contentText>
+            </mediaObject>
+            <mediaObject moID="s78" name="text1" type="TEXT">
+                <contentText>
+                    <text>|      O |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>65</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="m45" name="text1" type="TEXT">
+                <contentText>
+                    <text>|   ~    |</text>
+                    <tSize>6</tSize>
+                    <posX>0</posX>
+                    <posY>260</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="msg" name="text1" type="TEXT">
+                <contentText>
+                    <text>Mission complete!</text>
+                    <tSize>2</tSize>
+                    <posX>100</posX>
+                    <posY>300</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="music" name="soundStart" type="SOUND">
+                <contentSound>
+                    <soundFile>../../super_mario.mp3</soundFile>
+                </contentSound>
+            </mediaObject>
+        </mediaObjectList>
+
+        <timeTable timeTolerance="20">
+            <freeStimulusDesign overallPresLength="3600000">
+                <stimEvent time="0" duration="7000">
+                    <mObjectID>m45</mObjectID>
+                </stimEvent>
+            
+                <stimEvent time="0" duration="180000">
+                    <mObjectID>music</mObjectID>
+                </stimEvent>
+            
+                <stimEvent time="0" duration="3600000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent time="0" duration="3600000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent time="0" duration="3600000">
+                    <mObjectID>mo3</mObjectID>
+                </stimEvent>
+                <stimEvent time="0" duration="3600000">
+                    <mObjectID>mo4</mObjectID>
+                </stimEvent>
+                <stimEvent time="0" duration="3600000">
+                    <mObjectID>mo5</mObjectID>
+                </stimEvent>
+                <stimEvent time="0" duration="3600000">
+                    <mObjectID>mo6</mObjectID>
+                </stimEvent>
+                <stimEvent time="0" duration="3600000">
+                    <mObjectID>mo7</mObjectID>
+                </stimEvent>
+                <stimEvent time="0" duration="3600000">
+                    <mObjectID>mo8</mObjectID>
+                </stimEvent>
+                <stimEvent time="0" duration="3600000">
+                    <mObjectID>mo9</mObjectID>
+                </stimEvent>
+                <stimEvent time="0" duration="3600000">
+                    <mObjectID>mo10</mObjectID>
+                </stimEvent>
+                
+                <stimEvent time="0" duration="3000">
+                    <mObjectID>s11</mObjectID>
+                </stimEvent>
+                <stimEvent time="1000" duration="3000">
+                    <mObjectID>s12</mObjectID>
+                </stimEvent>
+                <stimEvent time="2000" duration="3000">
+                    <mObjectID>s13</mObjectID>
+                </stimEvent>
+                <stimEvent time="3000" duration="3000">
+                    <mObjectID>s14</mObjectID>
+                </stimEvent>
+                <stimEvent time="4000" duration="3000">
+                    <mObjectID>s15</mObjectID>
+                </stimEvent>
+                <stimEvent time="5000" duration="4000">
+                    <mObjectID>s25</mObjectID>
+                </stimEvent>
+                <stimEvent time="6000" duration="4000">
+                    <mObjectID>s35</mObjectID>
+                </stimEvent>
+                <stimEvent time="7000" duration="4000">
+                    <mObjectID>s45</mObjectID>
+                </stimEvent>
+                <stimEvent time="8000" duration="4000">
+                    <mObjectID>s55</mObjectID>
+                </stimEvent>
+                <stimEvent time="9000" duration="4000">
+                    <mObjectID>s65</mObjectID>
+                </stimEvent>
+                <stimEvent time="10000" duration="4000">
+                    <mObjectID>s75</mObjectID>
+                </stimEvent>
+                <stimEvent time="11000" duration="4000">
+                    <mObjectID>s76</mObjectID>
+                </stimEvent>
+                <stimEvent time="12000" duration="4000">
+                    <mObjectID>s77</mObjectID>
+                </stimEvent>
+                <stimEvent time="13000" duration="4000">
+                    <mObjectID>s78</mObjectID>
+                </stimEvent>
+                
+                <stimEvent time="17000" duration="10000">
+                    <mObjectID>msg</mObjectID>
+                </stimEvent>
+                
+            </freeStimulusDesign>
+        </timeTable>
+          
+    </stimulusData>
+</rtExperiment>

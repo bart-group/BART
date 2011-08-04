@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rtExperiment edlVersion="1.4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="../../BARTPresentation/rtExperiment_v14.xsd">
+    <experimentData>
+        <imageModalities>
+            <TR>2000</TR>
+        </imageModalities>
+    </experimentData>
+    
+    <stimulusData>
+
+        <stimEnvironment>	
+            <startTrigger waitForInitialTrigger="true">
+                <parallelPortTrigger>
+                    <triggerPort>0x379</triggerPort>
+                </parallelPortTrigger>
+            </startTrigger>
+
+            <logEvents writeAtRuntime="off" writeMatFile="on" writeTextFile="on">
+                <logFileBase>\LOG\logStim</logFileBase>
+            </logEvents>
+
+            <screen>
+                <screenResolutionX>800</screenResolutionX>
+                <screenResolutionY>600</screenResolutionY>  
+            </screen>  
+        </stimEnvironment>
+      
+        <mediaObjectList>
+            <mediaObject moID="mo1" name="text1" type="TEXT">
+                <contentText>
+                    <text>+</text>
+                    <tSize>60</tSize>
+                    <posX>150</posX>
+                    <posY>150</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="mo2" name="text2" type="TEXT">
+                <contentText>
+                    <text>+</text>
+                    <tSize>60</tSize>
+                    <posX>650</posX>
+                    <posY>150</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="mo3" name="text3" type="TEXT">
+                <contentText>
+                    <text>+</text>
+                    <tSize>60</tSize>
+                    <posX>650</posX>
+                    <posY>450</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="mo4" name="text4" type="TEXT">
+                <contentText>
+                    <text>+</text>
+                    <tSize>60</tSize>
+                    <posX>150</posX>
+                    <posY>450</posY>
+                </contentText>
+            </mediaObject>
+
+            <mediaObject moID="mo5" name="soundStart" type="SOUND">
+                <contentSound>
+                    <soundFile>re_your_brains.mp3</soundFile>
+                </contentSound>
+            </mediaObject>
+
+            <mediaObject moID="mo6" name="soundStop" type="SOUND">
+                <contentSound>
+                    <soundFile>re_your_brains.mp3</soundFile>
+                </contentSound>
+            </mediaObject>
+        </mediaObjectList>
+
+        <timeTable timeTolerance="20">
+            <freeStimulusDesign overallPresLength="270000">
+                <stimEvent time="0" duration="4000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                
+
+
+                <stimEvent time="4000" duration="4000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                
+                <stimEvent time="8000" duration="4000">
+                    <mObjectID>mo3</mObjectID>
+                </stimEvent>
+                
+                <stimEvent time="12000" duration="4000">
+                    <mObjectID>mo4</mObjectID>
+                </stimEvent>
+                
+                <stimEvent time="16000" duration="4000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                
+                <stimEvent time="20000" duration="4000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                
+                <stimEvent time="24000" duration="4000">
+                    <mObjectID>mo3</mObjectID>
+                </stimEvent>
+                
+                <stimEvent time="28000" duration="4000">
+                    <mObjectID>mo4</mObjectID>
+                </stimEvent>
+                
+                <stimEvent time="32000" duration="4000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                
+                <stimEvent time="36000" duration="4000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                
+                <stimEvent time="40000" duration="4000">
+                    <mObjectID>mo3</mObjectID>
+                </stimEvent>
+                
+                <stimEvent time="44000" duration="4000">
+                    <mObjectID>mo4</mObjectID>
+                </stimEvent>
+                
+                <stimEvent time="55000" duration="10000">
+                    <mObjectID>mo6</mObjectID>
+                </stimEvent>
+                
+                <stimEvent time="0" duration="270000">
+                    <mObjectID>mo5</mObjectID>
+                </stimEvent>
+            </freeStimulusDesign>
+        </timeTable>
+          
+    </stimulusData>
+</rtExperiment>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rtExperiment edlVersion="1.4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="rtExperiment_v14.xsd">
+    <experimentData>
+        <imageModalities>
+            <TR>2000</TR>
+        </imageModalities>
+    </experimentData>
+
+    <stimulusData>
+
+        <stimEnvironment>	
+            <startTrigger waitForInitialTrigger="true">
+                <parallelPortTrigger>
+                    <triggerPort>0x379</triggerPort>
+                </parallelPortTrigger>
+            </startTrigger>
+
+            <logEvents writeAtRuntime="off" writeMatFile="on" writeTextFile="on">
+                <logFileBase>\LOG\logStim</logFileBase>
+            </logEvents>
+
+            <screen>
+                <screenResolutionX>800</screenResolutionX>
+                <screenResolutionY>600</screenResolutionY>  
+            </screen>  
+        </stimEnvironment>
+      
+        <mediaObjectList>
+            <mediaObject moID="mo1" name="text1" type="TEXT">
+                <contentText>
+                    <text>+</text>
+                    <tSize>5</tSize>
+                    <posX>380</posX>
+                    <posY>280</posY>
+                </contentText>
+            </mediaObject>
+            
+            <mediaObject moID="mo2" name="text2" type="IMAGE">
+                <contentImage>
+                    <imageFile>google_trends.png</imageFile>
+                    <posX>200</posX>
+                    <posY>150</posY>
+                </contentImage>
+            </mediaObject>
+            <mediaObject moID="mo3" name="text2" type="IMAGE">
+                <contentImage>
+                    <imageFile>google_trends.png</imageFile>
+                    <posX>200</posX>
+                    <posY>100</posY>
+                </contentImage>
+            </mediaObject>
+            <mediaObject moID="mo4" name="text2" type="IMAGE">
+                <contentImage>
+                    <imageFile>google_trends.png</imageFile>
+                    <posX>200</posX>
+                    <posY>50</posY>
+                </contentImage>
+            </mediaObject>
+            <mediaObject moID="mo5" name="text2" type="IMAGE">
+                <contentImage>
+                    <imageFile>google_trends.png</imageFile>
+                    <posX>200</posX>
+                    <posY>0</posY>
+                </contentImage>
+            </mediaObject>
+        </mediaObjectList>
+
+        <timeTable timeTolerance="20">
+            <blockStimulusDesign repeats="5"  overallPresLength="80000">
+                <stimEvent time="0" duration="2000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+
+                <stimEvent time="3000" duration="10000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent time="13000" duration="1000">
+                    <mObjectID>mo3</mObjectID>
+                </stimEvent>
+                <stimEvent time="14000" duration="1000">
+                    <mObjectID>mo4</mObjectID>
+                </stimEvent>
+                <stimEvent time="15000" duration="1000">
+                    <mObjectID>mo5</mObjectID>
+                </stimEvent>
+            </blockStimulusDesign>
+        </timeTable>
+          
+    </stimulusData>
+</rtExperiment>

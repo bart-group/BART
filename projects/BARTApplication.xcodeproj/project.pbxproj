@@ -124,6 +124,56 @@
 		00D444DD134DEB4200094A51 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00D444E2134DEB5300094A51 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
 		00DB76B613E84BFC00BB6484 /* BARTSerialIOFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DB76B513E84BFC00BB6484 /* BARTSerialIOFramework.framework */; };
+		00DB77E913EA8AD500BB6484 /* NELogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77D313EA8AD500BB6484 /* NELogFormatter.h */; };
+		00DB77EA13EA8AD500BB6484 /* NELogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77D413EA8AD500BB6484 /* NELogFormatter.m */; };
+		00DB77EB13EA8AD500BB6484 /* NEMediaAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77D513EA8AD500BB6484 /* NEMediaAudio.h */; };
+		00DB77EC13EA8AD500BB6484 /* NEMediaAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77D613EA8AD500BB6484 /* NEMediaAudio.m */; };
+		00DB77ED13EA8AD500BB6484 /* NEMediaImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77D713EA8AD500BB6484 /* NEMediaImage.h */; };
+		00DB77EE13EA8AD500BB6484 /* NEMediaImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77D813EA8AD500BB6484 /* NEMediaImage.m */; };
+		00DB77EF13EA8AD500BB6484 /* NEMediaObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77D913EA8AD500BB6484 /* NEMediaObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		00DB77F013EA8AD500BB6484 /* NEMediaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77DA13EA8AD500BB6484 /* NEMediaObject.m */; };
+		00DB77F113EA8AD500BB6484 /* NEMediaText.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77DB13EA8AD500BB6484 /* NEMediaText.h */; };
+		00DB77F213EA8AD500BB6484 /* NEMediaText.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77DC13EA8AD500BB6484 /* NEMediaText.m */; };
+		00DB77F313EA8AD500BB6484 /* NEPresentationLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77DD13EA8AD500BB6484 /* NEPresentationLogger.h */; };
+		00DB77F413EA8AD500BB6484 /* NEPresentationLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77DE13EA8AD500BB6484 /* NEPresentationLogger.m */; };
+		00DB77F513EA8AD500BB6484 /* NEStimEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77DF13EA8AD500BB6484 /* NEStimEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		00DB77F613EA8AD500BB6484 /* NEStimEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77E013EA8AD500BB6484 /* NEStimEvent.m */; };
+		00DB77F713EA8AD500BB6484 /* NETimelineView.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77E113EA8AD500BB6484 /* NETimelineView.h */; };
+		00DB77F813EA8AD500BB6484 /* NETimelineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77E213EA8AD500BB6484 /* NETimelineView.m */; };
+		00DB77F913EA8AD500BB6484 /* NETimetable.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77E313EA8AD500BB6484 /* NETimetable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		00DB77FA13EA8AD500BB6484 /* NETimetable.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77E413EA8AD500BB6484 /* NETimetable.m */; };
+		00DB77FB13EA8AD500BB6484 /* NEViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77E513EA8AD500BB6484 /* NEViewManager.h */; };
+		00DB77FC13EA8AD500BB6484 /* NEViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77E613EA8AD500BB6484 /* NEViewManager.m */; };
+		00DB77FD13EA8AD500BB6484 /* NEXMLFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77E713EA8AD500BB6484 /* NEXMLFormatter.h */; };
+		00DB77FE13EA8AD500BB6484 /* NEXMLFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77E813EA8AD500BB6484 /* NEXMLFormatter.m */; };
+		00DB780113EA8B1C00BB6484 /* NEPresentationView.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77FF13EA8B1C00BB6484 /* NEPresentationView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		00DB780213EA8B1C00BB6484 /* NEPresentationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB780013EA8B1C00BB6484 /* NEPresentationView.m */; };
+		00DB780D13EA8B4B00BB6484 /* NEControlWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB780313EA8B4B00BB6484 /* NEControlWindowController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		00DB780E13EA8B4B00BB6484 /* NEControlWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB780413EA8B4B00BB6484 /* NEControlWindowController.m */; };
+		00DB780F13EA8B4B00BB6484 /* NEHeliWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB780513EA8B4B00BB6484 /* NEHeliWindowController.h */; };
+		00DB781013EA8B4B00BB6484 /* NEHeliWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB780613EA8B4B00BB6484 /* NEHeliWindowController.m */; };
+		00DB781113EA8B4B00BB6484 /* NEPresentationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB780713EA8B4B00BB6484 /* NEPresentationController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		00DB781213EA8B4B00BB6484 /* NEPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB780813EA8B4B00BB6484 /* NEPresentationController.m */; };
+		00DB781313EA8B4B00BB6484 /* NEThermoWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB780913EA8B4B00BB6484 /* NEThermoWindowController.h */; };
+		00DB781413EA8B4B00BB6484 /* NEThermoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB780A13EA8B4B00BB6484 /* NEThermoWindowController.m */; };
+		00DB781513EA8B4B00BB6484 /* NETimelineWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB780B13EA8B4B00BB6484 /* NETimelineWindowController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		00DB781613EA8B4B00BB6484 /* NETimelineWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB780C13EA8B4B00BB6484 /* NETimelineWindowController.m */; };
+		00DB782E13EA8C2E00BB6484 /* NEFeedbackHeli.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB782713EA8C2E00BB6484 /* NEFeedbackHeli.h */; };
+		00DB782F13EA8C2E00BB6484 /* NEFeedbackHeli.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB782813EA8C2E00BB6484 /* NEFeedbackHeli.m */; };
+		00DB783013EA8C2E00BB6484 /* NEFeedbackObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB782913EA8C2E00BB6484 /* NEFeedbackObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		00DB783113EA8C2E00BB6484 /* NEFeedbackObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB782A13EA8C2E00BB6484 /* NEFeedbackObject.m */; };
+		00DB783213EA8C2E00BB6484 /* NEFeedbackThermo.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB782B13EA8C2E00BB6484 /* NEFeedbackThermo.h */; };
+		00DB783313EA8C2E00BB6484 /* NEFeedbackThermo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB782C13EA8C2E00BB6484 /* NEFeedbackThermo.m */; };
+		00DB784213EA8C7A00BB6484 /* NELogFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB783513EA8C7A00BB6484 /* NELogFormatterTest.m */; };
+		00DB784313EA8C7A00BB6484 /* NEMediaObjectTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB783713EA8C7A00BB6484 /* NEMediaObjectTest.m */; };
+		00DB784413EA8C7A00BB6484 /* NEMediaTextTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB783913EA8C7A00BB6484 /* NEMediaTextTest.m */; };
+		00DB784513EA8C7A00BB6484 /* NEPresentationLoggerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB783B13EA8C7A00BB6484 /* NEPresentationLoggerTest.m */; };
+		00DB784613EA8C7A00BB6484 /* NEStimEventTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB783D13EA8C7A00BB6484 /* NEStimEventTest.m */; };
+		00DB784713EA8C7A00BB6484 /* NETimetableTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB783F13EA8C7A00BB6484 /* NETimetableTest.m */; };
+		00DB784813EA8C7A00BB6484 /* NEXMLFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB784113EA8C7A00BB6484 /* NEXMLFormatterTest.m */; };
+		00DB784913EA8CAD00BB6484 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
+		00DB784C13EA8CF200BB6484 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED1922910AC8AD600FAFA4F /* QuartzCore.framework */; };
+		00DB784D13EA8D6600BB6484 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DB784A13EA8CDE00BB6484 /* QTKit.framework */; };
 		00DE9C6F12F6EBB50089B99A /* designtest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DE9C6E12F6EBB50089B99A /* designtest.m */; };
 		00E0434A13E6A53F006B17B0 /* EDDataElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E0434813E6A53F006B17B0 /* EDDataElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00E0434B13E6A540006B17B0 /* EDDataElement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00E0434913E6A53F006B17B0 /* EDDataElement.mm */; };
@@ -510,6 +560,76 @@
 		00D44166134B57E600094A51 /* libviaio.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libviaio.dylib; path = /usr/local/lib/libviaio.dylib; sourceTree = "<absolute>"; };
 		00DB76B413E84B6C00BB6484 /* libPRINCE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPRINCE.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		00DB76B513E84BFC00BB6484 /* BARTSerialIOFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BARTSerialIOFramework.framework; path = Library/Frameworks/BARTSerialIOFramework.framework; sourceTree = SDKROOT; };
+		00DB77D313EA8AD500BB6484 /* NELogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NELogFormatter.h; sourceTree = "<group>"; };
+		00DB77D413EA8AD500BB6484 /* NELogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NELogFormatter.m; sourceTree = "<group>"; };
+		00DB77D513EA8AD500BB6484 /* NEMediaAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEMediaAudio.h; sourceTree = "<group>"; };
+		00DB77D613EA8AD500BB6484 /* NEMediaAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEMediaAudio.m; sourceTree = "<group>"; };
+		00DB77D713EA8AD500BB6484 /* NEMediaImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEMediaImage.h; sourceTree = "<group>"; };
+		00DB77D813EA8AD500BB6484 /* NEMediaImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEMediaImage.m; sourceTree = "<group>"; };
+		00DB77D913EA8AD500BB6484 /* NEMediaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEMediaObject.h; sourceTree = "<group>"; };
+		00DB77DA13EA8AD500BB6484 /* NEMediaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEMediaObject.m; sourceTree = "<group>"; };
+		00DB77DB13EA8AD500BB6484 /* NEMediaText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEMediaText.h; sourceTree = "<group>"; };
+		00DB77DC13EA8AD500BB6484 /* NEMediaText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEMediaText.m; sourceTree = "<group>"; };
+		00DB77DD13EA8AD500BB6484 /* NEPresentationLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEPresentationLogger.h; sourceTree = "<group>"; };
+		00DB77DE13EA8AD500BB6484 /* NEPresentationLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEPresentationLogger.m; sourceTree = "<group>"; };
+		00DB77DF13EA8AD500BB6484 /* NEStimEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEStimEvent.h; sourceTree = "<group>"; };
+		00DB77E013EA8AD500BB6484 /* NEStimEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEStimEvent.m; sourceTree = "<group>"; };
+		00DB77E113EA8AD500BB6484 /* NETimelineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETimelineView.h; sourceTree = "<group>"; };
+		00DB77E213EA8AD500BB6484 /* NETimelineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NETimelineView.m; sourceTree = "<group>"; };
+		00DB77E313EA8AD500BB6484 /* NETimetable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETimetable.h; sourceTree = "<group>"; };
+		00DB77E413EA8AD500BB6484 /* NETimetable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NETimetable.m; sourceTree = "<group>"; };
+		00DB77E513EA8AD500BB6484 /* NEViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEViewManager.h; sourceTree = "<group>"; };
+		00DB77E613EA8AD500BB6484 /* NEViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEViewManager.m; sourceTree = "<group>"; };
+		00DB77E713EA8AD500BB6484 /* NEXMLFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEXMLFormatter.h; sourceTree = "<group>"; };
+		00DB77E813EA8AD500BB6484 /* NEXMLFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEXMLFormatter.m; sourceTree = "<group>"; };
+		00DB77FF13EA8B1C00BB6484 /* NEPresentationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEPresentationView.h; sourceTree = "<group>"; };
+		00DB780013EA8B1C00BB6484 /* NEPresentationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEPresentationView.m; sourceTree = "<group>"; };
+		00DB780313EA8B4B00BB6484 /* NEControlWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEControlWindowController.h; sourceTree = "<group>"; };
+		00DB780413EA8B4B00BB6484 /* NEControlWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEControlWindowController.m; sourceTree = "<group>"; };
+		00DB780513EA8B4B00BB6484 /* NEHeliWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEHeliWindowController.h; sourceTree = "<group>"; };
+		00DB780613EA8B4B00BB6484 /* NEHeliWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEHeliWindowController.m; sourceTree = "<group>"; };
+		00DB780713EA8B4B00BB6484 /* NEPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEPresentationController.h; sourceTree = "<group>"; };
+		00DB780813EA8B4B00BB6484 /* NEPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEPresentationController.m; sourceTree = "<group>"; };
+		00DB780913EA8B4B00BB6484 /* NEThermoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEThermoWindowController.h; sourceTree = "<group>"; };
+		00DB780A13EA8B4B00BB6484 /* NEThermoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEThermoWindowController.m; sourceTree = "<group>"; };
+		00DB780B13EA8B4B00BB6484 /* NETimelineWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETimelineWindowController.h; sourceTree = "<group>"; };
+		00DB780C13EA8B4B00BB6484 /* NETimelineWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NETimelineWindowController.m; sourceTree = "<group>"; };
+		00DB781813EA8BB100BB6484 /* PresentationControl.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PresentationControl.xib; sourceTree = "<group>"; };
+		00DB781913EA8BB100BB6484 /* pseudoStimulusDataBench.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = pseudoStimulusDataBench.edl; sourceTree = "<group>"; };
+		00DB781A13EA8BB100BB6484 /* pseudoStimulusDataBlock.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = pseudoStimulusDataBlock.edl; sourceTree = "<group>"; };
+		00DB781B13EA8BB100BB6484 /* pseudoStimulusDataEmpty.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = pseudoStimulusDataEmpty.edl; sourceTree = "<group>"; };
+		00DB781C13EA8BB100BB6484 /* pseudoStimulusDataFree.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = pseudoStimulusDataFree.edl; sourceTree = "<group>"; };
+		00DB781D13EA8BB100BB6484 /* pseudoStimulusDataHeli.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = pseudoStimulusDataHeli.edl; sourceTree = "<group>"; };
+		00DB781E13EA8BB100BB6484 /* pseudoStimulusDataImage.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = pseudoStimulusDataImage.edl; sourceTree = "<group>"; };
+		00DB781F13EA8BB100BB6484 /* pseudoStimulusDataSnake.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = pseudoStimulusDataSnake.edl; sourceTree = "<group>"; };
+		00DB782013EA8BB100BB6484 /* re_your_brains.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = re_your_brains.mp3; sourceTree = "<group>"; };
+		00DB782113EA8BB100BB6484 /* rtExperiment_v14_simplified.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rtExperiment_v14_simplified.xsd; sourceTree = "<group>"; };
+		00DB782213EA8BB100BB6484 /* rtExperiment_v14_simplified2.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rtExperiment_v14_simplified2.xsd; sourceTree = "<group>"; };
+		00DB782313EA8BB100BB6484 /* rtExperiment_v14.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rtExperiment_v14.xsd; sourceTree = "<group>"; };
+		00DB782413EA8BB100BB6484 /* super_mario.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = super_mario.mp3; sourceTree = "<group>"; };
+		00DB782613EA8C2E00BB6484 /* HeliControl.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeliControl.xib; sourceTree = "<group>"; };
+		00DB782713EA8C2E00BB6484 /* NEFeedbackHeli.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEFeedbackHeli.h; sourceTree = "<group>"; };
+		00DB782813EA8C2E00BB6484 /* NEFeedbackHeli.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEFeedbackHeli.m; sourceTree = "<group>"; };
+		00DB782913EA8C2E00BB6484 /* NEFeedbackObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEFeedbackObject.h; sourceTree = "<group>"; };
+		00DB782A13EA8C2E00BB6484 /* NEFeedbackObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEFeedbackObject.m; sourceTree = "<group>"; };
+		00DB782B13EA8C2E00BB6484 /* NEFeedbackThermo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEFeedbackThermo.h; sourceTree = "<group>"; };
+		00DB782C13EA8C2E00BB6484 /* NEFeedbackThermo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEFeedbackThermo.m; sourceTree = "<group>"; };
+		00DB782D13EA8C2E00BB6484 /* ThermoControl.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThermoControl.xib; sourceTree = "<group>"; };
+		00DB783413EA8C7A00BB6484 /* NELogFormatterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NELogFormatterTest.h; path = ../../src/NED/NELogFormatterTest.h; sourceTree = "<group>"; };
+		00DB783513EA8C7A00BB6484 /* NELogFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NELogFormatterTest.m; path = ../../src/NED/NELogFormatterTest.m; sourceTree = "<group>"; };
+		00DB783613EA8C7A00BB6484 /* NEMediaObjectTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NEMediaObjectTest.h; path = ../../src/NED/NEMediaObjectTest.h; sourceTree = "<group>"; };
+		00DB783713EA8C7A00BB6484 /* NEMediaObjectTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NEMediaObjectTest.m; path = ../../src/NED/NEMediaObjectTest.m; sourceTree = "<group>"; };
+		00DB783813EA8C7A00BB6484 /* NEMediaTextTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NEMediaTextTest.h; path = ../../src/NED/NEMediaTextTest.h; sourceTree = "<group>"; };
+		00DB783913EA8C7A00BB6484 /* NEMediaTextTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NEMediaTextTest.m; path = ../../src/NED/NEMediaTextTest.m; sourceTree = "<group>"; };
+		00DB783A13EA8C7A00BB6484 /* NEPresentationLoggerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NEPresentationLoggerTest.h; path = ../../src/NED/NEPresentationLoggerTest.h; sourceTree = "<group>"; };
+		00DB783B13EA8C7A00BB6484 /* NEPresentationLoggerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NEPresentationLoggerTest.m; path = ../../src/NED/NEPresentationLoggerTest.m; sourceTree = "<group>"; };
+		00DB783C13EA8C7A00BB6484 /* NEStimEventTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NEStimEventTest.h; path = ../../src/NED/NEStimEventTest.h; sourceTree = "<group>"; };
+		00DB783D13EA8C7A00BB6484 /* NEStimEventTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NEStimEventTest.m; path = ../../src/NED/NEStimEventTest.m; sourceTree = "<group>"; };
+		00DB783E13EA8C7A00BB6484 /* NETimetableTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NETimetableTest.h; path = ../../src/NED/NETimetableTest.h; sourceTree = "<group>"; };
+		00DB783F13EA8C7A00BB6484 /* NETimetableTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NETimetableTest.m; path = ../../src/NED/NETimetableTest.m; sourceTree = "<group>"; };
+		00DB784013EA8C7A00BB6484 /* NEXMLFormatterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NEXMLFormatterTest.h; path = ../../src/NED/NEXMLFormatterTest.h; sourceTree = "<group>"; };
+		00DB784113EA8C7A00BB6484 /* NEXMLFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NEXMLFormatterTest.m; path = ../../src/NED/NEXMLFormatterTest.m; sourceTree = "<group>"; };
+		00DB784A13EA8CDE00BB6484 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		00DE9C6C12F316230089B99A /* blockDesignTest02_parametric.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = blockDesignTest02_parametric.edl; sourceTree = "<group>"; };
 		00DE9C6E12F6EBB50089B99A /* designtest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = designtest.m; sourceTree = "<group>"; };
 		00DE9C7C12F6FE690089B99A /* allZeroRegressor.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = allZeroRegressor.edl; sourceTree = "<group>"; };
@@ -688,6 +808,9 @@
 				00EA8A36135C6FFF00562F3B /* libfftw3.dylib in Frameworks */,
 				00EA8E11135D88E000562F3B /* libgslcblas.dylib in Frameworks */,
 				00EA8E13135D88E100562F3B /* libgsl.0.dylib in Frameworks */,
+				00DB784913EA8CAD00BB6484 /* Foundation.framework in Frameworks */,
+				00DB784C13EA8CF200BB6484 /* QuartzCore.framework in Frameworks */,
+				00DB784D13EA8D6600BB6484 /* QTKit.framework in Frameworks */,
 				007A6DB013E81B0E00F5DE58 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -924,16 +1047,11 @@
 		0040B8061141470400A57967 /* NED */ = {
 			isa = PBXGroup;
 			children = (
-				009266AC13E5B4590025B384 /* NEDesignElement.h */,
-				009266AD13E5B4590025B384 /* NEDesignElement.m */,
-				0036104F117F9AED00A84F44 /* NEDesignKernel.h */,
-				00361050117F9AED00A84F44 /* NEDesignKernel.m */,
-				0083769F116BB12D00369B20 /* NEDesignElementDyn.h */,
-				008376A0116BB12D00369B20 /* NEDesignElementDyn.m */,
-				008376A1116BB12D00369B20 /* NEDesignElementVI.h */,
-				008376A2116BB12D00369B20 /* NEDesignElementVI.m */,
-				0085EB2211511B2C004795FD /* NEDesignGloverKernel.h */,
-				0085EB2311511B2C004795FD /* NEDesignGloverKernel.m */,
+				00DB77D013EA8A3800BB6484 /* Model */,
+				00DB77D113EA8A4200BB6484 /* View */,
+				00DB77D213EA8A4D00BB6484 /* Controller */,
+				00DB781713EA8B5700BB6484 /* Resources */,
+				00DB782513EA8BEE00BB6484 /* Feedback */,
 			);
 			path = NED;
 			sourceTree = "<group>";
@@ -1104,9 +1222,123 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		00DB77D013EA8A3800BB6484 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				00DB77D313EA8AD500BB6484 /* NELogFormatter.h */,
+				00DB77D413EA8AD500BB6484 /* NELogFormatter.m */,
+				00DB77D513EA8AD500BB6484 /* NEMediaAudio.h */,
+				00DB77D613EA8AD500BB6484 /* NEMediaAudio.m */,
+				00DB77D713EA8AD500BB6484 /* NEMediaImage.h */,
+				00DB77D813EA8AD500BB6484 /* NEMediaImage.m */,
+				00DB77D913EA8AD500BB6484 /* NEMediaObject.h */,
+				00DB77DA13EA8AD500BB6484 /* NEMediaObject.m */,
+				00DB77DB13EA8AD500BB6484 /* NEMediaText.h */,
+				00DB77DC13EA8AD500BB6484 /* NEMediaText.m */,
+				00DB77DD13EA8AD500BB6484 /* NEPresentationLogger.h */,
+				00DB77DE13EA8AD500BB6484 /* NEPresentationLogger.m */,
+				00DB77DF13EA8AD500BB6484 /* NEStimEvent.h */,
+				00DB77E013EA8AD500BB6484 /* NEStimEvent.m */,
+				00DB77E113EA8AD500BB6484 /* NETimelineView.h */,
+				00DB77E213EA8AD500BB6484 /* NETimelineView.m */,
+				00DB77E313EA8AD500BB6484 /* NETimetable.h */,
+				00DB77E413EA8AD500BB6484 /* NETimetable.m */,
+				00DB77E513EA8AD500BB6484 /* NEViewManager.h */,
+				00DB77E613EA8AD500BB6484 /* NEViewManager.m */,
+				00DB77E713EA8AD500BB6484 /* NEXMLFormatter.h */,
+				00DB77E813EA8AD500BB6484 /* NEXMLFormatter.m */,
+				009266AC13E5B4590025B384 /* NEDesignElement.h */,
+				009266AD13E5B4590025B384 /* NEDesignElement.m */,
+				0036104F117F9AED00A84F44 /* NEDesignKernel.h */,
+				00361050117F9AED00A84F44 /* NEDesignKernel.m */,
+				0083769F116BB12D00369B20 /* NEDesignElementDyn.h */,
+				008376A0116BB12D00369B20 /* NEDesignElementDyn.m */,
+				008376A1116BB12D00369B20 /* NEDesignElementVI.h */,
+				008376A2116BB12D00369B20 /* NEDesignElementVI.m */,
+				0085EB2211511B2C004795FD /* NEDesignGloverKernel.h */,
+				0085EB2311511B2C004795FD /* NEDesignGloverKernel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		00DB77D113EA8A4200BB6484 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				00DB77FF13EA8B1C00BB6484 /* NEPresentationView.h */,
+				00DB780013EA8B1C00BB6484 /* NEPresentationView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		00DB77D213EA8A4D00BB6484 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				00DB780313EA8B4B00BB6484 /* NEControlWindowController.h */,
+				00DB780413EA8B4B00BB6484 /* NEControlWindowController.m */,
+				00DB780713EA8B4B00BB6484 /* NEPresentationController.h */,
+				00DB780813EA8B4B00BB6484 /* NEPresentationController.m */,
+				00DB780B13EA8B4B00BB6484 /* NETimelineWindowController.h */,
+				00DB780C13EA8B4B00BB6484 /* NETimelineWindowController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		00DB781713EA8B5700BB6484 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				00DB781813EA8BB100BB6484 /* PresentationControl.xib */,
+				00DB781913EA8BB100BB6484 /* pseudoStimulusDataBench.edl */,
+				00DB781A13EA8BB100BB6484 /* pseudoStimulusDataBlock.edl */,
+				00DB781B13EA8BB100BB6484 /* pseudoStimulusDataEmpty.edl */,
+				00DB781C13EA8BB100BB6484 /* pseudoStimulusDataFree.edl */,
+				00DB781D13EA8BB100BB6484 /* pseudoStimulusDataHeli.edl */,
+				00DB781E13EA8BB100BB6484 /* pseudoStimulusDataImage.edl */,
+				00DB781F13EA8BB100BB6484 /* pseudoStimulusDataSnake.edl */,
+				00DB782013EA8BB100BB6484 /* re_your_brains.mp3 */,
+				00DB782113EA8BB100BB6484 /* rtExperiment_v14_simplified.xsd */,
+				00DB782213EA8BB100BB6484 /* rtExperiment_v14_simplified2.xsd */,
+				00DB782313EA8BB100BB6484 /* rtExperiment_v14.xsd */,
+				00DB782413EA8BB100BB6484 /* super_mario.mp3 */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		00DB782513EA8BEE00BB6484 /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				00DB782613EA8C2E00BB6484 /* HeliControl.xib */,
+				00DB782713EA8C2E00BB6484 /* NEFeedbackHeli.h */,
+				00DB782813EA8C2E00BB6484 /* NEFeedbackHeli.m */,
+				00DB782913EA8C2E00BB6484 /* NEFeedbackObject.h */,
+				00DB782A13EA8C2E00BB6484 /* NEFeedbackObject.m */,
+				00DB782B13EA8C2E00BB6484 /* NEFeedbackThermo.h */,
+				00DB782C13EA8C2E00BB6484 /* NEFeedbackThermo.m */,
+				00DB782D13EA8C2E00BB6484 /* ThermoControl.xib */,
+				00DB780513EA8B4B00BB6484 /* NEHeliWindowController.h */,
+				00DB780613EA8B4B00BB6484 /* NEHeliWindowController.m */,
+				00DB780913EA8B4B00BB6484 /* NEThermoWindowController.h */,
+				00DB780A13EA8B4B00BB6484 /* NEThermoWindowController.m */,
+			);
+			name = Feedback;
+			sourceTree = "<group>";
+		};
 		00E7A643117EF1B900696498 /* NEDTests */ = {
 			isa = PBXGroup;
 			children = (
+				00DB783413EA8C7A00BB6484 /* NELogFormatterTest.h */,
+				00DB783513EA8C7A00BB6484 /* NELogFormatterTest.m */,
+				00DB783613EA8C7A00BB6484 /* NEMediaObjectTest.h */,
+				00DB783713EA8C7A00BB6484 /* NEMediaObjectTest.m */,
+				00DB783813EA8C7A00BB6484 /* NEMediaTextTest.h */,
+				00DB783913EA8C7A00BB6484 /* NEMediaTextTest.m */,
+				00DB783A13EA8C7A00BB6484 /* NEPresentationLoggerTest.h */,
+				00DB783B13EA8C7A00BB6484 /* NEPresentationLoggerTest.m */,
+				00DB783C13EA8C7A00BB6484 /* NEStimEventTest.h */,
+				00DB783D13EA8C7A00BB6484 /* NEStimEventTest.m */,
+				00DB783E13EA8C7A00BB6484 /* NETimetableTest.h */,
+				00DB783F13EA8C7A00BB6484 /* NETimetableTest.m */,
+				00DB784013EA8C7A00BB6484 /* NEXMLFormatterTest.h */,
+				00DB784113EA8C7A00BB6484 /* NEXMLFormatterTest.m */,
 				00F337071374108800FDABCE /* prrofOfConcept_motor_LongBlocks.edl */,
 				00F337041374105700FDABCE /* proofOfConcept_motor_LongBlocks_Contrast.edl */,
 				00DE9CBB12F72AF40089B99A /* noRegressor.edl */,
@@ -1150,6 +1382,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				00DB784A13EA8CDE00BB6484 /* QTKit.framework */,
 				0041E41713E804AB00169848 /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
@@ -1291,10 +1524,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				009266AE13E5B4590025B384 /* NEDesignElement.h in Headers */,
+				00DB77EF13EA8AD500BB6484 /* NEMediaObject.h in Headers */,
+				00DB783013EA8C2E00BB6484 /* NEFeedbackObject.h in Headers */,
+				00DB780113EA8B1C00BB6484 /* NEPresentationView.h in Headers */,
+				00DB77F513EA8AD500BB6484 /* NEStimEvent.h in Headers */,
+				00DB781513EA8B4B00BB6484 /* NETimelineWindowController.h in Headers */,
+				00DB77F913EA8AD500BB6484 /* NETimetable.h in Headers */,
+				00DB780D13EA8B4B00BB6484 /* NEControlWindowController.h in Headers */,
+				00DB781113EA8B4B00BB6484 /* NEPresentationController.h in Headers */,
 				00EA8A6B135C725C00562F3B /* NEDesignKernel.h in Headers */,
 				00EA8A6E135C725E00562F3B /* NEDesignElementDyn.h in Headers */,
 				00EA8A72135C725F00562F3B /* NEDesignElementVI.h in Headers */,
 				00EA8A76135C726100562F3B /* NEDesignGloverKernel.h in Headers */,
+				00DB77E913EA8AD500BB6484 /* NELogFormatter.h in Headers */,
+				00DB77EB13EA8AD500BB6484 /* NEMediaAudio.h in Headers */,
+				00DB77ED13EA8AD500BB6484 /* NEMediaImage.h in Headers */,
+				00DB77F113EA8AD500BB6484 /* NEMediaText.h in Headers */,
+				00DB77F313EA8AD500BB6484 /* NEPresentationLogger.h in Headers */,
+				00DB77F713EA8AD500BB6484 /* NETimelineView.h in Headers */,
+				00DB77FB13EA8AD500BB6484 /* NEViewManager.h in Headers */,
+				00DB77FD13EA8AD500BB6484 /* NEXMLFormatter.h in Headers */,
+				00DB780F13EA8B4B00BB6484 /* NEHeliWindowController.h in Headers */,
+				00DB781313EA8B4B00BB6484 /* NEThermoWindowController.h in Headers */,
+				00DB782E13EA8C2E00BB6484 /* NEFeedbackHeli.h in Headers */,
+				00DB783213EA8C2E00BB6484 /* NEFeedbackThermo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1928,6 +2181,13 @@
 				006627731180449F004980A0 /* NEDesignKernelTest.m in Sources */,
 				00662AC81181CFCD004980A0 /* NEDesignGloverKernelReference.c in Sources */,
 				0006F518122D2DEF001DA2BB /* NEDesignElementReference.m in Sources */,
+				00DB784213EA8C7A00BB6484 /* NELogFormatterTest.m in Sources */,
+				00DB784313EA8C7A00BB6484 /* NEMediaObjectTest.m in Sources */,
+				00DB784413EA8C7A00BB6484 /* NEMediaTextTest.m in Sources */,
+				00DB784513EA8C7A00BB6484 /* NEPresentationLoggerTest.m in Sources */,
+				00DB784613EA8C7A00BB6484 /* NEStimEventTest.m in Sources */,
+				00DB784713EA8C7A00BB6484 /* NETimetableTest.m in Sources */,
+				00DB784813EA8C7A00BB6484 /* NEXMLFormatterTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1984,6 +2244,26 @@
 				00EA8A74135C726000562F3B /* NEDesignElementVI.m in Sources */,
 				00EA8A78135C726200562F3B /* NEDesignGloverKernel.m in Sources */,
 				009266AF13E5B4590025B384 /* NEDesignElement.m in Sources */,
+				00DB77EA13EA8AD500BB6484 /* NELogFormatter.m in Sources */,
+				00DB77EC13EA8AD500BB6484 /* NEMediaAudio.m in Sources */,
+				00DB77EE13EA8AD500BB6484 /* NEMediaImage.m in Sources */,
+				00DB77F013EA8AD500BB6484 /* NEMediaObject.m in Sources */,
+				00DB77F213EA8AD500BB6484 /* NEMediaText.m in Sources */,
+				00DB77F413EA8AD500BB6484 /* NEPresentationLogger.m in Sources */,
+				00DB77F613EA8AD500BB6484 /* NEStimEvent.m in Sources */,
+				00DB77F813EA8AD500BB6484 /* NETimelineView.m in Sources */,
+				00DB77FA13EA8AD500BB6484 /* NETimetable.m in Sources */,
+				00DB77FC13EA8AD500BB6484 /* NEViewManager.m in Sources */,
+				00DB77FE13EA8AD500BB6484 /* NEXMLFormatter.m in Sources */,
+				00DB780213EA8B1C00BB6484 /* NEPresentationView.m in Sources */,
+				00DB780E13EA8B4B00BB6484 /* NEControlWindowController.m in Sources */,
+				00DB781013EA8B4B00BB6484 /* NEHeliWindowController.m in Sources */,
+				00DB781213EA8B4B00BB6484 /* NEPresentationController.m in Sources */,
+				00DB781413EA8B4B00BB6484 /* NEThermoWindowController.m in Sources */,
+				00DB781613EA8B4B00BB6484 /* NETimelineWindowController.m in Sources */,
+				00DB782F13EA8C2E00BB6484 /* NEFeedbackHeli.m in Sources */,
+				00DB783113EA8C2E00BB6484 /* NEFeedbackObject.m in Sources */,
+				00DB783313EA8C2E00BB6484 /* NEFeedbackThermo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
