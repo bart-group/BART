@@ -9,7 +9,7 @@
 #import "BARTApplicationAppDelegate.h"
 
 #import "CLETUS/COSystemConfig.h"
-#import "BAProcedureController.h"
+#import "BAProcedurePipeline.h"
 #import "BARTNotifications.h"
 
 
@@ -33,7 +33,7 @@
 	}
 	guiController = [guiController initWithDefault];
 	
-    procController = [[BAProcedureController alloc] init];
+    procedurePipe = [[BAProcedurePipeline alloc] init];
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(setGUIBackgroundImage:)
 												 name:BARTDidLoadBackgroundImageNotification object:nil];
@@ -42,10 +42,10 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(setGUIResultImage:)
 												 name:BARTDidCalcNextResultNotification object:nil];
-	[procController initData];
-	[procController initDesign];
-	[procController initAnalyzer];
-	[procController startAnalysis];
+	[procedurePipe initData];
+	[procedurePipe initDesign];
+	[procedurePipe initAnalyzer];
+	[procedurePipe startAnalysis];
 	
   }
 
@@ -64,7 +64,7 @@
 
 -(void)applicationWillTerminate:(NSNotification*)aNotification
 {
-	[procController release];
+	[procedurePipe release];
     [super dealloc];
 }
 

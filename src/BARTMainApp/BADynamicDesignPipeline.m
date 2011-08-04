@@ -1,5 +1,5 @@
 //
-//  BADynamicDesignController.m
+//  BADynamicDesignPipeline.m
 //  BARTApplication
 //
 //  Created by Lydia Hellrung on 5/6/11.
@@ -15,11 +15,11 @@
  * * and setup all this in a valid design immediately that can then directly used by ProcedureController
  */
 
-#import "BADynamicDesignController.h"
+#import "BADynamicDesignPipeline.h"
 #import "../CLETUS/COSystemConfig.h"
 #import "BARTSerialIOFramework/BARTSerialPortIONotifications.h"
 
-@interface BADynamicDesignController (PrivateMethods)
+@interface BADynamicDesignPipeline (PrivateMethods)
 
 -(void)setupSerialPortEyeTrac;
 -(void)setupSerialPortTriggerAndButtonBox;
@@ -32,7 +32,7 @@
 
 
 
-@implementation BADynamicDesignController
+@implementation BADynamicDesignPipeline
 
 @synthesize designElement;
 @synthesize serialPortEyeTrac;

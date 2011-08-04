@@ -1,22 +1,22 @@
 //
-//  BAProcedureController.m
+//  BAProcedurePipeline.m
 //  BARTCommandLine
 //
 //  Created by Lydia Hellrung on 10/29/09.
 //  Copyright 2009 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#import "BAProcedureController.h"
+#import "BAProcedurePipeline.h"
 #import "EDNA/EDDataElement.h"
 #import "NED/NEDesignElement.h"
 #import "BAAnalyzerElement.h"
 #import "EDNA/EDDataElementRealTimeLoader.h"
 #import "BARTNotifications.h"
 #import "CLETUS/COSystemConfig.h"
-#import "BADynamicDesignController.h"
+#import "BADynamicDesignPipeline.h"
 
 
-@interface BAProcedureController (PrivateMethods)
+@interface BAProcedurePipeline (PrivateMethods)
 
 //
 
@@ -29,7 +29,7 @@
 @end
 
 
-@implementation BAProcedureController
+@implementation BAProcedurePipeline
 
 -(id)init
 {
@@ -40,7 +40,7 @@
 		isRealTimeTCPInput = FALSE;
 		startAnalysisAtTimeStep = 15;
 		
-		dynamicDesignController = [[BADynamicDesignController alloc] init]; 
+		dynamicDesignPipe = [[BADynamicDesignPipeline alloc] init]; 
 		
     }
 	return self;
@@ -51,7 +51,7 @@
 
 	[mInputData release];
 	[mResultData release];
-    [dynamicDesignController release];
+    [dynamicDesignPipe release];
 	[mAnalyzer release];
 	
 	
@@ -101,7 +101,7 @@
 
 -(BOOL) initDesign
 {
-	BOOL ret = [dynamicDesignController initDesign];
+	BOOL ret = [dynamicDesignPipe initDesign];
 	NSLog(@"%d", ret);
 	return ret;
 	//if (nil != mDesignData){
@@ -149,7 +149,7 @@
 {
 	if (FALSE == isRealTimeTCPInput){
 		NSLog(@"Timestep: %lu", mCurrentTimestep+1);
-		if ((mCurrentTimestep > startAnalysisAtTimeStep-1 ) && (mCurrentTimestep < [[dynamicDesignController designElement] mNumberTimesteps])) {
+		if ((mCurrentTimestep > startAnalysisAtTimeStep-1 ) && (mCurrentTimestep < [[dynamicDesignPipe designElement] mNumberTimesteps])) {
 			[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
 		}
 		mCurrentTimestep++;
@@ -167,7 +167,7 @@
 		}
 		
 		NSLog(@"Nr of Timesteps in InputData: %d", [mInputData getImageSize].timesteps);
-		if (([mInputData getImageSize].timesteps > startAnalysisAtTimeStep-1 ) && ([mInputData getImageSize].timesteps < [[dynamicDesignController designElement] mNumberTimesteps])) {
+		if (([mInputData getImageSize].timesteps > startAnalysisAtTimeStep-1 ) && ([mInputData getImageSize].timesteps < [[dynamicDesignPipe designElement] mNumberTimesteps])) {
 			[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
 		}
 		// JUST FOR TEST
@@ -185,20 +185,20 @@
 	
 	
 	//TODO : get from config or gui
-	float cVecFromConfig[[dynamicDesignController designElement].mNumberExplanatoryVariables];
+	float cVecFromConfig[[dynamicDesignPipe designElement].mNumberExplanatoryVariables];
 	cVecFromConfig[0] = 1.0;
 	cVecFromConfig[1] = -1.0;
 	//cVecFromConfig[2] = 0.0;
 	NSMutableArray *contrastVector = [[NSMutableArray alloc] init];
-	for (size_t i = 0; i < [dynamicDesignController designElement].mNumberExplanatoryVariables; i++){
+	for (size_t i = 0; i < [dynamicDesignPipe designElement].mNumberExplanatoryVariables; i++){
 		NSNumber *nr = [NSNumber numberWithFloat:cVecFromConfig[i]];
 		[contrastVector addObject:nr];}
 	
 	if (FALSE == isRealTimeTCPInput){
-		resData = [mAnalyzer anaylzeTheData:mInputData withDesign:[[dynamicDesignController designElement] copy] atCurrentTimestep:mCurrentTimestep-1 forContrastVector:contrastVector andWriteResultInto:nil];
+		resData = [mAnalyzer anaylzeTheData:mInputData withDesign:[[dynamicDesignPipe designElement] copy] atCurrentTimestep:mCurrentTimestep-1 forContrastVector:contrastVector andWriteResultInto:nil];
 	}
 	else {
-		resData = [mAnalyzer anaylzeTheData:mInputData withDesign:[[[dynamicDesignController designElement] copy] autorelease] atCurrentTimestep:[mInputData getImageSize].timesteps forContrastVector:contrastVector andWriteResultInto:nil];
+		resData = [mAnalyzer anaylzeTheData:mInputData withDesign:[[[dynamicDesignPipe designElement] copy] autorelease] atCurrentTimestep:[mInputData getImageSize].timesteps forContrastVector:contrastVector andWriteResultInto:nil];
 		NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%d.nii", [mInputData getImageSize].timesteps];
 		[resData WriteDataElementToFile:fname];
 	}
@@ -217,7 +217,7 @@
 	NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
 	
 	[self nextDataArrived:nil];
-	if (mCurrentTimestep > [[dynamicDesignController designElement] mNumberTimesteps]){
+	if (mCurrentTimestep > [[dynamicDesignPipe designElement] mNumberTimesteps]){
 		[[NSThread currentThread] cancel];}
 	
 	[NSThread sleepForTimeInterval:1.0];

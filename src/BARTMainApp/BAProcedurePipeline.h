@@ -1,5 +1,5 @@
 //
-//  BAProcedureController.h
+//  BAProcedurePipeline.h
 //  BARTCommandLine
 //
 //  Created by Lydia Hellrung on 10/29/09.
@@ -9,17 +9,17 @@
 #import <Cocoa/Cocoa.h>
 
 @class EDDataElement;
-@class BADynamicDesignController;
+@class BADynamicDesignPipeline;
 @class BAAnalyzerElement;
 @class EDDataElementRealTimeLoader;
 @class COSystemConfig;
 
 
-@interface BAProcedureController : NSObject {
+@interface BAProcedurePipeline : NSObject {
 
 	EDDataElement *mInputData;
     //NEDesignElement *mDesignData;
-    BADynamicDesignController *dynamicDesignController;
+    BADynamicDesignPipeline *dynamicDesignPipe;
     EDDataElement *mResultData;
     BAAnalyzerElement *mAnalyzer;
     size_t mCurrentTimestep;

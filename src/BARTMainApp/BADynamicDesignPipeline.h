@@ -1,5 +1,5 @@
 //
-//  BADynamicDesignController.h
+//  BADynamicDesignPipeline.h
 //  BARTApplication
 //
 //  Created by Lydia Hellrung on 5/6/11.
@@ -10,7 +10,7 @@
 #import "NEDesignElement.h"
 #import "BARTSerialIOFramework/SerialPort.h"
 
-@interface BADynamicDesignController : NSObject {
+@interface BADynamicDesignPipeline : NSObject {
 
 	SerialPort *serialPortEyeTrac;
 	SerialPort *serialPortTriggerAndButtonBox;
