@@ -1,5 +1,5 @@
 //
-//  BAFunctor.h
+//  BAProcedureStep.h
 //  BARTApplication
 //
 //  Created by Lydia Hellrung on 7/28/11.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface BAFunctor : NSObject {
+@interface BAProcedureStep : NSObject {
 @private
     
 }

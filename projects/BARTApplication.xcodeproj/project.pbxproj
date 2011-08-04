@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0000B16C13E15F7D00029A41 /* BAFunctor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0000B16B13E15F7D00029A41 /* BAFunctor.m */; };
+		0000B16C13E15F7D00029A41 /* BAProcedureStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 0000B16B13E15F7D00029A41 /* BAProcedureStep.m */; };
 		0000B18513E1C92400029A41 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18413E1C92400029A41 /* Cocoa.framework */; };
 		0000B18F13E1C92400029A41 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18413E1C92400029A41 /* Cocoa.framework */; };
 		0000B19213E1C92400029A41 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
@@ -41,6 +41,12 @@
 		0023CBC213EAC186006303B6 /* NEStimEventTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBB913EAC186006303B6 /* NEStimEventTest.m */; };
 		0023CBC313EAC186006303B6 /* NETimetableTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBBB13EAC186006303B6 /* NETimetableTest.m */; };
 		0023CBC413EAC186006303B6 /* NEXMLFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBBD13EAC186006303B6 /* NEXMLFormatterTest.m */; };
+		0023CBC713EAC38C006303B6 /* BAProcedureStep_Anatomy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBC613EAC38C006303B6 /* BAProcedureStep_Anatomy.m */; };
+		0023CBCA13EAC3CF006303B6 /* BAProcedureStep_ROISelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBC913EAC3CE006303B6 /* BAProcedureStep_ROISelection.m */; };
+		0023CBCD13EAC41E006303B6 /* BAProcedureStep_Paradigm.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBCC13EAC41D006303B6 /* BAProcedureStep_Paradigm.m */; };
+		0023CBD013EAC45B006303B6 /* BAProcedureStep_Preprocessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBCF13EAC45B006303B6 /* BAProcedureStep_Preprocessing.m */; };
+		0023CBD313EAC484006303B6 /* BAProcedureStep_Analysis.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBD213EAC484006303B6 /* BAProcedureStep_Analysis.m */; };
+		0023CBD613EAC4B3006303B6 /* BAProcedureStep_Feedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBD513EAC4B3006303B6 /* BAProcedureStep_Feedback.m */; };
 		0032CC37116E023A005117EA /* timeBasedRegressorLydi.edl in Resources */ = {isa = PBXBuildFile; fileRef = 003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */; };
 		0032CC38116E023F005117EA /* main_SW_BoldModule_2ContinousTargetROIs.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00AB18EA115246ED003BC915 /* main_SW_BoldModule_2ContinousTargetROIs.edl */; };
 		003D803713E6CC77004DE6E9 /* EDDataElementTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D803613E6CC77004DE6E9 /* EDDataElementTest.m */; };
@@ -397,8 +403,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0000B16A13E15F7D00029A41 /* BAFunctor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAFunctor.h; sourceTree = "<group>"; };
-		0000B16B13E15F7D00029A41 /* BAFunctor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAFunctor.m; sourceTree = "<group>"; };
+		0000B16A13E15F7D00029A41 /* BAProcedureStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAProcedureStep.h; sourceTree = "<group>"; };
+		0000B16B13E15F7D00029A41 /* BAProcedureStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureStep.m; sourceTree = "<group>"; };
 		0000B18313E1C92400029A41 /* TROY.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = TROY.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		0000B18413E1C92400029A41 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0000B18813E1C92400029A41 /* TROY-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TROY-Prefix.pch"; sourceTree = "<group>"; };
@@ -444,6 +450,18 @@
 		0023CBBB13EAC186006303B6 /* NETimetableTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NETimetableTest.m; sourceTree = "<group>"; };
 		0023CBBC13EAC186006303B6 /* NEXMLFormatterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEXMLFormatterTest.h; sourceTree = "<group>"; };
 		0023CBBD13EAC186006303B6 /* NEXMLFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEXMLFormatterTest.m; sourceTree = "<group>"; };
+		0023CBC513EAC38C006303B6 /* BAProcedureStep_Anatomy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAProcedureStep_Anatomy.h; sourceTree = "<group>"; };
+		0023CBC613EAC38C006303B6 /* BAProcedureStep_Anatomy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureStep_Anatomy.m; sourceTree = "<group>"; };
+		0023CBC813EAC3CE006303B6 /* BAProcedureStep_ROISelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAProcedureStep_ROISelection.h; sourceTree = "<group>"; };
+		0023CBC913EAC3CE006303B6 /* BAProcedureStep_ROISelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureStep_ROISelection.m; sourceTree = "<group>"; };
+		0023CBCB13EAC41D006303B6 /* BAProcedureStep_Paradigm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAProcedureStep_Paradigm.h; sourceTree = "<group>"; };
+		0023CBCC13EAC41D006303B6 /* BAProcedureStep_Paradigm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureStep_Paradigm.m; sourceTree = "<group>"; };
+		0023CBCE13EAC45B006303B6 /* BAProcedureStep_Preprocessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAProcedureStep_Preprocessing.h; sourceTree = "<group>"; };
+		0023CBCF13EAC45B006303B6 /* BAProcedureStep_Preprocessing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureStep_Preprocessing.m; sourceTree = "<group>"; };
+		0023CBD113EAC484006303B6 /* BAProcedureStep_Analysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAProcedureStep_Analysis.h; sourceTree = "<group>"; };
+		0023CBD213EAC484006303B6 /* BAProcedureStep_Analysis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureStep_Analysis.m; sourceTree = "<group>"; };
+		0023CBD413EAC4B3006303B6 /* BAProcedureStep_Feedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAProcedureStep_Feedback.h; sourceTree = "<group>"; };
+		0023CBD513EAC4B3006303B6 /* BAProcedureStep_Feedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureStep_Feedback.m; sourceTree = "<group>"; };
 		003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = timeBasedRegressorLydi.edl; sourceTree = "<group>"; };
 		0036104F117F9AED00A84F44 /* NEDesignKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignKernel.h; sourceTree = "<group>"; };
 		00361050117F9AED00A84F44 /* NEDesignKernel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignKernel.m; sourceTree = "<group>"; };
@@ -1186,10 +1204,6 @@
 		00AE3E09133797FA00F2D01D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				004ABAF21378791400B13077 /* BADynamicDesignController.h */,
-				004ABAF31378791400B13077 /* BADynamicDesignController.m */,
-				0040B7A11141470400A57967 /* BAProcedureController.h */,
-				0040B7A21141470400A57967 /* BAProcedureController.mm */,
 				0040B7EF1141470400A57967 /* BARTApplicationAppDelegate.h */,
 				0040B7F01141470400A57967 /* BARTApplicationAppDelegate.m */,
 				00AE410D133B9EF100F2D01D /* BARTNotifications.h */,
@@ -1205,8 +1219,24 @@
 				0040B7A01141470400A57967 /* BAAnalyzerElement.m */,
 				0040B7AD1141470400A57967 /* BADocument.h */,
 				0040B7AE1141470400A57967 /* BADocument.m */,
-				0000B16A13E15F7D00029A41 /* BAFunctor.h */,
-				0000B16B13E15F7D00029A41 /* BAFunctor.m */,
+				0000B16A13E15F7D00029A41 /* BAProcedureStep.h */,
+				0000B16B13E15F7D00029A41 /* BAProcedureStep.m */,
+				0040B7A11141470400A57967 /* BAProcedureController.h */,
+				0040B7A21141470400A57967 /* BAProcedureController.mm */,
+				004ABAF21378791400B13077 /* BADynamicDesignController.h */,
+				004ABAF31378791400B13077 /* BADynamicDesignController.m */,
+				0023CBC513EAC38C006303B6 /* BAProcedureStep_Anatomy.h */,
+				0023CBC613EAC38C006303B6 /* BAProcedureStep_Anatomy.m */,
+				0023CBC813EAC3CE006303B6 /* BAProcedureStep_ROISelection.h */,
+				0023CBC913EAC3CE006303B6 /* BAProcedureStep_ROISelection.m */,
+				0023CBCB13EAC41D006303B6 /* BAProcedureStep_Paradigm.h */,
+				0023CBCC13EAC41D006303B6 /* BAProcedureStep_Paradigm.m */,
+				0023CBCE13EAC45B006303B6 /* BAProcedureStep_Preprocessing.h */,
+				0023CBCF13EAC45B006303B6 /* BAProcedureStep_Preprocessing.m */,
+				0023CBD113EAC484006303B6 /* BAProcedureStep_Analysis.h */,
+				0023CBD213EAC484006303B6 /* BAProcedureStep_Analysis.m */,
+				0023CBD413EAC4B3006303B6 /* BAProcedureStep_Feedback.h */,
+				0023CBD513EAC4B3006303B6 /* BAProcedureStep_Feedback.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -2286,7 +2316,13 @@
 				00AE42B1133CB00400F2D01D /* BARTNotifications.m in Sources */,
 				00D44159134B569400094A51 /* BAProcedureController.mm in Sources */,
 				004ABAF41378791400B13077 /* BADynamicDesignController.m in Sources */,
-				0000B16C13E15F7D00029A41 /* BAFunctor.m in Sources */,
+				0000B16C13E15F7D00029A41 /* BAProcedureStep.m in Sources */,
+				0023CBC713EAC38C006303B6 /* BAProcedureStep_Anatomy.m in Sources */,
+				0023CBCA13EAC3CF006303B6 /* BAProcedureStep_ROISelection.m in Sources */,
+				0023CBCD13EAC41E006303B6 /* BAProcedureStep_Paradigm.m in Sources */,
+				0023CBD013EAC45B006303B6 /* BAProcedureStep_Preprocessing.m in Sources */,
+				0023CBD313EAC484006303B6 /* BAProcedureStep_Analysis.m in Sources */,
+				0023CBD613EAC4B3006303B6 /* BAProcedureStep_Feedback.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

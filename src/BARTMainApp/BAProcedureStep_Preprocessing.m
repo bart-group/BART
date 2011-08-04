@@ -1,15 +1,15 @@
 //
-//  BAFunctor.m
+//  BAProcedureStep_Preprocessing.m
 //  BARTApplication
 //
-//  Created by Lydia Hellrung on 7/28/11.
+//  Created by Lydia Hellrung on 8/4/11.
 //  Copyright 2011 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#import "BAFunctor.h"
+#import "BAProcedureStep_Preprocessing.h"
 
 
-@implementation BAFunctor
+@implementation BAProcedureStep_Preprocessing
 
 - (id)init
 {
