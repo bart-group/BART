@@ -34,6 +34,13 @@
 		00161027134B1FF500373D77 /* EDDataElementIsisRealTime.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00AE43A71343912400F2D01D /* EDDataElementIsisRealTime.mm */; };
 		0016102A134B200800373D77 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		0023A75811510D4C009182F8 /* edlValidation_rules.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0088781F1147B445009C7707 /* edlValidation_rules.xml */; };
+		0023CBBE13EAC186006303B6 /* NELogFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBB113EAC186006303B6 /* NELogFormatterTest.m */; };
+		0023CBBF13EAC186006303B6 /* NEMediaObjectTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBB313EAC186006303B6 /* NEMediaObjectTest.m */; };
+		0023CBC013EAC186006303B6 /* NEMediaTextTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBB513EAC186006303B6 /* NEMediaTextTest.m */; };
+		0023CBC113EAC186006303B6 /* NEPresentationLoggerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBB713EAC186006303B6 /* NEPresentationLoggerTest.m */; };
+		0023CBC213EAC186006303B6 /* NEStimEventTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBB913EAC186006303B6 /* NEStimEventTest.m */; };
+		0023CBC313EAC186006303B6 /* NETimetableTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBBB13EAC186006303B6 /* NETimetableTest.m */; };
+		0023CBC413EAC186006303B6 /* NEXMLFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBBD13EAC186006303B6 /* NEXMLFormatterTest.m */; };
 		0032CC37116E023A005117EA /* timeBasedRegressorLydi.edl in Resources */ = {isa = PBXBuildFile; fileRef = 003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */; };
 		0032CC38116E023F005117EA /* main_SW_BoldModule_2ContinousTargetROIs.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00AB18EA115246ED003BC915 /* main_SW_BoldModule_2ContinousTargetROIs.edl */; };
 		003D803713E6CC77004DE6E9 /* EDDataElementTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D803613E6CC77004DE6E9 /* EDDataElementTest.m */; };
@@ -164,13 +171,6 @@
 		00DB783113EA8C2E00BB6484 /* NEFeedbackObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB782A13EA8C2E00BB6484 /* NEFeedbackObject.m */; };
 		00DB783213EA8C2E00BB6484 /* NEFeedbackThermo.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB782B13EA8C2E00BB6484 /* NEFeedbackThermo.h */; };
 		00DB783313EA8C2E00BB6484 /* NEFeedbackThermo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB782C13EA8C2E00BB6484 /* NEFeedbackThermo.m */; };
-		00DB784213EA8C7A00BB6484 /* NELogFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB783513EA8C7A00BB6484 /* NELogFormatterTest.m */; };
-		00DB784313EA8C7A00BB6484 /* NEMediaObjectTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB783713EA8C7A00BB6484 /* NEMediaObjectTest.m */; };
-		00DB784413EA8C7A00BB6484 /* NEMediaTextTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB783913EA8C7A00BB6484 /* NEMediaTextTest.m */; };
-		00DB784513EA8C7A00BB6484 /* NEPresentationLoggerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB783B13EA8C7A00BB6484 /* NEPresentationLoggerTest.m */; };
-		00DB784613EA8C7A00BB6484 /* NEStimEventTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB783D13EA8C7A00BB6484 /* NEStimEventTest.m */; };
-		00DB784713EA8C7A00BB6484 /* NETimetableTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB783F13EA8C7A00BB6484 /* NETimetableTest.m */; };
-		00DB784813EA8C7A00BB6484 /* NEXMLFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB784113EA8C7A00BB6484 /* NEXMLFormatterTest.m */; };
 		00DB784913EA8CAD00BB6484 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		00DB784C13EA8CF200BB6484 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED1922910AC8AD600FAFA4F /* QuartzCore.framework */; };
 		00DB784D13EA8D6600BB6484 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DB784A13EA8CDE00BB6484 /* QTKit.framework */; };
@@ -430,6 +430,20 @@
 		0006F633122E5AA6001DA2BB /* glmtest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = glmtest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0006F7AB122E90FD001DA2BB /* pseudoStimulusDataBlock.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = pseudoStimulusDataBlock.edl; sourceTree = "<group>"; };
 		0006F7AC122E90FD001DA2BB /* rtExperiment_v14_simplified.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rtExperiment_v14_simplified.xsd; sourceTree = "<group>"; };
+		0023CBB013EAC186006303B6 /* NELogFormatterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NELogFormatterTest.h; sourceTree = "<group>"; };
+		0023CBB113EAC186006303B6 /* NELogFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NELogFormatterTest.m; sourceTree = "<group>"; };
+		0023CBB213EAC186006303B6 /* NEMediaObjectTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEMediaObjectTest.h; sourceTree = "<group>"; };
+		0023CBB313EAC186006303B6 /* NEMediaObjectTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEMediaObjectTest.m; sourceTree = "<group>"; };
+		0023CBB413EAC186006303B6 /* NEMediaTextTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEMediaTextTest.h; sourceTree = "<group>"; };
+		0023CBB513EAC186006303B6 /* NEMediaTextTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEMediaTextTest.m; sourceTree = "<group>"; };
+		0023CBB613EAC186006303B6 /* NEPresentationLoggerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEPresentationLoggerTest.h; sourceTree = "<group>"; };
+		0023CBB713EAC186006303B6 /* NEPresentationLoggerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEPresentationLoggerTest.m; sourceTree = "<group>"; };
+		0023CBB813EAC186006303B6 /* NEStimEventTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEStimEventTest.h; sourceTree = "<group>"; };
+		0023CBB913EAC186006303B6 /* NEStimEventTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEStimEventTest.m; sourceTree = "<group>"; };
+		0023CBBA13EAC186006303B6 /* NETimetableTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETimetableTest.h; sourceTree = "<group>"; };
+		0023CBBB13EAC186006303B6 /* NETimetableTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NETimetableTest.m; sourceTree = "<group>"; };
+		0023CBBC13EAC186006303B6 /* NEXMLFormatterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEXMLFormatterTest.h; sourceTree = "<group>"; };
+		0023CBBD13EAC186006303B6 /* NEXMLFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEXMLFormatterTest.m; sourceTree = "<group>"; };
 		003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = timeBasedRegressorLydi.edl; sourceTree = "<group>"; };
 		0036104F117F9AED00A84F44 /* NEDesignKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignKernel.h; sourceTree = "<group>"; };
 		00361050117F9AED00A84F44 /* NEDesignKernel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignKernel.m; sourceTree = "<group>"; };
@@ -615,20 +629,6 @@
 		00DB782B13EA8C2E00BB6484 /* NEFeedbackThermo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEFeedbackThermo.h; sourceTree = "<group>"; };
 		00DB782C13EA8C2E00BB6484 /* NEFeedbackThermo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEFeedbackThermo.m; sourceTree = "<group>"; };
 		00DB782D13EA8C2E00BB6484 /* ThermoControl.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThermoControl.xib; sourceTree = "<group>"; };
-		00DB783413EA8C7A00BB6484 /* NELogFormatterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NELogFormatterTest.h; path = ../../src/NED/NELogFormatterTest.h; sourceTree = "<group>"; };
-		00DB783513EA8C7A00BB6484 /* NELogFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NELogFormatterTest.m; path = ../../src/NED/NELogFormatterTest.m; sourceTree = "<group>"; };
-		00DB783613EA8C7A00BB6484 /* NEMediaObjectTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NEMediaObjectTest.h; path = ../../src/NED/NEMediaObjectTest.h; sourceTree = "<group>"; };
-		00DB783713EA8C7A00BB6484 /* NEMediaObjectTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NEMediaObjectTest.m; path = ../../src/NED/NEMediaObjectTest.m; sourceTree = "<group>"; };
-		00DB783813EA8C7A00BB6484 /* NEMediaTextTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NEMediaTextTest.h; path = ../../src/NED/NEMediaTextTest.h; sourceTree = "<group>"; };
-		00DB783913EA8C7A00BB6484 /* NEMediaTextTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NEMediaTextTest.m; path = ../../src/NED/NEMediaTextTest.m; sourceTree = "<group>"; };
-		00DB783A13EA8C7A00BB6484 /* NEPresentationLoggerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NEPresentationLoggerTest.h; path = ../../src/NED/NEPresentationLoggerTest.h; sourceTree = "<group>"; };
-		00DB783B13EA8C7A00BB6484 /* NEPresentationLoggerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NEPresentationLoggerTest.m; path = ../../src/NED/NEPresentationLoggerTest.m; sourceTree = "<group>"; };
-		00DB783C13EA8C7A00BB6484 /* NEStimEventTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NEStimEventTest.h; path = ../../src/NED/NEStimEventTest.h; sourceTree = "<group>"; };
-		00DB783D13EA8C7A00BB6484 /* NEStimEventTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NEStimEventTest.m; path = ../../src/NED/NEStimEventTest.m; sourceTree = "<group>"; };
-		00DB783E13EA8C7A00BB6484 /* NETimetableTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NETimetableTest.h; path = ../../src/NED/NETimetableTest.h; sourceTree = "<group>"; };
-		00DB783F13EA8C7A00BB6484 /* NETimetableTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NETimetableTest.m; path = ../../src/NED/NETimetableTest.m; sourceTree = "<group>"; };
-		00DB784013EA8C7A00BB6484 /* NEXMLFormatterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NEXMLFormatterTest.h; path = ../../src/NED/NEXMLFormatterTest.h; sourceTree = "<group>"; };
-		00DB784113EA8C7A00BB6484 /* NEXMLFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NEXMLFormatterTest.m; path = ../../src/NED/NEXMLFormatterTest.m; sourceTree = "<group>"; };
 		00DB784A13EA8CDE00BB6484 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		00DE9C6C12F316230089B99A /* blockDesignTest02_parametric.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = blockDesignTest02_parametric.edl; sourceTree = "<group>"; };
 		00DE9C6E12F6EBB50089B99A /* designtest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = designtest.m; sourceTree = "<group>"; };
@@ -1325,20 +1325,20 @@
 		00E7A643117EF1B900696498 /* NEDTests */ = {
 			isa = PBXGroup;
 			children = (
-				00DB783413EA8C7A00BB6484 /* NELogFormatterTest.h */,
-				00DB783513EA8C7A00BB6484 /* NELogFormatterTest.m */,
-				00DB783613EA8C7A00BB6484 /* NEMediaObjectTest.h */,
-				00DB783713EA8C7A00BB6484 /* NEMediaObjectTest.m */,
-				00DB783813EA8C7A00BB6484 /* NEMediaTextTest.h */,
-				00DB783913EA8C7A00BB6484 /* NEMediaTextTest.m */,
-				00DB783A13EA8C7A00BB6484 /* NEPresentationLoggerTest.h */,
-				00DB783B13EA8C7A00BB6484 /* NEPresentationLoggerTest.m */,
-				00DB783C13EA8C7A00BB6484 /* NEStimEventTest.h */,
-				00DB783D13EA8C7A00BB6484 /* NEStimEventTest.m */,
-				00DB783E13EA8C7A00BB6484 /* NETimetableTest.h */,
-				00DB783F13EA8C7A00BB6484 /* NETimetableTest.m */,
-				00DB784013EA8C7A00BB6484 /* NEXMLFormatterTest.h */,
-				00DB784113EA8C7A00BB6484 /* NEXMLFormatterTest.m */,
+				0023CBB013EAC186006303B6 /* NELogFormatterTest.h */,
+				0023CBB113EAC186006303B6 /* NELogFormatterTest.m */,
+				0023CBB213EAC186006303B6 /* NEMediaObjectTest.h */,
+				0023CBB313EAC186006303B6 /* NEMediaObjectTest.m */,
+				0023CBB413EAC186006303B6 /* NEMediaTextTest.h */,
+				0023CBB513EAC186006303B6 /* NEMediaTextTest.m */,
+				0023CBB613EAC186006303B6 /* NEPresentationLoggerTest.h */,
+				0023CBB713EAC186006303B6 /* NEPresentationLoggerTest.m */,
+				0023CBB813EAC186006303B6 /* NEStimEventTest.h */,
+				0023CBB913EAC186006303B6 /* NEStimEventTest.m */,
+				0023CBBA13EAC186006303B6 /* NETimetableTest.h */,
+				0023CBBB13EAC186006303B6 /* NETimetableTest.m */,
+				0023CBBC13EAC186006303B6 /* NEXMLFormatterTest.h */,
+				0023CBBD13EAC186006303B6 /* NEXMLFormatterTest.m */,
 				00F337071374108800FDABCE /* prrofOfConcept_motor_LongBlocks.edl */,
 				00F337041374105700FDABCE /* proofOfConcept_motor_LongBlocks_Contrast.edl */,
 				00DE9CBB12F72AF40089B99A /* noRegressor.edl */,
@@ -2181,13 +2181,13 @@
 				006627731180449F004980A0 /* NEDesignKernelTest.m in Sources */,
 				00662AC81181CFCD004980A0 /* NEDesignGloverKernelReference.c in Sources */,
 				0006F518122D2DEF001DA2BB /* NEDesignElementReference.m in Sources */,
-				00DB784213EA8C7A00BB6484 /* NELogFormatterTest.m in Sources */,
-				00DB784313EA8C7A00BB6484 /* NEMediaObjectTest.m in Sources */,
-				00DB784413EA8C7A00BB6484 /* NEMediaTextTest.m in Sources */,
-				00DB784513EA8C7A00BB6484 /* NEPresentationLoggerTest.m in Sources */,
-				00DB784613EA8C7A00BB6484 /* NEStimEventTest.m in Sources */,
-				00DB784713EA8C7A00BB6484 /* NETimetableTest.m in Sources */,
-				00DB784813EA8C7A00BB6484 /* NEXMLFormatterTest.m in Sources */,
+				0023CBBE13EAC186006303B6 /* NELogFormatterTest.m in Sources */,
+				0023CBBF13EAC186006303B6 /* NEMediaObjectTest.m in Sources */,
+				0023CBC013EAC186006303B6 /* NEMediaTextTest.m in Sources */,
+				0023CBC113EAC186006303B6 /* NEPresentationLoggerTest.m in Sources */,
+				0023CBC213EAC186006303B6 /* NEStimEventTest.m in Sources */,
+				0023CBC313EAC186006303B6 /* NETimetableTest.m in Sources */,
+				0023CBC413EAC186006303B6 /* NEXMLFormatterTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
