@@ -71,7 +71,7 @@
 
 -(id)initEmptyWithSize:(BARTImageSize*)s ofImageType:(enum ImageType)iType
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
 		
 		mImageSize = [s copy];
         //mImageSize.columns = s->columns;
@@ -420,10 +420,10 @@
 
 -(BOOL)sizeCheckRows:(uint)r Cols:(uint)c Slices:(uint)s Timesteps:(uint)t
 {
-	if (r < mImageSize.rows      and 0 <= r and
-		c < mImageSize.columns      and 0 <= c and
-		s < mImageSize.slices    and 0 <= s and
-		t < mImageSize.timesteps and 0 <= t){
+	if (r < mImageSize.rows      and 0 < r and
+		c < mImageSize.columns      and 0 < c and
+		s < mImageSize.slices    and 0 < s and
+		t < mImageSize.timesteps and 0 < t){
 		return YES;}
 	return NO;
 

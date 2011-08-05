@@ -9,7 +9,10 @@
 #import "BAProcedureStep_Anatomy.h"
 
 
+
 @implementation BAProcedureStep_Anatomy
+
+@synthesize anatomyData;
 
 - (id)init
 {

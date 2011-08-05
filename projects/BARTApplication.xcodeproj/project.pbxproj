@@ -462,6 +462,7 @@
 		0023CBD213EAC484006303B6 /* BAProcedureStep_Analysis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureStep_Analysis.m; sourceTree = "<group>"; };
 		0023CBD413EAC4B3006303B6 /* BAProcedureStep_Feedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAProcedureStep_Feedback.h; sourceTree = "<group>"; };
 		0023CBD513EAC4B3006303B6 /* BAProcedureStep_Feedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureStep_Feedback.m; sourceTree = "<group>"; };
+		0023CBD813EC1898006303B6 /* libITKCommon.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKCommon.3.16.0.dylib; path = "/opt/local/lib/InsightToolkit-3.16/libITKCommon.3.16.0.dylib"; sourceTree = "<absolute>"; };
 		003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = timeBasedRegressorLydi.edl; sourceTree = "<group>"; };
 		0036104F117F9AED00A84F44 /* NEDesignKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignKernel.h; sourceTree = "<group>"; };
 		00361050117F9AED00A84F44 /* NEDesignKernel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignKernel.m; sourceTree = "<group>"; };
@@ -499,7 +500,7 @@
 		0041E4AE13E805FF00169848 /* NED.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = NED.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		0041E4AF13E805FF00169848 /* CLETUS.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = CLETUS.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		0041E4B013E805FF00169848 /* EDNA.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = EDNA.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		004ABAF21378791400B13077 /* BADynamicDesignPipeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lineEnding = 0; path = BADynamicDesignPipeline.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		004ABAF21378791400B13077 /* BADynamicDesignPipeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BADynamicDesignPipeline.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		004ABAF31378791400B13077 /* BADynamicDesignPipeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BADynamicDesignPipeline.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		004ABB5E137887AC00B13077 /* BARTSerialIOFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BARTSerialIOFramework.framework; path = /Users/Lydi/Library/Frameworks/BARTSerialIOFramework.framework; sourceTree = "<absolute>"; };
 		0056D7D112D3354D002AC73F /* designtest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = designtest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -954,6 +955,14 @@
 				00AE42B0133CB00400F2D01D /* BARTNotifications.m */,
 			);
 			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		0023CBDA13EC18A9006303B6 /* ITK */ = {
+			isa = PBXGroup;
+			children = (
+				0023CBD813EC1898006303B6 /* libITKCommon.3.16.0.dylib */,
+			);
+			name = ITK;
 			sourceTree = "<group>";
 		};
 		0040B78F1141470400A57967 /* docs */ = {
@@ -1489,6 +1498,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0023CBDA13EC18A9006303B6 /* ITK */,
 				00DB76B513E84BFC00BB6484 /* BARTSerialIOFramework.framework */,
 				0041E4AE13E805FF00169848 /* NED.dylib */,
 				0041E4B013E805FF00169848 /* EDNA.dylib */,
@@ -3133,11 +3143,12 @@
 		00D44161134B57BE00094A51 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = $inherited;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -3147,7 +3158,10 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INSTALL_PATH = /usr/local/lib;
 				LD_DYLIB_INSTALL_NAME = "$(EXECUTABLE_PATH)";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"/opt/local/lib/InsightToolkit-3.16\"",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -3163,13 +3177,13 @@
 		00D44162134B57BE00094A51 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = "\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"";
+				FRAMEWORK_SEARCH_PATHS = $inherited;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -3181,7 +3195,10 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INSTALL_PATH = /usr/local/lib;
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"/opt/local/lib/InsightToolkit-3.16\"",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,

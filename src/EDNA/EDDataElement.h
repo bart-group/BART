@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+
 enum ImageType {
     IMAGE_FCTDATA,
     IMAGE_BETAS,
