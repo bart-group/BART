@@ -46,7 +46,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 -(id)initWithFirst:(id)fst 
          andSecond:(id)snd
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         first  = [fst retain];
         second = [snd retain];
     }
@@ -116,7 +116,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 -(id)initWithView:(NEViewManager*)view
      andTimetable:(NETimetable*)timetable
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         mViewManager = [view retain];
         mTimetable = [timetable retain];
         

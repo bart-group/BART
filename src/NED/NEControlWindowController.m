@@ -253,7 +253,7 @@ static NSString* const TOO_LONG_EVENT_ERROR_MESSAGE = @"Did not add event that e
                duration:(NSUInteger)duration 
        andMediaObjectID:(NSString*)mediaObjID
 {
-    if (time >= 0
+    if (time > 0
         && duration > 0
         && (presentationController != nil)) {
         

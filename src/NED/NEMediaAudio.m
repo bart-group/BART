@@ -15,7 +15,7 @@
 -(id)initWithID:(NSString*)objID 
         andFile:(NSString*)path 
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         mID    = [objID retain];
         
         NSString* resolvedPath  = [[COSystemConfig getInstance] getEDLFilePath];

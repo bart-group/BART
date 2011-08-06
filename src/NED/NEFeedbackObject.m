@@ -27,7 +27,7 @@ static const NSTimeInterval UPDATE_INTERVAL = 1.0 / 30.0;
 -(id)initWithFrame:(NSRect)frame
      andParameters:(NSDictionary*)params 
 {
-    if (self = [super initWithFrame:frame]) {
+    if ((self = [super initWithFrame:frame])) {
         if (params) {
             parameters = [params retain];
         } else {

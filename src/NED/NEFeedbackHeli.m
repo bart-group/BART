@@ -32,7 +32,7 @@
 -(id)initWithPosition:(NSPoint)pos
              andSpeed:(CGFloat)v
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         position = pos;
         speed = v;
     }
@@ -48,7 +48,7 @@
 -(id)initWithFrame:(NSRect)frame
      andParameters:(NSDictionary*)params 
 {
-    if (self = [super initWithFrame:frame andParameters:params]) {
+    if ((self = [super initWithFrame:frame andParameters:params])) {
         
         if ([parameters valueForKey:@"height"]) {
             height = [[parameters valueForKey:@"height"] floatValue];

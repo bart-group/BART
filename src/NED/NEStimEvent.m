@@ -19,7 +19,7 @@
          duration:(NSUInteger)dur
       mediaObject:(NEMediaObject*)obj 
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         time        = t;
         duration    = dur;
         mediaObject = [obj retain];

@@ -17,7 +17,7 @@
 
 -(id)init
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         mPosition = (NSPoint) {0, 0};
         mID = @"";
     }

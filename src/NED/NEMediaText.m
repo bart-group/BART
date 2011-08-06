@@ -14,7 +14,7 @@
 -(id)initWithID:(NSString*)objID
         andText:(NSString*)text
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         mID    = [objID retain];
         mText  = [text retain];
         mSize  = 5;
@@ -29,7 +29,7 @@
        andColor:(NSColor*)color 
       atPostion:(NSPoint)position
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         mID       = [objID retain];
         mText     = [text retain];
         mSize     = size;

@@ -126,7 +126,7 @@ static const CGFloat DRAGGER_EDGE_LENGTH = 5.0;
 
 -(id)initWithFrame:(NSRect)frameRect
 {
-    if (self = [super initWithFrame:frameRect]) {
+    if ((self = [super initWithFrame:frameRect])) {
         mCurrentTime     = 0;
         mTimetable       = [[NETimetable alloc] init];
         mMouseDownPoint  = (NSPoint) {-1.0, -1.0};
@@ -399,7 +399,7 @@ static const CGFloat DRAGGER_EDGE_LENGTH = 5.0;
         if (newDuration < 0) {
             newDuration = 0;
         }
-        if (newTime + newDuration > [mTimetable duration]) {
+        if ((NSUInteger)newTime + newDuration > [mTimetable duration]) {
             newTime = [mTimetable duration] - newDuration;
         }
         
@@ -427,7 +427,7 @@ static const CGFloat DRAGGER_EDGE_LENGTH = 5.0;
     
     NSEnumerator* eventEnumerator = [[mTimetable eventsToHappenForMediaObjectID:keyForEventList] objectEnumerator];
     NEStimEvent* event;
-    while (event = [eventEnumerator nextObject]) {
+    while ((event = [eventEnumerator nextObject])) {
         if ([event time] <= timeForEvent
             && ([event time] + [event duration]) >= timeForEvent) {
             

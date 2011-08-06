@@ -98,7 +98,7 @@
      stimEventStr:(NSString*)event
      triggerCount:(NSUInteger)trCount
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         formatter = [NELogFormatter defaultFormatter];
         
         dateHappend  = [tHappend retain];
@@ -177,7 +177,7 @@
 
 -(id)init
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         mMessages = [[NSMutableArray alloc] initWithCapacity:100];
         mDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%Y-%m-%d|%H:%M:%S.%F" allowNaturalLanguage:NO];
         mLogFormatter  = [[NELogFormatter alloc] init];

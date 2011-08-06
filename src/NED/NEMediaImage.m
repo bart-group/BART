@@ -17,7 +17,7 @@
            file:(NSString*)path
       displayAt:(NSPoint)position
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         mID       = [objID retain];
         
         NSString* resolvedPath  = [[COSystemConfig getInstance] getEDLFilePath];

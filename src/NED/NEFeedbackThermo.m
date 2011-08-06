@@ -15,7 +15,7 @@
 -(id)initWithFrame:(NSRect)frame
      andParameters:(NSDictionary*)params 
 {
-    if (self = [super initWithFrame:frame andParameters:params]) {
+    if ((self = [super initWithFrame:frame andParameters:params])) {
         
         if ([parameters valueForKey:@"temperature"]) {
             temperature = [[parameters valueForKey:@"temperature"] floatValue];

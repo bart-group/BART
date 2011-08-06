@@ -17,7 +17,7 @@
 
 -(id)initWithWindowNibName:(NSString *)windowNibName
 {
-    if (self = [super initWithWindowNibName:windowNibName]) {
+    if ((self = [super initWithWindowNibName:windowNibName])) {
         timelineView = [[NETimelineView alloc] initWithFrame:[[self window] frame]];
         [scrollView setDocumentView:timelineView];
     }

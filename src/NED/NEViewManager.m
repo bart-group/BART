@@ -44,7 +44,7 @@
 
 -(id)init
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         NSArray* screens = [NSScreen screens];
         mPrimaryScreen = [screens objectAtIndex:0];
         

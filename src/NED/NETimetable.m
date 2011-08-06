@@ -48,7 +48,7 @@
 -(id)initWithConfigEntry:(NSString*)key
          andMediaObjects:(NSArray*)mediaObjs
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         mLock                = [[NSLock alloc] init];
         mediaObjects         = [mediaObjs retain];
         duration             = 0;
