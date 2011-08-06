@@ -144,7 +144,7 @@ NSThread *triggerThread;
 	//TODO: get from config
 	NSString* const bundleIDStr = @"de.mpg.cbs.BARTSerialIO.BARTSerialIOPluginFTDITriggerButton";
 	NSArray *bundleArray = [self loadPluginWithID:bundleIDStr];
-	NSLog(@"bundleArray size: %d", [bundleArray count]);
+	NSLog(@"bundleArray size: %lu", [bundleArray count]);
 	
 	//NSBundle *curBundle = nil;
 	NSEnumerator *instanceEnum = [bundleArray objectEnumerator];
@@ -187,21 +187,21 @@ NSThread *triggerThread;
 	NSString* currPath;
 	NSArray* librarySearchPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
     NSEnumerator* searchPathEnum = [librarySearchPaths objectEnumerator];
-    while (currPath = [searchPathEnum nextObject])
+    while ((currPath = [searchPathEnum nextObject]))
     {
 		[bundleSearchPaths addObject: currPath];
     }
 	
 	
     searchPathEnum = [bundleSearchPaths objectEnumerator];
-	while (currPath = [searchPathEnum nextObject])
+	while ((currPath = [searchPathEnum nextObject]))
     {
         NSDirectoryEnumerator *bundleEnum;
         NSString *currBundlePath;
         bundleEnum = [[NSFileManager defaultManager] enumeratorAtPath:currPath];
         if (bundleEnum)
         {
-            while (currBundlePath = [bundleEnum nextObject])
+            while ((currBundlePath = [bundleEnum nextObject]))
             {
                 if ([[currBundlePath pathExtension] isEqualToString:@"bundle"])
                 {
@@ -217,7 +217,7 @@ NSThread *triggerThread;
 	NSRange searchRange = NSMakeRange(0, [bundleIDString length]);
 	
 	NSEnumerator* pathEnum = [bundlePaths objectEnumerator];
-    while (currPath = [pathEnum nextObject])
+    while ((currPath = [pathEnum nextObject]))
     {
         NSBundle* currBundle = [NSBundle bundleWithPath:currPath];
         if (currBundle)
