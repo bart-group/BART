@@ -7,7 +7,7 @@
 //
 
 #import "NEMediaObject.h"
-#import "COSystemConfig.h"
+#import "COExperimentContext.h"
 #import "NEMediaText.h"
 #import "NEMediaImage.h"
 #import "NEMediaAudio.h"
@@ -30,7 +30,7 @@
     [self release];
     self = nil;
     
-    COSystemConfig* config = [COSystemConfig getInstance];
+    COSystemConfig* config = [[COExperimentContext getInstance] systemConfig];
     
     NSString* objID   = [config getProp:[NSString stringWithFormat:@"%@/@moID", key]];
     NSString* objType = [config getProp:[NSString stringWithFormat:@"%@/@type", key]];

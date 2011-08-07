@@ -12,8 +12,7 @@
 #import "BAAnalyzerElement.h"
 #import "EDNA/EDDataElementRealTimeLoader.h"
 #import "BARTNotifications.h"
-#import "CLETUS/COSystemConfig.h"
-#import "BADynamicDesignPipeline.h"
+#import "CLETUS/COExperimentContext.h"
 
 
 @interface BAProcedurePipeline (PrivateMethods)
@@ -25,6 +24,7 @@
 -(void)processDataThread;
 -(void)timerThread;
 -(void)lastScanArrived:(NSNotification*)aNotification;
+-(void)resetProcedurePipeline:(NSNotification*)aNotification;
 
 @end
 
@@ -36,12 +36,13 @@
     if ((self = [super init])) {
         // TODO: appropriate init
         mCurrentTimestep = 50;
-		config = [COSystemConfig getInstance];
+		config = [[COExperimentContext getInstance] systemConfig];
 		isRealTimeTCPInput = FALSE;
 		startAnalysisAtTimeStep = 15;
 		
-		dynamicDesignPipe = [[BADynamicDesignPipeline alloc] init]; 
-		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(resetProcedurePipeline:) 
+                                                     name:BARTDidResetExperimentContextNotification object:nil];
     }
 	return self;
 }
@@ -51,13 +52,22 @@
 
 	[mInputData release];
 	[mResultData release];
-    [dynamicDesignPipe release];
+   // [dynamicDesignPipe release];
 	[mAnalyzer release];
 	
 	
 	[super dealloc];
 }
 
+-(void)resetProcedurePipeline:(NSNotification*)aNotification
+{
+    config = [[COExperimentContext getInstance] systemConfig];
+    
+    [self initData];
+	[self initDesign];
+	[self initAnalyzer];
+	[self startAnalysis];
+}
 
 -(BOOL) initData
 {
@@ -70,7 +80,7 @@
 	//FILE LOAD STUFF
 	if (FALSE == isRealTimeTCPInput){
 		// setup the input data
-		mInputData = [[EDDataElement alloc] initWithDataFile:@"../../../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
+		mInputData = [[EDDataElement alloc] initWithDataFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
 		if (nil == mInputData) {
 			return FALSE;
 		}
@@ -101,18 +111,15 @@
 
 -(BOOL) initDesign
 {
-	BOOL ret = [dynamicDesignPipe initDesign];
-	NSLog(@"%d", ret);
-	return ret;
-	//if (nil != mDesignData){
-//		[mDesignData release];
-//		mDesignData = nil;}
-//	
-//	mDesignData = [[NEDesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
-//	if (nil == mDesignData){
-//		return FALSE;}
-//	
-//	return TRUE;
+	if (nil != mDesignData){
+		[mDesignData release];
+		mDesignData = nil;}
+	
+	mDesignData = [[NEDesignElement alloc] initWithDynamicData];
+	if (nil == mDesignData){
+		return FALSE;}
+	
+	return TRUE;
 }
 
 -(BOOL) initPresentation
@@ -149,7 +156,7 @@
 {
 	if (FALSE == isRealTimeTCPInput){
 		NSLog(@"Timestep: %lu", mCurrentTimestep+1);
-		if ((mCurrentTimestep > startAnalysisAtTimeStep-1 ) && (mCurrentTimestep < [[dynamicDesignPipe designElement] mNumberTimesteps])) {
+		if ((mCurrentTimestep > startAnalysisAtTimeStep-1 ) && (mCurrentTimestep < [mDesignData mNumberTimesteps])) {
 			[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
 		}
 		mCurrentTimestep++;
@@ -166,8 +173,8 @@
 			[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadBackgroundImageNotification object:mInputData];
 		}
 		
-		NSLog(@"Nr of Timesteps in InputData: %d", [mInputData getImageSize].timesteps);
-		if (([mInputData getImageSize].timesteps > startAnalysisAtTimeStep-1 ) && ([mInputData getImageSize].timesteps < [[dynamicDesignPipe designElement] mNumberTimesteps])) {
+		NSLog(@"Nr of Timesteps in InputData: %lu", [mInputData getImageSize].timesteps);
+		if (([mInputData getImageSize].timesteps > startAnalysisAtTimeStep-1 ) && ([mInputData getImageSize].timesteps < [mDesignData mNumberTimesteps])) {
 			[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
 		}
 		// JUST FOR TEST
@@ -185,20 +192,20 @@
 	
 	
 	//TODO : get from config or gui
-	float cVecFromConfig[[dynamicDesignPipe designElement].mNumberExplanatoryVariables];
+	float cVecFromConfig[mDesignData.mNumberExplanatoryVariables];
 	cVecFromConfig[0] = 1.0;
 	cVecFromConfig[1] = -1.0;
 	//cVecFromConfig[2] = 0.0;
 	NSMutableArray *contrastVector = [[NSMutableArray alloc] init];
-	for (size_t i = 0; i < [dynamicDesignPipe designElement].mNumberExplanatoryVariables; i++){
+	for (size_t i = 0; i < mDesignData.mNumberExplanatoryVariables; i++){
 		NSNumber *nr = [NSNumber numberWithFloat:cVecFromConfig[i]];
 		[contrastVector addObject:nr];}
 	
 	if (FALSE == isRealTimeTCPInput){
-		resData = [mAnalyzer anaylzeTheData:mInputData withDesign:[[dynamicDesignPipe designElement] copy] atCurrentTimestep:mCurrentTimestep-1 forContrastVector:contrastVector andWriteResultInto:nil];
+		resData = [mAnalyzer anaylzeTheData:mInputData withDesign:[mDesignData copy] atCurrentTimestep:mCurrentTimestep-1 forContrastVector:contrastVector andWriteResultInto:nil];
 	}
 	else {
-		resData = [mAnalyzer anaylzeTheData:mInputData withDesign:[[[dynamicDesignPipe designElement] copy] autorelease] atCurrentTimestep:[mInputData getImageSize].timesteps forContrastVector:contrastVector andWriteResultInto:nil];
+		resData = [mAnalyzer anaylzeTheData:mInputData withDesign:[[mDesignData copy] autorelease] atCurrentTimestep:[mInputData getImageSize].timesteps forContrastVector:contrastVector andWriteResultInto:nil];
 		NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%d.nii", [mInputData getImageSize].timesteps];
 		[resData WriteDataElementToFile:fname];
 	}
@@ -217,7 +224,7 @@
 	NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
 	
 	[self nextDataArrived:nil];
-	if (mCurrentTimestep > [[dynamicDesignPipe designElement] mNumberTimesteps]){
+	if (mCurrentTimestep > [mDesignData mNumberTimesteps]){
 		[[NSThread currentThread] cancel];}
 	
 	[NSThread sleepForTimeInterval:1.0];

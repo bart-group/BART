@@ -22,7 +22,7 @@ COSystemConfig* config;
 
 -(void)setUp
 {
-	config = [COSystemConfig getInstance];
+	config = [[COExperimentContext getInstance] systemConfig];
     [config fillWithContentsOfEDLFile:@"../tests/CLETUSTests/Init_Links_1.edl"];
 }
 

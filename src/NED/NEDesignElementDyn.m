@@ -7,7 +7,7 @@
 //
 
 #import "NEDesignElementDyn.h"
-#import "COSystemConfig.h"
+#import "COExperimentContext.h"
 
 // just as long as it will be written as .v
 #include <viaio/VImage.h>
@@ -108,7 +108,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 -(NSError*)getPropertiesFromConfig
 {
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	NSError* error = nil;
 	// temp formatter due to converting from string to number
 	NSNumberFormatter * f = [[NSNumberFormatter alloc] init];

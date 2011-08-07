@@ -7,7 +7,7 @@
 //
 
 #import "NEXMLFormatterTest.h"
-#import "COSystemConfig.h"
+#import "COExperimentContext.h"
 #import "NETimetable.h"
 #import "NEXMLFormatter.h"
 
@@ -16,7 +16,7 @@
 
 -(void)setUp
 {
-    config = [COSystemConfig getInstance];
+    config = [[COExperimentContext getInstance] systemConfig];
     [config fillWithContentsOfEDLFile:@"pseudoStimulusDataBlock.edl"];
     
     mediaObjects = [NSMutableArray arrayWithCapacity:0];

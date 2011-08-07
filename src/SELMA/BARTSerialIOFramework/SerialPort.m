@@ -52,7 +52,7 @@
                             andBits:(int)aBits
 {
 
-	if(self = [super init]) {
+	if((self = [super init])) {
 		devicePath = [aDevicePath copy];
 		deviceDescription = [aDeviceDescription copy];
         baud = aSymbolrate;

@@ -14,7 +14,7 @@
 -(void)setUp
 {
     logger = [NEPresentationLogger sharedInstance];
-    config = [COSystemConfig getInstance];
+    config = [[COExperimentContext getInstance] systemConfig];
     [config fillWithContentsOfEDLFile:@"pseudoStimulusDataFree.edl"];
 }
 

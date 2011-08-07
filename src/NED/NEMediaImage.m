@@ -8,7 +8,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "NEMediaImage.h"
-#import "COSystemConfig.h"
+#import "COExperimentContext.h"
 
 
 @implementation NEMediaImage
@@ -20,7 +20,7 @@
     if ((self = [super init])) {
         mID       = [objID retain];
         
-        NSString* resolvedPath  = [[COSystemConfig getInstance] getEDLFilePath];
+        NSString* resolvedPath  = [[[COExperimentContext getInstance] systemConfig] getEDLFilePath];
         resolvedPath = [resolvedPath stringByDeletingLastPathComponent];
         NSArray* pathComponents = [[resolvedPath pathComponents] arrayByAddingObjectsFromArray:[path pathComponents]];
         resolvedPath = [NSString pathWithComponents:pathComponents];

@@ -9,7 +9,7 @@
 #import "NEPresentationController.h"
 #import "NEMediaText.h"
 #import "NEStimEvent.h"
-#import "COSystemConfig.h"
+#import "COExperimentContext.h"
 #import "NEPresentationLogger.h"
 #import "NELogFormatter.h"
 #import "NEViewManager.h"
@@ -129,7 +129,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         mLogger = [NEPresentationLogger sharedInstance];
         
         mUpdateThread = [[NSThread alloc] initWithTarget:self selector:@selector(runUpdateThread) object:nil];
-        mTR           = (NSUInteger) [[[COSystemConfig getInstance] getProp:@"$TR"] integerValue];
+        mTR           = (NSUInteger) [[[[COExperimentContext getInstance] systemConfig] getProp:@"$TR"] integerValue];
         [self resetTimeAndTriggerCount];
         
         [mViewManager setTimetable:mTimetable];

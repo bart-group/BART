@@ -16,7 +16,7 @@
 
 -(void)setUp
 {
-    config = [COSystemConfig getInstance];
+    config = [[COExperimentContext getInstance] systemConfig];
     [config fillWithContentsOfEDLFile:@"pseudoStimulusDataFree.edl"];
 }
 

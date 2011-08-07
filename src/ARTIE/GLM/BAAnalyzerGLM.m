@@ -47,7 +47,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 
 -(id)init
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         slidingWindowSize = 40;
         mSlidingWindowAnalysis = NO;
     }
@@ -138,10 +138,10 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         // C1) If there are more than one input image - test for dimensions
         
         if (numberExplanatoryVariables >= MBETA) {
-            NSLog(@" too many covariates (%d), max is %d", numberExplanatoryVariables, MBETA);
+            NSLog(@" too many covariates (%lu), max is %d", numberExplanatoryVariables, MBETA);
         }
         if (mDesign.mNumberTimesteps != numberBands) {
-            NSLog(@" design dimension inconsistency: %d (numberTimesteps design) %d (numberTimesteps data)", 
+            NSLog(@" design dimension inconsistency: %d (numberTimesteps design) %lu (numberTimesteps data)", 
                   mDesign.mNumberTimesteps, numberBands);
         }
         

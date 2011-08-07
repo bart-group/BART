@@ -7,7 +7,7 @@
 //
 
 #import "NEPresentationLogger.h"
-#import "COSystemConfig.h"
+#import "COExperimentContext.h"
 
 
 /**
@@ -335,7 +335,7 @@
                withTriggerDates:(NSArray*)triggerDates
                    andTolerance:(NSUInteger)tolerance
 {
-    NSInteger repetitionTime = [[[COSystemConfig getInstance] getProp:@"$TR"] integerValue];
+    NSInteger repetitionTime = [[[[COExperimentContext getInstance] systemConfig] getProp:@"$TR"] integerValue];
     NSMutableArray* violations = [NSMutableArray arrayWithCapacity:0];
     
     for (_NEParsedEvent* event in parsedEvents) {

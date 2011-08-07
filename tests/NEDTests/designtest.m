@@ -8,7 +8,7 @@
 
 #import "designtest.h"
 
-#import "../../src/CLETUS/COSystemConfig.h"
+#import "../../src/CLETUS/COExperimentContext.h"
 #import "../../tests/NEDTests/NEDesignElementReference.h"
 #import "../../src/NED/NEDesignElementDyn.h"
 
@@ -21,7 +21,7 @@ int main(void)
 {
 	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	//erDesignTest02_deriv1AllReg
 	//erDesignTest03_deriv1Reg1_3
 	//erDesignTest04_deriv2AllReg

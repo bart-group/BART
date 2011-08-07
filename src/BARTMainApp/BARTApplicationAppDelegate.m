@@ -8,9 +8,10 @@
 
 #import "BARTApplicationAppDelegate.h"
 
-#import "CLETUS/COSystemConfig.h"
+#import "CLETUS/COExperimentContext.h"
 #import "BAProcedurePipeline.h"
 #import "BARTNotifications.h"
+#import "CLETUS/COExperimentContext.h"
 
 
 @interface BARTApplicationAppDelegate ()
@@ -24,17 +25,8 @@
 @implementation BARTApplicationAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification 
-{    
-    COSystemConfig *config = [COSystemConfig getInstance];
-	NSError *err = [config fillWithContentsOfEDLFile:@"../../../../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
-	
-	if (err) {
-        NSLog(@"%@", err);
-	}
-	guiController = [guiController initWithDefault];
-	
-    procedurePipe = [[BAProcedurePipeline alloc] init];
-	[[NSNotificationCenter defaultCenter] addObserver:self
+{  
+    [[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(setGUIBackgroundImage:)
 												 name:BARTDidLoadBackgroundImageNotification object:nil];
 	
@@ -42,10 +34,23 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(setGUIResultImage:)
 												 name:BARTDidCalcNextResultNotification object:nil];
-	[procedurePipe initData];
-	[procedurePipe initDesign];
-	[procedurePipe initAnalyzer];
-	[procedurePipe startAnalysis];
+	
+    
+    //COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+    COExperimentContext *experimentContext = [COExperimentContext getInstance];
+    
+   //NSError *err = [config fillWithContentsOfEDLFile:@"../../../../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
+	
+	guiController = [guiController initWithDefault];
+	
+    procedurePipe = [[BAProcedurePipeline alloc] init];
+    
+    NSError *err = [experimentContext resetWithEDLFile:@"../../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
+    if (err) {
+        NSLog(@"%@", err);
+	}
+	
+	
 	
   }
 

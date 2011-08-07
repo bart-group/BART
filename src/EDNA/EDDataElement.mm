@@ -139,7 +139,8 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-   [self doesNotRecognizeSelector:_cmd];
+   //[self doesNotRecognizeSelector:_cmd];
+    return self;
 }
 
 @end

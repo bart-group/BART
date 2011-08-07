@@ -7,7 +7,7 @@
 //
 
 #import "NETimetable.h"
-#import "COSystemConfig.h"
+#import "COExperimentContext.h"
 
 
 @interface NETimetable (PrivateMethods)
@@ -93,17 +93,17 @@
     NSString* stimDesignKey = [key stringByAppendingFormat:@"/blockStimulusDesign"];
     
     // Determine whether block or free stimulus design is used.
-    if ([[COSystemConfig getInstance] getProp:stimDesignKey]) {
-        repeats = [[[COSystemConfig getInstance] getProp:[stimDesignKey stringByAppendingFormat:@"/@repeats"]] integerValue];
+    if ([[[COExperimentContext getInstance] systemConfig] getProp:stimDesignKey]) {
+        repeats = [[[[COExperimentContext getInstance] systemConfig] getProp:[stimDesignKey stringByAppendingFormat:@"/@repeats"]] integerValue];
     } else {
         stimDesignKey       = [key stringByAppendingFormat:@"/freeStimulusDesign"];
         repeats = 1;
     }
-    duration = [[[COSystemConfig getInstance] getProp:[stimDesignKey stringByAppendingFormat:@"/@overallPresLength"]] integerValue];
+    duration = [[[[COExperimentContext getInstance] systemConfig] getProp:[stimDesignKey stringByAppendingFormat:@"/@overallPresLength"]] integerValue];
     
     NSUInteger eventCounter  = 1;
     NSString* eventKey  = [stimDesignKey stringByAppendingFormat:@"/stimEvent[1]"];
-    NSString* eventProp = [[COSystemConfig getInstance] getProp:eventKey];
+    NSString* eventProp = [[[COExperimentContext getInstance] systemConfig] getProp:eventKey];
     NSUInteger repeatCounter = 1;
     NSUInteger timeOffset = 0;
     NSUInteger blockDuration = 0;
@@ -111,9 +111,9 @@
     // Build events - also the repeated ones.
     while ((repeatCounter <= repeats) 
            && (eventProp != nil)) {
-        NSUInteger eventTime     = [[[COSystemConfig getInstance] getProp:[NSString stringWithFormat:@"%@/@time", eventKey]] integerValue];
-        NSUInteger eventDuration = [[[COSystemConfig getInstance] getProp:[NSString stringWithFormat:@"%@/@duration", eventKey]] integerValue];
-        NSString*  mediaObjID    = [[COSystemConfig getInstance] getProp:[NSString stringWithFormat:@"%@/mObjectID", eventKey]];
+        NSUInteger eventTime     = [[[[COExperimentContext getInstance] systemConfig] getProp:[NSString stringWithFormat:@"%@/@time", eventKey]] integerValue];
+        NSUInteger eventDuration = [[[[COExperimentContext getInstance] systemConfig] getProp:[NSString stringWithFormat:@"%@/@duration", eventKey]] integerValue];
+        NSString*  mediaObjID    = [[[COExperimentContext getInstance] systemConfig] getProp:[NSString stringWithFormat:@"%@/mObjectID", eventKey]];
         
         if (repeatCounter == 1
             && (eventTime + eventDuration) > blockDuration) {
@@ -133,7 +133,7 @@
         
         eventCounter++;
         eventKey = [stimDesignKey stringByAppendingFormat:@"/stimEvent[%d]", eventCounter];
-        eventProp = [[COSystemConfig getInstance] getProp:eventKey];
+        eventProp = [[[COExperimentContext getInstance] systemConfig] getProp:eventKey];
         
         // Check for block repeat or outro stimuli if current eventProp is nil.
         if (!eventProp) {
@@ -144,10 +144,10 @@
                 repeatCounter++;
                 eventCounter = 1;
                 eventKey  = [stimDesignKey stringByAppendingFormat:@"/stimEvent[1]"];
-                eventProp = [[COSystemConfig getInstance] getProp:eventKey];
+                eventProp = [[[COExperimentContext getInstance] systemConfig] getProp:eventKey];
             } else {
                 eventKey  = [key stringByAppendingFormat:@"/outro/stimEvent[1]"];
-                eventProp = [[COSystemConfig getInstance] getProp:eventKey];
+                eventProp = [[[COExperimentContext getInstance] systemConfig] getProp:eventKey];
             }
         }
     }

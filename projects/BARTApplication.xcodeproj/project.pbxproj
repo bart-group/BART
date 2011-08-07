@@ -71,6 +71,11 @@
 		00662AC81181CFCD004980A0 /* NEDesignGloverKernelReference.c in Sources */ = {isa = PBXBuildFile; fileRef = 00662AC71181CFCD004980A0 /* NEDesignGloverKernelReference.c */; };
 		00664BF512ABF733005216E6 /* PRPreprocessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 0006F474122BFADD001DA2BB /* PRPreprocessor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00664BF812ABF734005216E6 /* PRPreprocessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F475122BFADD001DA2BB /* PRPreprocessor.m */; };
+		00786E1213EEC80F00BF2554 /* NEPresentationExternalConditionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 00786E1013EEC80E00BF2554 /* NEPresentationExternalConditionController.h */; };
+		00786E1313EEC80F00BF2554 /* NEPresentationExternalConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00786E1113EEC80E00BF2554 /* NEPresentationExternalConditionController.m */; };
+		00786E1613EED14600BF2554 /* COExperimentContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 00786E1413EED14600BF2554 /* COExperimentContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		00786E1713EED14600BF2554 /* COExperimentContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 00786E1513EED14600BF2554 /* COExperimentContext.m */; };
+		00786E1813EEE08000BF2554 /* BARTSerialIOFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 004ABB5E137887AC00B13077 /* BARTSerialIOFramework.framework */; };
 		007932B3114FB79E007BEB66 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F81141470400A57967 /* main.m */; };
 		007932B4114FB79E007BEB66 /* ColorMappingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F71141470400A57967 /* ColorMappingFilter.m */; };
 		007932B7114FB7A3007BEB66 /* BAGUIPrototyp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B41141470400A57967 /* BAGUIPrototyp.m */; };
@@ -91,19 +96,19 @@
 		009266AE13E5B4590025B384 /* NEDesignElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 009266AC13E5B4590025B384 /* NEDesignElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		009266AF13E5B4590025B384 /* NEDesignElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 009266AD13E5B4590025B384 /* NEDesignElement.m */; };
 		00AE42B1133CB00400F2D01D /* BARTNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AE42B0133CB00400F2D01D /* BARTNotifications.m */; };
-		00B1AC24114554DB008FC09D /* COEDLValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AC22114554DB008FC09D /* COEDLValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		00B1AC24114554DB008FC09D /* COEDLValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AC22114554DB008FC09D /* COEDLValidator.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00B1AC25114554DB008FC09D /* COEDLValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC23114554DB008FC09D /* COEDLValidator.m */; };
 		00B1AC34114556C3008FC09D /* COEDLValidatorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC33114556C3008FC09D /* COEDLValidatorTest.m */; };
-		00B1AC5911455E38008FC09D /* COXMLUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AC5711455E38008FC09D /* COXMLUtility.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		00B1AC5911455E38008FC09D /* COXMLUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AC5711455E38008FC09D /* COXMLUtility.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00B1AC5A11455E38008FC09D /* COXMLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC5811455E38008FC09D /* COXMLUtility.m */; };
 		00B1AC81114562A8008FC09D /* COXMLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC5811455E38008FC09D /* COXMLUtility.m */; };
 		00B1ACDC114565CE008FC09D /* COEDLValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC23114554DB008FC09D /* COEDLValidator.m */; };
-		00B1AD1511456C2E008FC09D /* COEDLValidatorRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AD1311456C2E008FC09D /* COEDLValidatorRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		00B1AD1511456C2E008FC09D /* COEDLValidatorRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AD1311456C2E008FC09D /* COEDLValidatorRule.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00B1AD1611456C2E008FC09D /* COEDLValidatorRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AD1411456C2E008FC09D /* COEDLValidatorRule.m */; };
 		00B1AD1B11456C47008FC09D /* COEDLValidatorRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AD1411456C2E008FC09D /* COEDLValidatorRule.m */; };
-		00B1AD77114645A3008FC09D /* COEDLValidatorLiteral.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AD75114645A3008FC09D /* COEDLValidatorLiteral.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		00B1AD77114645A3008FC09D /* COEDLValidatorLiteral.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AD75114645A3008FC09D /* COEDLValidatorLiteral.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00B1AD78114645A3008FC09D /* COEDLValidatorLiteral.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AD76114645A3008FC09D /* COEDLValidatorLiteral.m */; };
-		00B1ADA811465349008FC09D /* COEDLValidatorToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1ADA611465349008FC09D /* COEDLValidatorToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		00B1ADA811465349008FC09D /* COEDLValidatorToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1ADA611465349008FC09D /* COEDLValidatorToken.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00B1ADA911465349008FC09D /* COEDLValidatorToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1ADA711465349008FC09D /* COEDLValidatorToken.m */; };
 		00B1ADF0114670BE008FC09D /* COEDLValidatorToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1ADA711465349008FC09D /* COEDLValidatorToken.m */; };
 		00B50B3F123921B900BBCEB8 /* BAAnalyzerGLM.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7961141470400A57967 /* BAAnalyzerGLM.m */; };
@@ -438,18 +443,18 @@
 		0006F7AC122E90FD001DA2BB /* rtExperiment_v14_simplified.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rtExperiment_v14_simplified.xsd; sourceTree = "<group>"; };
 		0023CBB013EAC186006303B6 /* NELogFormatterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NELogFormatterTest.h; sourceTree = "<group>"; };
 		0023CBB113EAC186006303B6 /* NELogFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NELogFormatterTest.m; sourceTree = "<group>"; };
-		0023CBB213EAC186006303B6 /* NEMediaObjectTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEMediaObjectTest.h; sourceTree = "<group>"; };
-		0023CBB313EAC186006303B6 /* NEMediaObjectTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEMediaObjectTest.m; sourceTree = "<group>"; };
+		0023CBB213EAC186006303B6 /* NEMediaObjectTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NEMediaObjectTest.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		0023CBB313EAC186006303B6 /* NEMediaObjectTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NEMediaObjectTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0023CBB413EAC186006303B6 /* NEMediaTextTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEMediaTextTest.h; sourceTree = "<group>"; };
 		0023CBB513EAC186006303B6 /* NEMediaTextTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEMediaTextTest.m; sourceTree = "<group>"; };
-		0023CBB613EAC186006303B6 /* NEPresentationLoggerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEPresentationLoggerTest.h; sourceTree = "<group>"; };
-		0023CBB713EAC186006303B6 /* NEPresentationLoggerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEPresentationLoggerTest.m; sourceTree = "<group>"; };
+		0023CBB613EAC186006303B6 /* NEPresentationLoggerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NEPresentationLoggerTest.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		0023CBB713EAC186006303B6 /* NEPresentationLoggerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NEPresentationLoggerTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0023CBB813EAC186006303B6 /* NEStimEventTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEStimEventTest.h; sourceTree = "<group>"; };
 		0023CBB913EAC186006303B6 /* NEStimEventTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEStimEventTest.m; sourceTree = "<group>"; };
-		0023CBBA13EAC186006303B6 /* NETimetableTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETimetableTest.h; sourceTree = "<group>"; };
-		0023CBBB13EAC186006303B6 /* NETimetableTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NETimetableTest.m; sourceTree = "<group>"; };
+		0023CBBA13EAC186006303B6 /* NETimetableTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NETimetableTest.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		0023CBBB13EAC186006303B6 /* NETimetableTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NETimetableTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0023CBBC13EAC186006303B6 /* NEXMLFormatterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEXMLFormatterTest.h; sourceTree = "<group>"; };
-		0023CBBD13EAC186006303B6 /* NEXMLFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEXMLFormatterTest.m; sourceTree = "<group>"; };
+		0023CBBD13EAC186006303B6 /* NEXMLFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NEXMLFormatterTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0023CBC513EAC38C006303B6 /* BAProcedureStep_Anatomy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAProcedureStep_Anatomy.h; sourceTree = "<group>"; };
 		0023CBC613EAC38C006303B6 /* BAProcedureStep_Anatomy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureStep_Anatomy.m; sourceTree = "<group>"; };
 		0023CBC813EAC3CE006303B6 /* BAProcedureStep_ROISelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAProcedureStep_ROISelection.h; sourceTree = "<group>"; };
@@ -511,7 +516,7 @@
 		0066276C11804476004980A0 /* NEDesignKernelTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignKernelTest.h; sourceTree = "<group>"; };
 		0066276D11804476004980A0 /* NEDesignKernelTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignKernelTest.m; sourceTree = "<group>"; };
 		0066277011804494004980A0 /* NEDesignGloverKernelTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignGloverKernelTest.h; sourceTree = "<group>"; };
-		0066277111804494004980A0 /* NEDesignGloverKernelTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignGloverKernelTest.m; sourceTree = "<group>"; };
+		0066277111804494004980A0 /* NEDesignGloverKernelTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NEDesignGloverKernelTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		00662AC61181CFCD004980A0 /* NEDesignGloverKernelReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignGloverKernelReference.h; sourceTree = "<group>"; };
 		00662AC71181CFCD004980A0 /* NEDesignGloverKernelReference.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NEDesignGloverKernelReference.c; sourceTree = "<group>"; };
 		00664BF012ABF71D005216E6 /* PRINCE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PRINCE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -524,6 +529,10 @@
 		00709ED112EA04A5006389C4 /* erDesignTest03_deriv1Reg1_3.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest03_deriv1Reg1_3.edl; sourceTree = "<group>"; };
 		00709ED312EA04A5006389C4 /* erDesignTest05_deriv2Reg2_4.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest05_deriv2Reg2_4.edl; sourceTree = "<group>"; };
 		00709ED412EA04A5006389C4 /* erDesignTest06_parametric.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest06_parametric.edl; sourceTree = "<group>"; };
+		00786E1013EEC80E00BF2554 /* NEPresentationExternalConditionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEPresentationExternalConditionController.h; sourceTree = "<group>"; };
+		00786E1113EEC80E00BF2554 /* NEPresentationExternalConditionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEPresentationExternalConditionController.m; sourceTree = "<group>"; };
+		00786E1413EED14600BF2554 /* COExperimentContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = COExperimentContext.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		00786E1513EED14600BF2554 /* COExperimentContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = COExperimentContext.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		007934EB1150FBF7007BEB66 /* COErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COErrorCode.h; sourceTree = "<group>"; };
 		0083769F116BB12D00369B20 /* NEDesignElementDyn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NEDesignElementDyn.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		008376A0116BB12D00369B20 /* NEDesignElementDyn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NEDesignElementDyn.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -576,12 +585,12 @@
 		00B1ADA711465349008FC09D /* COEDLValidatorToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COEDLValidatorToken.m; sourceTree = "<group>"; };
 		00B772C311417C6300B2931A /* EDDataElementVI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EDDataElementVI.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		00B772C411417C6300B2931A /* EDDataElementVI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EDDataElementVI.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		00C39FEA1144FADC00725668 /* COSystemConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COSystemConfig.h; sourceTree = "<group>"; };
-		00C39FEB1144FADC00725668 /* COSystemConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COSystemConfig.m; sourceTree = "<group>"; };
+		00C39FEA1144FADC00725668 /* COSystemConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = COSystemConfig.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		00C39FEB1144FADC00725668 /* COSystemConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = COSystemConfig.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		00C39FFA1144FBD600725668 /* CLETUSUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CLETUSUnitTestSuite.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00C39FFB1144FBD600725668 /* CLETUSUnitTestSuite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CLETUSUnitTestSuite-Info.plist"; path = "../../projects/CLETUSUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
 		00C3A0011144FBEF00725668 /* COSystemConfigTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COSystemConfigTest.h; sourceTree = "<group>"; };
-		00C3A0021144FBEF00725668 /* COSystemConfigTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COSystemConfigTest.m; sourceTree = "<group>"; };
+		00C3A0021144FBEF00725668 /* COSystemConfigTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = COSystemConfigTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		00C3A07F114510CE00725668 /* Init_Links_1.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Init_Links_1.edl; sourceTree = "<group>"; };
 		00C3A080114510CE00725668 /* rtExperiment_v14.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rtExperiment_v14.xsd; sourceTree = "<group>"; };
 		00D4409A134B4DCC00094A51 /* libisis_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisis_core.dylib; path = /usr/local/lib/libisis_core.dylib; sourceTree = "<absolute>"; };
@@ -596,23 +605,23 @@
 		00DB77D313EA8AD500BB6484 /* NELogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NELogFormatter.h; sourceTree = "<group>"; };
 		00DB77D413EA8AD500BB6484 /* NELogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NELogFormatter.m; sourceTree = "<group>"; };
 		00DB77D513EA8AD500BB6484 /* NEMediaAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEMediaAudio.h; sourceTree = "<group>"; };
-		00DB77D613EA8AD500BB6484 /* NEMediaAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEMediaAudio.m; sourceTree = "<group>"; };
+		00DB77D613EA8AD500BB6484 /* NEMediaAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NEMediaAudio.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		00DB77D713EA8AD500BB6484 /* NEMediaImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEMediaImage.h; sourceTree = "<group>"; };
-		00DB77D813EA8AD500BB6484 /* NEMediaImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEMediaImage.m; sourceTree = "<group>"; };
+		00DB77D813EA8AD500BB6484 /* NEMediaImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NEMediaImage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		00DB77D913EA8AD500BB6484 /* NEMediaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEMediaObject.h; sourceTree = "<group>"; };
-		00DB77DA13EA8AD500BB6484 /* NEMediaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEMediaObject.m; sourceTree = "<group>"; };
+		00DB77DA13EA8AD500BB6484 /* NEMediaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NEMediaObject.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		00DB77DB13EA8AD500BB6484 /* NEMediaText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEMediaText.h; sourceTree = "<group>"; };
 		00DB77DC13EA8AD500BB6484 /* NEMediaText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEMediaText.m; sourceTree = "<group>"; };
 		00DB77DD13EA8AD500BB6484 /* NEPresentationLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEPresentationLogger.h; sourceTree = "<group>"; };
-		00DB77DE13EA8AD500BB6484 /* NEPresentationLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEPresentationLogger.m; sourceTree = "<group>"; };
+		00DB77DE13EA8AD500BB6484 /* NEPresentationLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NEPresentationLogger.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		00DB77DF13EA8AD500BB6484 /* NEStimEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEStimEvent.h; sourceTree = "<group>"; };
 		00DB77E013EA8AD500BB6484 /* NEStimEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEStimEvent.m; sourceTree = "<group>"; };
 		00DB77E113EA8AD500BB6484 /* NETimelineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETimelineView.h; sourceTree = "<group>"; };
 		00DB77E213EA8AD500BB6484 /* NETimelineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NETimelineView.m; sourceTree = "<group>"; };
 		00DB77E313EA8AD500BB6484 /* NETimetable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETimetable.h; sourceTree = "<group>"; };
-		00DB77E413EA8AD500BB6484 /* NETimetable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NETimetable.m; sourceTree = "<group>"; };
+		00DB77E413EA8AD500BB6484 /* NETimetable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NETimetable.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		00DB77E513EA8AD500BB6484 /* NEViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEViewManager.h; sourceTree = "<group>"; };
-		00DB77E613EA8AD500BB6484 /* NEViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEViewManager.m; sourceTree = "<group>"; };
+		00DB77E613EA8AD500BB6484 /* NEViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NEViewManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		00DB77E713EA8AD500BB6484 /* NEXMLFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEXMLFormatter.h; sourceTree = "<group>"; };
 		00DB77E813EA8AD500BB6484 /* NEXMLFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEXMLFormatter.m; sourceTree = "<group>"; };
 		00DB77FF13EA8B1C00BB6484 /* NEPresentationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEPresentationView.h; sourceTree = "<group>"; };
@@ -622,7 +631,7 @@
 		00DB780513EA8B4B00BB6484 /* NEHeliWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEHeliWindowController.h; sourceTree = "<group>"; };
 		00DB780613EA8B4B00BB6484 /* NEHeliWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEHeliWindowController.m; sourceTree = "<group>"; };
 		00DB780713EA8B4B00BB6484 /* NEPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEPresentationController.h; sourceTree = "<group>"; };
-		00DB780813EA8B4B00BB6484 /* NEPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEPresentationController.m; sourceTree = "<group>"; };
+		00DB780813EA8B4B00BB6484 /* NEPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NEPresentationController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		00DB780913EA8B4B00BB6484 /* NEThermoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEThermoWindowController.h; sourceTree = "<group>"; };
 		00DB780A13EA8B4B00BB6484 /* NEThermoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEThermoWindowController.m; sourceTree = "<group>"; };
 		00DB780B13EA8B4B00BB6484 /* NETimelineWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETimelineWindowController.h; sourceTree = "<group>"; };
@@ -650,7 +659,7 @@
 		00DB782D13EA8C2E00BB6484 /* ThermoControl.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThermoControl.xib; sourceTree = "<group>"; };
 		00DB784A13EA8CDE00BB6484 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		00DE9C6C12F316230089B99A /* blockDesignTest02_parametric.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = blockDesignTest02_parametric.edl; sourceTree = "<group>"; };
-		00DE9C6E12F6EBB50089B99A /* designtest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = designtest.m; sourceTree = "<group>"; };
+		00DE9C6E12F6EBB50089B99A /* designtest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = designtest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		00DE9C7C12F6FE690089B99A /* allZeroRegressor.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = allZeroRegressor.edl; sourceTree = "<group>"; };
 		00DE9CBB12F72AF40089B99A /* noRegressor.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = noRegressor.edl; sourceTree = "<group>"; };
 		00E0434813E6A53F006B17B0 /* EDDataElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EDDataElement.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -792,6 +801,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0041E41D13E8057C00169848 /* AppKit.framework in Frameworks */,
+				00786E1813EEE08000BF2554 /* BARTSerialIOFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1058,6 +1068,8 @@
 				00B1ADA611465349008FC09D /* COEDLValidatorToken.h */,
 				00B1ADA711465349008FC09D /* COEDLValidatorToken.m */,
 				007934EB1150FBF7007BEB66 /* COErrorCode.h */,
+				00786E1413EED14600BF2554 /* COExperimentContext.h */,
+				00786E1513EED14600BF2554 /* COExperimentContext.m */,
 			);
 			path = CLETUS;
 			sourceTree = "<group>";
@@ -1286,12 +1298,8 @@
 				00DB77DE13EA8AD500BB6484 /* NEPresentationLogger.m */,
 				00DB77DF13EA8AD500BB6484 /* NEStimEvent.h */,
 				00DB77E013EA8AD500BB6484 /* NEStimEvent.m */,
-				00DB77E113EA8AD500BB6484 /* NETimelineView.h */,
-				00DB77E213EA8AD500BB6484 /* NETimelineView.m */,
 				00DB77E313EA8AD500BB6484 /* NETimetable.h */,
 				00DB77E413EA8AD500BB6484 /* NETimetable.m */,
-				00DB77E513EA8AD500BB6484 /* NEViewManager.h */,
-				00DB77E613EA8AD500BB6484 /* NEViewManager.m */,
 				00DB77E713EA8AD500BB6484 /* NEXMLFormatter.h */,
 				00DB77E813EA8AD500BB6484 /* NEXMLFormatter.m */,
 				009266AC13E5B4590025B384 /* NEDesignElement.h */,
@@ -1311,8 +1319,12 @@
 		00DB77D113EA8A4200BB6484 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				00DB77E513EA8AD500BB6484 /* NEViewManager.h */,
+				00DB77E613EA8AD500BB6484 /* NEViewManager.m */,
 				00DB77FF13EA8B1C00BB6484 /* NEPresentationView.h */,
 				00DB780013EA8B1C00BB6484 /* NEPresentationView.m */,
+				00DB77E113EA8AD500BB6484 /* NETimelineView.h */,
+				00DB77E213EA8AD500BB6484 /* NETimelineView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1326,6 +1338,8 @@
 				00DB780813EA8B4B00BB6484 /* NEPresentationController.m */,
 				00DB780B13EA8B4B00BB6484 /* NETimelineWindowController.h */,
 				00DB780C13EA8B4B00BB6484 /* NETimelineWindowController.m */,
+				00786E1013EEC80E00BF2554 /* NEPresentationExternalConditionController.h */,
+				00786E1113EEC80E00BF2554 /* NEPresentationExternalConditionController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1545,12 +1559,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				00C3A02B1144FF9700725668 /* COSystemConfig.h in Headers */,
+				007934EC1150FBF7007BEB66 /* COErrorCode.h in Headers */,
+				00786E1613EED14600BF2554 /* COExperimentContext.h in Headers */,
 				00B1AC24114554DB008FC09D /* COEDLValidator.h in Headers */,
 				00B1AC5911455E38008FC09D /* COXMLUtility.h in Headers */,
-				00B1AD1511456C2E008FC09D /* COEDLValidatorRule.h in Headers */,
 				00B1AD77114645A3008FC09D /* COEDLValidatorLiteral.h in Headers */,
 				00B1ADA811465349008FC09D /* COEDLValidatorToken.h in Headers */,
-				007934EC1150FBF7007BEB66 /* COErrorCode.h in Headers */,
+				00B1AD1511456C2E008FC09D /* COEDLValidatorRule.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1596,6 +1611,7 @@
 				00DB781313EA8B4B00BB6484 /* NEThermoWindowController.h in Headers */,
 				00DB782E13EA8C2E00BB6484 /* NEFeedbackHeli.h in Headers */,
 				00DB783213EA8C2E00BB6484 /* NEFeedbackThermo.h in Headers */,
+				00786E1213EEC80F00BF2554 /* NEPresentationExternalConditionController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1869,8 +1885,8 @@
 				CE8A2B3610F6250A002422B5 /* PBXBuildRule */,
 			);
 			dependencies = (
-				00BCD73913E00D17001C091A /* PBXTargetDependency */,
 				00C3A0231144FF0C00725668 /* PBXTargetDependency */,
+				00BCD73913E00D17001C091A /* PBXTargetDependency */,
 				00D441EF134B5B5400094A51 /* PBXTargetDependency */,
 			);
 			name = BARTApplication;
@@ -2249,6 +2265,7 @@
 				00B1AD1611456C2E008FC09D /* COEDLValidatorRule.m in Sources */,
 				00B1AD78114645A3008FC09D /* COEDLValidatorLiteral.m in Sources */,
 				00B1ADA911465349008FC09D /* COEDLValidatorToken.m in Sources */,
+				00786E1713EED14600BF2554 /* COExperimentContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2312,6 +2329,7 @@
 				00DB782F13EA8C2E00BB6484 /* NEFeedbackHeli.m in Sources */,
 				00DB783113EA8C2E00BB6484 /* NEFeedbackObject.m in Sources */,
 				00DB783313EA8C2E00BB6484 /* NEFeedbackThermo.m in Sources */,
+				00786E1313EEC80F00BF2554 /* NEPresentationExternalConditionController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3045,6 +3063,10 @@
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Library/Frameworks\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -3072,6 +3094,10 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Library/Frameworks\"",
+				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;

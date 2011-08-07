@@ -7,7 +7,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "COSystemConfig.h"
+#import "COExperimentContext.h"
 
 
 @interface NEMediaObjectTest : SenTestCase {

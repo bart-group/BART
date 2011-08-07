@@ -31,7 +31,7 @@
 
 -(id)initWithFrame:(NSRect)frameRect
 {
-    if (self = [super initWithFrame:frameRect]) {
+    if ((self = [super initWithFrame:frameRect])) {
         mMediaObjects     = [[NSMutableArray alloc] initWithCapacity:0];
         mLockMediaObjects = [[NSLock alloc] init];
         mDisplayCounts    = [[NSMutableDictionary alloc] initWithCapacity:0];

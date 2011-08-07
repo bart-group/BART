@@ -7,7 +7,7 @@
 //
 
 #import "BAAnalyzerGLMTest.h"
-#import "../../src/CLETUS/COSystemConfig.h"
+#import "../../src/CLETUS/COExperimentContext.h"
 #import "../../src/ARTIE/GLM/BAAnalyzerGLM.h"
 #import "BAAnalyzerGLMReference.h"
 #import "../../src/EDNA/EDDataElement.h"
@@ -25,11 +25,11 @@
 -(void)testAnalyzeDataAkk
 {
 
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	
 	STAssertNil([config fillWithContentsOfEDLFile:@"../tests/BARTMainAppTests/ConfigTestDataset02.edl"], @"error while loading config");
 	EDDataElement *inputData = [[EDDataElement alloc] initWithDataFile:@"../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
-	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicData];
 	
 	uint fwhm = 4;
 	uint minval = 2000;
@@ -82,7 +82,7 @@
 -(void)testAnalyzeDataAkkRandData
 {
 	
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	STAssertNil([config fillWithContentsOfEDLFile:@"../tests/BARTMainAppTests/ConfigTestDataset02.edl"], @"error while loading config");
 
 	
@@ -249,7 +249,7 @@
 -(void)testAnalyzeDataAkkVFiles
 {
 	//
-//	COSystemConfig *config = [COSystemConfig getInstance];
+//	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 //	
 //	STAssertNil([config fillWithContentsOfEDLFile:@"../tests/BARTMainAppTests/ConfigTestDataset02.edl"], @"error while loading config");
 //	EDDataElement *inputData = [[EDDataElement alloc] initWithDatasetFile:@"../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" ofImageDataType:IMAGE_DATA_FLOAT];
@@ -306,7 +306,7 @@
 
 -(void)testAnalyzeDataWithSlidingWindow{
 	
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	STAssertNil([config fillWithContentsOfEDLFile:@"../tests/BARTMainAppTests/ConfigTestDataset02.edl"], @"error while loading config");
 	
 	uint nrTimesteps = 220;
@@ -546,7 +546,7 @@
 -(void)testAnalyzeDataLimits
 {
 	
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	STAssertNil([config fillWithContentsOfEDLFile:@"../tests/BARTMainAppTests/ConfigTestDataset02.edl"], @"error while loading config");
 	
 	

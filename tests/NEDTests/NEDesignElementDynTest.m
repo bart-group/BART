@@ -8,7 +8,7 @@
 
 #import "NEDesignElementDynTest.h"
 #import "../../src/NED/NEDesignElementDyn.h"
-#import "../../src/CLETUS/COSystemConfig.h"
+#import "../../src/CLETUS/COExperimentContext.h"
 #import "NEDesignElementReference.h"
 
 @implementation NEDesignElementDynTest
@@ -55,7 +55,7 @@
 -(void) testInitWithDynamic {
 	
 	//normal case: for this test file: timeBasedRegressorNEDTest.edl
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
 	[config setProp:@"$nrTimesteps" :@"100"]; 
 	[config setProp:@"$TR" :@"1000"];
@@ -89,7 +89,7 @@
 
 -(void) testCopy
 {
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
 	
 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc]
@@ -160,7 +160,7 @@
 
 -(void)testGenerateDesign
 {
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
 	[config setProp:@"$nrTimesteps" :@"100"]; 
 	[config setProp:@"$TR" :@"320"];
@@ -216,7 +216,7 @@
 -(void)testUsualBlockDesign
 {
 	//test with blockDesignTest01.edl
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/blockDesignTest01.edl"];
 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	
@@ -240,7 +240,7 @@
 -(void)testUsualERDesign
 {
 	//test with erDesignTest01.edl
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest01.edl"];
 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	
@@ -267,7 +267,7 @@
 
 -(void)testDesignAllWithFirstDeriv
 {
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest02_deriv1AllReg.edl"];
 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	
@@ -291,7 +291,7 @@
 
 -(void)testDesignSomeWithFirstDeriv
 {
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest03_deriv1Reg1_3.edl"];
 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	
@@ -316,7 +316,7 @@
 
 -(void)testDesignAllWithSecondDeriv
 {
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest04_deriv2AllReg.edl"];
 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	
@@ -339,7 +339,7 @@
 
 -(void)testDesignSomeWithSecondDeriv
 {
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest05_deriv2Reg2_4.edl"];
 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	
@@ -364,7 +364,7 @@
 
 -(void)testParametricDesignER
 {
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest06_parametric.edl"];
 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	
@@ -388,7 +388,7 @@
 
 -(void)testParametricDesignBlock
 {
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/blockDesignTest02_parametric.edl"];
 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	
@@ -417,7 +417,7 @@
 	
 	//all zeros
 	
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/allZeroRegressor.edl"];
 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 	

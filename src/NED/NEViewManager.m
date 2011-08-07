@@ -10,7 +10,7 @@
 #import "NEControlWindowController.h"
 #import "NETimelineView.h"
 #import "NETimelineWindowController.h"
-#import "COSystemConfig.h"
+#import "COExperimentContext.h"
 #import "NEPresentationView.h"
 #import "NEPresentationController.h"
 #import "NEFeedbackObject.h"
@@ -122,7 +122,7 @@
 
 -(void)setupPresentationWindow
 {
-    COSystemConfig* config = [COSystemConfig getInstance];
+    COSystemConfig* config = [[COExperimentContext getInstance] systemConfig];
     NSRect presentationViewRect = NSMakeRect(0.0, 
                                              0.0, 
                                              [[config getProp:@"/rtExperiment/stimulusData/stimEnvironment/screen/screenResolutionX"] floatValue], 

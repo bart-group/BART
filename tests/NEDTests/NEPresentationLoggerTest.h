@@ -8,7 +8,7 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 #import "NEPresentationLogger.h"
-#import "COSystemConfig.h"
+#import "COExperimentContext.h"
 
 
 @interface NEPresentationLoggerTest : SenTestCase {

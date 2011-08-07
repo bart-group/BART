@@ -8,7 +8,7 @@
 
 #import "glmtest.h"
 
-#import "../../src/CLETUS/COSystemConfig.h"
+#import "../../src/CLETUS/COExperimentContext.h"
 #import "../../src/ARTIE/GLM/BAAnalyzerGLM.h"
 #import "BAAnalyzerGLMReference.h"
 #import "../../src/EDNA/EDDataElementVI.h"
@@ -22,7 +22,7 @@ int main(void)
 {
 	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	COSystemConfig *config = [COSystemConfig getInstance];
+	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	NSError *err = [config fillWithContentsOfEDLFile:@"../../tests/BARTMainAppTests/ConfigTestDataset02.edl"];
 	if (nil != err)
 		NSLog(@"%@", err);

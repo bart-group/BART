@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class EDDataElement;
-@class BADynamicDesignPipeline;
+@class NEDesignElement;
 @class BAAnalyzerElement;
 @class EDDataElementRealTimeLoader;
 @class COSystemConfig;
@@ -18,8 +18,7 @@
 @interface BAProcedurePipeline : NSObject {
 
 	EDDataElement *mInputData;
-    //NEDesignElement *mDesignData;
-    BADynamicDesignPipeline *dynamicDesignPipe;
+    NEDesignElement *mDesignData;
     EDDataElement *mResultData;
     BAAnalyzerElement *mAnalyzer;
     size_t mCurrentTimestep;
