@@ -14,6 +14,8 @@
 #import "COSystemConfig.h"
 #import "BARTSerialIOFramework/BARTSerialPortIONotifications.h"
 #import "BARTSerialIOFramework/SerialPort.h"
+#import "NED/NEDesignElement.h"
+#import "EDNA/EDDataElement.h"
 
 NSString * const BARTDidResetExperimentContextNotification = @"BARTDidResetExperimentContextNotification";
 
@@ -48,14 +50,18 @@ NSThread *eyeTracThread;
 NSThread *triggerThread;
 SerialPort *serialPortEyeTrac;
 SerialPort *serialPortTriggerAndButtonBox;
+NEDesignElement *designElemRef;
+EDDataElement *anatomyElemRef;
+EDDataElement *functionalOrigDataRef;
 
+dispatch_queue_t serialDesignElementAccessQueue;
 
 
 + (COExperimentContext*)getInstance
 {
     @synchronized(self) {
         if (sharedExperimentContext == nil) {
-            [[self alloc] init]; // assignment not done here
+            [[self alloc] init]; 
         }
     }
     return sharedExperimentContext;
@@ -76,6 +82,7 @@ SerialPort *serialPortTriggerAndButtonBox;
 {
     if ((self = [super init])){
         systemConfig = [COSystemConfig getInstance];
+        serialDesignElementAccessQueue = dispatch_queue_create("de.mpg.cbs.DesignElementAccesQueue", NULL);
     }
     
     return self;
@@ -364,5 +371,23 @@ SerialPort *serialPortTriggerAndButtonBox;
 	NSLog(@"The button pressed was: %@", [aNotification object]);
 }
 
+-(void)setDesign:(NEDesignElement*)newDesign
+{
+    dispatch_sync(serialDesignElementAccessQueue, ^{
+        designElemRef = newDesign;
+    });
+    
+}
+
+-(NEDesignElement*)getDesign
+{
+    __block NEDesignElement *resDesign;
+    dispatch_sync(serialDesignElementAccessQueue, ^{
+        resDesign = [designElemRef copy];
+    });
+    
+    return resDesign;
+    
+}
 
 @end

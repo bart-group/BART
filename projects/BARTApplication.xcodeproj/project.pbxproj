@@ -71,7 +71,7 @@
 		00662AC81181CFCD004980A0 /* NEDesignGloverKernelReference.c in Sources */ = {isa = PBXBuildFile; fileRef = 00662AC71181CFCD004980A0 /* NEDesignGloverKernelReference.c */; };
 		00664BF512ABF733005216E6 /* PRPreprocessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 0006F474122BFADD001DA2BB /* PRPreprocessor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00664BF812ABF734005216E6 /* PRPreprocessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F475122BFADD001DA2BB /* PRPreprocessor.m */; };
-		00786E1213EEC80F00BF2554 /* NEPresentationExternalConditionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 00786E1013EEC80E00BF2554 /* NEPresentationExternalConditionController.h */; };
+		00786E1213EEC80F00BF2554 /* NEPresentationExternalConditionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 00786E1013EEC80E00BF2554 /* NEPresentationExternalConditionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00786E1313EEC80F00BF2554 /* NEPresentationExternalConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00786E1113EEC80E00BF2554 /* NEPresentationExternalConditionController.m */; };
 		00786E1613EED14600BF2554 /* COExperimentContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 00786E1413EED14600BF2554 /* COExperimentContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00786E1713EED14600BF2554 /* COExperimentContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 00786E1513EED14600BF2554 /* COExperimentContext.m */; };
@@ -160,7 +160,7 @@
 		00DB77F813EA8AD500BB6484 /* NETimelineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77E213EA8AD500BB6484 /* NETimelineView.m */; };
 		00DB77F913EA8AD500BB6484 /* NETimetable.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77E313EA8AD500BB6484 /* NETimetable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00DB77FA13EA8AD500BB6484 /* NETimetable.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77E413EA8AD500BB6484 /* NETimetable.m */; };
-		00DB77FB13EA8AD500BB6484 /* NEViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77E513EA8AD500BB6484 /* NEViewManager.h */; };
+		00DB77FB13EA8AD500BB6484 /* NEViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77E513EA8AD500BB6484 /* NEViewManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00DB77FC13EA8AD500BB6484 /* NEViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77E613EA8AD500BB6484 /* NEViewManager.m */; };
 		00DB77FD13EA8AD500BB6484 /* NEXMLFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77E713EA8AD500BB6484 /* NEXMLFormatter.h */; };
 		00DB77FE13EA8AD500BB6484 /* NEXMLFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77E813EA8AD500BB6484 /* NEXMLFormatter.m */; };
@@ -1594,7 +1594,9 @@
 				00DB781513EA8B4B00BB6484 /* NETimelineWindowController.h in Headers */,
 				00DB77F913EA8AD500BB6484 /* NETimetable.h in Headers */,
 				00DB780D13EA8B4B00BB6484 /* NEControlWindowController.h in Headers */,
+				00786E1213EEC80F00BF2554 /* NEPresentationExternalConditionController.h in Headers */,
 				00DB781113EA8B4B00BB6484 /* NEPresentationController.h in Headers */,
+				00DB77FB13EA8AD500BB6484 /* NEViewManager.h in Headers */,
 				00EA8A6B135C725C00562F3B /* NEDesignKernel.h in Headers */,
 				00EA8A6E135C725E00562F3B /* NEDesignElementDyn.h in Headers */,
 				00EA8A72135C725F00562F3B /* NEDesignElementVI.h in Headers */,
@@ -1605,13 +1607,11 @@
 				00DB77F113EA8AD500BB6484 /* NEMediaText.h in Headers */,
 				00DB77F313EA8AD500BB6484 /* NEPresentationLogger.h in Headers */,
 				00DB77F713EA8AD500BB6484 /* NETimelineView.h in Headers */,
-				00DB77FB13EA8AD500BB6484 /* NEViewManager.h in Headers */,
 				00DB77FD13EA8AD500BB6484 /* NEXMLFormatter.h in Headers */,
 				00DB780F13EA8B4B00BB6484 /* NEHeliWindowController.h in Headers */,
 				00DB781313EA8B4B00BB6484 /* NEThermoWindowController.h in Headers */,
 				00DB782E13EA8C2E00BB6484 /* NEFeedbackHeli.h in Headers */,
 				00DB783213EA8C2E00BB6484 /* NEFeedbackThermo.h in Headers */,
-				00786E1213EEC80F00BF2554 /* NEPresentationExternalConditionController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

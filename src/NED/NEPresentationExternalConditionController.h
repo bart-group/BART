@@ -13,4 +13,6 @@
     
 }
 
+-(BOOL)isConditionFullfilledForMediaObjectID:(NSString*)mediaObjectID;
+
 @end

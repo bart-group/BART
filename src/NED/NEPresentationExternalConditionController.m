@@ -7,8 +7,27 @@
 //
 
 #import "NEPresentationExternalConditionController.h"
-
+#import "CLETUS/COExperimentContext.h"
 
 @implementation NEPresentationExternalConditionController
+
+COExperimentContext *expContext;
+
+-(id)init
+{
+    if ((self = [super init])){
+        expContext = [COExperimentContext getInstance];
+    }
+    return self;
+}
+
+
+
+
+-(BOOL)isConditionFullfilledForMediaObjectID:(NSString*)mediaObjectID
+{
+    
+        return NO;
+}
 
 @end

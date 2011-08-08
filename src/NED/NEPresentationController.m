@@ -6,16 +6,23 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+
+//internal presentation stuff
 #import "NEPresentationController.h"
 #import "NEMediaText.h"
 #import "NEStimEvent.h"
-#import "COExperimentContext.h"
 #import "NEPresentationLogger.h"
 #import "NELogFormatter.h"
 #import "NEViewManager.h"
+#import "NEPresentationExternalConditionController.h"
 
+//Feedback stuff
 #import "NEFeedbackHeli.h"
 #import "NEFeedbackThermo.h"
+
+//config 
+#import "COExperimentContext.h"
+
 
 /** The time interval for one update tick in milliseconds. */
 #define TICK_TIME 5
@@ -126,7 +133,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         mChangedEvents     = [[NSMutableArray alloc] initWithCapacity:0];
         mLockChangedEvents = [[NSLock alloc] init];
         
-        mLogger = [NEPresentationLogger sharedInstance];
+        mLogger = [NEPresentationLogger getInstance];
         
         mUpdateThread = [[NSThread alloc] initWithTarget:self selector:@selector(runUpdateThread) object:nil];
         mTR           = (NSUInteger) [[[[COExperimentContext getInstance] systemConfig] getProp:@"$TR"] integerValue];

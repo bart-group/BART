@@ -194,7 +194,7 @@
     [super dealloc];
 }
 
-+(NEPresentationLogger*)sharedInstance
++(NEPresentationLogger*)getInstance
 {
     /** Singleton object of NEPresentationLogger. */
     static NEPresentationLogger* mSingleton = nil;

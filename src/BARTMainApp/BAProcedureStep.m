@@ -11,11 +11,15 @@
 
 @implementation BAProcedureStep
 
+@synthesize configureComplete;
+@synthesize workDone;
+
 - (id)init
 {
     self = [super init];
     if (self) {
-        // Initialization code here.
+        configureComplete = NO;
+        workDone = NO;
     }
     
     return self;

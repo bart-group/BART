@@ -31,7 +31,7 @@
  *
  * \return The shared NEPresentationLogger instance.
  */
-+(NEPresentationLogger*)sharedInstance;
++(NEPresentationLogger*)getInstance;
 
 /**
  * Adds a message to the log.

@@ -10,9 +10,13 @@
 #import "BAProcedureStep.h"
 
 
+
 @interface BAProcedureStep_Paradigm : BAProcedureStep {
+    
+   
 @private
     
 }
+
 
 @end
