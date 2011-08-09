@@ -69,6 +69,10 @@ NSDictionary *dictExternalConditions;
         
 }
 
+-(NSEvent*)getAction:(NSEvent*)event
+{
+        
+}
 
 -(void)dealloc
 {

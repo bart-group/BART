@@ -58,10 +58,11 @@ NEViewManager* viewManager;
         
         
         designElement = [[NEDesignElement alloc] initWithDynamicData];
-        externalCondition = [[NEPresentationExternalConditionController alloc] init];
-        
+                
         //TODO : ask if Presentation is needed!!
-         [NEPresentationLogger getInstance];
+        [NEPresentationLogger getInstance];
+        
+
         
         NSArray* mediaObjects = nil;
         NETimetable* timetable = nil;
@@ -77,6 +78,12 @@ NEViewManager* viewManager;
             
             presentationController = [[NEPresentationController alloc] initWithView:viewManager
                                                                        andTimetable:timetable];
+            
+            //TODO: ask if it's a dynamic design
+            //if(dynamicDesign)
+            externalCondition = [[NEPresentationExternalConditionController alloc] initWithMediaObjects:mediaObjects];
+            [presentationController setMExternalConditionController:externalCondition];
+            
             [viewManager showAllWindows:nil];
         }
     }

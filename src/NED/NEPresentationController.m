@@ -72,10 +72,9 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 /* END Tuple class. */
 
 
-@interface NEPresentationController ()
+@interface NEPresentationController (PrivateMethods)
 
-@property (readwrite) NSUInteger mTriggerCount;
-@property (readwrite) NSTimeInterval mLastTriggersTime;
+
 
 /**
  * Entry point for mUpdateThread: creates an autorelease 
@@ -119,6 +118,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 
 @synthesize mTriggerCount;
 @synthesize mLastTriggersTime;
+@synthesize mExternalConditionController;
 
 -(id)initWithView:(NEViewManager*)view
      andTimetable:(NETimetable*)timetable
@@ -338,6 +338,9 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
     NSUInteger timeDifference = (NSUInteger) ((mCurrentTicksTime - [self mLastTriggersTime]) * 1000.0);
     //mTime = [self mTriggerCount] * mTR + timeDifference;
 
+    //ask for conditions
+    //mExternalConditionController
+    
     if (mTime <= [mTimetable duration]) {
         if (timeDifference < mTR - TICK_TIME) {
             mTime = ([self mTriggerCount] - 1) * mTR + timeDifference;
@@ -352,6 +355,30 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         
     } else {
         [mUpdateThread cancel];
+    }
+}
+
+-(void)checkForExternalConditions
+{
+    NEStimEvent* event = [mTimetable nextEventAtTime:mTime];
+    while (event) {
+      
+        if (YES == [mExternalConditionController isConditionFullfilledForMediaObjectID:[[event mediaObject] getID]])
+        {
+            ;
+        }
+        else
+        {
+            NEStimEvent* newEvent = [[NEStimEvent alloc] init];
+            [mExternalConditionController getAction:event];
+            [self enqueueEvent:newEvent asReplacementFor:event];
+        }
+        [mViewManager present:[event mediaObject]];
+        [NEStimEvent endTimeSortedInsertOf:event 
+                               inEventList:mEventsToEnd];
+        [mLogger logStartingEvent:event withTrigger:[self mTriggerCount]];
+        
+        event = [mTimetable nextEventAtTime:mTime];
     }
 }
 

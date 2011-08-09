@@ -13,12 +13,18 @@
 @class NEPresentationLogger;
 @class NELogFormatter;
 @class NEViewManager;
+@class NEPresentationExternalConditionController;
 
 /**
  * Controller for handling events and the general flow of the
  * presentation.
  */
 @interface NEPresentationController : NSObject {
+ 
+    /*
+     * the controller instance to check for Conditions of external devices
+     */
+    NEPresentationExternalConditionController* mExternalConditionController;
     
 @private
     /** The view manager for all windows and views. */
@@ -66,6 +72,10 @@
     /** The logger receiving all presentation log messages. */
     NEPresentationLogger* mLogger;
 }
+
+@property (readwrite, retain) NEPresentationExternalConditionController *mExternalConditionController;
+@property (readwrite) NSUInteger mTriggerCount;
+@property (readwrite) NSTimeInterval mLastTriggersTime;
 
 /**
  * Initializes a newly allocated NESceneController object.
