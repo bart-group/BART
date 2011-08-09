@@ -8,14 +8,26 @@
 
 #import <Foundation/Foundation.h>
 #import "COSystemConfig.h"
+#import "NED/NEDesignElement.h"
+#import "EDNA/EDDataElement.h"
+
 
 extern NSString * const BARTDidResetExperimentContextNotification;
 
 @interface COExperimentContext : NSObject <NSCopying> {
     COSystemConfig *systemConfig; 
+    NSDictionary *dictSerialIOPlugins;
+    NEDesignElement *designElemRef;
+    EDDataElement *anatomyElemRef;
+    EDDataElement *functionalOrigDataRef;
+
 }
 
 @property (readonly) COSystemConfig *systemConfig; 
+@property (readonly) NSDictionary *dictSerialIOPlugins;
+@property (readwrite, retain) NEDesignElement *designElemRef;
+@property (readwrite, retain) EDDataElement *anatomyElemRef;
+@property (readwrite, retain) EDDataElement *functionalOrigDataRef;;
 
 
 /**

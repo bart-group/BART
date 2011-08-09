@@ -14,8 +14,6 @@
 #import "COSystemConfig.h"
 #import "BARTSerialIOFramework/BARTSerialPortIONotifications.h"
 #import "BARTSerialIOFramework/SerialPort.h"
-#import "NED/NEDesignElement.h"
-#import "EDNA/EDDataElement.h"
 
 NSString * const BARTDidResetExperimentContextNotification = @"BARTDidResetExperimentContextNotification";
 
@@ -23,8 +21,8 @@ NSString * const BARTDidResetExperimentContextNotification = @"BARTDidResetExper
 
 @interface COExperimentContext (PrivateMethods)
 
--(void)setupSerialPortEyeTrac;
--(void)setupSerialPortTriggerAndButtonBox;
+-(SerialPort*)setupSerialPortEyeTrac;
+-(SerialPort*)setupSerialPortTriggerAndButtonBox;
 -(BOOL) pluginClassIsValid:(Class)pluginClass;
 -(NSArray*) loadPluginWithID:(NSString*)bundleIDStr;
 
@@ -41,18 +39,20 @@ NSString * const BARTDidResetExperimentContextNotification = @"BARTDidResetExper
 static COExperimentContext *sharedExperimentContext = nil;
 
 @synthesize systemConfig;
+@synthesize dictSerialIOPlugins;
+@synthesize designElemRef;
+@synthesize anatomyElemRef;
+@synthesize functionalOrigDataRef;
 
 COSystemConfig *config;
 BOOL useSerialPortEyeTrac;
 BOOL useSerialPortTriggerAndButtonBox;
-NSError *err;
+//NSError *err;
 NSThread *eyeTracThread;
 NSThread *triggerThread;
-SerialPort *serialPortEyeTrac;
-SerialPort *serialPortTriggerAndButtonBox;
-NEDesignElement *designElemRef;
-EDDataElement *anatomyElemRef;
-EDDataElement *functionalOrigDataRef;
+//SerialPort *serialPortEyeTrac;
+//SerialPort *serialPortTriggerAndButtonBox;
+
 
 dispatch_queue_t serialDesignElementAccessQueue;
 
@@ -90,6 +90,15 @@ dispatch_queue_t serialDesignElementAccessQueue;
 
 -(NSError*)reset 
 {
+    if ([eyeTracThread isExecuting] ){
+        [eyeTracThread cancel];
+    }
+    if ([triggerThread isExecuting]){
+        [triggerThread cancel];}
+    [dictSerialIOPlugins release];
+    [designElemRef release];
+    [anatomyElemRef release];
+    [functionalOrigDataRef release];
     return nil;
 }
 
@@ -119,17 +128,26 @@ dispatch_queue_t serialDesignElementAccessQueue;
 -(NSError*)initExternalDevices
 {
     NSError *err = nil;
+    NSMutableDictionary *mutableDictPlugins = [[NSMutableDictionary alloc] initWithCapacity:0];
+    
     // setup the serial port for the eye tracker device
     //TODO get from config
     useSerialPortTriggerAndButtonBox = NO;
     if (YES == useSerialPortTriggerAndButtonBox){
-        [self setupSerialPortTriggerAndButtonBox];
+        SerialPort *serialPortTriggerAndButtonBox = [[self setupSerialPortTriggerAndButtonBox] retain];
+        if (nil != serialPortTriggerAndButtonBox){
+            [mutableDictPlugins setObject:serialPortTriggerAndButtonBox forKey:[serialPortTriggerAndButtonBox deviceDescription]];
+        }
+        
     }
     // setup the serial port for the eye tracker device
     //TODO get from config:
     useSerialPortEyeTrac = NO;
     if (YES == useSerialPortEyeTrac){
-        [self setupSerialPortEyeTrac];
+        SerialPort* serialPortEyeTrac = [[self setupSerialPortEyeTrac] retain];
+        if (nil != serialPortEyeTrac){
+            [mutableDictPlugins setObject:serialPortEyeTrac forKey:[serialPortEyeTrac deviceDescription]];
+        }
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self 
@@ -140,6 +158,9 @@ dispatch_queue_t serialDesignElementAccessQueue;
                                              selector:@selector(buttonWasPressed:)
                                                  name:BARTSerialIOButtonBoxPressedKey object:nil];
     
+    dictSerialIOPlugins = [[NSDictionary alloc] initWithDictionary:mutableDictPlugins];
+    [mutableDictPlugins removeAllObjects];
+    [mutableDictPlugins release];
     return err;
     
 }
@@ -169,13 +190,13 @@ dispatch_queue_t serialDesignElementAccessQueue;
     return self;
 }
 
--(void)setupSerialPortEyeTrac
+-(SerialPort*)setupSerialPortEyeTrac
 {
 	//TODO: get from config
 	NSString *devPath = [[NSString alloc] initWithString:@"cu.usbserial   "];
 	NSString *descr = @"ASLEyeTrac";
 	
-	serialPortEyeTrac = [[SerialPort alloc] initSerialPortWithDevicePath:devPath deviceDescript:descr
+	SerialPort *serialPortEyeTrac = [[SerialPort alloc] initSerialPortWithDevicePath:devPath deviceDescript:descr
 															  symbolrate:57600 parity:PARNON andBits:CS8];
 	
 	//TODO: get from config
@@ -196,18 +217,19 @@ dispatch_queue_t serialDesignElementAccessQueue;
 		i++;
 	}
 	
-	err = [[NSError alloc] init];
+	NSError *err = [[NSError alloc] init];
 	eyeTracThread = [[NSThread alloc] initWithTarget:serialPortEyeTrac selector:@selector(startSerialPortThread:) object:err]; //TODO error object    
 	[eyeTracThread start];
+    return serialPortEyeTrac;
 }
 
--(void)setupSerialPortTriggerAndButtonBox
+-(SerialPort*)setupSerialPortTriggerAndButtonBox
 {
 	//TODO: get from config
 	NSString *devPath = [[NSString alloc] initWithString:@"cu.usbserial-FTDWH1DI"];
 	NSString *descr = @"TriggerAndButtonBox";
 	
-	serialPortTriggerAndButtonBox = [[SerialPort alloc] initSerialPortWithDevicePath:devPath deviceDescript:descr
+	SerialPort *serialPortTriggerAndButtonBox = [[SerialPort alloc] initSerialPortWithDevicePath:devPath deviceDescript:descr
                                                                           symbolrate:19200 parity:PARNON andBits:CS8];
 	
 	//TODO: get from config
@@ -229,9 +251,10 @@ dispatch_queue_t serialDesignElementAccessQueue;
 		i++;
 	}
 	
-	err = [[NSError alloc] init];
+	NSError *err = [[NSError alloc] init];
 	triggerThread = [[NSThread alloc] initWithTarget:serialPortTriggerAndButtonBox selector:@selector(startSerialPortThread:) object:err]; //TODO error object    
 	[triggerThread start];
+    return serialPortTriggerAndButtonBox;
 }
 
 
