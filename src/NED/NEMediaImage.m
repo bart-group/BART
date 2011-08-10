@@ -13,6 +13,9 @@
 
 @implementation NEMediaImage
 
+float mImageWidthHalf;
+float mImageHeightHalf;
+
 -(id)initWithID:(NSString*)objID
            file:(NSString*)path
       displayAt:(NSPoint)position
@@ -37,6 +40,9 @@
             [scaleFilter setValue:[NSNumber numberWithFloat:1.0] forKey:@"inputAspectRatio"];
             mImage = [[scaleFilter valueForKey:@"outputImage"] retain];
          
+            mImageWidthHalf = [mImage extent].size.width/2;
+            mImageHeightHalf = [mImage extent].size.height/2;
+
         /******/
         mPosition = position;
     }
@@ -54,9 +60,14 @@
 
 -(void)presentInContext:(CGContextRef)context andRect:(NSRect)rect
 {
+    //center the image to the position that is given
+	NSPoint pos;
+	pos.x = mPosition.x - mImageWidthHalf;
+	pos.y = mPosition.y - mImageHeightHalf;
+    
     CIContext* ciContext = [CIContext contextWithCGContext:context options:nil];
     [ciContext  drawImage:mImage
-                  atPoint:mPosition
+                  atPoint:pos
                  fromRect:rect];
 }
 
