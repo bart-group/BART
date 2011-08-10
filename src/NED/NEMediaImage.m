@@ -25,7 +25,19 @@
         NSArray* pathComponents = [[resolvedPath pathComponents] arrayByAddingObjectsFromArray:[path pathComponents]];
         resolvedPath = [NSString pathWithComponents:pathComponents];
         //TODO: error handling if file not found!
-        mImage    = [[CIImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:resolvedPath]];
+        //mImage    = [[CIImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:resolvedPath]];
+        
+        /*********/
+        //TODO : Scale Factor?!
+            CIImage *im    = [[CIImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:resolvedPath]];
+            // Resize the image
+            CIFilter *scaleFilter = [CIFilter filterWithName:@"CILanczosScaleTransform"];
+            [scaleFilter setValue:im forKey:@"inputImage"];
+            [scaleFilter setValue:[NSNumber numberWithFloat:0.5] forKey:@"inputScale"];
+            [scaleFilter setValue:[NSNumber numberWithFloat:1.0] forKey:@"inputAspectRatio"];
+            mImage = [[scaleFilter valueForKey:@"outputImage"] retain];
+         
+        /******/
         mPosition = position;
     }
     
