@@ -253,6 +253,11 @@
 		00EA8ED7135F02DA00562F3B /* EDIsisImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 00EA8ED6135F02DA00562F3B /* EDIsisImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		A7A4641513F40B1300426C70 /* ROTransformation.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A4641313F40B1300426C70 /* ROTransformation.h */; };
+		A7A4641613F40B1300426C70 /* ROTransformation.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A4641413F40B1300426C70 /* ROTransformation.m */; };
+		A7A4641713F40B1300426C70 /* ROTransformation.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A4641413F40B1300426C70 /* ROTransformation.m */; };
+		A7A476EE13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */; };
+		A7A476EF13F40EBE00426C70 /* isisRegistrationFactory3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A7A476ED13F40EBE00426C70 /* isisRegistrationFactory3D.hpp */; };
 		CE8A28C510F51058002422B5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED1922910AC8AD600FAFA4F /* QuartzCore.framework */; };
 		CE8A28D410F5121D002422B5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191F510AC8A7B00FAFA4F /* OpenGL.framework */; };
 		CE8A28D510F5121E002422B5 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */; };
@@ -688,8 +693,12 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* BARTApplication-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTApplication-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* BARTApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BARTApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7A4641313F40B1300426C70 /* ROTransformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROTransformation.h; sourceTree = "<group>"; };
+		A7A4641413F40B1300426C70 /* ROTransformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROTransformation.m; sourceTree = "<group>"; };
+		A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D_impl.hpp; sourceTree = "<group>"; };
+		A7A476ED13F40EBE00426C70 /* isisRegistrationFactory3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D.hpp; sourceTree = "<group>"; };
 		CE8A2A3910F61713002422B5 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
-		CE8B709110DA988F007AEB2B /* BARTUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BARTUnitTestSuite.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE8B709110DA988F007AEB2B /* BARTUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = BARTUnitTestSuite.octest; path = BARTApplication.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		CED191F510AC8A7B00FAFA4F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		CED1922910AC8AD600FAFA4F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
@@ -892,6 +901,10 @@
 			isa = PBXGroup;
 			children = (
 				0000B18713E1C92400029A41 /* Supporting Files */,
+				A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */,
+				A7A476ED13F40EBE00426C70 /* isisRegistrationFactory3D.hpp */,
+				A7A4641313F40B1300426C70 /* ROTransformation.h */,
+				A7A4641413F40B1300426C70 /* ROTransformation.m */,
 			);
 			path = TROY;
 			sourceTree = "<group>";
@@ -1535,6 +1548,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7A4641513F40B1300426C70 /* ROTransformation.h in Headers */,
+				A7A476EE13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp in Headers */,
+				A7A476EF13F40EBE00426C70 /* isisRegistrationFactory3D.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2149,6 +2165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7A4641613F40B1300426C70 /* ROTransformation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2157,6 +2174,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0000B19D13E1C92400029A41 /* TROYTests.m in Sources */,
+				A7A4641713F40B1300426C70 /* ROTransformation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3334,6 +3352,7 @@
 					/usr/local/lib,
 					/opt/local/lib,
 					/usr/lib,
+					"\"$(SRCROOT)/../../lipsia/build/src/old/lib_lipsia\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = "-ObjC";
@@ -3369,6 +3388,7 @@
 					/usr/local/lib,
 					/opt/local/lib,
 					/usr/lib,
+					"\"$(SRCROOT)/../../lipsia/build/src/old/lib_lipsia\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = "-ObjC";
