@@ -27,15 +27,15 @@ EDIsisImage::EDIsisImage(const isis::data::Image &src) : isis::data::Image(src)
 
 void EDIsisImage::appendVolume(isis::data::Image &img){
     
-    std::vector<boost::shared_ptr<isis::data::Chunk> > chVector = img.getChunksAsVector();
-    std::vector<boost::shared_ptr<isis::data::Chunk> >::iterator itVector;
+    std::vector<isis::data::Chunk > chVector = img.copyChunksToVector();
+    std::vector<isis::data::Chunk >::iterator itVector;
     for (itVector = chVector.begin(); itVector != chVector.end(); itVector++) {
-        (**itVector).join(img);
+        (*itVector).join(img);
     }
     
-	BOOST_FOREACH(boost::shared_ptr< isis::data::Chunk > p,chVector){
-        
-		lookup.push_back(p);
+	BOOST_FOREACH( isis::data::Chunk ch, chVector){
+        boost::shared_ptr<isis::data::Chunk> p(&ch);
+ 		lookup.push_back(p);
 	}
 	isis::util::FixedVector<size_t,4> sizeVector=getSizeAsVector();
 	sizeVector[isis::data::timeDim] += 1;

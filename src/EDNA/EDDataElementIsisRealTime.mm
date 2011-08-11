@@ -136,11 +136,11 @@
 	
 	mIsisImage->prepareToWrite();
 	std::list<isis::data::Chunk> chList;
-	std::vector<boost::shared_ptr<isis::data::Chunk> > chVector = mIsisImage->getChunksAsVector();
-	std::vector<boost::shared_ptr<isis::data::Chunk> >::iterator itVector;
+	std::vector<isis::data::Chunk> chVector = mIsisImage->copyChunksToVector();
+	std::vector<isis::data::Chunk> ::iterator itVector;
 	for (itVector = chVector.begin(); itVector != chVector.end(); itVector++) {
 		//(**itVector).join(*mIsisImage);
-		chList.push_back(**itVector);
+		chList.push_back(*itVector);
 	}
 	//std::copy(chVector.begin(), chVector.end(), chList.end())
     NSLog(@"ChunkList size: %lu", chList.size());
