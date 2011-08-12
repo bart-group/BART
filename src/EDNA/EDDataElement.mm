@@ -7,7 +7,7 @@
 //
 
 #import "EDDataElement.h"
-#import "EDDataElementVI.h"
+//#import "EDDataElementVI.h"
 #import "EDDataElementIsis.h"
 #import "EDDataElementIsisRealTime.h"
 //#import <Common/itkImage.h>
@@ -78,7 +78,7 @@
 		NSLog(@"No file to load");
 		return nil;
 	}
-    self = [[EDDataElementVI alloc] initWithFile:path ofImageDataType:type];
+//    self = [[EDDataElementVI alloc] initWithFile:path ofImageDataType:type];
     return self;
 }
 
@@ -87,7 +87,7 @@
 {
     //[self release];
     self = [super init];
-    self = [[EDDataElementVI alloc] initWithDataType:type andRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
+ //   self = [[EDDataElementVI alloc] initWithDataType:type andRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
     return self;
     
 }

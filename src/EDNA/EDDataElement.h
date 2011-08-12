@@ -8,6 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+#ifdef __cplusplus
+#include <itkImage.h>
+#endif
+
+
 
 enum ImageType {
     IMAGE_FCTDATA,
@@ -68,9 +73,6 @@ enum ImagePropertyID{
 -(id)initWithRows:(size_t)r andCols:(size_t)c andSlices:(size_t)s andTimesteps:(size_t)t;
 
 @end
-
-
-
 
 
 
@@ -167,5 +169,10 @@ enum ImagePropertyID{
 -(BOOL)isValid;
 
 -(NSArray*)getMinMaxOfDataElement;
+
+#ifdef __cplusplus
+-(itk::Image<float, 4>::Pointer)asITKImage;
+-(itk::Image<float, 3>::Pointer)asITKImage:(unsigned int)timestep;
+#endif
 
 @end

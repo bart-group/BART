@@ -260,7 +260,7 @@
 
 -(BOOL)WriteDataElementToFile:(NSString*)path
 {
-    char* outputFilename = VMalloc(sizeof(char)*UINT16_MAX);
+    char* outputFilename = (char*) VMalloc(sizeof(char)*UINT16_MAX);
     [path getCString:outputFilename maxLength:UINT16_MAX  encoding:NSUTF8StringEncoding];
     
     m_out_list = VCreateAttrList();
@@ -290,7 +290,7 @@
 {
     //NEW STUFF
    
-    char* inputFilename = VMalloc(sizeof(char) *UINT16_MAX);// = "/Users/user/Development/BR5T-functional.v";
+    char* inputFilename = (char*) VMalloc(sizeof(char) *UINT16_MAX);// = "/Users/user/Development/BR5T-functional.v";
     [path getCString:inputFilename maxLength:UINT16_MAX  encoding:NSUTF8StringEncoding]; //path lastPathComponent];
    
     if ( IMAGE_DATA_INT16 == type){
