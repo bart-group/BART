@@ -26,7 +26,9 @@
 
 -(void)testProperties
 {
-	EDDataElementIsis *dataEl = [[EDDataElementIsis alloc] initWithFile:@"../tests/BARTMainAppTests/testfiles/TestDataset01-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
+    NSString *curDir = [[NSBundle bundleForClass:[self class] ] resourcePath];
+    NSString *fileName = [NSString stringWithFormat:@"%@/TestDataset01-functional.nii", curDir ];
+	EDDataElementIsis *dataEl = [[EDDataElementIsis alloc] initWithFile:fileName andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
 	BARTImageSize *imSize = [[dataEl getImageSize] copy];
 	STAssertEquals(imSize.columns, (size_t)64, @"Incorrect number of columns.");
     STAssertEquals(imSize.rows, (size_t)64, @"Incorrect number of rows.");

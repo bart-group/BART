@@ -22,37 +22,31 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 -(id)init
 {
-	self = [super init];
+	if ( (self = [super init] ))
+    {
     
-//    if (type == IMAGE_DATA_FLOAT) {
-//        mImageDataType = type;
-//    } else {
-//        NSLog(@" NEDesignElementDyn.initWithFile: defaulting to IMAGE_DATA_FLOAT (other values are not supported)!");
-//        mImageDataType = IMAGE_DATA_FLOAT;
-//    }
-	
-	mDesignHasChanged = NO;
-	//NSLog(@"GenDesign GCD: START");
-	NSError *error = [self getPropertiesFromConfig];
-	if (nil != error){
-		NSLog(@"%@", error);
-		return nil;
-	}
-	//NSLog(@"GenDesign GCD: READCONFIG");
-    error = [self initDesign];
-	if (nil != error){
-		NSLog(@"%@", error);
-		return nil;
-	}
-	//NSLog(@"GenDesign GCD: INIT");   
-    error = [self generateDesign];
-	if (nil != error){
-		NSLog(@"%@", error);
-		return nil;
-	}
-    //NSLog(@"GenDesign GCD: END");
+        mDesignHasChanged = NO;
+        //NSLog(@"GenDesign GCD: START");
+        NSError *error = [self getPropertiesFromConfig];
+        if (nil != error){
+            NSLog(@"%@", error);
+            return nil;
+        }
+        //NSLog(@"GenDesign GCD: READCONFIG");
+        error = [self initDesign];
+        if (nil != error){
+            NSLog(@"%@", error);
+            return nil;
+        }
+        //NSLog(@"GenDesign GCD: INIT");   
+        error = [self generateDesign];
+        if (nil != error){
+            NSLog(@"%@", error);
+            return nil;
+        }
+        //NSLog(@"GenDesign GCD: END");
     
-    	
+    }
 	
 	//[self writeDesignFile:@"/tmp/testDesign.v"];
 	return self;
@@ -134,10 +128,10 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	//TODO: dynamic implementation
 	
 	
-	mRepetitionTimeInMs = [[f numberFromString:[config getProp:@"$TR"]] unsignedIntValue];
-	if (0 >= mRepetitionTimeInMs)
+	[self setMRepetitionTimeInMs: [[f numberFromString:[config getProp:@"$TR"]] unsignedIntValue]];
+	if (0 >= [self mRepetitionTimeInMs])
 	{
-		mRepetitionTimeInMs = 0;
+		[self setMRepetitionTimeInMs: 0];
 		return error = [NSError errorWithDomain:[NSString stringWithFormat:@"negative TR not possible"] code:TR_NOT_SPECIFIED userInfo:nil];
 	}
 	
@@ -164,7 +158,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	}
 
 	// calc number of samples for the fft - also needed for KernelInit
-	mNumberSamplesForInit = (mNumberTimesteps * mRepetitionTimeInMs) / samplingRateInMs + 10000;//add some seconds to avoid wrap around problems with fft, here defined as 10s
+	mNumberSamplesForInit = (mNumberTimesteps * [self mRepetitionTimeInMs]) / samplingRateInMs + 10000;//add some seconds to avoid wrap around problems with fft, here defined as 10s
 	
 	NSLog(@"indep Regressors without derivs: %d", mNumberEvents);
 	// with this initialise the regressor list
@@ -315,14 +309,14 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 -(NSError*)initDesign
 {
     BOOL zeromean = YES;
-	fprintf(stderr, " TR in ms = %d\n", mRepetitionTimeInMs);
+	fprintf(stderr, " TR in ms = %d\n", [self mRepetitionTimeInMs]);
 	
 	mTimeOfRepetitionStartInMs = (double *) malloc(sizeof(double) * mNumberTimesteps);
 	for (unsigned int i = 0; i < mNumberTimesteps; i++) {
-		mTimeOfRepetitionStartInMs[i] = (double) (i) * mRepetitionTimeInMs;//TODO: Gabi fragen letzter Zeitschritt im moment nicht einbezogen xx[i] = (double) i * tr * 1000.0;
+		mTimeOfRepetitionStartInMs[i] = (double) (i) * [self mRepetitionTimeInMs];//TODO: Gabi fragen letzter Zeitschritt im moment nicht einbezogen xx[i] = (double) i * tr * 1000.0;
 	}
 
-    unsigned long maxExpLengthInMs = mTimeOfRepetitionStartInMs[0] + mTimeOfRepetitionStartInMs[mNumberTimesteps - 1] + mRepetitionTimeInMs;//+1 repetition to add time of last rep
+    unsigned long maxExpLengthInMs = mTimeOfRepetitionStartInMs[0] + mTimeOfRepetitionStartInMs[mNumberTimesteps - 1] + [self mRepetitionTimeInMs];//+1 repetition to add time of last rep
     NSLog(@"Number timesteps: %d,  experiment duration: %.2f min\n", mNumberTimesteps, maxExpLengthInMs / 60000.0);
      /*
      ** check amplitude: must have zero mean for parametric designs
@@ -460,7 +454,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     
     VSetAttr(VImageAttrList(outDesign), "modality", NULL, VStringRepn, "X");
     VSetAttr(VImageAttrList(outDesign), "name", NULL, VStringRepn, "X");
-    VSetAttr(VImageAttrList(outDesign), "repetition_time", NULL, VLongRepn, (VLong) mRepetitionTimeInMs);
+    VSetAttr(VImageAttrList(outDesign), "repetition_time", NULL, VLongRepn, (VLong) [self mRepetitionTimeInMs]);
     VSetAttr(VImageAttrList(outDesign), "ntimesteps", NULL, VLongRepn, (VLong) mNumberTimesteps);
     
     VSetAttr(VImageAttrList(outDesign), "derivatives", NULL, VShortRepn, mRegressorList[0]->regDerivations);

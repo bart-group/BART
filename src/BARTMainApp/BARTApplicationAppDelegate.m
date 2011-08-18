@@ -45,7 +45,10 @@
 	
     procedurePipe = [[BAProcedurePipeline alloc] init];
     
-    NSError *err = [experimentContext resetWithEDLFile:@"../../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
+    
+    NSString *curDir = [[NSBundle mainBundle] resourcePath];
+    NSString *fileName = [NSString stringWithFormat:@"%@/timeBasedRegressorNEDTest.edl", curDir ];
+    NSError *err = [experimentContext resetWithEDLFile:fileName];
     if (err) {
         NSLog(@"%@", err);
 	}

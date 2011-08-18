@@ -80,7 +80,10 @@
 	//FILE LOAD STUFF
 	if (FALSE == isRealTimeTCPInput){
 		// setup the input data
-		mInputData = [[EDDataElement alloc] initWithDataFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
+        NSString *curDir = [[NSBundle mainBundle] resourcePath];
+        NSString *fileName = [NSString stringWithFormat:@"%@/TestDataset02-functional.nii", curDir ];
+        
+		mInputData = [[EDDataElement alloc] initWithDataFile:fileName andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
 		if (nil == mInputData) {
 			return FALSE;
 		}
