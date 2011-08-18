@@ -81,6 +81,7 @@
 		00673D3C13FC20DD0056BD4F /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AE13E805FF00169848 /* NED.dylib */; };
 		00673D3D13FC20F20056BD4F /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
 		00673D3E13FC20F50056BD4F /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
+		00673D3F13FD4A670056BD4F /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
 		00786E1213EEC80F00BF2554 /* NEPresentationExternalConditionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 00786E1013EEC80E00BF2554 /* NEPresentationExternalConditionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00786E1313EEC80F00BF2554 /* NEPresentationExternalConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00786E1113EEC80E00BF2554 /* NEPresentationExternalConditionController.m */; };
 		00786E1613EED14600BF2554 /* COExperimentContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 00786E1413EED14600BF2554 /* COExperimentContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -788,6 +789,7 @@
 				00D444DC134DEB4100094A51 /* libvia.dylib in Frameworks */,
 				00D444DD134DEB4200094A51 /* libviaio.dylib in Frameworks */,
 				00EA8AC1135C764F00562F3B /* libboost_date_time.dylib in Frameworks */,
+				00673D3F13FD4A670056BD4F /* EDNA.dylib in Frameworks */,
 				00EA8AC2135C764F00562F3B /* libboost_filesystem.dylib in Frameworks */,
 				00EA8AC3135C764F00562F3B /* libboost_regex.dylib in Frameworks */,
 				00EA8AC4135C764F00562F3B /* libboost_system.dylib in Frameworks */,

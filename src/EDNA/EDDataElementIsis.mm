@@ -27,8 +27,7 @@
 -(id)initWithFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect ofImageType:(enum ImageType)iType
 {
 	self = [super init];
-    justatest = @"IM JUST A TEST";
-	mImageSize = [[BARTImageSize alloc] init];
+    mImageSize = [[BARTImageSize alloc] init];
 	// set  isis loglevels
 	//isis::data::ImageList images;
 	std::list<isis::data::Image> images;
@@ -53,7 +52,7 @@
 	// make a real copy including conversion to float
 	isis::data::MemImage<float> memImg = ((mIsisImageList.front()));
 	//splice the whatever build image to a slice-chunked one (each 2D is a single chunk - easier access later on)
-   // memImg.spliceDownTo(isis::data::sliceDim);
+    memImg.spliceDownTo(isis::data::sliceDim);
 	// give this copy to our class element
 	mIsisImage = new isis::data::Image(memImg); 
 	// get our class params from the image itself
@@ -74,32 +73,27 @@
     if ((self = [super init])) {
 		
 		mImageSize = [s copy];
-        //mImageSize.columns = s->columns;
-        //mImageSize.rows = s->rows;
-        //mImageSize.slices = s->slices;
-        //mImageSize.timesteps = s->timesteps;
-		mDataTypeID = isis::data::ValuePtr<float>::staticID;
+        mDataTypeID = isis::data::ValuePtr<float>::staticID;
 		mImageType = iType;
 	}
     
 	// empty isis image
-    //mIsisImage = isis::data::Image();
     std::list<isis::data::Chunk> chList;
     
 	// create it with each slice and each timestep as a chunk and with type float (loaded ones are converted)
-	//for (size_t ts = 0; ts < mImageSize.timesteps; ts++){
-	//	for (size_t sl = 0; sl < mImageSize.slices; sl++){
-			isis::data::MemChunk<float> ch(mImageSize.columns, mImageSize.rows, mImageSize.slices, mImageSize.timesteps);
-			ch.setPropertyAs<isis::util::fvector4>("indexOrigin", isis::util::fvector4(0,0,1));//sl
-			ch.setPropertyAs<u_int32_t>("acquisitionNumber", 1);//sl+ts*mImageSize.slices
+	for (size_t ts = 0; ts < mImageSize.timesteps; ts++){
+		for (size_t sl = 0; sl < mImageSize.slices; sl++){
+			isis::data::MemChunk<float> ch(mImageSize.columns, mImageSize.rows);
+			ch.setPropertyAs<isis::util::fvector4>("indexOrigin", isis::util::fvector4(0,0,sl));//sl
+			ch.setPropertyAs<u_int32_t>("acquisitionNumber", sl+ts*mImageSize.slices);//sl+ts*mImageSize.slices
 			ch.setPropertyAs<u_int16_t>("sequenceNumber", 1);
 			ch.setPropertyAs<isis::util::fvector4>("voxelSize", isis::util::fvector4(1,1,1,0));
 			ch.setPropertyAs<isis::util::fvector4>("rowVec", isis::util::fvector4(1,0,0,0));
 			ch.setPropertyAs<isis::util::fvector4>("columnVec", isis::util::fvector4(0,1,0,0));
 			ch.setPropertyAs<isis::util::fvector4>("sliceVec", isis::util::fvector4(0,0,1,0));
 			chList.push_back(ch);
-	//	}
-	//}
+		}
+	}
 
     mIsisImage = new isis::data::Image(chList);
    return self;
@@ -478,11 +472,14 @@
 		}
 		else									// everything else is interpreted as string (conversion by isis)
 		{
-			std::string prop = "";
-			if (mIsisImage->hasProperty([str cStringUsingEncoding:NSISOLatin1StringEncoding])){
-				std::string prop = mIsisImage->getPropertyAs<std::string>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);}
+            std::string prop = "";
+			if (mIsisImage->hasProperty([str cStringUsingEncoding:NSISOLatin1StringEncoding]))
+            {
+				prop = mIsisImage->getPropertyAs<std::string>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);
+            }
 			NSString* ret = [[NSString stringWithCString:prop.c_str() encoding:NSISOLatin1StringEncoding] autorelease];
 			[propValues addObject:ret];
+            
 		}
 	} 
 		
@@ -504,8 +501,10 @@
 			or [[str lowercaseString] isEqualToString:@"voxelgap"])
 		{
 			isis::util::fvector4 prop;
-			if (YES == [[propDict valueForKey:str] isKindOfClass:[NSArray class]]){
-				for (unsigned int i = 0; i < [[propDict valueForKey:str] count]; i++){
+            if (YES == [[propDict valueForKey:str] isKindOfClass:[NSArray class]]){
+                //fvector4 consists of 4 values - if array is longer will be ignored
+                size_t maxCount = [[propDict valueForKey:str] count] < 4 ? [[propDict valueForKey:str] count] : 4;
+				for (size_t i = 0; i < maxCount; i++){
 					prop[i] = [[[propDict valueForKey:str] objectAtIndex:i] floatValue];}
 				mIsisImage->setPropertyAs<isis::util::fvector4>([str cStringUsingEncoding:NSISOLatin1StringEncoding], prop);
 			}
@@ -539,7 +538,8 @@
 			if (YES == [[propDict valueForKey:str] isKindOfClass:[NSString class]]){
 				std::string prop = [[propDict valueForKey:str]  cStringUsingEncoding:NSISOLatin1StringEncoding];
 				NSLog(@"%s", prop.c_str());
-				mIsisImage->setPropertyAs<std::string>([str  cStringUsingEncoding:NSISOLatin1StringEncoding], prop.c_str());}
+				mIsisImage->setPropertyAs<std::string>([str  cStringUsingEncoding:NSISOLatin1StringEncoding], prop.c_str());
+            }
 		}
 	} 
 	
