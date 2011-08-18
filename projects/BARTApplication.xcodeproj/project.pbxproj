@@ -3217,6 +3217,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = CLETUS;
 				TEMP_DIR = /tmp/doxygen_temp;
+				TEST_AFTER_BUILD = NO;
 				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
@@ -3243,6 +3244,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				PRODUCT_NAME = CLETUS;
+				TEST_AFTER_BUILD = NO;
 				VALID_ARCHS = x86_64;
 				ZERO_LINK = NO;
 			};
@@ -3271,6 +3273,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = CLETUSUnitTestSuite;
+				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -3297,6 +3300,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = CLETUSUnitTestSuite;
+				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
@@ -3571,6 +3575,7 @@
 					/opt/local/include/InsightToolkit/Utilities/vxl/core,
 					/opt/local/include/InsightToolkit/Utilities/vxl/vcl,
 					/opt/local/include/InsightToolkit,
+					/opt/local/include/InsightToolkit/BasicFilters,
 					/opt/local/include/InsightToolkit/Common,
 				);
 				LIBRARY_SEARCH_PATHS = (
@@ -3622,6 +3627,7 @@
 					/opt/local/include/InsightToolkit/Utilities/vxl/core,
 					/opt/local/include/InsightToolkit/Utilities/vxl/vcl,
 					/opt/local/include/InsightToolkit,
+					/opt/local/include/InsightToolkit/BasicFilters,
 					/opt/local/include/InsightToolkit/Common,
 				);
 				LIBRARY_SEARCH_PATHS = (
