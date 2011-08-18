@@ -7,8 +7,8 @@
 //
 
 #import "NEDesignElementDynTest.h"
-#import "../../src/NED/NEDesignElementDyn.h"
-#import "../../src/CLETUS/COExperimentContext.h"
+#import "NED/NEDesignElementDyn.h"
+#import "CLETUS/COExperimentContext.h"
 #import "NEDesignElementReference.h"
 
 @implementation NEDesignElementDynTest
@@ -21,9 +21,9 @@
 
 - (void) testProperties {
 	
-	NEDesignElementDyn *designEl = [[NEDesignElement alloc] init];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] init];
 	
-	STAssertTrue([designEl mNumberTimesteps] == 0, @"initial value timesteps in design not null");
+    STAssertTrue([designEl mNumberTimesteps] == (unsigned int)(0), @"initial value timesteps in design not null");
 	[designEl setMNumberTimesteps: 896];
 	STAssertTrue([designEl mNumberTimesteps] == 896, @"set positive value not correctly");
 	
@@ -56,30 +56,29 @@
 	
 	//normal case: for this test file: timeBasedRegressorNEDTest.edl
 	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
-	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
+	[config fillWithContentsOfEDLFile:@"../../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
 	[config setProp:@"$nrTimesteps" :@"100"]; 
 	[config setProp:@"$TR" :@"1000"];
 		
 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc]
-                initWithDynamicDataOfImageDataType: IMAGE_DATA_FLOAT];
+                initWithDynamicData];
 	STAssertEquals(designEl.mNumberCovariates, (unsigned int)(0), @"Incorrect number of covariates.");
-	STAssertEquals(designEl.mNumberRegressors, (unsigned int)(3), @"Incorrect number of regressors.");
-	STAssertEquals(designEl.mNumberTimesteps,  (unsigned int)100, @"Incorrect number of timesteps.");
-	STAssertEquals(designEl.mNumberExplanatoryVariables,(unsigned int) (3), @"Incorrect number of explanatory variables.");
+	STAssertEquals(designEl.mNumberRegressors, (unsigned int)(2), @"Incorrect number of regressors.");
+	STAssertEquals(designEl.mNumberTimesteps,  (unsigned int)720, @"Incorrect number of timesteps.");
+	STAssertEquals(designEl.mNumberExplanatoryVariables,(unsigned int) (2), @"Incorrect number of explanatory variables.");
     STAssertEquals(designEl.mRepetitionTimeInMs, (unsigned int) (1000), @"Incorrect repetition time.");
-    STAssertEquals(designEl.mImageDataType, IMAGE_DATA_FLOAT, @"Incorrect image data type.");
-	STAssertTrue(nil != [designEl getValueFromExplanatoryVariable: 0 atTimestep: 5] , @"return value of initalized design must not be zero" );
+    STAssertTrue(nil != [designEl getValueFromExplanatoryVariable: 0 atTimestep: 5] , @"return value of initalized design must not be zero" );
 	[designEl release];
 	
 	//config file not available	
 	[config fillWithContentsOfEDLFile:@"/tmp/dunno.edl"];
-	designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType: IMAGE_DATA_FLOAT];
+	designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
 	STAssertEquals(designEl.mNumberCovariates, (unsigned int)(0), @"Incorrect number of covariates.");
 	STAssertEquals(designEl.mNumberRegressors, (unsigned int)(0), @"Incorrect number of regressors.");
 	STAssertEquals(designEl.mNumberTimesteps,  (unsigned int)0, @"Incorrect number of timesteps.");
 	STAssertEquals(designEl.mNumberExplanatoryVariables,(unsigned int) (0), @"Incorrect number of explanatory variables.");
     STAssertEquals(designEl.mRepetitionTimeInMs, (unsigned int) (0), @"Incorrect repetition time.");
-    STAssertEquals(designEl.mImageDataType, IMAGE_DATA_FLOAT, @"Incorrect image data type.");
+    
 	STAssertTrue(nil == [designEl getValueFromExplanatoryVariable: 23 atTimestep: 5], @"return value of uninitalized design must be zero" );
 	STAssertTrue(nil == [designEl getValueFromExplanatoryVariable: 0 atTimestep: 0] , @"return value of uninitalized design must be zero" );
 	
@@ -90,10 +89,10 @@
 -(void) testCopy
 {
 	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
-	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
+	[config fillWithContentsOfEDLFile:@"../../../../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
 	
 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc]
-                initWithDynamicDataOfImageDataType: IMAGE_DATA_FLOAT];
+                initWithDynamicData];
 	
 	[config setProp:@"$nrTimesteps" :@"100"]; 
 	[config setProp:@"$TR" :@"1000"];
@@ -133,8 +132,7 @@
 	STAssertEquals(designEl.mNumberTimesteps,  copyDesign.mNumberTimesteps, @"Incorrect number of timesteps.");
 	STAssertEquals(designEl.mNumberExplanatoryVariables,copyDesign.mNumberExplanatoryVariables, @"Incorrect number of explanatory variables.");
     STAssertEquals(designEl.mRepetitionTimeInMs, copyDesign.mRepetitionTimeInMs, @"Incorrect repetition time.");
-    STAssertEquals(copyDesign.mImageDataType, IMAGE_DATA_FLOAT, @"Incorrect image data type.");
-	
+    
 	for (unsigned int i = 0; i < designEl.mNumberExplanatoryVariables; i++){
 		for (unsigned int t = 0; t < designEl.mNumberTimesteps; t++)
 		{
@@ -161,7 +159,7 @@
 -(void)testGenerateDesign
 {
 	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
-	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
+	[config fillWithContentsOfEDLFile:@"../../../../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
 	[config setProp:@"$nrTimesteps" :@"100"]; 
 	[config setProp:@"$TR" :@"320"];
 	
@@ -191,7 +189,7 @@
 	}
 	
 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc]
-                initWithDynamicDataOfImageDataType: IMAGE_DATA_FLOAT];
+                initWithDynamicData];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -217,8 +215,8 @@
 {
 	//test with blockDesignTest01.edl
 	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
-	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/blockDesignTest01.edl"];
-	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	[config fillWithContentsOfEDLFile:@"../../../../tests/NEDTests/blockDesignTest01.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -241,8 +239,8 @@
 {
 	//test with erDesignTest01.edl
 	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
-	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest01.edl"];
-	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	[config fillWithContentsOfEDLFile:@"../../../../tests/NEDTests/erDesignTest01.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -268,8 +266,8 @@
 -(void)testDesignAllWithFirstDeriv
 {
 	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
-	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest02_deriv1AllReg.edl"];
-	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	[config fillWithContentsOfEDLFile:@"../../../../tests/NEDTests/erDesignTest02_deriv1AllReg.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -292,8 +290,8 @@
 -(void)testDesignSomeWithFirstDeriv
 {
 	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
-	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest03_deriv1Reg1_3.edl"];
-	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	[config fillWithContentsOfEDLFile:@"../../../../tests/NEDTests/erDesignTest03_deriv1Reg1_3.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -317,8 +315,8 @@
 -(void)testDesignAllWithSecondDeriv
 {
 	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
-	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest04_deriv2AllReg.edl"];
-	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	[config fillWithContentsOfEDLFile:@"../../../../tests/NEDTests/erDesignTest04_deriv2AllReg.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -340,8 +338,8 @@
 -(void)testDesignSomeWithSecondDeriv
 {
 	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
-	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest05_deriv2Reg2_4.edl"];
-	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	[config fillWithContentsOfEDLFile:@"../../../../tests/NEDTests/erDesignTest05_deriv2Reg2_4.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -365,8 +363,8 @@
 -(void)testParametricDesignER
 {
 	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
-	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/erDesignTest06_parametric.edl"];
-	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	[config fillWithContentsOfEDLFile:@"../../../../tests/NEDTests/erDesignTest06_parametric.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -389,8 +387,8 @@
 -(void)testParametricDesignBlock
 {
 	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
-	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/blockDesignTest02_parametric.edl"];
-	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	[config fillWithContentsOfEDLFile:@"../../../../tests/NEDTests/blockDesignTest02_parametric.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -418,8 +416,8 @@
 	//all zeros
 	
 	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
-	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/allZeroRegressor.edl"];
-	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	[config fillWithContentsOfEDLFile:@"../../../../tests/NEDTests/allZeroRegressor.edl"];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
 	
 			
 	for (uint ev = 0; ev < [designEl mNumberExplanatoryVariables]; ev++){
@@ -435,7 +433,7 @@
 	
 	//no regressors
 	[config fillWithContentsOfEDLFile:@"../tests/NEDTests/noRegressor.edl"];
-	designEl = [[NEDesignElementDyn alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
 	
 	
 	for (uint ev = 0; ev < [designEl mNumberExplanatoryVariables]; ev++){

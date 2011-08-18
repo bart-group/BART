@@ -7,8 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "../../src/EDNA/EDDataElement.h"
-#import "../../src/NED/NEDesignElement.h"
+#import "EDNA/EDDataElement.h"
+#import "NED/NEDesignElement.h"
 
 
 #define MBETA    64   /* max number of covariates */

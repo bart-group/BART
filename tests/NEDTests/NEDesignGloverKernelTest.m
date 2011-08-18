@@ -9,7 +9,7 @@
 #import "NEDesignGloverKernelTest.h"
 #import "NEDesignGloverKernel.h"
 #import "NEDesignGloverKernelReference.h"
-#import "../../src/CLETUS/COExperimentContext.h"
+#import "CLETUS/COExperimentContext.h"
 @implementation NEDesignGloverKernelTest
 
 

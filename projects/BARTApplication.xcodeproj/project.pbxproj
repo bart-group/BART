@@ -71,6 +71,16 @@
 		00662AC81181CFCD004980A0 /* NEDesignGloverKernelReference.c in Sources */ = {isa = PBXBuildFile; fileRef = 00662AC71181CFCD004980A0 /* NEDesignGloverKernelReference.c */; };
 		00664BF512ABF733005216E6 /* PRPreprocessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 0006F474122BFADD001DA2BB /* PRPreprocessor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00664BF812ABF734005216E6 /* PRPreprocessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F475122BFADD001DA2BB /* PRPreprocessor.m */; };
+		00673D3413FC1E380056BD4F /* COExperimentContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 00786E1513EED14600BF2554 /* COExperimentContext.m */; };
+		00673D3613FC1E9B0056BD4F /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AE13E805FF00169848 /* NED.dylib */; };
+		00673D3713FC1E9D0056BD4F /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
+		00673D3813FC1E9F0056BD4F /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AF13E805FF00169848 /* CLETUS.dylib */; };
+		00673D3913FC1EB90056BD4F /* BARTSerialIOFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DB76B513E84BFC00BB6484 /* BARTSerialIOFramework.framework */; };
+		00673D3A13FC1F640056BD4F /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
+		00673D3B13FC1F980056BD4F /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AF13E805FF00169848 /* CLETUS.dylib */; };
+		00673D3C13FC20DD0056BD4F /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AE13E805FF00169848 /* NED.dylib */; };
+		00673D3D13FC20F20056BD4F /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
+		00673D3E13FC20F50056BD4F /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00786E1213EEC80F00BF2554 /* NEPresentationExternalConditionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 00786E1013EEC80E00BF2554 /* NEPresentationExternalConditionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00786E1313EEC80F00BF2554 /* NEPresentationExternalConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00786E1113EEC80E00BF2554 /* NEPresentationExternalConditionController.m */; };
 		00786E1613EED14600BF2554 /* COExperimentContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 00786E1413EED14600BF2554 /* COExperimentContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -93,6 +103,8 @@
 		008878241147B445009C7707 /* edlValidation_rules.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 008878201147B445009C7707 /* edlValidation_rules.xsd */; };
 		008878251147B445009C7707 /* rtExperiment_v14_w_timebased.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 008878211147B445009C7707 /* rtExperiment_v14_w_timebased.xsd */; };
 		008878261147B445009C7707 /* timeBasedRegressor.edl in Resources */ = {isa = PBXBuildFile; fileRef = 008878221147B445009C7707 /* timeBasedRegressor.edl */; };
+		008CC1BA13FC173E008A3CB0 /* COExperimentContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 00786E1513EED14600BF2554 /* COExperimentContext.m */; };
+		008CC1BB13FC1767008A3CB0 /* BARTSerialIOFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DB76B513E84BFC00BB6484 /* BARTSerialIOFramework.framework */; };
 		009266AE13E5B4590025B384 /* NEDesignElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 009266AC13E5B4590025B384 /* NEDesignElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		009266AF13E5B4590025B384 /* NEDesignElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 009266AD13E5B4590025B384 /* NEDesignElement.m */; };
 		00AE42B1133CB00400F2D01D /* BARTNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AE42B0133CB00400F2D01D /* BARTNotifications.m */; };
@@ -197,7 +209,6 @@
 		00E63B86135325D500DC8A50 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00E63C8E1353382100DC8A50 /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D4409A134B4DCC00094A51 /* libisis_core.dylib */; };
 		00E63C9F13533ED900DC8A50 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
-		00E7A648117EF24F00696498 /* NEDesignElementVITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E7A646117EF24F00696498 /* NEDesignElementVITest.m */; };
 		00E7A649117EF24F00696498 /* blockDesignTest01.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00E7A647117EF24F00696498 /* blockDesignTest01.edl */; };
 		00E7A656117EF60900696498 /* NEDesignElementDynTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E7A655117EF60900696498 /* NEDesignElementDynTest.m */; };
 		00EA897F135C656600562F3B /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D4409A134B4DCC00094A51 /* libisis_core.dylib */; };
@@ -722,6 +733,7 @@
 				00E63B82135325D200DC8A50 /* libboost_filesystem-mt.dylib in Frameworks */,
 				00E63B83135325D300DC8A50 /* libboost_regex-mt.dylib in Frameworks */,
 				00E63B84135325D300DC8A50 /* libboost_system-mt.dylib in Frameworks */,
+				00673D3A13FC1F640056BD4F /* EDNA.dylib in Frameworks */,
 				00E63B85135325D500DC8A50 /* libvia.dylib in Frameworks */,
 				00E63B86135325D500DC8A50 /* libviaio.dylib in Frameworks */,
 				00E63C8E1353382100DC8A50 /* libisis_core.dylib in Frameworks */,
@@ -793,6 +805,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00673D3B13FC1F980056BD4F /* CLETUS.dylib in Frameworks */,
+				00673D3C13FC20DD0056BD4F /* NED.dylib in Frameworks */,
+				00673D3E13FC20F50056BD4F /* libviaio.dylib in Frameworks */,
+				00673D3D13FC20F20056BD4F /* libvia.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -809,6 +825,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				008CC1BB13FC1767008A3CB0 /* BARTSerialIOFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -878,9 +895,13 @@
 				00EA8DCF135D870400562F3B /* libboost_filesystem.dylib in Frameworks */,
 				00EA8DD1135D870500562F3B /* libboost_regex.dylib in Frameworks */,
 				00EA8DD2135D870600562F3B /* libboost_system.dylib in Frameworks */,
+				00673D3713FC1E9D0056BD4F /* EDNA.dylib in Frameworks */,
 				00EA8DD4135D870700562F3B /* libisis_core.dylib in Frameworks */,
+				00673D3813FC1E9F0056BD4F /* CLETUS.dylib in Frameworks */,
 				00EA8DDA135D871A00562F3B /* libvia.dylib in Frameworks */,
+				00673D3613FC1E9B0056BD4F /* NED.dylib in Frameworks */,
 				00EA8DDB135D871B00562F3B /* libviaio.dylib in Frameworks */,
+				00673D3913FC1EB90056BD4F /* BARTSerialIOFramework.framework in Frameworks */,
 				00EA8DF2135D879B00562F3B /* libfftw3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2239,7 +2260,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E7A648117EF24F00696498 /* NEDesignElementVITest.m in Sources */,
 				00E7A656117EF60900696498 /* NEDesignElementDynTest.m in Sources */,
 				0066277211804494004980A0 /* NEDesignGloverKernelTest.m in Sources */,
 				006627731180449F004980A0 /* NEDesignKernelTest.m in Sources */,
@@ -2278,6 +2298,7 @@
 				00B1AC34114556C3008FC09D /* COEDLValidatorTest.m in Sources */,
 				00B1AC81114562A8008FC09D /* COXMLUtility.m in Sources */,
 				00B1ACDC114565CE008FC09D /* COEDLValidator.m in Sources */,
+				008CC1BA13FC173E008A3CB0 /* COExperimentContext.m in Sources */,
 				00B1AD1B11456C47008FC09D /* COEDLValidatorRule.m in Sources */,
 				00B1ADF0114670BE008FC09D /* COEDLValidatorToken.m in Sources */,
 				008877CC1147A5ED009C7707 /* COEDLValidatorLiteralTest.m in Sources */,
@@ -2368,6 +2389,7 @@
 			files = (
 				0006F482122BFC54001DA2BB /* BAAnalyzerGLMTest.m in Sources */,
 				0006F540122D3366001DA2BB /* BAAnalyzerGLMReference.m in Sources */,
+				00673D3413FC1E380056BD4F /* COExperimentContext.m in Sources */,
 				00B50B3F123921B900BBCEB8 /* BAAnalyzerGLM.m in Sources */,
 				00B50B40123921BA00BBCEB8 /* BAAnalyzerElement.m in Sources */,
 				00EA8DCB135D870000562F3B /* glmtest.m in Sources */,
@@ -2606,6 +2628,7 @@
 				PREBINDING = NO;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include;
 				PRODUCT_NAME = EDNAUnitTestSuite;
+				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -2649,6 +2672,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = EDNAUnitTestSuite;
+				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
@@ -3020,6 +3044,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = NEDUnitTestSuite;
 				TEMP_DIR = /tmp/doxygen_temp;
+				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -3050,6 +3075,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = NEDUnitTestSuite;
+				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
@@ -3135,6 +3161,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = CLETUSUnitTestSuite;
+				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -3161,6 +3188,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = CLETUSUnitTestSuite;
+				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
@@ -3397,6 +3425,7 @@
 				);
 				GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1 = "BUILD_PATH=/tmp/test/";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
@@ -3449,6 +3478,7 @@
 					"_ENABLE_LOG=0",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
@@ -3511,6 +3541,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = BARTApplication;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
+				TEST_AFTER_BUILD = YES;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -3545,6 +3576,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = BARTUnitTestSuite;
+				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};

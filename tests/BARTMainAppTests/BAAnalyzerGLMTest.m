@@ -7,10 +7,10 @@
 //
 
 #import "BAAnalyzerGLMTest.h"
-#import "../../src/CLETUS/COExperimentContext.h"
+#import "CLETUS/COExperimentContext.h"
 #import "../../src/ARTIE/GLM/BAAnalyzerGLM.h"
 #import "BAAnalyzerGLMReference.h"
-#import "../../src/EDNA/EDDataElement.h"
+#import "EDNA/EDDataElement.h"
 
 
 @implementation BAAnalyzerGLMTest
@@ -204,7 +204,7 @@
 		}
 	}
 						
-	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicData];
 	
 	
 	BAAnalyzerGLMReference *glmReference = [[BAAnalyzerGLMReference alloc] initWithFwhm:fwhm 
@@ -426,7 +426,7 @@
 		}
 	}
 	
-	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicData];
 	
 	
 	BAAnalyzerGLMReference *glmReference = [[BAAnalyzerGLMReference alloc] initWithFwhm:fwhm 
@@ -637,7 +637,7 @@
 	[elemDesign addChild:elemRegressor2];
 	[config replaceProp:elemToReplaceKey withNode: elemDesign];	
 	
-	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicData];
 	
 	uint rows = 52;
 	uint cols = 87;

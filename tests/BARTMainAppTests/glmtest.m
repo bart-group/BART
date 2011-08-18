@@ -29,7 +29,7 @@ int main(void)
 	
 	
 	EDDataElement *inputData = [[EDDataElement alloc] initWithDataFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
-	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
+	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicData];
 	
 	uint fwhm = 4;
 	uint minval = 2000;
