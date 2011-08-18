@@ -8,17 +8,20 @@
 
 #import "COSystemConfigTest.h"
 #import "COSystemConfig.h"
+#import "COExperimentContext.h"
 
 
 @interface COSystemConfigTest (PrivateStuff)
 
-COSystemConfig* config;
+
 
 @end
 
 
 
 @implementation COSystemConfigTest
+
+COSystemConfig* config;
 
 -(void)setUp
 {

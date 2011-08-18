@@ -12,24 +12,25 @@
 
 @interface NEDesignElementVITest (MemberVariables)
 
-NEDesignElement *designEl;
+
 
 @end
 
 
 @implementation NEDesignElementVITest
 
+NEDesignElement *designEl;
+
 - (void) setUp {
     designEl = [[NEDesignElementVI alloc] 
-                initWithFile:@"../tests/BARTMainAppTests/testfiles/TestDataset01-design.v" 
-                ofImageDataType:IMAGE_DATA_FLOAT];
+                initWithFile:@"../../../../tests/BARTMainAppTests/testfiles/TestDataset01-design.v" ];
 }
 
 - (void) testProperties {
     //STAssertEquals(designEl.mNumberTimesteps, 396, @"Incorrect number of timesteps.");
 //	STAssertEquals(designEl.mNumberExplanatoryVariables, 5, @"Incorrect number of covariates.");
 //    STAssertEquals(designEl.mRepetitionTimeInMs, 2000, @"Incorrect repetition time.");
-    STAssertEquals(designEl.mImageDataType, IMAGE_DATA_FLOAT, @"Incorrect image data type.");
+    
 }
 
 /**

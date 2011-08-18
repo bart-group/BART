@@ -6,7 +6,7 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#import "BADataElementTest.h"
+#import "EDDataElementTest.h"
 
 
 @implementation EDDataElementTest
