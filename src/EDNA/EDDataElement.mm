@@ -71,22 +71,19 @@
 
 -(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
 {
-    //[self release];
-    self = [super init];
-	NSFileManager *fm = [[NSFileManager alloc] init];
+    NSFileManager *fm = [[NSFileManager alloc] init];
 	if ( NO == [fm fileExistsAtPath:path]){
+        [fm release];
 		NSLog(@"No file to load");
 		return nil;
 	}
     self = [[EDDataElementVI alloc] initWithFile:path ofImageDataType:type];
+    [fm release];
     return self;
 }
 
-//EIGENES SIZE-ELEMENT waere angebracht
 -(id)initWithDataType:(enum ImageDataType)type andRows:(int) rows andCols:(int)cols andSlices:(int)slices andTimesteps:(int) tsteps
 {
-    //[self release];
-    self = [super init];
     self = [[EDDataElementVI alloc] initWithDataType:type andRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
     return self;
     
@@ -94,34 +91,28 @@
 
 -(id)initWithDataFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect ofImageType:(enum ImageType)iType
 {
-	//[self release];
-    self = [super init];
 	NSFileManager *fm = [[NSFileManager alloc] init];
 	if ( NO == [fm fileExistsAtPath:path]){
+        [fm release];
 		NSLog(@"No file to load");
 		return nil;
 	}
 	
     self = [[EDDataElementIsis alloc] initWithFile:path andSuffix:suffix andDialect:dialect ofImageType:iType];
+    [fm release];
     return self;
 }
 
 -(id)initEmptyWithSize:(BARTImageSize*)s  ofImageType:(enum ImageType)iType
 {
-	//[self release];
-    self = [super init];
-	
-    self = [[EDDataElementIsis alloc] initEmptyWithSize:s ofImageType:(enum ImageType)iType];
+	self = [[EDDataElementIsis alloc] initEmptyWithSize:s ofImageType:(enum ImageType)iType];
     return self;
 	
 }
 
 -(id)initForRealTimeTCPIPWithSize:(BARTImageSize*)s ofImageType:(enum ImageType)iType
 {
-	//[self release];
-    self = [super init];
-	
-    self = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:s ofImageType:(enum ImageType)iType];
+	self = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:s ofImageType:(enum ImageType)iType];
     return self;
 	
 }

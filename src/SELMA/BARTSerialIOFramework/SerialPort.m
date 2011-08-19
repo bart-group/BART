@@ -90,7 +90,7 @@
         [domain stringByAppendingString:devicePath];
 
         NSError *err = [[NSError alloc] initWithDomain:domain code:res userInfo:nil];
-        return [err autorelease];
+        return err;
     }
 	
     return nil;
@@ -110,7 +110,7 @@
         NSString *domain = @"Fehler beim Schließen des Devices.";
         [domain stringByAppendingString:devicePath];
         
-        err = [[NSError alloc] initWithDomain:domain code:res userInfo:nil];
+        err = [NSError errorWithDomain:domain code:res userInfo:nil];
 	}
     
     return;

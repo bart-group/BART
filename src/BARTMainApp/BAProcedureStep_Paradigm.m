@@ -85,6 +85,7 @@ NEViewManager* viewManager;
             [presentationController setMExternalConditionController:externalCondition];
             
             [viewManager showAllWindows:nil];
+            [timetable release];
         }
     }
     

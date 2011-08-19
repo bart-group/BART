@@ -70,10 +70,7 @@
 
 -(id)initWithGloverParams:(GloverParams*)gammaParams andNumberSamples:(NSNumber*) numberSamplesForInit andSamplingRate:(NSNumber*)samplingRate
 {
-	[self release];
-    self = nil;
-	self = [super init];
-    self = [[NEDesignGloverKernel alloc] initWithGloverParams:gammaParams andNumberSamples:numberSamplesForInit andSamplingRate:samplingRate];
+	self = [[NEDesignGloverKernel alloc] initWithGloverParams:gammaParams andNumberSamples:numberSamplesForInit andSamplingRate:samplingRate];
     
 	return self;
 }

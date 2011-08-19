@@ -37,8 +37,10 @@
 	NSLog(@"startRealTimeInputOfImageType START");
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-	mDataElementInterest = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:[[BARTImageSize alloc] init] ofImageType:IMAGE_MOCO];
-	mDataElementRest = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:[[BARTImageSize alloc] init] ofImageType:IMAGE_FCTDATA];
+    BARTImageSize *sz = [[BARTImageSize alloc] init];
+	mDataElementInterest = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:sz ofImageType:IMAGE_MOCO];
+	mDataElementRest = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:sz ofImageType:IMAGE_FCTDATA];
+    [sz release];
 	
 	[[NSThread currentThread] setThreadPriority:1.0];
 	while (![[NSThread currentThread] isCancelled]) {
@@ -47,6 +49,13 @@
 	NSLog(@"startRealTimeInputOfImageType END");
 
 	[pool drain];
+}
+
+-(void)dealloc
+{
+    [mDataElementInterest release];
+    [mDataElementRest release];
+    [super dealloc];
 }
 
 

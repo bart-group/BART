@@ -598,7 +598,7 @@ void CloseSerialPort(int fileDescriptor)
 int main(void)
 {
     int			fileDescriptor;
-    kern_return_t	kernResult; // on PowerPC this is an int (4 bytes)
+    //kern_return_t	kernResult; // on PowerPC this is an int (4 bytes)
 /*
  *	error number layout as follows (see mach/error.h):
  *
@@ -609,10 +609,10 @@ int main(void)
     io_iterator_t	serialPortIterator;
     char		bsdPath[MAXPATHLEN];
  
-    kernResult = FindModems(&serialPortIterator);
+    FindModems(&serialPortIterator);
     
-	char *rs232modem = {"/dev/cu.usbserial-FTDWE6HC"};
-    kernResult = GetModemPath(serialPortIterator, bsdPath, sizeof(bsdPath) );
+	//char *rs232modem = {"/dev/cu.usbserial-FTDWE6HC"};
+    GetModemPath(serialPortIterator, bsdPath, sizeof(bsdPath) );
     
     IOObjectRelease(serialPortIterator);	// Release the iterator.
     

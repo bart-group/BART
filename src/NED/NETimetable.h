@@ -118,6 +118,7 @@
  */
 -(NSArray*)happenedEventsForMediaObjectID:(NSString*)mediaObjID;
 
+
 /**
  * Returns all events that are about to happen for one media 
  * object ID ordered by the time they happened.
@@ -128,6 +129,16 @@
  *                   mediaObjID.
  */
 -(NSArray*)eventsToHappenForMediaObjectID:(NSString*)mediaObjID;
+
+/**
+ * Shifts the onset time for all events that are about to happen 
+ * for the given time in ms
+ *
+ * \param shift     the time in ms all upcoming onsets shall be shifted
+ * 
+ */
+-(void)shiftOnsetForAllEventsToHappen:(NSUInteger)shift;
+
 
 /**
  * Adds an NEStimEvent to the timetable (reciever).

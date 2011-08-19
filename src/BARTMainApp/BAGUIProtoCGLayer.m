@@ -206,9 +206,10 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
     CGImageRef foregroundCGImage = [myCIContext createCGImage:foregroundCIImage fromRect:boundaries format:floatFormat colorSpace:colorSpace];    
     CGContextDrawImage(layerTwoContext, boundaries, foregroundCGImage);
     CGContextDrawLayerAtPoint ([[applicationWindow graphicsContext] graphicsPort], CGPointZero, foregroundLayer);
-    
+    //
     [applicationWindow setViewsNeedDisplay:YES];
     [applicationWindow flushWindow];
+    //CGImageRelease(foregroundCGImage);
 }
 
 - (void)setupImages {

@@ -35,9 +35,10 @@
 
 -(void)testStringForStimEvent
 {
+    NEMediaText *mObj = [[NEMediaText alloc] initWithID:@"foo" andText:@"bar"];
     NEStimEvent* event = [[NEStimEvent alloc] initWithTime:24 
                                                   duration:42 
-                                               mediaObject:[[NEMediaText alloc] initWithID:@"foo" andText:@"bar"]];
+                                               mediaObject:mObj];
     
     NELogFormatter* formatter = [[NELogFormatter alloc] init];
     
@@ -61,6 +62,7 @@
     
     STAssertTrue(success, @"StimEvent to string conversion does not work properly!");
     [formatter release];
+    [mObj release];
     [event release];
 }
 

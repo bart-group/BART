@@ -30,7 +30,7 @@ NSString * const BARTDidResetExperimentContextNotification = @"BARTDidResetExper
 -(void)buttonWasPressed:(NSNotification*)aNotification;
 -(NSError*)fillSystemConfigWithContentsOfEDLFile:(NSString*)edlPath;
 -(NSError*)reset;
--(NSError*)initExternalDevices;
+-(NSError*)configureExternalDevices;
 
 @end
 
@@ -61,7 +61,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
 {
     @synchronized(self) {
         if (sharedExperimentContext == nil) {
-            [[self alloc] init]; 
+            sharedExperimentContext = [[self alloc] init]; 
         }
     }
     return sharedExperimentContext;
@@ -88,6 +88,11 @@ dispatch_queue_t serialDesignElementAccessQueue;
     return self;
 }
 
+-(void)dealloc
+{
+    [super dealloc];
+}
+
 -(NSError*)reset 
 {
     if ([eyeTracThread isExecuting] ){
@@ -112,7 +117,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
     if ( (err = [self fillSystemConfigWithContentsOfEDLFile:edlPath]) != nil )
         return err;
     
-    err = [self initExternalDevices];
+    err = [self configureExternalDevices];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:BARTDidResetExperimentContextNotification object:nil];
     return err;
@@ -125,7 +130,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
 }
 
 
--(NSError*)initExternalDevices
+-(NSError*)configureExternalDevices
 {
     NSError *err = nil;
     NSMutableDictionary *mutableDictPlugins = [[NSMutableDictionary alloc] initWithCapacity:0];
@@ -201,7 +206,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
 	
 	//TODO: get from config
 	NSString* const bundleIDStr = @"de.mpg.cbs.BARTSerialIO.BARTSerialIOPluginEyeTrac";
-	NSArray *bundleArray = [self loadPluginWithID:bundleIDStr];
+	NSArray *bundleArray = [[self loadPluginWithID:bundleIDStr] retain];
 	
 	//NSBundle *curBundle = nil;
 	NSEnumerator *instanceEnum = [bundleArray objectEnumerator];
@@ -220,7 +225,10 @@ dispatch_queue_t serialDesignElementAccessQueue;
 	NSError *err = [[NSError alloc] init];
 	eyeTracThread = [[NSThread alloc] initWithTarget:serialPortEyeTrac selector:@selector(startSerialPortThread:) object:err]; //TODO error object    
 	[eyeTracThread start];
-    return serialPortEyeTrac;
+    [devPath release];
+    [err release];
+    [bundleArray release];
+    return [serialPortEyeTrac autorelease];
 }
 
 -(SerialPort*)setupSerialPortTriggerAndButtonBox
@@ -234,7 +242,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
 	
 	//TODO: get from config
 	NSString* const bundleIDStr = @"de.mpg.cbs.BARTSerialIO.BARTSerialIOPluginFTDITriggerButton";
-	NSArray *bundleArray = [self loadPluginWithID:bundleIDStr];
+	NSArray *bundleArray = [[self loadPluginWithID:bundleIDStr] retain];
 	NSLog(@"bundleArray size: %lu", [bundleArray count]);
 	
 	//NSBundle *curBundle = nil;
@@ -254,7 +262,10 @@ dispatch_queue_t serialDesignElementAccessQueue;
 	NSError *err = [[NSError alloc] init];
 	triggerThread = [[NSThread alloc] initWithTarget:serialPortTriggerAndButtonBox selector:@selector(startSerialPortThread:) object:err]; //TODO error object    
 	[triggerThread start];
-    return serialPortTriggerAndButtonBox;
+    [devPath release];
+    [err release];
+    [bundleArray release];
+    return [serialPortTriggerAndButtonBox autorelease];
 }
 
 
@@ -346,7 +357,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
 	NSArray *finalBundleArray = [[NSArray alloc] initWithArray: bundleInstanceList] ;
 	[bundleInstanceList release];
 	
-	return finalBundleArray;
+	return [finalBundleArray autorelease];
 	
 }
 

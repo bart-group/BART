@@ -77,20 +77,21 @@
         mImageSize.slices = slices;
         mImageSize.timesteps = tsteps;
         mImageDataType = type;
-    }
-    
-    mImageArray = (VImage *)VMalloc(sizeof(VImage)*slices);
-    for (int i=0; i < slices; i++) {
-        if ( IMAGE_DATA_FLOAT == type){
-            mImageArray[i] = VCreateImage(tsteps,rows,cols,VFloatRepn);
-            VFillImage(mImageArray[i], VAllBands, 0);
-        }
-        if (IMAGE_DATA_INT16 == type){
-            mImageArray[i] = VCreateImage(tsteps,rows,cols,VShortRepn);
-            VFillImage(mImageArray[i], VAllBands, 0);
         
-        }
+        
+        mImageArray = (VImage *)VMalloc(sizeof(VImage)*slices);
+        for (int i=0; i < slices; i++) {
+            if ( IMAGE_DATA_FLOAT == type){
+                mImageArray[i] = VCreateImage(tsteps,rows,cols,VFloatRepn);
+                VFillImage(mImageArray[i], VAllBands, 0);
+            }
+            if (IMAGE_DATA_INT16 == type){
+                mImageArray[i] = VCreateImage(tsteps,rows,cols,VShortRepn);
+                VFillImage(mImageArray[i], VAllBands, 0);
+                
+            }
             
+        }
     }
     //[self initDatasetProperties];
     return self;
@@ -300,7 +301,7 @@
         VAttrListPosn posn;	//iterator over header attributes
         FILE * in_file;
         m_linfo = (ListInfo *) VMalloc(sizeof(ListInfo) * 1);
-        list = GetListInfo(inputFilename, &m_linfo[0]);
+        GetListInfo(inputFilename, &m_linfo[0]);
         m_pxinfo = m_linfo[0].info;
         mImageArray = (VImage *)VMalloc(sizeof(VImage)*m_linfo[0].nslices);//20);
         

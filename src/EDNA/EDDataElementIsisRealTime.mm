@@ -331,7 +331,8 @@
 		}
 	} 
 	NSDictionary *propDict = [[NSDictionary alloc] initWithObjects:propValues forKeys:propList];
-	return propDict;
+    [propValues release];
+	return [propDict autorelease];
 }
 
 -(void)setProps:(NSDictionary*)propDict

@@ -45,6 +45,7 @@
 @synthesize duration;
 @synthesize numberOfMediaObjects;
 
+
 -(id)initWithConfigEntry:(NSString*)key
          andMediaObjects:(NSArray*)mediaObjs
 {
@@ -301,6 +302,19 @@
         
         [happendEventsForMediaObj removeAllObjects];
     }
+}
+
+-(void)shiftOnsetForAllEventsToHappen:(NSUInteger)shift
+{
+    [mLock lock];
+    __block const NSUInteger timeShift = shift;
+    [mEventsToHappen enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent 
+                    usingBlock:^(id key, id obj, BOOL *stop) {
+                        [(NEStimEvent*) obj setTime:timeShift];
+         
+      }];
+    
+    [mLock unlock];
 }
 
 @end
