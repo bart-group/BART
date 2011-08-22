@@ -9,6 +9,8 @@
 #import "EDDataElementIsisTest.h"
 #import "EDNA/EDDataElementIsis.h"
 
+#include <itkIndex.h>
+
 
 @interface EDDataElementIsisTest (MemberVariables)
 
@@ -18,18 +20,20 @@
 
 @implementation EDDataElementIsisTest
 
-NSString* IMAGE_FILE = @"../tests/BARTMainAppTests/testfiles/TestDataset01-functional.nii";
+NSString* curDir = @"";
+NSString* imageFile = @"TestDataset01-functional.nii";
+NSString* fileName = @"";
 
 
 -(void) setUp
 {
-	
+	curDir = [[NSBundle bundleForClass:[self class] ] resourcePath];
+    fileName = [NSString stringWithFormat:@"%@/%@", curDir, imageFile];
 }
 
 -(void)testProperties
 {
-    NSString *curDir = [[NSBundle bundleForClass:[self class] ] resourcePath];
-    NSString *fileName = [NSString stringWithFormat:@"%@/TestDataset01-functional.nii", curDir ];
+//    NSString *curDir = [[NSBundle bundleForClass:[self class] ] resourcePath];
 	EDDataElementIsis *dataEl = [[EDDataElementIsis alloc] initWithFile:fileName andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
 	BARTImageSize *imSize = [[dataEl getImageSize] copy];
 	STAssertEquals(imSize.columns, (size_t)64, @"Incorrect number of columns.");
@@ -538,9 +542,24 @@ NSString* IMAGE_FILE = @"../tests/BARTMainAppTests/testfiles/TestDataset01-funct
 
 -(void)testAsITKImage
 {
-    EDDataElementIsis* dataElement = [[EDDataElementIsis alloc] initWithFile:IMAGE_FILE andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
+    EDDataElementIsis* dataElement = [[EDDataElementIsis alloc] initWithFile:fileName andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
     ITKImage::Pointer itkImage = [dataElement asITKImage];
-    float value = itkImage->GetPixel<int>((int*) 0);
+    
+    
+    unsigned long xMax = itkImage->GetLargestPossibleRegion().GetSize()[0];
+    unsigned long yMax = itkImage->GetLargestPossibleRegion().GetSize()[1];
+    unsigned long zMax = itkImage->GetLargestPossibleRegion().GetSize()[2];
+    
+    STAssertEquals(xMax, (unsigned long) 64, @"Conversion DataElement to ITKImage: wrong x dimension.");
+    STAssertEquals(yMax, (unsigned long) 64, @"Conversion DataElement to ITKImage: wrong y dimension.");
+    STAssertEquals(zMax, (unsigned long) 20, @"Conversion DataElement to ITKImage: wrong z dimension.");
+    
+//    FILE* fp = fopen("/tmp/edna_itktest.txt", "w");
+//    itk::Index<3> index = {{x, y, 10}};
+//    float value = itkImage->GetPixel(index);
+//    fprintf(fp, [[NSString stringWithFormat:@"%@\n", @"foo"] cStringUsingEncoding:NSUTF8StringEncoding], NULL);
+//    fclose(fp);
+    
     [dataElement release];
 
 }

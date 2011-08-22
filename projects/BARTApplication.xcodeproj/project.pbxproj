@@ -324,6 +324,12 @@
 		A744B0C313FD427500F4B13D /* libITKCommon.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0023CBD813EC1898006303B6 /* libITKCommon.3.16.0.dylib */; };
 		A744B0C513FD442200F4B13D /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
 		A744B0C713FD445300F4B13D /* EDDataElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B772C311417C6300B2931A /* EDDataElementVI.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A75A5D31140287F300514CD3 /* libitkvcl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899213F563D7005FF00D /* libitkvcl.3.16.0.dylib */; };
+		A75A5D32140287F300514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899313F563D7005FF00D /* libitkvnl_algo.3.16.0.dylib */; };
+		A75A5D33140287F300514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899513F563D7005FF00D /* libitkvnl.3.16.0.dylib */; };
+		A75A5D341402883000514CD3 /* libitkvcl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899213F563D7005FF00D /* libitkvcl.3.16.0.dylib */; };
+		A75A5D351402883000514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899313F563D7005FF00D /* libitkvnl_algo.3.16.0.dylib */; };
+		A75A5D361402883000514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899513F563D7005FF00D /* libitkvnl.3.16.0.dylib */; };
 		A7A4641513F40B1300426C70 /* ROTransformation.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A4641313F40B1300426C70 /* ROTransformation.h */; };
 		A7A4641613F40B1300426C70 /* ROTransformation.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A4641413F40B1300426C70 /* ROTransformation.m */; };
 		A7A4641713F40B1300426C70 /* ROTransformation.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A4641413F40B1300426C70 /* ROTransformation.m */; };
@@ -870,6 +876,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A75A5D341402883000514CD3 /* libitkvcl.3.16.0.dylib in Frameworks */,
+				A75A5D351402883000514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */,
+				A75A5D361402883000514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */,
 				A744B0C313FD427500F4B13D /* libITKCommon.3.16.0.dylib in Frameworks */,
 				00E63B81135325D100DC8A50 /* libboost_date_time-mt.dylib in Frameworks */,
 				00E63B82135325D200DC8A50 /* libboost_filesystem-mt.dylib in Frameworks */,
@@ -981,6 +990,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A75A5D31140287F300514CD3 /* libitkvcl.3.16.0.dylib in Frameworks */,
+				A75A5D32140287F300514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */,
+				A75A5D33140287F300514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */,
 				00D44167134B57E600094A51 /* libviaio.dylib in Frameworks */,
 				A7A4770313F41CCA00426C70 /* libITKCommon.3.16.0.dylib in Frameworks */,
 				00D44165134B57E600094A51 /* libvia.dylib in Frameworks */,
@@ -2823,6 +2835,7 @@
 					"$(inherited)",
 					/opt/local/lib,
 					/opt/local/lib/InsightToolkit,
+					"\"/opt/local/lib/InsightToolkit-3.16\"",
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -2865,6 +2878,7 @@
 					/usr/lib,
 					/opt/local/lib,
 					/opt/local/lib/InsightToolkit,
+					"\"/opt/local/lib/InsightToolkit-3.16\"",
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -3419,6 +3433,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/opt/local/lib/InsightToolkit,
+					"\"/opt/local/lib/InsightToolkit-3.16\"",
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -3456,6 +3471,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/opt/local/lib/InsightToolkit,
+					"\"/opt/local/lib/InsightToolkit-3.16\"",
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -3666,6 +3682,8 @@
 					/usr/local/include,
 					/opt/local/lib/InsightToolkit,
 					/opt/local/include/InsightToolkit/Utilities/vxl/core,
+					/opt/local/include/InsightToolkit/Utilities/vxl/core/vnl,
+					/opt/local/include/InsightToolkit/Utilities/vxl/core/vnl/algo,
 					/opt/local/include/InsightToolkit/Utilities/vxl/vcl,
 					/opt/local/include/InsightToolkit,
 					/opt/local/include/InsightToolkit/BasicFilters,
@@ -3719,6 +3737,8 @@
 					/usr/local/include,
 					/opt/local/lib/InsightToolkit,
 					/opt/local/include/InsightToolkit/Utilities/vxl/core,
+					/opt/local/include/InsightToolkit/Utilities/vxl/core/vnl,
+					/opt/local/include/InsightToolkit/Utilities/vxl/core/vnl/algo,
 					/opt/local/include/InsightToolkit/Utilities/vxl/vcl,
 					/opt/local/include/InsightToolkit,
 					/opt/local/include/InsightToolkit/BasicFilters,
