@@ -10,9 +10,11 @@
 
 #ifdef __cplusplus
 #include <itkImage.h>
+
+typedef float ITKImagePixelType;
+const unsigned int ITKIMAGE_DIMENSION = 3;
+typedef itk::Image<ITKImagePixelType, ITKIMAGE_DIMENSION> ITKImage;
 #endif
-
-
 
 enum ImageType {
     IMAGE_FCTDATA,
@@ -171,8 +173,22 @@ enum ImagePropertyID{
 -(NSArray*)getMinMaxOfDataElement;
 
 #ifdef __cplusplus
--(itk::Image<float, 4>::Pointer)asITKImage;
--(itk::Image<float, 3>::Pointer)asITKImage:(unsigned int)timestep;
+
+/**
+ * Converts the whole DataElement to an ITKImage.
+ *
+ * \return The DataElement as an ITKImage.
+ */
+-(ITKImage::Pointer)asITKImage;
+
+/**
+ * Converts a single timestep of the DataElement to an ITKImage.
+ *
+ * \param timestep The timestep of the volume to convert.
+ * \return         The ITKImage of the volume at timestep.
+ */
+-(ITKImage::Pointer)asITKImage:(unsigned int)timestep;
+
 #endif
 
 @end

@@ -12,12 +12,12 @@
 
 #import "EDDataElementIsis.h"
 
-
-
+// ISIS includes
 #include "DataStorage/image.hpp"
 #include "DataStorage/io_factory.hpp"
+#include "Adapter/itkAdapter.hpp"
 
-
+// C++ includes
 #include <iostream>
 
 @implementation EDDataElementIsis
@@ -623,11 +623,21 @@
 
 -(NSArray*)getMinMaxOfDataElement
 {
-    
     std::pair<float, float> minMax = mIsisImage->getMinMaxAs<float>();
     NSArray *ret = [NSArray arrayWithObjects:[NSNumber numberWithFloat:minMax.first], [NSNumber numberWithFloat:minMax.second], nil];
     return ret;
 }
 
+-(ITKImage::Pointer)asITKImage
+{
+    isis::adapter::itkAdapter* adapter = new isis::adapter::itkAdapter;
+    ITKImage::Pointer itkImage = adapter->makeItkImageObject<ITKImage>(*mIsisImage);
+    return itkImage;
+}
+
+-(ITKImage::Pointer)asITKImage:(unsigned int)timestep
+{
+    return nil;
+}
 
 @end
