@@ -157,7 +157,7 @@
 
 -(void)dealloc
 {
-    [NEHeliWindowController release];
+    [heliWindowController release];
     [super dealloc];
 }
 

@@ -22,37 +22,31 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 -(id)init
 {
-	self = [super init];
+	if ( (self = [super init] ))
+    {
     
-//    if (type == IMAGE_DATA_FLOAT) {
-//        mImageDataType = type;
-//    } else {
-//        NSLog(@" NEDesignElementDyn.initWithFile: defaulting to IMAGE_DATA_FLOAT (other values are not supported)!");
-//        mImageDataType = IMAGE_DATA_FLOAT;
-//    }
-	
-	mDesignHasChanged = NO;
-	//NSLog(@"GenDesign GCD: START");
-	NSError *error = [self getPropertiesFromConfig];
-	if (nil != error){
-		NSLog(@"%@", error);
-		return nil;
-	}
-	//NSLog(@"GenDesign GCD: READCONFIG");
-    error = [self initDesign];
-	if (nil != error){
-		NSLog(@"%@", error);
-		return nil;
-	}
-	//NSLog(@"GenDesign GCD: INIT");   
-    error = [self generateDesign];
-	if (nil != error){
-		NSLog(@"%@", error);
-		return nil;
-	}
-    //NSLog(@"GenDesign GCD: END");
+        mDesignHasChanged = NO;
+        //NSLog(@"GenDesign GCD: START");
+        NSError *error = [self getPropertiesFromConfig];
+        if (nil != error){
+            NSLog(@"%@", error);
+            return nil;
+        }
+        //NSLog(@"GenDesign GCD: READCONFIG");
+        error = [self initDesign];
+        if (nil != error){
+            NSLog(@"%@", error);
+            return nil;
+        }
+        //NSLog(@"GenDesign GCD: INIT");   
+        error = [self generateDesign];
+        if (nil != error){
+            NSLog(@"%@", error);
+            return nil;
+        }
+        //NSLog(@"GenDesign GCD: END");
     
-    	
+    }
 	
 	//[self writeDesignFile:@"/tmp/testDesign.v"];
 	return self;
@@ -62,7 +56,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 {
 	id newDesign = [super copyWithZone:zone];
 	[newDesign copyValuesOfFinishedDesign:mRegressorValues andCovariates:mCovariateValues];
-	return [newDesign retain];
+	return newDesign;
 	
 }
 
@@ -128,16 +122,20 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	}
 	else {
 		NSString* errorString = [NSString stringWithFormat:@"No design struct found in edl-file. Define gwDesignStruct or swDesignStruct or dynamicDesignStruct! "];
+        [expType release];
+        [f release];
 		return error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
 	}
 
 	//TODO: dynamic implementation
 	
 	
-	mRepetitionTimeInMs = [[f numberFromString:[config getProp:@"$TR"]] unsignedIntValue];
-	if (0 >= mRepetitionTimeInMs)
+	[self setMRepetitionTimeInMs: [[f numberFromString:[config getProp:@"$TR"]] unsignedIntValue]];
+	if (0 >= [self mRepetitionTimeInMs])
 	{
-		mRepetitionTimeInMs = 0;
+		[self setMRepetitionTimeInMs: 0];
+        [expType release];
+        [f release];
 		return error = [NSError errorWithDomain:[NSString stringWithFormat:@"negative TR not possible"] code:TR_NOT_SPECIFIED userInfo:nil];
 	}
 	
@@ -146,25 +144,24 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	if ( 0 >= mNumberTimesteps)
 	{
 		mNumberTimesteps = 0;
+        [expType release];
+        [f release];
 		return error = [NSError errorWithDomain:[NSString stringWithFormat:@"negative number of timesteps not possible"] code:NUMBERTIMESTEPS_NOT_SPECIFIED userInfo:nil];
 	}
 	
 	mNumberCovariates = [config countNodes:[NSString stringWithFormat:@"%@/scanBasedCovariates", expType]];
-	if (0 > mNumberCovariates)
-	{
-		mNumberCovariates = 0;
-		return error = [NSError errorWithDomain:@"negative number of covariates not possible" code:NUMBERCOVARIATES_NOT_SPECIFIED userInfo:nil];
-	}
 		
 	mNumberEvents = [config countNodes:[NSString stringWithFormat:@"%@/timeBasedRegressor", expType]];
 	if (0 >= mNumberEvents)
 	{
 		mNumberEvents = 0;
+        [expType release];
+        [f release];
 		return error = [NSError errorWithDomain:@"numberEvents not defined" code:NUMBERREGRESSORS_NOT_SPECIFIED userInfo:nil];
 	}
 
 	// calc number of samples for the fft - also needed for KernelInit
-	mNumberSamplesForInit = (mNumberTimesteps * mRepetitionTimeInMs) / samplingRateInMs + 10000;//add some seconds to avoid wrap around problems with fft, here defined as 10s
+	mNumberSamplesForInit = (mNumberTimesteps * [self mRepetitionTimeInMs]) / samplingRateInMs + 10000;//add some seconds to avoid wrap around problems with fft, here defined as 10s
 	
 	NSLog(@"indep Regressors without derivs: %d", mNumberEvents);
 	// with this initialise the regressor list
@@ -197,6 +194,8 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 			float height = [[f numberFromString:[config getProp:requestTrialHeight]] floatValue];
 				
 			if (0.0 >= duration) {//if not set or negative
+                [expType release];
+                [f release];
 				return error = [NSError errorWithDomain:@"negative duration of a statEvent" code:REGRESSOR_DURATION_NOT_SPECIFIED userInfo:nil];
 				//NSLog(@"There's a negative duration of a statEvent - that's not valid, so set to 1.0");
 				//duration = 1.0;
@@ -266,14 +265,23 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 				mRegressorList[eventNr]->regConvolKernel = [[NEDesignKernel alloc] initWithGloverParams:params andNumberSamples:[NSNumber numberWithLong:mNumberSamplesForInit] andSamplingRate:[NSNumber numberWithLong:samplingRateInMs]];
 				if (nil == mRegressorList[eventNr]->regConvolKernel){
 					[params release];
+                    [expType release];
+                    [f release];
 					return error = [NSError errorWithDomain:@"generation of design kernel failed" code:CONVOLUTION_KERNEL_NOT_SPECIFIED userInfo:nil];
 				}
 				[params release];
 			}
 			else if ([hrfKernelName isEqualToString:[config getProp:[NSString stringWithFormat:@"$refFctsGamma[%d]/@refFctID",refNr+1]]]){
 				GeneralGammaParams params;
+                params.maxLengthHrfInMs = 0;
+                params.peak1 = 0;
+                params.peak2 = 2;
+                params.scale1 = 1;
+                params.scale2 = 1;
 				mRegressorList[eventNr]->regConvolKernel = [[NEDesignKernel alloc] initWithGeneralGammaParams:params];
 				if (nil == mRegressorList[eventNr]->regConvolKernel){
+                    [expType release];
+                    [f release];
 					return error = [NSError errorWithDomain:@"generation of design kernel failed" code:CONVOLUTION_KERNEL_NOT_SPECIFIED userInfo:nil];
 				}
 			}
@@ -315,14 +323,14 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 -(NSError*)initDesign
 {
     BOOL zeromean = YES;
-	fprintf(stderr, " TR in ms = %d\n", mRepetitionTimeInMs);
+	fprintf(stderr, " TR in ms = %d\n", [self mRepetitionTimeInMs]);
 	
 	mTimeOfRepetitionStartInMs = (double *) malloc(sizeof(double) * mNumberTimesteps);
 	for (unsigned int i = 0; i < mNumberTimesteps; i++) {
-		mTimeOfRepetitionStartInMs[i] = (double) (i) * mRepetitionTimeInMs;//TODO: Gabi fragen letzter Zeitschritt im moment nicht einbezogen xx[i] = (double) i * tr * 1000.0;
+		mTimeOfRepetitionStartInMs[i] = (double) (i) * [self mRepetitionTimeInMs];//TODO: Gabi fragen letzter Zeitschritt im moment nicht einbezogen xx[i] = (double) i * tr * 1000.0;
 	}
 
-    unsigned long maxExpLengthInMs = mTimeOfRepetitionStartInMs[0] + mTimeOfRepetitionStartInMs[mNumberTimesteps - 1] + mRepetitionTimeInMs;//+1 repetition to add time of last rep
+    unsigned long maxExpLengthInMs = mTimeOfRepetitionStartInMs[0] + mTimeOfRepetitionStartInMs[mNumberTimesteps - 1] + [self mRepetitionTimeInMs];//+1 repetition to add time of last rep
     NSLog(@"Number timesteps: %d,  experiment duration: %.2f min\n", mNumberTimesteps, maxExpLengthInMs / 60000.0);
      /*
      ** check amplitude: must have zero mean for parametric designs
@@ -332,7 +340,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 		[self correctForZeromean];
 	}
     if (mNumberEvents < 1) {
-        return [NSError errorWithDomain:@"No events were found!" code:NO_EVENTS_FOUND userInfo:nil];
+        return [[NSError errorWithDomain:@"No events were found!" code:NO_EVENTS_FOUND userInfo:nil] retain];
     }
     
 	/* alloc memory for all NEDesignDyn specific stuff*/
@@ -419,7 +427,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
             error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
         }
         if (trialcount < 4) {
-            NSLog(@"Warning: too few trials (%d) in event %d. Statistics will be unreliable.",
+            NSLog(@"Warning: too few trials (%d) in event %lu. Statistics will be unreliable.",
                   trialcount, eventNr + 1);
         }
         
@@ -460,7 +468,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     
     VSetAttr(VImageAttrList(outDesign), "modality", NULL, VStringRepn, "X");
     VSetAttr(VImageAttrList(outDesign), "name", NULL, VStringRepn, "X");
-    VSetAttr(VImageAttrList(outDesign), "repetition_time", NULL, VLongRepn, (VLong) mRepetitionTimeInMs);
+    VSetAttr(VImageAttrList(outDesign), "repetition_time", NULL, VLongRepn, (VLong) [self mRepetitionTimeInMs]);
     VSetAttr(VImageAttrList(outDesign), "ntimesteps", NULL, VLongRepn, (VLong) mNumberTimesteps);
     
     VSetAttr(VImageAttrList(outDesign), "derivatives", NULL, VShortRepn, mRegressorList[0]->regDerivations);
@@ -581,7 +589,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     for (unsigned int timestep = 0; timestep < mNumberTimesteps; timestep++) {
         j = (int) (mTimeOfRepetitionStartInMs[timestep] / samplingRateInMs + 0.5);
         
-        if (j >= 0 && j < mNumberSamplesForInit) {
+        if (j < mNumberSamplesForInit) {
 			mRegressorValues[col][timestep] = mBuffersInverseOut[eventNr][j];
         }
     }

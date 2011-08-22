@@ -45,6 +45,7 @@ float mImageHeightHalf;
 
         /******/
         mPosition = position;
+        [im release];
     }
     
     return self;

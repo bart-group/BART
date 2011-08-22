@@ -60,6 +60,7 @@ NSDictionary *dictExternalConditions;
     }
     
     dictExternalConditions = [[NSDictionary alloc] initWithDictionary:mutableDictExternalCond];
+    [mutableDictExternalCond release];
     return err;
 }
 
@@ -77,6 +78,7 @@ NSDictionary *dictExternalConditions;
 -(void)dealloc
 {
     [mediaObjectsArray release];
+    [dictExternalConditions release];
     [super dealloc];
 }
 

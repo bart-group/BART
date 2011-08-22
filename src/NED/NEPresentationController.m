@@ -111,6 +111,11 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
  */
 -(void)resetTimeAndTriggerCount;
 
+/**
+ * checks for the fullfillment of the external conditions
+ */
+-(void)checkForExternalConditions;
+
 @end
 
 
@@ -339,7 +344,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
     //mTime = [self mTriggerCount] * mTR + timeDifference;
 
     //ask for conditions
-    //mExternalConditionController
+    [self checkForExternalConditions];
     
     if (mTime <= [mTimetable duration]) {
         if (timeDifference < mTR - TICK_TIME) {
@@ -360,26 +365,31 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 
 -(void)checkForExternalConditions
 {
-    NEStimEvent* event = [mTimetable nextEventAtTime:mTime];
-    while (event) {
-      
-        if (YES == [mExternalConditionController isConditionFullfilledForMediaObjectID:[[event mediaObject] getID]])
-        {
-            ;
-        }
-        else
-        {
-            NEStimEvent* newEvent = [[NEStimEvent alloc] init];
-            [mExternalConditionController getAction:event];
-            [self enqueueEvent:newEvent asReplacementFor:event];
-        }
-        [mViewManager present:[event mediaObject]];
-        [NEStimEvent endTimeSortedInsertOf:event 
-                               inEventList:mEventsToEnd];
-        [mLogger logStartingEvent:event withTrigger:[self mTriggerCount]];
-        
-        event = [mTimetable nextEventAtTime:mTime];
-    }
+//    NEStimEvent* event = [mTimetable nextEventAtTime:mTime];
+//    while (event) {
+//      
+//        if (NO == [mExternalConditionController isConditionFullfilledForMediaObjectID:[[event mediaObject] getID]])
+//        {
+//            //shift all coming events 20ms
+//            
+//            
+//            
+//            return;
+//        }
+//        return;
+////        else
+////        {
+////            NEStimEvent* newEvent = [[NEStimEvent alloc] init];
+////            [mExternalConditionController getAction:event];
+////            [self enqueueEvent:newEvent asReplacementFor:event];
+////        }
+////        [mViewManager present:[event mediaObject]];
+////        [NEStimEvent endTimeSortedInsertOf:event 
+////                               inEventList:mEventsToEnd];
+////        [mLogger logStartingEvent:event withTrigger:[self mTriggerCount]];
+////        
+////        event = [mTimetable nextEventAtTime:mTime];
+//    }
 }
 
 -(void)updateTimetable

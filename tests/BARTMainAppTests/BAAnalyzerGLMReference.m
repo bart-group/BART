@@ -213,7 +213,7 @@ fmat_x_mat(gsl_matrix_float *A,gsl_matrix_float *B,gsl_matrix_float *C)
 float
 fskalarproduct(gsl_vector_float *x,gsl_vector_float *y)
 {
-	int i,n;
+	size_t i,n;
 	float *ptr1,*ptr2,sum;
 	
 	n = x->size;
@@ -412,11 +412,12 @@ skip: ;
     if (sliding_window_size <= lastTimestep) { 
         
         BARTImageSize *imSize = [[mData getImageSize] copy];
-		unsigned int numberBands = imSize.timesteps;
+		//unsigned int numberBands = imSize.timesteps;
         unsigned int numberSlices = imSize.slices;
         unsigned int numberRows = imSize.rows;
         unsigned int numberCols = imSize.columns;
         unsigned int numberExplanatoryVariables = mDesign.mNumberExplanatoryVariables;
+        [imSize release];
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0); /* Global asyn. dispatch queue. */
         
         gsl_set_error_handler_off();
@@ -493,8 +494,8 @@ skip: ;
         NSNumber *val;
         float *fPointer;
         fPointer = F->data;
-        for (int row = 0; row < numberExplanatoryVariables; row++) {
-            for (int col = 0; col < numberExplanatoryVariables; col++) {
+        for (size_t row = 0; row < numberExplanatoryVariables; row++) {
+            for (size_t col = 0; col < numberExplanatoryVariables; col++) {
                 val = [NSNumber numberWithFloat:(*fPointer)];
                 [mBCOVOutput setVoxelValue:val atRow:row col:col slice:0 timestep:0];
                 fPointer++;
@@ -507,8 +508,8 @@ skip: ;
         gsl_matrix_float *betaCovariates = NULL;
         betaCovariates = gsl_matrix_float_alloc(numberExplanatoryVariables, numberExplanatoryVariables);  
         fPointer = betaCovariates->data;
-        for (int row = 0; row < numberExplanatoryVariables; row++) {
-            for (int col = 0; col < numberExplanatoryVariables; col++) {
+        for (size_t row = 0; row < numberExplanatoryVariables; row++) {
+            for (size_t col = 0; col < numberExplanatoryVariables; col++) {
                 *fPointer++ = [mBCOVOutput getFloatVoxelValueAtRow:row col:col slice:0 timestep:0];
             }
         }
@@ -538,7 +539,7 @@ skip: ;
         
         /* Process. */
         __block int npix = 0;
-        for (int slice = 0; slice < numberSlices; slice++) {
+        for (size_t slice = 0; slice < numberSlices; slice++) {
             
             if (TRUE == [mData sliceIsZero:slice ]) {
                 
@@ -552,7 +553,7 @@ skip: ;
                             float nx = 0.0;
                             gsl_vector_float *y = gsl_vector_float_alloc(sliding_window_size);
                             float *ptr1 = y->data;
-                            int i;
+                            size_t i;
                             float u;
                             
                             for (i = (lastTimestep - sliding_window_size); i < lastTimestep; i++) {

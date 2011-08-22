@@ -18,7 +18,9 @@
     NSURL* fileURL = [NSURL fileURLWithPath:filePath];
     if (!fileURL) {
         NSString* errorString = [NSString stringWithFormat:@"Could not create URL from given path %s!", filePath];
-        *error = [NSError errorWithDomain:errorString code:URL_CREATION userInfo:nil];
+        if (nil != error){
+            *error = [NSError errorWithDomain:errorString code:URL_CREATION userInfo:nil];
+        }
         return nil;
     }
 

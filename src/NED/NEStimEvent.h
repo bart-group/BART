@@ -33,8 +33,8 @@
 
 }
 
-@property (readonly) NSUInteger time;
-@property (readonly) NSUInteger duration;
+@property (readwrite) NSUInteger time;
+@property (readwrite) NSUInteger duration;
 @property (readonly) NEMediaObject* mediaObject;
 
 /**

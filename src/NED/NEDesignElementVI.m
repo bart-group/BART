@@ -73,7 +73,7 @@
         NSLog(@"TR info missing in header");
     }
     
-    mRepetitionTimeInMs = itr;
+    [self setMRepetitionTimeInMs:itr];
     VFree(inputFilename);
 }
 

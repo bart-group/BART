@@ -93,8 +93,8 @@
 	}
 	
 	//second try - params as in bgamma
-	[params release];
-	[kernel release];
+	//[params release];
+	//[kernel release];
 	params = [[GloverParams alloc] initWithMaxLength:30000 peak1:6000 scale1:0.9 
 															 peak2:12000 scale2:0.9 offset:0.0 
 										relationP1P2:0.1 heightScale:120.0 givenInTimeUnit:KERNEL_TIME_MS];
@@ -106,8 +106,8 @@
 	}
 	
 	//params zero
-	[params release];
-	[kernel release];
+	//[params release];
+	//[kernel release];
 	params = [[GloverParams alloc] initWithMaxLength:0 peak1:0 scale1:0 
 											   peak2:0 scale2:0 offset:0.0 
 										 relationP1P2:0 heightScale:0 givenInTimeUnit:KERNEL_TIME_S];
@@ -120,9 +120,9 @@
 	}
 		
 	// params nil
-	[params release];
+	//[params release];
 	params = nil;
-	[kernel release];
+	//[kernel release];
 
 	STAssertNil( [[NEDesignGloverKernel alloc] initWithGloverParams:params andNumberSamples:[NSNumber numberWithUnsignedLong:numberSamples] andSamplingRate:[NSNumber numberWithUnsignedLong:10]], @"params nil but not nil returned");
 	
@@ -132,7 +132,7 @@
 										relationP1P2:0 heightScale:0 givenInTimeUnit:KERNEL_TIME_S];
 	STAssertNil( [[NEDesignGloverKernel alloc] initWithGloverParams:params andNumberSamples:[NSNumber numberWithUnsignedLong:0] andSamplingRate:[NSNumber numberWithUnsignedLong:10]], @"numberSamples nil but not nil returned");
 	STAssertNil( [[NEDesignGloverKernel alloc] initWithGloverParams:params andNumberSamples:[NSNumber numberWithUnsignedLong:100] andSamplingRate:[NSNumber numberWithUnsignedLong:0]], @"sampleRate nil but not nil returned");
-	[params release];
+//	//[params release];
 }
 
 @end

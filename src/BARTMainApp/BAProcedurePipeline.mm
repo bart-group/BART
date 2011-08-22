@@ -80,7 +80,10 @@
 	//FILE LOAD STUFF
 	if (FALSE == isRealTimeTCPInput){
 		// setup the input data
-		mInputData = [[EDDataElement alloc] initWithDataFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
+        NSString *curDir = [[NSBundle mainBundle] resourcePath];
+        NSString *fileName = [NSString stringWithFormat:@"%@/TestDataset02-functional.nii", curDir ];
+        
+		mInputData = [[EDDataElement alloc] initWithDataFile:fileName andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
 		if (nil == mInputData) {
 			return FALSE;
 		}
@@ -144,11 +147,13 @@
 	if (FALSE == isRealTimeTCPInput){
 		[NSThread detachNewThreadSelector:@selector(timerThread) toTarget:self withObject:nil];}
 	else {
-		NSError *err = [[NSError alloc] init];
-		NSThread *t = [[NSThread alloc] initWithTarget:mRtLoader selector:@selector(startRealTimeInputOfImageType) object:err]; //TODO error object 
-		[t start];
+		//NSError *err = [[NSError alloc] init];
+		[NSThread detachNewThreadSelector:@selector(startRealTimeInputOfImageType) toTarget:mRtLoader withObject:nil]; 
+        //TODO error object 
+		//[err release];
 	}
 
+    
 	return TRUE;
 }
 
@@ -193,6 +198,7 @@
 	
 	//TODO : get from config or gui
 	float cVecFromConfig[mDesignData.mNumberExplanatoryVariables];
+    memset(cVecFromConfig, 0, (sizeof(float)* mDesignData.mNumberExplanatoryVariables ));
 	cVecFromConfig[0] = 1.0;
 	cVecFromConfig[1] = -1.0;
 	//cVecFromConfig[2] = 0.0;
@@ -202,18 +208,20 @@
 		[contrastVector addObject:nr];}
 	
 	if (FALSE == isRealTimeTCPInput){
-		resData = [mAnalyzer anaylzeTheData:mInputData withDesign:[mDesignData copy] atCurrentTimestep:mCurrentTimestep-1 forContrastVector:contrastVector andWriteResultInto:nil];
+		resData = [[mAnalyzer anaylzeTheData:mInputData withDesign:mDesignData  atCurrentTimestep:mCurrentTimestep-1 forContrastVector:contrastVector andWriteResultInto:nil] retain];
 	}
 	else {
-		resData = [mAnalyzer anaylzeTheData:mInputData withDesign:[[mDesignData copy] autorelease] atCurrentTimestep:[mInputData getImageSize].timesteps forContrastVector:contrastVector andWriteResultInto:nil];
+		resData = [[mAnalyzer anaylzeTheData:mInputData withDesign:mDesignData atCurrentTimestep:[mInputData getImageSize].timesteps forContrastVector:contrastVector andWriteResultInto:nil] retain];
 		NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%d.nii", [mInputData getImageSize].timesteps];
 		[resData WriteDataElementToFile:fname];
 	}
 	
 	//NSLog(@"!!!!resData retainCoung pre notification %d", [resData retainCount]);
-	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidCalcNextResultNotification object:[resData retain]];
+   
+	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidCalcNextResultNotification object:[resData autorelease]];
 	//NSLog(@"!!!!!resData retainCoung post notification %d", [resData retainCount]);
 
+    [contrastVector release];
 	[autoreleasePool drain];
 	NSLog(@"processDataThread END");
 	[NSThread exit];

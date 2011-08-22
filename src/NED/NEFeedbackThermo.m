@@ -95,11 +95,13 @@
     CGContextSetTextDrawingMode(context, kCGTextFillStroke);
     CGContextShowTextAtPoint(context, [self bounds].size.width / 2.0 - 15.0, [self bounds].size.height / 2.0, 
                              [temperatureString cStringUsingEncoding:NSUTF8StringEncoding], [temperatureString length]);
+    CGColorSpaceRelease(colorSpace);
+    CGGradientRelease(gradient);
 }
 
 -(void)dealloc
 {
-    [NEThermoWindowController release];
+    [thermoWindowController release];
     [super dealloc];
 }
 

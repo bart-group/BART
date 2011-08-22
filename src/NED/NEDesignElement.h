@@ -42,13 +42,12 @@ typedef struct TrialListStruct {
 
 @interface NEDesignElement : NSObject  <NSCopying> {
 
-    unsigned int mRepetitionTimeInMs;
+   // unsigned int mRepetitionTimeInMs;
     unsigned int mNumberExplanatoryVariables;
     unsigned int mNumberTimesteps;
     unsigned int mNumberRegressors;
 	unsigned int mNumberCovariates;  
-	//enum ImageDataType mImageDataType;
-    
+	    
 }
 
 @property ( assign) unsigned int mRepetitionTimeInMs;
@@ -57,6 +56,9 @@ typedef struct TrialListStruct {
 @property ( assign) unsigned int mNumberRegressors;
 @property ( assign) unsigned int mNumberCovariates;   
 //@property ( assign) enum ImageDataType mImageDataType;
+
+//-(void)setTimesteps:(unsigned int)val;
+//-(unsigned int)timesteps;
 
 -(id)initWithDatasetFile:(NSString*)path;// ofImageDataType:(enum ImageDataType)type;
 

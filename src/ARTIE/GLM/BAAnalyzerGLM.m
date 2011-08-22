@@ -65,7 +65,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 			 andWriteResultInto:(EDDataElement*)resData;
 //TODO:Ergebnis als Referenz reingeben, nicht hier drin erzeugen UND Contrasts UND MINVAL mitgeben!!
 {
-    mDesign = design;
+    mDesign = [design copy];
     mData = data;
     /*
      * create output images
@@ -455,6 +455,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 	mResMap = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
 	[ mResMap copyProps:propsToCopy fromDataElement:mData];
 	mBCOVOutput = [[EDDataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mDesign.mNumberExplanatoryVariables andCols:mDesign.mNumberExplanatoryVariables andSlices:1 andTimesteps:1];
+    [s release];
 }
 
 @end

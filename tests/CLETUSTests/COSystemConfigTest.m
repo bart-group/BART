@@ -213,10 +213,9 @@ COSystemConfig* config;
     
     NSError* err = [config replaceProp:toDeleteKey withNode:nil];
     
-    if ([config countNodes:toDeleteKey] == 0
-        && err == nil) {
-        success = success && YES;
-    } else {
+    if ([config countNodes:toDeleteKey] != 0
+        || err != nil) 
+    {
         success = NO;
     }
 	

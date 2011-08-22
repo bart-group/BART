@@ -241,16 +241,18 @@ enum COLiteralArithmeticOperation {
 -(id)initWithLiteralString:(NSString*)literal 
              andParameters:(NSDictionary*)params
 {
-    literalString = literal;//[literal copy];
-    if (params) {
-        mParameters = params;
-    } else {
-        mParameters = [NSDictionary dictionary];
+    if ((self = [super init]))
+    {
+        literalString = literal;//[literal copy];
+        if (params) {
+            mParameters = params;
+        } else {
+            mParameters = [NSDictionary dictionary];
+        }
+        
+        mTokens = [[NSMutableArray alloc] initWithCapacity:0];
+        litValue = LIT_FALSE;
     }
-    
-    mTokens = [[NSMutableArray alloc] initWithCapacity:0];
-    litValue = LIT_FALSE;
-    
     return self;
 }
 
@@ -258,7 +260,7 @@ enum COLiteralArithmeticOperation {
 {    
     if ([mTokens count] == 0) {
         // Tokenize...
-        int cur = 0;
+        size_t cur = 0;
         while (cur < [literalString length] && litValue != LIT_ERROR) {
             [self tokenize:&cur];
         }

@@ -76,6 +76,8 @@ const TrialListRef R_TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	}
 	else {
 		NSString* errorString = [NSString stringWithFormat:@"No design struct found in edl-file. Define gwDesignStruct or swDesignStruct or dynamicDesignStruct! "];
+        [expType release];
+        [f release];
 		return error = [NSError errorWithDomain:errorString code:R_EVENT_NUMERATION userInfo:nil];
 	}
 	
@@ -86,6 +88,8 @@ const TrialListRef R_TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	if (0 >= mRepetitionTimeInMs)
 	{
 		mRepetitionTimeInMs = 0;
+        [expType release];
+        [f release];
 		return error = [NSError errorWithDomain:[NSString stringWithFormat:@"negative TR not possible"] code:R_TR_NOT_SPECIFIED userInfo:nil];
 	}
 	
@@ -94,6 +98,8 @@ const TrialListRef R_TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	if ( 0 >= mNumberTimesteps)
 	{
 		mNumberTimesteps = 0;
+        [expType release];
+        [f release];
 		return error = [NSError errorWithDomain:[NSString stringWithFormat:@"negative number of timesteps not possible"] code:R_NUMBERTIMESTEPS_NOT_SPECIFIED userInfo:nil];
 	}
 	
@@ -101,6 +107,8 @@ const TrialListRef R_TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	if (0 > mNumberCovariates)
 	{
 		mNumberCovariates = 0;
+        [expType release];
+        [f release];
 		return error = [NSError errorWithDomain:@"negative number of covariates not possible" code:R_NUMBERCOVARIATES_NOT_SPECIFIED userInfo:nil];
 	}
 	
@@ -108,6 +116,8 @@ const TrialListRef R_TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	if (0 >= mNumberEvents)
 	{
 		mNumberEvents = 0;
+        [expType release];
+        [f release];
 		return error = [NSError errorWithDomain:@"numberEvents not defined" code:R_NUMBERREGRESSORS_NOT_SPECIFIED userInfo:nil];
 	}
 	
@@ -145,6 +155,8 @@ const TrialListRef R_TRIALLIST_INIT = { {0,0,0,0}, NULL};
 			float height = [[f numberFromString:[config getProp:requestTrialHeight]] floatValue];
 			
 			if (0.0 >= duration) {//if not set or negative
+                [expType release];
+                [f release];
 				return error = [NSError errorWithDomain:@"negative duration of a statEvent" code:R_REGRESSOR_DURATION_NOT_SPECIFIED userInfo:nil];
 				//NSLog(@"There's a negative duration of a statEvent - that's not valid, so set to 1.0");
 				//duration = 1.0;
@@ -217,14 +229,23 @@ const TrialListRef R_TRIALLIST_INIT = { {0,0,0,0}, NULL};
 				mRegressorList[eventNr]->regConvolKernel = [[NEDesignKernel alloc] initWithGloverParams:params andNumberSamples:[NSNumber numberWithLong:mNumberSamplesForInit] andSamplingRate:[NSNumber numberWithLong:r_samplingRateInMs]];
 				if (nil == mRegressorList[eventNr]->regConvolKernel){
 					[params release];
+                    [expType release];
+                    [f release];
 					return error = [NSError errorWithDomain:@"generation of design kernel failed" code:R_CONVOLUTION_KERNEL_NOT_SPECIFIED userInfo:nil];
 				}
 				[params release];
 			}
 			else if ([hrfKernelName isEqualToString:[config getProp:[NSString stringWithFormat:@"$refFctsGamma[%d]/@refFctID",refNr+1]]]){
 				GeneralGammaParams params;
+                params.maxLengthHrfInMs = 0;
+                params.peak1 = 0;
+                params.peak2 = 0;
+                params.scale2 = 0;
+                params.scale1 = 0;
 				mRegressorList[eventNr]->regConvolKernel = [[NEDesignKernel alloc] initWithGeneralGammaParams:params];
 				if (nil == mRegressorList[eventNr]->regConvolKernel){
+                    [expType release];
+                    [f release];
 					return error = [NSError errorWithDomain:@"generation of design kernel failed" code:R_CONVOLUTION_KERNEL_NOT_SPECIFIED userInfo:nil];
 				}
 			}
@@ -233,6 +254,7 @@ const TrialListRef R_TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	
     mNumberRegressors = mNumberEvents + nrDerivs + 1;
     mNumberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
+    [expType release];
 	[f release];//temp for conversion purposes
 	return error;
 }
@@ -282,7 +304,7 @@ const TrialListRef R_TRIALLIST_INIT = { {0,0,0,0}, NULL};
 		[self correctForZeromean];
 	}
     if (mNumberEvents < 1) {
-        return [NSError errorWithDomain:@"No events were found!" code:R_NO_EVENTS_FOUND userInfo:nil];
+        return [[NSError errorWithDomain:@"No events were found!" code:R_NO_EVENTS_FOUND userInfo:nil] retain];
     }
     
 	

@@ -17,7 +17,9 @@
 -(void)setUp
 {
     config = [[COExperimentContext getInstance] systemConfig];
-    [config fillWithContentsOfEDLFile:@"pseudoStimulusDataFree.edl"];
+    NSString *curDir = [[NSBundle bundleForClass:[self class] ] resourcePath];
+    NSString *fileName = [NSString stringWithFormat:@"%@/pseudoStimulusDataFree.edl", curDir ];
+  	[config fillWithContentsOfEDLFile:fileName];
 }
 
 -(void)testInitWithConfigEntry
