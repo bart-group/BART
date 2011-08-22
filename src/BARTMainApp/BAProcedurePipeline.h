@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "BAProcedureStep_Paradigm.h"
 
 @class EDDataElement;
 @class NEDesignElement;
@@ -27,6 +28,7 @@
     //TODO: define enum and take a switch where needed
     BOOL isRealTimeTCPInput;
     size_t startAnalysisAtTimeStep;
+    BAProcedureStep_Paradigm *paradigm;
     
 
 }

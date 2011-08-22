@@ -12,7 +12,7 @@
 
 
 /** Used for trigger simulation. */
-static const NSTimeInterval FAKE_TRIGGER_INTERVAL = 2.0;
+static const NSTimeInterval FAKE_TRIGGER_INTERVAL = 1.0;
 
 /** 
  * Error message that is displayed when trying to add an

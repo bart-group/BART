@@ -28,18 +28,18 @@
 -(id)init
 {
     if ((self = [super init])) {
-        keyValuePairSeperator = @" ";
+        keyValuePairSeperator = @"\t";
         keyValueSeperator     = @":";
         
-        beginSetDelimiter     = @"{";
-        entrySeperator        = @",";
+        beginSetDelimiter     = @"\t{";
+        entrySeperator        = @"\t";
         endSetDelimiter       = @"}";
         
-        triggerIdentifier     = @"T";
+        triggerIdentifier     = @"Trigger";
         
-        eventIdentifier       = @"E";
-        startEventIdentifier  = @"S";
-        endEventIdentifier    = @"E";
+        eventIdentifier       = @"Event";
+        startEventIdentifier  = @"Start";
+        endEventIdentifier    = @"End";
     }
     
     return self;
@@ -66,7 +66,7 @@
 -(NSString*)stringForStimEvent:(NEStimEvent*)event
 {
     // @"E:{time,duration,ID}"
-    return [NSString stringWithFormat:@"%@%@%@%d%@%d%@%@%@", 
+    return [NSString stringWithFormat:@"%@%@%@%d%@%d%@%@%@%.0f,%0.f%@", 
             eventIdentifier, 
             keyValueSeperator, 
             beginSetDelimiter, 
@@ -75,6 +75,9 @@
             [event duration], 
             entrySeperator,
             [[event mediaObject] getID],
+            entrySeperator,
+            [[event mediaObject] position].x,
+            [[event mediaObject] position].y,
             endSetDelimiter];
 }
 

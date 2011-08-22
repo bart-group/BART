@@ -60,6 +60,7 @@
 		0041E41D13E8057C00169848 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E41713E804AB00169848 /* AppKit.framework */; };
 		0041E4B113E819A600169848 /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AF13E805FF00169848 /* CLETUS.dylib */; };
 		004ABAF41378791400B13077 /* BADynamicDesignPipeline.m in Sources */ = {isa = PBXBuildFile; fileRef = 004ABAF31378791400B13077 /* BADynamicDesignPipeline.m */; };
+		004E8DB2140283AE00D70294 /* PresentationControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00DB781813EA8BB100BB6484 /* PresentationControl.xib */; };
 		0056DA1112D36577002AC73F /* NEDesignElementReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F517122D2DEF001DA2BB /* NEDesignElementReference.m */; };
 		005B604C11D3819E00812781 /* isis_test.mm in Sources */ = {isa = PBXBuildFile; fileRef = 005B604A11D3818B00812781 /* isis_test.mm */; };
 		0066277211804494004980A0 /* NEDesignGloverKernelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0066277111804494004980A0 /* NEDesignGloverKernelTest.m */; };
@@ -2115,6 +2116,7 @@
 				007E4FB9116249D700C9D686 /* MainMenu.xib in Resources */,
 				00673D4313FD75C80056BD4F /* TestDataset01-functional.nii in Resources */,
 				00673D4413FD75C80056BD4F /* TestDataset02-functional.nii in Resources */,
+				004E8DB2140283AE00D70294 /* PresentationControl.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

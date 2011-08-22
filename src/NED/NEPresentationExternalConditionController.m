@@ -56,7 +56,9 @@ NSDictionary *dictExternalConditions;
     {
         NSString *mediaObjID = [mediaObj getID];
         //NSString *externalCondition = [mediaObjID getExternalCondition];
-        [mutableDictExternalCond setObject:[dictSerialIOPlugins objectForKey:externalCondition] forKey:mediaObjID];
+        if (nil != [dictSerialIOPlugins objectForKey:externalCondition]){
+            [mutableDictExternalCond setObject:[dictSerialIOPlugins objectForKey:externalCondition] forKey:mediaObjID];
+        }
     }
     
     dictExternalConditions = [[NSDictionary alloc] initWithDictionary:mutableDictExternalCond];
@@ -66,7 +68,11 @@ NSDictionary *dictExternalConditions;
 
 -(BOOL)isConditionFullfilledForMediaObjectID:(NSString*)mediaObjectID
 {
-    return [(SerialPort*)[dictExternalConditions objectForKey:mediaObjectID] isConditionFullfilled];
+    SerialPort* s = [dictExternalConditions objectForKey:mediaObjectID];
+    if (nil != s){
+        return [s isConditionFullfilled];
+    }
+    return YES;
         
 }
 

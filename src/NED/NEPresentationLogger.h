@@ -40,7 +40,7 @@
  *
  * \param msg Message to log/add.
  */
--(void)log:(NSString*)msg;
+-(void)log:(NSString*)msg withTime:(NSUInteger)t;
 
 /**
  * Logs a trigger message.
@@ -50,7 +50,7 @@
  * \param triggerNumber The number of the trigger that needs to
  *                      appear in the message.
  */
--(void)logTrigger:(NSUInteger)triggerNumber;
+-(void)logTrigger:(NSUInteger)triggerNumber  withTime:(NSUInteger)t;
 
 /**
  * Generates a log message for a starting event and adds this
@@ -65,7 +65,8 @@
  *                      happens.
  */
 -(void)logStartingEvent:(NEStimEvent*)event 
-            withTrigger:(NSUInteger)triggerNumber;
+            withTrigger:(NSUInteger)triggerNumber
+             andTime:(NSUInteger)t;
 
 /**
  * Generates a log message for a ending event and adds this
@@ -80,7 +81,8 @@
  *                      ends.
  */
 -(void)logEndingEvent:(NEStimEvent*)event 
-          withTrigger:(NSUInteger)triggerNumber;
+          withTrigger:(NSUInteger)triggerNumber
+              andTime:(NSUInteger)t;
 
 /**
  * Returns an autoreleased copy of all messages/the log.
