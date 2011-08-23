@@ -7,8 +7,23 @@
 //
 
 #import "ROTransformation.h"
+#import "EDDataElement.h"
 
 
 @implementation ROTransformation
+
+-(id)init
+{
+    if (self = [super init]) {
+    }
+    
+    return self;    
+}
+
+-(EDDataElement*)transform:(EDDataElement*)element
+{
+    ITKImage::Pointer itkImage = [element asITKImage];
+    return nil;
+}
 
 @end

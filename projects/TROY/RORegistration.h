@@ -6,8 +6,24 @@
 //  Copyright (c) 2011 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
-@interface RORegistration : NSObject
+#import "EDDataElement.h"
+
+#include "isisRegistrationFactory3D.hpp"
+
+typedef isis::registration::RegistrationFactory3D<ITKImage, ITKImage> RegistrationFactoryType;
+
+@interface RORegistration : NSObject {
+    
+    @private
+    RegistrationFactoryType::Pointer registrationFactory;
+    
+}
+
+/**
+ *
+ */
+-(EDDataElement*)align:(EDDataElement*)toAlign withReference:(EDDataElement*)ref;
 
 @end

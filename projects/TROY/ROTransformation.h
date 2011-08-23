@@ -6,7 +6,7 @@
 //  Copyright 2011 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
 @class EDDataElement;
 
