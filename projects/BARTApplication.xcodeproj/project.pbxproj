@@ -336,9 +336,28 @@
 		A75A5D3E1403CABF00514CD3 /* RORegistration.mm in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D3C1403CABF00514CD3 /* RORegistration.mm */; };
 		A75A5D3F1403CABF00514CD3 /* RORegistration.mm in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D3C1403CABF00514CD3 /* RORegistration.mm */; };
 		A75A5D491403CF3D00514CD3 /* RORegistrationTest.h in Headers */ = {isa = PBXBuildFile; fileRef = A75A5D471403CF3D00514CD3 /* RORegistrationTest.h */; };
-		A75A5D4A1403CF3D00514CD3 /* RORegistrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D481403CF3D00514CD3 /* RORegistrationTest.m */; };
-		A75A5D4C1403CF3D00514CD3 /* RORegistrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D481403CF3D00514CD3 /* RORegistrationTest.m */; };
+		A75A5D4A1403CF3D00514CD3 /* RORegistrationTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D481403CF3D00514CD3 /* RORegistrationTest.mm */; };
+		A75A5D4C1403CF3D00514CD3 /* RORegistrationTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D481403CF3D00514CD3 /* RORegistrationTest.mm */; };
 		A75A5D4D1403D87A00514CD3 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
+		A75A5D4E1403DFAB00514CD3 /* libITKCommon.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0023CBD813EC1898006303B6 /* libITKCommon.3.16.0.dylib */; };
+		A75A5D4F1403DFAB00514CD3 /* libITKIO.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898013F563D6005FF00D /* libITKIO.3.16.0.dylib */; };
+		A75A5D501403DFAB00514CD3 /* libITKStatistics.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898E13F563D7005FF00D /* libITKStatistics.3.16.0.dylib */; };
+		A75A5D511403E03B00514CD3 /* libITKAlgorithms.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897A13F563D5005FF00D /* libITKAlgorithms.3.16.0.dylib */; };
+		A75A5D521403E03B00514CD3 /* libITKBasicFilters.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897B13F563D5005FF00D /* libITKBasicFilters.3.16.0.dylib */; };
+		A75A5D531403E03B00514CD3 /* libITKNumerics.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898913F563D6005FF00D /* libITKNumerics.3.16.0.dylib */; };
+		A75A5D541403E03B00514CD3 /* libITKSpatialObject.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898D13F563D6005FF00D /* libITKSpatialObject.3.16.0.dylib */; };
+		A75A5D551403E03B00514CD3 /* libitkvcl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899213F563D7005FF00D /* libitkvcl.3.16.0.dylib */; };
+		A75A5D561403E03B00514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899313F563D7005FF00D /* libitkvnl_algo.3.16.0.dylib */; };
+		A75A5D571403E03B00514CD3 /* libitkvnl_inst.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899413F563D7005FF00D /* libitkvnl_inst.3.16.0.dylib */; };
+		A75A5D581403E03B00514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899513F563D7005FF00D /* libitkvnl.3.16.0.dylib */; };
+		A75A5D591403E15900514CD3 /* libITKAlgorithms.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897A13F563D5005FF00D /* libITKAlgorithms.3.16.0.dylib */; };
+		A75A5D5A1403E15900514CD3 /* libITKBasicFilters.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897B13F563D5005FF00D /* libITKBasicFilters.3.16.0.dylib */; };
+		A75A5D5B1403E15900514CD3 /* libITKNumerics.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898913F563D6005FF00D /* libITKNumerics.3.16.0.dylib */; };
+		A75A5D5C1403E15900514CD3 /* libITKSpatialObject.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898D13F563D6005FF00D /* libITKSpatialObject.3.16.0.dylib */; };
+		A75A5D5D1403E15900514CD3 /* libitkvcl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899213F563D7005FF00D /* libitkvcl.3.16.0.dylib */; };
+		A75A5D5E1403E15900514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899313F563D7005FF00D /* libitkvnl_algo.3.16.0.dylib */; };
+		A75A5D5F1403E15900514CD3 /* libitkvnl_inst.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899413F563D7005FF00D /* libitkvnl_inst.3.16.0.dylib */; };
+		A75A5D601403E15900514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899513F563D7005FF00D /* libitkvnl.3.16.0.dylib */; };
 		A7A4641513F40B1300426C70 /* ROTransformation.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A4641313F40B1300426C70 /* ROTransformation.h */; };
 		A7A4641613F40B1300426C70 /* ROTransformation.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7A4641413F40B1300426C70 /* ROTransformation.mm */; };
 		A7A476EE13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */; };
@@ -854,7 +873,7 @@
 		A75A5D3B1403CABF00514CD3 /* RORegistration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistration.h; sourceTree = "<group>"; };
 		A75A5D3C1403CABF00514CD3 /* RORegistration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistration.mm; sourceTree = "<group>"; };
 		A75A5D471403CF3D00514CD3 /* RORegistrationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationTest.h; sourceTree = "<group>"; };
-		A75A5D481403CF3D00514CD3 /* RORegistrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RORegistrationTest.m; sourceTree = "<group>"; };
+		A75A5D481403CF3D00514CD3 /* RORegistrationTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistrationTest.mm; sourceTree = "<group>"; };
 		A7A4641313F40B1300426C70 /* ROTransformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROTransformation.h; sourceTree = "<group>"; };
 		A7A4641413F40B1300426C70 /* ROTransformation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ROTransformation.mm; sourceTree = "<group>"; };
 		A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D_impl.hpp; sourceTree = "<group>"; };
@@ -872,6 +891,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A75A5D511403E03B00514CD3 /* libITKAlgorithms.3.16.0.dylib in Frameworks */,
+				A75A5D521403E03B00514CD3 /* libITKBasicFilters.3.16.0.dylib in Frameworks */,
+				A75A5D531403E03B00514CD3 /* libITKNumerics.3.16.0.dylib in Frameworks */,
+				A75A5D541403E03B00514CD3 /* libITKSpatialObject.3.16.0.dylib in Frameworks */,
+				A75A5D551403E03B00514CD3 /* libitkvcl.3.16.0.dylib in Frameworks */,
+				A75A5D561403E03B00514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */,
+				A75A5D571403E03B00514CD3 /* libitkvnl_inst.3.16.0.dylib in Frameworks */,
+				A75A5D581403E03B00514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */,
 				A75A5D381403C95F00514CD3 /* libITKCommon.3.16.0.dylib in Frameworks */,
 				A75A5D391403C95F00514CD3 /* libITKIO.3.16.0.dylib in Frameworks */,
 				A75A5D3A1403C95F00514CD3 /* libITKStatistics.3.16.0.dylib in Frameworks */,
@@ -883,6 +910,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A75A5D591403E15900514CD3 /* libITKAlgorithms.3.16.0.dylib in Frameworks */,
+				A75A5D5A1403E15900514CD3 /* libITKBasicFilters.3.16.0.dylib in Frameworks */,
+				A75A5D5B1403E15900514CD3 /* libITKNumerics.3.16.0.dylib in Frameworks */,
+				A75A5D5C1403E15900514CD3 /* libITKSpatialObject.3.16.0.dylib in Frameworks */,
+				A75A5D5D1403E15900514CD3 /* libitkvcl.3.16.0.dylib in Frameworks */,
+				A75A5D5E1403E15900514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */,
+				A75A5D5F1403E15900514CD3 /* libitkvnl_inst.3.16.0.dylib in Frameworks */,
+				A75A5D601403E15900514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */,
+				A75A5D4E1403DFAB00514CD3 /* libITKCommon.3.16.0.dylib in Frameworks */,
+				A75A5D4F1403DFAB00514CD3 /* libITKIO.3.16.0.dylib in Frameworks */,
+				A75A5D501403DFAB00514CD3 /* libITKStatistics.3.16.0.dylib in Frameworks */,
 				0000B18F13E1C92400029A41 /* Cocoa.framework in Frameworks */,
 				A75A5D4D1403D87A00514CD3 /* TROY.dylib in Frameworks */,
 			);
@@ -1146,7 +1184,7 @@
 				0000B19C13E1C92400029A41 /* TROYTests.m */,
 				0000B19413E1C92400029A41 /* Supporting Files */,
 				A75A5D471403CF3D00514CD3 /* RORegistrationTest.h */,
-				A75A5D481403CF3D00514CD3 /* RORegistrationTest.m */,
+				A75A5D481403CF3D00514CD3 /* RORegistrationTest.mm */,
 			);
 			name = TROYTests;
 			path = ../projects/TROYTests;
@@ -2425,7 +2463,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0000B19D13E1C92400029A41 /* TROYTests.m in Sources */,
-				A75A5D4C1403CF3D00514CD3 /* RORegistrationTest.m in Sources */,
+				A75A5D4C1403CF3D00514CD3 /* RORegistrationTest.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2625,7 +2663,7 @@
 				0023CBD313EAC484006303B6 /* BAProcedureStep_Analysis.m in Sources */,
 				0023CBD613EAC4B3006303B6 /* BAProcedureStep_Feedback.m in Sources */,
 				A75A5D3E1403CABF00514CD3 /* RORegistration.mm in Sources */,
-				A75A5D4A1403CF3D00514CD3 /* RORegistrationTest.m in Sources */,
+				A75A5D4A1403CF3D00514CD3 /* RORegistrationTest.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2811,6 +2849,10 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				INFOPLIST_FILE = "TROYTests/TROYTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"/opt/local/lib/InsightToolkit-3.16\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -2839,6 +2881,10 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				INFOPLIST_FILE = "TROYTests/TROYTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"/opt/local/lib/InsightToolkit-3.16\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (
 					"-framework",
