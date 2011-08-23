@@ -10,7 +10,6 @@
 		0000B16C13E15F7D00029A41 /* BAProcedureStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 0000B16B13E15F7D00029A41 /* BAProcedureStep.m */; };
 		0000B18513E1C92400029A41 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18413E1C92400029A41 /* Cocoa.framework */; };
 		0000B18F13E1C92400029A41 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18413E1C92400029A41 /* Cocoa.framework */; };
-		0000B19213E1C92400029A41 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
 		0000B19813E1C92400029A41 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0000B19613E1C92400029A41 /* InfoPlist.strings */; };
 		0000B19B13E1C92400029A41 /* TROYTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 0000B19A13E1C92400029A41 /* TROYTests.h */; };
 		0000B19D13E1C92400029A41 /* TROYTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0000B19C13E1C92400029A41 /* TROYTests.m */; };
@@ -330,9 +329,18 @@
 		A75A5D341402883000514CD3 /* libitkvcl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899213F563D7005FF00D /* libitkvcl.3.16.0.dylib */; };
 		A75A5D351402883000514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899313F563D7005FF00D /* libitkvnl_algo.3.16.0.dylib */; };
 		A75A5D361402883000514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899513F563D7005FF00D /* libitkvnl.3.16.0.dylib */; };
+		A75A5D381403C95F00514CD3 /* libITKCommon.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0023CBD813EC1898006303B6 /* libITKCommon.3.16.0.dylib */; };
+		A75A5D391403C95F00514CD3 /* libITKIO.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898013F563D6005FF00D /* libITKIO.3.16.0.dylib */; };
+		A75A5D3A1403C95F00514CD3 /* libITKStatistics.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898E13F563D7005FF00D /* libITKStatistics.3.16.0.dylib */; };
+		A75A5D3D1403CABF00514CD3 /* RORegistration.h in Headers */ = {isa = PBXBuildFile; fileRef = A75A5D3B1403CABF00514CD3 /* RORegistration.h */; };
+		A75A5D3E1403CABF00514CD3 /* RORegistration.mm in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D3C1403CABF00514CD3 /* RORegistration.mm */; };
+		A75A5D3F1403CABF00514CD3 /* RORegistration.mm in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D3C1403CABF00514CD3 /* RORegistration.mm */; };
+		A75A5D491403CF3D00514CD3 /* RORegistrationTest.h in Headers */ = {isa = PBXBuildFile; fileRef = A75A5D471403CF3D00514CD3 /* RORegistrationTest.h */; };
+		A75A5D4A1403CF3D00514CD3 /* RORegistrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D481403CF3D00514CD3 /* RORegistrationTest.m */; };
+		A75A5D4C1403CF3D00514CD3 /* RORegistrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D481403CF3D00514CD3 /* RORegistrationTest.m */; };
+		A75A5D4D1403D87A00514CD3 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
 		A7A4641513F40B1300426C70 /* ROTransformation.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A4641313F40B1300426C70 /* ROTransformation.h */; };
-		A7A4641613F40B1300426C70 /* ROTransformation.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A4641413F40B1300426C70 /* ROTransformation.m */; };
-		A7A4641713F40B1300426C70 /* ROTransformation.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A4641413F40B1300426C70 /* ROTransformation.m */; };
+		A7A4641613F40B1300426C70 /* ROTransformation.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7A4641413F40B1300426C70 /* ROTransformation.mm */; };
 		A7A476EE13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */; };
 		A7A476EF13F40EBE00426C70 /* isisRegistrationFactory3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A7A476ED13F40EBE00426C70 /* isisRegistrationFactory3D.hpp */; };
 		A7A4770313F41CCA00426C70 /* libITKCommon.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0023CBD813EC1898006303B6 /* libITKCommon.3.16.0.dylib */; };
@@ -842,8 +850,13 @@
 		A722899513F563D7005FF00D /* libitkvnl.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libitkvnl.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libitkvnl.3.16.0.dylib"; sourceTree = "<group>"; };
 		A722899613F563D7005FF00D /* libitkzlib.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libitkzlib.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libitkzlib.3.16.0.dylib"; sourceTree = "<group>"; };
 		A722899713F563D7005FF00D /* libITKznz.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKznz.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKznz.3.16.0.dylib"; sourceTree = "<group>"; };
+		A75A5D371403C78C00514CD3 /* isisIterationObserver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = isisIterationObserver.hpp; path = ../../../lipsia/src/new/valign3d/isisIterationObserver.hpp; sourceTree = "<group>"; };
+		A75A5D3B1403CABF00514CD3 /* RORegistration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistration.h; sourceTree = "<group>"; };
+		A75A5D3C1403CABF00514CD3 /* RORegistration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistration.mm; sourceTree = "<group>"; };
+		A75A5D471403CF3D00514CD3 /* RORegistrationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationTest.h; sourceTree = "<group>"; };
+		A75A5D481403CF3D00514CD3 /* RORegistrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RORegistrationTest.m; sourceTree = "<group>"; };
 		A7A4641313F40B1300426C70 /* ROTransformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROTransformation.h; sourceTree = "<group>"; };
-		A7A4641413F40B1300426C70 /* ROTransformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROTransformation.m; sourceTree = "<group>"; };
+		A7A4641413F40B1300426C70 /* ROTransformation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ROTransformation.mm; sourceTree = "<group>"; };
 		A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D_impl.hpp; sourceTree = "<group>"; };
 		A7A476ED13F40EBE00426C70 /* isisRegistrationFactory3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D.hpp; sourceTree = "<group>"; };
 		CE8A2A3910F61713002422B5 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
@@ -859,6 +872,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A75A5D381403C95F00514CD3 /* libITKCommon.3.16.0.dylib in Frameworks */,
+				A75A5D391403C95F00514CD3 /* libITKIO.3.16.0.dylib in Frameworks */,
+				A75A5D3A1403C95F00514CD3 /* libITKStatistics.3.16.0.dylib in Frameworks */,
 				0000B18513E1C92400029A41 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -868,7 +884,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0000B18F13E1C92400029A41 /* Cocoa.framework in Frameworks */,
-				0000B19213E1C92400029A41 /* TROY.dylib in Frameworks */,
+				A75A5D4D1403D87A00514CD3 /* TROY.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1106,8 +1122,11 @@
 				0000B18713E1C92400029A41 /* Supporting Files */,
 				A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */,
 				A7A476ED13F40EBE00426C70 /* isisRegistrationFactory3D.hpp */,
+				A75A5D371403C78C00514CD3 /* isisIterationObserver.hpp */,
 				A7A4641313F40B1300426C70 /* ROTransformation.h */,
-				A7A4641413F40B1300426C70 /* ROTransformation.m */,
+				A7A4641413F40B1300426C70 /* ROTransformation.mm */,
+				A75A5D3B1403CABF00514CD3 /* RORegistration.h */,
+				A75A5D3C1403CABF00514CD3 /* RORegistration.mm */,
 			);
 			path = TROY;
 			sourceTree = "<group>";
@@ -1126,6 +1145,8 @@
 				0000B19A13E1C92400029A41 /* TROYTests.h */,
 				0000B19C13E1C92400029A41 /* TROYTests.m */,
 				0000B19413E1C92400029A41 /* Supporting Files */,
+				A75A5D471403CF3D00514CD3 /* RORegistrationTest.h */,
+				A75A5D481403CF3D00514CD3 /* RORegistrationTest.m */,
 			);
 			name = TROYTests;
 			path = ../projects/TROYTests;
@@ -1773,6 +1794,8 @@
 				A7A4641513F40B1300426C70 /* ROTransformation.h in Headers */,
 				A7A476EE13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp in Headers */,
 				A7A476EF13F40EBE00426C70 /* isisRegistrationFactory3D.hpp in Headers */,
+				A75A5D3D1403CABF00514CD3 /* RORegistration.h in Headers */,
+				A75A5D491403CF3D00514CD3 /* RORegistrationTest.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2392,7 +2415,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7A4641613F40B1300426C70 /* ROTransformation.m in Sources */,
+				A7A4641613F40B1300426C70 /* ROTransformation.mm in Sources */,
+				A75A5D3F1403CABF00514CD3 /* RORegistration.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2401,7 +2425,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0000B19D13E1C92400029A41 /* TROYTests.m in Sources */,
-				A7A4641713F40B1300426C70 /* ROTransformation.m in Sources */,
+				A75A5D4C1403CF3D00514CD3 /* RORegistrationTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2600,6 +2624,8 @@
 				0023CBD013EAC45B006303B6 /* BAProcedureStep_Preprocessing.m in Sources */,
 				0023CBD313EAC484006303B6 /* BAProcedureStep_Analysis.m in Sources */,
 				0023CBD613EAC4B3006303B6 /* BAProcedureStep_Feedback.m in Sources */,
+				A75A5D3E1403CABF00514CD3 /* RORegistration.mm in Sources */,
+				A75A5D4A1403CF3D00514CD3 /* RORegistrationTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2723,7 +2749,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -2733,8 +2759,12 @@
 				GCC_PREFIX_HEADER = "TROY/TROY-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"/opt/local/lib/InsightToolkit-3.16\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2745,7 +2775,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2753,8 +2783,12 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TROY/TROY-Prefix.pch";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"/opt/local/lib/InsightToolkit-3.16\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2764,8 +2798,8 @@
 		0000B1A213E1C92400029A41 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2774,16 +2808,19 @@
 				GCC_PREFIX_HEADER = "TROYTests/TROYTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				INFOPLIST_FILE = "TROYTests/TROYTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SenTestingKit,
+					"-framework",
+					Cocoa,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -2791,24 +2828,27 @@
 		0000B1A313E1C92400029A41 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TROYTests/TROYTests-Prefix.pch";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				INFOPLIST_FILE = "TROYTests/TROYTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SenTestingKit,
+					"-framework",
+					Cocoa,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
@@ -3685,6 +3725,11 @@
 					/opt/local/include/InsightToolkit/Utilities/vxl/core/vnl,
 					/opt/local/include/InsightToolkit/Utilities/vxl/core/vnl/algo,
 					/opt/local/include/InsightToolkit/Utilities/vxl/vcl,
+					/opt/local/include/InsightToolkit/SpatialObject,
+					/opt/local/include/InsightToolkit/Review,
+					"/opt/local/include/InsightToolkit/Numerics/**",
+					/opt/local/include/InsightToolkit/IO,
+					/opt/local/include/InsightToolkit/Algorithms,
 					/opt/local/include/InsightToolkit,
 					/opt/local/include/InsightToolkit/BasicFilters,
 					/opt/local/include/InsightToolkit/Common,
@@ -3740,6 +3785,11 @@
 					/opt/local/include/InsightToolkit/Utilities/vxl/core/vnl,
 					/opt/local/include/InsightToolkit/Utilities/vxl/core/vnl/algo,
 					/opt/local/include/InsightToolkit/Utilities/vxl/vcl,
+					/opt/local/include/InsightToolkit/SpatialObject,
+					/opt/local/include/InsightToolkit/Review,
+					"/opt/local/include/InsightToolkit/Numerics/**",
+					/opt/local/include/InsightToolkit/IO,
+					/opt/local/include/InsightToolkit/Algorithms,
 					/opt/local/include/InsightToolkit,
 					/opt/local/include/InsightToolkit/BasicFilters,
 					/opt/local/include/InsightToolkit/Common,
