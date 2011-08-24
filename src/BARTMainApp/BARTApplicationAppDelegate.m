@@ -26,6 +26,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification 
 {  
+    #pragma unused(aNotification)
     [[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(setGUIBackgroundImage:)
 												 name:BARTDidLoadBackgroundImageNotification object:nil];
@@ -72,6 +73,7 @@
 
 -(void)applicationWillTerminate:(NSNotification*)aNotification
 {
+    #pragma unused(aNotification)
 	[procedurePipe release];
     [super dealloc];
 }

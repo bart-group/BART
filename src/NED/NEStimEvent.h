@@ -35,7 +35,7 @@
 
 @property (readwrite) NSUInteger time;
 @property (readwrite) NSUInteger duration;
-@property (readonly) NEMediaObject* mediaObject;
+@property (retain) NEMediaObject* mediaObject;
 
 /**
  * Initializes a NEPresentationEvent object.

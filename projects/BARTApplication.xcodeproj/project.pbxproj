@@ -61,6 +61,8 @@
 		0041E4B113E819A600169848 /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AF13E805FF00169848 /* CLETUS.dylib */; };
 		004ABAF41378791400B13077 /* BADynamicDesignPipeline.m in Sources */ = {isa = PBXBuildFile; fileRef = 004ABAF31378791400B13077 /* BADynamicDesignPipeline.m */; };
 		004E8DB2140283AE00D70294 /* PresentationControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00DB781813EA8BB100BB6484 /* PresentationControl.xib */; };
+		004E8DB31404F48100D70294 /* BARTNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 00AE410D133B9EF100F2D01D /* BARTNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		004E8DB41404F48D00D70294 /* BARTNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AE42B0133CB00400F2D01D /* BARTNotifications.m */; };
 		0056DA1112D36577002AC73F /* NEDesignElementReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F517122D2DEF001DA2BB /* NEDesignElementReference.m */; };
 		005B604C11D3819E00812781 /* isis_test.mm in Sources */ = {isa = PBXBuildFile; fileRef = 005B604A11D3818B00812781 /* isis_test.mm */; };
 		0066277211804494004980A0 /* NEDesignGloverKernelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0066277111804494004980A0 /* NEDesignGloverKernelTest.m */; };
@@ -72,7 +74,6 @@
 		00673D3613FC1E9B0056BD4F /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AE13E805FF00169848 /* NED.dylib */; };
 		00673D3713FC1E9D0056BD4F /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
 		00673D3813FC1E9F0056BD4F /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AF13E805FF00169848 /* CLETUS.dylib */; };
-		00673D3913FC1EB90056BD4F /* BARTSerialIOFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DB76B513E84BFC00BB6484 /* BARTSerialIOFramework.framework */; };
 		00673D3A13FC1F640056BD4F /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
 		00673D3B13FC1F980056BD4F /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AF13E805FF00169848 /* CLETUS.dylib */; };
 		00673D3C13FC20DD0056BD4F /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AE13E805FF00169848 /* NED.dylib */; };
@@ -134,10 +135,8 @@
 		008878251147B445009C7707 /* rtExperiment_v14_w_timebased.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 008878211147B445009C7707 /* rtExperiment_v14_w_timebased.xsd */; };
 		008878261147B445009C7707 /* timeBasedRegressor.edl in Resources */ = {isa = PBXBuildFile; fileRef = 008878221147B445009C7707 /* timeBasedRegressor.edl */; };
 		008CC1BA13FC173E008A3CB0 /* COExperimentContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 00786E1513EED14600BF2554 /* COExperimentContext.m */; };
-		008CC1BB13FC1767008A3CB0 /* BARTSerialIOFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DB76B513E84BFC00BB6484 /* BARTSerialIOFramework.framework */; };
 		009266AE13E5B4590025B384 /* NEDesignElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 009266AC13E5B4590025B384 /* NEDesignElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		009266AF13E5B4590025B384 /* NEDesignElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 009266AD13E5B4590025B384 /* NEDesignElement.m */; };
-		00AE42B1133CB00400F2D01D /* BARTNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AE42B0133CB00400F2D01D /* BARTNotifications.m */; };
 		00B1AC24114554DB008FC09D /* COEDLValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AC22114554DB008FC09D /* COEDLValidator.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00B1AC25114554DB008FC09D /* COEDLValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC23114554DB008FC09D /* COEDLValidator.m */; };
 		00B1AC34114556C3008FC09D /* COEDLValidatorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC33114556C3008FC09D /* COEDLValidatorTest.m */; };
@@ -183,7 +182,6 @@
 		00D444DC134DEB4100094A51 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
 		00D444DD134DEB4200094A51 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00D444E2134DEB5300094A51 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
-		00DB76B613E84BFC00BB6484 /* BARTSerialIOFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DB76B513E84BFC00BB6484 /* BARTSerialIOFramework.framework */; };
 		00DB77E913EA8AD500BB6484 /* NELogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77D313EA8AD500BB6484 /* NELogFormatter.h */; };
 		00DB77EA13EA8AD500BB6484 /* NELogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77D413EA8AD500BB6484 /* NELogFormatter.m */; };
 		00DB77EB13EA8AD500BB6484 /* NEMediaAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77D513EA8AD500BB6484 /* NEMediaAudio.h */; };
@@ -683,7 +681,6 @@
 		00D44164134B57E600094A51 /* libvia.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvia.dylib; path = /usr/local/lib/libvia.dylib; sourceTree = "<absolute>"; };
 		00D44166134B57E600094A51 /* libviaio.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libviaio.dylib; path = /usr/local/lib/libviaio.dylib; sourceTree = "<absolute>"; };
 		00DB76B413E84B6C00BB6484 /* libPRINCE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPRINCE.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		00DB76B513E84BFC00BB6484 /* BARTSerialIOFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BARTSerialIOFramework.framework; path = Library/Frameworks/BARTSerialIOFramework.framework; sourceTree = SDKROOT; };
 		00DB77D313EA8AD500BB6484 /* NELogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NELogFormatter.h; sourceTree = "<group>"; };
 		00DB77D413EA8AD500BB6484 /* NELogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NELogFormatter.m; sourceTree = "<group>"; };
 		00DB77D513EA8AD500BB6484 /* NEMediaAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEMediaAudio.h; sourceTree = "<group>"; };
@@ -902,7 +899,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				008CC1BB13FC1767008A3CB0 /* BARTSerialIOFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -942,7 +938,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00DB76B613E84BFC00BB6484 /* BARTSerialIOFramework.framework in Frameworks */,
 				007A6DB313E81CC700F5DE58 /* NED.dylib in Frameworks */,
 				007A6DB113E81CB700F5DE58 /* EDNA.dylib in Frameworks */,
 				007A6DB213E81CBC00F5DE58 /* CLETUS.dylib in Frameworks */,
@@ -978,7 +973,6 @@
 				00EA8DDA135D871A00562F3B /* libvia.dylib in Frameworks */,
 				00673D3613FC1E9B0056BD4F /* NED.dylib in Frameworks */,
 				00EA8DDB135D871B00562F3B /* libviaio.dylib in Frameworks */,
-				00673D3913FC1EB90056BD4F /* BARTSerialIOFramework.framework in Frameworks */,
 				00EA8DF2135D879B00562F3B /* libfftw3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1600,7 +1594,6 @@
 			isa = PBXGroup;
 			children = (
 				0023CBDA13EC18A9006303B6 /* ITK */,
-				00DB76B513E84BFC00BB6484 /* BARTSerialIOFramework.framework */,
 				0041E4AE13E805FF00169848 /* NED.dylib */,
 				0041E4B013E805FF00169848 /* EDNA.dylib */,
 				0041E4AF13E805FF00169848 /* CLETUS.dylib */,
@@ -1647,6 +1640,7 @@
 			files = (
 				00C3A02B1144FF9700725668 /* COSystemConfig.h in Headers */,
 				007934EC1150FBF7007BEB66 /* COErrorCode.h in Headers */,
+				004E8DB31404F48100D70294 /* BARTNotifications.h in Headers */,
 				00786E1613EED14600BF2554 /* COExperimentContext.h in Headers */,
 				00B1AC24114554DB008FC09D /* COEDLValidator.h in Headers */,
 				00B1AC5911455E38008FC09D /* COXMLUtility.h in Headers */,
@@ -2347,6 +2341,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				004E8DB41404F48D00D70294 /* BARTNotifications.m in Sources */,
 				00C3A02A1144FF9600725668 /* COSystemConfig.m in Sources */,
 				00B1AC25114554DB008FC09D /* COEDLValidator.m in Sources */,
 				00B1AC5A11455E38008FC09D /* COXMLUtility.m in Sources */,
@@ -2438,7 +2433,6 @@
 				007932B8114FB7A4007BEB66 /* BAGUIProtoCGLayer.m in Sources */,
 				007932BA114FB7A6007BEB66 /* BADocument.m in Sources */,
 				007932BE114FB7A9007BEB66 /* BAAnalyzerElement.m in Sources */,
-				00AE42B1133CB00400F2D01D /* BARTNotifications.m in Sources */,
 				00D44159134B569400094A51 /* BAProcedurePipeline.mm in Sources */,
 				004ABAF41378791400B13077 /* BADynamicDesignPipeline.m in Sources */,
 				0000B16C13E15F7D00029A41 /* BAProcedureStep.m in Sources */,

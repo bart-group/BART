@@ -15,7 +15,7 @@
 
 
 
--(BOOL)isFixation;
+-(NSPoint)isFixation;
 
 -(size_t)calcDispersionThresholdForVisualAngle:(size_t)angle andDistanceEyeToScreen:(size_t)dist andHeightScreen:(size_t)heightScr andResolutionHeight:(size_t)res;
 //-(BOOL)getMin:(int*)minValue andMax:(int*)maxValue andMean:(float_t*)meanValue ofParam:(PARAMS)par fromVector:(std::vector<TEyeTracParams>)eyeTracParams;
@@ -31,6 +31,8 @@
 @synthesize relevantBytes;
 @synthesize byteMeanings;
 @synthesize logfilePath;
+
+
 
 
 -(id)init
@@ -248,12 +250,12 @@
     
 }
 
--(BOOL)isConditionFullfilled
+-(NSPoint)isConditionFullfilled
 {
     return [self isFixation];
 }
 
--(BOOL)isFixation
+-(NSPoint)isFixation
 {
     std::vector<TEyeTracParams> actualData = [self getLastData];
 	float_t minValueHG = 0;
@@ -272,7 +274,6 @@
 //		printf("%.2f %.2f\n", actualData[i].horGaze, actualData[i].verGaze);
 //	}
     
-    
     if ((YES == [self getMin:&minValueHG andMax:&maxValueHG andMean:&meanValueHG ofParam:HGAZE  fromVector:actualData])
         && (YES == [self getMin:&minValueVG andMax:&maxValueVG andMean:&meanValueVG ofParam:VGAZE  fromVector:actualData]))
     {
@@ -282,22 +283,22 @@
             {
 				NSLog(@"ganz drin");
                 fprintf(fileFixationsOK, "%.2f\t\t%.2f\n", meanValueHG, meanValueVG);
-                return YES;
+                return  NSMakePoint(meanValueHG, meanValueVG);
             }
 			NSLog(@"bissi drin");
             fprintf(fileFixationsOut, "%.2f\t\t%.2f\n", meanValueHG, meanValueVG);
-            return NO;
+            return  NSMakePoint(0.0, 0.0);
         }
 		NSLog(@"bissi draußen");
-        return NO;
+        return NSMakePoint(0.0, 0.0);
         
     }
     else {
 		NSLog(@"ganz draußen");
-        return NO;
+        return  NSMakePoint(0.0, 0.0);
     }
 	NSLog(@"mich gibts gar nicht");
-    return NO;
+    return  NSMakePoint(0.0, 0.0);
     
 }
 

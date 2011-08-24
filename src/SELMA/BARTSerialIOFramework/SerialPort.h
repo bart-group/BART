@@ -95,6 +95,6 @@
 /*
  * ask for condition of external device
  */
--(BOOL) isConditionFullfilled;
+-(NSPoint) isConditionFullfilled;
    
 @end

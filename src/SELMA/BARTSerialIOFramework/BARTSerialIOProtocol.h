@@ -12,7 +12,7 @@
 @protocol BARTSerialIOProtocol
 
 -(void) valueArrived:(char)value;
--(BOOL) isConditionFullfilled;
+-(NSPoint)isConditionFullfilled;
 
 -(void)connectionIsOpen;
 -(void)connectionIsClosed;

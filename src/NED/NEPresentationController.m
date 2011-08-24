@@ -1,5 +1,5 @@
 //
-//  NESceneController.m
+//  NEPresentationController.m
 //  BARTPresentation
 //
 //  Created by Oliver Zscheyge on 4/6/10.
@@ -98,7 +98,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
  * Handles events starting at mTime (submits the media object
  * to the PresentationView and adds to event to mEventsToEnd).
  */
--(void)handleStartingEvents;
+-(void)handleStartingEvents:(NSPoint)p;
 
 /**
  * Handles events ending at mTime (removing the media object
@@ -114,7 +114,12 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 /**
  * checks for the fullfillment of the external conditions
  */
--(void)checkForExternalConditions;
+-(NSPoint)checkForExternalConditions;
+
+/**
+ * starts the updateThread ,i.e. the real start of the presentation
+ */
+-(void)startPresentation;
 
 @end
 
@@ -124,6 +129,8 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 @synthesize mTriggerCount;
 @synthesize mLastTriggersTime;
 @synthesize mExternalConditionController;
+
+
 
 -(id)initWithView:(NEViewManager*)view
      andTimetable:(NETimetable*)timetable
@@ -146,6 +153,11 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         
         [mViewManager setTimetable:mTimetable];
         [mViewManager setController:self];
+        
+        //register itself as an observer for the trigger messages from the sacnner
+        COExperimentContext *expContext = [COExperimentContext getInstance];
+        [expContext addOberserver:self forProtocol:@"BARTScannerTriggerProtocol"];
+        
         
         // TODO: hard-coded! get info from elsewhere!
 //        // Helicopter feedback.
@@ -188,10 +200,15 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
     [super dealloc];
 }
 
--(void)trigger
+-(void)triggerArrived:(NSNotification*)aNotification
 {
-    NSUInteger triggerCount = [self mTriggerCount] + 1;
-    
+    if (0 == [[aNotification object] unsignedLongValue])
+    {
+        [self startPresentation];
+    }
+
+    NSUInteger triggerCount = [self mTriggerCount] + 1;//tr
+  
     [mLogger logTrigger:triggerCount withTime:mTime];
     
     [self setMTriggerCount:triggerCount];
@@ -252,8 +269,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         && ![mUpdateThread isCancelled]) {
         
         [self resetTimeAndTriggerCount];
-        mLastTriggersTime = [NSDate timeIntervalSinceReferenceDate];
-        [mUpdateThread start];
+       
     }
 }
 
@@ -264,6 +280,21 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         [mViewManager pausePresentation];
     }
 }
+
+-(void)stopPresentation
+{
+    if ([mUpdateThread isExecuting]) {
+        [mUpdateThread cancel];
+        [mViewManager pausePresentation];
+    }
+}
+
+-(void)startPresentation
+{
+    mLastTriggersTime = [NSDate timeIntervalSinceReferenceDate];
+    [mUpdateThread start];
+}
+
 
 -(void)continuePresentation
 {
@@ -300,6 +331,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
      * TODO: place elsewere and get tolerance from config!
      */
     printf("### Log ###\n");
+    [mLogger printToFilePath:@"/tmp/MyLogFile.log"];
     [mLogger print];
     printf("\n");
 //    printf("### Violations ###\n");
@@ -344,7 +376,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
     //mTime = [self mTriggerCount] * mTR + timeDifference;
 
     //ask for conditions
-    [self checkForExternalConditions];
+    NSPoint p = [self checkForExternalConditions];
     
     if (mTime <= [mTimetable duration]) {
         if (timeDifference < mTR - TICK_TIME) {
@@ -354,7 +386,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         [mViewManager setCurrentTime:mTime];
         
         [self updateTimetable];
-        [self handleStartingEvents];
+        [self handleStartingEvents:p];
         [self handleEndingEvents];
         [mViewManager displayPresentationView];
         
@@ -363,18 +395,20 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
     }
 }
 
--(void)checkForExternalConditions
+-(NSPoint)checkForExternalConditions
 {
-    
-    if (NO == [mExternalConditionController isConditionFullfilledForMediaObjectID:0])
+    NSPoint p = [mExternalConditionController isConditionFullfilledForMediaObjectID:0];
+    if ( (0.0 == p.x) || (0.0 == p.y) )
     {
         //shift all coming events 20 ms
         [mTimetable shiftOnsetForAllEventsToHappen:20];
-        
-        
         //return;
     }
-    return;
+    
+        //get position from external device and set this to coming event
+        
+    
+    return p;
     
     
 }
@@ -402,10 +436,12 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
     // TODO: implement removal of events.
 }
 
--(void)handleStartingEvents
+-(void)handleStartingEvents:(NSPoint)p
 {
     NEStimEvent* event = [mTimetable nextEventAtTime:mTime];
     while (event) {
+        
+        [[event mediaObject] setPosition:p];
 
         [mViewManager present:[event mediaObject]];
         [NEStimEvent endTimeSortedInsertOf:event 
@@ -438,7 +474,15 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 {
     mTime = 0;
     [self setMTriggerCount:0];
-    [mLogger printToFilePath:@"/tmp/MyLogFile.log"];
+    //[mLogger printToFilePath:@"/tmp/MyLogFile.log"];
+}
+
+
+
+-(void)terminusFromScannerArrived:(NSNotification *)msg
+{
+    NSLog(@"%@", msg);
+    [self resetPresentationToOriginal:NO];
 }
 
 @end

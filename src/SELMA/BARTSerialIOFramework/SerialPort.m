@@ -211,10 +211,10 @@
     [super dealloc];
 }
 
--(BOOL)isConditionFullfilled
+-(NSPoint)isConditionFullfilled
 {
 	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    __block BOOL ret;
+    __block NSPoint ret = NSMakePoint(0.0, 0.0);
     dispatch_apply([observerList count], queue, ^(size_t i) {
 		ret = [((id<BARTSerialIOProtocol>) [observerList objectAtIndex:i]) isConditionFullfilled];
     });

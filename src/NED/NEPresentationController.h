@@ -1,5 +1,5 @@
 //
-//  NESceneController.h
+//  NEPresentationController.h
 //  BARTPresentation
 //
 //  Created by Oliver Zscheyge on 4/6/10.
@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "NEMediaObject.h"
 #import "NETimetable.h"
+#import "COExperimentContext.h"
 
 @class NEPresentationLogger;
 @class NELogFormatter;
@@ -19,7 +20,7 @@
  * Controller for handling events and the general flow of the
  * presentation.
  */
-@interface NEPresentationController : NSObject {
+@interface NEPresentationController : NSObject <BARTScannerTriggerProtocol> {
  
     /*
      * the controller instance to check for Conditions of external devices
@@ -88,10 +89,10 @@
 -(id)initWithView:(NEViewManager*)view
      andTimetable:(NETimetable*)timetable;
 
-/**
- * Increases the trigger count of the receiver.
- */
--(void)trigger;
+///**
+// * Increases the trigger count of the receiver.
+// */
+//-(void)trigger;
 
 /**
  * The first call of trigger after preparing the receiver with this

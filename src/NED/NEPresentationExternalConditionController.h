@@ -35,6 +35,6 @@
  * \return                     YES if all defined external conditions are fullfilled for this mediaObjectID, NO otherwise.
  */
 
--(BOOL)isConditionFullfilledForMediaObjectID:(NSString*)mediaObjectID;
+-(NSPoint)isConditionFullfilledForMediaObjectID:(NSString*)mediaObjectID;
 
 @end

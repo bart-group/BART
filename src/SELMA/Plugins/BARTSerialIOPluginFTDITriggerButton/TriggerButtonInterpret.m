@@ -88,7 +88,7 @@
 	[super dealloc];
 }
 
--(BOOL)isConditionFullfilled
+-(NSPoint)isConditionFullfilled
 {
 	return TRUE;
 }
