@@ -23,6 +23,11 @@
 
 -(EDDataElement*)align:(EDDataElement*)toAlign withReference:(EDDataElement*)ref 
 {
+    if (toAlign == nil || ref == nil) {
+        // TODO: throw exception?
+        return nil;
+    }
+    
     self->registrationFactory->Reset();
     
     self->registrationFactory->SetTransform(RegistrationFactoryType::VersorRigid3DTransform);
@@ -46,15 +51,13 @@
     self->registrationFactory->UserOptions.NumberOfThreads = 1;
     self->registrationFactory->UserOptions.MattesMutualInitializeSeed = 1;
 
-
-    
+    // Convert data elements to ITK images.
     ITKImage::Pointer refITKImg = [ref asITKImage];
     ITKImage::Pointer toAlignITKImg = [toAlign asITKImage];
+    self->registrationFactory->SetFixedImage(refITKImg);
+    self->registrationFactory->SetMovingImage(toAlignITKImg);
     
     // Causes unit tests to crash currently
-//    self->registrationFactory->SetFixedImage(refITKImg);
-//    self->registrationFactory->SetMovingImage(toAlignITKImg);
-
 //    self->registrationFactory->StartRegistration();
     
     const itk::TransformBase* tmpConstTransformPointer;
