@@ -63,7 +63,7 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::Reset(
 	UserOptions.PRINTRESULTS = false;
 	UserOptions.NumberOfIterations = 1000;
 	UserOptions.NumberOfBins = 100;
-	UserOptions.PixelDensity = 0.01;
+	UserOptions.PixelDensity = 0.01f;
 	UserOptions.USEOTSUTHRESHOLDING = false;
 	UserOptions.BSplineGridSize = 5;
 	UserOptions.BSplineBound = 100;
