@@ -358,6 +358,9 @@
 		A75A5D5E1403E15900514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899313F563D7005FF00D /* libitkvnl_algo.3.16.0.dylib */; };
 		A75A5D5F1403E15900514CD3 /* libitkvnl_inst.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899413F563D7005FF00D /* libitkvnl_inst.3.16.0.dylib */; };
 		A75A5D601403E15900514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899513F563D7005FF00D /* libitkvnl.3.16.0.dylib */; };
+		A75A5D611406887300514CD3 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440C0134B4F8800094A51 /* libboost_system-mt.dylib */; };
+		A75A5D64140689F900514CD3 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
+		A75A5D6514068D2000514CD3 /* TestDataset01-functional.nii in Resources */ = {isa = PBXBuildFile; fileRef = 00673D4113FD75C80056BD4F /* TestDataset01-functional.nii */; };
 		A7A4641513F40B1300426C70 /* ROTransformation.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A4641313F40B1300426C70 /* ROTransformation.h */; };
 		A7A4641613F40B1300426C70 /* ROTransformation.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7A4641413F40B1300426C70 /* ROTransformation.mm */; };
 		A7A476EE13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */; };
@@ -477,6 +480,13 @@
 			remoteInfo = EDNA;
 		};
 		00E63C9B13533E9200DC8A50 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00D4415F134B57BD00094A51;
+			remoteInfo = EDNA;
+		};
+		A75A5D621406889600514CD3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
@@ -910,6 +920,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A75A5D64140689F900514CD3 /* EDNA.dylib in Frameworks */,
+				A75A5D611406887300514CD3 /* libboost_system-mt.dylib in Frameworks */,
 				A75A5D591403E15900514CD3 /* libITKAlgorithms.3.16.0.dylib in Frameworks */,
 				A75A5D5A1403E15900514CD3 /* libITKBasicFilters.3.16.0.dylib in Frameworks */,
 				A75A5D5B1403E15900514CD3 /* libITKNumerics.3.16.0.dylib in Frameworks */,
@@ -1946,6 +1958,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A75A5D631406889600514CD3 /* PBXTargetDependency */,
 				0000B19113E1C92400029A41 /* PBXTargetDependency */,
 			);
 			name = TROYTests;
@@ -2269,6 +2282,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A75A5D6514068D2000514CD3 /* TestDataset01-functional.nii in Resources */,
 				0000B19813E1C92400029A41 /* InfoPlist.strings in Resources */,
 				0000B19B13E1C92400029A41 /* TROYTests.h in Resources */,
 			);
@@ -2753,6 +2767,11 @@
 			target = 00D4415F134B57BD00094A51 /* EDNA */;
 			targetProxy = 00E63C9B13533E9200DC8A50 /* PBXContainerItemProxy */;
 		};
+		A75A5D631406889600514CD3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00D4415F134B57BD00094A51 /* EDNA */;
+			targetProxy = A75A5D621406889600514CD3 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -2855,6 +2874,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"/opt/local/lib/InsightToolkit-3.16\"",
+					/opt/local/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (
@@ -2887,6 +2907,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"/opt/local/lib/InsightToolkit-3.16\"",
+					/opt/local/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (
