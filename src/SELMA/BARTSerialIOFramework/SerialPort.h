@@ -95,6 +95,6 @@
 /*
  * ask for condition of external device
  */
--(NSPoint) isConditionFullfilled;
+-(NSPoint) isConditionFullfilled:(NSDictionary*)params;
    
 @end

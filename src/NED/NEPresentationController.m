@@ -98,7 +98,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
  * Handles events starting at mTime (submits the media object
  * to the PresentationView and adds to event to mEventsToEnd).
  */
--(void)handleStartingEvents:(NSPoint)p;
+-(void)handleStartingEvents;
 
 /**
  * Handles events ending at mTime (removing the media object
@@ -114,7 +114,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 /**
  * checks for the fullfillment of the external conditions
  */
--(NSPoint)checkForExternalConditions;
+-(BOOL)checkForExternalConditionsForEvent:(NEStimEvent*)event;
 
 /**
  * starts the updateThread ,i.e. the real start of the presentation
@@ -375,18 +375,21 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
     NSUInteger timeDifference = (NSUInteger) ((mCurrentTicksTime - [self mLastTriggersTime]) * 1000.0);
     //mTime = [self mTriggerCount] * mTR + timeDifference;
 
-    //ask for conditions
-    NSPoint p = [self checkForExternalConditions];
     
     if (mTime <= [mTimetable duration]) {
         if (timeDifference < mTR - TICK_TIME) {
             mTime = ([self mTriggerCount] - 1) * mTR + timeDifference;
         }
         
+        //ask for conditions
+        NEStimEvent *event = [mTimetable previewNextEventAtTime:mTime];
+        [self checkForExternalConditionsForEvent:event];
+        
+        
         [mViewManager setCurrentTime:mTime];
         
         [self updateTimetable];
-        [self handleStartingEvents:p];
+        [self handleStartingEvents];
         [self handleEndingEvents];
         [mViewManager displayPresentationView];
         
@@ -395,20 +398,23 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
     }
 }
 
--(NSPoint)checkForExternalConditions
+-(BOOL)checkForExternalConditionsForEvent:(NEStimEvent *)event
 {
-    NSPoint p = [mExternalConditionController isConditionFullfilledForMediaObjectID:0];
+    NSPoint p = [mExternalConditionController isConditionFullfilledForMediaObjectID:[[event mediaObject] getID]];
+    
     if ( (0.0 == p.x) || (0.0 == p.y) )
     {
         //shift all coming events 20 ms
         [mTimetable shiftOnsetForAllEventsToHappen:20];
-        //return;
+        return NO;
     }
     
-        //get position from external device and set this to coming event
+    
+    //get position from external device and set this to coming event
+    [[event mediaObject] setPosition:p];
         
     
-    return p;
+    return YES;
     
     
 }
@@ -436,13 +442,11 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
     // TODO: implement removal of events.
 }
 
--(void)handleStartingEvents:(NSPoint)p
+-(void)handleStartingEvents
 {
     NEStimEvent* event = [mTimetable nextEventAtTime:mTime];
     while (event) {
         
-        [[event mediaObject] setPosition:p];
-
         [mViewManager present:[event mediaObject]];
         [NEStimEvent endTimeSortedInsertOf:event 
                                inEventList:mEventsToEnd];

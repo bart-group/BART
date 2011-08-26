@@ -15,7 +15,7 @@
 
 
 
--(NSPoint)isFixation;
+-(NSPoint)isFixationForMidpoint:(NSPoint)midPoint andXYDistance:(NSPoint)dist;
 
 -(size_t)calcDispersionThresholdForVisualAngle:(size_t)angle andDistanceEyeToScreen:(size_t)dist andHeightScreen:(size_t)heightScr andResolutionHeight:(size_t)res;
 //-(BOOL)getMin:(int*)minValue andMax:(int*)maxValue andMean:(float_t*)meanValue ofParam:(PARAMS)par fromVector:(std::vector<TEyeTracParams>)eyeTracParams;
@@ -250,12 +250,27 @@
     
 }
 
--(NSPoint)isConditionFullfilled
+-(NSPoint)isConditionFullfilled:(NSDictionary*)params
 {
-    return [self isFixation];
+    NSPoint midPoint = NSMakePoint([[params valueForKey:@"xPosition"] floatValue], [[params valueForKey:@"yPosition"] floatValue]);
+    NSPoint dist;
+    BOOL dynamic = [[params valueForKey:@"isDynamic"] boolValue];
+    
+    if (YES == dynamic)
+    {
+        dist.x = 200;
+        dist.y = 150;
+    }
+    else
+    {
+        dist.x = 20;
+        dist.y = 20;
+    }
+    
+    return [self isFixationForMidpoint:(NSPoint)midPoint andXYDistance:(NSPoint)dist];
 }
 
--(NSPoint)isFixation
+-(NSPoint)isFixationForMidpoint:(NSPoint)midPoint andXYDistance:(NSPoint)dist
 {
     std::vector<TEyeTracParams> actualData = [self getLastData];
 	float_t minValueHG = 0;
@@ -269,30 +284,33 @@
 	[self getMin:&minValueVG andMax:&maxValueVG andMean:&meanValueVG ofParam:VGAZE  fromVector:actualData];
 	NSLog(@"min: %.2f max: %.2f mean: %.2f min: %.2f max: %.2f mean: %.2f", minValueHG, maxValueHG, meanValueHG,
 		  minValueVG, maxValueVG, meanValueVG);
-	//for (size_t i = 0; i < actualData.size(); i++)
-//	{
-//		printf("%.2f %.2f\n", actualData[i].horGaze, actualData[i].verGaze);
-//	}
+	
     
     if ((YES == [self getMin:&minValueHG andMax:&maxValueHG andMean:&meanValueHG ofParam:HGAZE  fromVector:actualData])
         && (YES == [self getMin:&minValueVG andMax:&maxValueVG andMean:&meanValueVG ofParam:VGAZE  fromVector:actualData]))
     {
         if (dispersionThreshold > (maxValueHG-minValueHG)+(maxValueVG-minValueVG)){
-            if ( (abs(meanValueHG - halfScenePOGResolutionWidth) < distanceFromMidpointToBeValid)
-                && (abs(meanValueVG- halfScenePOGResolutionHeight) < distanceFromMidpointToBeValid) )
+           // if ( (abs(meanValueHG - halfScenePOGResolutionWidth) < distanceFromMidpointToBeValid)
+           //     && (abs(meanValueVG- halfScenePOGResolutionHeight) < distanceFromMidpointToBeValid) )
+                if ( (abs(meanValueHG - midPoint.x) < dist.x)
+                    && (abs(meanValueVG- midPoint.y) < dist.y) )
             {
+                // Fixiert im gueltigen Bereich
 				NSLog(@"ganz drin");
                 fprintf(fileFixationsOK, "%.2f\t\t%.2f\n", meanValueHG, meanValueVG);
                 return  NSMakePoint(meanValueHG, meanValueVG);
             }
+            // fixiert aber nicht im gueltigen Bereich
 			NSLog(@"bissi drin");
             fprintf(fileFixationsOut, "%.2f\t\t%.2f\n", meanValueHG, meanValueVG);
             return  NSMakePoint(0.0, 0.0);
         }
+        // nicht fixiert aber alle Daten da
 		NSLog(@"bissi draußen");
         return NSMakePoint(0.0, 0.0);
         
     }
+    // nicht auswertbare Daten
     else {
 		NSLog(@"ganz draußen");
         return  NSMakePoint(0.0, 0.0);

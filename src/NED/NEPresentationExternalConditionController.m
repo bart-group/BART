@@ -68,13 +68,14 @@ NSDictionary *dictExternalConditions;
 
 -(NSPoint)isConditionFullfilledForMediaObjectID:(NSString*)mediaObjectID
 {
+    NSDictionary *dict;
     SerialPort* s = [dictExternalConditions objectForKey:mediaObjectID];
     if (nil != s){
-        return [s isConditionFullfilled];
+        return [s isConditionFullfilled:dict];
     }
     else
     {
-        
+       return NSMakePoint(300.0, 400.0);
     }
     return NSMakePoint(0.0, 0.0);
         

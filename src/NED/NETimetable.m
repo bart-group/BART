@@ -154,6 +154,26 @@
     }
 }
 
+-(NEStimEvent*)previewNextEventAtTime:(NSUInteger)time
+{
+    for (NSString* mediaObjectID in mediaObjectIDs) {
+        [mLock lock];
+        NSMutableArray* eventsForMediaObject = [mEventsToHappen objectForKey:mediaObjectID];
+        if ([eventsForMediaObject count] > 0) {
+            
+            NEStimEvent* event = [eventsForMediaObject objectAtIndex:0];
+            if ([event time] <= time) {
+                [mLock unlock];
+                return event;
+            }
+        }
+        [mLock unlock];
+    }
+    
+    return nil;
+}
+
+
 -(NEStimEvent*)nextEventAtTime:(NSUInteger)time
 {
     for (NSString* mediaObjectID in mediaObjectIDs) {
