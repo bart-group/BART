@@ -8,8 +8,8 @@
 
 #import "NEPresentationExternalConditionController.h"
 #import "CLETUS/COExperimentContext.h"
-#import "NEMediaObject.h"
 #import "BARTSerialIOFramework/SerialPort.h"
+#import "NED/NEStimEvent.h"
 
 @interface NEPresentationExternalConditionController (PrivateMethods)
 
@@ -24,6 +24,8 @@ COExperimentContext *expContext;
 NSArray *mediaObjectsArray;
 NSDictionary *dictExternalConditions;
 
+NSUInteger numberOfTrialsInBlock;
+
 -(id)initWithMediaObjects:(NSArray*)newMediaObjects
 {
     if ((self = [super init])){
@@ -35,10 +37,12 @@ NSDictionary *dictExternalConditions;
             [mediaObjectsArray release];
             mediaObjectsArray = [newMediaObjects retain];
         }
-        if ( (nil != [self setExternalConditionsForMediaObjects])){
+        if ( (nil == [self setExternalConditionsForMediaObjects])){
             NSLog(@"Can't init %@", self);
             return nil;
         }
+        numberOfTrialsInBlock = 12;
+
     }
     return self;
 }
@@ -66,16 +70,35 @@ NSDictionary *dictExternalConditions;
     return err;
 }
 
--(NSPoint)isConditionFullfilledForMediaObjectID:(NSString*)mediaObjectID
+-(NSPoint)isConditionFullfilledForEvent:(NEStimEvent*)event
 {
-    NSDictionary *dict;
-    SerialPort* s = [dictExternalConditions objectForKey:mediaObjectID];
+    // todo: get this automatically from config
+    NSString *isDynamic = @"";
+    NSString *dyn = @"DYN";
+    NSString *stat = @"STAT";
+    
+    if ( NSNotFound != [[[event mediaObject] getID] rangeOfString:dyn options:NSCaseInsensitiveSearch].location ){
+        isDynamic = @"YES";
+    }
+    if ( NSNotFound != [[[event mediaObject] getID] rangeOfString:stat options:NSCaseInsensitiveSearch].location ){
+        isDynamic = @"NO";
+    }
+    
+    //setup the params dictionary
+    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:isDynamic, @"isDynamic", 
+                          [NSNumber numberWithFloat:[[event mediaObject] position].x], @"xPosition",
+                          [NSNumber numberWithFloat:[[event mediaObject] position].y], @"yPosition",
+                          nil];
+    
+    
+    //call the external device and ask all your questions
+    SerialPort* s = [dictExternalConditions objectForKey:[[event mediaObject] getID]];
     if (nil != s){
-        return [s isConditionFullfilled:dict];
+        return [s isConditionFullfilled:params];
     }
     else
     {
-       return NSMakePoint(300.0, 400.0);
+       return NSMakePoint(400.0, 300.0);
     }
     return NSMakePoint(0.0, 0.0);
         

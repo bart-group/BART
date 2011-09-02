@@ -290,6 +290,7 @@
 		00EA8ECB135F006200562F3B /* EDIsisImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00EA8ECA135F006200562F3B /* EDIsisImage.cpp */; };
 		00EA8ECC135F00C100562F3B /* EDIsisImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00EA8ECA135F006200562F3B /* EDIsisImage.cpp */; };
 		00EA8ED7135F02DA00562F3B /* EDIsisImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 00EA8ED6135F02DA00562F3B /* EDIsisImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		00FA55A2140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle in Copy PlugIns */ = {isa = PBXBuildFile; fileRef = 00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		CE8A28C510F51058002422B5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED1922910AC8AD600FAFA4F /* QuartzCore.framework */; };
@@ -430,6 +431,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				00FA55A2140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle in Copy PlugIns */,
 			);
 			name = "Copy PlugIns";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -759,6 +761,7 @@
 		00EC5DDA1153E8F3006691F5 /* doxygenstyle.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = doxygenstyle.css; sourceTree = "<group>"; };
 		00F337041374105700FDABCE /* proofOfConcept_motor_LongBlocks_Contrast.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = proofOfConcept_motor_LongBlocks_Contrast.edl; sourceTree = "<group>"; };
 		00F337071374108800FDABCE /* prrofOfConcept_motor_LongBlocks.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = prrofOfConcept_motor_LongBlocks.edl; sourceTree = "<group>"; };
+		00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = BARTSerialIOPluginFTDITriggerButton.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -1558,6 +1561,7 @@
 		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
 			isa = PBXGroup;
 			children = (
+				00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */,
 				0040B78F1141470400A57967 /* docs */,
 				0040B7921141470400A57967 /* src */,
 				0000B18613E1C92400029A41 /* TROY */,

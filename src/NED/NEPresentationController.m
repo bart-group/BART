@@ -400,7 +400,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 
 -(BOOL)checkForExternalConditionsForEvent:(NEStimEvent *)event
 {
-    NSPoint p = [mExternalConditionController isConditionFullfilledForMediaObjectID:[[event mediaObject] getID]];
+    NSPoint p = [mExternalConditionController isConditionFullfilledForEvent:event];
     
     if ( (0.0 == p.x) || (0.0 == p.y) )
     {

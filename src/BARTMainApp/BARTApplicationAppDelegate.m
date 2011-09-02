@@ -48,7 +48,7 @@
     
     
     NSString *curDir = [[NSBundle mainBundle] resourcePath];
-    NSString *fileName = [NSString stringWithFormat:@"%@/timeBasedRegressorNEDTest.edl", curDir ];
+    NSString *fileName = [NSString stringWithFormat:@"/Users/Lydi/RealTimeProject/DynamicDesign/EyeTrackerIAPS/ScenarioForBART/EyeTrackerIAPSDynStat.edl", curDir ];
     NSError *err = [experimentContext resetWithEDLFile:fileName];
     if (err) {
         NSLog(@"%@", err);

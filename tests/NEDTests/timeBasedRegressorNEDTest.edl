@@ -83,7 +83,7 @@
         <imageModalities imgDataExtension=".ima" imgDataType="image" imgType="IMA">
             <imgBase>IBMI_FMRI_</imgBase>
             <byteOrder>littleEndian</byteOrder>
-            <TR>1000</TR>
+            <TR>2000</TR>
             <imgMosaic>
                 <imgWidth>384</imgWidth>
                 <imgHeight>384</imgHeight>
