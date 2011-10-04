@@ -328,112 +328,112 @@
 
 -(void)testGetSetRowDataAt
 {	
-//	BARTImageSize *imSize = [[BARTImageSize alloc] init];
-//	imSize.rows = 9;
-//	imSize.columns = 13;
-//	imSize.slices = 10;
-//	imSize.timesteps = 7;
-//	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:imSize ofImageType:IMAGE_UNKNOWN];
-//	for (uint t=0; t < imSize.timesteps; t++){
-//		for (uint s=0; s < imSize.slices; s++){
-//			for (uint c=0; c < imSize.columns; c++){
-//				for (uint r=0; r < imSize.rows; r++){
-//					[elem setVoxelValue:[NSNumber numberWithFloat:r+c+s+t] atRow:r col:c slice:s timestep:t];
-//				}}}}
-//	
-//	uint rowGet = 8;
-//	uint sliceGet = 9;
-//	uint tGet = 2;
-//	
-//	float *pRow = static_cast<float_t *>([elem getRowDataAt:rowGet atSlice:sliceGet atTimestep:tGet]);
-//	float* pRun = pRow;
-//	for (uint c=0; c < imSize.columns; c++){
-//		STAssertEquals((float)*pRun++, (float)rowGet+sliceGet+tGet+c, @"Row value not as expected");
-//	}
-//	free(pRow);
-//	
-//	//************setRowData
-//	uint rowSet = 6;
-//	float *dataBuff = static_cast<float_t*> (malloc(sizeof(imSize.columns)));
-//	for (uint i = 0; i < imSize.columns; i++){
-//		dataBuff[i] = 3*i+17;
-//	}
-//	[elem setRowAt:rowSet atSlice:sliceGet atTimestep:tGet withData:dataBuff];
-//	
-//	pRow = [elem getRowDataAt:rowSet atSlice:sliceGet atTimestep:tGet];
-//	float* pRowPre = [elem getRowDataAt:rowSet-1 atSlice:sliceGet atTimestep:tGet];
-//	float* pRowPost = [elem getRowDataAt:rowSet+1 atSlice:sliceGet atTimestep:tGet];
-//	pRun = pRow;
-//	float *pRunPre = pRowPre;
-//	float* pRunPost = pRowPost;
-//	for (uint c=0; c < imSize.columns; c++){
-//		STAssertEquals((float)*pRun, (float)dataBuff[c], @"Row value not as expected");
-//		STAssertEquals((float)*pRunPre, (float)(rowSet-1)+sliceGet+tGet+c, @"Pre Row value not as expected");
-//		STAssertEquals((float)*pRunPost, (float)(rowSet+1)+sliceGet+tGet+c, @"Post Row value not as expected");
-//		pRun++;pRunPre++;pRunPost++;
-//	}
-//	free(pRow);
-//	free(pRowPre);
-//	free(pRowPost);
-//	free(dataBuff);
-//	
-//	[elem release];
+	BARTImageSize *imSize = [[BARTImageSize alloc] init];
+	imSize.rows = 9;
+	imSize.columns = 13;
+	imSize.slices = 10;
+	imSize.timesteps = 7;
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:imSize ofImageType:IMAGE_UNKNOWN];
+	for (uint t=0; t < imSize.timesteps; t++){
+		for (uint s=0; s < imSize.slices; s++){
+			for (uint c=0; c < imSize.columns; c++){
+				for (uint r=0; r < imSize.rows; r++){
+					[elem setVoxelValue:[NSNumber numberWithFloat:r+c+s+t] atRow:r col:c slice:s timestep:t];
+				}}}}
+	
+	uint rowGet = 8;
+	uint sliceGet = 9;
+	uint tGet = 2;
+	
+	float *pRow = static_cast<float_t *>([elem getRowDataAt:rowGet atSlice:sliceGet atTimestep:tGet]);
+	float* pRun = pRow;
+	for (uint c=0; c < imSize.columns; c++){
+		STAssertEquals((float)*pRun++, (float)rowGet+sliceGet+tGet+c, @"Row value not as expected");
+	}
+	free(pRow);
+	
+	//************setRowData
+	uint rowSet = 6;
+	float *dataBuff = static_cast<float_t*> (malloc(sizeof(float_t)*imSize.columns));
+	for (uint i = 0; i < imSize.columns; i++){
+		dataBuff[i] = 3*i+17;
+	}
+	[elem setRowAt:rowSet atSlice:sliceGet atTimestep:tGet withData:dataBuff];
+	
+	pRow = static_cast<float_t *>([elem getRowDataAt:rowSet atSlice:sliceGet atTimestep:tGet]);
+	float* pRowPre = static_cast<float_t *>([elem getRowDataAt:rowSet-1 atSlice:sliceGet atTimestep:tGet]);
+	float* pRowPost = static_cast<float_t *>([elem getRowDataAt:rowSet+1 atSlice:sliceGet atTimestep:tGet]);
+	pRun = pRow;
+	float *pRunPre = pRowPre;
+	float* pRunPost = pRowPost;
+	for (uint c=0; c < imSize.columns; c++){
+		STAssertEquals((float)*pRun, (float)dataBuff[c], @"Row value not as expected");
+		STAssertEquals((float)*pRunPre, (float)(rowSet-1)+sliceGet+tGet+c, @"Pre Row value not as expected");
+		STAssertEquals((float)*pRunPost, (float)(rowSet+1)+sliceGet+tGet+c, @"Post Row value not as expected");
+		pRun++;pRunPre++;pRunPost++;
+	}
+	free(pRow);
+	free(pRowPre);
+	free(pRowPost);
+	free(dataBuff);
+	[imSize release];
+	[elem release];
 
 }
 
 -(void)testGetSetColDataAt
 {
-//	BARTImageSize *imSize = [[BARTImageSize alloc] init];
-//	imSize.rows = 9;
-//	imSize.columns = 12;
-//	imSize.slices = 10;
-//	imSize.timesteps = 7;
-//	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:imSize ofImageType:IMAGE_UNKNOWN];
-//	for (uint t=0; t < imSize.timesteps; t++){
-//		for (uint s=0; s < imSize.slices; s++){
-//			for (uint c=0; c < imSize.columns; c++){
-//				for (uint r=0; r < imSize.rows; r++){
-//					[elem setVoxelValue:[NSNumber numberWithFloat:r+c+s+t] atRow:r col:c slice:s timestep:t];
-//				}}}}
-//	
-//	
-//	//************getColData
-//	size_t colGet = 11;
-//	size_t sliceGet = 9;
-//	size_t tGet = 2;
-//	float *pCol = [elem getColDataAt:colGet atSlice:sliceGet atTimestep:tGet];
-//	float *pRun = pCol;
-//	for (uint r=0; r < imSize.rows; r++){
-//		STAssertEquals((float)*pRun++, (float)colGet+sliceGet+tGet+r, @"Col value not as expected");
-//	}
-//	free(pCol);
-//	
-//	size_t colSet = 7;
-//	float_t *dataBuff2 = static_cast<float_t*> (malloc(sizeof(imSize.rows-1)));
-//	for (uint i = 0; i < imSize.rows; i++){
-//		dataBuff2[i] = 11+i*17;
-//	}
-//	//************setColData
-//	[elem setColAt:colSet atSlice:sliceGet atTimestep:tGet withData:dataBuff2];
-//	//	
-//	pCol = [elem getColDataAt:colSet atSlice:sliceGet atTimestep:tGet];
-//	float_t* pColPre = [elem getColDataAt:colSet-1 atSlice:sliceGet atTimestep:tGet];
-//	float_t* pColPost = [elem getColDataAt:colSet+1 atSlice:sliceGet atTimestep:tGet];
-//	pRun = pCol;
-//	float_t *pRunPre = pColPre;
-//	float_t *pRunPost = pColPost;
-//	for (uint r=0; r < imSize.rows; r++){
-//		STAssertEquals((float_t)*pRun++, (float_t)dataBuff2[r], @"Col value not as expected");
-//		STAssertEquals((float_t)*pRunPre++, (float_t)(colSet-1)+sliceGet+tGet+r, @"Pre Col value not as expected");
-//		STAssertEquals((float_t)*pRunPost++, (float_t)(colSet+1)+sliceGet+tGet+r, @"Post Col value not as expected");
-//	}
-//	free(pCol);
-//	free(pColPre);
-//	free(pColPost);
-//	free(dataBuff2);
-//	
-//	[imSize release];
-//	[elem release];
+	BARTImageSize *imSize = [[BARTImageSize alloc] init];
+	imSize.rows = 9;
+	imSize.columns = 12;
+	imSize.slices = 10;
+	imSize.timesteps = 7;
+	EDDataElementIsis *elem = [[EDDataElementIsis alloc] initEmptyWithSize:imSize ofImageType:IMAGE_UNKNOWN];
+	for (uint t=0; t < imSize.timesteps; t++){
+		for (uint s=0; s < imSize.slices; s++){
+			for (uint c=0; c < imSize.columns; c++){
+				for (uint r=0; r < imSize.rows; r++){
+					[elem setVoxelValue:[NSNumber numberWithFloat:r+c+s+t] atRow:r col:c slice:s timestep:t];
+				}}}}
+	
+	
+	//************getColData
+	size_t colGet = 11;
+	size_t sliceGet = 9;
+	size_t tGet = 2;
+	float *pCol = [elem getColDataAt:colGet atSlice:sliceGet atTimestep:tGet];
+	float *pRun = pCol;
+	for (uint r=0; r < imSize.rows; r++){
+		STAssertEquals((float)*pRun++, (float)colGet+sliceGet+tGet+r, @"Col value not as expected");
+	}
+	free(pCol);
+	
+	size_t colSet = 7;
+	float_t *dataBuff2 = static_cast<float_t*> (malloc(sizeof(float_t)*imSize.rows));
+	for (uint i = 0; i < imSize.rows; i++){
+		dataBuff2[i] = 11+i*17;
+	}
+	//************setColData
+	[elem setColAt:colSet atSlice:sliceGet atTimestep:tGet withData:dataBuff2];
+	//	
+	pCol = [elem getColDataAt:colSet atSlice:sliceGet atTimestep:tGet];
+	float_t* pColPre = [elem getColDataAt:colSet-1 atSlice:sliceGet atTimestep:tGet];
+	float_t* pColPost = [elem getColDataAt:colSet+1 atSlice:sliceGet atTimestep:tGet];
+	pRun = pCol;
+	float_t *pRunPre = pColPre;
+	float_t *pRunPost = pColPost;
+	for (uint r=0; r < imSize.rows; r++){
+		STAssertEquals((float_t)*pRun++, (float_t)dataBuff2[r], @"Col value not as expected");
+		STAssertEquals((float_t)*pRunPre++, (float_t)(colSet-1)+sliceGet+tGet+r, @"Pre Col value not as expected");
+		STAssertEquals((float_t)*pRunPost++, (float_t)(colSet+1)+sliceGet+tGet+r, @"Post Col value not as expected");
+	}
+	free(pCol);
+	free(pColPre);
+	free(pColPost);
+	free(dataBuff2);
+	
+	[imSize release];
+	[elem release];
 	
 	
 	

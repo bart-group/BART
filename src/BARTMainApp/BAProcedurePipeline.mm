@@ -71,8 +71,8 @@
     [self initData];
 	[self initDesign];
 	[self initAnalyzer];
-    [self initPresentation];
-	//[self startAnalysis];
+    //[self initPresentation];
+	[self startAnalysis];
     
 }
 
