@@ -373,6 +373,7 @@
 		A7763C60143B2BAF00457A99 /* libitkvnl_algo.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899313F563D7005FF00D /* libitkvnl_algo.3.16.0.dylib */; };
 		A7763C61143B2BAF00457A99 /* libitkvnl_inst.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899413F563D7005FF00D /* libitkvnl_inst.3.16.0.dylib */; };
 		A7763C62143B2BAF00457A99 /* libitkvnl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899513F563D7005FF00D /* libitkvnl.3.16.0.dylib */; };
+		A7763C67143B34DE00457A99 /* TestDataset01-functional.nii in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00673D4113FD75C80056BD4F /* TestDataset01-functional.nii */; };
 		A7A4641513F40B1300426C70 /* ROTransformation.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A4641313F40B1300426C70 /* ROTransformation.h */; };
 		A7A4641613F40B1300426C70 /* ROTransformation.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7A4641413F40B1300426C70 /* ROTransformation.mm */; };
 		A7A476EE13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */; };
@@ -581,6 +582,16 @@
 				00673D7313FD87AD0056BD4F /* noRegressor.edl in CopyFiles */,
 				00673D6B13FD878E0056BD4F /* pseudoStimulusDataFree.edl in CopyFiles */,
 				00673D6A13FD87890056BD4F /* pseudoStimulusDataEmpty.edl in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7763C66143B34BE00457A99 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				A7763C67143B34DE00457A99 /* TestDataset01-functional.nii in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2095,6 +2106,7 @@
 			buildPhases = (
 				005B604111D3812400812781 /* Sources */,
 				005B604211D3812400812781 /* Frameworks */,
+				A7763C66143B34BE00457A99 /* CopyFiles */,
 			);
 			buildRules = (
 			);
