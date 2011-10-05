@@ -23,6 +23,8 @@
 
 }
 
+@property (readwrite, getter = position, setter = setPosition:) NSPoint mPosition;
+
 /**
  * Initializes a newly allocated NEMediaObject with an EDL mediaObject
  * from the configuration represented by key.

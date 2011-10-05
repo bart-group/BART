@@ -45,7 +45,6 @@
 
 //private members
 COExperimentContext *expConfig;
-NEDesignElement *designElement;
 NEPresentationController *presentationController;
 NEPresentationExternalConditionController *externalCondition;
 NEViewManager* viewManager;
@@ -57,7 +56,7 @@ NEViewManager* viewManager;
         expConfig = [COExperimentContext getInstance];
         
         
-        designElement = [[NEDesignElement alloc] initWithDynamicData];
+     //  designElement = [[NEDesignElement alloc] initWithDynamicData];
                 
         //TODO : ask if Presentation is needed!!
         [NEPresentationLogger getInstance];
@@ -94,11 +93,17 @@ NEViewManager* viewManager;
 
 - (void)dealloc
 {
-    [designElement release];
     [presentationController release];
     [externalCondition release];
     [viewManager release];
     [super dealloc];
+}
+
+
+-(void)doWhatIWant
+{
+   // presentationController 
+
 }
 
 -(NSError*)configureStep

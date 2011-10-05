@@ -1,5 +1,5 @@
 //
-//  NEUserInteractionController.h
+//  NEControlWindowController.h
 //  BARTPresentation
 //
 //  Created by Oliver Zscheyge on 4/13/10.
@@ -34,7 +34,9 @@
     IBOutlet NSTextField* eventMediaObjectIDField;
     
     IBOutlet NSTextField* warningMessageLabel;
-
+    
+    IBOutlet NSButton* checkBoxStimulation;
+    
     /** 
      * Duration of the presentation.
      * Needed for warning when trying to add an event
@@ -64,6 +66,8 @@
     NSThread* mTriggerThread;
     BOOL mIsPaused;
 }
+
+@property (readwrite) BOOL stimulationMode;
 
 /**
  * Sets the presentation controller that incooperates all

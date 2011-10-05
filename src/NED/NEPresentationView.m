@@ -150,7 +150,7 @@
 -(void)clearView:(CGContextRef)context 
                 :(NSRect)rect 
 {
-    CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
+    CGContextSetRGBFillColor(context, 0.5, 0.5, 0.5, 1.0);
     CGContextFillRect(context, rect);
 }
 

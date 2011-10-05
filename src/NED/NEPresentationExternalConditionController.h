@@ -12,7 +12,7 @@
 
 #import <Foundation/Foundation.h>
 
-
+@class NEStimEvent;
 
 @interface NEPresentationExternalConditionController : NSObject {
     
@@ -35,6 +35,5 @@
  * \return                     YES if all defined external conditions are fullfilled for this mediaObjectID, NO otherwise.
  */
 
--(BOOL)isConditionFullfilledForMediaObjectID:(NSString*)mediaObjectID;
-
+-(NSPoint)isConditionFullfilledForEvent:(NEStimEvent*)event;
 @end

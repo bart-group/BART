@@ -13,6 +13,7 @@
 #import "EDNA/EDDataElementRealTimeLoader.h"
 #import "BARTNotifications.h"
 #import "CLETUS/COExperimentContext.h"
+#import "BAProcedureStep_Paradigm.h"
 
 
 @interface BAProcedurePipeline (PrivateMethods)
@@ -30,6 +31,8 @@
 
 
 @implementation BAProcedurePipeline
+
+
 
 -(id)init
 {
@@ -54,6 +57,7 @@
 	[mResultData release];
    // [dynamicDesignPipe release];
 	[mAnalyzer release];
+    [paradigm release];
 	
 	
 	[super dealloc];
@@ -61,12 +65,15 @@
 
 -(void)resetProcedurePipeline:(NSNotification*)aNotification
 {
+    #pragma unused(aNotification)
     config = [[COExperimentContext getInstance] systemConfig];
     
     [self initData];
 	[self initDesign];
 	[self initAnalyzer];
+    //[self initPresentation];
 	[self startAnalysis];
+    
 }
 
 -(BOOL) initData
@@ -127,7 +134,9 @@
 
 -(BOOL) initPresentation
 {
-	return FALSE;
+    paradigm = [[BAProcedureStep_Paradigm alloc] init];
+    
+	return YES;
 }
 
 -(BOOL) initAnalyzer

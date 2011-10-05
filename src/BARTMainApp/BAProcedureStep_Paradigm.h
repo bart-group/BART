@@ -18,5 +18,6 @@
     
 }
 
+-(void)doWhatIWant;
 
 @end

@@ -100,6 +100,15 @@
 -(NEStimEvent*)nextEventAtTime:(NSUInteger)time;
 
 /**
+ * Returns the first event that could happen at a given time.
+ *
+ * \param time The time at which to search for an event.
+ * \return     A NEStimEvent that is about to happen at time.
+ *             Nil if there is none.
+ */
+-(NEStimEvent*)previewNextEventAtTime:(NSUInteger)time;
+
+/**
  * Returns all media object IDs in no particular order.
  *
  * \return An array of NSStrings representing the media

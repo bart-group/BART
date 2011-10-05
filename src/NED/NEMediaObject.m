@@ -15,6 +15,8 @@
 
 @implementation NEMediaObject
 
+@synthesize mPosition;
+
 -(id)init
 {
     if ((self = [super init])) {
@@ -93,5 +95,8 @@
 {
     return mID;
 }
+
+
+
 
 @end

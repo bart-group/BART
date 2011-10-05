@@ -8,11 +8,28 @@
 
 #import <Foundation/Foundation.h>
 #import "COSystemConfig.h"
-#import "NED/NEDesignElement.h"
-#import "EDNA/EDDataElement.h"
+
 
 
 extern NSString * const BARTDidResetExperimentContextNotification;
+extern NSString * const BARTTriggerArrivedNotification;
+//extern NSString * const BARTNextDataIncomeNotification;
+
+@class EDDataElement;
+@class NEDesignElement;
+
+@protocol BARTScannerTriggerProtocol <NSObject>
+
+-(void)terminusFromScannerArrived:(NSNotification*)aNotification;
+-(void)triggerArrived:(NSNotification*)aNotification;
+
+@end
+
+@protocol BARTDataIncomeProtocol <NSObject>
+
+-(void)dataArrived:(NSUInteger)tr;
+
+@end
 
 @interface COExperimentContext : NSObject <NSCopying> {
     COSystemConfig *systemConfig; 
@@ -38,6 +55,8 @@ extern NSString * const BARTDidResetExperimentContextNotification;
 + (COExperimentContext*)getInstance;
 
 -(NSError*)resetWithEDLFile:(NSString*)edlPath;
+
+-(BOOL)addOberserver:(id)object forProtocol:(NSString*)protocolName;
 
 
 @end

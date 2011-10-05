@@ -110,6 +110,8 @@
 	self = [super init];
 	mIsisImage = new isis::data::Image(img);
 	mImageType = imgType;
+    
+    mDataTypeID = img.getMajorTypeID();
 	mImageSize.rows = mIsisImage->getNrOfRows(); // getDimSize(isis::data::colDim)
     mImageSize.columns = mIsisImage->getNrOfColumms();
     mImageSize.slices = mIsisImage->getNrOfSlices();
@@ -340,6 +342,23 @@
 	return ret;
 }
 
+-(EDDataElement*)getDataAtTimeStep:(size_t)tstep
+{
+    std::list<isis::data::Chunk> chList;
+    BARTImageSize *s = [[BARTImageSize alloc] initWithRows:mImageSize.rows andCols:mImageSize.columns andSlices:mImageSize.slices andTimesteps:1];
+    
+    if ([self sizeCheckRows:1 Cols:1 Slices:1 Timesteps:tstep]){
+        for (size_t i = 0; i < mImageSize.slices; i++){
+            chList.push_back(mIsisImage->getChunk(0,0,i,tstep));
+        }
+    
+        isis::data::Image retImg(chList);
+        EDDataElementIsis *retElement = [[EDDataElementIsis alloc] initFromImage:retImg ofImageType:IMAGE_FCTDATA];
+        [s release];
+        return retElement;
+    }
+    return nil;
+}
 
 -(float*)getSliceData:(uint)sliceNr atTimestep:(uint)tstep
 {	
@@ -366,10 +385,12 @@
 
 -(float*)getRowDataAt:(uint)row atSlice:(uint)sl atTimestep:(uint)tstep
 {	
-	if ([self sizeCheckRows:row Cols:1 Slices:sl Timesteps:tstep]){
+    if ([self sizeCheckRows:row Cols:1 Slices:sl Timesteps:tstep] ){
 		isis::data::MemChunkNonDel<float> rowChunk(mImageSize.columns, 1);
-		mIsisImage->getChunk(0, 0, sl, tstep, false).copyLine(row, 0, 0, rowChunk, 0, 0, 0);
-		return (( boost::shared_ptr<float> )rowChunk.getValuePtr<float>()).get();	
+		isis::data::Chunk sliceCh = mIsisImage->getChunk(0,0,sl,tstep, false);
+		for (uint i = 0; i < mImageSize.columns; i++){
+			rowChunk.voxel<float>(i, 0) = sliceCh.voxel<float>(i, row, 0, 0);}
+		return (( boost::shared_ptr<float> ) rowChunk.getValuePtr<float>()).get();
 	}
 	return NULL;
 }
@@ -388,10 +409,12 @@
 
 -(void)setRowAt:(uint)row atSlice:(uint)sl	atTimestep:(uint)tstep withData:(float*)data
 {	
-	if ([self sizeCheckRows:row Cols:1 Slices:sl Timesteps:tstep] ){
+    if ([self sizeCheckRows:row Cols:1 Slices:sl Timesteps:tstep] ){
 		isis::data::MemChunk<float> dataToCopy(data, mImageSize.columns);
-		isis::data::Chunk dataInsertCh = (mIsisImage->getChunk(0, 0, sl, tstep, false));
-		dataToCopy.copyLine(0, 0, 0, dataInsertCh, row, 0, 0);}
+		isis::data::Chunk sliceCh = mIsisImage->getChunk(0,0,sl,tstep, false);
+		for (uint i = 0; i < mImageSize.columns; i++){
+			sliceCh.voxel<float>(i, row, 0, 0) = dataToCopy.voxel<float>(i, 0);}
+	}
 	return;
 	
 }

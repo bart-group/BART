@@ -154,6 +154,26 @@
     }
 }
 
+-(NEStimEvent*)previewNextEventAtTime:(NSUInteger)time
+{
+    for (NSString* mediaObjectID in mediaObjectIDs) {
+        [mLock lock];
+        NSMutableArray* eventsForMediaObject = [mEventsToHappen objectForKey:mediaObjectID];
+        if ([eventsForMediaObject count] > 0) {
+            
+            NEStimEvent* event = [eventsForMediaObject objectAtIndex:0];
+            if ([event time] <= time) {
+                [mLock unlock];
+                return event;
+            }
+        }
+        [mLock unlock];
+    }
+    
+    return nil;
+}
+
+
 -(NEStimEvent*)nextEventAtTime:(NSUInteger)time
 {
     for (NSString* mediaObjectID in mediaObjectIDs) {
@@ -306,14 +326,30 @@
 
 -(void)shiftOnsetForAllEventsToHappen:(NSUInteger)shift
 {
+//    NEStimEvent *ev = [mEventsToHappen valueAtIndex:0 inPropertyWithKey:@"mo1"];
+//    NSLog(@"shift onsets %lu", [ev time]);
+//    [ev setTime:([ev time] + shift)];
+//    NSLog(@"shifted onsets %lu", [ev time]);
+//
+    
     [mLock lock];
     __block const NSUInteger timeShift = shift;
-    [mEventsToHappen enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent 
-                    usingBlock:^(id key, id obj, BOOL *stop) {
-                        [(NEStimEvent*) obj setTime:timeShift];
-         
-      }];
-    
+    [mEventsToHappen enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent                                            usingBlock:^(id mediaID, id stimArray, BOOL *stop) {
+        //        
+        #pragma unused(mediaID)
+        #pragma unused(stop)
+        [(NSArray*) stimArray enumerateObjectsWithOptions:NSEnumerationConcurrent 
+                                               usingBlock:^(id stimEvent, NSUInteger idx, BOOL *stop)
+         {
+             #pragma unused(stop)
+             #pragma unused(idx)
+             //NSLog(@"shift onsets %lu", [(NEStimEvent*) stimEvent time]);
+             [(NEStimEvent*) stimEvent setTime:([(NEStimEvent*) stimEvent time]+timeShift)];
+             NSLog(@"shifted onsets %lu", [(NEStimEvent*) stimEvent time]);
+         }];
+        
+    }];
+    duration = [self duration]+shift; 
     [mLock unlock];
 }
 

@@ -1,5 +1,5 @@
 //
-//  NEUserInteractionController.m
+//  NEControlWindowController.m
 //  BARTPresentation
 //
 //  Created by Oliver Zscheyge on 4/13/10.
@@ -104,21 +104,25 @@ static NSString* const TOO_LONG_EVENT_ERROR_MESSAGE = @"Did not add event that e
 
 -(IBAction)startPresentation:(id)sender
 {
+    #pragma unused(sender)
     if (presentationController) {
-        if (!mTriggerThread) {
-            mTriggerThread = [[NSThread alloc] initWithTarget:self 
-                                                     selector:@selector(runTriggerThread) 
-                                                       object:nil];
-            [mTriggerThread setThreadPriority:1.0];
-        }
+        
         mTriggerCount = 0;
         [self setMIsPaused:NO];
-        
         [presentationController startListeningForTrigger];
-        [mTriggerThread start];
-        
         [startButton setEnabled:NO];
         [pauseButton setEnabled:YES];
+        
+        if (NSOnState == [checkBoxStimulation state]){
+            
+            if (!mTriggerThread) {
+                mTriggerThread = [[NSThread alloc] initWithTarget:self 
+                                                         selector:@selector(runTriggerThread) 
+                                                           object:nil];
+                [mTriggerThread setThreadPriority:1.0];
+            }
+            [mTriggerThread start];
+        }
     }
 }
 
@@ -141,7 +145,7 @@ static NSString* const TOO_LONG_EVENT_ERROR_MESSAGE = @"Did not add event that e
 {    
     if (mTriggerCount <= 10000
         && ![self mIsPaused]) {
-        [presentationController trigger];
+        [[NSNotificationCenter defaultCenter] postNotificationName:BARTTriggerArrivedNotification object:[NSNumber numberWithUnsignedLong: mTriggerCount] ];
         mTriggerCount++;
     } 
 //    else {
@@ -169,6 +173,7 @@ static NSString* const TOO_LONG_EVENT_ERROR_MESSAGE = @"Did not add event that e
 
 -(IBAction)pausePresentation:(id)sender
 {
+    #pragma unused(sender)
 //    if (presentationController) {        
 //        if ([[pauseButton title] compare:@"Pause"] == 0) {
 //            [self setMIsPaused:YES];
@@ -205,7 +210,8 @@ static NSString* const TOO_LONG_EVENT_ERROR_MESSAGE = @"Did not add event that e
 }
 
 -(IBAction)addStimulusEvent:(id)sender
-{    
+{  
+    #pragma unused(sender)
     [warningMessageLabel setStringValue:@""];
     
     NSArray* times = [self parseRangeOrList:[eventTimeField stringValue]];

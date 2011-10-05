@@ -14,9 +14,13 @@
 #import "COSystemConfig.h"
 #import "BARTSerialIOFramework/BARTSerialPortIONotifications.h"
 #import "BARTSerialIOFramework/SerialPort.h"
+#import "NED/NEDesignElement.h"
+#import "EDNA/EDDataElement.h"
+#import "BARTNotifications.h"
 
-NSString * const BARTDidResetExperimentContextNotification = @"BARTDidResetExperimentContextNotification";
-
+NSString * const BARTDidResetExperimentContextNotification = @"de.mpg.cbs.BARTDidResetExperimentContextNotification";
+NSString * const BARTTriggerArrivedNotification = @"de.mpg.cbs.BARTTriggerArrivedNotification";
+//NSString * const BARTNextDataIncomeNotification = @"de.mpg.cbs.BARTNextDataIncomeNotification";
 
 
 @interface COExperimentContext (PrivateMethods)
@@ -170,8 +174,49 @@ dispatch_queue_t serialDesignElementAccessQueue;
     
 }
 
+-(BOOL)addOberserver:(id)object forProtocol:(NSString*)protocolName
+{
+    
+    [object retain];
+    
+    
+    if ( YES == [object conformsToProtocol:@protocol(BARTScannerTriggerProtocol)]  
+        && (NSOrderedSame == [protocolName compare :@"BARTScannerTriggerProtocol"]) ) 
+    {
+        
+        [[NSNotificationCenter defaultCenter]   addObserver:object  selector:@selector(triggerArrived:) name:BARTSerialIOScannerTriggerArrived object:nil];
+        
+        [[NSNotificationCenter defaultCenter]   addObserver:object  selector:@selector(triggerArrived:) name:BARTTriggerArrivedNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter]   addObserver:object  selector:@selector(terminusFromScannerArrived:) name:BARTScannerSentTerminusNotification object:nil];
+        
+        return YES;
+        
+    }
+    
+    
+    if ( YES == [object conformsToProtocol:@protocol(BARTDataIncomeProtocol)]  
+        && (YES == [protocolName compare:@"BARTDataIncomeProtocol"]) )
+    {
+        
+        [[NSNotificationCenter defaultCenter]   addObserver:object  selector:@selector(dataArrived:) name:BARTDidLoadNextDataNotification object:nil];
+        
+        return YES;
+        
+    }
+
+    
+    [object release];
+    return NO;
+    
+    
+}
+
+
+
 - (id)copyWithZone:(NSZone *)zone
 {
+    #pragma unused(zone)
     return self;
 }
 

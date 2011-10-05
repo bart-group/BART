@@ -114,13 +114,13 @@
 {
     NSString* event = eventStr;
     NSString* startEventPrefix  = [NSString stringWithFormat:@"%@%@%@", 
-                                                               [formatter startEventIdentifier],
-                                                                 [formatter eventIdentifier], 
-                                                                   [formatter keyValueSeperator]];
+                                   [formatter startEventIdentifier],
+                                   [formatter eventIdentifier], 
+                                   [formatter keyValueSeperator]];
     NSString* endEventPrefix    = [NSString stringWithFormat:@"%@%@%@", 
-                                                               [formatter endEventIdentifier], 
-                                                                 [formatter eventIdentifier], 
-                                                                   [formatter keyValueSeperator]];
+                                   [formatter endEventIdentifier], 
+                                   [formatter eventIdentifier], 
+                                   [formatter keyValueSeperator]];
     
     if ([event hasPrefix:startEventPrefix]) {
         isEndingEvent = NO;
@@ -131,7 +131,7 @@
     }
     
     event = [[event stringByReplacingOccurrencesOfString:[formatter beginSetDelimiter] withString:@""] 
-                    stringByReplacingOccurrencesOfString:[formatter endSetDelimiter] withString:@""];
+             stringByReplacingOccurrencesOfString:[formatter endSetDelimiter] withString:@""];
     
     NSArray* eventComponents = [event componentsSeparatedByString:[formatter entrySeperator]];
     
@@ -178,11 +178,27 @@
 -(id)init
 {
     if ((self = [super init])) {
-        mMessages = [[NSMutableArray alloc] initWithCapacity:100];
-        mDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%Y-%m-%d|%H:%M:%S.%F" allowNaturalLanguage:NO];
+        mMessages = [[NSMutableArray alloc] initWithCapacity:1000];
+        mDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%H:%M:%S.%F" allowNaturalLanguage:NO];
         mLogFormatter  = [[NELogFormatter alloc] init];
     }
     
+    // print some general information
+    
+    NSDateFormatter *tempDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%Y-%m-%d %H:%M:%S" allowNaturalLanguage:NO];
+    
+    [mMessages addObject:[NSString stringWithFormat:@"BART Presentation Logfile", 
+                          [tempDateFormatter stringFromDate:[NSDate date]] 
+                          ]];
+    [mMessages addObject:[NSString stringWithFormat:@"Logfile started %@ \n\n", 
+                          [tempDateFormatter stringFromDate:[NSDate date]] 
+                          ]];
+    //TODO: Headlines for rows - Time, Time since Start, TrialID, ...
+    [mMessages addObject:[NSString stringWithFormat:@"", 
+                          [tempDateFormatter stringFromDate:[NSDate date]] 
+                          ]];
+    
+    [tempDateFormatter release];
     return self;
 }
 
@@ -206,40 +222,46 @@
 	return mSingleton;
 }
 
--(void)log:(NSString*)msg
+-(void)log:(NSString*)msg withTime:(NSUInteger)t
 {
-    [mMessages addObject:[NSString stringWithFormat:@"%@ %@", 
-                                                      [mDateFormatter stringFromDate:[NSDate date]], 
-                                                         msg]];
+    [mMessages addObject:[NSString stringWithFormat:@"%@\t%lu\t%@", 
+                          [mDateFormatter stringFromDate:[NSDate date]], 
+                          t,
+                          msg]];
 }
 
--(void)logTrigger:(NSUInteger)triggerNumber
+-(void)logTrigger:(NSUInteger)triggerNumber withTime:(NSUInteger)t
 {
-    [mMessages addObject:[NSString stringWithFormat:@"%@ %@", 
-                                                      [mDateFormatter stringFromDate:[NSDate date]], 
-                                                         [mLogFormatter stringForTriggerNumber:triggerNumber]]];
+    [mMessages addObject:[NSString stringWithFormat:@"%@\t%lu\t%@", 
+                          [mDateFormatter stringFromDate:[NSDate date]], 
+                          t,
+                          [mLogFormatter stringForTriggerNumber:triggerNumber]]];
 }
 
 -(void)logStartingEvent:(NEStimEvent*)event 
             withTrigger:(NSUInteger)triggerNumber
+                andTime:(NSUInteger)t
 {
     // Not using [self log] due to time reasons.
-    [mMessages addObject:[NSString stringWithFormat:@"%@ %@%@ %@",
-                                                      [mDateFormatter stringFromDate:[NSDate date]],
-                                                         [mLogFormatter startEventIdentifier],
-                                                           [mLogFormatter stringForStimEvent:event], 
-                                                              [mLogFormatter stringForTriggerNumber:triggerNumber]]];
+    [mMessages addObject:[NSString stringWithFormat:@"%@\t%lu\t%@\t%@\t%@",
+                          [mDateFormatter stringFromDate:[NSDate date]],
+                          t,
+                          [mLogFormatter startEventIdentifier],
+                          [mLogFormatter stringForStimEvent:event], 
+                          [mLogFormatter stringForTriggerNumber:triggerNumber]]];
 }
 
 -(void)logEndingEvent:(NEStimEvent*)event 
           withTrigger:(NSUInteger)triggerNumber
+              andTime:(NSUInteger)t
 {
     // Not using [self log] due to time reasons.
-    [mMessages addObject:[NSString stringWithFormat:@"%@ %@%@ %@",
-                                                      [mDateFormatter stringFromDate:[NSDate date]],
-                                                         [mLogFormatter endEventIdentifier],
-                                                           [mLogFormatter stringForStimEvent:event], 
-                                                              [mLogFormatter stringForTriggerNumber:triggerNumber]]];
+    [mMessages addObject:[NSString stringWithFormat:@"%@\t%lu\t%@\t%@\t%@",
+                          [mDateFormatter stringFromDate:[NSDate date]],
+                          t,
+                          [mLogFormatter endEventIdentifier],
+                          [mLogFormatter stringForStimEvent:event], 
+                          [mLogFormatter stringForTriggerNumber:triggerNumber]]];
 }
 
 -(NSArray*)messages
@@ -257,11 +279,25 @@
 
 -(void)printToFilePath:(NSString*)path
 {
-    FILE* fp = fopen([path cStringUsingEncoding:NSUTF8StringEncoding], "w");
+    NSString *extension = [path pathExtension];
+    path = [path stringByDeletingPathExtension];
+    
+    NSDateFormatter *tempDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%Y_%m_%d_%H_%M_%S" allowNaturalLanguage:NO];
+    
+    NSString *fName = [NSString stringWithFormat:@"%@_%@", path, [tempDateFormatter stringFromDate:[NSDate date]]];
+    fName = [fName stringByAppendingPathExtension:extension];
+    
+    //TODO: Handling if file exists?
+    NSFileManager *fm = [[NSFileManager alloc] init];
+    if (YES == [fm fileExistsAtPath:fName]){
+        fName = [fName stringByAppendingString:@"_2"];
+    }
+    FILE* fp = fopen([fName cStringUsingEncoding:NSUTF8StringEncoding], "w");
     for (NSString* msg in [self messages]) {
         fprintf(fp, "%s\n", [msg cStringUsingEncoding:NSUTF8StringEncoding]);
     }
     fclose(fp);
+    [tempDateFormatter release];
 }
 
 -(void)printToNSLog
@@ -290,28 +326,28 @@
         if ([msgComponents count] == 2) {
             NSString* possibleTriggerStr = [msgComponents objectAtIndex:1];
             NSString* triggerMsgPrefix = [NSString stringWithFormat:@"%@%@", 
-                                                                      [mLogFormatter triggerIdentifier], 
-                                                                        [mLogFormatter keyValueSeperator]];
+                                          [mLogFormatter triggerIdentifier], 
+                                          [mLogFormatter keyValueSeperator]];
             if ([possibleTriggerStr hasPrefix:triggerMsgPrefix]) {
                 [triggerDates addObject:msgDate];
             }
             
-        // Message might represent a event message.
+            // Message might represent a event message.
         } else if ([msgComponents count] == 3) {
             NSString* possibleEventStr = [msgComponents objectAtIndex:1];
             NSString* possibleTriggerStr = [msgComponents objectAtIndex:2];
             
             NSString* startEventPrefix  = [NSString stringWithFormat:@"%@%@%@", 
-                                                                       [mLogFormatter startEventIdentifier],
-                                                                         [mLogFormatter eventIdentifier], 
-                                                                           [mLogFormatter keyValueSeperator]];
+                                           [mLogFormatter startEventIdentifier],
+                                           [mLogFormatter eventIdentifier], 
+                                           [mLogFormatter keyValueSeperator]];
             NSString* endEventPrefix    = [NSString stringWithFormat:@"%@%@%@", 
-                                                                       [mLogFormatter endEventIdentifier], 
-                                                                         [mLogFormatter eventIdentifier], 
-                                                                           [mLogFormatter keyValueSeperator]];
+                                           [mLogFormatter endEventIdentifier], 
+                                           [mLogFormatter eventIdentifier], 
+                                           [mLogFormatter keyValueSeperator]];
             NSString* triggerNrPrefix   = [NSString stringWithFormat:@"%@%@", 
-                                                                       [mLogFormatter triggerIdentifier],
-                                                                         [mLogFormatter keyValueSeperator]];
+                                           [mLogFormatter triggerIdentifier],
+                                           [mLogFormatter keyValueSeperator]];
             
             if (([possibleEventStr hasPrefix:startEventPrefix] || [possibleEventStr hasPrefix:endEventPrefix])
                 && [possibleTriggerStr hasPrefix:triggerNrPrefix]) {
@@ -355,15 +391,15 @@
             && (timeDifference - tolerableOffset > tolerance)) {
             // Violation!
             NSString* serilizedEventMsg = [NSString stringWithFormat:@"%@ %@ %@", 
-                                                                       [mDateFormatter stringFromDate:[event dateHappend]], 
-                                                                          [event stimEventString], 
-                                                                             [mLogFormatter stringForTriggerNumber:[event triggerCount]]];
+                                           [mDateFormatter stringFromDate:[event dateHappend]], 
+                                           [event stimEventString], 
+                                           [mLogFormatter stringForTriggerNumber:[event triggerCount]]];
             
             for (NSString* msg in mMessages) {
                 if ([msg compare:serilizedEventMsg] == 0) {
                     [violations addObject:[NSString stringWithFormat:@"%@ %@", 
-                                                                       [mDateFormatter stringFromDate:triggerDateForEvent],
-                                                                         [mLogFormatter stringForTriggerNumber:[event triggerCount]]]];
+                                           [mDateFormatter stringFromDate:triggerDateForEvent],
+                                           [mLogFormatter stringForTriggerNumber:[event triggerCount]]]];
                     [violations addObject:serilizedEventMsg];
                 }
             }
