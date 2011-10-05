@@ -21,6 +21,15 @@ typedef isis::registration::RegistrationFactory3D<ITKImage, ITKImage> Registrati
     
 }
 
+/*
+ * TODO: 
+ * - pass transform/metric/optimizer/interpolator PLUS align&reference in constructor
+ * - align :: DataElement -> DataElement
+ *    applies the transformation stored into the registration object to the given DataElement
+ *    and returns the transformed DataElement
+ */
+//-(RORegistration*)initWithParams:
+
 /**
  *
  */

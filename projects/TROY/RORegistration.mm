@@ -21,6 +21,8 @@
     return self;    
 }
 
+bool verbose = true;
+
 -(EDDataElement*)align:(EDDataElement*)toAlign withReference:(EDDataElement*)ref 
 {
     if (toAlign == nil || ref == nil) {
@@ -31,11 +33,15 @@
     self->registrationFactory->Reset();
     
     self->registrationFactory->SetTransform(RegistrationFactoryType::VersorRigid3DTransform);
-    self->registrationFactory->SetMetric(RegistrationFactoryType::MattesMutualInformationMetric);
+//    self->registrationFactory->SetTransform(RegistrationFactoryType::AffineTransform); 
+
+    self->registrationFactory->SetMetric(RegistrationFactoryType::MeanSquareMetric);
+//    self->registrationFactory->SetMetric(RegistrationFactoryType::NormalizedCorrelationMetric); // very runtime inefficient
+//    self->registrationFactory->SetMetric(RegistrationFactoryType::MutualInformationHistogramMetric); // even more runtime inefficient
     self->registrationFactory->SetInterpolator(RegistrationFactoryType::LinearInterpolator);
     self->registrationFactory->SetOptimizer(RegistrationFactoryType::RegularStepGradientDescentOptimizer);    
     
-    self->registrationFactory->UserOptions.PREALIGN = true;
+    self->registrationFactory->UserOptions.PREALIGN = false; //true;
     self->registrationFactory->UserOptions.PREALIGNPRECISION = 7;
     
     self->registrationFactory->UserOptions.CoarseFactor = 1;
@@ -47,6 +53,16 @@
     self->registrationFactory->UserOptions.ROTATIONSCALE = -1;
     self->registrationFactory->UserOptions.TRANSLATIONSCALE = -1;
     self->registrationFactory->UserOptions.PREALIGNPRECISION = 5;
+    
+    // TODO: remove
+    if ( verbose ) {
+        registrationFactory->UserOptions.SHOWITERATIONATSTEP = 1;
+        registrationFactory->UserOptions.PRINTRESULTS = true;
+    } else {
+        registrationFactory->UserOptions.SHOWITERATIONATSTEP = 10;
+        registrationFactory->UserOptions.PRINTRESULTS = false;
+    }
+    // remove END
         
     self->registrationFactory->UserOptions.NumberOfThreads = 1;
     self->registrationFactory->UserOptions.MattesMutualInitializeSeed = 1;
@@ -57,8 +73,8 @@
     self->registrationFactory->SetFixedImage(refITKImg);
     self->registrationFactory->SetMovingImage(toAlignITKImg);
     
-    // Causes unit tests to crash currently
-//    self->registrationFactory->StartRegistration();
+    // Causes unit tests to crash if the MattesMutualInformationMetric is used
+    self->registrationFactory->StartRegistration();
     
     const itk::TransformBase* tmpConstTransformPointer;
     tmpConstTransformPointer = registrationFactory->GetTransform();
