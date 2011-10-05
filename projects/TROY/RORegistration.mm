@@ -46,7 +46,7 @@ bool verbose = true;
     
     self->registrationFactory->UserOptions.CoarseFactor = 1;
     self->registrationFactory->UserOptions.BSplineBound = 15.0f;
-    self->registrationFactory->UserOptions.NumberOfIterations = 500;
+    self->registrationFactory->UserOptions.NumberOfIterations = 3; // Default values: 1. run 500, 2. run 500, 3. run 100
     self->registrationFactory->UserOptions.NumberOfBins = 50;
     self->registrationFactory->UserOptions.PixelDensity = 0;
     self->registrationFactory->UserOptions.BSplineGridSize = 6; // 5 or 6 are defaults, must not be lower than 5
