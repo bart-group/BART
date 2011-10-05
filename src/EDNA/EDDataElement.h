@@ -142,6 +142,8 @@ enum ImagePropertyID{
  * Attention: when running through the result buffer, col is the fastest running index, i.e. get the data row by row
  */
 
+-(EDDataElement*)getDataAtTimeStep:(size_t)tstep;
+
 -(float*)getSliceData:(uint)sliceNr atTimestep:(uint)tstep;
 
 -(float*)getRowDataAt:(uint)row atSlice:(uint)sl atTimestep:(uint)tstep;
