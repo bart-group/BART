@@ -110,6 +110,8 @@
 	self = [super init];
 	mIsisImage = new isis::data::Image(img);
 	mImageType = imgType;
+    
+    mDataTypeID = img.getMajorTypeID();
 	mImageSize.rows = mIsisImage->getNrOfRows(); // getDimSize(isis::data::colDim)
     mImageSize.columns = mIsisImage->getNrOfColumms();
     mImageSize.slices = mIsisImage->getNrOfSlices();
@@ -340,6 +342,23 @@
 	return ret;
 }
 
+-(EDDataElement*)getDataAtTimeStep:(size_t)tstep
+{
+    std::list<isis::data::Chunk> chList;
+    BARTImageSize *s = [[BARTImageSize alloc] initWithRows:mImageSize.rows andCols:mImageSize.columns andSlices:mImageSize.slices andTimesteps:1];
+    
+    if ([self sizeCheckRows:1 Cols:1 Slices:1 Timesteps:tstep]){
+        for (size_t i = 0; i < mImageSize.slices; i++){
+            chList.push_back(mIsisImage->getChunk(0,0,i,tstep));
+        }
+    
+        isis::data::Image retImg(chList);
+        EDDataElementIsis *retElement = [[EDDataElementIsis alloc] initFromImage:retImg ofImageType:IMAGE_FCTDATA];
+        [s release];
+        return retElement;
+    }
+    return nil;
+}
 
 -(float*)getSliceData:(uint)sliceNr atTimestep:(uint)tstep
 {	
