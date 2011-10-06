@@ -662,6 +662,13 @@
     return itkImage;
 }
 
+-(ITKImage4D::Pointer)asITKImage4D
+{
+    isis::adapter::itkAdapter* adapter = new isis::adapter::itkAdapter;
+    ITKImage4D::Pointer itkImage = adapter->makeItkImageObject<ITKImage4D>(*mIsisImage);
+    return itkImage;
+}
+
 -(ITKImage::Pointer)asITKImage:(unsigned int)timestep
 {
     return nil;

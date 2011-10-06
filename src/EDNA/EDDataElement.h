@@ -12,8 +12,10 @@
 #include <itkImage.h>
 
 typedef float ITKImagePixelType;
-const unsigned int ITKIMAGE_DIMENSION = 3;
-typedef itk::Image<ITKImagePixelType, ITKIMAGE_DIMENSION> ITKImage;
+const unsigned int IMAGE_DIMENSION = 3;
+const unsigned int FMRI_IMAGE_DIMENSION = 4;
+typedef itk::Image<ITKImagePixelType, IMAGE_DIMENSION> ITKImage;
+typedef itk::Image<ITKImagePixelType, FMRI_IMAGE_DIMENSION> ITKImage4D;
 #endif
 
 enum ImageType {
@@ -182,6 +184,12 @@ enum ImagePropertyID{
  * \return The DataElement as an ITKImage.
  */
 -(ITKImage::Pointer)asITKImage;
+/**
+ * Converts the whole DataElement to an ITKImage4D.
+ *
+ * \return The DataElement as an ITKImage4D.
+ */
+-(ITKImage4D::Pointer)asITKImage4D;
 
 /**
  * Converts a single timestep of the DataElement to an ITKImage.
