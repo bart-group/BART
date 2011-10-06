@@ -7,7 +7,6 @@
 //
 
 #import "isis_test.h"
-#import "EDDataElementIsisRealTime.h"
 #import "EDNA/EDDataElementIsis.h"
 #import "CoreUtils/common.hpp"
 
