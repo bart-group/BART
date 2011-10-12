@@ -10,15 +10,49 @@
 
 #import "EDDataElement.h"
 
-#include "isisRegistrationFactory3D.hpp"
+// ISIS includes
+#import "isisRegistrationFactory3D.hpp"
+#import "isisTimeStepExtractionFilter.hpp"
 
+// ITK includes
+#import <itkImageFileReader.h>
+#import <itkWarpImageFilter.h>
+#import <itkTileImageFilter.h>
+
+
+// ISIS typedef
 typedef isis::registration::RegistrationFactory3D<ITKImage, ITKImage> RegistrationFactoryType;
+typedef isis::extitk::TimeStepExtractionFilter<ITKImage4D, ITKImage> TimeStepExtractionFilterType;
 
+// ITK typedefs
+typedef itk::Vector<float, 3> VectorType;
+typedef itk::Image<VectorType, 3> DeformationFieldType;
+typedef itk::ImageFileReader<DeformationFieldType> DeformationFieldReaderType;
+
+typedef itk::ResampleImageFilter<ITKImage, ITKImage> ResampleImageFilterType;
+typedef itk::WarpImageFilter<ITKImage, ITKImage, DeformationFieldType> WarpImageFilterType;
+
+typedef itk::LinearInterpolateImageFunction<ITKImage, double> LinearInterpolatorType;
+typedef itk::TileImageFilter<ITKImage, ITKImage4D> TileImageFilterType;
+
+
+
+
+/**
+ * Based on valign3d and vdotrans from Lipsia.
+ */
 @interface RORegistration : NSObject {
     
     @private
     RegistrationFactoryType::Pointer registrationFactory;
+    /** Holds the transformation information gathered during init. */
+    const itk::TransformBase* tmpConstTransformPointer;
     
+    /** Applies the transformation to an ISIS image. */
+    ResampleImageFilterType::Pointer resampler;
+    WarpImageFilterType::Pointer warper;
+    
+    LinearInterpolatorType::Pointer linearInterpolator;
 }
 
 /*
@@ -29,6 +63,7 @@ typedef isis::registration::RegistrationFactory3D<ITKImage, ITKImage> Registrati
  *    and returns the transformed DataElement
  */
 //-(RORegistration*)initWithParams:
+-(id)initFindingTransformFrom:(EDDataElement*)toAlign toReference:(EDDataElement*)ref;
 
 /**
  *

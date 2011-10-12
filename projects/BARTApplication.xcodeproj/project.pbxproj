@@ -290,7 +290,15 @@
 		00FA55A2140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle in Copy PlugIns */ = {isa = PBXBuildFile; fileRef = 00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		A713AA061445CC8800BBF150 /* libitksys.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898F13F563D7005FF00D /* libitksys.3.16.0.dylib */; };
+		A713AA091445CF1600BBF150 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
+		A713AA0A1445CFFE00BBF150 /* libboost_date_time.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABD135C764F00562F3B /* libboost_date_time.dylib */; };
+		A713AA0B1445CFFE00BBF150 /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABE135C764F00562F3B /* libboost_filesystem.dylib */; };
+		A713AA0C1445CFFE00BBF150 /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABF135C764F00562F3B /* libboost_regex.dylib */; };
+		A713AA0D1445CFFE00BBF150 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8AC0135C764F00562F3B /* libboost_system.dylib */; };
+		A713AA0E1445D17B00BBF150 /* libitksys.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898F13F563D7005FF00D /* libitksys.3.16.0.dylib */; };
 		A71DBC02143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A71DBC00143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp */; };
+		A71DBC051445C84900C9207B /* libisis_core.0.3.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A71DBC041445C84900C9207B /* libisis_core.0.3.4.dylib */; };
 		A722899813F563D7005FF00D /* libITKAlgorithms.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897A13F563D5005FF00D /* libITKAlgorithms.3.16.0.dylib */; };
 		A722899913F563D8005FF00D /* libITKBasicFilters.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897B13F563D5005FF00D /* libITKBasicFilters.3.16.0.dylib */; };
 		A722899A13F563D8005FF00D /* libITKDICOMParser.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897C13F563D6005FF00D /* libITKDICOMParser.3.16.0.dylib */; };
@@ -494,6 +502,13 @@
 			remoteInfo = EDNA;
 		};
 		00E63C9B13533E9200DC8A50 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00D4415F134B57BD00094A51;
+			remoteInfo = EDNA;
+		};
+		A713AA071445CEA300BBF150 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
@@ -786,7 +801,7 @@
 		00C3A0021144FBEF00725668 /* COSystemConfigTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = COSystemConfigTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		00C3A07F114510CE00725668 /* Init_Links_1.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Init_Links_1.edl; sourceTree = "<group>"; };
 		00C3A080114510CE00725668 /* rtExperiment_v14.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rtExperiment_v14.xsd; sourceTree = "<group>"; };
-		00D4409A134B4DCC00094A51 /* libisis_core.0.3.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisis_core.0.3.4.dylib; path = /private/tmp/isis/lib/libisis_core.0.3.4.dylib; sourceTree = "<absolute>"; };
+		00D4409A134B4DCC00094A51 /* libisis_core.0.3.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisis_core.0.3.4.dylib; path = /usr/local/lib/libisis_core.0.3.4.dylib; sourceTree = "<absolute>"; };
 		00D440BA134B4F8800094A51 /* libboost_date_time-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_date_time-mt.dylib"; path = "/opt/local/lib/libboost_date_time-mt.dylib"; sourceTree = "<absolute>"; };
 		00D440BC134B4F8800094A51 /* libboost_filesystem-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_filesystem-mt.dylib"; path = "/opt/local/lib/libboost_filesystem-mt.dylib"; sourceTree = "<absolute>"; };
 		00D440BE134B4F8800094A51 /* libboost_regex-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_regex-mt.dylib"; path = "/opt/local/lib/libboost_regex-mt.dylib"; sourceTree = "<absolute>"; };
@@ -883,6 +898,7 @@
 		8D1107320486CEB800E47090 /* BARTApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BARTApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71DBC00143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisTimeStepExtractionFilter.hpp; sourceTree = "<group>"; };
 		A71DBC01143DF6CF00C9207B /* isisTimeStepExtractionFilter.txx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = isisTimeStepExtractionFilter.txx; sourceTree = "<group>"; };
+		A71DBC041445C84900C9207B /* libisis_core.0.3.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisis_core.0.3.4.dylib; path = usr/local/lib/libisis_core.0.3.4.dylib; sourceTree = SDKROOT; };
 		A722897A13F563D5005FF00D /* libITKAlgorithms.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKAlgorithms.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKAlgorithms.3.16.0.dylib"; sourceTree = "<group>"; };
 		A722897B13F563D5005FF00D /* libITKBasicFilters.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKBasicFilters.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKBasicFilters.3.16.0.dylib"; sourceTree = "<group>"; };
 		A722897C13F563D6005FF00D /* libITKDICOMParser.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKDICOMParser.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKDICOMParser.3.16.0.dylib"; sourceTree = "<group>"; };
@@ -935,6 +951,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A713AA0A1445CFFE00BBF150 /* libboost_date_time.dylib in Frameworks */,
+				A713AA0B1445CFFE00BBF150 /* libboost_filesystem.dylib in Frameworks */,
+				A713AA0C1445CFFE00BBF150 /* libboost_regex.dylib in Frameworks */,
+				A713AA0D1445CFFE00BBF150 /* libboost_system.dylib in Frameworks */,
+				A713AA091445CF1600BBF150 /* EDNA.dylib in Frameworks */,
+				A713AA061445CC8800BBF150 /* libitksys.3.16.0.dylib in Frameworks */,
+				A71DBC051445C84900C9207B /* libisis_core.0.3.4.dylib in Frameworks */,
 				A75A5D511403E03B00514CD3 /* libITKAlgorithms.3.16.0.dylib in Frameworks */,
 				A75A5D521403E03B00514CD3 /* libITKBasicFilters.3.16.0.dylib in Frameworks */,
 				A75A5D531403E03B00514CD3 /* libITKNumerics.3.16.0.dylib in Frameworks */,
@@ -1039,6 +1062,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A713AA0E1445D17B00BBF150 /* libitksys.3.16.0.dylib in Frameworks */,
 				A7763C59143B2BAF00457A99 /* libITKBasicFilters.3.16.0.dylib in Frameworks */,
 				A7763C5A143B2BAF00457A99 /* libITKCommon.3.16.0.dylib in Frameworks */,
 				A7763C5B143B2BAF00457A99 /* libITKIO.3.16.0.dylib in Frameworks */,
@@ -1828,6 +1852,7 @@
 		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
 			isa = PBXGroup;
 			children = (
+				A71DBC041445C84900C9207B /* libisis_core.0.3.4.dylib */,
 				00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */,
 				0040B78F1141470400A57967 /* docs */,
 				0040B7921141470400A57967 /* src */,
@@ -1987,6 +2012,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A713AA081445CEA300BBF150 /* PBXTargetDependency */,
 			);
 			name = TROY;
 			productName = TROY;
@@ -2817,6 +2843,11 @@
 			target = 00D4415F134B57BD00094A51 /* EDNA */;
 			targetProxy = 00E63C9B13533E9200DC8A50 /* PBXContainerItemProxy */;
 		};
+		A713AA081445CEA300BBF150 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00D4415F134B57BD00094A51 /* EDNA */;
+			targetProxy = A713AA071445CEA300BBF150 /* PBXContainerItemProxy */;
+		};
 		A75A5D631406889600514CD3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 00D4415F134B57BD00094A51 /* EDNA */;
@@ -2869,13 +2900,17 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TROY/TROY-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"_ENABLE_DEBUG=1",
+					"_ENABLE_LOG=1",
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"/opt/local/lib/InsightToolkit-3.16\"",
+					/opt/local/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2900,6 +2935,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"/opt/local/lib/InsightToolkit-3.16\"",
+					/opt/local/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3842,6 +3878,7 @@
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
+					/opt/local/include/InsightToolkit/Utilities,
 					/opt/local/include,
 					/usr/include,
 					/usr/local/include/isis,
@@ -3903,6 +3940,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
+					/opt/local/include/InsightToolkit/Utilities,
 					/opt/local/include,
 					/usr/include,
 					/usr/local/include/isis,
