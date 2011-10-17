@@ -264,7 +264,6 @@ bool verbose = true;
 			self->warper->SetOutputSize(fmriOutputSize);
 			self->warper->SetOutputSpacing(fmriOutputSpacing);
 			self->warper->SetInput(inputImage);
-//            self->warper->SetDeformationField(defField);
             self->warper->SetDeformationField(trans);
 		}
         
@@ -328,10 +327,6 @@ bool verbose = true;
 			self->warper->SetOutputSpacing(outputSpacing);
 			self->warper->SetInput(inputImage);
             
-            // !!!!!!!!!!!!!!!!!!!!!
-            // TODO: trans BENUTZEN! - wird derzeit noch nicht im defField übergeben, da es vorher über Files lief!!!
-            // !!!!!!!!!!!!!!!!!!!!!
-//            self->warper->SetDeformationField(defField);
             self->warper->SetDeformationField(trans);
 			            
 			self->warper->Update();
