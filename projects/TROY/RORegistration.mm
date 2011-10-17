@@ -173,7 +173,7 @@ bool verbose = true;
         
 		if (res.size() >= 3 ) {
 			//user has specified at least 3 values -> sets anisotrop resolution
-			for ( unsigned int i = 0; i < 3; i++ ) {
+			for (unsigned int i = 0; i < 3; i++) {
 				outputSpacing[i] = res[i];
 			}
 		}
@@ -206,27 +206,17 @@ bool verbose = true;
 	}
     
     // TODO: skipped setting the output direction/origin setting
-
-//    DeformationFieldReaderType::Pointer deformationFieldReader = DeformationFieldReaderType::New();
-    
-//  if (trans != NULL) {
-//		deformationFieldReader->SetFileName( vtrans_filename );
-//		deformationFieldReader->Update();
-//	}
-
-//    DeformationFieldType::Pointer defField = DeformationFieldType::New();
-//	defField = deformationFieldReader->GetOutput();
     
     // TODO: skipped computing the output size
     
     //setting up the interpolator
     // TODO: make configurable
-    self->resampler->SetInterpolator( linearInterpolator );
-    self->warper->SetInterpolator( linearInterpolator );
-//    self->resampler->SetInterpolator( bsplineInterpolator );
-//    self->warper->SetInterpolator( bsplineInterpolator );
-//    self->resampler->SetInterpolator( nearestNeighborInterpolator );
-//    self->warper->SetInterpolator( nearestNeighborInterpolator );
+    self->resampler->SetInterpolator(linearInterpolator);
+    self->warper->SetInterpolator(linearInterpolator);
+//    self->resampler->SetInterpolator(bsplineInterpolator);
+//    self->warper->SetInterpolator(bsplineInterpolator);
+//    self->resampler->SetInterpolator(nearestNeighborInterpolator);
+//    self->warper->SetInterpolator(nearestNeighborInterpolator);
     
     ITKImage::PointType fmriOutputOrigin;
     ITKImage::DirectionType fmriOutputDirection;
@@ -270,7 +260,7 @@ bool verbose = true;
         
 		if (trans.IsNotNull()) {
 			self->warper->SetOutputDirection(fmriOutputDirection);
-			self->warper->SetOutputOrigin(fmriOutputOrigin );
+			self->warper->SetOutputOrigin(fmriOutputOrigin);
 			self->warper->SetOutputSize(fmriOutputSize);
 			self->warper->SetOutputSpacing(fmriOutputSpacing);
 			self->warper->SetInput(inputImage);
@@ -300,27 +290,27 @@ bool verbose = true;
         ITKImage::Pointer tmpImage = ITKImage::New();
         TileImageFilterType::Pointer tileImageFilter = TileImageFilterType::New();
         
-		for ( unsigned int timestep = 0; timestep < numberOfTimeSteps; timestep++ ) {
+		for (unsigned int timestep = 0; timestep < numberOfTimeSteps; timestep++) {
 			std::cout << "Resampling timestep: " << timestep << "...\r" << std::flush;
 			timeStepExtractionFilter->SetRequestedTimeStep(timestep);
 			timeStepExtractionFilter->Update();
 			tmpImage = timeStepExtractionFilter->GetOutput();
-			tmpImage->SetDirection( inputImage->GetDirection() );
-			tmpImage->SetOrigin( inputImage->GetOrigin() );
+			tmpImage->SetDirection(inputImage->GetDirection());
+			tmpImage->SetOrigin(inputImage->GetOrigin());
             
 			if (trans.IsNotNull()) {
-				warper->SetInput( tmpImage );
+				warper->SetInput(tmpImage);
 				warper->Update();
 				tileImage = warper->GetOutput();
 			}
             
 			tileImage->Update();
 			tileImage->DisconnectPipeline();
-			tileImageFilter->PushBackInput( tileImage );
+			tileImageFilter->PushBackInput(tileImage);
 		}
         
-		tileImageFilter->SetLayout( layout );
-		tileImageFilter->GetOutput()->SetDirection( direction4D );
+		tileImageFilter->SetLayout(layout);
+		tileImageFilter->GetOutput()->SetDirection(direction4D);
 		tileImageFilter->Update();
 		std::list<isis::data::Image> imgList = adapter->makeIsisImageObject<ITKImage4D>(tileImageFilter->GetOutput());
         
@@ -345,7 +335,7 @@ bool verbose = true;
             self->warper->SetDeformationField(trans);
 			            
 			self->warper->Update();
-			std::list<isis::data::Image> imgList = adapter->makeIsisImageObject<ITKImage>( warper->GetOutput() );
+			std::list<isis::data::Image> imgList = adapter->makeIsisImageObject<ITKImage>(warper->GetOutput());
 //			isis::data::IOFactory::write( imgList, out_filename, "", "" );
 		}
     }
