@@ -27,7 +27,7 @@ typedef isis::extitk::TimeStepExtractionFilter<ITKImage4D, ITKImage> TimeStepExt
 // ITK typedefs
 typedef itk::Vector<float, 3> VectorType;
 typedef itk::Image<VectorType, 3> DeformationFieldType;
-typedef itk::ImageFileReader<DeformationFieldType> DeformationFieldReaderType;
+//typedef itk::ImageFileReader<DeformationFieldType> DeformationFieldReaderType;
 
 typedef itk::ResampleImageFilter<ITKImage, ITKImage> ResampleImageFilterType;
 typedef itk::WarpImageFilter<ITKImage, ITKImage, DeformationFieldType> WarpImageFilterType;

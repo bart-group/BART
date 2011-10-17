@@ -10,6 +10,9 @@
 
 #import "EDDataElement.h"
 
+#include <itkImageFileWriter.h>
+
+
 // Isis
 #import "DataStorage/image.hpp"
 #import "Adapter/itkAdapter.hpp"
@@ -18,12 +21,12 @@ const int NR_THREADS = 4;
 
 @interface RORegistration (privateMethods)
 
--(const itk::TransformBase*)computeTransform:(EDDataElement*)toAlign 
+-(DeformationFieldType::Pointer)computeTransform:(EDDataElement*)toAlign 
                                withReference:(EDDataElement*)ref;
 
 -(EDDataElement*)transform:(EDDataElement*)toAlign 
              withReference:(EDDataElement*)ref 
-            transformation:(const itk::TransformBase*)trans 
+            transformation:(DeformationFieldType::Pointer)trans 
                 resolution:(std::vector<size_t>)res 
             functionalData:(BOOL)fmri; 
 
@@ -52,7 +55,7 @@ const int NR_THREADS = 4;
                   toReference:(EDDataElement*)ref
 {
     if (self = [self init]) {
-        self->tmpConstTransformPointer = [self computeTransform:toAlign withReference:ref];
+//        self->tmpConstTransformPointer = [self computeTransform:toAlign withReference:ref];
     }
     
     return self;
@@ -67,7 +70,7 @@ const int NR_THREADS = 4;
     
     // TODO: replace with method: align :: EDDataElement -> EDDataElement
     
-    const itk::TransformBase* trans = [self computeTransform:toAlign withReference:ref];
+    DeformationFieldType::Pointer trans = [self computeTransform:toAlign withReference:ref];
     
     std::vector<size_t> res;
     res.push_back(1);
@@ -87,8 +90,8 @@ const int NR_THREADS = 4;
 
 bool verbose = true;
 
--(const itk::TransformBase*)computeTransform:(EDDataElement*)toAlign 
-withReference:(EDDataElement*)ref
+-(DeformationFieldType::Pointer)computeTransform:(EDDataElement*)toAlign 
+                                   withReference:(EDDataElement*)ref
 {
     self->registrationFactory->Reset();
     
@@ -133,15 +136,17 @@ withReference:(EDDataElement*)ref
     self->registrationFactory->SetFixedImage(refITKImg);
     self->registrationFactory->SetMovingImage(toAlignITKImg);
     
-    // Causes unit tests to crash if the MattesMutualInformationMetric is used
+    // Causes unit tests/ITK to crash if the MattesMutualInformationMetric is used
     self->registrationFactory->StartRegistration();
     
-    return registrationFactory->GetTransform();
+//    return registrationFactory->GetTransform();
+    return registrationFactory->GetTransformVectorField();
 }
 
 -(EDDataElement*)transform:(EDDataElement*)toAlign 
              withReference:(EDDataElement*)ref 
-            transformation:(const itk::TransformBase*)trans 
+//            transformation:(const itk::TransformBase*)trans 
+            transformation:(DeformationFieldType::Pointer)trans
                 resolution:(std::vector<size_t>)res
             functionalData:(BOOL)fmri
 {
@@ -199,18 +204,20 @@ withReference:(EDDataElement*)ref
 		outputDirection = templateImage->GetDirection();
 		outputOrigin = templateImage->GetOrigin();
 	}
-
-
     
     // TODO: skipped setting the output direction/origin setting
+
+//    DeformationFieldReaderType::Pointer deformationFieldReader = DeformationFieldReaderType::New();
     
-    // TODO: skipped setting up the deformation field
+//  if (trans != NULL) {
+//		deformationFieldReader->SetFileName( vtrans_filename );
+//		deformationFieldReader->Update();
+//	}
+
+//    DeformationFieldType::Pointer defField = DeformationFieldType::New();
+//	defField = deformationFieldReader->GetOutput();
     
     // TODO: skipped computing the output size
-    
-    DeformationFieldReaderType::Pointer deformationFieldReader = DeformationFieldReaderType::New();
-    DeformationFieldType::Pointer defField = DeformationFieldType::New();
-	defField = deformationFieldReader->GetOutput();    
     
     //setting up the interpolator
     // TODO: make configurable
@@ -261,13 +268,14 @@ withReference:(EDDataElement*)ref
 		if (fmriOutputSpacing[3] == 0) 
             fmriOutputSpacing[3] = 1; 
         
-		if (trans != NULL) {
+		if (trans.IsNotNull()) {
 			self->warper->SetOutputDirection(fmriOutputDirection);
 			self->warper->SetOutputOrigin(fmriOutputOrigin );
 			self->warper->SetOutputSize(fmriOutputSize);
 			self->warper->SetOutputSpacing(fmriOutputSpacing);
 			self->warper->SetInput(inputImage);
-            self->warper->SetDeformationField(defField);
+//            self->warper->SetDeformationField(defField);
+            self->warper->SetDeformationField(trans);
 		}
         
 		itk::FixedArray<unsigned int, 4> layout;
@@ -294,13 +302,13 @@ withReference:(EDDataElement*)ref
         
 		for ( unsigned int timestep = 0; timestep < numberOfTimeSteps; timestep++ ) {
 			std::cout << "Resampling timestep: " << timestep << "...\r" << std::flush;
-			timeStepExtractionFilter->SetRequestedTimeStep( timestep );
+			timeStepExtractionFilter->SetRequestedTimeStep(timestep);
 			timeStepExtractionFilter->Update();
 			tmpImage = timeStepExtractionFilter->GetOutput();
 			tmpImage->SetDirection( inputImage->GetDirection() );
 			tmpImage->SetOrigin( inputImage->GetOrigin() );
             
-			if (trans != NULL) {
+			if (trans.IsNotNull()) {
 				warper->SetInput( tmpImage );
 				warper->Update();
 				tileImage = warper->GetOutput();
@@ -319,17 +327,22 @@ withReference:(EDDataElement*)ref
 //		isis::data::IOFactory::write( imgList, out_filename, "" , "" );
 	} else {
         // No fmri
-//        writer->SetFileName( out_filename );
+        itk::ImageFileWriter<ITKImage>::Pointer writer = itk::ImageFileWriter<ITKImage>::New();
+        writer->SetFileName("/tmp/fooblub.nii");
         
 //		if ( vtrans_filename or trans_filename.number > 1 && !identity ) {
-        if (trans != NULL) {
+        if (trans.IsNotNull()) {
 			self->warper->SetOutputDirection(outputDirection);
 			self->warper->SetOutputOrigin(outputOrigin);
 			self->warper->SetOutputSize(outputSize);
 			self->warper->SetOutputSpacing(outputSpacing);
 			self->warper->SetInput(inputImage);
             
-            self->warper->SetDeformationField(defField);
+            // !!!!!!!!!!!!!!!!!!!!!
+            // TODO: trans BENUTZEN! - wird derzeit noch nicht im defField übergeben, da es vorher über Files lief!!!
+            // !!!!!!!!!!!!!!!!!!!!!
+//            self->warper->SetDeformationField(defField);
+            self->warper->SetDeformationField(trans);
 			            
 			self->warper->Update();
 			std::list<isis::data::Image> imgList = adapter->makeIsisImageObject<ITKImage>( warper->GetOutput() );
