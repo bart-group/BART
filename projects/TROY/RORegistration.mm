@@ -10,8 +10,8 @@
 
 #import "EDDataElement.h"
 
-#include <itkImageFileWriter.h>
-
+// ITK
+#import <itkImageFileWriter.h>
 
 // Isis
 #import "DataStorage/image.hpp"
@@ -44,6 +44,8 @@ const int NR_THREADS = 4;
         self->resampler = ResampleImageFilterType::New();
         self->warper = WarpImageFilterType::New();
         self->linearInterpolator = LinearInterpolatorType::New();
+        
+//        isis::data::enable_log<isis::util::DefaultMsgPrint>(isis::info);
 
     }
     
@@ -205,9 +207,23 @@ bool verbose = true;
 		outputOrigin = templateImage->GetOrigin();
 	}
     
-    // TODO: skipped setting the output direction/origin setting
-    
-    // TODO: skipped computing the output size
+    if (res.size()) {
+        if (ref != nil) {
+            for (size_t i = 0; i < 3; i++) {
+                //output spacing = (template size / output resolution) * template resolution
+                outputSize[i] = (templateImage->GetLargestPossibleRegion().GetSize()[i] / outputSpacing[i]) * templateImage->GetSpacing()[i];
+            }
+        } else {
+            for (size_t i = 0; i < 3; i++ ) {
+                //output spacing = (moving size / output resolution) * moving resolution
+                if (fmri) {
+                    outputSize[i] = (fmriImage->GetLargestPossibleRegion().GetSize()[i] / outputSpacing[i]) * fmriImage->GetSpacing()[i];
+                } else {
+                    outputSize[i] = (inputImage->GetLargestPossibleRegion().GetSize()[i] / outputSpacing[i]) * inputImage->GetSpacing()[i];
+                }
+            }
+        }
+	}
     
     //setting up the interpolator
     // TODO: make configurable
@@ -316,9 +332,6 @@ bool verbose = true;
 //		isis::data::IOFactory::write( imgList, out_filename, "" , "" );
 	} else {
         // No fmri
-        itk::ImageFileWriter<ITKImage>::Pointer writer = itk::ImageFileWriter<ITKImage>::New();
-        writer->SetFileName("/tmp/fooblub.nii");
-        
 //		if ( vtrans_filename or trans_filename.number > 1 && !identity ) {
         if (trans.IsNotNull()) {
 			self->warper->SetOutputDirection(outputDirection);
@@ -330,8 +343,18 @@ bool verbose = true;
             self->warper->SetDeformationField(trans);
 			            
 			self->warper->Update();
-			std::list<isis::data::Image> imgList = adapter->makeIsisImageObject<ITKImage>(warper->GetOutput());
-//			isis::data::IOFactory::write( imgList, out_filename, "", "" );
+            
+            ITKImage::Pointer output = warper->GetOutput();
+            
+//            typedef itk::ImageFileWriter<ITKImage> ITKWriter;
+//            ITKWriter::Pointer imageWriter = ITKWriter::New();
+//            imageWriter->SetFileName("/tmp/RORegistrationTestImage.nii");
+//            imageWriter->SetInput(output);
+//            imageWriter->Update();
+            
+            // Causes crash:
+			std::list<isis::data::Image> imgList = adapter->makeIsisImageObject<ITKImage>(output);
+            isis::data::IOFactory::write( imgList, "/tmp/RORegIsisFix.nii", "", "" );
 		}
     }
 
