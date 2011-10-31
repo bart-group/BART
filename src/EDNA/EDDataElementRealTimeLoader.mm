@@ -70,7 +70,13 @@
     if (0 == tempList.size() && (YES == [[NSThread currentThread] isExecuting])){
         [[NSThread currentThread] cancel];
         NSLog(@"cancel thread now");
-		[[NSNotificationCenter defaultCenter] postNotificationName:BARTScannerSentTerminusNotification object:mDataElementInterest];
+        if (1 < [mDataElementInterest getImageSize].timesteps){
+            [[NSNotificationCenter defaultCenter] postNotificationName:BARTScannerSentTerminusNotification object:mDataElementInterest];
+        }
+        else{
+            [[NSNotificationCenter defaultCenter] postNotificationName:BARTScannerSentTerminusNotification object:nil];
+        }
+		
         //TODO : decide by isEmpty()
         if (1 < [mDataElementRest getImageSize].timesteps){
             [mDataElementRest WriteDataElementToFile:@"/tmp/TheNotUsedDataElement.nii"];
@@ -98,20 +104,28 @@
 
 -(BOOL)isImage:(isis::data::Image)img ofImageType:(enum ImageType)imgType
 {
-	//TODO: kriterien festlegen!!!
 	std::string seqDescr;
 	u_int16_t segNr = img.getPropertyAs<u_int16_t>("sequenceNumber");
+    std::string imageType = img.getPropertyAs<std::string>("DICOM/ImageType");
+    size_t pos = std::string::npos;
 	switch (imgType) {
 		case IMAGE_MOCO:
 			//seqDescr = img.getPropertyAs<std::string>("sequenceDescription");
-			 
-			if ( static_cast<u_int16_t>(0) == segNr){
-				return TRUE;}
+			pos = imageType.find("MOCO\\WAS_MOSAIC");
+			if ( ( static_cast<u_int16_t>(10000) < segNr)
+                && ( std::string::npos != pos ) )
+            {
+				return TRUE;
+            }
 			return FALSE;
 			break;
 		case IMAGE_FCTDATA:
-			if ( static_cast<u_int16_t>(1) == segNr){
-				return TRUE;}
+			pos = imageType.find("WAS_MOSAIC");
+			if ( ( static_cast<u_int16_t>(10000) > segNr)
+                && ( std::string::npos != pos ) )
+            {
+				return TRUE;
+            }
 			return FALSE;
 			break;
 		case IMAGE_ANADATA:
