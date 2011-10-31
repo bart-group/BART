@@ -40,7 +40,7 @@
         // TODO: appropriate init
         mCurrentTimestep = 50;
 		config = [[COExperimentContext getInstance] systemConfig];
-		isRealTimeTCPInput = FALSE;
+		isRealTimeTCPInput = TRUE;
 		startAnalysisAtTimeStep = 15;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -69,8 +69,8 @@
     config = [[COExperimentContext getInstance] systemConfig];
     
     [self initData];
-	[self initDesign];
-	[self initAnalyzer];
+	//[self initDesign];
+	//[self initAnalyzer];
     //[self initPresentation];
 	[self startAnalysis];
     
@@ -160,7 +160,7 @@
 		[NSThread detachNewThreadSelector:@selector(startRealTimeInputOfImageType) toTarget:mRtLoader withObject:nil]; 
         //TODO error object 
 		//[err release];
-	}
+        	}
 
     
 	return TRUE;
@@ -256,8 +256,10 @@
 {
 	NSTimeInterval ti = [[NSDate date] timeIntervalSince1970];
 	//TODO: folder from edl
-	NSString *fname =[NSString stringWithFormat:@"/tmp/{subjectName}_{sequenceNumber}_volumes_%d_%d.nii", [[aNotification object] getImageSize].timesteps, ti];
-	[[aNotification object] WriteDataElementToFile:fname];
+    if ( nil != [aNotification object] ){
+        NSString *fname =[NSString stringWithFormat:@"/tmp/{subjectName}_{sequenceNumber}_volumes_%d_%d.nii", [[aNotification object] getImageSize].timesteps, ti];
+        [[aNotification object] WriteDataElementToFile:fname];
+    }
 }
 
 
