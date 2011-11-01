@@ -132,13 +132,14 @@ kern_return_t GetModemPath(io_iterator_t serialPortIterator, char *bsdPath, CFIn
             
             if (result)
 			{
-                char temp[lengthDeviceName+1];
-                strncpy(temp, deviceName, lengthDeviceName);
-                temp[lengthDeviceName] = '\0';
-                char *ans;                
-                ans = strstr(bsdPath,temp);
-                printf("Modem found with BSD path: %s", bsdPath);
-                if (ans != NULL) {
+                //char temp[lengthDeviceName+1];
+                //strncpy(temp, deviceName, lengthDeviceName);
+                //temp[lengthDeviceName] = '\0';
+                //char *ans;                
+                //ans = strstr(bsdPath,temp);
+                int ret = strcmp(bsdPath, deviceName);
+                printf("Modem found with BSD path: %s while searching for %s", bsdPath, deviceName);
+                if (ret == 0) {
                     modemFound = true;
                     kernResult = KERN_SUCCESS;
                 }
