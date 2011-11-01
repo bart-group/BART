@@ -39,7 +39,8 @@ int main(void)
     EDDataElement* dataElement = [registration align:functionalData 
                                        withReference:reference];
     
-    [dataElement release];
+    [dataElement WriteDataElementToFile:@"/tmp/IsisTestDataElem.nii"];
+    
     [functionalData release];
     [reference release];
     [registration release];

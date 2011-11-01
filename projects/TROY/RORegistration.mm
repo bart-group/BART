@@ -9,6 +9,7 @@
 #import "RORegistration.h"
 
 #import "EDDataElement.h"
+#import "EDDataElementIsis.h"
 
 // ITK
 #import <itkImageFileWriter.h>
@@ -17,7 +18,7 @@
 #import "DataStorage/image.hpp"
 #import "Adapter/itkAdapter.hpp"
 
-const int NR_THREADS = 4;
+const int NR_THREADS = 8; //4;
 
 @interface RORegistration (privateMethods)
 
@@ -238,6 +239,8 @@ bool verbose = true;
     ITKImage::DirectionType fmriOutputDirection;
     
     isis::adapter::itkAdapter* adapter = new isis::adapter::itkAdapter;
+    std::list<isis::data::Image> imgList;
+    enum ImageType imgType = IMAGE_UNKNOWN;
     
 	if (fmri) {
         TimeStepExtractionFilterType::Pointer timeStepExtractionFilter = TimeStepExtractionFilterType::New();
@@ -327,9 +330,10 @@ bool verbose = true;
 		tileImageFilter->SetLayout(layout);
 		tileImageFilter->GetOutput()->SetDirection(direction4D);
 		tileImageFilter->Update();
-		std::list<isis::data::Image> imgList = adapter->makeIsisImageObject<ITKImage4D>(tileImageFilter->GetOutput());
-        
-//		isis::data::IOFactory::write( imgList, out_filename, "" , "" );
+		
+        imgList = adapter->makeIsisImageObject<ITKImage4D>(tileImageFilter->GetOutput());
+        imgType = IMAGE_FCTDATA;
+
 	} else {
         // No fmri
 //		if ( vtrans_filename or trans_filename.number > 1 && !identity ) {
@@ -351,14 +355,20 @@ bool verbose = true;
 //            imageWriter->SetFileName("/tmp/RORegistrationTestImage.nii");
 //            imageWriter->SetInput(output);
 //            imageWriter->Update();
-            
-            // Causes crash:
-			std::list<isis::data::Image> imgList = adapter->makeIsisImageObject<ITKImage>(output);
-            isis::data::IOFactory::write( imgList, "/tmp/RORegIsisFix.nii", "", "" );
+
+			imgList = adapter->makeIsisImageObject<ITKImage>(output);
+            imgType = IMAGE_ANADATA;
 		}
     }
-
-    return nil;
+    
+//    isis::data::IOFactory::write( imgList, "/tmp/RORegIsisFix.nii", "", "" );
+    
+    EDDataElement* resultImg = nil;
+    if (imgList.size() > 0) {
+        resultImg = [[[EDDataElementIsis alloc] initFromImage:imgList.front() ofImageType:imgType] autorelease];
+    }
+    
+    return resultImg;
 }
 
 @end

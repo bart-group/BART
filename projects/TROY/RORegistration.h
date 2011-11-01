@@ -66,7 +66,7 @@ typedef itk::TileImageFilter<ITKImage, ITKImage4D> TileImageFilterType;
 -(id)initFindingTransformFrom:(EDDataElement*)toAlign toReference:(EDDataElement*)ref;
 
 /**
- *
+ * Memory management notice: the created DataElement is autoreleased!
  */
 -(EDDataElement*)align:(EDDataElement*)toAlign withReference:(EDDataElement*)ref;
 
