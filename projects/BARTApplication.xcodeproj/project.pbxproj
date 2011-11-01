@@ -32,6 +32,7 @@
 		00138AE813E81D260069E625 /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573B11459605007C02CB /* libgsl.0.dylib */; };
 		00161027134B1FF500373D77 /* EDDataElementIsisRealTime.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00AE43A71343912400F2D01D /* EDDataElementIsisRealTime.mm */; };
 		0016102A134B200800373D77 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		00198339146003C6006F8E27 /* BARTSerialIOPluginEyeTrac.bundle in Copy PlugIns */ = {isa = PBXBuildFile; fileRef = 00198337146003B4006F8E27 /* BARTSerialIOPluginEyeTrac.bundle */; };
 		0021FB151459C34C00C25FDC /* libboost_date_time-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BA134B4F8800094A51 /* libboost_date_time-mt.dylib */; };
 		0021FB161459C34E00C25FDC /* libboost_filesystem-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BC134B4F8800094A51 /* libboost_filesystem-mt.dylib */; };
 		0021FB171459C35000C25FDC /* libboost_regex-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BE134B4F8800094A51 /* libboost_regex-mt.dylib */; };
@@ -169,8 +170,6 @@
 		00C3A082114510CE00725668 /* rtExperiment_v14.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 00C3A080114510CE00725668 /* rtExperiment_v14.xsd */; };
 		00C730B61369F03500FC8546 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
 		00C730B71369F03600FC8546 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
-		00D06E6D145AF86300CD8DFC /* libboost_iostreams-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D06E6C145AF86300CD8DFC /* libboost_iostreams-mt.dylib */; };
-		00D06E6E145AF87600CD8DFC /* libboost_iostreams-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D06E6C145AF86300CD8DFC /* libboost_iostreams-mt.dylib */; };
 		00D4409B134B4DCC00094A51 /* libisis_core.0.3.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D4409A134B4DCC00094A51 /* libisis_core.0.3.4.dylib */; };
 		00D44159134B569400094A51 /* BAProcedurePipeline.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A21141470400A57967 /* BAProcedurePipeline.mm */; };
 		00D44165134B57E600094A51 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
@@ -425,6 +424,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				00FA55A2140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle in Copy PlugIns */,
+				00198339146003C6006F8E27 /* BARTSerialIOPluginEyeTrac.bundle in Copy PlugIns */,
 			);
 			name = "Copy PlugIns";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -527,6 +527,7 @@
 		0006F633122E5AA6001DA2BB /* glmtest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = glmtest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0006F7AB122E90FD001DA2BB /* pseudoStimulusDataBlock.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = pseudoStimulusDataBlock.edl; sourceTree = "<group>"; };
 		0006F7AC122E90FD001DA2BB /* rtExperiment_v14_simplified.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rtExperiment_v14_simplified.xsd; sourceTree = "<group>"; };
+		00198337146003B4006F8E27 /* BARTSerialIOPluginEyeTrac.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = BARTSerialIOPluginEyeTrac.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		0023CBB013EAC186006303B6 /* NELogFormatterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NELogFormatterTest.h; sourceTree = "<group>"; };
 		0023CBB113EAC186006303B6 /* NELogFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NELogFormatterTest.m; sourceTree = "<group>"; };
 		0023CBB213EAC186006303B6 /* NEMediaObjectTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NEMediaObjectTest.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -668,7 +669,6 @@
 		00C3A0021144FBEF00725668 /* COSystemConfigTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = COSystemConfigTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		00C3A07F114510CE00725668 /* Init_Links_1.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Init_Links_1.edl; sourceTree = "<group>"; };
 		00C3A080114510CE00725668 /* rtExperiment_v14.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rtExperiment_v14.xsd; sourceTree = "<group>"; };
-		00D06E6C145AF86300CD8DFC /* libboost_iostreams-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_iostreams-mt.dylib"; path = "../../../../../usr/local/Cellar/boost/1.47.0/lib/libboost_iostreams-mt.dylib"; sourceTree = "<group>"; };
 		00D4409A134B4DCC00094A51 /* libisis_core.0.3.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisis_core.0.3.4.dylib; path = /usr/local/lib/libisis_core.0.3.4.dylib; sourceTree = "<absolute>"; };
 		00D440BA134B4F8800094A51 /* libboost_date_time-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_date_time-mt.dylib"; path = "/usr/local/lib/libboost_date_time-mt.dylib"; sourceTree = "<absolute>"; };
 		00D440BC134B4F8800094A51 /* libboost_filesystem-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_filesystem-mt.dylib"; path = "/usr/local/lib/libboost_filesystem-mt.dylib"; sourceTree = "<absolute>"; };
@@ -891,7 +891,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00D06E6D145AF86300CD8DFC /* libboost_iostreams-mt.dylib in Frameworks */,
 				00D44167134B57E600094A51 /* libviaio.dylib in Frameworks */,
 				00D44165134B57E600094A51 /* libvia.dylib in Frameworks */,
 				00D44169134B57F200094A51 /* libisis_core.0.3.4.dylib in Frameworks */,
@@ -924,7 +923,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00D06E6E145AF87600CD8DFC /* libboost_iostreams-mt.dylib in Frameworks */,
 				007A6DB313E81CC700F5DE58 /* NED.dylib in Frameworks */,
 				007A6DB113E81CB700F5DE58 /* EDNA.dylib in Frameworks */,
 				007A6DB213E81CBC00F5DE58 /* CLETUS.dylib in Frameworks */,
@@ -1540,7 +1538,7 @@
 		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
 			isa = PBXGroup;
 			children = (
-				00D06E6C145AF86300CD8DFC /* libboost_iostreams-mt.dylib */,
+				00198337146003B4006F8E27 /* BARTSerialIOPluginEyeTrac.bundle */,
 				00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */,
 				0040B78F1141470400A57967 /* docs */,
 				0040B7921141470400A57967 /* src */,
@@ -1990,6 +1988,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "MPI Cognitive and Human Brain Sciences Leipzig";
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "BARTApplication" */;
@@ -2648,12 +2647,12 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include/isis,
 					/opt/local/include,
@@ -2671,7 +2670,6 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PREBINDING = NO;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include;
 				PRODUCT_NAME = EDNAUnitTestSuite;
 				TEST_AFTER_BUILD = YES;
@@ -2688,7 +2686,6 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -2698,6 +2695,7 @@
 					"_ENABLE_LOG=1",
 					"$(GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1)",
 				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include/isis,
 					/opt/local/include,
@@ -2716,7 +2714,6 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = EDNAUnitTestSuite;
 				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
@@ -2730,11 +2727,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/lib;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -2742,7 +2738,6 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = PRINCE;
 			};
 			name = Debug;
@@ -2753,10 +2748,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/lib;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -2764,7 +2759,6 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = PRINCE;
 				ZERO_LINK = NO;
 			};
@@ -2777,7 +2771,6 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2791,7 +2784,6 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = PRINCEUnitTestSuite;
 				WRAPPER_EXTENSION = octest;
 			};
@@ -2804,7 +2796,6 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2817,7 +2808,6 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = PRINCEUnitTestSuite;
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
@@ -2831,11 +2821,11 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include/isis/,
 					/opt/local/include,
@@ -2847,7 +2837,6 @@
 					/opt/local/lib,
 				);
 				OTHER_LDFLAGS = "-lstdc++";
-				PREBINDING = NO;
 				PRODUCT_NAME = glmtest;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 			};
@@ -2859,10 +2848,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include,
 					/usr/locale/include/isis,
@@ -2881,7 +2870,6 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = glmtest;
 				ZERO_LINK = NO;
 			};
@@ -2893,11 +2881,11 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2909,7 +2897,6 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = designtest;
 			};
 			name = Debug;
@@ -2920,10 +2907,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2935,7 +2922,6 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = designtest;
 				ZERO_LINK = NO;
 			};
@@ -2948,7 +2934,6 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G4;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -2958,6 +2943,7 @@
 					"_ENABLE_LOG=1",
 					"$(GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1)",
 				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include/isis,
 					/opt/local/include,
@@ -2966,7 +2952,6 @@
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = isis_test;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 			};
@@ -2978,10 +2963,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2996,7 +2981,6 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = isis_test;
 				ZERO_LINK = NO;
 			};
@@ -3011,11 +2995,11 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PRINCE-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
 				OTHER_LDFLAGS = (
@@ -3024,7 +3008,6 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = PRINCE;
 			};
 			name = Debug;
@@ -3038,10 +3021,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PRINCE-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
 				OTHER_LDFLAGS = (
@@ -3050,7 +3033,6 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = PRINCE;
 				ZERO_LINK = NO;
 			};
@@ -3063,12 +3045,12 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include/isis,
 					/opt/local/include,
@@ -3087,7 +3069,6 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = NEDUnitTestSuite;
 				TEMP_DIR = /tmp/doxygen_temp;
 				TEST_AFTER_BUILD = YES;
@@ -3102,11 +3083,11 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "NEDUnitTestSuite-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
@@ -3119,7 +3100,6 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = NEDUnitTestSuite;
 				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
@@ -3140,17 +3120,15 @@
 					"\"$(SRCROOT)/../../../Library/Frameworks\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/lib;
 				LD_DYLIB_INSTALL_NAME = "$(EXECUTABLE_PATH)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
-				PREBINDING = NO;
 				PRODUCT_NAME = CLETUS;
 				TEMP_DIR = /tmp/doxygen_temp;
 				VALID_ARCHS = x86_64;
@@ -3170,14 +3148,13 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Library/Frameworks\"",
 				);
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/lib;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
-				PREBINDING = NO;
 				PRODUCT_NAME = CLETUS;
 				VALID_ARCHS = x86_64;
 				ZERO_LINK = NO;
@@ -3191,12 +3168,12 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "CLETUSUnitTestSuite-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				OTHER_LDFLAGS = (
@@ -3205,7 +3182,6 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = CLETUSUnitTestSuite;
 				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
@@ -3219,11 +3195,11 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "CLETUSUnitTestSuite-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				OTHER_LDFLAGS = (
@@ -3232,7 +3208,6 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = CLETUSUnitTestSuite;
 				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
@@ -3250,10 +3225,9 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = $inherited;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INSTALL_PATH = /usr/local/lib;
 				LD_DYLIB_INSTALL_NAME = "$(EXECUTABLE_PATH)";
@@ -3268,7 +3242,6 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = EDNA;
 			};
@@ -3284,13 +3257,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = $inherited;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"_ENABLE_DEBUG=0",
-					"_ENABLE_LOG=1",
-					"$(GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1)",
-				);
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INSTALL_PATH = /usr/local/lib;
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
@@ -3305,7 +3275,6 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = EDNA;
 				ZERO_LINK = NO;
 			};
@@ -3320,12 +3289,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
 					/usr/include,
@@ -3340,7 +3308,6 @@
 					"-L",
 					/Users/Lydi/Development/BART/runtime/Debug/,
 				);
-				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = NED;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
@@ -3357,10 +3324,10 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
 					/usr/include,
@@ -3371,7 +3338,6 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = NED;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				VALID_ARCHS = "i386 x86_64";
@@ -3389,12 +3355,11 @@
 				DOXYGEN_PATH = /opt/local/bin/doxygen;
 				FRAMEWORK_SEARCH_PATHS = $inherited;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1 = "";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "BARTApplication-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -3421,10 +3386,8 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"_ENABLE_DEBUG=0",
-					"_ENABLE_LOG=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "BARTApplication-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -3452,14 +3415,15 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"_ENABLE_DEBUG=1",
 					"_ENABLE_LOG=1",
+					"_GLIBCXX_FULLY_DYNAMIC_STRING=1",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1 = "BUILD_PATH=/tmp/test/";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
@@ -3487,10 +3451,11 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = "";
-				PREBINDING = NO;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = "";
 				TEMP_DIR = /tmp/doxygen_temp;
 				TEST_HOST = "";
+				VALID_ARCHS = x86_64;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -3506,12 +3471,14 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"_ENABLE_DEBUG=0",
 					"_ENABLE_LOG=0",
+					"_GLIBCXX_FULLY_DYNAMIC_STRING=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
@@ -3531,8 +3498,9 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = "";
+				VALID_ARCHS = x86_64;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -3546,7 +3514,6 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -3557,6 +3524,7 @@
 					"_ENABLE_LOG=0",
 					"$(GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1)",
 				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_SHADOW = NO;
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
@@ -3573,7 +3541,6 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = BARTApplication;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 				TEST_AFTER_BUILD = YES;
@@ -3589,11 +3556,11 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "BARTUnitTestSuite-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
@@ -3609,7 +3576,6 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = BARTUnitTestSuite;
 				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
