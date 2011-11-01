@@ -243,7 +243,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
 -(SerialPort*)setupSerialPortEyeTrac
 {
 	//TODO: get from config
-	NSString *devPath = [[NSString alloc] initWithString:@"cu.usbserial   "];
+	NSString *devPath = [[NSString alloc] initWithString:@"/dev/cu.usbserial"];
 	NSString *descr = @"ASLEyeTrac";
 	
 	SerialPort *serialPortEyeTrac = [[SerialPort alloc] initSerialPortWithDevicePath:devPath deviceDescript:descr
@@ -279,7 +279,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
 -(SerialPort*)setupSerialPortTriggerAndButtonBox
 {
 	//TODO: get from config
-	NSString *devPath = [[NSString alloc] initWithString:@"cu.usbserial-FTDWH1DI"];
+	NSString *devPath = [[NSString alloc] initWithString:@"/dev/cu.usbserial-FTDWFENV"];
 	NSString *descr = @"TriggerAndButtonBox";
 	
 	SerialPort *serialPortTriggerAndButtonBox = [[SerialPort alloc] initSerialPortWithDevicePath:devPath deviceDescript:descr
