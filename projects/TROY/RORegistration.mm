@@ -78,6 +78,8 @@ const int NR_THREADS = 8; //4;
     std::vector<size_t> res;
     res.push_back(1);
     
+    NSLog(@"### FINISHED COMPUTING TRANSFORM, ALIGNING NOW ###");
+    
     EDDataElement* transformed = [self transform:toAlign 
                                    withReference:ref 
                                   transformation:trans 

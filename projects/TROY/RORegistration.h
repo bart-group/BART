@@ -70,4 +70,11 @@ typedef itk::TileImageFilter<ITKImage, ITKImage4D> TileImageFilterType;
  */
 -(EDDataElement*)align:(EDDataElement*)toAlign withReference:(EDDataElement*)ref;
 
+/**
+ * \param other 
+ * \return RORegistration object representing the combined transformation of self and other.
+ *         The object is autoreleased.
+ */
+-(RORegistration*)combineTransform:(RORegistration*)other;
+
 @end
