@@ -290,57 +290,15 @@
 		00FA55A2140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle in Copy PlugIns */ = {isa = PBXBuildFile; fileRef = 00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		A713AA061445CC8800BBF150 /* libitksys.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898F13F563D7005FF00D /* libitksys.3.16.0.dylib */; };
 		A713AA091445CF1600BBF150 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
 		A713AA0A1445CFFE00BBF150 /* libboost_date_time.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABD135C764F00562F3B /* libboost_date_time.dylib */; };
 		A713AA0B1445CFFE00BBF150 /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABE135C764F00562F3B /* libboost_filesystem.dylib */; };
 		A713AA0C1445CFFE00BBF150 /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABF135C764F00562F3B /* libboost_regex.dylib */; };
 		A713AA0D1445CFFE00BBF150 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8AC0135C764F00562F3B /* libboost_system.dylib */; };
-		A713AA0E1445D17B00BBF150 /* libitksys.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898F13F563D7005FF00D /* libitksys.3.16.0.dylib */; };
 		A71DBC02143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A71DBC00143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp */; };
 		A71DBC051445C84900C9207B /* libisis_core.0.3.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A71DBC041445C84900C9207B /* libisis_core.0.3.4.dylib */; };
-		A722899813F563D7005FF00D /* libITKAlgorithms.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897A13F563D5005FF00D /* libITKAlgorithms.3.16.0.dylib */; };
-		A722899913F563D8005FF00D /* libITKBasicFilters.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897B13F563D5005FF00D /* libITKBasicFilters.3.16.0.dylib */; };
-		A722899A13F563D8005FF00D /* libITKDICOMParser.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897C13F563D6005FF00D /* libITKDICOMParser.3.16.0.dylib */; };
-		A722899B13F563D8005FF00D /* libITKEXPAT.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897D13F563D6005FF00D /* libITKEXPAT.3.16.0.dylib */; };
-		A722899C13F563D8005FF00D /* libITKFEM.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897E13F563D6005FF00D /* libITKFEM.3.16.0.dylib */; };
-		A722899D13F563D8005FF00D /* libitkgdcm.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897F13F563D6005FF00D /* libitkgdcm.3.16.0.dylib */; };
-		A722899E13F563D8005FF00D /* libITKIO.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898013F563D6005FF00D /* libITKIO.3.16.0.dylib */; };
-		A722899F13F563D8005FF00D /* libITKIOReview.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898113F563D6005FF00D /* libITKIOReview.3.16.0.dylib */; };
-		A72289A013F563D8005FF00D /* libitkjpeg8.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898213F563D6005FF00D /* libitkjpeg8.3.16.0.dylib */; };
-		A72289A113F563D8005FF00D /* libitkjpeg12.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898313F563D6005FF00D /* libitkjpeg12.3.16.0.dylib */; };
-		A72289A213F563D8005FF00D /* libitkjpeg16.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898413F563D6005FF00D /* libitkjpeg16.3.16.0.dylib */; };
-		A72289A313F563D8005FF00D /* libITKMetaIO.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898513F563D6005FF00D /* libITKMetaIO.3.16.0.dylib */; };
-		A72289A413F563D8005FF00D /* libitkNetlibSlatec.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898613F563D6005FF00D /* libitkNetlibSlatec.3.16.0.dylib */; };
-		A72289A513F563D8005FF00D /* libITKniftiio.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898713F563D6005FF00D /* libITKniftiio.3.16.0.dylib */; };
-		A72289A613F563D8005FF00D /* libITKNrrdIO.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898813F563D6005FF00D /* libITKNrrdIO.3.16.0.dylib */; };
-		A72289A713F563D8005FF00D /* libITKNumerics.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898913F563D6005FF00D /* libITKNumerics.3.16.0.dylib */; };
-		A72289A813F563D8005FF00D /* libitkopenjpeg.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898A13F563D6005FF00D /* libitkopenjpeg.3.16.0.dylib */; };
-		A72289A913F563D8005FF00D /* libitkpng.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898B13F563D6005FF00D /* libitkpng.3.16.0.dylib */; };
-		A72289AA13F563D8005FF00D /* libITKQuadEdgeMesh.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898C13F563D6005FF00D /* libITKQuadEdgeMesh.3.16.0.dylib */; };
-		A72289AB13F563D8005FF00D /* libITKSpatialObject.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898D13F563D6005FF00D /* libITKSpatialObject.3.16.0.dylib */; };
-		A72289AC13F563D8005FF00D /* libITKStatistics.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898E13F563D7005FF00D /* libITKStatistics.3.16.0.dylib */; };
-		A72289AD13F563D8005FF00D /* libitksys.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898F13F563D7005FF00D /* libitksys.3.16.0.dylib */; };
-		A72289AE13F563D8005FF00D /* libitktiff.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899013F563D7005FF00D /* libitktiff.3.16.0.dylib */; };
-		A72289AF13F563D8005FF00D /* libitkv3p_netlib.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899113F563D7005FF00D /* libitkv3p_netlib.3.16.0.dylib */; };
-		A72289B013F563D8005FF00D /* libitkvcl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899213F563D7005FF00D /* libitkvcl.3.16.0.dylib */; };
-		A72289B113F563D8005FF00D /* libitkvnl_algo.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899313F563D7005FF00D /* libitkvnl_algo.3.16.0.dylib */; };
-		A72289B213F563D8005FF00D /* libitkvnl_inst.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899413F563D7005FF00D /* libitkvnl_inst.3.16.0.dylib */; };
-		A72289B313F563D8005FF00D /* libitkvnl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899513F563D7005FF00D /* libitkvnl.3.16.0.dylib */; };
-		A72289B413F563D8005FF00D /* libitkzlib.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899613F563D7005FF00D /* libitkzlib.3.16.0.dylib */; };
-		A72289B513F563D8005FF00D /* libITKznz.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899713F563D7005FF00D /* libITKznz.3.16.0.dylib */; };
-		A744B0C313FD427500F4B13D /* libITKCommon.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0023CBD813EC1898006303B6 /* libITKCommon.3.16.0.dylib */; };
 		A744B0C513FD442200F4B13D /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
 		A744B0C713FD445300F4B13D /* EDDataElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B772C311417C6300B2931A /* EDDataElementVI.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A75A5D31140287F300514CD3 /* libitkvcl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899213F563D7005FF00D /* libitkvcl.3.16.0.dylib */; };
-		A75A5D32140287F300514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899313F563D7005FF00D /* libitkvnl_algo.3.16.0.dylib */; };
-		A75A5D33140287F300514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899513F563D7005FF00D /* libitkvnl.3.16.0.dylib */; };
-		A75A5D341402883000514CD3 /* libitkvcl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899213F563D7005FF00D /* libitkvcl.3.16.0.dylib */; };
-		A75A5D351402883000514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899313F563D7005FF00D /* libitkvnl_algo.3.16.0.dylib */; };
-		A75A5D361402883000514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899513F563D7005FF00D /* libitkvnl.3.16.0.dylib */; };
-		A75A5D381403C95F00514CD3 /* libITKCommon.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0023CBD813EC1898006303B6 /* libITKCommon.3.16.0.dylib */; };
-		A75A5D391403C95F00514CD3 /* libITKIO.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898013F563D6005FF00D /* libITKIO.3.16.0.dylib */; };
-		A75A5D3A1403C95F00514CD3 /* libITKStatistics.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898E13F563D7005FF00D /* libITKStatistics.3.16.0.dylib */; };
 		A75A5D3D1403CABF00514CD3 /* RORegistration.h in Headers */ = {isa = PBXBuildFile; fileRef = A75A5D3B1403CABF00514CD3 /* RORegistration.h */; };
 		A75A5D3E1403CABF00514CD3 /* RORegistration.mm in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D3C1403CABF00514CD3 /* RORegistration.mm */; };
 		A75A5D3F1403CABF00514CD3 /* RORegistration.mm in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D3C1403CABF00514CD3 /* RORegistration.mm */; };
@@ -348,46 +306,98 @@
 		A75A5D4A1403CF3D00514CD3 /* RORegistrationTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D481403CF3D00514CD3 /* RORegistrationTest.mm */; };
 		A75A5D4C1403CF3D00514CD3 /* RORegistrationTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D481403CF3D00514CD3 /* RORegistrationTest.mm */; };
 		A75A5D4D1403D87A00514CD3 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
-		A75A5D4E1403DFAB00514CD3 /* libITKCommon.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0023CBD813EC1898006303B6 /* libITKCommon.3.16.0.dylib */; };
-		A75A5D4F1403DFAB00514CD3 /* libITKIO.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898013F563D6005FF00D /* libITKIO.3.16.0.dylib */; };
-		A75A5D501403DFAB00514CD3 /* libITKStatistics.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898E13F563D7005FF00D /* libITKStatistics.3.16.0.dylib */; };
-		A75A5D511403E03B00514CD3 /* libITKAlgorithms.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897A13F563D5005FF00D /* libITKAlgorithms.3.16.0.dylib */; };
-		A75A5D521403E03B00514CD3 /* libITKBasicFilters.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897B13F563D5005FF00D /* libITKBasicFilters.3.16.0.dylib */; };
-		A75A5D531403E03B00514CD3 /* libITKNumerics.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898913F563D6005FF00D /* libITKNumerics.3.16.0.dylib */; };
-		A75A5D541403E03B00514CD3 /* libITKSpatialObject.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898D13F563D6005FF00D /* libITKSpatialObject.3.16.0.dylib */; };
-		A75A5D551403E03B00514CD3 /* libitkvcl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899213F563D7005FF00D /* libitkvcl.3.16.0.dylib */; };
-		A75A5D561403E03B00514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899313F563D7005FF00D /* libitkvnl_algo.3.16.0.dylib */; };
-		A75A5D571403E03B00514CD3 /* libitkvnl_inst.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899413F563D7005FF00D /* libitkvnl_inst.3.16.0.dylib */; };
-		A75A5D581403E03B00514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899513F563D7005FF00D /* libitkvnl.3.16.0.dylib */; };
-		A75A5D591403E15900514CD3 /* libITKAlgorithms.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897A13F563D5005FF00D /* libITKAlgorithms.3.16.0.dylib */; };
-		A75A5D5A1403E15900514CD3 /* libITKBasicFilters.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897B13F563D5005FF00D /* libITKBasicFilters.3.16.0.dylib */; };
-		A75A5D5B1403E15900514CD3 /* libITKNumerics.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898913F563D6005FF00D /* libITKNumerics.3.16.0.dylib */; };
-		A75A5D5C1403E15900514CD3 /* libITKSpatialObject.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898D13F563D6005FF00D /* libITKSpatialObject.3.16.0.dylib */; };
-		A75A5D5D1403E15900514CD3 /* libitkvcl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899213F563D7005FF00D /* libitkvcl.3.16.0.dylib */; };
-		A75A5D5E1403E15900514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899313F563D7005FF00D /* libitkvnl_algo.3.16.0.dylib */; };
-		A75A5D5F1403E15900514CD3 /* libitkvnl_inst.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899413F563D7005FF00D /* libitkvnl_inst.3.16.0.dylib */; };
-		A75A5D601403E15900514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899513F563D7005FF00D /* libitkvnl.3.16.0.dylib */; };
 		A75A5D611406887300514CD3 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440C0134B4F8800094A51 /* libboost_system-mt.dylib */; };
 		A75A5D64140689F900514CD3 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
 		A75A5D6514068D2000514CD3 /* TestDataset01-functional.nii in Resources */ = {isa = PBXBuildFile; fileRef = 00673D4113FD75C80056BD4F /* TestDataset01-functional.nii */; };
 		A7763C54143B09A500457A99 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
-		A7763C58143B2B5800457A99 /* libITKAlgorithms.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897A13F563D5005FF00D /* libITKAlgorithms.3.16.0.dylib */; };
-		A7763C59143B2BAF00457A99 /* libITKBasicFilters.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722897B13F563D5005FF00D /* libITKBasicFilters.3.16.0.dylib */; };
-		A7763C5A143B2BAF00457A99 /* libITKCommon.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0023CBD813EC1898006303B6 /* libITKCommon.3.16.0.dylib */; };
-		A7763C5B143B2BAF00457A99 /* libITKIO.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898013F563D6005FF00D /* libITKIO.3.16.0.dylib */; };
-		A7763C5C143B2BAF00457A99 /* libITKNumerics.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898913F563D6005FF00D /* libITKNumerics.3.16.0.dylib */; };
-		A7763C5D143B2BAF00457A99 /* libITKSpatialObject.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898D13F563D6005FF00D /* libITKSpatialObject.3.16.0.dylib */; };
-		A7763C5E143B2BAF00457A99 /* libITKStatistics.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722898E13F563D7005FF00D /* libITKStatistics.3.16.0.dylib */; };
-		A7763C5F143B2BAF00457A99 /* libitkvcl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899213F563D7005FF00D /* libitkvcl.3.16.0.dylib */; };
-		A7763C60143B2BAF00457A99 /* libitkvnl_algo.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899313F563D7005FF00D /* libitkvnl_algo.3.16.0.dylib */; };
-		A7763C61143B2BAF00457A99 /* libitkvnl_inst.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899413F563D7005FF00D /* libitkvnl_inst.3.16.0.dylib */; };
-		A7763C62143B2BAF00457A99 /* libitkvnl.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A722899513F563D7005FF00D /* libitkvnl.3.16.0.dylib */; };
 		A7763C67143B34DE00457A99 /* TestDataset01-functional.nii in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00673D4113FD75C80056BD4F /* TestDataset01-functional.nii */; };
 		A7A4641513F40B1300426C70 /* ROTransformation.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A4641313F40B1300426C70 /* ROTransformation.h */; };
 		A7A4641613F40B1300426C70 /* ROTransformation.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7A4641413F40B1300426C70 /* ROTransformation.mm */; };
 		A7A476EE13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */; };
 		A7A476EF13F40EBE00426C70 /* isisRegistrationFactory3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A7A476ED13F40EBE00426C70 /* isisRegistrationFactory3D.hpp */; };
-		A7A4770313F41CCA00426C70 /* libITKCommon.3.16.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0023CBD813EC1898006303B6 /* libITKCommon.3.16.0.dylib */; };
+		A7BA11D1146D6C6700DEEDF7 /* libITKAlgorithms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B4146448EA009A3335 /* libITKAlgorithms.a */; };
+		A7BA11D2146D6C6700DEEDF7 /* libITKBasicFilters.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B5146448EA009A3335 /* libITKBasicFilters.a */; };
+		A7BA11D3146D6C6700DEEDF7 /* libITKCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B6146448EA009A3335 /* libITKCommon.a */; };
+		A7BA11D4146D6C6700DEEDF7 /* libITKIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B7146448EA009A3335 /* libITKIO.a */; };
+		A7BA11D5146D6C6700DEEDF7 /* libITKNumerics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B8146448EA009A3335 /* libITKNumerics.a */; };
+		A7BA11D6146D6C6700DEEDF7 /* libITKSpatialObject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B9146448EA009A3335 /* libITKSpatialObject.a */; };
+		A7BA11D7146D6C6700DEEDF7 /* libITKStatistics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BA146448EA009A3335 /* libITKStatistics.a */; };
+		A7BA11D8146D6C6700DEEDF7 /* libitksys.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BB146448EA009A3335 /* libitksys.a */; };
+		A7BA11D9146D6C6700DEEDF7 /* libitkvcl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BC146448EB009A3335 /* libitkvcl.a */; };
+		A7BA11DA146D6C6700DEEDF7 /* libitkvnl_algo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BD146448EB009A3335 /* libitkvnl_algo.a */; };
+		A7BA11DB146D6C6700DEEDF7 /* libitkvnl_inst.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BE146448EB009A3335 /* libitkvnl_inst.a */; };
+		A7BA11DC146D6C6700DEEDF7 /* libitkvnl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BF146448EB009A3335 /* libitkvnl.a */; };
+		A7BA11DD146D6C6700DEEDF7 /* libitkzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6C0146448EB009A3335 /* libitkzlib.a */; };
+		A7BA11E3146D6C8400DEEDF7 /* libitkv3p_lsqr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70114644C7C009A3335 /* libitkv3p_lsqr.a */; };
+		A7BA11E4146D6C8400DEEDF7 /* libitkv3p_netlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70214644C7C009A3335 /* libitkv3p_netlib.a */; };
+		A7BA11E5146D70BE00DEEDF7 /* libitkv3p_lsqr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70114644C7C009A3335 /* libitkv3p_lsqr.a */; };
+		A7BA11E6146D70BE00DEEDF7 /* libitkv3p_netlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70214644C7C009A3335 /* libitkv3p_netlib.a */; };
+		A7D1B6C1146448EB009A3335 /* libITKAlgorithms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B4146448EA009A3335 /* libITKAlgorithms.a */; };
+		A7D1B6C2146448EB009A3335 /* libITKBasicFilters.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B5146448EA009A3335 /* libITKBasicFilters.a */; };
+		A7D1B6C3146448EB009A3335 /* libITKCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B6146448EA009A3335 /* libITKCommon.a */; };
+		A7D1B6C4146448EB009A3335 /* libITKIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B7146448EA009A3335 /* libITKIO.a */; };
+		A7D1B6C5146448EB009A3335 /* libITKNumerics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B8146448EA009A3335 /* libITKNumerics.a */; };
+		A7D1B6C6146448EB009A3335 /* libITKSpatialObject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B9146448EA009A3335 /* libITKSpatialObject.a */; };
+		A7D1B6C7146448EB009A3335 /* libITKStatistics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BA146448EA009A3335 /* libITKStatistics.a */; };
+		A7D1B6C8146448EB009A3335 /* libitksys.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BB146448EA009A3335 /* libitksys.a */; };
+		A7D1B6C9146448EB009A3335 /* libitkvcl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BC146448EB009A3335 /* libitkvcl.a */; };
+		A7D1B6CA146448EB009A3335 /* libitkvnl_algo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BD146448EB009A3335 /* libitkvnl_algo.a */; };
+		A7D1B6CB146448EB009A3335 /* libitkvnl_inst.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BE146448EB009A3335 /* libitkvnl_inst.a */; };
+		A7D1B6CC146448EB009A3335 /* libitkvnl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BF146448EB009A3335 /* libitkvnl.a */; };
+		A7D1B6CE14644A93009A3335 /* libITKAlgorithms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B4146448EA009A3335 /* libITKAlgorithms.a */; };
+		A7D1B6CF14644A93009A3335 /* libITKBasicFilters.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B5146448EA009A3335 /* libITKBasicFilters.a */; };
+		A7D1B6D014644A93009A3335 /* libITKCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B6146448EA009A3335 /* libITKCommon.a */; };
+		A7D1B6D114644A93009A3335 /* libITKIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B7146448EA009A3335 /* libITKIO.a */; };
+		A7D1B6D214644A93009A3335 /* libITKNumerics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B8146448EA009A3335 /* libITKNumerics.a */; };
+		A7D1B6D314644A93009A3335 /* libITKSpatialObject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B9146448EA009A3335 /* libITKSpatialObject.a */; };
+		A7D1B6D414644A93009A3335 /* libITKStatistics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BA146448EA009A3335 /* libITKStatistics.a */; };
+		A7D1B6D514644A93009A3335 /* libitksys.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BB146448EA009A3335 /* libitksys.a */; };
+		A7D1B6D614644A93009A3335 /* libitkvcl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BC146448EB009A3335 /* libitkvcl.a */; };
+		A7D1B6D714644A93009A3335 /* libitkvnl_algo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BD146448EB009A3335 /* libitkvnl_algo.a */; };
+		A7D1B6D814644A93009A3335 /* libitkvnl_inst.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BE146448EB009A3335 /* libitkvnl_inst.a */; };
+		A7D1B6D914644A93009A3335 /* libitkvnl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BF146448EB009A3335 /* libitkvnl.a */; };
+		A7D1B6DA14644B70009A3335 /* libITKAlgorithms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B4146448EA009A3335 /* libITKAlgorithms.a */; };
+		A7D1B6DB14644B70009A3335 /* libITKBasicFilters.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B5146448EA009A3335 /* libITKBasicFilters.a */; };
+		A7D1B6DC14644B70009A3335 /* libITKCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B6146448EA009A3335 /* libITKCommon.a */; };
+		A7D1B6DD14644B70009A3335 /* libITKIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B7146448EA009A3335 /* libITKIO.a */; };
+		A7D1B6DE14644B70009A3335 /* libITKNumerics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B8146448EA009A3335 /* libITKNumerics.a */; };
+		A7D1B6DF14644B70009A3335 /* libITKSpatialObject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B9146448EA009A3335 /* libITKSpatialObject.a */; };
+		A7D1B6E014644B70009A3335 /* libITKStatistics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BA146448EA009A3335 /* libITKStatistics.a */; };
+		A7D1B6E114644B70009A3335 /* libitkvcl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BC146448EB009A3335 /* libitkvcl.a */; };
+		A7D1B6E214644B70009A3335 /* libitkvnl_algo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BD146448EB009A3335 /* libitkvnl_algo.a */; };
+		A7D1B6E314644B70009A3335 /* libitkvnl_inst.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BE146448EB009A3335 /* libitkvnl_inst.a */; };
+		A7D1B6E414644B70009A3335 /* libitkvnl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BF146448EB009A3335 /* libitkvnl.a */; };
+		A7D1B6E514644B8B009A3335 /* libitksys.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BB146448EA009A3335 /* libitksys.a */; };
+		A7D1B6E614644C7C009A3335 /* libITKAlgorithms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B4146448EA009A3335 /* libITKAlgorithms.a */; };
+		A7D1B6E714644C7C009A3335 /* libITKBasicFilters.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B5146448EA009A3335 /* libITKBasicFilters.a */; };
+		A7D1B6E814644C7C009A3335 /* libITKCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B6146448EA009A3335 /* libITKCommon.a */; };
+		A7D1B6E914644C7C009A3335 /* libITKIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B7146448EA009A3335 /* libITKIO.a */; };
+		A7D1B6EA14644C7C009A3335 /* libITKNumerics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B8146448EA009A3335 /* libITKNumerics.a */; };
+		A7D1B6EB14644C7C009A3335 /* libITKSpatialObject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B9146448EA009A3335 /* libITKSpatialObject.a */; };
+		A7D1B6EC14644C7C009A3335 /* libITKStatistics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BA146448EA009A3335 /* libITKStatistics.a */; };
+		A7D1B6ED14644C7C009A3335 /* libitksys.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BB146448EA009A3335 /* libitksys.a */; };
+		A7D1B6EE14644C7C009A3335 /* libitkvcl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BC146448EB009A3335 /* libitkvcl.a */; };
+		A7D1B6EF14644C7C009A3335 /* libitkvnl_algo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BD146448EB009A3335 /* libitkvnl_algo.a */; };
+		A7D1B6F014644C7C009A3335 /* libitkvnl_inst.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BE146448EB009A3335 /* libitkvnl_inst.a */; };
+		A7D1B6F114644C7C009A3335 /* libitkvnl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BF146448EB009A3335 /* libitkvnl.a */; };
+		A7D1B6F214644C7C009A3335 /* libitkzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6C0146448EB009A3335 /* libitkzlib.a */; };
+		A7D1B70414644C7C009A3335 /* libITKDICOMParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6F314644C7C009A3335 /* libITKDICOMParser.a */; };
+		A7D1B70514644C7C009A3335 /* libITKEXPAT.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6F414644C7C009A3335 /* libITKEXPAT.a */; };
+		A7D1B70614644C7C009A3335 /* libITKFEM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6F514644C7C009A3335 /* libITKFEM.a */; };
+		A7D1B70714644C7C009A3335 /* libitkgdcm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6F614644C7C009A3335 /* libitkgdcm.a */; };
+		A7D1B70814644C7C009A3335 /* libitkjpeg8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6F714644C7C009A3335 /* libitkjpeg8.a */; };
+		A7D1B70914644C7C009A3335 /* libitkjpeg12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6F814644C7C009A3335 /* libitkjpeg12.a */; };
+		A7D1B70A14644C7C009A3335 /* libitkjpeg16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6F914644C7C009A3335 /* libitkjpeg16.a */; };
+		A7D1B70B14644C7C009A3335 /* libITKMetaIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6FA14644C7C009A3335 /* libITKMetaIO.a */; };
+		A7D1B70C14644C7C009A3335 /* libitkNetlibSlatec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6FB14644C7C009A3335 /* libitkNetlibSlatec.a */; };
+		A7D1B70D14644C7C009A3335 /* libITKniftiio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6FC14644C7C009A3335 /* libITKniftiio.a */; };
+		A7D1B70E14644C7C009A3335 /* libITKNrrdIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6FD14644C7C009A3335 /* libITKNrrdIO.a */; };
+		A7D1B70F14644C7C009A3335 /* libitkopenjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6FE14644C7C009A3335 /* libitkopenjpeg.a */; };
+		A7D1B71014644C7C009A3335 /* libitkpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6FF14644C7C009A3335 /* libitkpng.a */; };
+		A7D1B71114644C7C009A3335 /* libitktiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70014644C7C009A3335 /* libitktiff.a */; };
+		A7D1B71214644C7C009A3335 /* libitkv3p_lsqr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70114644C7C009A3335 /* libitkv3p_lsqr.a */; };
+		A7D1B71314644C7C009A3335 /* libitkv3p_netlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70214644C7C009A3335 /* libitkv3p_netlib.a */; };
+		A7D1B71414644C7C009A3335 /* libITKznz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70314644C7C009A3335 /* libITKznz.a */; };
 		CE8A28C510F51058002422B5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED1922910AC8AD600FAFA4F /* QuartzCore.framework */; };
 		CE8A28D410F5121D002422B5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191F510AC8A7B00FAFA4F /* OpenGL.framework */; };
 		CE8A28D510F5121E002422B5 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */; };
@@ -528,6 +538,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 0000B18213E1C92400029A41;
 			remoteInfo = TROY;
+		};
+		A7D1B71514681684009A3335 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00D4415F134B57BD00094A51;
+			remoteInfo = EDNA;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -686,7 +703,6 @@
 		0023CBD213EAC484006303B6 /* BAProcedureStep_Analysis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureStep_Analysis.m; sourceTree = "<group>"; };
 		0023CBD413EAC4B3006303B6 /* BAProcedureStep_Feedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAProcedureStep_Feedback.h; sourceTree = "<group>"; };
 		0023CBD513EAC4B3006303B6 /* BAProcedureStep_Feedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureStep_Feedback.m; sourceTree = "<group>"; };
-		0023CBD813EC1898006303B6 /* libITKCommon.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKCommon.3.16.0.dylib; path = "/opt/local/lib/InsightToolkit-3.16/libITKCommon.3.16.0.dylib"; sourceTree = "<absolute>"; };
 		003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = timeBasedRegressorLydi.edl; sourceTree = "<group>"; };
 		0036104F117F9AED00A84F44 /* NEDesignKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignKernel.h; sourceTree = "<group>"; };
 		00361050117F9AED00A84F44 /* NEDesignKernel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignKernel.m; sourceTree = "<group>"; };
@@ -899,36 +915,6 @@
 		A71DBC00143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisTimeStepExtractionFilter.hpp; sourceTree = "<group>"; };
 		A71DBC01143DF6CF00C9207B /* isisTimeStepExtractionFilter.txx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = isisTimeStepExtractionFilter.txx; sourceTree = "<group>"; };
 		A71DBC041445C84900C9207B /* libisis_core.0.3.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisis_core.0.3.4.dylib; path = usr/local/lib/libisis_core.0.3.4.dylib; sourceTree = SDKROOT; };
-		A722897A13F563D5005FF00D /* libITKAlgorithms.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKAlgorithms.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKAlgorithms.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722897B13F563D5005FF00D /* libITKBasicFilters.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKBasicFilters.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKBasicFilters.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722897C13F563D6005FF00D /* libITKDICOMParser.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKDICOMParser.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKDICOMParser.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722897D13F563D6005FF00D /* libITKEXPAT.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKEXPAT.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKEXPAT.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722897E13F563D6005FF00D /* libITKFEM.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKFEM.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKFEM.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722897F13F563D6005FF00D /* libitkgdcm.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libitkgdcm.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libitkgdcm.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722898013F563D6005FF00D /* libITKIO.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKIO.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKIO.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722898113F563D6005FF00D /* libITKIOReview.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKIOReview.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKIOReview.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722898213F563D6005FF00D /* libitkjpeg8.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libitkjpeg8.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libitkjpeg8.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722898313F563D6005FF00D /* libitkjpeg12.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libitkjpeg12.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libitkjpeg12.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722898413F563D6005FF00D /* libitkjpeg16.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libitkjpeg16.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libitkjpeg16.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722898513F563D6005FF00D /* libITKMetaIO.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKMetaIO.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKMetaIO.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722898613F563D6005FF00D /* libitkNetlibSlatec.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libitkNetlibSlatec.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libitkNetlibSlatec.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722898713F563D6005FF00D /* libITKniftiio.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKniftiio.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKniftiio.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722898813F563D6005FF00D /* libITKNrrdIO.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKNrrdIO.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKNrrdIO.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722898913F563D6005FF00D /* libITKNumerics.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKNumerics.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKNumerics.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722898A13F563D6005FF00D /* libitkopenjpeg.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libitkopenjpeg.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libitkopenjpeg.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722898B13F563D6005FF00D /* libitkpng.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libitkpng.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libitkpng.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722898C13F563D6005FF00D /* libITKQuadEdgeMesh.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKQuadEdgeMesh.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKQuadEdgeMesh.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722898D13F563D6005FF00D /* libITKSpatialObject.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKSpatialObject.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKSpatialObject.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722898E13F563D7005FF00D /* libITKStatistics.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKStatistics.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKStatistics.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722898F13F563D7005FF00D /* libitksys.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libitksys.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libitksys.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722899013F563D7005FF00D /* libitktiff.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libitktiff.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libitktiff.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722899113F563D7005FF00D /* libitkv3p_netlib.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libitkv3p_netlib.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libitkv3p_netlib.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722899213F563D7005FF00D /* libitkvcl.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libitkvcl.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libitkvcl.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722899313F563D7005FF00D /* libitkvnl_algo.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libitkvnl_algo.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libitkvnl_algo.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722899413F563D7005FF00D /* libitkvnl_inst.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libitkvnl_inst.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libitkvnl_inst.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722899513F563D7005FF00D /* libitkvnl.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libitkvnl.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libitkvnl.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722899613F563D7005FF00D /* libitkzlib.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libitkzlib.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libitkzlib.3.16.0.dylib"; sourceTree = "<group>"; };
-		A722899713F563D7005FF00D /* libITKznz.3.16.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libITKznz.3.16.0.dylib; path = "../../../../../opt/local/lib/InsightToolkit-3.16/libITKznz.3.16.0.dylib"; sourceTree = "<group>"; };
 		A75A5D371403C78C00514CD3 /* isisIterationObserver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = isisIterationObserver.hpp; path = ../../../lipsia/src/new/valign3d/isisIterationObserver.hpp; sourceTree = "<group>"; };
 		A75A5D3B1403CABF00514CD3 /* RORegistration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistration.h; sourceTree = "<group>"; };
 		A75A5D3C1403CABF00514CD3 /* RORegistration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistration.mm; sourceTree = "<group>"; };
@@ -938,6 +924,37 @@
 		A7A4641413F40B1300426C70 /* ROTransformation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ROTransformation.mm; sourceTree = "<group>"; };
 		A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D_impl.hpp; sourceTree = "<group>"; };
 		A7A476ED13F40EBE00426C70 /* isisRegistrationFactory3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D.hpp; sourceTree = "<group>"; };
+		A7BA11E7146D70BE00DEEDF7 /* BARTApplication.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = BARTApplication.xcodeproj; sourceTree = "<group>"; };
+		A7D1B6B4146448EA009A3335 /* libITKAlgorithms.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKAlgorithms.a; path = /usr/local/lib/InsightToolkit/libITKAlgorithms.a; sourceTree = "<absolute>"; };
+		A7D1B6B5146448EA009A3335 /* libITKBasicFilters.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKBasicFilters.a; path = /usr/local/lib/InsightToolkit/libITKBasicFilters.a; sourceTree = "<absolute>"; };
+		A7D1B6B6146448EA009A3335 /* libITKCommon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKCommon.a; path = /usr/local/lib/InsightToolkit/libITKCommon.a; sourceTree = "<absolute>"; };
+		A7D1B6B7146448EA009A3335 /* libITKIO.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKIO.a; path = /usr/local/lib/InsightToolkit/libITKIO.a; sourceTree = "<absolute>"; };
+		A7D1B6B8146448EA009A3335 /* libITKNumerics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKNumerics.a; path = /usr/local/lib/InsightToolkit/libITKNumerics.a; sourceTree = "<absolute>"; };
+		A7D1B6B9146448EA009A3335 /* libITKSpatialObject.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKSpatialObject.a; path = /usr/local/lib/InsightToolkit/libITKSpatialObject.a; sourceTree = "<absolute>"; };
+		A7D1B6BA146448EA009A3335 /* libITKStatistics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKStatistics.a; path = /usr/local/lib/InsightToolkit/libITKStatistics.a; sourceTree = "<absolute>"; };
+		A7D1B6BB146448EA009A3335 /* libitksys.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitksys.a; path = /usr/local/lib/InsightToolkit/libitksys.a; sourceTree = "<absolute>"; };
+		A7D1B6BC146448EB009A3335 /* libitkvcl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitkvcl.a; path = /usr/local/lib/InsightToolkit/libitkvcl.a; sourceTree = "<absolute>"; };
+		A7D1B6BD146448EB009A3335 /* libitkvnl_algo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitkvnl_algo.a; path = /usr/local/lib/InsightToolkit/libitkvnl_algo.a; sourceTree = "<absolute>"; };
+		A7D1B6BE146448EB009A3335 /* libitkvnl_inst.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitkvnl_inst.a; path = /usr/local/lib/InsightToolkit/libitkvnl_inst.a; sourceTree = "<absolute>"; };
+		A7D1B6BF146448EB009A3335 /* libitkvnl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitkvnl.a; path = /usr/local/lib/InsightToolkit/libitkvnl.a; sourceTree = "<absolute>"; };
+		A7D1B6C0146448EB009A3335 /* libitkzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitkzlib.a; path = /usr/local/lib/InsightToolkit/libitkzlib.a; sourceTree = "<absolute>"; };
+		A7D1B6F314644C7C009A3335 /* libITKDICOMParser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKDICOMParser.a; path = /usr/local/lib/InsightToolkit/libITKDICOMParser.a; sourceTree = "<absolute>"; };
+		A7D1B6F414644C7C009A3335 /* libITKEXPAT.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKEXPAT.a; path = /usr/local/lib/InsightToolkit/libITKEXPAT.a; sourceTree = "<absolute>"; };
+		A7D1B6F514644C7C009A3335 /* libITKFEM.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKFEM.a; path = /usr/local/lib/InsightToolkit/libITKFEM.a; sourceTree = "<absolute>"; };
+		A7D1B6F614644C7C009A3335 /* libitkgdcm.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitkgdcm.a; path = /usr/local/lib/InsightToolkit/libitkgdcm.a; sourceTree = "<absolute>"; };
+		A7D1B6F714644C7C009A3335 /* libitkjpeg8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitkjpeg8.a; path = /usr/local/lib/InsightToolkit/libitkjpeg8.a; sourceTree = "<absolute>"; };
+		A7D1B6F814644C7C009A3335 /* libitkjpeg12.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitkjpeg12.a; path = /usr/local/lib/InsightToolkit/libitkjpeg12.a; sourceTree = "<absolute>"; };
+		A7D1B6F914644C7C009A3335 /* libitkjpeg16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitkjpeg16.a; path = /usr/local/lib/InsightToolkit/libitkjpeg16.a; sourceTree = "<absolute>"; };
+		A7D1B6FA14644C7C009A3335 /* libITKMetaIO.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKMetaIO.a; path = /usr/local/lib/InsightToolkit/libITKMetaIO.a; sourceTree = "<absolute>"; };
+		A7D1B6FB14644C7C009A3335 /* libitkNetlibSlatec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitkNetlibSlatec.a; path = /usr/local/lib/InsightToolkit/libitkNetlibSlatec.a; sourceTree = "<absolute>"; };
+		A7D1B6FC14644C7C009A3335 /* libITKniftiio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKniftiio.a; path = /usr/local/lib/InsightToolkit/libITKniftiio.a; sourceTree = "<absolute>"; };
+		A7D1B6FD14644C7C009A3335 /* libITKNrrdIO.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKNrrdIO.a; path = /usr/local/lib/InsightToolkit/libITKNrrdIO.a; sourceTree = "<absolute>"; };
+		A7D1B6FE14644C7C009A3335 /* libitkopenjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitkopenjpeg.a; path = /usr/local/lib/InsightToolkit/libitkopenjpeg.a; sourceTree = "<absolute>"; };
+		A7D1B6FF14644C7C009A3335 /* libitkpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitkpng.a; path = /usr/local/lib/InsightToolkit/libitkpng.a; sourceTree = "<absolute>"; };
+		A7D1B70014644C7C009A3335 /* libitktiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitktiff.a; path = /usr/local/lib/InsightToolkit/libitktiff.a; sourceTree = "<absolute>"; };
+		A7D1B70114644C7C009A3335 /* libitkv3p_lsqr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitkv3p_lsqr.a; path = /usr/local/lib/InsightToolkit/libitkv3p_lsqr.a; sourceTree = "<absolute>"; };
+		A7D1B70214644C7C009A3335 /* libitkv3p_netlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitkv3p_netlib.a; path = /usr/local/lib/InsightToolkit/libitkv3p_netlib.a; sourceTree = "<absolute>"; };
+		A7D1B70314644C7C009A3335 /* libITKznz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKznz.a; path = /usr/local/lib/InsightToolkit/libITKznz.a; sourceTree = "<absolute>"; };
 		CE8A2A3910F61713002422B5 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		CE8B709110DA988F007AEB2B /* BARTUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = BARTUnitTestSuite.octest; path = BARTApplication.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
@@ -951,24 +968,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7D1B6C1146448EB009A3335 /* libITKAlgorithms.a in Frameworks */,
+				A7D1B6C2146448EB009A3335 /* libITKBasicFilters.a in Frameworks */,
+				A7D1B6C3146448EB009A3335 /* libITKCommon.a in Frameworks */,
+				A7D1B6C4146448EB009A3335 /* libITKIO.a in Frameworks */,
+				A7D1B6C5146448EB009A3335 /* libITKNumerics.a in Frameworks */,
+				A7D1B6C6146448EB009A3335 /* libITKSpatialObject.a in Frameworks */,
+				A7D1B6C7146448EB009A3335 /* libITKStatistics.a in Frameworks */,
+				A7D1B6C8146448EB009A3335 /* libitksys.a in Frameworks */,
+				A7D1B6C9146448EB009A3335 /* libitkvcl.a in Frameworks */,
+				A7D1B6CA146448EB009A3335 /* libitkvnl_algo.a in Frameworks */,
+				A7D1B6CB146448EB009A3335 /* libitkvnl_inst.a in Frameworks */,
+				A7D1B6CC146448EB009A3335 /* libitkvnl.a in Frameworks */,
 				A713AA0A1445CFFE00BBF150 /* libboost_date_time.dylib in Frameworks */,
 				A713AA0B1445CFFE00BBF150 /* libboost_filesystem.dylib in Frameworks */,
 				A713AA0C1445CFFE00BBF150 /* libboost_regex.dylib in Frameworks */,
+				A7BA11E5146D70BE00DEEDF7 /* libitkv3p_lsqr.a in Frameworks */,
+				A7BA11E6146D70BE00DEEDF7 /* libitkv3p_netlib.a in Frameworks */,
 				A713AA0D1445CFFE00BBF150 /* libboost_system.dylib in Frameworks */,
 				A713AA091445CF1600BBF150 /* EDNA.dylib in Frameworks */,
-				A713AA061445CC8800BBF150 /* libitksys.3.16.0.dylib in Frameworks */,
 				A71DBC051445C84900C9207B /* libisis_core.0.3.4.dylib in Frameworks */,
-				A75A5D511403E03B00514CD3 /* libITKAlgorithms.3.16.0.dylib in Frameworks */,
-				A75A5D521403E03B00514CD3 /* libITKBasicFilters.3.16.0.dylib in Frameworks */,
-				A75A5D531403E03B00514CD3 /* libITKNumerics.3.16.0.dylib in Frameworks */,
-				A75A5D541403E03B00514CD3 /* libITKSpatialObject.3.16.0.dylib in Frameworks */,
-				A75A5D551403E03B00514CD3 /* libitkvcl.3.16.0.dylib in Frameworks */,
-				A75A5D561403E03B00514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */,
-				A75A5D571403E03B00514CD3 /* libitkvnl_inst.3.16.0.dylib in Frameworks */,
-				A75A5D581403E03B00514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */,
-				A75A5D381403C95F00514CD3 /* libITKCommon.3.16.0.dylib in Frameworks */,
-				A75A5D391403C95F00514CD3 /* libITKIO.3.16.0.dylib in Frameworks */,
-				A75A5D3A1403C95F00514CD3 /* libITKStatistics.3.16.0.dylib in Frameworks */,
 				0000B18513E1C92400029A41 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -977,19 +996,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7D1B6CE14644A93009A3335 /* libITKAlgorithms.a in Frameworks */,
+				A7D1B6CF14644A93009A3335 /* libITKBasicFilters.a in Frameworks */,
+				A7D1B6D014644A93009A3335 /* libITKCommon.a in Frameworks */,
+				A7D1B6D114644A93009A3335 /* libITKIO.a in Frameworks */,
+				A7D1B6D214644A93009A3335 /* libITKNumerics.a in Frameworks */,
+				A7D1B6D314644A93009A3335 /* libITKSpatialObject.a in Frameworks */,
+				A7D1B6D414644A93009A3335 /* libITKStatistics.a in Frameworks */,
+				A7D1B6D514644A93009A3335 /* libitksys.a in Frameworks */,
+				A7D1B6D614644A93009A3335 /* libitkvcl.a in Frameworks */,
+				A7D1B6D714644A93009A3335 /* libitkvnl_algo.a in Frameworks */,
+				A7D1B6D814644A93009A3335 /* libitkvnl_inst.a in Frameworks */,
+				A7D1B6D914644A93009A3335 /* libitkvnl.a in Frameworks */,
 				A75A5D64140689F900514CD3 /* EDNA.dylib in Frameworks */,
 				A75A5D611406887300514CD3 /* libboost_system-mt.dylib in Frameworks */,
-				A75A5D591403E15900514CD3 /* libITKAlgorithms.3.16.0.dylib in Frameworks */,
-				A75A5D5A1403E15900514CD3 /* libITKBasicFilters.3.16.0.dylib in Frameworks */,
-				A75A5D5B1403E15900514CD3 /* libITKNumerics.3.16.0.dylib in Frameworks */,
-				A75A5D5C1403E15900514CD3 /* libITKSpatialObject.3.16.0.dylib in Frameworks */,
-				A75A5D5D1403E15900514CD3 /* libitkvcl.3.16.0.dylib in Frameworks */,
-				A75A5D5E1403E15900514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */,
-				A75A5D5F1403E15900514CD3 /* libitkvnl_inst.3.16.0.dylib in Frameworks */,
-				A75A5D601403E15900514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */,
-				A75A5D4E1403DFAB00514CD3 /* libITKCommon.3.16.0.dylib in Frameworks */,
-				A75A5D4F1403DFAB00514CD3 /* libITKIO.3.16.0.dylib in Frameworks */,
-				A75A5D501403DFAB00514CD3 /* libITKStatistics.3.16.0.dylib in Frameworks */,
 				0000B18F13E1C92400029A41 /* Cocoa.framework in Frameworks */,
 				A75A5D4D1403D87A00514CD3 /* TROY.dylib in Frameworks */,
 			);
@@ -999,10 +1019,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A75A5D341402883000514CD3 /* libitkvcl.3.16.0.dylib in Frameworks */,
-				A75A5D351402883000514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */,
-				A75A5D361402883000514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */,
-				A744B0C313FD427500F4B13D /* libITKCommon.3.16.0.dylib in Frameworks */,
 				00E63B81135325D100DC8A50 /* libboost_date_time-mt.dylib in Frameworks */,
 				00E63B82135325D200DC8A50 /* libboost_filesystem-mt.dylib in Frameworks */,
 				00E63B83135325D300DC8A50 /* libboost_regex-mt.dylib in Frameworks */,
@@ -1062,18 +1078,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A713AA0E1445D17B00BBF150 /* libitksys.3.16.0.dylib in Frameworks */,
-				A7763C59143B2BAF00457A99 /* libITKBasicFilters.3.16.0.dylib in Frameworks */,
-				A7763C5A143B2BAF00457A99 /* libITKCommon.3.16.0.dylib in Frameworks */,
-				A7763C5B143B2BAF00457A99 /* libITKIO.3.16.0.dylib in Frameworks */,
-				A7763C5C143B2BAF00457A99 /* libITKNumerics.3.16.0.dylib in Frameworks */,
-				A7763C5D143B2BAF00457A99 /* libITKSpatialObject.3.16.0.dylib in Frameworks */,
-				A7763C5E143B2BAF00457A99 /* libITKStatistics.3.16.0.dylib in Frameworks */,
-				A7763C5F143B2BAF00457A99 /* libitkvcl.3.16.0.dylib in Frameworks */,
-				A7763C60143B2BAF00457A99 /* libitkvnl_algo.3.16.0.dylib in Frameworks */,
-				A7763C61143B2BAF00457A99 /* libitkvnl_inst.3.16.0.dylib in Frameworks */,
-				A7763C62143B2BAF00457A99 /* libitkvnl.3.16.0.dylib in Frameworks */,
-				A7763C58143B2B5800457A99 /* libITKAlgorithms.3.16.0.dylib in Frameworks */,
+				A7D1B6E514644B8B009A3335 /* libitksys.a in Frameworks */,
+				A7D1B6DA14644B70009A3335 /* libITKAlgorithms.a in Frameworks */,
+				A7D1B6DB14644B70009A3335 /* libITKBasicFilters.a in Frameworks */,
+				A7D1B6DC14644B70009A3335 /* libITKCommon.a in Frameworks */,
+				A7D1B6DD14644B70009A3335 /* libITKIO.a in Frameworks */,
+				A7D1B6DE14644B70009A3335 /* libITKNumerics.a in Frameworks */,
+				A7D1B6DF14644B70009A3335 /* libITKSpatialObject.a in Frameworks */,
+				A7D1B6E014644B70009A3335 /* libITKStatistics.a in Frameworks */,
+				A7D1B6E114644B70009A3335 /* libitkvcl.a in Frameworks */,
+				A7D1B6E214644B70009A3335 /* libitkvnl_algo.a in Frameworks */,
+				A7D1B6E314644B70009A3335 /* libitkvnl_inst.a in Frameworks */,
+				A7D1B6E414644B70009A3335 /* libitkvnl.a in Frameworks */,
 				A7763C54143B09A500457A99 /* TROY.dylib in Frameworks */,
 				0016102A134B200800373D77 /* Cocoa.framework in Frameworks */,
 				00D4409B134B4DCC00094A51 /* libisis_core.0.3.4.dylib in Frameworks */,
@@ -1125,11 +1141,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A75A5D31140287F300514CD3 /* libitkvcl.3.16.0.dylib in Frameworks */,
-				A75A5D32140287F300514CD3 /* libitkvnl_algo.3.16.0.dylib in Frameworks */,
-				A75A5D33140287F300514CD3 /* libitkvnl.3.16.0.dylib in Frameworks */,
 				00D44167134B57E600094A51 /* libviaio.dylib in Frameworks */,
-				A7A4770313F41CCA00426C70 /* libITKCommon.3.16.0.dylib in Frameworks */,
+				A7BA11D1146D6C6700DEEDF7 /* libITKAlgorithms.a in Frameworks */,
+				A7BA11D2146D6C6700DEEDF7 /* libITKBasicFilters.a in Frameworks */,
+				A7BA11D3146D6C6700DEEDF7 /* libITKCommon.a in Frameworks */,
+				A7BA11D4146D6C6700DEEDF7 /* libITKIO.a in Frameworks */,
+				A7BA11D5146D6C6700DEEDF7 /* libITKNumerics.a in Frameworks */,
+				A7BA11D6146D6C6700DEEDF7 /* libITKSpatialObject.a in Frameworks */,
+				A7BA11D7146D6C6700DEEDF7 /* libITKStatistics.a in Frameworks */,
+				A7BA11E3146D6C8400DEEDF7 /* libitkv3p_lsqr.a in Frameworks */,
+				A7BA11E4146D6C8400DEEDF7 /* libitkv3p_netlib.a in Frameworks */,
+				A7BA11D8146D6C6700DEEDF7 /* libitksys.a in Frameworks */,
+				A7BA11D9146D6C6700DEEDF7 /* libitkvcl.a in Frameworks */,
+				A7BA11DA146D6C6700DEEDF7 /* libitkvnl_algo.a in Frameworks */,
+				A7BA11DB146D6C6700DEEDF7 /* libitkvnl_inst.a in Frameworks */,
+				A7BA11DC146D6C6700DEEDF7 /* libitkvnl.a in Frameworks */,
+				A7BA11DD146D6C6700DEEDF7 /* libitkzlib.a in Frameworks */,
 				00D44165134B57E600094A51 /* libvia.dylib in Frameworks */,
 				00D44169134B57F200094A51 /* libisis_core.0.3.4.dylib in Frameworks */,
 				00D441BA134B59D600094A51 /* Cocoa.framework in Frameworks */,
@@ -1161,6 +1188,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7D1B70414644C7C009A3335 /* libITKDICOMParser.a in Frameworks */,
+				A7D1B70514644C7C009A3335 /* libITKEXPAT.a in Frameworks */,
+				A7D1B70614644C7C009A3335 /* libITKFEM.a in Frameworks */,
+				A7D1B70714644C7C009A3335 /* libitkgdcm.a in Frameworks */,
+				A7D1B70814644C7C009A3335 /* libitkjpeg8.a in Frameworks */,
+				A7D1B70914644C7C009A3335 /* libitkjpeg12.a in Frameworks */,
+				A7D1B70A14644C7C009A3335 /* libitkjpeg16.a in Frameworks */,
+				A7D1B70B14644C7C009A3335 /* libITKMetaIO.a in Frameworks */,
+				A7D1B70C14644C7C009A3335 /* libitkNetlibSlatec.a in Frameworks */,
+				A7D1B70D14644C7C009A3335 /* libITKniftiio.a in Frameworks */,
+				A7D1B70E14644C7C009A3335 /* libITKNrrdIO.a in Frameworks */,
+				A7D1B70F14644C7C009A3335 /* libitkopenjpeg.a in Frameworks */,
+				A7D1B71014644C7C009A3335 /* libitkpng.a in Frameworks */,
+				A7D1B71114644C7C009A3335 /* libitktiff.a in Frameworks */,
+				A7D1B71214644C7C009A3335 /* libitkv3p_lsqr.a in Frameworks */,
+				A7D1B71314644C7C009A3335 /* libitkv3p_netlib.a in Frameworks */,
+				A7D1B71414644C7C009A3335 /* libITKznz.a in Frameworks */,
+				A7D1B6E614644C7C009A3335 /* libITKAlgorithms.a in Frameworks */,
+				A7D1B6E714644C7C009A3335 /* libITKBasicFilters.a in Frameworks */,
+				A7D1B6E814644C7C009A3335 /* libITKCommon.a in Frameworks */,
+				A7D1B6E914644C7C009A3335 /* libITKIO.a in Frameworks */,
+				A7D1B6EA14644C7C009A3335 /* libITKNumerics.a in Frameworks */,
+				A7D1B6EB14644C7C009A3335 /* libITKSpatialObject.a in Frameworks */,
+				A7D1B6EC14644C7C009A3335 /* libITKStatistics.a in Frameworks */,
+				A7D1B6ED14644C7C009A3335 /* libitksys.a in Frameworks */,
+				A7D1B6EE14644C7C009A3335 /* libitkvcl.a in Frameworks */,
+				A7D1B6EF14644C7C009A3335 /* libitkvnl_algo.a in Frameworks */,
+				A7D1B6F014644C7C009A3335 /* libitkvnl_inst.a in Frameworks */,
+				A7D1B6F114644C7C009A3335 /* libitkvnl.a in Frameworks */,
+				A7D1B6F214644C7C009A3335 /* libitkzlib.a in Frameworks */,
 				007A6DB313E81CC700F5DE58 /* NED.dylib in Frameworks */,
 				007A6DB113E81CB700F5DE58 /* EDNA.dylib in Frameworks */,
 				007A6DB213E81CBC00F5DE58 /* CLETUS.dylib in Frameworks */,
@@ -1177,36 +1234,6 @@
 				00138AE713E81D240069E625 /* libfftw3.dylib in Frameworks */,
 				00138AEA13E81EC50069E625 /* libboost_system.dylib in Frameworks */,
 				00C730B71369F03600FC8546 /* libviaio.dylib in Frameworks */,
-				A722899813F563D7005FF00D /* libITKAlgorithms.3.16.0.dylib in Frameworks */,
-				A722899913F563D8005FF00D /* libITKBasicFilters.3.16.0.dylib in Frameworks */,
-				A722899A13F563D8005FF00D /* libITKDICOMParser.3.16.0.dylib in Frameworks */,
-				A722899B13F563D8005FF00D /* libITKEXPAT.3.16.0.dylib in Frameworks */,
-				A722899C13F563D8005FF00D /* libITKFEM.3.16.0.dylib in Frameworks */,
-				A722899D13F563D8005FF00D /* libitkgdcm.3.16.0.dylib in Frameworks */,
-				A722899E13F563D8005FF00D /* libITKIO.3.16.0.dylib in Frameworks */,
-				A722899F13F563D8005FF00D /* libITKIOReview.3.16.0.dylib in Frameworks */,
-				A72289A013F563D8005FF00D /* libitkjpeg8.3.16.0.dylib in Frameworks */,
-				A72289A113F563D8005FF00D /* libitkjpeg12.3.16.0.dylib in Frameworks */,
-				A72289A213F563D8005FF00D /* libitkjpeg16.3.16.0.dylib in Frameworks */,
-				A72289A313F563D8005FF00D /* libITKMetaIO.3.16.0.dylib in Frameworks */,
-				A72289A413F563D8005FF00D /* libitkNetlibSlatec.3.16.0.dylib in Frameworks */,
-				A72289A513F563D8005FF00D /* libITKniftiio.3.16.0.dylib in Frameworks */,
-				A72289A613F563D8005FF00D /* libITKNrrdIO.3.16.0.dylib in Frameworks */,
-				A72289A713F563D8005FF00D /* libITKNumerics.3.16.0.dylib in Frameworks */,
-				A72289A813F563D8005FF00D /* libitkopenjpeg.3.16.0.dylib in Frameworks */,
-				A72289A913F563D8005FF00D /* libitkpng.3.16.0.dylib in Frameworks */,
-				A72289AA13F563D8005FF00D /* libITKQuadEdgeMesh.3.16.0.dylib in Frameworks */,
-				A72289AB13F563D8005FF00D /* libITKSpatialObject.3.16.0.dylib in Frameworks */,
-				A72289AC13F563D8005FF00D /* libITKStatistics.3.16.0.dylib in Frameworks */,
-				A72289AD13F563D8005FF00D /* libitksys.3.16.0.dylib in Frameworks */,
-				A72289AE13F563D8005FF00D /* libitktiff.3.16.0.dylib in Frameworks */,
-				A72289AF13F563D8005FF00D /* libitkv3p_netlib.3.16.0.dylib in Frameworks */,
-				A72289B013F563D8005FF00D /* libitkvcl.3.16.0.dylib in Frameworks */,
-				A72289B113F563D8005FF00D /* libitkvnl_algo.3.16.0.dylib in Frameworks */,
-				A72289B213F563D8005FF00D /* libitkvnl_inst.3.16.0.dylib in Frameworks */,
-				A72289B313F563D8005FF00D /* libitkvnl.3.16.0.dylib in Frameworks */,
-				A72289B413F563D8005FF00D /* libitkzlib.3.16.0.dylib in Frameworks */,
-				A72289B513F563D8005FF00D /* libITKznz.3.16.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1326,37 +1353,36 @@
 		0023CBDA13EC18A9006303B6 /* ITK */ = {
 			isa = PBXGroup;
 			children = (
-				A722897A13F563D5005FF00D /* libITKAlgorithms.3.16.0.dylib */,
-				A722897B13F563D5005FF00D /* libITKBasicFilters.3.16.0.dylib */,
-				A722897C13F563D6005FF00D /* libITKDICOMParser.3.16.0.dylib */,
-				A722897D13F563D6005FF00D /* libITKEXPAT.3.16.0.dylib */,
-				A722897E13F563D6005FF00D /* libITKFEM.3.16.0.dylib */,
-				A722897F13F563D6005FF00D /* libitkgdcm.3.16.0.dylib */,
-				A722898013F563D6005FF00D /* libITKIO.3.16.0.dylib */,
-				A722898113F563D6005FF00D /* libITKIOReview.3.16.0.dylib */,
-				A722898213F563D6005FF00D /* libitkjpeg8.3.16.0.dylib */,
-				A722898313F563D6005FF00D /* libitkjpeg12.3.16.0.dylib */,
-				A722898413F563D6005FF00D /* libitkjpeg16.3.16.0.dylib */,
-				A722898513F563D6005FF00D /* libITKMetaIO.3.16.0.dylib */,
-				A722898613F563D6005FF00D /* libitkNetlibSlatec.3.16.0.dylib */,
-				A722898713F563D6005FF00D /* libITKniftiio.3.16.0.dylib */,
-				A722898813F563D6005FF00D /* libITKNrrdIO.3.16.0.dylib */,
-				A722898913F563D6005FF00D /* libITKNumerics.3.16.0.dylib */,
-				A722898A13F563D6005FF00D /* libitkopenjpeg.3.16.0.dylib */,
-				A722898B13F563D6005FF00D /* libitkpng.3.16.0.dylib */,
-				A722898C13F563D6005FF00D /* libITKQuadEdgeMesh.3.16.0.dylib */,
-				A722898D13F563D6005FF00D /* libITKSpatialObject.3.16.0.dylib */,
-				A722898E13F563D7005FF00D /* libITKStatistics.3.16.0.dylib */,
-				A722898F13F563D7005FF00D /* libitksys.3.16.0.dylib */,
-				A722899013F563D7005FF00D /* libitktiff.3.16.0.dylib */,
-				A722899113F563D7005FF00D /* libitkv3p_netlib.3.16.0.dylib */,
-				A722899213F563D7005FF00D /* libitkvcl.3.16.0.dylib */,
-				A722899313F563D7005FF00D /* libitkvnl_algo.3.16.0.dylib */,
-				A722899413F563D7005FF00D /* libitkvnl_inst.3.16.0.dylib */,
-				A722899513F563D7005FF00D /* libitkvnl.3.16.0.dylib */,
-				A722899613F563D7005FF00D /* libitkzlib.3.16.0.dylib */,
-				A722899713F563D7005FF00D /* libITKznz.3.16.0.dylib */,
-				0023CBD813EC1898006303B6 /* libITKCommon.3.16.0.dylib */,
+				A7D1B6F314644C7C009A3335 /* libITKDICOMParser.a */,
+				A7D1B6F414644C7C009A3335 /* libITKEXPAT.a */,
+				A7D1B6F514644C7C009A3335 /* libITKFEM.a */,
+				A7D1B6F614644C7C009A3335 /* libitkgdcm.a */,
+				A7D1B6F714644C7C009A3335 /* libitkjpeg8.a */,
+				A7D1B6F814644C7C009A3335 /* libitkjpeg12.a */,
+				A7D1B6F914644C7C009A3335 /* libitkjpeg16.a */,
+				A7D1B6FA14644C7C009A3335 /* libITKMetaIO.a */,
+				A7D1B6FB14644C7C009A3335 /* libitkNetlibSlatec.a */,
+				A7D1B6FC14644C7C009A3335 /* libITKniftiio.a */,
+				A7D1B6FD14644C7C009A3335 /* libITKNrrdIO.a */,
+				A7D1B6FE14644C7C009A3335 /* libitkopenjpeg.a */,
+				A7D1B6FF14644C7C009A3335 /* libitkpng.a */,
+				A7D1B70014644C7C009A3335 /* libitktiff.a */,
+				A7D1B70114644C7C009A3335 /* libitkv3p_lsqr.a */,
+				A7D1B70214644C7C009A3335 /* libitkv3p_netlib.a */,
+				A7D1B70314644C7C009A3335 /* libITKznz.a */,
+				A7D1B6B4146448EA009A3335 /* libITKAlgorithms.a */,
+				A7D1B6B5146448EA009A3335 /* libITKBasicFilters.a */,
+				A7D1B6B6146448EA009A3335 /* libITKCommon.a */,
+				A7D1B6B7146448EA009A3335 /* libITKIO.a */,
+				A7D1B6B8146448EA009A3335 /* libITKNumerics.a */,
+				A7D1B6B9146448EA009A3335 /* libITKSpatialObject.a */,
+				A7D1B6BA146448EA009A3335 /* libITKStatistics.a */,
+				A7D1B6BB146448EA009A3335 /* libitksys.a */,
+				A7D1B6BC146448EB009A3335 /* libitkvcl.a */,
+				A7D1B6BD146448EB009A3335 /* libitkvnl_algo.a */,
+				A7D1B6BE146448EB009A3335 /* libitkvnl_inst.a */,
+				A7D1B6BF146448EB009A3335 /* libitkvnl.a */,
+				A7D1B6C0146448EB009A3335 /* libitkzlib.a */,
 			);
 			name = ITK;
 			sourceTree = "<group>";
@@ -1852,6 +1878,7 @@
 		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
 			isa = PBXGroup;
 			children = (
+				A7BA11E7146D70BE00DEEDF7 /* BARTApplication.xcodeproj */,
 				A71DBC041445C84900C9207B /* libisis_core.0.3.4.dylib */,
 				00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */,
 				0040B78F1141470400A57967 /* docs */,
@@ -1902,6 +1929,11 @@
 				004ABB5E137887AC00B13077 /* BARTSerialIOFramework.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A7BA11E8146D70BE00DEEDF7 /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2142,6 +2174,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A7D1B71614681684009A3335 /* PBXTargetDependency */,
 				A7763C57143B280D00457A99 /* PBXTargetDependency */,
 			);
 			name = isis_test;
@@ -2327,6 +2360,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* BARTApplication */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = A7BA11E8146D70BE00DEEDF7 /* Products */;
+					ProjectRef = A7BA11E7146D70BE00DEEDF7 /* BARTApplication.xcodeproj */;
+				},
+			);
 			projectRoots = (
 				.,
 				..,
@@ -2858,6 +2897,11 @@
 			target = 0000B18213E1C92400029A41 /* TROY */;
 			targetProxy = A7763C56143B280D00457A99 /* PBXContainerItemProxy */;
 		};
+		A7D1B71614681684009A3335 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00D4415F134B57BD00094A51 /* EDNA */;
+			targetProxy = A7D1B71514681684009A3335 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -2909,12 +2953,11 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"/opt/local/lib/InsightToolkit-3.16\"",
-					/opt/local/lib,
+					/usr/local/lib/InsightToolkit,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 			};
 			name = Debug;
 		};
@@ -2934,12 +2977,11 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"/opt/local/lib/InsightToolkit-3.16\"",
-					/opt/local/lib,
+					/usr/local/lib/InsightToolkit,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 			};
 			name = Release;
 		};
@@ -2964,7 +3006,7 @@
 				INFOPLIST_FILE = "TROYTests/TROYTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"/opt/local/lib/InsightToolkit-3.16\"",
+					/usr/local/lib/InsightToolkit,
 					/opt/local/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
@@ -2975,7 +3017,7 @@
 					Cocoa,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
 			};
@@ -2997,7 +3039,7 @@
 				INFOPLIST_FILE = "TROYTests/TROYTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"/opt/local/lib/InsightToolkit-3.16\"",
+					/usr/local/lib/InsightToolkit,
 					/opt/local/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
@@ -3008,7 +3050,7 @@
 					Cocoa,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
 			};
@@ -3032,12 +3074,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "EDNAUnitTestSuite-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					/opt/local/lib,
-					/opt/local/lib/InsightToolkit,
-					"\"/opt/local/lib/InsightToolkit-3.16\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Cocoa,
@@ -3078,8 +3115,6 @@
 					/usr/local/lib,
 					/usr/lib,
 					/opt/local/lib,
-					/opt/local/lib/InsightToolkit,
-					"\"/opt/local/lib/InsightToolkit-3.16\"",
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -3329,16 +3364,14 @@
 					"_ENABLE_LOG=1",
 					"$(GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1)",
 				);
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INSTALL_PATH = /usr/local/bin;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"/opt/local/lib/InsightToolkit-3.16\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = isis_test;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 			};
 			name = Debug;
@@ -3354,12 +3387,10 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INSTALL_PATH = /usr/local/bin;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"/opt/local/lib/InsightToolkit-3.16\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -3368,7 +3399,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = isis_test;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -3617,7 +3648,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3633,8 +3664,7 @@
 				LD_DYLIB_INSTALL_NAME = "$(EXECUTABLE_PATH)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/opt/local/lib/InsightToolkit,
-					"\"/opt/local/lib/InsightToolkit-3.16\"",
+					/usr/local/lib/InsightToolkit,
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -3652,7 +3682,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -3671,8 +3701,7 @@
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/opt/local/lib/InsightToolkit,
-					"\"/opt/local/lib/InsightToolkit-3.16\"",
+					/usr/local/lib/InsightToolkit,
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -3761,6 +3790,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				COPY_PHASE_STRIP = NO;
 				DOXYGEN_CONFIG = ../docs/BARTApplicationDoxyfile;
 				DOXYGEN_OUTPUT = ../docs;
@@ -3792,7 +3822,7 @@
 					/opt/local/lib,
 					/usr/lib,
 					"\"$(SRCROOT)/../../lipsia/build/src/old/lib_lipsia\"",
-					"\"/opt/local/lib/InsightToolkit-3.16\"",
+					/usr/local/lib/InsightToolkit,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = "-ObjC";
@@ -3807,7 +3837,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = $inherited;
 				GCC_MODEL_TUNING = G5;
@@ -3836,7 +3866,7 @@
 					/opt/local/lib,
 					/usr/lib,
 					"\"$(SRCROOT)/../../lipsia/build/src/old/lib_lipsia\"",
-					"\"/opt/local/lib/InsightToolkit-3.16\"",
+					/usr/local/lib/InsightToolkit,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = "-ObjC";
@@ -3878,43 +3908,44 @@
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					/opt/local/include/InsightToolkit/Utilities,
+					/usr/local/include/InsightToolkit/Utilities,
 					/opt/local/include,
 					/usr/include,
 					/usr/local/include/isis,
 					/opt/local/include/boost,
 					/usr/local/include,
-					/opt/local/lib/InsightToolkit,
-					/opt/local/include/InsightToolkit/Utilities/vxl/core,
-					/opt/local/include/InsightToolkit/Utilities/vxl/core/vnl,
-					/opt/local/include/InsightToolkit/Utilities/vxl/core/vnl/algo,
-					/opt/local/include/InsightToolkit/Utilities/vxl/vcl,
-					/opt/local/include/InsightToolkit/SpatialObject,
-					/opt/local/include/InsightToolkit/Review,
-					"/opt/local/include/InsightToolkit/Numerics/**",
-					/opt/local/include/InsightToolkit/IO,
-					/opt/local/include/InsightToolkit/Algorithms,
-					/opt/local/include/InsightToolkit,
-					/opt/local/include/InsightToolkit/BasicFilters,
-					/opt/local/include/InsightToolkit/Common,
+					/usr/local/lib/InsightToolkit,
+					/usr/local/include/InsightToolkit/Utilities/vxl/core,
+					/usr/local/include/InsightToolkit/Utilities/vxl/core/vnl,
+					/usr/local/include/InsightToolkit/Utilities/vxl/core/vnl/algo,
+					/usr/local/include/InsightToolkit/Utilities/vxl/vcl,
+					/usr/local/include/InsightToolkit/SpatialObject,
+					/usr/local/include/InsightToolkit/Review,
+					"/usr/local/include/InsightToolkit/Numerics/**",
+					/usr/local/include/InsightToolkit/IO,
+					/usr/local/include/InsightToolkit/Algorithms,
+					/usr/local/include/InsightToolkit,
+					/usr/local/include/InsightToolkit/BasicFilters,
+					/usr/local/include/InsightToolkit/Common,
 				);
 				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib/InsightToolkit,
 					/usr/local/lib,
 					/opt/local/lib,
 					/usr/lib,
-					/tmp/isis/lib,
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-fvisibility=default",
 				);
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = "";
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 				TEMP_DIR = /tmp/doxygen_temp;
 				TEST_HOST = "";
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -3940,35 +3971,36 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					/opt/local/include/InsightToolkit/Utilities,
+					/usr/local/include/InsightToolkit/Utilities,
 					/opt/local/include,
 					/usr/include,
 					/usr/local/include/isis,
 					/opt/local/include/boost,
 					/usr/local/include,
-					/opt/local/lib/InsightToolkit,
-					/opt/local/include/InsightToolkit/Utilities/vxl/core,
-					/opt/local/include/InsightToolkit/Utilities/vxl/core/vnl,
-					/opt/local/include/InsightToolkit/Utilities/vxl/core/vnl/algo,
-					/opt/local/include/InsightToolkit/Utilities/vxl/vcl,
-					/opt/local/include/InsightToolkit/SpatialObject,
-					/opt/local/include/InsightToolkit/Review,
-					"/opt/local/include/InsightToolkit/Numerics/**",
-					/opt/local/include/InsightToolkit/IO,
-					/opt/local/include/InsightToolkit/Algorithms,
-					/opt/local/include/InsightToolkit,
-					/opt/local/include/InsightToolkit/BasicFilters,
-					/opt/local/include/InsightToolkit/Common,
+					/usr/local/lib/InsightToolkit,
+					/usr/local/include/InsightToolkit/Utilities/vxl/core,
+					/usr/local/include/InsightToolkit/Utilities/vxl/core/vnl,
+					/usr/local/include/InsightToolkit/Utilities/vxl/core/vnl/algo,
+					/usr/local/include/InsightToolkit/Utilities/vxl/vcl,
+					/usr/local/include/InsightToolkit/SpatialObject,
+					/usr/local/include/InsightToolkit/Review,
+					"/usr/local/include/InsightToolkit/Numerics/**",
+					/usr/local/include/InsightToolkit/IO,
+					/usr/local/include/InsightToolkit/Algorithms,
+					/usr/local/include/InsightToolkit,
+					/usr/local/include/InsightToolkit/BasicFilters,
+					/usr/local/include/InsightToolkit/Common,
 				);
 				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib/InsightToolkit,
 					/usr/local/lib,
 					/opt/local/lib,
 					/usr/lib,
-					/tmp/isis/lib,
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = "";
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};
