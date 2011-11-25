@@ -24,26 +24,43 @@ int main(void)
     
     // /Users/oliver/Development/BART/tests/BARTMainAppTests/testfiles
 //    NSString* imageFile = @"TestDataset01-functional.nii";
-    NSString* imageFile = @"/Users/oliver/test/reg3d_test/dataset01/data.nii";
-    EDDataElementIsis* functionalData = [[EDDataElementIsis alloc] initWithFile:imageFile
-                                                                      andSuffix:@"" 
-                                                                     andDialect:@"" 
-                                                                    ofImageType:IMAGE_FCTDATA];
+    NSString* fctFile = @"/Users/oliver/test/reg3d_test/dataset01/data.nii";
+    EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:fctFile
+                                                               andSuffix:@"" 
+                                                              andDialect:@"" 
+                                                             ofImageType:IMAGE_FCTDATA];
 
-    NSString* referenceFile = @"/Users/oliver/test/reg3d_test/dataset01/ana.nii";
-    EDDataElementIsis* reference = [[EDDataElementIsis alloc] initWithFile:referenceFile
-                                                                 andSuffix:@"" 
-                                                                andDialect:@"" 
-                                                               ofImageType:IMAGE_ANADATA];
-    RORegistration* registration = [[RORegistration alloc] init];
-    EDDataElement* dataElement = [registration align:functionalData 
-                                       withReference:reference];
+    NSString* anaFile = @"/Users/oliver/test/reg3d_test/dataset01/ana.nii"; //_visotrop.nii";
+    EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaFile
+                                                               andSuffix:@"" 
+                                                              andDialect:@"" 
+                                                             ofImageType:IMAGE_ANADATA];
     
-    [dataElement WriteDataElementToFile:@"/tmp/IsisTestDataElem.nii"];
+    NSString* mniFile = @"/Users/oliver/test/reg3d_test/mni_lipsia.nii";
+    EDDataElementIsis* mniData = [[EDDataElementIsis alloc] initWithFile:mniFile
+                                                               andSuffix:@"" 
+                                                              andDialect:@"" 
+                                                             ofImageType:IMAGE_ANADATA];
     
-    [functionalData release];
-    [reference release];
-    [registration release];
+    // Registrate
+    RORegistration* ana2fctReg = [[RORegistration alloc] init];
+    EDDataElement* ana2fct = [ana2fctReg align:anaData 
+                               beingFunctional:NO
+                                 withReference:fctData];
+    
+    RORegistration* ana2fct2mniReg = [[RORegistration alloc] init];
+    EDDataElement* ana2fct2mni = [ana2fct2mniReg align:ana2fct 
+                                       beingFunctional:NO                   // YES
+                                         withReference:mniData];
+    
+    [ana2fct2mni WriteDataElementToFile:@"/tmp/IsisTestDataElem.nii"];
+    
+    // Cleanup
+    [mniData release];
+    [anaData release];
+    [fctData release];
+    [ana2fct2mniReg release];
+    [ana2fctReg release];
    
 	[pool drain];
 }

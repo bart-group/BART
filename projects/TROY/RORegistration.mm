@@ -64,7 +64,9 @@ const int NR_THREADS = 8; //4;
     return self;
 }
 
--(EDDataElement*)align:(EDDataElement*)toAlign withReference:(EDDataElement*)ref 
+-(EDDataElement*)align:(EDDataElement*)toAlign 
+       beingFunctional:(BOOL)fmri
+         withReference:(EDDataElement*)ref 
 {
     if (toAlign == nil || ref == nil) {
         // exception?
@@ -84,9 +86,15 @@ const int NR_THREADS = 8; //4;
                                    withReference:ref 
                                   transformation:trans 
                                       resolution:res 
-                                  functionalData:NO];
+                                  functionalData:fmri];
     
     return transformed;
+}
+
+
+-(RORegistration*)combineTransform:(RORegistration*)other
+{
+    return nil;
 }
 
 @end
@@ -358,7 +366,9 @@ bool verbose = true;
 //            imageWriter->SetInput(output);
 //            imageWriter->Update();
 
+            NSLog(@"### START Converting ITK2Isis");
 			imgList = adapter->makeIsisImageObject<ITKImage>(output);
+            NSLog(@"### END Converting ITK2Isis");
             imgType = IMAGE_ANADATA;
 		}
     }

@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "EDDataElement.h"
+#import "EDNA/EDDataElement.h"
 
 // ISIS includes
 #import "isisRegistrationFactory3D.hpp"
@@ -68,7 +68,12 @@ typedef itk::TileImageFilter<ITKImage, ITKImage4D> TileImageFilterType;
 /**
  * Memory management notice: the created DataElement is autoreleased!
  */
--(EDDataElement*)align:(EDDataElement*)toAlign withReference:(EDDataElement*)ref;
+-(EDDataElement*)align:(EDDataElement*)toAlign 
+       beingFunctional:(BOOL)fmri
+         withReference:(EDDataElement*)ref;
+
+
+-(EDDataElement*)align:(EDDataElement*)toAlign;
 
 /**
  * \param other 
