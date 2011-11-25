@@ -161,11 +161,9 @@
 		00C3A082114510CE00725668 /* rtExperiment_v14.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 00C3A080114510CE00725668 /* rtExperiment_v14.xsd */; };
 		00C730B61369F03500FC8546 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
 		00C730B71369F03600FC8546 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
-		00D4409B134B4DCC00094A51 /* libisis_core.0.3.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D4409A134B4DCC00094A51 /* libisis_core.0.3.4.dylib */; };
 		00D44159134B569400094A51 /* BAProcedurePipeline.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A21141470400A57967 /* BAProcedurePipeline.mm */; };
 		00D44165134B57E600094A51 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
 		00D44167134B57E600094A51 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
-		00D44169134B57F200094A51 /* libisis_core.0.3.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D4409A134B4DCC00094A51 /* libisis_core.0.3.4.dylib */; };
 		00D44187134B587200094A51 /* EDDataElementIsis.h in Headers */ = {isa = PBXBuildFile; fileRef = 006E07531190260500CEEF38 /* EDDataElementIsis.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00D44188134B587400094A51 /* EDDataElementIsis.mm in Sources */ = {isa = PBXBuildFile; fileRef = 006E07541190260500CEEF38 /* EDDataElementIsis.mm */; };
 		00D44189134B587400094A51 /* EDDataElementRealTimeLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = E54934E21339151E003264FE /* EDDataElementRealTimeLoader.mm */; };
@@ -232,7 +230,6 @@
 		00E63B84135325D300DC8A50 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440C0134B4F8800094A51 /* libboost_system-mt.dylib */; };
 		00E63B85135325D500DC8A50 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
 		00E63B86135325D500DC8A50 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
-		00E63C8E1353382100DC8A50 /* libisis_core.0.3.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D4409A134B4DCC00094A51 /* libisis_core.0.3.4.dylib */; };
 		00E63C9F13533ED900DC8A50 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
 		00E7A649117EF24F00696498 /* blockDesignTest01.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00E7A647117EF24F00696498 /* blockDesignTest01.edl */; };
 		00E7A656117EF60900696498 /* NEDesignElementDynTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E7A655117EF60900696498 /* NEDesignElementDynTest.m */; };
@@ -272,7 +269,6 @@
 		00EA8DCF135D870400562F3B /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABE135C764F00562F3B /* libboost_filesystem.dylib */; };
 		00EA8DD1135D870500562F3B /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABF135C764F00562F3B /* libboost_regex.dylib */; };
 		00EA8DD2135D870600562F3B /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8AC0135C764F00562F3B /* libboost_system.dylib */; };
-		00EA8DD4135D870700562F3B /* libisis_core.0.3.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D4409A134B4DCC00094A51 /* libisis_core.0.3.4.dylib */; };
 		00EA8DDA135D871A00562F3B /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
 		00EA8DDB135D871B00562F3B /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00EA8DF2135D879B00562F3B /* libfftw3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A15135C6F5000562F3B /* libfftw3.dylib */; };
@@ -296,7 +292,6 @@
 		A713AA0C1445CFFE00BBF150 /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABF135C764F00562F3B /* libboost_regex.dylib */; };
 		A713AA0D1445CFFE00BBF150 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8AC0135C764F00562F3B /* libboost_system.dylib */; };
 		A71DBC02143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A71DBC00143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp */; };
-		A71DBC051445C84900C9207B /* libisis_core.0.3.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A71DBC041445C84900C9207B /* libisis_core.0.3.4.dylib */; };
 		A744B0C513FD442200F4B13D /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
 		A744B0C713FD445300F4B13D /* EDDataElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B772C311417C6300B2931A /* EDDataElementVI.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A75A5D3D1403CABF00514CD3 /* RORegistration.h in Headers */ = {isa = PBXBuildFile; fileRef = A75A5D3B1403CABF00514CD3 /* RORegistration.h */; };
@@ -332,6 +327,11 @@
 		A7BA11E4146D6C8400DEEDF7 /* libitkv3p_netlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70214644C7C009A3335 /* libitkv3p_netlib.a */; };
 		A7BA11E5146D70BE00DEEDF7 /* libitkv3p_lsqr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70114644C7C009A3335 /* libitkv3p_lsqr.a */; };
 		A7BA11E6146D70BE00DEEDF7 /* libitkv3p_netlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70214644C7C009A3335 /* libitkv3p_netlib.a */; };
+		A7BA11EB147FDB5900DEEDF7 /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7BA11EA147FDB5900DEEDF7 /* libisis_core.dylib */; };
+		A7BA11ED147FDB6E00DEEDF7 /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7BA11EC147FDB6E00DEEDF7 /* libisis_core.dylib */; };
+		A7BA11EE147FDB8100DEEDF7 /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7BA11EC147FDB6E00DEEDF7 /* libisis_core.dylib */; };
+		A7BA11EF147FDB8F00DEEDF7 /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7BA11EA147FDB5900DEEDF7 /* libisis_core.dylib */; };
+		A7BA11F0147FDBB700DEEDF7 /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7BA11EA147FDB5900DEEDF7 /* libisis_core.dylib */; };
 		A7D1B6C1146448EB009A3335 /* libITKAlgorithms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B4146448EA009A3335 /* libITKAlgorithms.a */; };
 		A7D1B6C2146448EB009A3335 /* libITKBasicFilters.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B5146448EA009A3335 /* libITKBasicFilters.a */; };
 		A7D1B6C3146448EB009A3335 /* libITKCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B6146448EA009A3335 /* libITKCommon.a */; };
@@ -914,7 +914,6 @@
 		8D1107320486CEB800E47090 /* BARTApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BARTApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71DBC00143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisTimeStepExtractionFilter.hpp; sourceTree = "<group>"; };
 		A71DBC01143DF6CF00C9207B /* isisTimeStepExtractionFilter.txx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = isisTimeStepExtractionFilter.txx; sourceTree = "<group>"; };
-		A71DBC041445C84900C9207B /* libisis_core.0.3.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisis_core.0.3.4.dylib; path = usr/local/lib/libisis_core.0.3.4.dylib; sourceTree = SDKROOT; };
 		A75A5D371403C78C00514CD3 /* isisIterationObserver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = isisIterationObserver.hpp; path = ../../../lipsia/src/new/valign3d/isisIterationObserver.hpp; sourceTree = "<group>"; };
 		A75A5D3B1403CABF00514CD3 /* RORegistration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistration.h; sourceTree = "<group>"; };
 		A75A5D3C1403CABF00514CD3 /* RORegistration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistration.mm; sourceTree = "<group>"; };
@@ -924,7 +923,8 @@
 		A7A4641413F40B1300426C70 /* ROTransformation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ROTransformation.mm; sourceTree = "<group>"; };
 		A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D_impl.hpp; sourceTree = "<group>"; };
 		A7A476ED13F40EBE00426C70 /* isisRegistrationFactory3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D.hpp; sourceTree = "<group>"; };
-		A7BA11E7146D70BE00DEEDF7 /* BARTApplication.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = BARTApplication.xcodeproj; sourceTree = "<group>"; };
+		A7BA11EA147FDB5900DEEDF7 /* libisis_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisis_core.dylib; path = ../../../../../usr/local/lib/libisis_core.dylib; sourceTree = "<group>"; };
+		A7BA11EC147FDB6E00DEEDF7 /* libisis_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisis_core.dylib; path = SDKs/MacOSX10.6.sdk/usr/local/lib/libisis_core.dylib; sourceTree = DEVELOPER_DIR; };
 		A7D1B6B4146448EA009A3335 /* libITKAlgorithms.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKAlgorithms.a; path = /usr/local/lib/InsightToolkit/libITKAlgorithms.a; sourceTree = "<absolute>"; };
 		A7D1B6B5146448EA009A3335 /* libITKBasicFilters.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKBasicFilters.a; path = /usr/local/lib/InsightToolkit/libITKBasicFilters.a; sourceTree = "<absolute>"; };
 		A7D1B6B6146448EA009A3335 /* libITKCommon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKCommon.a; path = /usr/local/lib/InsightToolkit/libITKCommon.a; sourceTree = "<absolute>"; };
@@ -968,6 +968,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7BA11ED147FDB6E00DEEDF7 /* libisis_core.dylib in Frameworks */,
 				A7D1B6C1146448EB009A3335 /* libITKAlgorithms.a in Frameworks */,
 				A7D1B6C2146448EB009A3335 /* libITKBasicFilters.a in Frameworks */,
 				A7D1B6C3146448EB009A3335 /* libITKCommon.a in Frameworks */,
@@ -987,7 +988,6 @@
 				A7BA11E6146D70BE00DEEDF7 /* libitkv3p_netlib.a in Frameworks */,
 				A713AA0D1445CFFE00BBF150 /* libboost_system.dylib in Frameworks */,
 				A713AA091445CF1600BBF150 /* EDNA.dylib in Frameworks */,
-				A71DBC051445C84900C9207B /* libisis_core.0.3.4.dylib in Frameworks */,
 				0000B18513E1C92400029A41 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1019,6 +1019,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7BA11EF147FDB8F00DEEDF7 /* libisis_core.dylib in Frameworks */,
 				00E63B81135325D100DC8A50 /* libboost_date_time-mt.dylib in Frameworks */,
 				00E63B82135325D200DC8A50 /* libboost_filesystem-mt.dylib in Frameworks */,
 				00E63B83135325D300DC8A50 /* libboost_regex-mt.dylib in Frameworks */,
@@ -1026,7 +1027,6 @@
 				00673D3A13FC1F640056BD4F /* EDNA.dylib in Frameworks */,
 				00E63B85135325D500DC8A50 /* libvia.dylib in Frameworks */,
 				00E63B86135325D500DC8A50 /* libviaio.dylib in Frameworks */,
-				00E63C8E1353382100DC8A50 /* libisis_core.0.3.4.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1078,6 +1078,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7BA11EE147FDB8100DEEDF7 /* libisis_core.dylib in Frameworks */,
 				A7D1B6E514644B8B009A3335 /* libitksys.a in Frameworks */,
 				A7D1B6DA14644B70009A3335 /* libITKAlgorithms.a in Frameworks */,
 				A7D1B6DB14644B70009A3335 /* libITKBasicFilters.a in Frameworks */,
@@ -1092,7 +1093,6 @@
 				A7D1B6E414644B70009A3335 /* libitkvnl.a in Frameworks */,
 				A7763C54143B09A500457A99 /* TROY.dylib in Frameworks */,
 				0016102A134B200800373D77 /* Cocoa.framework in Frameworks */,
-				00D4409B134B4DCC00094A51 /* libisis_core.0.3.4.dylib in Frameworks */,
 				00D444DC134DEB4100094A51 /* libvia.dylib in Frameworks */,
 				00D444DD134DEB4200094A51 /* libviaio.dylib in Frameworks */,
 				00EA8AC1135C764F00562F3B /* libboost_date_time.dylib in Frameworks */,
@@ -1141,6 +1141,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7BA11EB147FDB5900DEEDF7 /* libisis_core.dylib in Frameworks */,
 				00D44167134B57E600094A51 /* libviaio.dylib in Frameworks */,
 				A7BA11D1146D6C6700DEEDF7 /* libITKAlgorithms.a in Frameworks */,
 				A7BA11D2146D6C6700DEEDF7 /* libITKBasicFilters.a in Frameworks */,
@@ -1158,7 +1159,6 @@
 				A7BA11DC146D6C6700DEEDF7 /* libitkvnl.a in Frameworks */,
 				A7BA11DD146D6C6700DEEDF7 /* libitkzlib.a in Frameworks */,
 				00D44165134B57E600094A51 /* libvia.dylib in Frameworks */,
-				00D44169134B57F200094A51 /* libisis_core.0.3.4.dylib in Frameworks */,
 				00D441BA134B59D600094A51 /* Cocoa.framework in Frameworks */,
 				00EA8AC9135C764F00562F3B /* libboost_date_time.dylib in Frameworks */,
 				00EA8ACA135C764F00562F3B /* libboost_filesystem.dylib in Frameworks */,
@@ -1241,6 +1241,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7BA11F0147FDBB700DEEDF7 /* libisis_core.dylib in Frameworks */,
 				0006F57E122D5510001DA2BB /* libgslcblas.dylib in Frameworks */,
 				0006F580122D5512001DA2BB /* libgsl.0.dylib in Frameworks */,
 				00EA8DCD135D870300562F3B /* libboost_date_time.dylib in Frameworks */,
@@ -1248,7 +1249,6 @@
 				00EA8DD1135D870500562F3B /* libboost_regex.dylib in Frameworks */,
 				00EA8DD2135D870600562F3B /* libboost_system.dylib in Frameworks */,
 				00673D3713FC1E9D0056BD4F /* EDNA.dylib in Frameworks */,
-				00EA8DD4135D870700562F3B /* libisis_core.0.3.4.dylib in Frameworks */,
 				00673D3813FC1E9F0056BD4F /* CLETUS.dylib in Frameworks */,
 				00EA8DDA135D871A00562F3B /* libvia.dylib in Frameworks */,
 				00673D3613FC1E9B0056BD4F /* NED.dylib in Frameworks */,
@@ -1878,8 +1878,8 @@
 		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
 			isa = PBXGroup;
 			children = (
-				A7BA11E7146D70BE00DEEDF7 /* BARTApplication.xcodeproj */,
-				A71DBC041445C84900C9207B /* libisis_core.0.3.4.dylib */,
+				A7BA11EC147FDB6E00DEEDF7 /* libisis_core.dylib */,
+				A7BA11EA147FDB5900DEEDF7 /* libisis_core.dylib */,
 				00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */,
 				0040B78F1141470400A57967 /* docs */,
 				0040B7921141470400A57967 /* src */,
@@ -1929,11 +1929,6 @@
 				004ABB5E137887AC00B13077 /* BARTSerialIOFramework.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A7BA11E8146D70BE00DEEDF7 /* Products */ = {
-			isa = PBXGroup;
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2360,12 +2355,6 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* BARTApplication */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = A7BA11E8146D70BE00DEEDF7 /* Products */;
-					ProjectRef = A7BA11E7146D70BE00DEEDF7 /* BARTApplication.xcodeproj */;
-				},
-			);
 			projectRoots = (
 				.,
 				..,
