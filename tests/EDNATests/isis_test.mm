@@ -18,18 +18,18 @@
 
 @end
 
-int main(void)
-{
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+void testVnormdataRegistrationWorkflow() {
+    
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     // /Users/oliver/Development/BART/tests/BARTMainAppTests/testfiles
-//    NSString* imageFile = @"TestDataset01-functional.nii";
+    //    NSString* imageFile = @"TestDataset01-functional.nii";
     NSString* fctFile = @"/Users/oliver/test/reg3d_test/dataset01/data.nii";
     EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:fctFile
                                                                andSuffix:@"" 
                                                               andDialect:@"" 
                                                              ofImageType:IMAGE_FCTDATA];
-
+    
     NSString* anaFile = @"/Users/oliver/test/reg3d_test/dataset01/ana.nii"; //_visotrop.nii";
     EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaFile
                                                                andSuffix:@"" 
@@ -61,6 +61,11 @@ int main(void)
     [fctData release];
     [ana2fct2mniReg release];
     [ana2fctReg release];
-   
+    
 	[pool drain];
+}
+
+int main(void)
+{
+    testVnormdataRegistrationWorkflow();
 }
