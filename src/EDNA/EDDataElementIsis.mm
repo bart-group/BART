@@ -15,18 +15,26 @@
 // ISIS includes
 #include "DataStorage/image.hpp"
 #include "DataStorage/io_factory.hpp"
-#include "Adapter/itkAdapter.hpp"
 
 // C++ includes
 #include <iostream>
 
 @implementation EDDataElementIsis
 
+-(id)init
+{
+    if (self = [super init]) {
+        self->mITKAdapter = NULL;
+    }
+    
+    return self;    
+}
+
 
 
 -(id)initWithFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect ofImageType:(enum ImageType)iType
 {
-	self = [super init];
+	self = [self init];
     mImageSize = [[BARTImageSize alloc] init];
 	// set  isis loglevels
 	//isis::data::ImageList images;
@@ -70,7 +78,7 @@
 
 -(id)initEmptyWithSize:(BARTImageSize*)s ofImageType:(enum ImageType)iType
 {
-    if ((self = [super init])) {
+    if ((self = [self init])) {
 		
 		mImageSize = [s copy];
         mDataTypeID = isis::data::ValuePtr<float>::staticID;
@@ -107,7 +115,7 @@
 
 -(id)initFromImage:(isis::data::Image) img  ofImageType:(enum ImageType)imgType
 {
-	self = [super init];
+	self = [self init];
 	mIsisImage = new isis::data::Image(img);
 	mImageType = imgType;
     
@@ -657,16 +665,56 @@
 
 -(ITKImage::Pointer)asITKImage
 {
-    isis::adapter::itkAdapter* adapter = new isis::adapter::itkAdapter;
-    ITKImage::Pointer itkImage = adapter->makeItkImageObject<ITKImage>(*mIsisImage);
+    self->mITKAdapter = new isis::adapter::itkAdapter;
+    ITKImage::Pointer itkImage = self->mITKAdapter->makeItkImageObject<ITKImage>(*mIsisImage);
     return itkImage;
 }
 
 -(ITKImage4D::Pointer)asITKImage4D
 {
-    isis::adapter::itkAdapter* adapter = new isis::adapter::itkAdapter;
-    ITKImage4D::Pointer itkImage = adapter->makeItkImageObject<ITKImage4D>(*mIsisImage);
+    self->mITKAdapter = new isis::adapter::itkAdapter;
+    ITKImage4D::Pointer itkImage = self->mITKAdapter->makeItkImageObject<ITKImage4D>(*mIsisImage);
     return itkImage;
+}
+
+-(EDDataElement*)convertFromITKImage:(ITKImage::Pointer)itkImg
+{
+    if (self->mITKAdapter != NULL) {
+        std::list<isis::data::Image> imgList = self->mITKAdapter->makeIsisImageObject<ITKImage>(itkImg);
+
+        if (imgList.size() > 0) {
+            return [[[EDDataElementIsis alloc] initFromImage:imgList.front() 
+                                                 ofImageType:IMAGE_ANADATA] 
+                    autorelease];
+        }
+    }
+    
+    return nil;
+}
+
+-(EDDataElement*)convertFromITKImage4D:(ITKImage4D::Pointer)itkImg4D
+{
+    if (self->mITKAdapter != NULL) {
+        std::list<isis::data::Image> imgList = self->mITKAdapter->makeIsisImageObject<ITKImage4D>(itkImg4D);
+        
+        if (imgList.size() > 0) {
+            return [[[EDDataElementIsis alloc] initFromImage:imgList.front() 
+                                                 ofImageType:IMAGE_FCTDATA] 
+                    autorelease];
+        }
+    }
+    
+    return nil;
+}
+
+-(void)updateFromITKImage:(ITKImage::Pointer)itkImg
+{
+    // TODO
+}
+
+-(void)updateFromITKImage4D:(ITKImage4D::Pointer)itkImg4D
+{
+    // TODO
 }
 
 -(ITKImage::Pointer)asITKImage:(unsigned int)timestep

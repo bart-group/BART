@@ -248,9 +248,7 @@ bool verbose = true;
     ITKImage::PointType fmriOutputOrigin;
     ITKImage::DirectionType fmriOutputDirection;
     
-    isis::adapter::itkAdapter* adapter = new isis::adapter::itkAdapter;
-    std::list<isis::data::Image> imgList;
-    enum ImageType imgType = IMAGE_UNKNOWN;
+    EDDataElement* resultImg = nil;
     
 	if (fmri) {
         TimeStepExtractionFilterType::Pointer timeStepExtractionFilter = TimeStepExtractionFilterType::New();
@@ -341,8 +339,7 @@ bool verbose = true;
 		tileImageFilter->GetOutput()->SetDirection(direction4D);
 		tileImageFilter->Update();
 		
-        imgList = adapter->makeIsisImageObject<ITKImage4D>(tileImageFilter->GetOutput());
-        imgType = IMAGE_FCTDATA;
+        resultImg = [toAlign convertFromITKImage4D:tileImageFilter->GetOutput()];
 
 	} else {
         // No fmri
@@ -367,18 +364,12 @@ bool verbose = true;
 //            imageWriter->Update();
 
             NSLog(@"### START Converting ITK2Isis");
-			imgList = adapter->makeIsisImageObject<ITKImage>(output);
+			resultImg = [toAlign convertFromITKImage:output];
             NSLog(@"### END Converting ITK2Isis");
-            imgType = IMAGE_ANADATA;
 		}
     }
     
 //    isis::data::IOFactory::write( imgList, "/tmp/RORegIsisFix.nii", "", "" );
-    
-    EDDataElement* resultImg = nil;
-    if (imgList.size() > 0) {
-        resultImg = [[[EDDataElementIsis alloc] initFromImage:imgList.front() ofImageType:imgType] autorelease];
-    }
     
     return resultImg;
 }
