@@ -184,12 +184,57 @@ enum ImagePropertyID{
  * \return The DataElement as an ITKImage.
  */
 -(ITKImage::Pointer)asITKImage;
+
 /**
  * Converts the whole DataElement to an ITKImage4D.
  *
  * \return The DataElement as an ITKImage4D.
  */
 -(ITKImage4D::Pointer)asITKImage4D;
+
+/**
+ * Converts a given 3D ITKImage to a new EDDataElement not altering
+ * this DataElement (in contrast to EDDataElement::updateFromITKImage:).
+ * Restores image attributes that were lost in the conversion 
+ * "DataElement to ITKImage" done by EDDataElement::asITKImage: in case
+ * the same DataElement is used for the backwards conversion.
+ * 
+ * \see asITKImage
+ * \see updateFromITKImage:
+ * \param itkImg Pointer to the 3D ITKImage which should be converted.
+ * \return       EDDataElement converted from itkImg.
+ */
+-(EDDataElement*)convertFromITKImage:(ITKImage::Pointer)itkImg;
+
+/**
+ * Converts a given 4D ITKImage to a new EDDataElement not altering
+ * this DataElement (in contrast to EDDataElement::updateFromITKImage4D:).
+ * Restores image attributes that were lost in the conversion 
+ * "DataElement to ITKImage4D" done by EDDataElement::asITKImage4D: in case
+ * the same DataElement is used for the backwards conversion.
+ * 
+ * \see asITKImage4D
+ * \see updateFromITKImage4D:
+ * \param itkImg Pointer to the ITKImage4D which should be converted.
+ * \return       EDDataElement converted from itkImg4D.
+ */
+-(EDDataElement*)convertFromITKImage4D:(ITKImage4D::Pointer)itkImg4D;
+
+/**
+ * Discard the current image data and refill the DataElement from
+ * an 3D ITKImage object.
+ *
+ * \param itkImg ITKImage from which to update this DataElement.
+ */
+-(void)updateFromITKImage:(ITKImage::Pointer)itkImg;
+
+/**
+ * Discard the current image data and refill the DataElement from
+ * an ITKImage4D object.
+ *
+ * \param itkImg4D ITKImage4D from which to update this DataElement.
+ */
+-(void)updateFromITKImage4D:(ITKImage4D::Pointer)itkImg4D;
 
 /**
  * Converts a single timestep of the DataElement to an ITKImage.
