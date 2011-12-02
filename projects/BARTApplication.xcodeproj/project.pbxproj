@@ -333,7 +333,6 @@
 		A7D1B6C1146448EB009A3335 /* libITKAlgorithms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B4146448EA009A3335 /* libITKAlgorithms.a */; };
 		A7D1B6C2146448EB009A3335 /* libITKBasicFilters.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B5146448EA009A3335 /* libITKBasicFilters.a */; };
 		A7D1B6C3146448EB009A3335 /* libITKCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B6146448EA009A3335 /* libITKCommon.a */; };
-		A7D1B6C4146448EB009A3335 /* libITKIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B7146448EA009A3335 /* libITKIO.a */; };
 		A7D1B6C5146448EB009A3335 /* libITKNumerics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B8146448EA009A3335 /* libITKNumerics.a */; };
 		A7D1B6C6146448EB009A3335 /* libITKSpatialObject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B9146448EA009A3335 /* libITKSpatialObject.a */; };
 		A7D1B6C7146448EB009A3335 /* libITKStatistics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BA146448EA009A3335 /* libITKStatistics.a */; };
@@ -396,6 +395,7 @@
 		A7D1B71214644C7C009A3335 /* libitkv3p_lsqr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70114644C7C009A3335 /* libitkv3p_lsqr.a */; };
 		A7D1B71314644C7C009A3335 /* libitkv3p_netlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70214644C7C009A3335 /* libitkv3p_netlib.a */; };
 		A7D1B71414644C7C009A3335 /* libITKznz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70314644C7C009A3335 /* libITKznz.a */; };
+		A7D822621489226800CFFE0F /* libITKIOReview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D822611489226800CFFE0F /* libITKIOReview.a */; };
 		CE8A28C510F51058002422B5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED1922910AC8AD600FAFA4F /* QuartzCore.framework */; };
 		CE8A28D410F5121D002422B5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191F510AC8A7B00FAFA4F /* OpenGL.framework */; };
 		CE8A28D510F5121E002422B5 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */; };
@@ -951,6 +951,7 @@
 		A7D1B70114644C7C009A3335 /* libitkv3p_lsqr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitkv3p_lsqr.a; path = /usr/local/lib/InsightToolkit/libitkv3p_lsqr.a; sourceTree = "<absolute>"; };
 		A7D1B70214644C7C009A3335 /* libitkv3p_netlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libitkv3p_netlib.a; path = /usr/local/lib/InsightToolkit/libitkv3p_netlib.a; sourceTree = "<absolute>"; };
 		A7D1B70314644C7C009A3335 /* libITKznz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKznz.a; path = /usr/local/lib/InsightToolkit/libITKznz.a; sourceTree = "<absolute>"; };
+		A7D822611489226800CFFE0F /* libITKIOReview.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKIOReview.a; path = ../../../../../usr/local/lib/InsightToolkit/libITKIOReview.a; sourceTree = "<group>"; };
 		CE8A2A3910F61713002422B5 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		CE8B709110DA988F007AEB2B /* BARTUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = BARTUnitTestSuite.octest; path = BARTApplication.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
@@ -964,11 +965,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7D822621489226800CFFE0F /* libITKIOReview.a in Frameworks */,
 				A7BA11ED147FDB6E00DEEDF7 /* libisis_core.dylib in Frameworks */,
 				A7D1B6C1146448EB009A3335 /* libITKAlgorithms.a in Frameworks */,
 				A7D1B6C2146448EB009A3335 /* libITKBasicFilters.a in Frameworks */,
 				A7D1B6C3146448EB009A3335 /* libITKCommon.a in Frameworks */,
-				A7D1B6C4146448EB009A3335 /* libITKIO.a in Frameworks */,
 				A7D1B6C5146448EB009A3335 /* libITKNumerics.a in Frameworks */,
 				A7D1B6C6146448EB009A3335 /* libITKSpatialObject.a in Frameworks */,
 				A7D1B6C7146448EB009A3335 /* libITKStatistics.a in Frameworks */,
@@ -1872,6 +1873,7 @@
 		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
 			isa = PBXGroup;
 			children = (
+				A7D822611489226800CFFE0F /* libITKIOReview.a */,
 				00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */,
 				0040B78F1141470400A57967 /* docs */,
 				0040B7921141470400A57967 /* src */,
