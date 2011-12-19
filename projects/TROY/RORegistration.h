@@ -16,6 +16,7 @@
 
 // ITK includes
 #import <itkImageFileReader.h>
+#import <itkHistogramMatchingImageFilter.h>
 #import <itkWarpImageFilter.h>
 #import <itkTileImageFilter.h>
 
@@ -28,6 +29,8 @@ typedef isis::extitk::TimeStepExtractionFilter<ITKImage4D, ITKImage> TimeStepExt
 typedef itk::Vector<float, 3> VectorType;
 typedef itk::Image<VectorType, 3> DeformationFieldType;
 //typedef itk::ImageFileReader<DeformationFieldType> DeformationFieldReaderType;
+
+typedef itk::HistogramMatchingImageFilter<ITKImage, ITKImage> MatchingFilterType;
 
 typedef itk::ResampleImageFilter<ITKImage, ITKImage> ResampleImageFilterType;
 typedef itk::WarpImageFilter<ITKImage, ITKImage, DeformationFieldType> WarpImageFilterType;
@@ -66,14 +69,21 @@ typedef itk::TileImageFilter<ITKImage, ITKImage4D> TileImageFilterType;
 -(id)initFindingTransformFrom:(EDDataElement*)toAlign toReference:(EDDataElement*)ref;
 
 /**
+ * Emulate vnormdata behaviour.
+ */
+-(EDDataElement*)normdata:(EDDataElement*)fun
+                  anatomy:(EDDataElement*)ana
+      anatomicalReference:(EDDataElement*)ref;
+
+/**
  * Memory management notice: the created DataElement is autoreleased!
  */
--(EDDataElement*)align:(EDDataElement*)toAlign 
-       beingFunctional:(BOOL)fmri
-         withReference:(EDDataElement*)ref;
+//-(EDDataElement*)align:(EDDataElement*)toAlign 
+//       beingFunctional:(BOOL)fmri
+//         withReference:(EDDataElement*)ref;
 
 
--(EDDataElement*)align:(EDDataElement*)toAlign;
+//-(EDDataElement*)align:(EDDataElement*)toAlign;
 
 /**
  * \param other 

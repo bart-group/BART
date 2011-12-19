@@ -18,18 +18,37 @@
 #import "DataStorage/image.hpp"
 #import "Adapter/itkAdapter.hpp"
 
-const int NR_THREADS = 8; //4;
+const int NR_THREADS = 1; //8; //4;
+
+class ITKImageContainer
+{
+private:
+    ITKImage::Pointer   img3D;
+    ITKImage4D::Pointer img4D;
+public:
+    ITKImageContainer(ITKImage::Pointer   img3D) { this->img3D = img3D; this->img4D = NULL;  };
+    ITKImageContainer(ITKImage4D::Pointer img4D) { this->img3D = NULL;  this->img4D = img4D; };
+    ~ITKImageContainer() { };
+    bool is3D() { if (this->img3D.IsNull()) { return false; } else { return true; } };
+    bool is4D() { if (this->img4D.IsNull()) { return false; } else { return true; } };
+    ITKImage::Pointer   getImg3D() { return this->img3D; };
+    ITKImage4D::Pointer getImg4D() { return this->img4D; };
+};
 
 @interface RORegistration (privateMethods)
 
--(DeformationFieldType::Pointer)computeTransform:(EDDataElement*)toAlign 
-                               withReference:(EDDataElement*)ref;
+-(DeformationFieldType::Pointer)computeTransform:(ITKImage::Pointer)toAlign 
+                                   withReference:(ITKImage::Pointer)ref
+                                  transformTypes:(std::vector<int>)transform
+                                  optimizerTypes:(std::vector<int>)optimizer
+                                        prealign:(BOOL)prealign
+                                          smooth:(BOOL)smooth;
 
--(EDDataElement*)transform:(EDDataElement*)toAlign 
-             withReference:(EDDataElement*)ref 
-            transformation:(DeformationFieldType::Pointer)trans 
-                resolution:(std::vector<size_t>)res 
-            functionalData:(BOOL)fmri; 
+-(ITKImageContainer*)transform:(ITKImage::Pointer)toAlign
+                  orFunctional:(ITKImage4D::Pointer)toAlignFun
+                 withReference:(ITKImage::Pointer)ref 
+                transformation:(DeformationFieldType::Pointer)trans 
+                    resolution:(std::vector<size_t>)res; 
 
 @end
 
@@ -64,32 +83,92 @@ const int NR_THREADS = 8; //4;
     return self;
 }
 
--(EDDataElement*)align:(EDDataElement*)toAlign 
-       beingFunctional:(BOOL)fmri
-         withReference:(EDDataElement*)ref 
+-(EDDataElement*)normdata:(EDDataElement*)fun
+                  anatomy:(EDDataElement*)ana
+      anatomicalReference:(EDDataElement*)ref
 {
-    if (toAlign == nil || ref == nil) {
-        // exception?
-        return nil;
+    ITKImage::Pointer   funITK3D = [fun asITKImage];
+    ITKImage4D::Pointer funITK4D = [fun asITKImage4D];
+    ITKImage::Pointer anaITK = [ana asITKImage];
+    ITKImage::Pointer refITK = [ref asITKImage];
+    
+    std::vector<int> transformTypes;
+    std::vector<int> optimizerTypes;
+    DeformationFieldType::Pointer trans_ana2fun = [self computeTransform:anaITK 
+                                                           withReference:funITK3D
+                                                          transformTypes:transformTypes
+                                                          optimizerTypes:optimizerTypes 
+                                                                prealign:YES 
+                                                                  smooth:YES];
+    
+    std::vector<size_t> reso;
+    reso.push_back(1);
+    ITKImageContainer* transformResult = [self transform:anaITK
+                                            orFunctional:NULL
+                                           withReference:funITK3D
+                                          transformation:trans_ana2fun 
+                                              resolution:reso];
+    if (transformResult != NULL) {
+        ITKImage::Pointer ana2fun = transformResult->getImg3D();
+        free(transformResult);
+        
+        transformTypes.push_back(0);
+        transformTypes.push_back(1);
+        transformTypes.push_back(2);
+        optimizerTypes.push_back(0);
+        optimizerTypes.push_back(0);
+        optimizerTypes.push_back(2);
+        DeformationFieldType::Pointer trans_ana2ref = [self computeTransform:ana2fun 
+                                                               withReference:refITK 
+                                                              transformTypes:transformTypes
+                                                              optimizerTypes:optimizerTypes 
+                                                                    prealign:YES 
+                                                                      smooth:YES];
+        
+        reso.clear();
+        reso.push_back(3);
+        transformResult = [self transform:NULL
+                             orFunctional:funITK4D
+                            withReference:refITK 
+                           transformation:trans_ana2ref 
+                               resolution:reso];
+        
+        if (transformResult != NULL) {
+            return [fun convertFromITKImage4D:transformResult->getImg4D()];
+        }
+
     }
     
-    // TODO: replace with method: align :: EDDataElement -> EDDataElement
-    
-    DeformationFieldType::Pointer trans = [self computeTransform:toAlign withReference:ref];
-    
-    std::vector<size_t> res;
-    res.push_back(1);
-    
-    NSLog(@"### FINISHED COMPUTING TRANSFORM, ALIGNING NOW ###");
-    
-    EDDataElement* transformed = [self transform:toAlign 
-                                   withReference:ref 
-                                  transformation:trans 
-                                      resolution:res 
-                                  functionalData:fmri];
-    
-    return transformed;
+    return nil;
 }
+
+//-(EDDataElement*)align:(EDDataElement*)toAlign 
+//       beingFunctional:(BOOL)fmri
+//         withReference:(EDDataElement*)ref 
+//{
+//    if (toAlign == nil || ref == nil) {
+//        // exception?
+//        return nil;
+//    }
+//    
+//    // TODO: replace with method: align :: EDDataElement -> EDDataElement
+//    
+//    DeformationFieldType::Pointer trans = [self computeTransform:toAlign 
+//                                                   withReference:ref];
+//    
+//    std::vector<size_t> res;
+//    res.push_back(1);
+//    
+//    NSLog(@"### FINISHED COMPUTING TRANSFORM, ALIGNING NOW ###");
+//    
+//    EDDataElement* transformed = [self transform:toAlign 
+//                                   withReference:ref 
+//                                  transformation:trans 
+//                                      resolution:res 
+//                                  functionalData:fmri];
+//    
+//    return transformed;
+//}
 
 
 -(RORegistration*)combineTransform:(RORegistration*)other
@@ -103,10 +182,54 @@ const int NR_THREADS = 8; //4;
 
 bool verbose = true;
 
--(DeformationFieldType::Pointer)computeTransform:(EDDataElement*)toAlign 
-                                   withReference:(EDDataElement*)ref
+-(DeformationFieldType::Pointer)computeTransform:(ITKImage::Pointer)toAlign 
+                                   withReference:(ITKImage::Pointer)ref
+                                  transformTypes:(std::vector<int>)transform
+                                  optimizerTypes:(std::vector<int>)optimizer
+                                        prealign:(BOOL)prealign
+                                          smooth:(BOOL)smooth
 {
     self->registrationFactory->Reset();
+    
+    // Convert data elements to ITK images.
+    // ### TODO: redundant
+    ITKImage::Pointer fixedImage = ref;
+    ITKImage::Pointer movingImage = toAlign;
+    
+    // ### Lipsia Reinclude START
+    MatchingFilterType::Pointer matcher = MatchingFilterType::New();    
+    bool histogram_matching = true;
+    if( histogram_matching ) {
+		matcher->SetNumberOfThreads(NR_THREADS);
+		matcher->SetNumberOfHistogramLevels(100);
+		matcher->SetNumberOfMatchPoints(30);
+		matcher->ThresholdAtMeanIntensityOn();
+		matcher->SetReferenceImage(fixedImage);
+		matcher->SetInput(movingImage);
+		matcher->Update();
+		movingImage->DisconnectPipeline();
+		movingImage = matcher->GetOutput();
+	}
+    
+    //analyse transform vector
+	//transform is the master for determining the number of repetitions
+	int repetition = transform.size(); // = transformType.number
+	int bsplineCounter = 0;
+    
+	if ( repetition == 0 ) {
+		repetition = 1;
+    }
+
+    
+    
+    
+    // ### Lipsia Reinclude END
+    
+    
+
+    
+    
+    
     
     self->registrationFactory->SetTransform(RegistrationFactoryType::VersorRigid3DTransform);
     //    self->registrationFactory->SetTransform(RegistrationFactoryType::AffineTransform); 
@@ -143,11 +266,8 @@ bool verbose = true;
     self->registrationFactory->UserOptions.NumberOfThreads = 1;
     self->registrationFactory->UserOptions.MattesMutualInitializeSeed = 1;
     
-    // Convert data elements to ITK images.
-    ITKImage::Pointer refITKImg = [ref asITKImage];
-    ITKImage::Pointer toAlignITKImg = [toAlign asITKImage];
-    self->registrationFactory->SetFixedImage(refITKImg);
-    self->registrationFactory->SetMovingImage(toAlignITKImg);
+    self->registrationFactory->SetFixedImage(fixedImage);
+    self->registrationFactory->SetMovingImage(movingImage);
     
     // Causes unit tests/ITK to crash if the MattesMutualInformationMetric is used
     self->registrationFactory->StartRegistration();
@@ -156,21 +276,18 @@ bool verbose = true;
     return registrationFactory->GetTransformVectorField();
 }
 
--(EDDataElement*)transform:(EDDataElement*)toAlign 
-             withReference:(EDDataElement*)ref 
-//            transformation:(const itk::TransformBase*)trans 
-            transformation:(DeformationFieldType::Pointer)trans
-                resolution:(std::vector<size_t>)res
-            functionalData:(BOOL)fmri
+-(ITKImageContainer*)transform:(ITKImage::Pointer)toAlign
+                  orFunctional:(ITKImage4D::Pointer)toAlignFun
+                 withReference:(ITKImage::Pointer)ref 
+                transformation:(DeformationFieldType::Pointer)trans 
+                    resolution:(std::vector<size_t>)res; 
 {
     self->resampler->SetNumberOfThreads(NR_THREADS);
     self->warper->SetNumberOfThreads(NR_THREADS);
 
     ITKImage::Pointer inputImage = ITKImage::New();
-    ITKImage::Pointer templateImage = ITKImage::New();
+    ITKImage::Pointer templateImage = ref;
     ITKImage4D::Pointer fmriImage = ITKImage4D::New();
-
-    templateImage = [ref asITKImage];
     
     ITKImage::SizeType    outputSize;
     ITKImage::SpacingType outputSpacing;
@@ -191,7 +308,7 @@ bool verbose = true;
 			}
 		}
 	} else {
-		if (ref == nil) {
+		if (ref.IsNull()) {
 			outputSpacing = inputImage->GetSpacing();
 			outputSize = inputImage->GetLargestPossibleRegion().GetSize();
 		} else {
@@ -201,16 +318,16 @@ bool verbose = true;
 	}
 
     
-	if (fmri) {
-		fmriImage  = [toAlign asITKImage4D];
+	if (toAlignFun.IsNotNull()) {
+		fmriImage  = toAlignFun;
 	} else {
-		inputImage = [toAlign asITKImage];
+		inputImage = toAlign;
     }
     
     ITKImage::PointType outputOrigin;
 	ITKImage::DirectionType outputDirection;
     
-    if (ref == nil) {
+    if (ref.IsNull()) {
 		outputDirection = inputImage->GetDirection();
 		outputOrigin = inputImage->GetOrigin();
 	} else {
@@ -219,7 +336,7 @@ bool verbose = true;
 	}
     
     if (res.size()) {
-        if (ref != nil) {
+        if (ref.IsNotNull()) {
             for (size_t i = 0; i < 3; i++) {
                 //output spacing = (template size / output resolution) * template resolution
                 outputSize[i] = (templateImage->GetLargestPossibleRegion().GetSize()[i] / outputSpacing[i]) * templateImage->GetSpacing()[i];
@@ -227,7 +344,7 @@ bool verbose = true;
         } else {
             for (size_t i = 0; i < 3; i++ ) {
                 //output spacing = (moving size / output resolution) * moving resolution
-                if (fmri) {
+                if (toAlignFun.IsNotNull()) {
                     outputSize[i] = (fmriImage->GetLargestPossibleRegion().GetSize()[i] / outputSpacing[i]) * fmriImage->GetSpacing()[i];
                 } else {
                     outputSize[i] = (inputImage->GetLargestPossibleRegion().GetSize()[i] / outputSpacing[i]) * inputImage->GetSpacing()[i];
@@ -248,9 +365,9 @@ bool verbose = true;
     ITKImage::PointType fmriOutputOrigin;
     ITKImage::DirectionType fmriOutputDirection;
     
-    EDDataElement* resultImg = nil;
+    ITKImageContainer* result = NULL;
     
-	if (fmri) {
+	if (toAlignFun.IsNotNull()) {
         TimeStepExtractionFilterType::Pointer timeStepExtractionFilter = TimeStepExtractionFilterType::New();
 		timeStepExtractionFilter->SetInput(fmriImage);
         
@@ -264,7 +381,7 @@ bool verbose = true;
 				fmriOutputSpacing[i] = outputSpacing[i];
 				fmriOutputSize[i] = outputSize[i];
 			} else {
-				if (ref == nil) {
+				if (ref.IsNull()) {
 					fmriOutputSpacing[i] = fmriImage->GetSpacing()[i];
 					fmriOutputSize[i] = fmriImage->GetLargestPossibleRegion().GetSize()[i];
 				} else {
@@ -273,7 +390,7 @@ bool verbose = true;
 				}
 			}
             
-			if (ref == nil) {
+			if (ref.IsNull()) {
 				fmriOutputOrigin[i] = fmriImage->GetOrigin()[i];
                 
 				for ( unsigned int j = 0; j < 3; j++ ) {
@@ -302,7 +419,7 @@ bool verbose = true;
 		const unsigned int numberOfTimeSteps = fmriImage->GetLargestPossibleRegion().GetSize()[3];
 		ITKImage::Pointer tileImage;
 		std::cout << std::endl;
-		inputImage = [toAlign asITKImage];
+		inputImage = toAlign;
 		ITKImage4D::DirectionType direction4D;
         
 		for ( size_t i = 0; i < 3; i++ ) {
@@ -339,7 +456,8 @@ bool verbose = true;
 		tileImageFilter->GetOutput()->SetDirection(direction4D);
 		tileImageFilter->Update();
 		
-        resultImg = [toAlign convertFromITKImage4D:tileImageFilter->GetOutput()];
+//        resultImg = [toAlign convertFromITKImage4D:tileImageFilter->GetOutput()];
+        result = new ITKImageContainer(tileImageFilter->GetOutput());
 
 	} else {
         // No fmri
@@ -363,15 +481,16 @@ bool verbose = true;
 //            imageWriter->SetInput(output);
 //            imageWriter->Update();
 
-            NSLog(@"### START Converting ITK2Isis");
-			resultImg = [toAlign convertFromITKImage:output];
-            NSLog(@"### END Converting ITK2Isis");
+//            NSLog(@"### START Converting ITK2Isis");
+//			resultImg = [toAlign convertFromITKImage:output];
+            result = new ITKImageContainer(output);
+//            NSLog(@"### END Converting ITK2Isis");
 		}
     }
     
 //    isis::data::IOFactory::write( imgList, "/tmp/RORegIsisFix.nii", "", "" );
     
-    return resultImg;
+    return result;
 }
 
 @end
