@@ -35,8 +35,14 @@ typedef itk::HistogramMatchingImageFilter<ITKImage, ITKImage> MatchingFilterType
 typedef itk::ResampleImageFilter<ITKImage, ITKImage> ResampleImageFilterType;
 typedef itk::WarpImageFilter<ITKImage, ITKImage, DeformationFieldType> WarpImageFilterType;
 
+//      Interpolators
 typedef itk::LinearInterpolateImageFunction<ITKImage, double> LinearInterpolatorType;
+typedef itk::NearestNeighborInterpolateImageFunction<ITKImage, double> NearestNeighborInterpolatorType;
+typedef itk::BSplineInterpolateImageFunction<ITKImage, double> BSplineInterpolatorType;
+
 typedef itk::TileImageFilter<ITKImage, ITKImage4D> TileImageFilterType;
+
+typedef itk::TransformBase* TransformBasePointerType;
 
 
 
@@ -56,6 +62,9 @@ typedef itk::TileImageFilter<ITKImage, ITKImage4D> TileImageFilterType;
     WarpImageFilterType::Pointer warper;
     
     LinearInterpolatorType::Pointer linearInterpolator;
+    BSplineInterpolatorType::Pointer bsplineInterpolator;
+	NearestNeighborInterpolatorType::Pointer nearestNeighborInterpolator;
+
 }
 
 /*
