@@ -694,7 +694,6 @@ TFixedImageType, TMovingImageType >::GetTransformVectorField(
 	typename itk::Transform<double, FixedImageDimension, MovingImageDimension>::OutputPointType movingPoint;
 	typename DeformationFieldType::IndexType index;
 		
-    std::cout << "GetTransformVectorField while start" << std::endl;
 	VectorType displacement;
 	while ( !fi.IsAtEnd() ) {
 		index = fi.GetIndex();
@@ -704,7 +703,6 @@ TFixedImageType, TMovingImageType >::GetTransformVectorField(
 		fi.Set( displacement );
 		++fi;
 	}
-    std::cout << "GetTransformVectorField while end" << std::endl;
 
 	return m_DeformationField;
 }

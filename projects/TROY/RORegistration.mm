@@ -14,7 +14,7 @@
 #import "EDDataElementIsis.h"
 
 // ITK
-#import <itkImageFileWriter.h>
+//#import <itkImageFileWriter.h>
 
 // Isis
 #import "DataStorage/image.hpp"
@@ -26,7 +26,7 @@
 const int NR_THREADS = 16; //8; //4;
 
 const float SMOOTH_FWHM = 1.0f; // in valign3d: defined as 2.0 and overwritten as 1.0 by vnormdata cmdline args
-const float PIXEL_DENSITY_DEFAULT = 0.012f; // 1.0f;
+const float PIXEL_DENSITY_DEFAULT = 1.0f; // 0.012f; // 1.0f;
 const short GRID_SIZE_MINIMUM = 5;
 const short NITERATION_DEFAULT = 500; // 500
 const short N_BINS_DEFAULT = 50;
@@ -126,8 +126,6 @@ public:
                                                                 prealign:YES
                                                                   smooth:YES];
     
-//    std::cout << trans_ana2fun << std::endl;
-    
     std::vector<size_t> reso;
     reso.push_back(1);
     ITKImageContainer* transformResult = [self transform:anaITK
@@ -147,37 +145,28 @@ public:
 //        ana2fun = [ana2funBackconv asITKImage];
         // TODO END
         
-//        typedef itk::ImageFileWriter<ITKImage> ITKWriter;
-//        itk::ImageFileWriter<ITKImage>::Pointer imageWriter = ITKWriter::New();
-//        imageWriter->SetFileName("/tmp/RORegNormdataWorkflow_ana2fun.nii");
-//        imageWriter->SetInput(ana2fun);
-//        imageWriter->Update();
-        
         transformTypes.push_back(0);
         transformTypes.push_back(1);
         transformTypes.push_back(2);
         optimizerTypes.push_back(0);
         optimizerTypes.push_back(0);
         optimizerTypes.push_back(2);
-        std::cout << "!!! mni2fun2mni computeTransform START" << std::endl;
+
         DeformationFieldType::Pointer trans_ana2ref = [self computeTransform:ana2fun 
                                                                withReference:refITK 
                                                               transformTypes:transformTypes
                                                               optimizerTypes:optimizerTypes 
                                                                     prealign:YES
                                                                       smooth:YES];
-        std::cout << "!!! mni2fun2mni computeTransform END" << std::endl;
         
         reso.clear();
         reso.push_back(3);
 
-        std::cout << "!!! mni2fun2mni applying transform START" << std::endl;
         transformResult = [self transform:NULL
                              orFunctional:funITK4D
                             withReference:refITK 
                            transformation:trans_ana2ref 
                                resolution:reso];
-        std::cout << "!!! mni2fun2mni applying transform END" << std::endl;
         
         if (transformResult != NULL) {
             ITKImage4D::Pointer ana2fun2mni = transformResult->getImg4D();
@@ -316,23 +305,23 @@ bool verbose = false;
     
     //analyse transform vector
 	//transform is the master for determining the number of repetitions
-	int repetition = transforms.size(); // = transformType.number
-	int bsplineCounter = 0;
+	unsigned long repetition = transforms.size(); // = transformType.number
     
 	if (repetition == 0) {
 		repetition = 1;
     }
     
-    short transform;
-    short optimizer;
-    std::vector<int> metrics;
-    short metric;
-    std::vector<int> interpolators;
-    short interpolator;
-    std::vector<int> iterations;
-    short niteration;
-    std::vector<int> gridSizes;
-    short gridSize;
+    std::vector<int>   metrics;
+    std::vector<short> interpolators;
+    std::vector<int>   iterations;
+    std::vector<short> gridSizes;
+    
+    short transform    = 0;
+    short optimizer    = 0;
+    short metric       = 0;
+    short interpolator = 0;
+    short niteration   = NITERATION_DEFAULT;
+    short gridSize     = GRID_SIZE_MINIMUM + 1;
     
     // from isisreg3d.cxx:
 //    //if no pixel density is specified it will be calculated to achieve a amount of 30000 voxel considered for registration
@@ -343,61 +332,49 @@ bool verbose = false;
     ITKImage::SizeType imSize = fixedImage->GetLargestPossibleRegion().GetSize(); 
     
     float pixelDensity =  150000.0f  / ( static_cast<float>( imSize[0] * imSize[1] * imSize[2] )) ;
-    if( 1 < pixelDensity){ 
-        pixelDensity = 1;}
-        
-    //float pixelDensity = 0; // TODO: actually fetch pixel density from somewhere
     if (pixelDensity <= 0 or pixelDensity > 1) {
         pixelDensity = PIXEL_DENSITY_DEFAULT;
     }
 
-    
-    for ( int counter = 0; counter < repetition; counter++ ) {
+    unsigned long bsplineCounter = 0;
+    for (unsigned long counter = 0; counter < repetition; counter++ ) {
 		//transform is the master for determining the number of repetitions
 		if ( transforms.size() ) {
 			transform = (short) transforms[counter];
-		} else {
-			transform = 0;
 		}
         
-		if ((counter + 1) <= optimizers.size() and optimizers.size() > 0 ) {
+		if (counter < optimizers.size()) {
 			optimizer = (short) optimizers[counter];
-		} else if ((counter + 1) > optimizers.size() and optimizers.size() > 0 ) {
+		} else if (counter >= optimizers.size() and optimizers.size() > 0 ) {
 			optimizer = (short) optimizers[optimizers.size() - 1];
-		} else {
-			optimizer = 0;
 		}
         
-		if ((counter + 1) <= metrics.size() and metrics.size() > 0) {
+        metric = 0;
+        interpolator = 0;
+        niteration = NITERATION_DEFAULT;
+        
+		if (counter < metrics.size()) {
 			metric = (short) metrics[counter];
-		} else if ((counter + 1) > metrics.size() and metrics.size() > 0) {
+		} else if (counter >= metrics.size() and metrics.size() > 0) {
 			metric = (short) metrics[metrics.size() - 1];
-		} else {
-			metric = 0;
 		}
         
-		if ((counter + 1) <= interpolators.size() and interpolators.size() > 0) {
-			interpolator = (short) interpolators[counter];
-		} else if ((counter + 1) > interpolators.size() and interpolators.size() > 0) {
-			interpolator = (short) interpolators[interpolators.size() - 1];
-		} else {
-			interpolator = 0;
+		if (counter < interpolators.size()) {
+			interpolator = interpolators[counter];
+		} else if (counter >= interpolators.size() and interpolators.size() > 0) {
+			interpolator = interpolators[interpolators.size() - 1];
 		}
         
-		if ((counter + 1) <= iterations.size() and iterations.size() > 0) {
+		if (counter < iterations.size()) {
 			niteration = (short) iterations[counter];
-		} else if ((counter + 1) > iterations.size() and iterations.size() > 0) {
+		} else if (counter >= iterations.size() and iterations.size() > 0) {
 			niteration = (short) iterations[iterations.size() - 1];
-		} else {
-			niteration = NITERATION_DEFAULT;
 		}
         
-		if ((bsplineCounter + 1) <= gridSizes.size() and gridSizes.size() > 0) {
-			gridSize = (short) gridSizes[bsplineCounter];
-		} else if ((bsplineCounter + 1) > gridSizes.size() and gridSizes.size() > 0) {
-			gridSize = (short) gridSizes[gridSizes.size() - 1];
-		} else {
-			gridSize = GRID_SIZE_MINIMUM + 1;
+		if (bsplineCounter < gridSizes.size()) {
+			gridSize = gridSizes[bsplineCounter];
+		} else if (bsplineCounter >= gridSizes.size() and gridSizes.size() > 0) {
+			gridSize = gridSizes[gridSizes.size() - 1];
 		}
         
 		if (transform == 2) {
@@ -436,34 +413,19 @@ bool verbose = false;
 			NSLog(@" used optimizer: %d", optimizer);
 		}
         
-//        self->registrationFactory->SetTransform(RegistrationFactoryType::VersorRigid3DTransform);
-//        //    self->registrationFactory->SetTransform(RegistrationFactoryType::AffineTransform); 
-//        
-//        self->registrationFactory->SetMetric(RegistrationFactoryType::MeanSquareMetric);
-//        //    self->registrationFactory->SetMetric(RegistrationFactoryType::NormalizedCorrelationMetric); // very runtime inefficient
-//        //    self->registrationFactory->SetMetric(RegistrationFactoryType::MutualInformationHistogramMetric); // even more runtime inefficient
-//        self->registrationFactory->SetInterpolator(RegistrationFactoryType::LinearInterpolator);
-//        self->registrationFactory->SetOptimizer(RegistrationFactoryType::RegularStepGradientDescentOptimizer);   
-        
         //transform setup
         switch (transform) {
-            case 0:
-                self->registrationFactory->SetTransform( RegistrationFactoryType::VersorRigid3DTransform );
+            case 0: self->registrationFactory->SetTransform( RegistrationFactoryType::VersorRigid3DTransform );
                 break;
-            case 1:
-                self->registrationFactory->SetTransform( RegistrationFactoryType::AffineTransform );
+            case 1: self->registrationFactory->SetTransform( RegistrationFactoryType::AffineTransform );
                 break;
-            case 2:
-                self->registrationFactory->SetTransform( RegistrationFactoryType::BSplineDeformableTransform );
+            case 2: self->registrationFactory->SetTransform( RegistrationFactoryType::BSplineDeformableTransform );
                 break;
-            case 3:
-                self->registrationFactory->SetTransform( RegistrationFactoryType::TranslationTransform );
+            case 3: self->registrationFactory->SetTransform( RegistrationFactoryType::TranslationTransform );
                 break;
-//            case 4:
-//                registrationFactory->SetTransform( RegistrationFactoryType::ScaleTransform );
+//            case 4: self-YregistrationFactory->SetTransform( RegistrationFactoryType::ScaleTransform );
 //                break;
-//            case 5:
-//                registrationFactory->SetTransform( RegistrationFactoryType::CenteredAffineTransform );
+//            case 5: self->registrationFactory->SetTransform( RegistrationFactoryType::CenteredAffineTransform );
 //                break;
             default:
                 NSLog(@"Error: Unknown transform!");
@@ -472,17 +434,13 @@ bool verbose = false;
         
         //metric setup
 		switch (metric) {
-            case 0:
-                self->registrationFactory->SetMetric( RegistrationFactoryType::MattesMutualInformationMetric );
+            case 0: self->registrationFactory->SetMetric( RegistrationFactoryType::MattesMutualInformationMetric );
                 break;
-            case 1:
-                self->registrationFactory->SetMetric( RegistrationFactoryType::MutualInformationHistogramMetric );
+            case 1: self->registrationFactory->SetMetric( RegistrationFactoryType::MutualInformationHistogramMetric );
                 break;
-            case 2:
-                self->registrationFactory->SetMetric( RegistrationFactoryType::NormalizedCorrelationMetric );
+            case 2: self->registrationFactory->SetMetric( RegistrationFactoryType::NormalizedCorrelationMetric );
                 break;
-            case 3:
-                self->registrationFactory->SetMetric( RegistrationFactoryType::MeanSquareMetric );
+            case 3: self->registrationFactory->SetMetric( RegistrationFactoryType::MeanSquareMetric );
                 break;
             default:
                 NSLog(@"Error: Unknown metric!");
@@ -491,14 +449,11 @@ bool verbose = false;
         
 		//interpolator setup
 		switch (interpolator) {
-            case 0:
-                self->registrationFactory->SetInterpolator( RegistrationFactoryType::LinearInterpolator );
+            case 0: self->registrationFactory->SetInterpolator( RegistrationFactoryType::LinearInterpolator );
                 break;
-            case 1:
-                self->registrationFactory->SetInterpolator( RegistrationFactoryType::BSplineInterpolator );
+            case 1: self->registrationFactory->SetInterpolator( RegistrationFactoryType::BSplineInterpolator );
                 break;
-            case 2:
-                self->registrationFactory->SetInterpolator( RegistrationFactoryType::NearestNeighborInterpolator );
+            case 2: self->registrationFactory->SetInterpolator( RegistrationFactoryType::NearestNeighborInterpolator );
                 break;
             default:
                 NSLog(@"Error: Unknown interpolator!");
@@ -507,45 +462,30 @@ bool verbose = false;
         
 		//optimizer setup
 		switch (optimizer) {
-            case 0:
-                self->registrationFactory->SetOptimizer( RegistrationFactoryType::RegularStepGradientDescentOptimizer );
+            case 0: self->registrationFactory->SetOptimizer( RegistrationFactoryType::RegularStepGradientDescentOptimizer );
                 break;
-            case 1:
-                self->registrationFactory->SetOptimizer( RegistrationFactoryType::VersorRigidOptimizer );
+            case 1: self->registrationFactory->SetOptimizer( RegistrationFactoryType::VersorRigidOptimizer );
                 break;
-            case 2:
-                self->registrationFactory->SetOptimizer( RegistrationFactoryType::LBFGSBOptimizer );
+            case 2: self->registrationFactory->SetOptimizer( RegistrationFactoryType::LBFGSBOptimizer );
                 break;
-            case 3:
-                self->registrationFactory->SetOptimizer( RegistrationFactoryType::AmoebaOptimizer );
+            case 3: self->registrationFactory->SetOptimizer( RegistrationFactoryType::AmoebaOptimizer );
                 break;
-            case 4:
-                self->registrationFactory->SetOptimizer( RegistrationFactoryType::PowellOptimizer );
+            case 4: self->registrationFactory->SetOptimizer( RegistrationFactoryType::PowellOptimizer );
                 break;
             default:
                 NSLog(@"Unknown optimizer!");
                 return NULL;
 		}
 
-//        if ( transform_filename_in and counter == 0 ) {
-//			initialize_mass = false;
-//			initialize_center = false;
-//			transformReader->SetFileName( transform_filename_in );
-//			transformReader->Update();
-//			itk::TransformFileReader::TransformListType *transformList = transformReader->GetTransformList();
-//			itk::TransformFileReader::TransformListType::const_iterator ti;
-//			ti = transformList->begin();
-//			registrationFactory->SetInitialTransform( ( *ti ).GetPointer() );
-//		}
 		if (prealign) {
-			self->registrationFactory->UserOptions.PREALIGN = true;
+			self->registrationFactory->UserOptions.PREALIGN          = true;
 			self->registrationFactory->UserOptions.PREALIGNPRECISION = 7;
 		}
         
 		if (counter != 0) {
-			self->registrationFactory->UserOptions.PREALIGN = false;
+			self->registrationFactory->UserOptions.PREALIGN            = false;
 			self->registrationFactory->UserOptions.INITIALIZECENTEROFF = true;
-			self->registrationFactory->UserOptions.INITIALIZEMASSOFF = true;
+			self->registrationFactory->UserOptions.INITIALIZEMASSOFF   = true;
 			self->registrationFactory->SetInitialTransform( const_cast<TransformBasePointerType>(self->tmpConstTransformPointer) );
 		}
 
@@ -609,29 +549,20 @@ bool verbose = false;
         self->registrationFactory->UserOptions.NumberOfThreads = NR_THREADS;
         self->registrationFactory->UserOptions.MattesMutualInitializeSeed = MATTES_MUTUAL_SEED;
 
-//        if ( !initialize_center ) registrationFactory->UserOptions.INITIALIZECENTEROFF = true;
-//		if ( !initialize_mass ) registrationFactory->UserOptions.INITIALIZEMASSOFF = true;
         self->registrationFactory->UserOptions.INITIALIZECENTEROFF = true;
         self->registrationFactory->UserOptions.INITIALIZEMASSOFF = true;
         
         self->registrationFactory->SetFixedImage(fixedImage);
         self->registrationFactory->SetMovingImage(movingImage);
 
-        std::cout << std::endl;
-		std::cout << "starting the registration... (step " << counter + 1 << " of " << repetition << ")" << std::endl;
 		self->registrationFactory->StartRegistration();
-        std::cout << "...finished the registration (step " << counter + 1 << " of " << repetition << ")" << std::endl;
-        
-		std::cout << std::endl;
         
 //        if (!use_inverse) {
         self->tmpConstTransformPointer = self->registrationFactory->GetTransform();
 //        }
-        std::cout << "set tmpConstTransformPointer successful" << std::endl;
     }
     
-//    return registrationFactory->GetTransform();
-    
+//    return registrationFactory->GetTransform();    
     
     return registrationFactory->GetTransformVectorField();
 }
@@ -662,27 +593,24 @@ bool verbose = false;
 //    }
     
     // From dotrans3d
-    // init taken from constructor
-    ResampleImageFilterType::Pointer resampler;
-    WarpImageFilterType::Pointer warper;
-    resampler = ResampleImageFilterType::New();
-    warper = WarpImageFilterType::New();
+    ResampleImageFilterType::Pointer resampler = ResampleImageFilterType::New();
+    WarpImageFilterType::Pointer     warper    = WarpImageFilterType::New();
     
     self->linearInterpolator = LinearInterpolatorType::New();
     self->bsplineInterpolator = BSplineInterpolatorType::New();
     self->nearestNeighborInterpolator = NearestNeighborInterpolatorType::New();
-    // was in constructor originally
         
     resampler->SetNumberOfThreads(NR_THREADS);
     warper->SetNumberOfThreads(NR_THREADS);
 
-    ITKImage::Pointer inputImage = ITKImage::New();
-    ITKImage::Pointer templateImage = ref;
-    ITKImage4D::Pointer fmriImage = ITKImage4D::New();
+    ITKImage::Pointer   inputImage    = ITKImage::New();
+    ITKImage::Pointer   templateImage = ref;
+    ITKImage4D::Pointer fmriImage     = ITKImage4D::New();
     
     ITKImage::SizeType    outputSize;
     ITKImage::SpacingType outputSpacing;
-    ITKImage::SizeType fmriOutputSize;
+    
+    ITKImage::SizeType    fmriOutputSize;
 	ITKImage::SpacingType fmriOutputSpacing;
     
     //setting up the output resolution
@@ -701,10 +629,10 @@ bool verbose = false;
 	} else {
 		if (ref.IsNull()) {
 			outputSpacing = inputImage->GetSpacing();
-			outputSize = inputImage->GetLargestPossibleRegion().GetSize();
+			outputSize    = inputImage->GetLargestPossibleRegion().GetSize();
 		} else {
             outputSpacing = templateImage->GetSpacing();
-			outputSize = templateImage->GetLargestPossibleRegion().GetSize();
+			outputSize    = templateImage->GetLargestPossibleRegion().GetSize();
         }
 	}
     
@@ -715,90 +643,32 @@ bool verbose = false;
 		inputImage = toAlign;
     }
     
-    ITKImage::PointType outputOrigin;
+    ITKImage::PointType     outputOrigin;
 	ITKImage::DirectionType outputDirection;
     
     if (ref.IsNull()) {
 		outputDirection = inputImage->GetDirection();
-		outputOrigin = inputImage->GetOrigin();
+		outputOrigin    = inputImage->GetOrigin();
 	} else {
 		outputDirection = templateImage->GetDirection();
-		outputOrigin = templateImage->GetOrigin();
+		outputOrigin    = templateImage->GetOrigin();
 	}
-    
-//    if ( trans_filename.number ) {
-//		unsigned int number_trans = trans_filename.number;
-//        
-//		if ( number_trans > 1 ) {
-//			std::cout << "More than one transform is set. This is not possible, yet!" << std::endl;
-//			return EXIT_FAILURE;
-//		}
-//        
-//		if ( number_trans == 1 ) {
-//			transformFileReader->SetFileName( ( ( VStringConst * ) trans_filename.vector )[0] );
-//			transformFileReader->Update();
-//			itk::TransformFileReader::TransformListType *transformList = transformFileReader->GetTransformList();
-//			itk::TransformFileReader::TransformListType::const_iterator ti;
-//			ti = transformList->begin();
-//            
-//			//setting up the resample object
-//			if(identity) {
-//				itk::IdentityTransform<double, 3>::Pointer identityTransform = itk::IdentityTransform<double,3>::New();
-//				resampler->SetTransform( identityTransform );	
-//			}
-//			else if ( use_inverse ) {
-//				transform->SetParameters( static_cast<TransformPointer>( ( *ti ).GetPointer() )->GetInverseTransform()->GetParameters() );
-//				transform->SetFixedParameters( static_cast<TransformPointer>( ( *ti ).GetPointer() )->GetInverseTransform()->GetFixedParameters() );
-//				resampler->SetTransform( transform );
-//			}
-//            
-//			else if ( !use_inverse ) {
-//				resampler->SetTransform( static_cast<ConstTransformPointer> ( ( *ti ).GetPointer() ) );
-//			}
-//		}
-//	}
-   
-//	if ( vtrans_filename.number ) {
-//		if ( vtrans_filename.number > 1 ) {
-//		    transformMerger->setNumberOfThreads(number_threads);
-//			for ( size_t i = 0; i < vtrans_filename.number; i++ ) {
-//				deformationFieldReader->SetFileName( ((VStringConst*) vtrans_filename.vector)[i] );
-//				deformationFieldReader->UpdateLargestPossibleRegion();
-//				defFieldTmp = deformationFieldReader->GetOutput();
-//				transformMerger->push_back( defFieldTmp );
-//				defFieldTmp->DisconnectPipeline();
-//			}
-//			transformMerger->merge();
-//			defField->DisconnectPipeline();
-//			defField = transformMerger->getTransform();
-//		} else {
-//			deformationFieldReader->SetFileName( ((VStringConst*) vtrans_filename.vector)[0] );
-//			deformationFieldReader->Update();
-//			defField = deformationFieldReader->GetOutput();
-//	    }
-//	}
     
     if (res.size() > 0) {
         if (ref.IsNotNull()) {
-            for (size_t i = 0; i < 3; i++) {
+            for (long i = 0; i < 3; i++) {
                 //output spacing = (template size / output resolution) * template resolution
                 outputSize[i] = (templateImage->GetLargestPossibleRegion().GetSize()[i] / outputSpacing[i]) * templateImage->GetSpacing()[i];
             }
-            std::cout << "outputSize (ref.size>0, ref!=NULL):    " << outputSize << std::endl;
-            std::cout << "outputSpacing (ref.size>0, ref!=NULL): " << outputSpacing << std::endl;
         } 
         else {
             for (size_t i = 0; i < 3; i++ ) {
                 //output spacing = (moving size / output resolution) * moving resolution
                 if (toAlignFun.IsNotNull()) {
                     outputSize[i] = (fmriImage->GetLargestPossibleRegion().GetSize()[i] / outputSpacing[i]) * fmriImage->GetSpacing()[i];
-                }
-                else 
-                {
+                } else {
                     outputSize[i] = (inputImage->GetLargestPossibleRegion().GetSize()[i] / outputSpacing[i]) * inputImage->GetSpacing()[i];
                 }
-                std::cout << "outputSize (ref.size==0, ref==NULL, fmri):    " << outputSize << std::endl;
-                std::cout << "outputSpacing (ref.size==0, ref==NULL, fmri): " << outputSpacing << std::endl;
             }
         }
 	}
@@ -808,19 +678,19 @@ bool verbose = false;
     switch (interpolator_type) {
         case 0:
             resampler->SetInterpolator( linearInterpolator );
-            warper->SetInterpolator( linearInterpolator );
+            warper->SetInterpolator(    linearInterpolator );
             break;
         case 1:
             resampler->SetInterpolator( bsplineInterpolator );
-            warper->SetInterpolator( bsplineInterpolator );
+            warper->SetInterpolator(    bsplineInterpolator );
             break;
         case 2:
             resampler->SetInterpolator( nearestNeighborInterpolator );
-            warper->SetInterpolator( nearestNeighborInterpolator );
+            warper->SetInterpolator(    nearestNeighborInterpolator );
             break;
 	}
     
-    ITKImage::PointType fmriOutputOrigin;
+    ITKImage::PointType     fmriOutputOrigin;
     ITKImage::DirectionType fmriOutputDirection;
     
     ITKImageContainer* result = NULL;
@@ -830,21 +700,21 @@ bool verbose = false;
 		timeStepExtractionFilter->SetInput(fmriImage);
         
 		if (ref.IsNotNull()) {
-			fmriOutputOrigin = templateImage->GetOrigin();
+			fmriOutputOrigin    = templateImage->GetOrigin();
 			fmriOutputDirection = templateImage->GetDirection();
 		}
         
 		for ( unsigned int i = 0; i < 3; i++ ) {
 			if (res.size() > 0) {
 				fmriOutputSpacing[i] = outputSpacing[i];
-				fmriOutputSize[i] = outputSize[i];
+				fmriOutputSize[i]    = outputSize[i];
 			} else {
 				if (ref.IsNull()) {
 					fmriOutputSpacing[i] = fmriImage->GetSpacing()[i];
-					fmriOutputSize[i] = fmriImage->GetLargestPossibleRegion().GetSize()[i];
+					fmriOutputSize[i]    = fmriImage->GetLargestPossibleRegion().GetSize()[i];
 				} else {
 					fmriOutputSpacing[i] = templateImage->GetSpacing()[i];
-					fmriOutputSize[i] = templateImage->GetLargestPossibleRegion().GetSize()[i];
+					fmriOutputSize[i]    = templateImage->GetLargestPossibleRegion().GetSize()[i];
 				}
 			}
             
@@ -874,7 +744,7 @@ bool verbose = false;
 		layout[1] = 1;
 		layout[2] = 1;
 		layout[3] = 0;
-		const unsigned int numberOfTimeSteps = fmriImage->GetLargestPossibleRegion().GetSize()[3];
+		const unsigned long numberOfTimeSteps = fmriImage->GetLargestPossibleRegion().GetSize()[3];
         
 		ITKImage::Pointer tileImage;
 		std::cout << std::endl;
@@ -896,9 +766,9 @@ bool verbose = false;
         assert(direction4D[3][2] == 0);
         
         // Convert 4D Origin/Direction to 3D (no direct assignment possible due to ITK's templated design)
-        ITKImage::PointType inputImageOrigin;
-        ITKImage::DirectionType inputImageDirection;
-        ITKImage4D::PointType toAlignFunOrigin = toAlignFun->GetOrigin();
+        ITKImage::PointType       inputImageOrigin;
+        ITKImage::DirectionType   inputImageDirection;
+        ITKImage4D::PointType     toAlignFunOrigin    = toAlignFun->GetOrigin();
         ITKImage4D::DirectionType toAlignFunDirection = toAlignFun->GetDirection();
 
         for (unsigned int i = 0; i < ITKImage::GetImageDimension(); i++) {
@@ -912,10 +782,10 @@ bool verbose = false;
         ITKImage::Pointer tmpImage = ITKImage::New();
         TileImageFilterType::Pointer tileImageFilter = TileImageFilterType::New();
         
-        std::cout << "inputImageOrigin" << std::endl;
-        std::cout << inputImageOrigin << std::endl;
-        std::cout << "inputImageDirection:" << std::endl;
-        std::cout << inputImageDirection << std::endl;
+//        std::cout << "inputImageOrigin" << std::endl;
+//        std::cout << inputImageOrigin << std::endl;
+//        std::cout << "inputImageDirection:" << std::endl;
+//        std::cout << inputImageDirection << std::endl;
         
 		for (unsigned int timestep = 0; timestep < numberOfTimeSteps; timestep++) {
 			std::cout << "Resampling timestep: " << timestep << "...\r" << std::flush;
@@ -928,7 +798,6 @@ bool verbose = false;
 			if (trans.IsNotNull()) {
 				warper->SetInput(tmpImage);
 				warper->Update();                      // Original lipsia function call
-//                warper->UpdateLargestPossibleRegion(); // Modified function call to avoid SIGABRT
 				tileImage = warper->GetOutput();
 			}
             
@@ -959,21 +828,11 @@ bool verbose = false;
 			warper->Update();
             
             ITKImage::Pointer output = warper->GetOutput();
-            
-//            typedef itk::ImageFileWriter<ITKImage> ITKWriter;
-//            ITKWriter::Pointer imageWriter = ITKWriter::New();
-//            imageWriter->SetFileName("/tmp/RORegistrationTestImage.nii");
-//            imageWriter->SetInput(output);
-//            imageWriter->Update();
 
-//            NSLog(@"### START Converting ITK2Isis");
 //			resultImg = [toAlign convertFromITKImage:output];
             result = new ITKImageContainer(output);
-//            NSLog(@"### END Converting ITK2Isis");
 		}
     }
-    
-//    isis::data::IOFactory::write( imgList, "/tmp/RORegIsisFix.nii", "", "" );
     
     return result;
 }

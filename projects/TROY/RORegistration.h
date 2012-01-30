@@ -58,10 +58,6 @@ typedef itk::TransformBase* TransformBasePointerType;
     /** Holds the transformation information gathered during init. */
     const itk::TransformBase* tmpConstTransformPointer;
     
-    /** Applies the transformation to an ISIS image. */
-//    ResampleImageFilterType::Pointer resampler;
-//    WarpImageFilterType::Pointer warper;
-    
     LinearInterpolatorType::Pointer linearInterpolator;
     BSplineInterpolatorType::Pointer bsplineInterpolator;
 	NearestNeighborInterpolatorType::Pointer nearestNeighborInterpolator;
@@ -80,18 +76,11 @@ typedef itk::TransformBase* TransformBasePointerType;
 
 /**
  * Emulate vnormdata behaviour.
+ * Memory management notice: the created DataElement is autoreleased!
  */
 -(EDDataElement*)normdata:(EDDataElement*)fun
                   anatomy:(EDDataElement*)ana
       anatomicalReference:(EDDataElement*)ref;
-
-/**
- * Memory management notice: the created DataElement is autoreleased!
- */
-//-(EDDataElement*)align:(EDDataElement*)toAlign 
-//       beingFunctional:(BOOL)fmri
-//         withReference:(EDDataElement*)ref;
-
 
 //-(EDDataElement*)align:(EDDataElement*)toAlign;
 
