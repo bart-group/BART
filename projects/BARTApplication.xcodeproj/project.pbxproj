@@ -309,6 +309,9 @@
 		A7A4641613F40B1300426C70 /* ROTransformation.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7A4641413F40B1300426C70 /* ROTransformation.mm */; };
 		A7A476EE13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */; };
 		A7A476EF13F40EBE00426C70 /* isisRegistrationFactory3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A7A476ED13F40EBE00426C70 /* isisRegistrationFactory3D.hpp */; };
+		A7B9C45914C99D3C00DF35F1 /* libITKIOReview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D822611489226800CFFE0F /* libITKIOReview.a */; };
+		A7B9C45A14C99D4F00DF35F1 /* libITKIOReview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D822611489226800CFFE0F /* libITKIOReview.a */; };
+		A7B9C45B14C99D7400DF35F1 /* libITKIOReview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D822611489226800CFFE0F /* libITKIOReview.a */; };
 		A7BA11D1146D6C6700DEEDF7 /* libITKAlgorithms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B4146448EA009A3335 /* libITKAlgorithms.a */; };
 		A7BA11D2146D6C6700DEEDF7 /* libITKBasicFilters.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B5146448EA009A3335 /* libITKBasicFilters.a */; };
 		A7BA11D3146D6C6700DEEDF7 /* libITKCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B6146448EA009A3335 /* libITKCommon.a */; };
@@ -344,7 +347,6 @@
 		A7D1B6CE14644A93009A3335 /* libITKAlgorithms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B4146448EA009A3335 /* libITKAlgorithms.a */; };
 		A7D1B6CF14644A93009A3335 /* libITKBasicFilters.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B5146448EA009A3335 /* libITKBasicFilters.a */; };
 		A7D1B6D014644A93009A3335 /* libITKCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B6146448EA009A3335 /* libITKCommon.a */; };
-		A7D1B6D114644A93009A3335 /* libITKIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B7146448EA009A3335 /* libITKIO.a */; };
 		A7D1B6D214644A93009A3335 /* libITKNumerics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B8146448EA009A3335 /* libITKNumerics.a */; };
 		A7D1B6D314644A93009A3335 /* libITKSpatialObject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B9146448EA009A3335 /* libITKSpatialObject.a */; };
 		A7D1B6D414644A93009A3335 /* libITKStatistics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BA146448EA009A3335 /* libITKStatistics.a */; };
@@ -356,7 +358,6 @@
 		A7D1B6DA14644B70009A3335 /* libITKAlgorithms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B4146448EA009A3335 /* libITKAlgorithms.a */; };
 		A7D1B6DB14644B70009A3335 /* libITKBasicFilters.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B5146448EA009A3335 /* libITKBasicFilters.a */; };
 		A7D1B6DC14644B70009A3335 /* libITKCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B6146448EA009A3335 /* libITKCommon.a */; };
-		A7D1B6DD14644B70009A3335 /* libITKIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B7146448EA009A3335 /* libITKIO.a */; };
 		A7D1B6DE14644B70009A3335 /* libITKNumerics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B8146448EA009A3335 /* libITKNumerics.a */; };
 		A7D1B6DF14644B70009A3335 /* libITKSpatialObject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B9146448EA009A3335 /* libITKSpatialObject.a */; };
 		A7D1B6E014644B70009A3335 /* libITKStatistics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6BA146448EA009A3335 /* libITKStatistics.a */; };
@@ -395,7 +396,6 @@
 		A7D1B71214644C7C009A3335 /* libitkv3p_lsqr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70114644C7C009A3335 /* libitkv3p_lsqr.a */; };
 		A7D1B71314644C7C009A3335 /* libitkv3p_netlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70214644C7C009A3335 /* libitkv3p_netlib.a */; };
 		A7D1B71414644C7C009A3335 /* libITKznz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70314644C7C009A3335 /* libITKznz.a */; };
-		A7D822621489226800CFFE0F /* libITKIOReview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D822611489226800CFFE0F /* libITKIOReview.a */; };
 		CE8A28C510F51058002422B5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED1922910AC8AD600FAFA4F /* QuartzCore.framework */; };
 		CE8A28D410F5121D002422B5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191F510AC8A7B00FAFA4F /* OpenGL.framework */; };
 		CE8A28D510F5121E002422B5 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */; };
@@ -965,7 +965,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7D822621489226800CFFE0F /* libITKIOReview.a in Frameworks */,
+				A7B9C45914C99D3C00DF35F1 /* libITKIOReview.a in Frameworks */,
 				A7BA11ED147FDB6E00DEEDF7 /* libisis_core.dylib in Frameworks */,
 				A7D1B6C1146448EB009A3335 /* libITKAlgorithms.a in Frameworks */,
 				A7D1B6C2146448EB009A3335 /* libITKBasicFilters.a in Frameworks */,
@@ -993,10 +993,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7B9C45B14C99D7400DF35F1 /* libITKIOReview.a in Frameworks */,
 				A7D1B6CE14644A93009A3335 /* libITKAlgorithms.a in Frameworks */,
 				A7D1B6CF14644A93009A3335 /* libITKBasicFilters.a in Frameworks */,
 				A7D1B6D014644A93009A3335 /* libITKCommon.a in Frameworks */,
-				A7D1B6D114644A93009A3335 /* libITKIO.a in Frameworks */,
 				A7D1B6D214644A93009A3335 /* libITKNumerics.a in Frameworks */,
 				A7D1B6D314644A93009A3335 /* libITKSpatialObject.a in Frameworks */,
 				A7D1B6D414644A93009A3335 /* libITKStatistics.a in Frameworks */,
@@ -1074,12 +1074,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7B9C45A14C99D4F00DF35F1 /* libITKIOReview.a in Frameworks */,
 				A7BA11EE147FDB8100DEEDF7 /* libisis_core.dylib in Frameworks */,
 				A7D1B6E514644B8B009A3335 /* libitksys.a in Frameworks */,
 				A7D1B6DA14644B70009A3335 /* libITKAlgorithms.a in Frameworks */,
 				A7D1B6DB14644B70009A3335 /* libITKBasicFilters.a in Frameworks */,
 				A7D1B6DC14644B70009A3335 /* libITKCommon.a in Frameworks */,
-				A7D1B6DD14644B70009A3335 /* libITKIO.a in Frameworks */,
 				A7D1B6DE14644B70009A3335 /* libITKNumerics.a in Frameworks */,
 				A7D1B6DF14644B70009A3335 /* libITKSpatialObject.a in Frameworks */,
 				A7D1B6E014644B70009A3335 /* libITKStatistics.a in Frameworks */,
@@ -3354,7 +3354,10 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INSTALL_PATH = /usr/local/bin;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/lib/InsightToolkit,
+				);
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = isis_test;
@@ -3372,18 +3375,16 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INSTALL_PATH = /usr/local/bin;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/lib/InsightToolkit,
 				);
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = isis_test;
 				SDKROOT = macosx10.6;
@@ -3679,6 +3680,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"_ENABLE_DEBUG=0",
 					"_ENABLE_LOG=1",
@@ -3686,7 +3688,7 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INSTALL_PATH = /usr/local/lib;
-				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
+				LD_DYLIB_INSTALL_NAME = "$(EXECUTABLE_PATH)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib/InsightToolkit,
@@ -3806,11 +3808,9 @@
 				INFOPLIST_FILE = "BARTApplication-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
-					/tmp/isis/lib,
 					/usr/local/lib,
 					/opt/local/lib,
 					/usr/lib,
-					"\"$(SRCROOT)/../../lipsia/build/src/old/lib_lipsia\"",
 					/usr/local/lib/InsightToolkit,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
@@ -3839,7 +3839,7 @@
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
 					/usr/include,
-					/usr/local/include/isis,
+					/tmp/isis/include/isis,
 					/opt/local/include/boost,
 					/usr/local/include,
 					/opt/local/lib/InsightToolkit,
@@ -3850,11 +3850,9 @@
 				INFOPLIST_FILE = "BARTApplication-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
-					/tmp/isis/lib,
 					/usr/local/lib,
 					/opt/local/lib,
 					/usr/lib,
-					"\"$(SRCROOT)/../../lipsia/build/src/old/lib_lipsia\"",
 					/usr/local/lib/InsightToolkit,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
@@ -3924,6 +3922,7 @@
 					/usr/lib,
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-fvisibility=default",
@@ -3948,6 +3947,7 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_MODEL_TUNING = "";
+				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"_ENABLE_DEBUG=0",
 					"_ENABLE_LOG=0",
@@ -3987,8 +3987,14 @@
 					/usr/lib,
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fvisibility=default",
+				);
 				PREBINDING = NO;
 				SDKROOT = "";
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 				VALID_ARCHS = x86_64;
 			};
 			name = Release;

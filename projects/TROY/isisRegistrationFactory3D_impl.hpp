@@ -386,7 +386,7 @@ template<class TFixedImageType, class TMovingImageType>
 void RegistrationFactory3D <
 TFixedImageType, TMovingImageType >::prealign()
 {
-	//m_MattesMutualInformationMetric->SetNumberOfThreads( UserOptions.NumberOfThreads );	
+	m_MattesMutualInformationMetric->SetNumberOfThreads( UserOptions.NumberOfThreads );	
 	m_VersorRigid3DTransform = VersorRigid3DTransformType::New();
 	m_RigidInitializer = RigidCenteredTransformInitializerType::New();
 	m_RigidInitializer->SetTransform( m_VersorRigid3DTransform );
@@ -402,8 +402,8 @@ TFixedImageType, TMovingImageType >::prealign()
 	m_MattesMutualInformationMetric->SetFixedImage( m_FixedImage );
 	m_MattesMutualInformationMetric->SetFixedImageRegion( m_FixedImageRegion );
 	m_MattesMutualInformationMetric->SetTransform( m_VersorRigid3DTransform );
-	m_MattesMutualInformationMetric->SetNumberOfSpatialSamples( m_FixedImageRegion.GetNumberOfPixels()
-				* UserOptions.PixelDensity / 2 );
+	m_MattesMutualInformationMetric->SetNumberOfSpatialSamples( static_cast<uint32_t>(m_FixedImageRegion.GetNumberOfPixels()
+				* UserOptions.PixelDensity / 2) );
 	m_MattesMutualInformationMetric->SetNumberOfHistogramBins( UserOptions.NumberOfBins / 2);
 	m_MattesMutualInformationMetric->SetInterpolator( m_LinearInterpolator );
 	typename VersorRigid3DTransformType::ParametersType params = m_VersorRigid3DTransform->GetParameters();
@@ -413,29 +413,44 @@ TFixedImageType, TMovingImageType >::prealign()
 	typename MovingImageType::SizeType movingImageSize = m_MovingImageRegion.GetSize();
 	typename MovingImageType::SpacingType movingImageSpacing = m_MovingImage->GetSpacing();
 	short prec = 5;
-	float ratio = 0.3;
-	float minMaxX = ratio * movingImageSize[0] * movingImageSpacing[0];
-	float minMaxY = ratio * movingImageSize[1] * movingImageSpacing[1];
-	float minMaxZ = ratio * movingImageSize[2] * movingImageSpacing[2];
+//	float ratio = 0.3;
+//	float minMaxX = ratio * movingImageSize[0] * movingImageSpacing[0];
+//	float minMaxY = ratio * movingImageSize[1] * movingImageSpacing[1];
+//	float minMaxZ = ratio * movingImageSize[2] * movingImageSpacing[2];
+    //TODO: insert this, throw out previous
+    double ratio = 0.3;
+    float minMaxX = static_cast<float>(ratio * movingImageSize[0] * movingImageSpacing[0]);
+	float minMaxY = static_cast<float>(ratio * movingImageSize[1] * movingImageSpacing[1]);
+	float minMaxZ = static_cast<float>(ratio * movingImageSize[2] * movingImageSpacing[2]);
+    
 	float stepSizeX = minMaxX / (float)prec;
 	float stepSizeY = minMaxY / (float)prec;
 	float stepSizeZ = minMaxZ / (float)prec;
+    
+    std::cout << "prealign in X " << minMaxX << "with step size: " << stepSizeX << std::endl;
+    std::cout << "prealign in Y " << minMaxY << "with step size: " << stepSizeY << std::endl;
+    std::cout << "prealign in Z " << minMaxZ << "with step size: " << stepSizeZ << std::endl;
 	double value = 0;
 	double metricValue = 0;
+    double param_3 = params[3];
+    double param_4 = params[4];
+    double param_5 = params[5];
 	for (float x = -minMaxX;x<=minMaxX;x+=stepSizeX) {
 		for (float y = -minMaxY;y<=minMaxY;y+=stepSizeY) {
 			for (float z = -minMaxZ;z<=minMaxZ;z+=stepSizeZ) {
-				searchParams[3] = params[3] +  x;
-				searchParams[4] = params[4] +  y;
-				searchParams[5] = params[5] +  z;
+				searchParams[3] = param_3 +  x;
+				searchParams[4] = param_4 +  y;
+				searchParams[5] = param_5 +  z;
 				metricValue = static_cast<double>( m_MattesMutualInformationMetric->GetValue(  searchParams ) );
 				if ( value >  metricValue ) {
 					value = metricValue;
-					newParams = searchParams;
+                    newParams = searchParams;
+					
 				}
 			}
 		}
 	}
+    
 	m_VersorRigid3DTransform->SetParameters( newParams );
 }
 
@@ -665,9 +680,10 @@ typename RegistrationFactory3D<TFixedImageType, TMovingImageType>::DeformationFi
 TFixedImageType, TMovingImageType >::GetTransformVectorField(
 	void )
 {
-	m_DeformationField = DeformationFieldType::New();
+    DeformationFieldPointer m_DeformationField;
+    m_DeformationField = DeformationFieldType::New();
 	m_DeformationField->SetRegions( m_FixedImageRegion );
-	m_DeformationField->SetOrigin( m_FixedImage->GetOrigin() );
+    m_DeformationField->SetOrigin( m_FixedImage->GetOrigin() );
 	m_DeformationField->SetSpacing( m_FixedImage->GetSpacing() );
 	m_DeformationField->SetDirection( m_FixedImage->GetDirection() );
 	m_DeformationField->Allocate();
@@ -678,15 +694,17 @@ TFixedImageType, TMovingImageType >::GetTransformVectorField(
 	typename itk::Transform<double, FixedImageDimension, MovingImageDimension>::OutputPointType movingPoint;
 	typename DeformationFieldType::IndexType index;
 		
+    std::cout << "GetTransformVectorField while start" << std::endl;
 	VectorType displacement;
 	while ( !fi.IsAtEnd() ) {
 		index = fi.GetIndex();
-		m_DeformationField->TransformIndexToPhysicalPoint( index, fixedPoint );
+        m_DeformationField->TransformIndexToPhysicalPoint( index, fixedPoint );
 		movingPoint = m_RegistrationObject->GetOutput()->Get()->TransformPoint( fixedPoint );
 		displacement = movingPoint - fixedPoint;
 		fi.Set( displacement );
 		++fi;
 	}
+    std::cout << "GetTransformVectorField while end" << std::endl;
 
 	return m_DeformationField;
 }

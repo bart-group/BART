@@ -6,6 +6,8 @@
 //  Copyright (c) 2011 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
+#include <assert.h>
+
 #import "RORegistration.h"
 
 #import "EDDataElement.h"
@@ -21,11 +23,12 @@
 
 
 // # Constants # ##
-const int NR_THREADS = 1; //8; //4;
+const int NR_THREADS = 16; //8; //4;
 
-const float PIXEL_DENSITY_DEFAULT = 1;
+const float SMOOTH_FWHM = 1.0f; // in valign3d: defined as 2.0 and overwritten as 1.0 by vnormdata cmdline args
+const float PIXEL_DENSITY_DEFAULT = 0.012f; // 1.0f;
 const short GRID_SIZE_MINIMUM = 5;
-const short NITERATION_DEFAULT = 500;
+const short NITERATION_DEFAULT = 500; // 500
 const short N_BINS_DEFAULT = 50;
 const float COARSE_FACTOR_DEFAULT = 1.0f;
 const float BSPLINE_BOUND_DEFAULT = 15.0f;
@@ -87,14 +90,6 @@ public:
         self->registrationFactory = RegistrationFactoryType::New();
         self->tmpConstTransformPointer = NULL;
         
-        // From dotrans3d
-        self->resampler = ResampleImageFilterType::New();
-        self->warper = WarpImageFilterType::New();
-        
-        self->linearInterpolator = LinearInterpolatorType::New();
-        self->bsplineInterpolator = BSplineInterpolatorType::New();
-        self->nearestNeighborInterpolator = NearestNeighborInterpolatorType::New();
-        
 //        isis::data::enable_log<isis::util::DefaultMsgPrint>(isis::info);
 
     }
@@ -128,8 +123,10 @@ public:
                                                            withReference:funITK3D
                                                           transformTypes:transformTypes
                                                           optimizerTypes:optimizerTypes 
-                                                                prealign:YES 
+                                                                prealign:YES
                                                                   smooth:YES];
+    
+//    std::cout << trans_ana2fun << std::endl;
     
     std::vector<size_t> reso;
     reso.push_back(1);
@@ -138,13 +135,21 @@ public:
                                            withReference:funITK3D
                                           transformation:trans_ana2fun 
                                               resolution:reso];
+    
+    
     if (transformResult != NULL) {
         ITKImage::Pointer ana2fun = transformResult->getImg3D();
         free(transformResult);
         
+        // TODO: check whether back conversion is really necessary
+//        EDDataElement* ana2funBackconv = [ana convertFromITKImage:ana2fun];
+//        [ana2funBackconv WriteDataElementToFile:@"/tmp/BARTReg_ana2fun.nii"];
+//        ana2fun = [ana2funBackconv asITKImage];
+        // TODO END
+        
 //        typedef itk::ImageFileWriter<ITKImage> ITKWriter;
 //        itk::ImageFileWriter<ITKImage>::Pointer imageWriter = ITKWriter::New();
-//        imageWriter->SetFileName("/tmp/RORegNormdataWorkflow.nii");
+//        imageWriter->SetFileName("/tmp/RORegNormdataWorkflow_ana2fun.nii");
 //        imageWriter->SetInput(ana2fun);
 //        imageWriter->Update();
         
@@ -154,23 +159,30 @@ public:
         optimizerTypes.push_back(0);
         optimizerTypes.push_back(0);
         optimizerTypes.push_back(2);
+        std::cout << "!!! mni2fun2mni computeTransform START" << std::endl;
         DeformationFieldType::Pointer trans_ana2ref = [self computeTransform:ana2fun 
                                                                withReference:refITK 
                                                               transformTypes:transformTypes
                                                               optimizerTypes:optimizerTypes 
-                                                                    prealign:YES 
+                                                                    prealign:YES
                                                                       smooth:YES];
+        std::cout << "!!! mni2fun2mni computeTransform END" << std::endl;
         
         reso.clear();
         reso.push_back(3);
+
+        std::cout << "!!! mni2fun2mni applying transform START" << std::endl;
         transformResult = [self transform:NULL
                              orFunctional:funITK4D
                             withReference:refITK 
                            transformation:trans_ana2ref 
                                resolution:reso];
+        std::cout << "!!! mni2fun2mni applying transform END" << std::endl;
         
         if (transformResult != NULL) {
-            return [fun convertFromITKImage4D:transformResult->getImg4D()];
+            ITKImage4D::Pointer ana2fun2mni = transformResult->getImg4D();
+            free(transformResult);
+            return [fun convertFromITKImage4D:ana2fun2mni];
         }
 
     }
@@ -216,7 +228,7 @@ public:
 
 @implementation RORegistration (privateMethods)
 
-bool verbose = true;
+bool verbose = false;
 
 -(DeformationFieldType::Pointer)computeTransform:(ITKImage::Pointer)toAlign 
                                    withReference:(ITKImage::Pointer)ref
@@ -233,6 +245,61 @@ bool verbose = true;
     ITKImage::Pointer movingImage = toAlign;
     
     // ### Lipsia Reinclude START
+    if ( smooth ) {
+		GaussianFilterType::Pointer fixedGaussianFilterX = GaussianFilterType::New();
+		GaussianFilterType::Pointer fixedGaussianFilterY = GaussianFilterType::New();
+		GaussianFilterType::Pointer fixedGaussianFilterZ = GaussianFilterType::New();
+		fixedGaussianFilterX->SetNumberOfThreads( NR_THREADS );
+		fixedGaussianFilterY->SetNumberOfThreads( NR_THREADS );
+		fixedGaussianFilterZ->SetNumberOfThreads( NR_THREADS );
+		fixedGaussianFilterX->SetInput( fixedImage );
+		fixedGaussianFilterY->SetInput( fixedGaussianFilterX->GetOutput() );
+		fixedGaussianFilterZ->SetInput( fixedGaussianFilterY->GetOutput() );
+		fixedGaussianFilterX->SetDirection( 0 );
+		fixedGaussianFilterY->SetDirection( 1 );
+		fixedGaussianFilterZ->SetDirection( 2 );
+		fixedGaussianFilterX->SetOrder( GaussianFilterType::ZeroOrder );
+		fixedGaussianFilterY->SetOrder( GaussianFilterType::ZeroOrder );
+		fixedGaussianFilterZ->SetOrder( GaussianFilterType::ZeroOrder );
+		fixedGaussianFilterX->SetNormalizeAcrossScale( false );
+		fixedGaussianFilterY->SetNormalizeAcrossScale( false );
+		fixedGaussianFilterZ->SetNormalizeAcrossScale( false );
+		fixedGaussianFilterX->SetSigma( SMOOTH_FWHM );
+		fixedGaussianFilterY->SetSigma( SMOOTH_FWHM );
+		fixedGaussianFilterZ->SetSigma( SMOOTH_FWHM );
+		std::cout << "smoothing the fixed image..." << std::endl;
+		fixedGaussianFilterZ->Update();
+		fixedImage->DisconnectPipeline();
+		fixedImage = fixedGaussianFilterZ->GetOutput();
+		GaussianFilterType::Pointer movingGaussianFilterX = GaussianFilterType::New();
+		GaussianFilterType::Pointer movingGaussianFilterY = GaussianFilterType::New();
+		GaussianFilterType::Pointer movingGaussianFilterZ = GaussianFilterType::New();
+		movingGaussianFilterX->SetNumberOfThreads( NR_THREADS );
+		movingGaussianFilterY->SetNumberOfThreads( NR_THREADS );
+		movingGaussianFilterZ->SetNumberOfThreads( NR_THREADS );
+		movingGaussianFilterX->SetInput( movingImage );
+		movingGaussianFilterY->SetInput( movingGaussianFilterX->GetOutput() );
+		movingGaussianFilterZ->SetInput( movingGaussianFilterY->GetOutput() );
+		movingGaussianFilterX->SetDirection( 0 );
+		movingGaussianFilterY->SetDirection( 1 );
+		movingGaussianFilterZ->SetDirection( 2 );
+		movingGaussianFilterX->SetOrder( GaussianFilterType::ZeroOrder );
+		movingGaussianFilterY->SetOrder( GaussianFilterType::ZeroOrder );
+		movingGaussianFilterZ->SetOrder( GaussianFilterType::ZeroOrder );
+		movingGaussianFilterX->SetNormalizeAcrossScale( false );
+		movingGaussianFilterY->SetNormalizeAcrossScale( false );
+		movingGaussianFilterZ->SetNormalizeAcrossScale( false );
+		movingGaussianFilterX->SetSigma( SMOOTH_FWHM );
+		movingGaussianFilterY->SetSigma( SMOOTH_FWHM );
+		movingGaussianFilterZ->SetSigma( SMOOTH_FWHM );
+		std::cout << "smoothing the moving image..." << std::endl;
+		movingGaussianFilterZ->Update();
+		movingImage->DisconnectPipeline();
+		movingImage = movingGaussianFilterZ->GetOutput();
+	}
+
+    
+    
     MatchingFilterType::Pointer matcher = MatchingFilterType::New();    
     bool histogram_matching = true;
     if( histogram_matching ) {
@@ -272,7 +339,14 @@ bool verbose = true;
 //	float pixelDens = float( 150000 ) / ( refList.front().getSizeAsVector()[0] * refList.front().getSizeAsVector()[1] * refList.front().getSizeAsVector()[2] ) ;
 //	if(pixelDens > 1) { pixelDens=1;}
     
-    float pixelDensity = 0; // TODO: actually fetch pixel density from somewhere
+    //now, our version:
+    ITKImage::SizeType imSize = fixedImage->GetLargestPossibleRegion().GetSize(); 
+    
+    float pixelDensity =  150000.0f  / ( static_cast<float>( imSize[0] * imSize[1] * imSize[2] )) ;
+    if( 1 < pixelDensity){ 
+        pixelDensity = 1;}
+        
+    //float pixelDensity = 0; // TODO: actually fetch pixel density from somewhere
     if (pixelDensity <= 0 or pixelDensity > 1) {
         pixelDensity = PIXEL_DENSITY_DEFAULT;
     }
@@ -353,11 +427,7 @@ bool verbose = true;
 			optimizer = 0;
 		}
         
-        // ### TODO: rm
-        transform = 1;
-        metric = 3;
-        optimizer = 0;
-        // ### rm END
+        
 		if (verbose) {
 			NSLog(@"Setting up the registration object...");
 			NSLog(@" used transform: %d", transform);
@@ -534,6 +604,7 @@ bool verbose = true;
             registrationFactory->UserOptions.PRINTRESULTS = false;
         }
         // remove END
+//        registrationFactory->UserOptions.PRINTRESULTS = false;
         
         self->registrationFactory->UserOptions.NumberOfThreads = NR_THREADS;
         self->registrationFactory->UserOptions.MattesMutualInitializeSeed = MATTES_MUTUAL_SEED;
@@ -546,10 +617,22 @@ bool verbose = true;
         self->registrationFactory->SetFixedImage(fixedImage);
         self->registrationFactory->SetMovingImage(movingImage);
 
-        self->registrationFactory->StartRegistration();
+        std::cout << std::endl;
+		std::cout << "starting the registration... (step " << counter + 1 << " of " << repetition << ")" << std::endl;
+		self->registrationFactory->StartRegistration();
+        std::cout << "...finished the registration (step " << counter + 1 << " of " << repetition << ")" << std::endl;
+        
+		std::cout << std::endl;
+        
+//        if (!use_inverse) {
+        self->tmpConstTransformPointer = self->registrationFactory->GetTransform();
+//        }
+        std::cout << "set tmpConstTransformPointer successful" << std::endl;
     }
     
 //    return registrationFactory->GetTransform();
+    
+    
     return registrationFactory->GetTransformVectorField();
 }
 
@@ -559,8 +642,39 @@ bool verbose = true;
                 transformation:(DeformationFieldType::Pointer)trans 
                     resolution:(std::vector<size_t>)res; 
 {
-    self->resampler->SetNumberOfThreads(NR_THREADS);
-    self->warper->SetNumberOfThreads(NR_THREADS);
+//    if (toAlignFun.IsNotNull()) {
+//        ITKImage4D::PointType toAlignFunOrigin = toAlignFun->GetOrigin();
+//        std::cout << "Functional origin:" << std::endl;
+//        std::cout << toAlignFunOrigin << std::endl;
+//        
+//        ITKImage4D::DirectionType toAlignFunDirection = toAlignFun->GetDirection();
+//        std::cout << "Functional direction matrix:" << std::endl;
+//        std::cout << toAlignFunDirection << std::endl;
+//    }
+//    if (toAlign.IsNotNull()) {
+//        ITKImage::PointType toAlignOrigin = toAlign->GetOrigin();
+//        std::cout << "3D origin:" << std::endl;
+//        std::cout << toAlignOrigin << std::endl;
+//        
+//        ITKImage::DirectionType toAlignDirection = toAlign->GetDirection();
+//        std::cout << "3D direction matrix:" << std::endl;
+//        std::cout << toAlignDirection << std::endl;
+//    }
+    
+    // From dotrans3d
+    // init taken from constructor
+    ResampleImageFilterType::Pointer resampler;
+    WarpImageFilterType::Pointer warper;
+    resampler = ResampleImageFilterType::New();
+    warper = WarpImageFilterType::New();
+    
+    self->linearInterpolator = LinearInterpolatorType::New();
+    self->bsplineInterpolator = BSplineInterpolatorType::New();
+    self->nearestNeighborInterpolator = NearestNeighborInterpolatorType::New();
+    // was in constructor originally
+        
+    resampler->SetNumberOfThreads(NR_THREADS);
+    warper->SetNumberOfThreads(NR_THREADS);
 
     ITKImage::Pointer inputImage = ITKImage::New();
     ITKImage::Pointer templateImage = ref;
@@ -575,7 +689,7 @@ bool verbose = true;
 	if (res.size() > 0) {
 		if (static_cast<unsigned int> (res.size()) < IMAGE_DIMENSION) {
 			//user has specified less than 3 resolution values->sets isotrop resolution with the first typed value
-			outputSpacing.Fill(res[0]);
+			outputSpacing.Fill( static_cast<float>( res[0] ) );
 		}
         
 		if (res.size() >= 3 ) {
@@ -594,38 +708,10 @@ bool verbose = true;
         }
 	}
     
-//    BOOST_FOREACH( std::list<isis::data::Image>::reference ref, inList ) {
-//		if ( tmpList.front().hasProperty( "Vista/extent" ) ) {
-//			ref.setPropertyAs<std::string>( "Vista/extent", tmpList.front().getPropertyAs<std::string>( "Vista/extent" ) );
-//		}
-//		if ( tmpList.front().hasProperty( "Vista/ca" ) && tmpList.front().hasProperty( "Vista/cp" ) ) {
-//			std::vector< std::string > caTuple;
-//			std::vector< std::string > cpTuple;
-//			std::string ca = tmpList.front().getPropertyAs<std::string>( "Vista/ca" );
-//			std::string cp = tmpList.front().getPropertyAs<std::string>( "Vista/cp" );
-//			isis::util::fvector4 oldVoxelSize = tmpList.front().getPropertyAs<isis::util::fvector4>( "voxelSize" );
-//			boost::algorithm::split( caTuple, ca, boost::algorithm::is_any_of( " " ) );
-//			boost::algorithm::split( cpTuple, cp, boost::algorithm::is_any_of( " " ) );
-//            
-//			for ( size_t dim = 0; dim < 3; dim++ ) {
-//				float caFloat = boost::lexical_cast<float>( caTuple[dim] );
-//				float cpFloat = boost::lexical_cast<float>( cpTuple[dim] );
-//				float catmp = caFloat * ( oldVoxelSize[dim] / outputSpacing[dim] );
-//				float cptmp = cpFloat * ( oldVoxelSize[dim] / outputSpacing[dim] );
-//				caTuple[dim] = std::string( boost::lexical_cast<std::string>( catmp ) );
-//				cpTuple[dim] = std::string( boost::lexical_cast<std::string>( cptmp ) );
-//			}
-//            
-//			std::string newCa = caTuple[0] + std::string( " " ) + caTuple[1] + std::string( " " ) + caTuple[2];
-//			std::string newCp = cpTuple[0] + std::string( " " ) + cpTuple[1] + std::string( " " ) + cpTuple[2];
-//			ref.setPropertyAs<std::string>( "Vista/ca", newCa );
-//			ref.setPropertyAs<std::string>( "Vista/cp", newCp );
-//		}
-//	}
-    
 	if (toAlignFun.IsNotNull()) {
 		fmriImage  = toAlignFun;
-	} else {
+	} 
+    if (toAlign.IsNotNull()) {
 		inputImage = toAlign;
     }
     
@@ -671,8 +757,7 @@ bool verbose = true;
 //			}
 //		}
 //	}
-//    
-//    
+   
 //	if ( vtrans_filename.number ) {
 //		if ( vtrans_filename.number > 1 ) {
 //		    transformMerger->setNumberOfThreads(number_threads);
@@ -699,32 +784,39 @@ bool verbose = true;
                 //output spacing = (template size / output resolution) * template resolution
                 outputSize[i] = (templateImage->GetLargestPossibleRegion().GetSize()[i] / outputSpacing[i]) * templateImage->GetSpacing()[i];
             }
-        } else {
+            std::cout << "outputSize (ref.size>0, ref!=NULL):    " << outputSize << std::endl;
+            std::cout << "outputSpacing (ref.size>0, ref!=NULL): " << outputSpacing << std::endl;
+        } 
+        else {
             for (size_t i = 0; i < 3; i++ ) {
                 //output spacing = (moving size / output resolution) * moving resolution
                 if (toAlignFun.IsNotNull()) {
                     outputSize[i] = (fmriImage->GetLargestPossibleRegion().GetSize()[i] / outputSpacing[i]) * fmriImage->GetSpacing()[i];
-                } else {
+                }
+                else 
+                {
                     outputSize[i] = (inputImage->GetLargestPossibleRegion().GetSize()[i] / outputSpacing[i]) * inputImage->GetSpacing()[i];
                 }
+                std::cout << "outputSize (ref.size==0, ref==NULL, fmri):    " << outputSize << std::endl;
+                std::cout << "outputSpacing (ref.size==0, ref==NULL, fmri): " << outputSpacing << std::endl;
             }
         }
 	}
     
     //setting up the interpolator
-    short interpolator_type = 1;
+    short interpolator_type = 0;
     switch (interpolator_type) {
         case 0:
-            self->resampler->SetInterpolator( linearInterpolator );
-            self->warper->SetInterpolator( linearInterpolator );
+            resampler->SetInterpolator( linearInterpolator );
+            warper->SetInterpolator( linearInterpolator );
             break;
         case 1:
-            self->resampler->SetInterpolator( bsplineInterpolator );
-            self->warper->SetInterpolator( bsplineInterpolator );
+            resampler->SetInterpolator( bsplineInterpolator );
+            warper->SetInterpolator( bsplineInterpolator );
             break;
         case 2:
-            self->resampler->SetInterpolator( nearestNeighborInterpolator );
-            self->warper->SetInterpolator( nearestNeighborInterpolator );
+            resampler->SetInterpolator( nearestNeighborInterpolator );
+            warper->SetInterpolator( nearestNeighborInterpolator );
             break;
 	}
     
@@ -737,13 +829,13 @@ bool verbose = true;
         TimeStepExtractionFilterType::Pointer timeStepExtractionFilter = TimeStepExtractionFilterType::New();
 		timeStepExtractionFilter->SetInput(fmriImage);
         
-//		if (template_filename) {
+		if (ref.IsNotNull()) {
 			fmriOutputOrigin = templateImage->GetOrigin();
 			fmriOutputDirection = templateImage->GetDirection();
-//		}
+		}
         
-		for ( unsigned int i = 0; i < 4; i++ ) {
-			if (res.size()) {
+		for ( unsigned int i = 0; i < 3; i++ ) {
+			if (res.size() > 0) {
 				fmriOutputSpacing[i] = outputSpacing[i];
 				fmriOutputSize[i] = outputSize[i];
 			} else {
@@ -769,12 +861,12 @@ bool verbose = true;
             fmriOutputSpacing[3] = 1; 
         
 		if (trans.IsNotNull()) {
-			self->warper->SetOutputDirection(fmriOutputDirection);
-			self->warper->SetOutputOrigin(fmriOutputOrigin);
-			self->warper->SetOutputSize(fmriOutputSize);
-			self->warper->SetOutputSpacing(fmriOutputSpacing);
-			self->warper->SetInput(inputImage);
-            self->warper->SetDeformationField(trans);
+			warper->SetOutputDirection(fmriOutputDirection);
+			warper->SetOutputOrigin(fmriOutputOrigin);
+			warper->SetOutputSize(fmriOutputSize);
+			warper->SetOutputSpacing(fmriOutputSpacing);
+			warper->SetInput(inputImage);
+            warper->SetDeformationField(trans);
 		}
         
 		itk::FixedArray<unsigned int, 4> layout;
@@ -783,11 +875,12 @@ bool verbose = true;
 		layout[2] = 1;
 		layout[3] = 0;
 		const unsigned int numberOfTimeSteps = fmriImage->GetLargestPossibleRegion().GetSize()[3];
+        
 		ITKImage::Pointer tileImage;
 		std::cout << std::endl;
-		inputImage = toAlign;
-		ITKImage4D::DirectionType direction4D;
+//		inputImage = ... <code using itkAdapter>
         
+		ITKImage4D::DirectionType direction4D;
 		for ( size_t i = 0; i < 3; i++ ) {
 			for ( size_t j = 0; j < 3; j++ ) {
 				direction4D[i][j] = fmriOutputDirection[i][j];
@@ -795,21 +888,47 @@ bool verbose = true;
 		}
         
 		direction4D[3][3] = 1;
+        assert(direction4D[0][3] == 0);
+        assert(direction4D[1][3] == 0);
+        assert(direction4D[2][3] == 0);
+        assert(direction4D[3][0] == 0);
+        assert(direction4D[3][1] == 0);
+        assert(direction4D[3][2] == 0);
+        
+        // Convert 4D Origin/Direction to 3D (no direct assignment possible due to ITK's templated design)
+        ITKImage::PointType inputImageOrigin;
+        ITKImage::DirectionType inputImageDirection;
+        ITKImage4D::PointType toAlignFunOrigin = toAlignFun->GetOrigin();
+        ITKImage4D::DirectionType toAlignFunDirection = toAlignFun->GetDirection();
+
+        for (unsigned int i = 0; i < ITKImage::GetImageDimension(); i++) {
+            inputImageOrigin[i] = toAlignFunOrigin[i];
+            
+            for (unsigned int j = 0; j < ITKImage::GetImageDimension(); j++) {
+                inputImageDirection[i][j] = toAlignFunDirection[i][j];
+            }
+        }
         
         ITKImage::Pointer tmpImage = ITKImage::New();
         TileImageFilterType::Pointer tileImageFilter = TileImageFilterType::New();
+        
+        std::cout << "inputImageOrigin" << std::endl;
+        std::cout << inputImageOrigin << std::endl;
+        std::cout << "inputImageDirection:" << std::endl;
+        std::cout << inputImageDirection << std::endl;
         
 		for (unsigned int timestep = 0; timestep < numberOfTimeSteps; timestep++) {
 			std::cout << "Resampling timestep: " << timestep << "...\r" << std::flush;
 			timeStepExtractionFilter->SetRequestedTimeStep(timestep);
 			timeStepExtractionFilter->Update();
 			tmpImage = timeStepExtractionFilter->GetOutput();
-			tmpImage->SetDirection(inputImage->GetDirection());
-			tmpImage->SetOrigin(inputImage->GetOrigin());
+			tmpImage->SetDirection(inputImageDirection);
+			tmpImage->SetOrigin(inputImageOrigin);
             
 			if (trans.IsNotNull()) {
 				warper->SetInput(tmpImage);
-				warper->Update();
+				warper->Update();                      // Original lipsia function call
+//                warper->UpdateLargestPossibleRegion(); // Modified function call to avoid SIGABRT
 				tileImage = warper->GetOutput();
 			}
             
@@ -829,15 +948,15 @@ bool verbose = true;
         // No fmri
 //		if ( vtrans_filename or trans_filename.number > 1 && !identity ) {
         if (trans.IsNotNull()) {
-			self->warper->SetOutputDirection(outputDirection);
-			self->warper->SetOutputOrigin(outputOrigin);
-			self->warper->SetOutputSize(outputSize);
-			self->warper->SetOutputSpacing(outputSpacing);
-			self->warper->SetInput(inputImage);
+			warper->SetOutputDirection(outputDirection);
+			warper->SetOutputOrigin(outputOrigin);
+			warper->SetOutputSize(outputSize);
+			warper->SetOutputSpacing(outputSpacing);
+			warper->SetInput(inputImage);
             
-            self->warper->SetDeformationField(trans);
-			            
-			self->warper->Update();
+            warper->SetDeformationField(trans);
+			      
+			warper->Update();
             
             ITKImage::Pointer output = warper->GetOutput();
             

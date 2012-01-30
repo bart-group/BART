@@ -24,7 +24,7 @@ void testVnormdataRegistrationWorkflow() {
     
     // /Users/oliver/Development/BART/tests/BARTMainAppTests/testfiles
     //    NSString* imageFile = @"TestDataset01-functional.nii";
-    NSString* fctFile = @"/Users/oliver/test/reg3d_test/dataset01/data.nii";
+    NSString* fctFile = @"/Users/oliver/test/reg3d_test/dataset01/data_10timesteps.nii";
     EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:fctFile
                                                                andSuffix:@"" 
                                                               andDialect:@"" 
@@ -42,26 +42,35 @@ void testVnormdataRegistrationWorkflow() {
                                                               andDialect:@"" 
                                                              ofImageType:IMAGE_ANADATA];
     
-    // Registrate
-    RORegistration* ana2fctReg = [[RORegistration alloc] init];
-    EDDataElement* ana2fct = [ana2fctReg align:anaData 
-                               beingFunctional:NO
-                                 withReference:fctData];
+    RORegistration* registration = [[RORegistration alloc] init];
+    EDDataElement* ana2fct2mni = [registration normdata:fctData 
+                                                anatomy:anaData 
+                                    anatomicalReference:mniData];
+    [ana2fct2mni WriteDataElementToFile:@"/tmp/BART_reg_ana2fct2mni.nii"];
     
-    RORegistration* ana2fct2mniReg = [[RORegistration alloc] init];
-    EDDataElement* ana2fct2mni = [ana2fct2mniReg align:ana2fct 
-                                       beingFunctional:NO                   // YES
-                                         withReference:mniData];
     
-    [ana2fct WriteDataElementToFile:@"/tmp/IsisTestAna2Fct.nii"];
-    [ana2fct2mni WriteDataElementToFile:@"/tmp/IsisTestAna2Fct2Mni.nii"];
+//    // Registrate
+//    RORegistration* ana2fctReg = [[RORegistration alloc] init];
+//    EDDataElement* ana2fct = [ana2fctReg align:anaData 
+//                               beingFunctional:NO
+//                                 withReference:fctData];
+//    
+//    RORegistration* ana2fct2mniReg = [[RORegistration alloc] init];
+//    EDDataElement* ana2fct2mni = [ana2fct2mniReg align:ana2fct 
+//                                       beingFunctional:YES                   // YES
+//                                         withReference:mniData];
+//    
+//    [ana2fct WriteDataElementToFile:@"/tmp/IsisTestAna2Fct.nii"];
+//    [ana2fct2mni WriteDataElementToFile:@"/tmp/IsisTestAna2Fct2Mni.nii"];
+//    
+//    // Cleanup
+//    [ana2fct2mniReg release];
+//    [ana2fctReg release];
+    [registration release];
     
-    // Cleanup
     [mniData release];
     [anaData release];
     [fctData release];
-    [ana2fct2mniReg release];
-    [ana2fctReg release];
     
 	[pool drain];
 }

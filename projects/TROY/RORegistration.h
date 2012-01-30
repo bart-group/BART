@@ -30,6 +30,7 @@ typedef itk::Vector<float, 3> VectorType;
 typedef itk::Image<VectorType, 3> DeformationFieldType;
 //typedef itk::ImageFileReader<DeformationFieldType> DeformationFieldReaderType;
 
+typedef itk::RecursiveGaussianImageFilter<ITKImage, ITKImage> GaussianFilterType;
 typedef itk::HistogramMatchingImageFilter<ITKImage, ITKImage> MatchingFilterType;
 
 typedef itk::ResampleImageFilter<ITKImage, ITKImage> ResampleImageFilterType;
@@ -58,8 +59,8 @@ typedef itk::TransformBase* TransformBasePointerType;
     const itk::TransformBase* tmpConstTransformPointer;
     
     /** Applies the transformation to an ISIS image. */
-    ResampleImageFilterType::Pointer resampler;
-    WarpImageFilterType::Pointer warper;
+//    ResampleImageFilterType::Pointer resampler;
+//    WarpImageFilterType::Pointer warper;
     
     LinearInterpolatorType::Pointer linearInterpolator;
     BSplineInterpolatorType::Pointer bsplineInterpolator;
