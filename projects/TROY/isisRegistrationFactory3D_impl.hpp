@@ -67,8 +67,6 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::Reset(
 	UserOptions.USEOTSUTHRESHOLDING = false;
 	UserOptions.BSplineGridSize = 5;
 	UserOptions.BSplineBound = 100;
-	UserOptions.INITIALIZECENTEROFF = false;
-	UserOptions.INITIALIZEMASSOFF = false;
 	UserOptions.PREALIGN = false;
 	UserOptions.PREALIGNPRECISION = 5;
 	UserOptions.NumberOfThreads = 1;
@@ -463,59 +461,59 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetUpTransform()
 		prealign();
 	}
 	//initialize transform
-	if ( !UserOptions.INITIALIZEMASSOFF or !UserOptions.INITIALIZECENTEROFF ) {
-		if ( transform.TRANSLATION ) {
-			m_VersorRigid3DTransform = VersorRigid3DTransformType::New();
-			m_RigidInitializer = RigidCenteredTransformInitializerType::New();
-			m_RigidInitializer->SetTransform( m_VersorRigid3DTransform );
-			m_RigidInitializer->SetFixedImage( m_FixedImage );
-			m_RigidInitializer->SetMovingImage( m_MovingImage );
-
-			if ( !UserOptions.INITIALIZECENTEROFF )
-				m_RigidInitializer->GeometryOn();
-
-			if ( !UserOptions.INITIALIZEMASSOFF )
-				m_RigidInitializer->MomentsOn();
-
-			m_RigidInitializer->InitializeTransform();
-			VersorRigid3DTransformType::ParametersType parameters( FixedImageDimension );
-			parameters[0] = m_VersorRigid3DTransform->GetTranslation()[0];
-			parameters[1] = m_VersorRigid3DTransform->GetTranslation()[1];
-			parameters[2] = m_VersorRigid3DTransform->GetTranslation()[2];
-			m_TranslationTransform->SetParameters( parameters );
-		}
-
-		if ( transform.VERSORRIGID ) {
-			m_RigidInitializer = RigidCenteredTransformInitializerType::New();
-			m_RigidInitializer->SetTransform( m_VersorRigid3DTransform );
-			m_RigidInitializer->SetFixedImage( m_FixedImage );
-			m_RigidInitializer->SetMovingImage( m_MovingImage );
-
-			if ( !UserOptions.INITIALIZECENTEROFF )
-				m_RigidInitializer->GeometryOn();
-
-			if ( !UserOptions.INITIALIZEMASSOFF )
-				m_RigidInitializer->MomentsOn();
-
-			m_RigidInitializer->InitializeTransform();
-		}
-
-		if ( transform.AFFINE ) {
-			m_AffineInitializer = AffineCenteredTransformInitializerType::New();
-			m_AffineInitializer->SetTransform( m_AffineTransform );
-			m_AffineInitializer->SetFixedImage( m_FixedImage );
-			m_AffineInitializer->SetMovingImage( m_MovingImage );
-			m_AffineInitializer->GeometryOn();
-
-			if ( !UserOptions.INITIALIZECENTEROFF )
-				m_AffineInitializer->GeometryOn();
-
-			if ( !UserOptions.INITIALIZEMASSOFF )
-				m_AffineInitializer->MomentsOn();
-
-			m_AffineInitializer->InitializeTransform();
-		}
-	}
+//	if ( !UserOptions.INITIALIZEMASSOFF or !UserOptions.INITIALIZECENTEROFF ) {
+//		if ( transform.TRANSLATION ) {
+//			m_VersorRigid3DTransform = VersorRigid3DTransformType::New();
+//			m_RigidInitializer = RigidCenteredTransformInitializerType::New();
+//			m_RigidInitializer->SetTransform( m_VersorRigid3DTransform );
+//			m_RigidInitializer->SetFixedImage( m_FixedImage );
+//			m_RigidInitializer->SetMovingImage( m_MovingImage );
+//
+//			if ( !UserOptions.INITIALIZECENTEROFF )
+//				m_RigidInitializer->GeometryOn();
+//
+//			if ( !UserOptions.INITIALIZEMASSOFF )
+//				m_RigidInitializer->MomentsOn();
+//
+//			m_RigidInitializer->InitializeTransform();
+//			VersorRigid3DTransformType::ParametersType parameters( FixedImageDimension );
+//			parameters[0] = m_VersorRigid3DTransform->GetTranslation()[0];
+//			parameters[1] = m_VersorRigid3DTransform->GetTranslation()[1];
+//			parameters[2] = m_VersorRigid3DTransform->GetTranslation()[2];
+//			m_TranslationTransform->SetParameters( parameters );
+//		}
+//
+//		if ( transform.VERSORRIGID ) {
+//			m_RigidInitializer = RigidCenteredTransformInitializerType::New();
+//			m_RigidInitializer->SetTransform( m_VersorRigid3DTransform );
+//			m_RigidInitializer->SetFixedImage( m_FixedImage );
+//			m_RigidInitializer->SetMovingImage( m_MovingImage );
+//
+//			if ( !UserOptions.INITIALIZECENTEROFF )
+//				m_RigidInitializer->GeometryOn();
+//
+//			if ( !UserOptions.INITIALIZEMASSOFF )
+//				m_RigidInitializer->MomentsOn();
+//
+//			m_RigidInitializer->InitializeTransform();
+//		}
+//
+//		if ( transform.AFFINE ) {
+//			m_AffineInitializer = AffineCenteredTransformInitializerType::New();
+//			m_AffineInitializer->SetTransform( m_AffineTransform );
+//			m_AffineInitializer->SetFixedImage( m_FixedImage );
+//			m_AffineInitializer->SetMovingImage( m_MovingImage );
+//			m_AffineInitializer->GeometryOn();
+//
+//			if ( !UserOptions.INITIALIZECENTEROFF )
+//				m_AffineInitializer->GeometryOn();
+//
+//			if ( !UserOptions.INITIALIZEMASSOFF )
+//				m_AffineInitializer->MomentsOn();
+//
+//			m_AffineInitializer->InitializeTransform();
+//		}
+//	}
 
 	if ( transform.BSPLINEDEFORMABLETRANSFORM ) {
 		typedef typename BSplineTransformType::RegionType BSplineRegionType;
