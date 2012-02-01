@@ -82,6 +82,12 @@ typedef itk::TransformBase* TransformBasePointerType;
                   anatomy:(EDDataElement*)ana
       anatomicalReference:(EDDataElement*)ref;
 
+/**
+ */
+-(EDDataElement*)bartRegistration:(EDDataElement*)fun
+                          anatomy:(EDDataElement*)ana
+              anatomicalReference:(EDDataElement*)ref;
+
 //-(EDDataElement*)align:(EDDataElement*)toAlign;
 
 /**

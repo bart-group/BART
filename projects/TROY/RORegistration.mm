@@ -255,6 +255,74 @@ enum EOptimizer {
     return nil;
 }
 
+-(EDDataElement*)bartRegistration:(EDDataElement*)fun
+                          anatomy:(EDDataElement*)ana
+              anatomicalReference:(EDDataElement*)ref 
+{
+    ITKImage::Pointer   funITK3D = [fun asITKImage];
+    ITKImage4D::Pointer funITK4D = [fun asITKImage4D];
+    ITKImage::Pointer anaITK = [ana asITKImage];
+    ITKImage::Pointer refITK = [ref asITKImage];
+    
+    std::vector<ETransform> transformTypes;
+    std::vector<EOptimizer> optimizerTypes;
+    DeformationFieldType::Pointer trans_fun2ana = [self computeTransform:funITK3D 
+                                                           withReference:anaITK
+                                                          transformTypes:transformTypes
+                                                          optimizerTypes:optimizerTypes 
+                                                                prealign:YES
+                                                                  smooth:SMOOTH_FWHM];
+    
+    std::vector<size_t> reso;
+    reso.push_back(1);
+    ITKImageContainer* transformResult = [self transform:NULL
+                                            orFunctional:funITK4D
+                                           withReference:anaITK
+                                          transformation:trans_fun2ana 
+                                              resolution:reso];
+    
+    
+    if (transformResult != NULL) {
+        ITKImage4D::Pointer fun2ana = transformResult->getImg4D();
+        free(transformResult);
+        
+//        return [fun convertFromITKImage:fun2ana];
+        
+        transformTypes.push_back(VersorRigid3DTransform);
+        transformTypes.push_back(AffineTransform);
+        transformTypes.push_back(BSplineDeformableTransform);
+        
+        optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
+        optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
+        optimizerTypes.push_back(LBFGSBOptimizer);
+        
+        DeformationFieldType::Pointer trans_ana2ref = [self computeTransform:anaITK
+                                                               withReference:refITK 
+                                                              transformTypes:transformTypes
+                                                              optimizerTypes:optimizerTypes 
+                                                                    prealign:YES
+                                                                      smooth:SMOOTH_FWHM];
+        
+        reso.clear();
+        reso.push_back(3);
+        
+        transformResult = [self transform:NULL
+                             orFunctional:fun2ana
+                            withReference:refITK
+                           transformation:trans_ana2ref 
+                               resolution:reso];
+        
+        if (transformResult != NULL) {
+            ITKImage4D::Pointer fun2ana2mni = transformResult->getImg4D();
+            free(transformResult);
+            return [fun convertFromITKImage4D:fun2ana2mni];
+        }
+        
+    }
+    
+    return nil;
+}
+
 //-(EDDataElement*)align:(EDDataElement*)toAlign 
 //       beingFunctional:(BOOL)fmri
 //         withReference:(EDDataElement*)ref 

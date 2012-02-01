@@ -18,25 +18,27 @@
 
 @end
 
+NSString* fctFile = @"/Users/oliver/test/reg3d_test/dataset01/data_10timesteps.nii";
+NSString* anaFile = @"/Users/oliver/test/reg3d_test/dataset01/ana.nii"; //_visotrop.nii";
+NSString* mniFile = @"/Users/oliver/test/reg3d_test/mni_lipsia.nii";
+
 void testVnormdataRegistrationWorkflow() {
     
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     // /Users/oliver/Development/BART/tests/BARTMainAppTests/testfiles
     //    NSString* imageFile = @"TestDataset01-functional.nii";
-    NSString* fctFile = @"/Users/oliver/test/reg3d_test/dataset01/data_10timesteps.nii";
+    
     EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:fctFile
                                                                andSuffix:@"" 
                                                               andDialect:@"" 
                                                              ofImageType:IMAGE_FCTDATA];
     
-    NSString* anaFile = @"/Users/oliver/test/reg3d_test/dataset01/ana.nii"; //_visotrop.nii";
     EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaFile
                                                                andSuffix:@"" 
                                                               andDialect:@"" 
                                                              ofImageType:IMAGE_ANADATA];
     
-    NSString* mniFile = @"/Users/oliver/test/reg3d_test/mni_lipsia.nii";
     EDDataElementIsis* mniData = [[EDDataElementIsis alloc] initWithFile:mniFile
                                                                andSuffix:@"" 
                                                               andDialect:@"" 
@@ -46,7 +48,7 @@ void testVnormdataRegistrationWorkflow() {
     EDDataElement* ana2fct2mni = [registration normdata:fctData 
                                                 anatomy:anaData 
                                     anatomicalReference:mniData];
-    [ana2fct2mni WriteDataElementToFile:@"/tmp/BART_reg_ana2fct2mni.nii"];
+    [ana2fct2mni WriteDataElementToFile:@"/tmp/BART_vnorm_ana2fct2mni.nii"];
     
     
 //    // Registrate
@@ -73,6 +75,39 @@ void testVnormdataRegistrationWorkflow() {
     [fctData release];
     
 	[pool drain];
+}
+
+void testBARTRegistrationWorkflow() {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
+    EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:fctFile
+                                                               andSuffix:@"" 
+                                                              andDialect:@"" 
+                                                             ofImageType:IMAGE_FCTDATA];
+    
+    EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaFile
+                                                               andSuffix:@"" 
+                                                              andDialect:@"" 
+                                                             ofImageType:IMAGE_ANADATA];
+    
+    EDDataElementIsis* mniData = [[EDDataElementIsis alloc] initWithFile:mniFile
+                                                               andSuffix:@"" 
+                                                              andDialect:@"" 
+                                                             ofImageType:IMAGE_ANADATA];
+    
+    RORegistration* registration = [[RORegistration alloc] init];
+    EDDataElement* ana2fct2mni = [registration bartRegistration:fctData 
+                                                        anatomy:anaData 
+                                            anatomicalReference:mniData];
+    [ana2fct2mni WriteDataElementToFile:@"/tmp/BART_bartReg.nii"];
+    
+    [registration release];
+    
+    [mniData release];
+    [anaData release];
+    [fctData release];
+    
+    [pool drain];
 }
 
 void testAdapterConversion() {
@@ -114,6 +149,8 @@ void testAdapterConversion() {
 
 int main(void)
 {
-    testVnormdataRegistrationWorkflow();
+    testBARTRegistrationWorkflow();
+//    testVnormdataRegistrationWorkflow();
+    
 //    testAdapterConversion();
 }
