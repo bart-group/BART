@@ -22,7 +22,8 @@
 
 
 
-// # Constants # ##
+// # Constants #####
+
 const int NR_THREADS = 16; //8; //4;
 
 const float SMOOTH_FWHM = 1.0f; // in valign3d: defined as 2.0 and overwritten as 1.0 by vnormdata cmdline args
@@ -36,12 +37,18 @@ const float ROTATION_SCALE_DEFAULT = -1.0f;
 const float TRANSLATION_SCALE_DEFAULT = -1.0f;
 const short PREALIGN_PRECISION_DEFAULT = 5;
 
+const unsigned int MATTES_MUTUAL_SEED = 1;
+
+const bool VERBOSE = false;
+
 const unsigned int SHOW_ITERATION_STEP_DEFAULT = 10;
 const unsigned int SHOW_ITERATION_STEP_VERBOSE = 1;
 
-const unsigned int MATTES_MUTUAL_SEED = 1;
 
 
+
+
+// # Utility classes #####
 
 /** 
  * Wrapper class to simulate either one of two return types
@@ -64,15 +71,80 @@ public:
 
 
 
+// # Enums ###
+
+enum ETransform {
+    VersorRigid3DTransform = 0,
+    AffineTransform,
+    BSplineDeformableTransform,
+    TranslationTransform
+};
+
+enum EOptimizer {
+    RegularStepGradientDescentOptimizer = 0,
+    VersorRigidOptimizer,
+    LBFGSBOptimizer,
+    AmoebaOptimizer,
+    PowellOptimizer
+};
+
+
+
+// # Private interface extension #####
+
 @interface RORegistration (privateMethods)
 
+/**
+ * Reduced version of Lipsia's valign3d:
+ * Aligns a moving image to a fixed reference image.
+ * Yields the deformation field describing the transformation.
+ *
+ * \param toAlign   The image that should be aligned on ref (moving image)
+ * \param ref       The image on which toAlign is aligned (fixed image)
+ * \param transform Vector of transformation algorithms that should be used.
+ *                  Size of this vector determines the number repetitions.
+ *                  Do not confuse these with the number of iterations!
+ *                  The total number of registration steps is:
+ *                  #repetitons * #iterations
+ *                  If an empty vector is passed the default transformation
+ *                  VersorRigid3DTransform is used.
+ * \param optimizer Vector of optimizer algorithms. Used pair-wise with
+ *                  the passed transformation methods provided by transform
+ *                  (1st repetition: 1st transform + 1st optimizer etc.)
+ *                  The used optimizer should suit the used transformation
+ *                  in each repetition!
+ * \param prealign  Flag whether prealign should be performed
+ * \param smooth    Smoothing value. Smoothing is only applied if this
+ *                  parameter is greater than 0.0f !
+ *
+ * \return          Deformation field scribing the transformation from
+ *                  toAlign to ref.
+ */
 -(DeformationFieldType::Pointer)computeTransform:(ITKImage::Pointer)toAlign 
                                    withReference:(ITKImage::Pointer)ref
-                                  transformTypes:(std::vector<int>)transform
-                                  optimizerTypes:(std::vector<int>)optimizer
+                                  transformTypes:(std::vector<ETransform>)transform
+                                  optimizerTypes:(std::vector<EOptimizer>)optimizer
                                         prealign:(BOOL)prealign
-                                          smooth:(BOOL)smooth;
+                                          smooth:(const float)smooth;
 
+// TODO: use ITKImageContainer for toAlign/toAlignFun!
+
+/**
+ * Reduced version of Lipsia's vdotrans3d:
+ * Applies a transformation determined by computeTransform()
+ *
+ * \param toAlign    The 3D image that should be transformed (moving image).
+ *                   Should be NULL, if toAlignFun is used!
+ * \param toAlignFun The 4D image that should be transformed (moving image).
+ *                   Should be NULL, if toAlign is used!
+ * \param ref        The fixed image on which either toAlign or toAlignFun 
+ *                   was aligned .
+ * \param trans      Deformation field that should be applied to either
+ *                   toAlign or toAlignFun
+ *
+ * \return           ITKImageContainer containing either a 3D or 4D ITKImage
+ *                   depending on whether toAlign or toAlignFun was used.
+ */
 -(ITKImageContainer*)transform:(ITKImage::Pointer)toAlign
                   orFunctional:(ITKImage4D::Pointer)toAlignFun
                  withReference:(ITKImage::Pointer)ref 
@@ -80,6 +152,10 @@ public:
                     resolution:(std::vector<size_t>)res; 
 
 @end
+
+
+
+// # Public interface implementation #####
 
 @implementation RORegistration
 
@@ -91,7 +167,6 @@ public:
         self->tmpConstTransformPointer = NULL;
         
 //        isis::data::enable_log<isis::util::DefaultMsgPrint>(isis::info);
-
     }
     
     return self;    
@@ -117,14 +192,14 @@ public:
     ITKImage::Pointer anaITK = [ana asITKImage];
     ITKImage::Pointer refITK = [ref asITKImage];
     
-    std::vector<int> transformTypes;
-    std::vector<int> optimizerTypes;
+    std::vector<ETransform> transformTypes;
+    std::vector<EOptimizer> optimizerTypes;
     DeformationFieldType::Pointer trans_ana2fun = [self computeTransform:anaITK 
                                                            withReference:funITK3D
                                                           transformTypes:transformTypes
                                                           optimizerTypes:optimizerTypes 
                                                                 prealign:YES
-                                                                  smooth:YES];
+                                                                  smooth:SMOOTH_FWHM];
     
     std::vector<size_t> reso;
     reso.push_back(1);
@@ -144,24 +219,25 @@ public:
 //        [ana2funBackconv WriteDataElementToFile:@"/tmp/BARTReg_ana2fun.nii"];
 //        ana2fun = [ana2funBackconv asITKImage];
         // TODO END
+
+        transformTypes.push_back(VersorRigid3DTransform);
+        transformTypes.push_back(AffineTransform);
+        transformTypes.push_back(BSplineDeformableTransform);
         
-        transformTypes.push_back(0);
-        transformTypes.push_back(1);
-        transformTypes.push_back(2);
-        optimizerTypes.push_back(0);
-        optimizerTypes.push_back(0);
-        optimizerTypes.push_back(2);
+        optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
+        optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
+        optimizerTypes.push_back(LBFGSBOptimizer);
 
         DeformationFieldType::Pointer trans_ana2ref = [self computeTransform:ana2fun 
                                                                withReference:refITK 
                                                               transformTypes:transformTypes
                                                               optimizerTypes:optimizerTypes 
                                                                     prealign:YES
-                                                                      smooth:YES];
+                                                                      smooth:SMOOTH_FWHM];
         
         reso.clear();
         reso.push_back(3);
-
+        
         transformResult = [self transform:NULL
                              orFunctional:funITK4D
                             withReference:refITK 
@@ -215,16 +291,18 @@ public:
 
 @end
 
-@implementation RORegistration (privateMethods)
 
-bool verbose = false;
+
+// # Private interface implementation #####
+
+@implementation RORegistration (privateMethods)
 
 -(DeformationFieldType::Pointer)computeTransform:(ITKImage::Pointer)toAlign 
                                    withReference:(ITKImage::Pointer)ref
-                                  transformTypes:(std::vector<int>)transforms
-                                  optimizerTypes:(std::vector<int>)optimizers
+                                  transformTypes:(std::vector<ETransform>)transforms
+                                  optimizerTypes:(std::vector<EOptimizer>)optimizers
                                         prealign:(BOOL)prealign
-                                          smooth:(BOOL)smooth
+                                          smooth:(const float)smooth
 {
     self->registrationFactory->Reset();
     
@@ -233,8 +311,7 @@ bool verbose = false;
     ITKImage::Pointer fixedImage = ref;
     ITKImage::Pointer movingImage = toAlign;
     
-    // ### Lipsia Reinclude START
-    if ( smooth ) {
+    if ( smooth > 0.0f ) {
 		GaussianFilterType::Pointer fixedGaussianFilterX = GaussianFilterType::New();
 		GaussianFilterType::Pointer fixedGaussianFilterY = GaussianFilterType::New();
 		GaussianFilterType::Pointer fixedGaussianFilterZ = GaussianFilterType::New();
@@ -253,9 +330,9 @@ bool verbose = false;
 		fixedGaussianFilterX->SetNormalizeAcrossScale( false );
 		fixedGaussianFilterY->SetNormalizeAcrossScale( false );
 		fixedGaussianFilterZ->SetNormalizeAcrossScale( false );
-		fixedGaussianFilterX->SetSigma( SMOOTH_FWHM );
-		fixedGaussianFilterY->SetSigma( SMOOTH_FWHM );
-		fixedGaussianFilterZ->SetSigma( SMOOTH_FWHM );
+		fixedGaussianFilterX->SetSigma( smooth );
+		fixedGaussianFilterY->SetSigma( smooth );
+		fixedGaussianFilterZ->SetSigma( smooth );
 		std::cout << "smoothing the fixed image..." << std::endl;
 		fixedGaussianFilterZ->Update();
 		fixedImage->DisconnectPipeline();
@@ -278,9 +355,9 @@ bool verbose = false;
 		movingGaussianFilterX->SetNormalizeAcrossScale( false );
 		movingGaussianFilterY->SetNormalizeAcrossScale( false );
 		movingGaussianFilterZ->SetNormalizeAcrossScale( false );
-		movingGaussianFilterX->SetSigma( SMOOTH_FWHM );
-		movingGaussianFilterY->SetSigma( SMOOTH_FWHM );
-		movingGaussianFilterZ->SetSigma( SMOOTH_FWHM );
+		movingGaussianFilterX->SetSigma( smooth );
+		movingGaussianFilterY->SetSigma( smooth );
+		movingGaussianFilterZ->SetSigma( smooth );
 		std::cout << "smoothing the moving image..." << std::endl;
 		movingGaussianFilterZ->Update();
 		movingImage->DisconnectPipeline();
@@ -316,8 +393,8 @@ bool verbose = false;
     std::vector<int>   iterations;
     std::vector<short> gridSizes;
     
-    short transform    = 0;
-    short optimizer    = 0;
+    enum ETransform transform = static_cast<ETransform>( 0 );
+    enum EOptimizer optimizer = static_cast<EOptimizer>( 0 );
     short metric       = 0;
     short interpolator = 0;
     short niteration   = NITERATION_DEFAULT;
@@ -340,13 +417,13 @@ bool verbose = false;
     for (unsigned long counter = 0; counter < repetition; counter++ ) {
 		//transform is the master for determining the number of repetitions
 		if ( transforms.size() ) {
-			transform = (short) transforms[counter];
+			transform = transforms[counter];
 		}
         
 		if (counter < optimizers.size()) {
-			optimizer = (short) optimizers[counter];
+			optimizer = optimizers[counter];
 		} else if (counter >= optimizers.size() and optimizers.size() > 0 ) {
-			optimizer = (short) optimizers[optimizers.size() - 1];
+			optimizer = optimizers[optimizers.size() - 1];
 		}
         
         metric = 0;
@@ -395,17 +472,20 @@ bool verbose = false;
 			gridSize = GRID_SIZE_MINIMUM;
 		}
         
-        if (transform == 2 and optimizer != 2) {
+        if (transform     == BSplineDeformableTransform 
+            and optimizer != 2) {
 			NSLog(@"It is recommended using the BSpline transform in connection with the LBFGSB optimizer!");
 		}
         
-		if ((transform != 0 and transform != 4) and optimizer == 1) {
+		if (transform     != VersorRigid3DTransform
+//             and transform != 4) 
+            and optimizer == VersorRigidOptimizer) {
 			NSLog(@"Inappropriate combination of transform and optimizer! Setting optimizer to RegularStepGradientDescentOptimizer.");
-			optimizer = 0;
+			optimizer = RegularStepGradientDescentOptimizer;
 		}
         
         
-		if (verbose) {
+		if (VERBOSE) {
 			NSLog(@"Setting up the registration object...");
 			NSLog(@" used transform: %d", transform);
 			NSLog(@" used metric: %d", metric);
@@ -415,66 +495,42 @@ bool verbose = false;
         
         //transform setup
         switch (transform) {
-            case 0: self->registrationFactory->SetTransform( RegistrationFactoryType::VersorRigid3DTransform );
-                break;
-            case 1: self->registrationFactory->SetTransform( RegistrationFactoryType::AffineTransform );
-                break;
-            case 2: self->registrationFactory->SetTransform( RegistrationFactoryType::BSplineDeformableTransform );
-                break;
-            case 3: self->registrationFactory->SetTransform( RegistrationFactoryType::TranslationTransform );
-                break;
-//            case 4: self-YregistrationFactory->SetTransform( RegistrationFactoryType::ScaleTransform );
-//                break;
-//            case 5: self->registrationFactory->SetTransform( RegistrationFactoryType::CenteredAffineTransform );
-//                break;
-            default:
-                NSLog(@"Error: Unknown transform!");
-                return NULL;
+            case         0: self->registrationFactory->SetTransform( RegistrationFactoryType::VersorRigid3DTransform );
+            break; case  1: self->registrationFactory->SetTransform( RegistrationFactoryType::AffineTransform );
+            break; case  2: self->registrationFactory->SetTransform( RegistrationFactoryType::BSplineDeformableTransform );
+            break; case  3: self->registrationFactory->SetTransform( RegistrationFactoryType::TranslationTransform );
+            break; default: NSLog(@"Error: Unknown transform!");
+                            return NULL;
 		}
         
         //metric setup
 		switch (metric) {
-            case 0: self->registrationFactory->SetMetric( RegistrationFactoryType::MattesMutualInformationMetric );
-                break;
-            case 1: self->registrationFactory->SetMetric( RegistrationFactoryType::MutualInformationHistogramMetric );
-                break;
-            case 2: self->registrationFactory->SetMetric( RegistrationFactoryType::NormalizedCorrelationMetric );
-                break;
-            case 3: self->registrationFactory->SetMetric( RegistrationFactoryType::MeanSquareMetric );
-                break;
-            default:
-                NSLog(@"Error: Unknown metric!");
-                return NULL;
+            case         0: self->registrationFactory->SetMetric( RegistrationFactoryType::MattesMutualInformationMetric );
+            break; case  1: self->registrationFactory->SetMetric( RegistrationFactoryType::MutualInformationHistogramMetric );
+            break; case  2: self->registrationFactory->SetMetric( RegistrationFactoryType::NormalizedCorrelationMetric );
+            break; case  3: self->registrationFactory->SetMetric( RegistrationFactoryType::MeanSquareMetric );
+            break; default: NSLog(@"Error: Unknown metric!");
+                            return NULL;
 		}
         
 		//interpolator setup
 		switch (interpolator) {
-            case 0: self->registrationFactory->SetInterpolator( RegistrationFactoryType::LinearInterpolator );
-                break;
-            case 1: self->registrationFactory->SetInterpolator( RegistrationFactoryType::BSplineInterpolator );
-                break;
-            case 2: self->registrationFactory->SetInterpolator( RegistrationFactoryType::NearestNeighborInterpolator );
-                break;
-            default:
-                NSLog(@"Error: Unknown interpolator!");
-                return NULL;
+            case         0: self->registrationFactory->SetInterpolator( RegistrationFactoryType::LinearInterpolator );
+            break; case  1: self->registrationFactory->SetInterpolator( RegistrationFactoryType::BSplineInterpolator );
+            break; case  2: self->registrationFactory->SetInterpolator( RegistrationFactoryType::NearestNeighborInterpolator );
+            break; default: NSLog(@"Error: Unknown interpolator!");
+                            return NULL;
 		}
         
 		//optimizer setup
 		switch (optimizer) {
-            case 0: self->registrationFactory->SetOptimizer( RegistrationFactoryType::RegularStepGradientDescentOptimizer );
-                break;
-            case 1: self->registrationFactory->SetOptimizer( RegistrationFactoryType::VersorRigidOptimizer );
-                break;
-            case 2: self->registrationFactory->SetOptimizer( RegistrationFactoryType::LBFGSBOptimizer );
-                break;
-            case 3: self->registrationFactory->SetOptimizer( RegistrationFactoryType::AmoebaOptimizer );
-                break;
-            case 4: self->registrationFactory->SetOptimizer( RegistrationFactoryType::PowellOptimizer );
-                break;
-            default:
-                NSLog(@"Unknown optimizer!");
-                return NULL;
+            case         0: self->registrationFactory->SetOptimizer( RegistrationFactoryType::RegularStepGradientDescentOptimizer );
+            break; case  1: self->registrationFactory->SetOptimizer( RegistrationFactoryType::VersorRigidOptimizer );
+            break; case  2: self->registrationFactory->SetOptimizer( RegistrationFactoryType::LBFGSBOptimizer );
+            break; case  3: self->registrationFactory->SetOptimizer( RegistrationFactoryType::AmoebaOptimizer );
+            break; case  4: self->registrationFactory->SetOptimizer( RegistrationFactoryType::PowellOptimizer );
+            break; default: NSLog(@"Unknown optimizer!");
+                            return NULL;
 		}
 
 		if (prealign) {
@@ -483,9 +539,7 @@ bool verbose = false;
 		}
         
 		if (counter != 0) {
-			self->registrationFactory->UserOptions.PREALIGN            = false;
-			self->registrationFactory->UserOptions.INITIALIZECENTEROFF = true;
-			self->registrationFactory->UserOptions.INITIALIZEMASSOFF   = true;
+			self->registrationFactory->UserOptions.PREALIGN          = false;
 			self->registrationFactory->SetInitialTransform( const_cast<TransformBasePointerType>(self->tmpConstTransformPointer) );
 		}
 
@@ -536,7 +590,7 @@ bool verbose = false;
         self->registrationFactory->UserOptions.PREALIGNPRECISION = PREALIGN_PRECISION_DEFAULT;
         
         // TODO: remove
-        if (verbose) {
+        if (VERBOSE) {
             registrationFactory->UserOptions.SHOWITERATIONATSTEP = SHOW_ITERATION_STEP_VERBOSE;
             registrationFactory->UserOptions.PRINTRESULTS = true;
         } else {
@@ -548,10 +602,7 @@ bool verbose = false;
         
         self->registrationFactory->UserOptions.NumberOfThreads = NR_THREADS;
         self->registrationFactory->UserOptions.MattesMutualInitializeSeed = MATTES_MUTUAL_SEED;
-
-        self->registrationFactory->UserOptions.INITIALIZECENTEROFF = true;
-        self->registrationFactory->UserOptions.INITIALIZEMASSOFF = true;
-        
+    
         self->registrationFactory->SetFixedImage(fixedImage);
         self->registrationFactory->SetMovingImage(movingImage);
 
