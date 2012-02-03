@@ -10,43 +10,7 @@
 
 #import "EDNA/EDDataElement.h"
 
-// ISIS includes
-#import "isisRegistrationFactory3D.hpp"
-#import "isisTimeStepExtractionFilter.hpp"
-
-// ITK includes
-#import <itkImageFileReader.h>
-#import <itkHistogramMatchingImageFilter.h>
-#import <itkWarpImageFilter.h>
-#import <itkTileImageFilter.h>
-
-
-// ISIS typedef
-typedef isis::registration::RegistrationFactory3D<ITKImage, ITKImage> RegistrationFactoryType;
-typedef isis::extitk::TimeStepExtractionFilter<ITKImage4D, ITKImage> TimeStepExtractionFilterType;
-
-// ITK typedefs
-typedef itk::Vector<float, 3> VectorType;
-typedef itk::Image<VectorType, 3> DeformationFieldType;
-//typedef itk::ImageFileReader<DeformationFieldType> DeformationFieldReaderType;
-
-typedef itk::RecursiveGaussianImageFilter<ITKImage, ITKImage> GaussianFilterType;
-typedef itk::HistogramMatchingImageFilter<ITKImage, ITKImage> MatchingFilterType;
-
-typedef itk::ResampleImageFilter<ITKImage, ITKImage> ResampleImageFilterType;
-typedef itk::WarpImageFilter<ITKImage, ITKImage, DeformationFieldType> WarpImageFilterType;
-
-//      Interpolators
-typedef itk::LinearInterpolateImageFunction<ITKImage, double> LinearInterpolatorType;
-typedef itk::NearestNeighborInterpolateImageFunction<ITKImage, double> NearestNeighborInterpolatorType;
-typedef itk::BSplineInterpolateImageFunction<ITKImage, double> BSplineInterpolatorType;
-
-typedef itk::TileImageFilter<ITKImage, ITKImage4D> TileImageFilterType;
-
-typedef itk::TransformBase* TransformBasePointerType;
-
-
-
+#import "ROTypedef.h"
 
 /**
  * Based on valign3d and vdotrans from Lipsia.
