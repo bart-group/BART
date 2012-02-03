@@ -9,6 +9,8 @@
 #ifndef BARTApplication_ROTypedef_h
 #define BARTApplication_ROTypedef_h
 
+#import "EDNA/EDDataElement.h"
+
 // ISIS includes
 #import "isisRegistrationFactory3D.hpp"
 #import "isisTimeStepExtractionFilter.hpp"
