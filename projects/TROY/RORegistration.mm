@@ -20,6 +20,9 @@
 #import "DataStorage/image.hpp"
 #import "Adapter/itkAdapter.hpp"
 
+// Experimental Tensor TK import
+//#import "itkDisplacementFieldCompositionFilter.h"
+
 
 
 // # Constants #####
@@ -281,7 +284,6 @@ enum EOptimizer {
                                           transformation:trans_fun2ana 
                                               resolution:reso];
     
-    
     if (transformResult != NULL) {
         ITKImage4D::Pointer fun2ana = transformResult->getImg4D();
         free(transformResult);
@@ -303,6 +305,23 @@ enum EOptimizer {
                                                                     prealign:YES
                                                                       smooth:SMOOTH_FWHM];
         
+        
+        
+        // START Compositor test!
+//        typedef itk::DisplacementFieldCompositionFilter<DeformationFieldType, DeformationFieldType> TransformationCompositionFilter;
+//        TransformationCompositionFilter::Pointer compositor = TransformationCompositionFilter::New();
+//                
+//        compositor->SetInput(0, trans_fun2ana);
+//        compositor->SetInput(1, trans_ana2ref);
+        
+//        compositor->SetInput(0, trans_ana2ref);
+//        compositor->SetInput(1, trans_fun2ana);
+        
+////        compositor->Update();
+        
+//        DeformationFieldType::Pointer combinedTrans = compositor->GetOutput();
+        // END Compositor test
+        
         reso.clear();
         reso.push_back(3);
         
@@ -311,6 +330,20 @@ enum EOptimizer {
                             withReference:refITK
                            transformation:trans_ana2ref 
                                resolution:reso];
+        
+//        transformResult = [self transform:NULL 
+//                             orFunctional:funITK4D
+//                            withReference:refITK 
+//                           transformation:compositor->GetOutput() 
+//                               resolution:reso];
+        
+//        DeformationFieldType::Pointer combinedTrans = compositor->GetOutput();
+//        std::cout << "##### FUN2ANA #####" << std::endl;
+//        std::cout << trans_fun2ana << std::endl;
+//        std::cout << "##### ANA2REF #####" << std::endl;
+//        std::cout << trans_ana2ref << std::endl;
+//        std::cout << "##### COMBINED #####" << std::endl;
+//        std::cout << combinedTrans << std::endl;
         
         if (transformResult != NULL) {
             ITKImage4D::Pointer fun2ana2mni = transformResult->getImg4D();
