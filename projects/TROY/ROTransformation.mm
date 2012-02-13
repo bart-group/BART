@@ -20,9 +20,28 @@
     return self;    
 }
 
--(EDDataElement*)transform:(EDDataElement*)element
+-(id)initWithTransform:(DeformationFieldType::Pointer)trans
 {
-    ITKImage::Pointer itkImage = [element asITKImage];
+    if (self = [self init]) {
+        self->m_Trans = trans;
+    }
+    
+    return self;
+}
+
+//-(EDDataElement*)transform:(EDDataElement*)element
+//{
+//    ITKImage::Pointer itkImage = [element asITKImage];
+//    return nil;
+//}
+
+-(DeformationFieldType::Pointer)getTransform
+{
+    return self->m_Trans;
+}
+
+-(ROTransformation*)join:(ROTransformation *)other
+{
     return nil;
 }
 

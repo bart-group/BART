@@ -8,12 +8,19 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class EDDataElement;
+#import "ROTypedef.h"
+
+#import "itkDisplacementFieldCompositionFilter.h"
 
 @interface ROTransformation : NSObject {
-    
+    DeformationFieldType::Pointer m_Trans;
 }
 
--(EDDataElement*)transform:(EDDataElement*)element;
+-(id)initWithTransform:(DeformationFieldType::Pointer)trans;
+
+-(DeformationFieldType::Pointer)getTransform;
+
+// return = other o this
+-(ROTransformation*)join:(ROTransformation*)other;
 
 @end
