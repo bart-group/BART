@@ -1,157 +1,24 @@
 //
-//  RORegistration.m
+//  RORegistrationVnormdata.m
 //  BARTApplication
 //
-//  Created by Oliver Zscheyge on 8/23/11.
-//  Copyright (c) 2011 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
+//  Created by Oliver Zscheyge on 2/20/12.
+//  Copyright (c) 2012 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#include <assert.h>
-
-#import "RORegistration.h"
+#import "RORegistrationVnormdata.h"
 
 #import "EDDataElementIsis.h"
-
-// ITK
-//#import <itkImageFileWriter.h>
 
 // Isis
 #import "DataStorage/image.hpp"
 #import "Adapter/itkAdapter.hpp"
 
-// Experimental Tensor TK import
-//#import "itkDisplacementFieldCompositionFilter.h"
 
 
+@interface RORegistrationVnormdata (privateMethods)
 
-// # Constants #####
-
-const int NR_THREADS = 16; //8; //4;
-
-const float SMOOTH_FWHM = 1.0f; // in valign3d: defined as 2.0 and overwritten as 1.0 by vnormdata cmdline args
-const float PIXEL_DENSITY_DEFAULT = 1.0f; // 0.012f; // 1.0f;
-const short GRID_SIZE_MINIMUM = 5;
-const short NITERATION_DEFAULT = 500; // 500
-const short N_BINS_DEFAULT = 50;
-const float COARSE_FACTOR_DEFAULT = 1.0f;
-const float BSPLINE_BOUND_DEFAULT = 15.0f;
-const float ROTATION_SCALE_DEFAULT = -1.0f;
-const float TRANSLATION_SCALE_DEFAULT = -1.0f;
-const short PREALIGN_PRECISION_DEFAULT = 5;
-
-const unsigned int MATTES_MUTUAL_SEED = 1;
-
-const bool VERBOSE = false;
-
-const unsigned int SHOW_ITERATION_STEP_DEFAULT = 10;
-const unsigned int SHOW_ITERATION_STEP_VERBOSE = 1;
-
-
-
-
-
-// # Utility classes #####
-
-/** 
- * Wrapper class to simulate either one of two return types
- * of the transform function.
- */
-class ITKImageContainer
-{
-private:
-    ITKImage::Pointer   img3D;
-    ITKImage4D::Pointer img4D;
-public:
-    ITKImageContainer(ITKImage::Pointer   img3D) { this->img3D = img3D; this->img4D = NULL;  };
-    ITKImageContainer(ITKImage4D::Pointer img4D) { this->img3D = NULL;  this->img4D = img4D; };
-    ~ITKImageContainer() { };
-    bool is3D() { if (this->img3D.IsNull()) { return false; } else { return true; } };
-    bool is4D() { if (this->img4D.IsNull()) { return false; } else { return true; } };
-    ITKImage::Pointer   getImg3D() { return this->img3D; };
-    ITKImage4D::Pointer getImg4D() { return this->img4D; };
-};
-
-
-
-// # Enums ###
-
-enum ETransform {
-    VersorRigid3DTransform = 0,
-    AffineTransform,
-    BSplineDeformableTransform,
-    TranslationTransform
-};
-
-enum EOptimizer {
-    RegularStepGradientDescentOptimizer = 0,
-    VersorRigidOptimizer,
-    LBFGSBOptimizer,
-    AmoebaOptimizer,
-    PowellOptimizer
-};
-
-
-
-// # Private interface extension #####
-
-@interface RORegistration (privateMethods)
-
-/**
- * Reduced version of Lipsia's valign3d:
- * Aligns a moving image to a fixed reference image.
- * Yields the deformation field describing the transformation.
- *
- * \param toAlign   The image that should be aligned on ref (moving image)
- * \param ref       The image on which toAlign is aligned (fixed image)
- * \param transform Vector of transformation algorithms that should be used.
- *                  Size of this vector determines the number repetitions.
- *                  Do not confuse these with the number of iterations!
- *                  The total number of registration steps is:
- *                  #repetitons * #iterations
- *                  If an empty vector is passed the default transformation
- *                  VersorRigid3DTransform is used.
- * \param optimizer Vector of optimizer algorithms. Used pair-wise with
- *                  the passed transformation methods provided by transform
- *                  (1st repetition: 1st transform + 1st optimizer etc.)
- *                  The used optimizer should suit the used transformation
- *                  in each repetition!
- * \param prealign  Flag whether prealign should be performed
- * \param smooth    Smoothing value. Smoothing is only applied if this
- *                  parameter is greater than 0.0f !
- *
- * \return          Deformation field scribing the transformation from
- *                  toAlign to ref.
- */
--(DeformationFieldType::Pointer)computeTransform:(ITKImage::Pointer)toAlign 
-                                   withReference:(ITKImage::Pointer)ref
-                                  transformTypes:(std::vector<ETransform>)transform
-                                  optimizerTypes:(std::vector<EOptimizer>)optimizer
-                                        prealign:(BOOL)prealign
-                                          smooth:(const float)smooth;
-
-// TODO: use ITKImageContainer for toAlign/toAlignFun!
-
-/**
- * Reduced version of Lipsia's vdotrans3d:
- * Applies a transformation determined by computeTransform()
- *
- * \param toAlign    The 3D image that should be transformed (moving image).
- *                   Should be NULL, if toAlignFun is used!
- * \param toAlignFun The 4D image that should be transformed (moving image).
- *                   Should be NULL, if toAlign is used!
- * \param ref        The fixed image on which either toAlign or toAlignFun 
- *                   was aligned .
- * \param trans      Deformation field that should be applied to either
- *                   toAlign or toAlignFun
- *
- * \return           ITKImageContainer containing either a 3D or 4D ITKImage
- *                   depending on whether toAlign or toAlignFun was used.
- */
--(ITKImageContainer*)transform:(ITKImage::Pointer)toAlign
-                  orFunctional:(ITKImage4D::Pointer)toAlignFun
-                 withReference:(ITKImage::Pointer)ref 
-                transformation:(DeformationFieldType::Pointer)trans 
-                    resolution:(std::vector<size_t>)res; 
+-(void)initMembers;
 
 @end
 
@@ -159,233 +26,99 @@ enum EOptimizer {
 
 // # Public interface implementation #####
 
-@implementation RORegistration
+@implementation RORegistrationVnormdata
 
 -(id)init
 {
     if (self = [super init]) {
-        // From align3d
-        self->registrationFactory = RegistrationFactoryType::New();
-        self->tmpConstTransformPointer = NULL;
-        
-//        isis::data::enable_log<isis::util::DefaultMsgPrint>(isis::info);
+        [self initMembers];
     }
     
     return self;    
 }
 
-
--(id)initFindingTransformFrom:(EDDataElement*)toAlign 
-                  toReference:(EDDataElement*)ref
+-(id)initFindingTransform:(EDDataElement*)fun
+                  anatomy:(EDDataElement*)ana
+                reference:(EDDataElement*)ref
 {
-    if (self = [self init]) {
-//        self->v = [self computeTransform:toAlign withReference:ref];
+    if (self = [super initFindingTransform:fun
+                                   anatomy:ana 
+                                 reference:ref]) {
+        [self initMembers];
+        
+        ITKImage::Pointer   funITK3D = [fun asITKImage];
+        ITKImage4D::Pointer funITK4D = [fun asITKImage4D];
+        self->m_anaITK = [ana asITKImage];
+        self->m_refITK = [ref asITKImage];
+        
+        std::vector<ETransform> transformTypes;
+        std::vector<EOptimizer> optimizerTypes;
+        DeformationFieldType::Pointer trans_ana2fun = [self computeTransform:m_anaITK 
+                                                               withReference:funITK3D
+                                                              transformTypes:transformTypes
+                                                              optimizerTypes:optimizerTypes 
+                                                                    prealign:YES
+                                                                      smooth:SMOOTH_FWHM];
+        
+        std::vector<size_t> reso;
+        reso.push_back(1);
+        ITKImageContainer* transformResult = [self transform:self->m_anaITK
+                                                orFunctional:NULL
+                                               withReference:funITK3D
+                                              transformation:trans_ana2fun 
+                                                  resolution:reso];
+        
+        
+        if (transformResult != NULL) {
+            ITKImage::Pointer ana2fun = transformResult->getImg3D();
+            free(transformResult);
+            
+            // TODO: check whether back conversion is really necessary
+            //        EDDataElement* ana2funBackconv = [ana convertFromITKImage:ana2fun];
+            //        [ana2funBackconv WriteDataElementToFile:@"/tmp/BARTReg_ana2fun.nii"];
+            //        ana2fun = [ana2funBackconv asITKImage];
+            // TODO END
+            
+            transformTypes.push_back(VersorRigid3DTransform);
+            transformTypes.push_back(AffineTransform);
+            transformTypes.push_back(BSplineDeformableTransform);
+            
+            optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
+            optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
+            optimizerTypes.push_back(LBFGSBOptimizer);
+            
+            self->m_transformation = [self computeTransform:ana2fun 
+                                              withReference:self->m_refITK 
+                                             transformTypes:transformTypes
+                                             optimizerTypes:optimizerTypes 
+                                                   prealign:YES
+                                                     smooth:SMOOTH_FWHM];
+        }
+
     }
     
     return self;
 }
 
--(EDDataElement*)normdata:(EDDataElement*)fun
-                  anatomy:(EDDataElement*)ana
-      anatomicalReference:(EDDataElement*)ref
+-(EDDataElement*)apply:(EDDataElement*)toAlign
 {
-    ITKImage::Pointer   funITK3D = [fun asITKImage];
-    ITKImage4D::Pointer funITK4D = [fun asITKImage4D];
-    ITKImage::Pointer anaITK = [ana asITKImage];
-    ITKImage::Pointer refITK = [ref asITKImage];
-    
-    std::vector<ETransform> transformTypes;
-    std::vector<EOptimizer> optimizerTypes;
-    DeformationFieldType::Pointer trans_ana2fun = [self computeTransform:anaITK 
-                                                           withReference:funITK3D
-                                                          transformTypes:transformTypes
-                                                          optimizerTypes:optimizerTypes 
-                                                                prealign:YES
-                                                                  smooth:SMOOTH_FWHM];
+    ITKImage4D::Pointer funITK4D = [toAlign asITKImage4D];
     
     std::vector<size_t> reso;
-    reso.push_back(1);
-    ITKImageContainer* transformResult = [self transform:anaITK
-                                            orFunctional:NULL
-                                           withReference:funITK3D
-                                          transformation:trans_ana2fun 
-                                              resolution:reso];
+    reso.push_back(3);
     
-    
-    if (transformResult != NULL) {
-        ITKImage::Pointer ana2fun = transformResult->getImg3D();
-        free(transformResult);
-        
-        // TODO: check whether back conversion is really necessary
-//        EDDataElement* ana2funBackconv = [ana convertFromITKImage:ana2fun];
-//        [ana2funBackconv WriteDataElementToFile:@"/tmp/BARTReg_ana2fun.nii"];
-//        ana2fun = [ana2funBackconv asITKImage];
-        // TODO END
-
-        transformTypes.push_back(VersorRigid3DTransform);
-        transformTypes.push_back(AffineTransform);
-        transformTypes.push_back(BSplineDeformableTransform);
-        
-        optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
-        optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
-        optimizerTypes.push_back(LBFGSBOptimizer);
-
-        DeformationFieldType::Pointer trans_ana2ref = [self computeTransform:ana2fun 
-                                                               withReference:refITK 
-                                                              transformTypes:transformTypes
-                                                              optimizerTypes:optimizerTypes 
-                                                                    prealign:YES
-                                                                      smooth:SMOOTH_FWHM];
-        
-        reso.clear();
-        reso.push_back(3);
-        
-        transformResult = [self transform:NULL
-                             orFunctional:funITK4D
-                            withReference:refITK 
-                           transformation:trans_ana2ref 
-                               resolution:reso];
-        
-        if (transformResult != NULL) {
-            ITKImage4D::Pointer ana2fun2mni = transformResult->getImg4D();
-            free(transformResult);
-            return [fun convertFromITKImage4D:ana2fun2mni];
-        }
-
-    }
-    
-    return nil;
-}
-
--(EDDataElement*)bartRegistration:(EDDataElement*)fun
-                          anatomy:(EDDataElement*)ana
-              anatomicalReference:(EDDataElement*)ref 
-{
-    ITKImage::Pointer   funITK3D = [fun asITKImage];
-    ITKImage4D::Pointer funITK4D = [fun asITKImage4D];
-    ITKImage::Pointer anaITK = [ana asITKImage];
-    ITKImage::Pointer refITK = [ref asITKImage];
-    
-    std::vector<ETransform> transformTypes;
-    std::vector<EOptimizer> optimizerTypes;
-    DeformationFieldType::Pointer trans_fun2ana = [self computeTransform:funITK3D 
-                                                           withReference:anaITK
-                                                          transformTypes:transformTypes
-                                                          optimizerTypes:optimizerTypes 
-                                                                prealign:YES
-                                                                  smooth:SMOOTH_FWHM];
-    
-    std::vector<size_t> reso;
-    reso.push_back(1);
     ITKImageContainer* transformResult = [self transform:NULL
                                             orFunctional:funITK4D
-                                           withReference:anaITK
-                                          transformation:trans_fun2ana 
+                                           withReference:m_refITK 
+                                          transformation:self->m_transformation
                                               resolution:reso];
     
     if (transformResult != NULL) {
-        ITKImage4D::Pointer fun2ana = transformResult->getImg4D();
+        ITKImage4D::Pointer ana2fun2mni = transformResult->getImg4D();
         free(transformResult);
-        
-//        return [fun convertFromITKImage:fun2ana];
-        
-        transformTypes.push_back(VersorRigid3DTransform);
-        transformTypes.push_back(AffineTransform);
-        transformTypes.push_back(BSplineDeformableTransform);
-        
-        optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
-        optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
-        optimizerTypes.push_back(LBFGSBOptimizer);
-        
-        DeformationFieldType::Pointer trans_ana2ref = [self computeTransform:anaITK
-                                                               withReference:refITK 
-                                                              transformTypes:transformTypes
-                                                              optimizerTypes:optimizerTypes 
-                                                                    prealign:YES
-                                                                      smooth:SMOOTH_FWHM];
-        
-        
-        
-        // START Compositor test!
-//        typedef itk::DisplacementFieldCompositionFilter<DeformationFieldType, DeformationFieldType> TransformationCompositionFilter;
-//        TransformationCompositionFilter::Pointer compositor = TransformationCompositionFilter::New();
-//                
-//        compositor->SetInput(0, trans_fun2ana);
-//        compositor->SetInput(1, trans_ana2ref);
-        
-//        compositor->SetInput(0, trans_ana2ref);
-//        compositor->SetInput(1, trans_fun2ana);
-        
-////        compositor->Update();
-        
-//        DeformationFieldType::Pointer combinedTrans = compositor->GetOutput();
-        // END Compositor test
-        
-        reso.clear();
-        reso.push_back(3);
-        
-        transformResult = [self transform:NULL
-                             orFunctional:fun2ana
-                            withReference:refITK
-                           transformation:trans_ana2ref 
-                               resolution:reso];
-        
-//        transformResult = [self transform:NULL 
-//                             orFunctional:funITK4D
-//                            withReference:refITK 
-//                           transformation:compositor->GetOutput() 
-//                               resolution:reso];
-        
-//        DeformationFieldType::Pointer combinedTrans = compositor->GetOutput();
-//        std::cout << "##### FUN2ANA #####" << std::endl;
-//        std::cout << trans_fun2ana << std::endl;
-//        std::cout << "##### ANA2REF #####" << std::endl;
-//        std::cout << trans_ana2ref << std::endl;
-//        std::cout << "##### COMBINED #####" << std::endl;
-//        std::cout << combinedTrans << std::endl;
-        
-        if (transformResult != NULL) {
-            ITKImage4D::Pointer fun2ana2mni = transformResult->getImg4D();
-            free(transformResult);
-            return [fun convertFromITKImage4D:fun2ana2mni];
-        }
-        
+        return [toAlign convertFromITKImage4D:ana2fun2mni];
     }
     
-    return nil;
-}
-
-//-(EDDataElement*)align:(EDDataElement*)toAlign 
-//       beingFunctional:(BOOL)fmri
-//         withReference:(EDDataElement*)ref 
-//{
-//    if (toAlign == nil || ref == nil) {
-//        // exception?
-//        return nil;
-//    }
-//    
-//    // TODO: replace with method: align :: EDDataElement -> EDDataElement
-//    
-//    DeformationFieldType::Pointer trans = [self computeTransform:toAlign 
-//                                                   withReference:ref];
-//    
-//    std::vector<size_t> res;
-//    res.push_back(1);
-//    
-//    NSLog(@"### FINISHED COMPUTING TRANSFORM, ALIGNING NOW ###");
-//    
-//    EDDataElement* transformed = [self transform:toAlign 
-//                                   withReference:ref 
-//                                  transformation:trans 
-//                                      resolution:res 
-//                                  functionalData:fmri];
-//    
-//    return transformed;
-//}
-
-
--(RORegistration*)combineTransform:(RORegistration*)other
-{
     return nil;
 }
 
@@ -393,16 +126,33 @@ enum EOptimizer {
 
 
 
-// # Private interface implementation #####
+// # Private method implementation
 
-@implementation RORegistration (privateMethods)
+@implementation RORegistrationVnormdata (privateMethods)
+
+-(void)initMembers
+{
+    // From align3d
+    self->registrationFactory = RegistrationFactoryType::New();
+    self->tmpConstTransformPointer = NULL;
+    
+    //        isis::data::enable_log<isis::util::DefaultMsgPrint>(isis::info);
+}
+
+@end
+
+
+
+// # Extended interface implementation #####
+
+@implementation RORegistrationVnormdata (lipsiaFunctions)
 
 -(DeformationFieldType::Pointer)computeTransform:(ITKImage::Pointer)toAlign 
-                                   withReference:(ITKImage::Pointer)ref
-                                  transformTypes:(std::vector<ETransform>)transforms
-                                  optimizerTypes:(std::vector<EOptimizer>)optimizers
-                                        prealign:(BOOL)prealign
-                                          smooth:(const float)smooth
+         withReference:(ITKImage::Pointer)ref
+        transformTypes:(std::vector<ETransform>)transforms
+        optimizerTypes:(std::vector<EOptimizer>)optimizers
+              prealign:(BOOL)prealign
+                smooth:(const float)smooth
 {
     self->registrationFactory->Reset();
     
@@ -463,7 +213,7 @@ enum EOptimizer {
 		movingImage->DisconnectPipeline();
 		movingImage = movingGaussianFilterZ->GetOutput();
 	}
-
+    
     
     
     MatchingFilterType::Pointer matcher = MatchingFilterType::New();    
@@ -501,9 +251,9 @@ enum EOptimizer {
     short gridSize     = GRID_SIZE_MINIMUM + 1;
     
     // from isisreg3d.cxx:
-//    //if no pixel density is specified it will be calculated to achieve a amount of 30000 voxel considered for registration
-//	float pixelDens = float( 150000 ) / ( refList.front().getSizeAsVector()[0] * refList.front().getSizeAsVector()[1] * refList.front().getSizeAsVector()[2] ) ;
-//	if(pixelDens > 1) { pixelDens=1;}
+    //    //if no pixel density is specified it will be calculated to achieve a amount of 30000 voxel considered for registration
+    //	float pixelDens = float( 150000 ) / ( refList.front().getSizeAsVector()[0] * refList.front().getSizeAsVector()[1] * refList.front().getSizeAsVector()[2] ) ;
+    //	if(pixelDens > 1) { pixelDens=1;}
     
     //now, our version:
     ITKImage::SizeType imSize = fixedImage->GetLargestPossibleRegion().GetSize(); 
@@ -512,7 +262,7 @@ enum EOptimizer {
     if (pixelDensity <= 0 or pixelDensity > 1) {
         pixelDensity = PIXEL_DENSITY_DEFAULT;
     }
-
+    
     unsigned long bsplineCounter = 0;
     for (unsigned long counter = 0; counter < repetition; counter++ ) {
 		//transform is the master for determining the number of repetitions
@@ -578,7 +328,7 @@ enum EOptimizer {
 		}
         
 		if (transform     != VersorRigid3DTransform
-//             and transform != 4) 
+            //             and transform != 4) 
             and optimizer == VersorRigidOptimizer) {
 			NSLog(@"Inappropriate combination of transform and optimizer! Setting optimizer to RegularStepGradientDescentOptimizer.");
 			optimizer = RegularStepGradientDescentOptimizer;
@@ -596,43 +346,43 @@ enum EOptimizer {
         //transform setup
         switch (transform) {
             case         0: self->registrationFactory->SetTransform( RegistrationFactoryType::VersorRigid3DTransform );
-            break; case  1: self->registrationFactory->SetTransform( RegistrationFactoryType::AffineTransform );
-            break; case  2: self->registrationFactory->SetTransform( RegistrationFactoryType::BSplineDeformableTransform );
-            break; case  3: self->registrationFactory->SetTransform( RegistrationFactoryType::TranslationTransform );
-            break; default: NSLog(@"Error: Unknown transform!");
-                            return NULL;
+                break; case  1: self->registrationFactory->SetTransform( RegistrationFactoryType::AffineTransform );
+                break; case  2: self->registrationFactory->SetTransform( RegistrationFactoryType::BSplineDeformableTransform );
+                break; case  3: self->registrationFactory->SetTransform( RegistrationFactoryType::TranslationTransform );
+                break; default: NSLog(@"Error: Unknown transform!");
+                return NULL;
 		}
         
         //metric setup
 		switch (metric) {
             case         0: self->registrationFactory->SetMetric( RegistrationFactoryType::MattesMutualInformationMetric );
-            break; case  1: self->registrationFactory->SetMetric( RegistrationFactoryType::MutualInformationHistogramMetric );
-            break; case  2: self->registrationFactory->SetMetric( RegistrationFactoryType::NormalizedCorrelationMetric );
-            break; case  3: self->registrationFactory->SetMetric( RegistrationFactoryType::MeanSquareMetric );
-            break; default: NSLog(@"Error: Unknown metric!");
-                            return NULL;
+                break; case  1: self->registrationFactory->SetMetric( RegistrationFactoryType::MutualInformationHistogramMetric );
+                break; case  2: self->registrationFactory->SetMetric( RegistrationFactoryType::NormalizedCorrelationMetric );
+                break; case  3: self->registrationFactory->SetMetric( RegistrationFactoryType::MeanSquareMetric );
+                break; default: NSLog(@"Error: Unknown metric!");
+                return NULL;
 		}
         
 		//interpolator setup
 		switch (interpolator) {
             case         0: self->registrationFactory->SetInterpolator( RegistrationFactoryType::LinearInterpolator );
-            break; case  1: self->registrationFactory->SetInterpolator( RegistrationFactoryType::BSplineInterpolator );
-            break; case  2: self->registrationFactory->SetInterpolator( RegistrationFactoryType::NearestNeighborInterpolator );
-            break; default: NSLog(@"Error: Unknown interpolator!");
-                            return NULL;
+                break; case  1: self->registrationFactory->SetInterpolator( RegistrationFactoryType::BSplineInterpolator );
+                break; case  2: self->registrationFactory->SetInterpolator( RegistrationFactoryType::NearestNeighborInterpolator );
+                break; default: NSLog(@"Error: Unknown interpolator!");
+                return NULL;
 		}
         
 		//optimizer setup
 		switch (optimizer) {
             case         0: self->registrationFactory->SetOptimizer( RegistrationFactoryType::RegularStepGradientDescentOptimizer );
-            break; case  1: self->registrationFactory->SetOptimizer( RegistrationFactoryType::VersorRigidOptimizer );
-            break; case  2: self->registrationFactory->SetOptimizer( RegistrationFactoryType::LBFGSBOptimizer );
-            break; case  3: self->registrationFactory->SetOptimizer( RegistrationFactoryType::AmoebaOptimizer );
-            break; case  4: self->registrationFactory->SetOptimizer( RegistrationFactoryType::PowellOptimizer );
-            break; default: NSLog(@"Unknown optimizer!");
-                            return NULL;
+                break; case  1: self->registrationFactory->SetOptimizer( RegistrationFactoryType::VersorRigidOptimizer );
+                break; case  2: self->registrationFactory->SetOptimizer( RegistrationFactoryType::LBFGSBOptimizer );
+                break; case  3: self->registrationFactory->SetOptimizer( RegistrationFactoryType::AmoebaOptimizer );
+                break; case  4: self->registrationFactory->SetOptimizer( RegistrationFactoryType::PowellOptimizer );
+                break; default: NSLog(@"Unknown optimizer!");
+                return NULL;
 		}
-
+        
 		if (prealign) {
 			self->registrationFactory->UserOptions.PREALIGN          = true;
 			self->registrationFactory->UserOptions.PREALIGNPRECISION = 7;
@@ -642,42 +392,42 @@ enum EOptimizer {
 			self->registrationFactory->UserOptions.PREALIGN          = false;
 			self->registrationFactory->SetInitialTransform( const_cast<TransformBasePointerType>(self->tmpConstTransformPointer) );
 		}
-
-//        if ( mask_filename ) {
-//			maskReader->SetFileName( mask_filename );
-//			maskReader->Update();
-//			mask->SetImage( maskReader->GetOutput() );
-//			mask->Update();
-//			registrationFactory->SetFixedImageMask( mask );
-//		}
-//        
-//		if ( pointset_filename ) {
-//			registrationFactory->UserOptions.LANDMARKINITIALIZE = true;
-//			std::ifstream pointSetFile;
-//			pointSetFile.open( pointset_filename );
-//            
-//			if ( pointSetFile.fail() ) {
-//				std::cout << "Pointset file " << pointset_filename << " not found!" << std::endl;
-//				return EXIT_FAILURE;
-//			}
-//            
-//			LandmarkBasedTransformInitializerType::LandmarkPointContainer fixedPointsContainer;
-//			LandmarkBasedTransformInitializerType::LandmarkPointContainer movingPointsContainer;
-//			LandmarkBasedTransformInitializerType::LandmarkPointType fixedPoint;
-//			LandmarkBasedTransformInitializerType::LandmarkPointType movingPoint;
-//			pointSetFile >> fixedPoint;
-//			pointSetFile >> movingPoint;
-//            
-//			while ( !pointSetFile.eof() ) {
-//				fixedPointsContainer.push_back( fixedPoint );
-//				movingPointsContainer.push_back( movingPoint );
-//				pointSetFile >> fixedPoint;
-//				pointSetFile >> movingPoint;
-//			}
-//            
-//			registrationFactory->SetFixedPointContainer( fixedPointsContainer );
-//			registrationFactory->SetMovingPointContainer( movingPointsContainer );
-//		}
+        
+        //        if ( mask_filename ) {
+        //			maskReader->SetFileName( mask_filename );
+        //			maskReader->Update();
+        //			mask->SetImage( maskReader->GetOutput() );
+        //			mask->Update();
+        //			registrationFactory->SetFixedImageMask( mask );
+        //		}
+        //        
+        //		if ( pointset_filename ) {
+        //			registrationFactory->UserOptions.LANDMARKINITIALIZE = true;
+        //			std::ifstream pointSetFile;
+        //			pointSetFile.open( pointset_filename );
+        //            
+        //			if ( pointSetFile.fail() ) {
+        //				std::cout << "Pointset file " << pointset_filename << " not found!" << std::endl;
+        //				return EXIT_FAILURE;
+        //			}
+        //            
+        //			LandmarkBasedTransformInitializerType::LandmarkPointContainer fixedPointsContainer;
+        //			LandmarkBasedTransformInitializerType::LandmarkPointContainer movingPointsContainer;
+        //			LandmarkBasedTransformInitializerType::LandmarkPointType fixedPoint;
+        //			LandmarkBasedTransformInitializerType::LandmarkPointType movingPoint;
+        //			pointSetFile >> fixedPoint;
+        //			pointSetFile >> movingPoint;
+        //            
+        //			while ( !pointSetFile.eof() ) {
+        //				fixedPointsContainer.push_back( fixedPoint );
+        //				movingPointsContainer.push_back( movingPoint );
+        //				pointSetFile >> fixedPoint;
+        //				pointSetFile >> movingPoint;
+        //			}
+        //            
+        //			registrationFactory->SetFixedPointContainer( fixedPointsContainer );
+        //			registrationFactory->SetMovingPointContainer( movingPointsContainer );
+        //		}
         
         self->registrationFactory->UserOptions.CoarseFactor = COARSE_FACTOR_DEFAULT;
         self->registrationFactory->UserOptions.BSplineBound = BSPLINE_BOUND_DEFAULT;
@@ -698,22 +448,22 @@ enum EOptimizer {
             registrationFactory->UserOptions.PRINTRESULTS = false;
         }
         // remove END
-//        registrationFactory->UserOptions.PRINTRESULTS = false;
+        //        registrationFactory->UserOptions.PRINTRESULTS = false;
         
         self->registrationFactory->UserOptions.NumberOfThreads = NR_THREADS;
         self->registrationFactory->UserOptions.MattesMutualInitializeSeed = MATTES_MUTUAL_SEED;
-    
+        
         self->registrationFactory->SetFixedImage(fixedImage);
         self->registrationFactory->SetMovingImage(movingImage);
-
+        
 		self->registrationFactory->StartRegistration();
         
-//        if (!use_inverse) {
+        //        if (!use_inverse) {
         self->tmpConstTransformPointer = self->registrationFactory->GetTransform();
-//        }
+        //        }
     }
     
-//    return registrationFactory->GetTransform();    
+    //    return registrationFactory->GetTransform();    
     
     return registrationFactory->GetTransformVectorField();
 }
@@ -724,24 +474,24 @@ enum EOptimizer {
                 transformation:(DeformationFieldType::Pointer)trans 
                     resolution:(std::vector<size_t>)res; 
 {
-//    if (toAlignFun.IsNotNull()) {
-//        ITKImage4D::PointType toAlignFunOrigin = toAlignFun->GetOrigin();
-//        std::cout << "Functional origin:" << std::endl;
-//        std::cout << toAlignFunOrigin << std::endl;
-//        
-//        ITKImage4D::DirectionType toAlignFunDirection = toAlignFun->GetDirection();
-//        std::cout << "Functional direction matrix:" << std::endl;
-//        std::cout << toAlignFunDirection << std::endl;
-//    }
-//    if (toAlign.IsNotNull()) {
-//        ITKImage::PointType toAlignOrigin = toAlign->GetOrigin();
-//        std::cout << "3D origin:" << std::endl;
-//        std::cout << toAlignOrigin << std::endl;
-//        
-//        ITKImage::DirectionType toAlignDirection = toAlign->GetDirection();
-//        std::cout << "3D direction matrix:" << std::endl;
-//        std::cout << toAlignDirection << std::endl;
-//    }
+    //    if (toAlignFun.IsNotNull()) {
+    //        ITKImage4D::PointType toAlignFunOrigin = toAlignFun->GetOrigin();
+    //        std::cout << "Functional origin:" << std::endl;
+    //        std::cout << toAlignFunOrigin << std::endl;
+    //        
+    //        ITKImage4D::DirectionType toAlignFunDirection = toAlignFun->GetDirection();
+    //        std::cout << "Functional direction matrix:" << std::endl;
+    //        std::cout << toAlignFunDirection << std::endl;
+    //    }
+    //    if (toAlign.IsNotNull()) {
+    //        ITKImage::PointType toAlignOrigin = toAlign->GetOrigin();
+    //        std::cout << "3D origin:" << std::endl;
+    //        std::cout << toAlignOrigin << std::endl;
+    //        
+    //        ITKImage::DirectionType toAlignDirection = toAlign->GetDirection();
+    //        std::cout << "3D direction matrix:" << std::endl;
+    //        std::cout << toAlignDirection << std::endl;
+    //    }
     
     // From dotrans3d
     ResampleImageFilterType::Pointer resampler = ResampleImageFilterType::New();
@@ -750,10 +500,10 @@ enum EOptimizer {
     self->linearInterpolator = LinearInterpolatorType::New();
     self->bsplineInterpolator = BSplineInterpolatorType::New();
     self->nearestNeighborInterpolator = NearestNeighborInterpolatorType::New();
-        
+    
     resampler->SetNumberOfThreads(NR_THREADS);
     warper->SetNumberOfThreads(NR_THREADS);
-
+    
     ITKImage::Pointer   inputImage    = ITKImage::New();
     ITKImage::Pointer   templateImage = ref;
     ITKImage4D::Pointer fmriImage     = ITKImage4D::New();
@@ -899,7 +649,7 @@ enum EOptimizer {
         
 		ITKImage::Pointer tileImage;
 		std::cout << std::endl;
-//		inputImage = ... <code using itkAdapter>
+        //		inputImage = ... <code using itkAdapter>
         
 		ITKImage4D::DirectionType direction4D;
 		for ( size_t i = 0; i < 3; i++ ) {
@@ -921,7 +671,7 @@ enum EOptimizer {
         ITKImage::DirectionType   inputImageDirection;
         ITKImage4D::PointType     toAlignFunOrigin    = toAlignFun->GetOrigin();
         ITKImage4D::DirectionType toAlignFunDirection = toAlignFun->GetDirection();
-
+        
         for (unsigned int i = 0; i < ITKImage::GetImageDimension(); i++) {
             inputImageOrigin[i] = toAlignFunOrigin[i];
             
@@ -933,10 +683,10 @@ enum EOptimizer {
         ITKImage::Pointer tmpImage = ITKImage::New();
         TileImageFilterType::Pointer tileImageFilter = TileImageFilterType::New();
         
-//        std::cout << "inputImageOrigin" << std::endl;
-//        std::cout << inputImageOrigin << std::endl;
-//        std::cout << "inputImageDirection:" << std::endl;
-//        std::cout << inputImageDirection << std::endl;
+        //        std::cout << "inputImageOrigin" << std::endl;
+        //        std::cout << inputImageOrigin << std::endl;
+        //        std::cout << "inputImageDirection:" << std::endl;
+        //        std::cout << inputImageDirection << std::endl;
         
 		for (unsigned int timestep = 0; timestep < numberOfTimeSteps; timestep++) {
 			std::cout << "Resampling timestep: " << timestep << "...\r" << std::flush;
@@ -961,12 +711,12 @@ enum EOptimizer {
 		tileImageFilter->GetOutput()->SetDirection(direction4D);
 		tileImageFilter->Update();
 		
-//        resultImg = [toAlign convertFromITKImage4D:tileImageFilter->GetOutput()];
+        //        resultImg = [toAlign convertFromITKImage4D:tileImageFilter->GetOutput()];
         result = new ITKImageContainer(tileImageFilter->GetOutput());
-
+        
 	} else {
         // No fmri
-//		if ( vtrans_filename or trans_filename.number > 1 && !identity ) {
+        //		if ( vtrans_filename or trans_filename.number > 1 && !identity ) {
         if (trans.IsNotNull()) {
 			warper->SetOutputDirection(outputDirection);
 			warper->SetOutputOrigin(outputOrigin);
@@ -975,12 +725,12 @@ enum EOptimizer {
 			warper->SetInput(inputImage);
             
             warper->SetDeformationField(trans);
-			      
+            
 			warper->Update();
             
             ITKImage::Pointer output = warper->GetOutput();
-
-//			resultImg = [toAlign convertFromITKImage:output];
+            
+            //			resultImg = [toAlign convertFromITKImage:output];
             result = new ITKImageContainer(output);
 		}
     }
@@ -989,3 +739,5 @@ enum EOptimizer {
 }
 
 @end
+
+

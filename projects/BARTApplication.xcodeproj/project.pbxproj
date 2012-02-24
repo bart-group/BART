@@ -294,6 +294,21 @@
 		A71ABB9314DC417A0074B510 /* itkDisplacementFieldCompositionFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = A71ABB9114DC417A0074B510 /* itkDisplacementFieldCompositionFilter.h */; };
 		A71ABB9414DC417A0074B510 /* itkDisplacementFieldCompositionFilter.txx in Resources */ = {isa = PBXBuildFile; fileRef = A71ABB9214DC417A0074B510 /* itkDisplacementFieldCompositionFilter.txx */; };
 		A71ABB9514DC417A0074B510 /* itkDisplacementFieldCompositionFilter.txx in Resources */ = {isa = PBXBuildFile; fileRef = A71ABB9214DC417A0074B510 /* itkDisplacementFieldCompositionFilter.txx */; };
+		A71ABB9814F292640074B510 /* RORegistrationMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = A71ABB9614F292630074B510 /* RORegistrationMethod.h */; };
+		A71ABB9914F292640074B510 /* RORegistrationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = A71ABB9714F292640074B510 /* RORegistrationMethod.m */; };
+		A71ABB9A14F292640074B510 /* RORegistrationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = A71ABB9714F292640074B510 /* RORegistrationMethod.m */; };
+		A71ABB9B14F292640074B510 /* RORegistrationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = A71ABB9714F292640074B510 /* RORegistrationMethod.m */; };
+		A71ABB9C14F292640074B510 /* RORegistrationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = A71ABB9714F292640074B510 /* RORegistrationMethod.m */; };
+		A71ABB9F14F296CD0074B510 /* RORegistrationBART.h in Headers */ = {isa = PBXBuildFile; fileRef = A71ABB9D14F296CD0074B510 /* RORegistrationBART.h */; };
+		A71ABBA014F296CD0074B510 /* RORegistrationBART.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABB9E14F296CD0074B510 /* RORegistrationBART.mm */; };
+		A71ABBA114F296CD0074B510 /* RORegistrationBART.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABB9E14F296CD0074B510 /* RORegistrationBART.mm */; };
+		A71ABBA214F296CD0074B510 /* RORegistrationBART.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABB9E14F296CD0074B510 /* RORegistrationBART.mm */; };
+		A71ABBA314F296CD0074B510 /* RORegistrationBART.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABB9E14F296CD0074B510 /* RORegistrationBART.mm */; };
+		A71ABBA614F296F70074B510 /* RORegistrationVnormdata.h in Headers */ = {isa = PBXBuildFile; fileRef = A71ABBA414F296F70074B510 /* RORegistrationVnormdata.h */; };
+		A71ABBA714F296F70074B510 /* RORegistrationVnormdata.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABBA514F296F70074B510 /* RORegistrationVnormdata.mm */; };
+		A71ABBA814F296F70074B510 /* RORegistrationVnormdata.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABBA514F296F70074B510 /* RORegistrationVnormdata.mm */; };
+		A71ABBA914F296F70074B510 /* RORegistrationVnormdata.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABBA514F296F70074B510 /* RORegistrationVnormdata.mm */; };
+		A71ABBAA14F296F70074B510 /* RORegistrationVnormdata.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABBA514F296F70074B510 /* RORegistrationVnormdata.mm */; };
 		A71DBC02143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A71DBC00143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp */; };
 		A744B0C513FD442200F4B13D /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
 		A744B0C713FD445300F4B13D /* EDDataElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B772C311417C6300B2931A /* EDDataElementVI.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -916,6 +931,12 @@
 		A71ABB8E14DC26120074B510 /* ROTypedef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROTypedef.h; sourceTree = "<group>"; };
 		A71ABB9114DC417A0074B510 /* itkDisplacementFieldCompositionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = itkDisplacementFieldCompositionFilter.h; sourceTree = "<group>"; };
 		A71ABB9214DC417A0074B510 /* itkDisplacementFieldCompositionFilter.txx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = itkDisplacementFieldCompositionFilter.txx; sourceTree = "<group>"; };
+		A71ABB9614F292630074B510 /* RORegistrationMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationMethod.h; sourceTree = "<group>"; };
+		A71ABB9714F292640074B510 /* RORegistrationMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RORegistrationMethod.m; sourceTree = "<group>"; };
+		A71ABB9D14F296CD0074B510 /* RORegistrationBART.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationBART.h; sourceTree = "<group>"; };
+		A71ABB9E14F296CD0074B510 /* RORegistrationBART.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistrationBART.mm; sourceTree = "<group>"; };
+		A71ABBA414F296F70074B510 /* RORegistrationVnormdata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationVnormdata.h; sourceTree = "<group>"; };
+		A71ABBA514F296F70074B510 /* RORegistrationVnormdata.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistrationVnormdata.mm; sourceTree = "<group>"; };
 		A71DBC00143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisTimeStepExtractionFilter.hpp; sourceTree = "<group>"; };
 		A71DBC01143DF6CF00C9207B /* isisTimeStepExtractionFilter.txx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = isisTimeStepExtractionFilter.txx; sourceTree = "<group>"; };
 		A75A5D371403C78C00514CD3 /* isisIterationObserver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = isisIterationObserver.hpp; path = ../../../lipsia/src/new/valign3d/isisIterationObserver.hpp; sourceTree = "<group>"; };
@@ -1278,6 +1299,12 @@
 				A75A5D3B1403CABF00514CD3 /* RORegistration.h */,
 				A75A5D3C1403CABF00514CD3 /* RORegistration.mm */,
 				A71ABB8E14DC26120074B510 /* ROTypedef.h */,
+				A71ABB9614F292630074B510 /* RORegistrationMethod.h */,
+				A71ABB9714F292640074B510 /* RORegistrationMethod.m */,
+				A71ABB9D14F296CD0074B510 /* RORegistrationBART.h */,
+				A71ABB9E14F296CD0074B510 /* RORegistrationBART.mm */,
+				A71ABBA414F296F70074B510 /* RORegistrationVnormdata.h */,
+				A71ABBA514F296F70074B510 /* RORegistrationVnormdata.mm */,
 			);
 			path = TROY;
 			sourceTree = "<group>";
@@ -1950,6 +1977,9 @@
 				A71DBC02143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp in Headers */,
 				A71ABB8F14DC26120074B510 /* ROTypedef.h in Headers */,
 				A71ABB9314DC417A0074B510 /* itkDisplacementFieldCompositionFilter.h in Headers */,
+				A71ABB9814F292640074B510 /* RORegistrationMethod.h in Headers */,
+				A71ABB9F14F296CD0074B510 /* RORegistrationBART.h in Headers */,
+				A71ABBA614F296F70074B510 /* RORegistrationVnormdata.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2581,6 +2611,9 @@
 			files = (
 				A7A4641613F40B1300426C70 /* ROTransformation.mm in Sources */,
 				A75A5D3F1403CABF00514CD3 /* RORegistration.mm in Sources */,
+				A71ABB9B14F292640074B510 /* RORegistrationMethod.m in Sources */,
+				A71ABBA214F296CD0074B510 /* RORegistrationBART.mm in Sources */,
+				A71ABBA914F296F70074B510 /* RORegistrationVnormdata.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2590,6 +2623,9 @@
 			files = (
 				0000B19D13E1C92400029A41 /* TROYTests.m in Sources */,
 				A75A5D4C1403CF3D00514CD3 /* RORegistrationTest.mm in Sources */,
+				A71ABB9C14F292640074B510 /* RORegistrationMethod.m in Sources */,
+				A71ABBA314F296CD0074B510 /* RORegistrationBART.mm in Sources */,
+				A71ABBAA14F296F70074B510 /* RORegistrationVnormdata.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2653,6 +2689,9 @@
 				00D444D6134DEB3000094A51 /* EDDataElementVI.m in Sources */,
 				00D444D7134DEB3100094A51 /* EDDataElementIsis.mm in Sources */,
 				00D444E2134DEB5300094A51 /* BlockIO.c in Sources */,
+				A71ABB9A14F292640074B510 /* RORegistrationMethod.m in Sources */,
+				A71ABBA114F296CD0074B510 /* RORegistrationBART.mm in Sources */,
+				A71ABBA814F296F70074B510 /* RORegistrationVnormdata.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2790,6 +2829,9 @@
 				0023CBD613EAC4B3006303B6 /* BAProcedureStep_Feedback.m in Sources */,
 				A75A5D3E1403CABF00514CD3 /* RORegistration.mm in Sources */,
 				A75A5D4A1403CF3D00514CD3 /* RORegistrationTest.mm in Sources */,
+				A71ABB9914F292640074B510 /* RORegistrationMethod.m in Sources */,
+				A71ABBA014F296CD0074B510 /* RORegistrationBART.mm in Sources */,
+				A71ABBA714F296F70074B510 /* RORegistrationVnormdata.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
