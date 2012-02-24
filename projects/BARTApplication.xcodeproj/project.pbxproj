@@ -312,9 +312,6 @@
 		A71DBC02143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A71DBC00143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp */; };
 		A744B0C513FD442200F4B13D /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
 		A744B0C713FD445300F4B13D /* EDDataElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B772C311417C6300B2931A /* EDDataElementVI.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A75A5D3D1403CABF00514CD3 /* RORegistration.h in Headers */ = {isa = PBXBuildFile; fileRef = A75A5D3B1403CABF00514CD3 /* RORegistration.h */; };
-		A75A5D3E1403CABF00514CD3 /* RORegistration.mm in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D3C1403CABF00514CD3 /* RORegistration.mm */; };
-		A75A5D3F1403CABF00514CD3 /* RORegistration.mm in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D3C1403CABF00514CD3 /* RORegistration.mm */; };
 		A75A5D491403CF3D00514CD3 /* RORegistrationTest.h in Headers */ = {isa = PBXBuildFile; fileRef = A75A5D471403CF3D00514CD3 /* RORegistrationTest.h */; };
 		A75A5D4A1403CF3D00514CD3 /* RORegistrationTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D481403CF3D00514CD3 /* RORegistrationTest.mm */; };
 		A75A5D4C1403CF3D00514CD3 /* RORegistrationTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D481403CF3D00514CD3 /* RORegistrationTest.mm */; };
@@ -324,8 +321,6 @@
 		A75A5D6514068D2000514CD3 /* TestDataset01-functional.nii in Resources */ = {isa = PBXBuildFile; fileRef = 00673D4113FD75C80056BD4F /* TestDataset01-functional.nii */; };
 		A7763C54143B09A500457A99 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
 		A7763C67143B34DE00457A99 /* TestDataset01-functional.nii in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00673D4113FD75C80056BD4F /* TestDataset01-functional.nii */; };
-		A7A4641513F40B1300426C70 /* ROTransformation.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A4641313F40B1300426C70 /* ROTransformation.h */; };
-		A7A4641613F40B1300426C70 /* ROTransformation.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7A4641413F40B1300426C70 /* ROTransformation.mm */; };
 		A7A476EE13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */; };
 		A7A476EF13F40EBE00426C70 /* isisRegistrationFactory3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A7A476ED13F40EBE00426C70 /* isisRegistrationFactory3D.hpp */; };
 		A7B9C45914C99D3C00DF35F1 /* libITKIOReview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D822611489226800CFFE0F /* libITKIOReview.a */; };
@@ -940,12 +935,8 @@
 		A71DBC00143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisTimeStepExtractionFilter.hpp; sourceTree = "<group>"; };
 		A71DBC01143DF6CF00C9207B /* isisTimeStepExtractionFilter.txx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = isisTimeStepExtractionFilter.txx; sourceTree = "<group>"; };
 		A75A5D371403C78C00514CD3 /* isisIterationObserver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = isisIterationObserver.hpp; path = ../../../lipsia/src/new/valign3d/isisIterationObserver.hpp; sourceTree = "<group>"; };
-		A75A5D3B1403CABF00514CD3 /* RORegistration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistration.h; sourceTree = "<group>"; };
-		A75A5D3C1403CABF00514CD3 /* RORegistration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistration.mm; sourceTree = "<group>"; };
 		A75A5D471403CF3D00514CD3 /* RORegistrationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationTest.h; sourceTree = "<group>"; };
 		A75A5D481403CF3D00514CD3 /* RORegistrationTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistrationTest.mm; sourceTree = "<group>"; };
-		A7A4641313F40B1300426C70 /* ROTransformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROTransformation.h; sourceTree = "<group>"; };
-		A7A4641413F40B1300426C70 /* ROTransformation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ROTransformation.mm; sourceTree = "<group>"; };
 		A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D_impl.hpp; sourceTree = "<group>"; };
 		A7A476ED13F40EBE00426C70 /* isisRegistrationFactory3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D.hpp; sourceTree = "<group>"; };
 		A7BA11EC147FDB6E00DEEDF7 /* libisis_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisis_core.dylib; path = SDKs/MacOSX10.6.sdk/usr/local/lib/libisis_core.dylib; sourceTree = DEVELOPER_DIR; };
@@ -1294,10 +1285,6 @@
 				A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */,
 				A7A476ED13F40EBE00426C70 /* isisRegistrationFactory3D.hpp */,
 				A75A5D371403C78C00514CD3 /* isisIterationObserver.hpp */,
-				A7A4641313F40B1300426C70 /* ROTransformation.h */,
-				A7A4641413F40B1300426C70 /* ROTransformation.mm */,
-				A75A5D3B1403CABF00514CD3 /* RORegistration.h */,
-				A75A5D3C1403CABF00514CD3 /* RORegistration.mm */,
 				A71ABB8E14DC26120074B510 /* ROTypedef.h */,
 				A71ABB9614F292630074B510 /* RORegistrationMethod.h */,
 				A71ABB9714F292640074B510 /* RORegistrationMethod.m */,
@@ -1969,10 +1956,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7A4641513F40B1300426C70 /* ROTransformation.h in Headers */,
 				A7A476EE13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp in Headers */,
 				A7A476EF13F40EBE00426C70 /* isisRegistrationFactory3D.hpp in Headers */,
-				A75A5D3D1403CABF00514CD3 /* RORegistration.h in Headers */,
 				A75A5D491403CF3D00514CD3 /* RORegistrationTest.h in Headers */,
 				A71DBC02143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp in Headers */,
 				A71ABB8F14DC26120074B510 /* ROTypedef.h in Headers */,
@@ -2609,8 +2594,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7A4641613F40B1300426C70 /* ROTransformation.mm in Sources */,
-				A75A5D3F1403CABF00514CD3 /* RORegistration.mm in Sources */,
 				A71ABB9B14F292640074B510 /* RORegistrationMethod.m in Sources */,
 				A71ABBA214F296CD0074B510 /* RORegistrationBART.mm in Sources */,
 				A71ABBA914F296F70074B510 /* RORegistrationVnormdata.mm in Sources */,
@@ -2827,7 +2810,6 @@
 				0023CBD013EAC45B006303B6 /* BAProcedureStep_Preprocessing.m in Sources */,
 				0023CBD313EAC484006303B6 /* BAProcedureStep_Analysis.m in Sources */,
 				0023CBD613EAC4B3006303B6 /* BAProcedureStep_Feedback.m in Sources */,
-				A75A5D3E1403CABF00514CD3 /* RORegistration.mm in Sources */,
 				A75A5D4A1403CF3D00514CD3 /* RORegistrationTest.mm in Sources */,
 				A71ABB9914F292640074B510 /* RORegistrationMethod.m in Sources */,
 				A71ABBA014F296CD0074B510 /* RORegistrationBART.mm in Sources */,
