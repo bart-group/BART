@@ -10,7 +10,8 @@
 #import "EDNA/EDDataElementIsis.h"
 #import "CoreUtils/common.hpp"
 
-#import "RORegistration.h"
+#import "RORegistrationVnormdata.h"
+#import "RORegistrationBART.h"
 
 
 
@@ -44,31 +45,15 @@ void testVnormdataRegistrationWorkflow() {
                                                               andDialect:@"" 
                                                              ofImageType:IMAGE_ANADATA];
     
-    RORegistration* registration = [[RORegistration alloc] init];
-    EDDataElement* ana2fct2mni = [registration normdata:fctData 
-                                                anatomy:anaData 
-                                    anatomicalReference:mniData];
-    [ana2fct2mni WriteDataElementToFile:@"/tmp/BART_vnorm_ana2fct2mni.nii"];
+    RORegistrationMethod* method = [[RORegistrationVnormdata alloc] initFindingTransform:fctData 
+                                                                                 anatomy:anaData
+                                                                               reference:mniData];
     
+    EDDataElement* ana2fct2mni = [method apply:fctData];
     
-//    // Registrate
-//    RORegistration* ana2fctReg = [[RORegistration alloc] init];
-//    EDDataElement* ana2fct = [ana2fctReg align:anaData 
-//                               beingFunctional:NO
-//                                 withReference:fctData];
-//    
-//    RORegistration* ana2fct2mniReg = [[RORegistration alloc] init];
-//    EDDataElement* ana2fct2mni = [ana2fct2mniReg align:ana2fct 
-//                                       beingFunctional:YES                   // YES
-//                                         withReference:mniData];
-//    
-//    [ana2fct WriteDataElementToFile:@"/tmp/IsisTestAna2Fct.nii"];
-//    [ana2fct2mni WriteDataElementToFile:@"/tmp/IsisTestAna2Fct2Mni.nii"];
-//    
-//    // Cleanup
-//    [ana2fct2mniReg release];
-//    [ana2fctReg release];
-    [registration release];
+    [ana2fct2mni WriteDataElementToFile:@"/tmp/BART_vnormdata.nii"];
+    
+    [method release];
     
     [mniData release];
     [anaData release];
@@ -95,13 +80,15 @@ void testBARTRegistrationWorkflow() {
                                                               andDialect:@"" 
                                                              ofImageType:IMAGE_ANADATA];
     
-    RORegistration* registration = [[RORegistration alloc] init];
-    EDDataElement* ana2fct2mni = [registration bartRegistration:fctData 
-                                                        anatomy:anaData 
-                                            anatomicalReference:mniData];
+    RORegistrationMethod* method = [[RORegistrationBART alloc] initFindingTransform:fctData
+                                                                            anatomy:anaData
+                                                                          reference:mniData];
+    
+    EDDataElement* ana2fct2mni = [method apply:fctData];
+    
     [ana2fct2mni WriteDataElementToFile:@"/tmp/BART_bartReg.nii"];
     
-    [registration release];
+    [method release];
     
     [mniData release];
     [anaData release];
@@ -150,7 +137,7 @@ void testAdapterConversion() {
 int main(void)
 {
     testBARTRegistrationWorkflow();
-//    testVnormdataRegistrationWorkflow();
+    testVnormdataRegistrationWorkflow();
     
 //    testAdapterConversion();
 }
