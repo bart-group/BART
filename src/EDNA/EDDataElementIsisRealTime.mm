@@ -51,7 +51,7 @@
     anImage.spliceDownTo(isis::data::sliceDim);
 	// get our class params from the image itself
 	mImageSize.rows = anImage.getNrOfRows(); // getDimSize(isis::data::colDim)
-    mImageSize.columns = anImage.getNrOfColumms();
+    mImageSize.columns = anImage.getNrOfColumns();
     mImageSize.slices = anImage.getNrOfSlices();
     mImageSize.timesteps = anImage.getNrOfTimesteps();
     mRepetitionTimeInMs = (anImage.getPropertyAs<isis::util::fvector4>("voxelSize"))[3];
@@ -398,7 +398,7 @@
     if (nil == mIsisImage)
     {
         mImageSize.rows = img.getNrOfRows();
-        mImageSize.columns = img.getNrOfColumms();
+        mImageSize.columns = img.getNrOfColumns();
         mImageSize.slices = img.getNrOfSlices();
         mImageSize.timesteps = 1;
 		mDataTypeID = img.getMajorTypeID();
@@ -406,7 +406,7 @@
     }
     else {
         if ((mImageSize.rows == img.getNrOfRows())
-            && (mImageSize.columns == img.getNrOfColumms())
+            && (mImageSize.columns == img.getNrOfColumns())
             && (mImageSize.slices == img.getNrOfSlices()))
         {
             mImageSize.timesteps += 1;

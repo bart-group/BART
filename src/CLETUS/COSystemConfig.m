@@ -57,6 +57,7 @@
 							@"$timeUnit",
 							@"$refFctsGamma",
 							@"$refFctsGlover",
+                            @"$refConstraints",
 						    nil];
 	
 	NSArray *xpathValues = [NSArray arrayWithObjects:@"/rtExperiment/experimentData/imageModalities/TR", 
@@ -67,6 +68,7 @@
 							@"/rtExperiment/environment/@globalTimeUnit",
 							@"/rtExperiment/statistics/referenceFunctions/dGamma",
 							@"/rtExperiment/statistics/referenceFunctions/gloverKernel",
+                            @"/rtExperiment/stimulusData/constraints",
 							nil];
 	mAbbreviations = [[NSDictionary alloc] initWithObjects:xpathValues
                                                    forKeys:shortKeys];

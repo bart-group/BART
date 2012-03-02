@@ -55,6 +55,8 @@ NSUInteger numberOfTrialsInBlock;
     NSMutableDictionary *mutableDictExternalCond = [[NSMutableDictionary alloc] initWithCapacity:[mediaObjectsArray count]];
     
     //TODO: implement this in EDL
+    //vergleichen constraint source und der Eintrag in mediaObjects
+    
     NSString *externalCondition = @"ASLEyeTrac";
     for (NEMediaObject* mediaObj in mediaObjectsArray)
     {
@@ -73,6 +75,7 @@ NSUInteger numberOfTrialsInBlock;
 -(NSPoint)isConditionFullfilledForEvent:(NEStimEvent*)event
 {
     // todo: get this automatically from config
+    //conditions und variables in params und das ganze ins setup - NICHT zur Laufzeit vom paradigma
     NSString *isDynamic = @"";
     NSString *dyn = @"DYN";
     NSString *stat = @"STAT";
@@ -101,7 +104,9 @@ NSUInteger numberOfTrialsInBlock;
        return NSMakePoint(400.0, 300.0);
     }
     return NSMakePoint(0.0, 0.0);
-        
+    
+    
+    
 }
 
 -(NSEvent*)getAction:(NSEvent*)event

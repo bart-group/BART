@@ -57,7 +57,7 @@
 	mIsisImage = new isis::data::Image(memImg); 
 	// get our class params from the image itself
 	mImageSize.rows = mIsisImage->getNrOfRows(); // getDimSize(isis::data::colDim)
-    mImageSize.columns = mIsisImage->getNrOfColumms();
+    mImageSize.columns = mIsisImage->getNrOfColumns();
     mImageSize.slices = mIsisImage->getNrOfSlices();
     mImageSize.timesteps = mIsisImage->getNrOfTimesteps();
     mRepetitionTimeInMs = (mIsisImage->getPropertyAs<isis::util::fvector4>("voxelSize"))[3];
@@ -113,7 +113,7 @@
     
     mDataTypeID = img.getMajorTypeID();
 	mImageSize.rows = mIsisImage->getNrOfRows(); // getDimSize(isis::data::colDim)
-    mImageSize.columns = mIsisImage->getNrOfColumms();
+    mImageSize.columns = mIsisImage->getNrOfColumns();
     mImageSize.slices = mIsisImage->getNrOfSlices();
     mImageSize.timesteps = mIsisImage->getNrOfTimesteps();
     mRepetitionTimeInMs = (mIsisImage->getPropertyAs<isis::util::fvector4>("voxelSize"))[3];

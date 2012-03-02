@@ -13,6 +13,7 @@
 #import "NED/NEPresentationExternalConditionController.h"
 #import "NEPresentationLogger.h"
 #import "NED/NEViewManager.h"
+#import "../NED/NEConstraint.h"
 
 @interface BAProcedureStep_Paradigm (PrivatMethods)
 
@@ -23,6 +24,14 @@
  * \return An array of NEMediaObjects.
  */
 -(NSArray*)buildMediaObjects;
+
+/**
+ * Builds an autoreleased array of NEConstraints
+ * by querying the configuration (EDL).
+ *
+ * \return An array of NEConstraints.
+ */
+-(NSArray*)buildConstraints;
 
 ///**
 // * Builds an autoreleased dictionary of NEPresentationEvent objects
@@ -61,7 +70,7 @@ NEViewManager* viewManager;
         //TODO : ask if Presentation is needed!!
         [NEPresentationLogger getInstance];
         
-
+        //load mediaObjects and timetable
         
         NSArray* mediaObjects = nil;
         NETimetable* timetable = nil;
@@ -86,6 +95,12 @@ NEViewManager* viewManager;
             [viewManager showAllWindows:nil];
             [timetable release];
         }
+        
+        // load constraints from config
+        if ([[expConfig systemConfig] getProp:@"/rtExperiment/stimulusData"]) {
+            
+        }
+        
     }
     
     return self;
@@ -132,8 +147,7 @@ NEViewManager* viewManager;
     
     while (mediaObjectProp) {
         NEMediaObject* obj = [[NEMediaObject alloc] 
-                              initWithConfigEntry:[NSString stringWithFormat:@"/rtExperiment/stimulusData/mediaObjectList/mediaObject[%d]", 
-                                                   mediaObjectCounter]];
+                              initWithConfigEntry:[NSString stringWithFormat:@"/rtExperiment/stimulusData/mediaObjectList/mediaObject[%d]", mediaObjectCounter]];
         if (obj) {
             [mediaObjects addObject:obj];
         } else {
@@ -148,6 +162,32 @@ NEViewManager* viewManager;
     }
     
     return mediaObjects;
+}
+
+-(NSArray*)buildConstraints
+{
+    NSMutableArray* constraints = [NSMutableArray arrayWithCapacity:0];
+    
+    NSUInteger constraintCounter = 1;
+    NSString* constraintProp = [[expConfig systemConfig] getProp:@"$refConstraints/constraint[1]"];
+    
+    while (constraintProp) {
+        NEConstraint* constraint = [[NEConstraint alloc] 
+                                    initWithConfigEntry:[NSString stringWithFormat:@"/rtExperiment/stimulusData/constraints/constraint[%d]", constraintCounter]];
+        if (constraint) {
+            [constraints addObject:constraint];
+        } else {
+            NSLog(@"Could not build constraint list!");
+            // TODO: error!
+        }
+        
+        [constraint release];
+        
+        constraintCounter++;
+        constraintProp = [[expConfig systemConfig]  getProp:[NSString stringWithFormat:@"/rtExperiment/stimulusData/constraints/constraint[%d]", constraintCounter]];
+    }
+    
+    return constraints;
 }
 
 

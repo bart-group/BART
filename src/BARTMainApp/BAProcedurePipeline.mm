@@ -40,7 +40,7 @@
         // TODO: appropriate init
         mCurrentTimestep = 50;
 		config = [[COExperimentContext getInstance] systemConfig];
-		isRealTimeTCPInput = TRUE;
+		isRealTimeTCPInput = NO;
 		startAnalysisAtTimeStep = 15;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -69,8 +69,8 @@
     config = [[COExperimentContext getInstance] systemConfig];
     
     [self initData];
-	//[self initDesign];
-	//[self initAnalyzer];
+	[self initDesign];
+	[self initAnalyzer];
     //[self initPresentation];
 	[self startAnalysis];
     
