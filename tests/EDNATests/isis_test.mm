@@ -12,6 +12,7 @@
 
 #import "RORegistrationVnormdata.h"
 #import "RORegistrationBART.h"
+#import "RORegistrationBARTAnaOnly.h"
 
 
 
@@ -84,13 +85,42 @@ void testBARTRegistrationWorkflow() {
                                                                             anatomy:anaData
                                                                           reference:mniData];
     
-    EDDataElement* ana2fct2mni = [method apply:fctData];
+    EDDataElement* fct2ana2mni = [method apply:fctData];
     
-    [ana2fct2mni WriteDataElementToFile:@"/tmp/BART_bartReg.nii"];
+    [fct2ana2mni WriteDataElementToFile:@"/tmp/BART_bartReg.nii"];
     
     [method release];
     
     [mniData release];
+    [anaData release];
+    [fctData release];
+    
+    [pool drain];
+}
+
+void testBARTRegistrationAnaOnly() {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
+    EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:fctFile
+                                                               andSuffix:@"" 
+                                                              andDialect:@"" 
+                                                             ofImageType:IMAGE_FCTDATA];
+    
+    EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaFile
+                                                               andSuffix:@"" 
+                                                              andDialect:@"" 
+                                                             ofImageType:IMAGE_ANADATA];
+    
+    RORegistrationMethod* method = [[RORegistrationBARTAnaOnly alloc] initFindingTransform:fctData
+                                                                                   anatomy:anaData
+                                                                                 reference:nil];
+    
+    EDDataElement* fct2ana = [method apply:fctData];
+    
+    [fct2ana WriteDataElementToFile:@"/tmp/BART_bartRegAnaOnly.nii"];
+    
+    [method release];
+    
     [anaData release];
     [fctData release];
     
@@ -136,8 +166,8 @@ void testAdapterConversion() {
 
 int main(void)
 {
-    testBARTRegistrationWorkflow();
-    testVnormdataRegistrationWorkflow();
-    
+    testBARTRegistrationAnaOnly();
+//    testBARTRegistrationWorkflow();
+//    testVnormdataRegistrationWorkflow();    
 //    testAdapterConversion();
 }

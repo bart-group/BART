@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RORegistrationBARTAnaOnly : NSObject
+#import "RORegistrationVnormdata.h"
+
+@interface RORegistrationBARTAnaOnly : RORegistrationVnormdata
 
 @end
