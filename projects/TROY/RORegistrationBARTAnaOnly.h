@@ -10,6 +10,14 @@
 
 #import "RORegistrationVnormdata.h"
 
+/**
+ * Reduced BART registration workflow.
+ * 
+ * 1. Registrate the functional data to the anatomical data yielding 
+ *    transformation T
+ * 2. Apply transformation T to the functional data
+ *    fun2ana
+ */
 @interface RORegistrationBARTAnaOnly : RORegistrationVnormdata
 
 @end

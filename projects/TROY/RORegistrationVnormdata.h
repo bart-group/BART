@@ -82,6 +82,16 @@ enum EOptimizer {
 
 // # Public interface #####
 
+/**
+ * Registration workflow like Lipsia's vnormdata script.
+ *
+ * 1. Registrate anatomical data to functional data
+ *    ana2fun
+ * 2. Registrate the aligned anatomy to the reference space (MNI)
+ *    (ana2fun)2mni
+ * 3. Apply the last transformation (ana2fun2mni) to the original functional data
+ *    fun2mni
+ */
 @interface RORegistrationVnormdata : RORegistrationMethod {
 
     @protected
