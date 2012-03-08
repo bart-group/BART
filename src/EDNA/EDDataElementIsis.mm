@@ -110,7 +110,10 @@
 }
 -(void)dealloc
 {
-    delete mIsisImage;
+    if (self->mITKAdapter != NULL) {
+        delete self->mITKAdapter;
+    }
+    delete self->mIsisImage;
 	[super dealloc];
 }
 
