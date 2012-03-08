@@ -54,7 +54,7 @@
     
     if (transformResult != NULL) {
         ITKImage4D::Pointer fun2ana = transformResult->getImg4D();
-        free(transformResult);
+        delete transformResult;
         
         return [toAlign convertFromITKImage4D:fun2ana];
     }

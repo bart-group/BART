@@ -71,7 +71,7 @@
         
         if (transformResult != NULL) {
             ITKImage::Pointer ana2fun = transformResult->getImg3D();
-            free(transformResult);
+            delete transformResult;
             
             // TODO: check whether back conversion is really necessary
             //        EDDataElement* ana2funBackconv = [ana convertFromITKImage:ana2fun];
@@ -115,7 +115,7 @@
     
     if (transformResult != NULL) {
         ITKImage4D::Pointer ana2fun2mni = transformResult->getImg4D();
-        free(transformResult);
+        delete transformResult;
         return [toAlign convertFromITKImage4D:ana2fun2mni];
     }
     

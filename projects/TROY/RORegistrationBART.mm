@@ -47,7 +47,7 @@
         
         if (transformResult != NULL) {
             ITKImage4D::Pointer fun2ana = transformResult->getImg4D();
-            free(transformResult);
+            delete transformResult;
             
             //        return [fun convertFromITKImage:fun2ana];
             
@@ -100,7 +100,7 @@
     
     if (transformResult != NULL) {
         ITKImage4D::Pointer fun2ana = transformResult->getImg4D();
-        free(transformResult);
+        delete transformResult;
     
         reso.clear();
         reso.push_back(3);
@@ -127,7 +127,7 @@
         
         if (transformResult != NULL) {
             ITKImage4D::Pointer fun2ana2mni = transformResult->getImg4D();
-            free(transformResult);
+            delete transformResult;
             return [toAlign convertFromITKImage4D:fun2ana2mni];
         }
     }
