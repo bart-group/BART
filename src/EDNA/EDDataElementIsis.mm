@@ -101,7 +101,7 @@
 }
 -(void)dealloc
 {
-    free(mIsisImage);
+    delete mIsisImage;
 	[super dealloc];
 }
 
