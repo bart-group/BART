@@ -73,7 +73,8 @@
 
 -(void)dealloc
 {
-	free(mIsisImage);
+    if (nil != mIsisImage){
+        delete mIsisImage;}
     [mImageSize release];
 	[super dealloc];
 }

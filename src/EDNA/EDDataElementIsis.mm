@@ -101,7 +101,8 @@
 }
 -(void)dealloc
 {
-    delete mIsisImage;
+    if (nil != mIsisImage){
+        delete mIsisImage;}
 	[super dealloc];
 }
 
