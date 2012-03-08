@@ -669,6 +669,10 @@
 
 -(ITKImage::Pointer)asITKImage
 {
+    if (self->mITKAdapter != NULL)  {
+        delete self->mITKAdapter;
+    }
+        
     self->mITKAdapter = new isis::adapter::itkAdapter;
     ITKImage::Pointer itkImage = self->mITKAdapter->makeItkImageObject<ITKImage>(*mIsisImage);
     return itkImage;
@@ -676,6 +680,10 @@
 
 -(ITKImage4D::Pointer)asITKImage4D
 {
+    if (self->mITKAdapter != NULL)  {
+        delete self->mITKAdapter;
+    }
+    
     self->mITKAdapter = new isis::adapter::itkAdapter;
     ITKImage4D::Pointer itkImage = self->mITKAdapter->makeItkImageObject<ITKImage4D>(*mIsisImage);
     return itkImage;
