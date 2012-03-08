@@ -14,6 +14,8 @@
 #import "RORegistrationBART.h"
 #import "RORegistrationBARTAnaOnly.h"
 
+#import "TimeUtil.h"
+
 
 
 @implementation isis_test
@@ -24,8 +26,8 @@ NSString* fctFile = @"/Users/oliver/test/reg3d_test/dataset01/data_10timesteps.n
 NSString* anaFile = @"/Users/oliver/test/reg3d_test/dataset01/ana.nii"; //_visotrop.nii";
 NSString* mniFile = @"/Users/oliver/test/reg3d_test/mni_lipsia.nii";
 
-void testVnormdataRegistrationWorkflow() {
-    
+void testVnormdataRegistrationWorkflow() 
+{          
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     // /Users/oliver/Development/BART/tests/BARTMainAppTests/testfiles
@@ -46,11 +48,13 @@ void testVnormdataRegistrationWorkflow() {
                                                               andDialect:@"" 
                                                              ofImageType:IMAGE_ANADATA];
     
+    
     RORegistrationMethod* method = [[RORegistrationVnormdata alloc] initFindingTransform:fctData 
                                                                                  anatomy:anaData
                                                                                reference:mniData];
     
     EDDataElement* ana2fct2mni = [method apply:fctData];
+    
     
     [ana2fct2mni WriteDataElementToFile:@"/tmp/BART_vnormdata.nii"];
     
@@ -60,10 +64,11 @@ void testVnormdataRegistrationWorkflow() {
     [anaData release];
     [fctData release];
     
-	[pool drain];
+    [pool drain];
 }
 
-void testBARTRegistrationWorkflow() {
+void testBARTRegistrationWorkflow() 
+{
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:fctFile
@@ -98,33 +103,60 @@ void testBARTRegistrationWorkflow() {
     [pool drain];
 }
 
-void testBARTRegistrationAnaOnly() {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:fctFile
-                                                               andSuffix:@"" 
-                                                              andDialect:@"" 
-                                                             ofImageType:IMAGE_FCTDATA];
-    
-    EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaFile
-                                                               andSuffix:@"" 
-                                                              andDialect:@"" 
-                                                             ofImageType:IMAGE_ANADATA];
-    
-    RORegistrationMethod* method = [[RORegistrationBARTAnaOnly alloc] initFindingTransform:fctData
-                                                                                   anatomy:anaData
-                                                                                 reference:nil];
-    
-    EDDataElement* fct2ana = [method apply:fctData];
-    
-    [fct2ana WriteDataElementToFile:@"/tmp/BART_bartRegAnaOnly.nii"];
-    
-    [method release];
-    
-    [anaData release];
-    [fctData release];
-    
-    [pool drain];
+void testBARTRegistrationAnaOnly() 
+{
+    TimeVal aliStart;
+    TimeVal aliEnd;
+    TimeVal appEnd;
+    TimeDiff* diff;
+    double alignTime = 0.0;
+    double applyTime = 0.0;
+    int runs = 1;
+    for (int i = 0; i < runs; i++) {
+        
+        NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+        
+        EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:fctFile
+                                                                   andSuffix:@"" 
+                                                                  andDialect:@"" 
+                                                                 ofImageType:IMAGE_FCTDATA];
+        
+        EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaFile
+                                                                   andSuffix:@"" 
+                                                                  andDialect:@"" 
+                                                                 ofImageType:IMAGE_ANADATA];
+        
+        
+        aliStart = now(); // RUNTIME ANALYSIS CODE #
+        
+        RORegistrationMethod* method = [[RORegistrationBARTAnaOnly alloc] initFindingTransform:fctData
+                                                                                       anatomy:anaData
+                                                                                     reference:nil];
+        aliEnd = now();   // RUNTIME ANALYSIS CODE #
+        
+        EDDataElement* fct2ana = [method apply:fctData];
+        
+        appEnd = now();   // RUNTIME ANALYSIS CODE #
+        diff = newTimeDiff(&aliStart, &aliEnd); // #
+        alignTime += asDouble(diff);            // #
+        free(diff);                             // #
+        diff = newTimeDiff(&aliEnd, &appEnd);   // #
+        applyTime += asDouble(diff);            // #
+        free(diff);       // RUNTIME ANALYSIS CODE #
+        
+        [fct2ana WriteDataElementToFile:@"/tmp/BART_bartRegAnaOnly.nii"];
+        
+        [method release];
+        
+        [anaData release];
+        [fctData release];
+        
+        [pool drain];
+        
+    }
+    alignTime /= static_cast<double>(runs);
+    applyTime /= static_cast<double>(runs);
+    NSLog(@"Runtime BART_reg_anaonly for %d runs. Registration: %lfs, application: %lfs\n", runs, alignTime, applyTime);
 }
 
 void testAdapterConversion() {
@@ -167,6 +199,7 @@ void testAdapterConversion() {
 int main(void)
 {
     testBARTRegistrationAnaOnly();
+
 //    testBARTRegistrationWorkflow();
 //    testVnormdataRegistrationWorkflow();    
 //    testAdapterConversion();
