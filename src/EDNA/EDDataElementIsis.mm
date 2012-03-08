@@ -357,6 +357,7 @@
         [s release];
         return retElement;
     }
+    [s release];
     return nil;
 }
 
