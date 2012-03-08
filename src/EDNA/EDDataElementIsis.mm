@@ -24,6 +24,7 @@
 -(id)init
 {
     if (self = [super init]) {
+        self->mImageSize = nil;
         self->mITKAdapter = NULL;
     }
     

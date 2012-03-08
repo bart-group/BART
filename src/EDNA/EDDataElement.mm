@@ -86,7 +86,6 @@
 {
     self = [[EDDataElementVI alloc] initWithDataType:type andRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
     return self;
-    
 }
 
 -(id)initWithDataFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect ofImageType:(enum ImageType)iType
@@ -119,6 +118,9 @@
 
 -(void)dealloc
 {
+    if (self->mImageSize != nil) {
+        [mImageSize release];
+    }
     [super dealloc];
 }
 
