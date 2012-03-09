@@ -74,11 +74,13 @@ NEViewManager* viewManager;
         
         NSArray* mediaObjects = nil;
         NETimetable* timetable = nil;
+        NSArray* constraintsArray = nil;
         
         if ([[expConfig systemConfig] getProp:@"/rtExperiment/stimulusData"]) {
             mediaObjects = [self buildMediaObjects];
-            timetable = [[NETimetable alloc] initWithConfigEntry:@"/rtExperiment/stimulusData/timeTable" 
+            timetable = [[NETimetable alloc] initWithConfigEntry:@"$timeTable" 
                                                  andMediaObjects:mediaObjects];
+            constraintsArray = [self buildConstraints];
         }
         
         if (timetable) {
@@ -89,17 +91,14 @@ NEViewManager* viewManager;
             
             //TODO: ask if it's a dynamic design
             //if(dynamicDesign)
-            externalCondition = [[NEPresentationExternalConditionController alloc] initWithMediaObjects:mediaObjects];
+            externalCondition = [[NEPresentationExternalConditionController alloc] initWithConstraints:constraintsArray];
             [presentationController setMExternalConditionController:externalCondition];
             
             [viewManager showAllWindows:nil];
             [timetable release];
         }
         
-        // load constraints from config
-        if ([[expConfig systemConfig] getProp:@"/rtExperiment/stimulusData"]) {
-            
-        }
+        
         
     }
     
@@ -143,11 +142,11 @@ NEViewManager* viewManager;
     NSMutableArray* mediaObjects = [NSMutableArray arrayWithCapacity:0];
     
     NSUInteger mediaObjectCounter = 1;
-    NSString* mediaObjectProp = [[expConfig systemConfig] getProp:@"/rtExperiment/stimulusData/mediaObjectList/mediaObject[1]"];
+    NSString* mediaObjectProp = [[expConfig systemConfig] getProp:@"$mediaObjects/mediaObject[1]"];
     
     while (mediaObjectProp) {
         NEMediaObject* obj = [[NEMediaObject alloc] 
-                              initWithConfigEntry:[NSString stringWithFormat:@"/rtExperiment/stimulusData/mediaObjectList/mediaObject[%d]", mediaObjectCounter]];
+                              initWithConfigEntry:[NSString stringWithFormat:@"$mediaObjects/mediaObject[%d]", mediaObjectCounter]];
         if (obj) {
             [mediaObjects addObject:obj];
         } else {
@@ -158,7 +157,7 @@ NEViewManager* viewManager;
         [obj release];
         
         mediaObjectCounter++;
-        mediaObjectProp = [[expConfig systemConfig]  getProp:[NSString stringWithFormat:@"/rtExperiment/stimulusData/mediaObjectList/mediaObject[%d]", mediaObjectCounter]];
+        mediaObjectProp = [[expConfig systemConfig]  getProp:[NSString stringWithFormat:@"$mediaObjects/mediaObject[%d]", mediaObjectCounter]];
     }
     
     return mediaObjects;
@@ -169,11 +168,11 @@ NEViewManager* viewManager;
     NSMutableArray* constraints = [NSMutableArray arrayWithCapacity:0];
     
     NSUInteger constraintCounter = 1;
-    NSString* constraintProp = [[expConfig systemConfig] getProp:@"$refConstraints/constraint[1]"];
+    NSString* constraintProp = [[expConfig systemConfig] getProp:@"$constraints/constraint[1]"];
     
     while (constraintProp) {
         NEConstraint* constraint = [[NEConstraint alloc] 
-                                    initWithConfigEntry:[NSString stringWithFormat:@"/rtExperiment/stimulusData/constraints/constraint[%d]", constraintCounter]];
+                                    initWithConfigEntry:[NSString stringWithFormat:@"$constraints/constraint[%d]", constraintCounter]];
         if (constraint) {
             [constraints addObject:constraint];
         } else {
@@ -184,7 +183,7 @@ NEViewManager* viewManager;
         [constraint release];
         
         constraintCounter++;
-        constraintProp = [[expConfig systemConfig]  getProp:[NSString stringWithFormat:@"/rtExperiment/stimulusData/constraints/constraint[%d]", constraintCounter]];
+        constraintProp = [[expConfig systemConfig]  getProp:[NSString stringWithFormat:@"$constraints/constraint[%d]", constraintCounter]];
     }
     
     return constraints;
