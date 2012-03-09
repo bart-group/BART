@@ -9,11 +9,11 @@
 #import "NEPresentationExternalConditionController.h"
 #import "CLETUS/COExperimentContext.h"
 #import "BARTSerialIOFramework/SerialPort.h"
-#import "NED/NEStimEvent.h"
+#import "NED/NEConstraint.h"
 
 @interface NEPresentationExternalConditionController (PrivateMethods)
 
--(NSError*)setExternalConditionsForMediaObjects;
+-(NSError*)buildConstraintDictionary;
 
 @end
 
@@ -21,102 +21,117 @@
 @implementation NEPresentationExternalConditionController
 
 COExperimentContext *expContext;
-NSArray *mediaObjectsArray;
+NSArray *constraintsArray;
 NSDictionary *dictExternalConditions;
 
-NSUInteger numberOfTrialsInBlock;
 
--(id)initWithMediaObjects:(NSArray*)newMediaObjects
+-(id)initWithConstraints:(NSArray*)newConstraintsArray
 {
     if ((self = [super init])){
         expContext = [COExperimentContext getInstance];
-        if (nil == mediaObjectsArray){
-            mediaObjectsArray = newMediaObjects;
+        if (nil == constraintsArray){
+            constraintsArray = newConstraintsArray;
         }
         else{
-            [mediaObjectsArray release];
-            mediaObjectsArray = [newMediaObjects retain];
+            [constraintsArray release];
+            constraintsArray = [newConstraintsArray retain];
         }
-        if ( (nil == [self setExternalConditionsForMediaObjects])){
+        if ( (nil == [self buildConstraintDictionary])){
             NSLog(@"Can't init %@", self);
             return nil;
         }
-        numberOfTrialsInBlock = 12;
-
+       
     }
     return self;
 }
 
 
--(NSError*)setExternalConditionsForMediaObjects
+-(NSError*)buildConstraintDictionary
 {
     NSError *err = nil;
     NSDictionary *dictSerialIOPlugins = [expContext dictSerialIOPlugins];
-    NSMutableDictionary *mutableDictExternalCond = [[NSMutableDictionary alloc] initWithCapacity:[mediaObjectsArray count]];
+    NSMutableDictionary *mutableDictExternalCond = [[NSMutableDictionary alloc] initWithCapacity:[constraintsArray count]];
     
     //TODO: implement this in EDL
     //vergleichen constraint source und der Eintrag in mediaObjects
     
-    NSString *externalCondition = @"ASLEyeTrac";
-    for (NEMediaObject* mediaObj in mediaObjectsArray)
+    //TODO: 
+    //DICT zusammenbasteln das zur Laufzeit übergeben werden kann
+    //Key -> constraintID, Object dict mit dem ganzen Kram
+    //NSString *externalCondition = @"ASLEyeTrac";
+    for (NEConstraint* constraint in constraintsArray)
     {
-        NSString *mediaObjID = [mediaObj getID];
-        //NSString *externalCondition = [mediaObjID getExternalCondition];
-        if (nil != [dictSerialIOPlugins objectForKey:externalCondition]){
-            [mutableDictExternalCond setObject:[dictSerialIOPlugins objectForKey:externalCondition] forKey:mediaObjID];
+        NSString *constraintID = [constraint constraintID];
+        
+        // get all sources for external variables and make unique names
+        NSSet *uniqueVariableSources = [NSSet setWithArray:[[constraint variables] allValues] ];
+        NSLog(@"Number of Sources: %lu", [uniqueVariableSources count]);
+        
+        for (NSString *externalDevice in uniqueVariableSources) {
+            if (nil != [dictSerialIOPlugins objectForKey:externalDevice])
+            {
+                [mutableDictExternalCond 
+                 setObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                            [dictSerialIOPlugins objectForKey:externalDevice], @"Plugin", 
+                            [[constraint variables] allKeysForObject:externalDevice], @"ParamsArray", nil ] 
+                 forKey:constraintID ];
+            }
         }
     }
     
     dictExternalConditions = [[NSDictionary alloc] initWithDictionary:mutableDictExternalCond];
     [mutableDictExternalCond release];
+    
     return err;
 }
 
--(NSPoint)isConditionFullfilledForEvent:(NEStimEvent*)event
+//-(NSPoint)isConditionFullfilledForEvent:(NEStimEvent*)event
+-(NSDictionary*)checkConstraintForID:(NSString*)constraintID;
 {
     // todo: get this automatically from config
     //conditions und variables in params und das ganze ins setup - NICHT zur Laufzeit vom paradigma
-    NSString *isDynamic = @"";
-    NSString *dyn = @"DYN";
-    NSString *stat = @"STAT";
-    
-    if ( NSNotFound != [[[event mediaObject] getID] rangeOfString:dyn options:NSCaseInsensitiveSearch].location ){
-        isDynamic = @"YES";
-    }
-    if ( NSNotFound != [[[event mediaObject] getID] rangeOfString:stat options:NSCaseInsensitiveSearch].location ){
-        isDynamic = @"NO";
-    }
-    
-    //setup the params dictionary
-    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:isDynamic, @"isDynamic", 
-                          [NSNumber numberWithFloat:[[event mediaObject] position].x], @"xPosition",
-                          [NSNumber numberWithFloat:[[event mediaObject] position].y], @"yPosition",
-                          nil];
+//    NSString *isDynamic = @"";
+//    NSString *dyn = @"DYN";
+//    NSString *stat = @"STAT";
+//    
+//    if ( NSNotFound != [[[event mediaObject] getID] rangeOfString:dyn options:NSCaseInsensitiveSearch].location ){
+//        isDynamic = @"YES";
+//    }
+//    if ( NSNotFound != [[[event mediaObject] getID] rangeOfString:stat options:NSCaseInsensitiveSearch].location ){
+//        isDynamic = @"NO";
+//    }
+//    
+//    //setup the params dictionary
+//    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:isDynamic, @"isDynamic", 
+//                          [NSNumber numberWithFloat:[[event mediaObject] position].x], @"xPosition",
+//                          [NSNumber numberWithFloat:[[event mediaObject] position].y], @"yPosition",
+//                          nil];
     
     
     //call the external device and ask all your questions
-    SerialPort* s = [dictExternalConditions objectForKey:[[event mediaObject] getID]];
+    //im Block alle aufrufen
+    SerialPort* s = [[dictExternalConditions objectForKey:constraintID] objectForKey:@"Plugin"];
+//    SerialPort* s = [dictExternalConditions objectForKey:@"Plugin"];
     if (nil != s){
-        return [s isConditionFullfilled:params];
+        NSPoint p= [s isConditionFullfilled:[[dictExternalConditions objectForKey:constraintID] objectForKey:@"ParamsArray"]];
+        return [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:p.x], @"eyePosX",[NSNumber numberWithFloat:p.y], @"eyePosY", nil];
     }
-    else
-    {
-       return NSMakePoint(400.0, 300.0);
-    }
-    return NSMakePoint(0.0, 0.0);
-    
+//    else
+//    {
+//       return NSMakePoint(400.0, 300.0);
+//    }
+//    return NSMakePoint(0.0, 0.0);
+
+    return nil;
     
     
 }
 
--(NSEvent*)getAction:(NSEvent*)event
-{
-        
-}
+
 
 -(void)dealloc
 {
-    [mediaObjectsArray release];
+    [constraintsArray release];
     [dictExternalConditions release];
     [super dealloc];
 }

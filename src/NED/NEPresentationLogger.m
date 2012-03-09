@@ -298,6 +298,7 @@
     }
     fclose(fp);
     [tempDateFormatter release];
+    [fm release];
 }
 
 -(void)printToNSLog

@@ -19,9 +19,15 @@ float mImageHeightHalf;
 -(id)initWithID:(NSString*)objID
            file:(NSString*)path
       displayAt:(NSPoint)position
+  constrainedBy:(NSString *)constraintID
 {
     if ((self = [super init])) {
         mID       = [objID retain];
+        mConstraintID = [[constraintID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] retain];
+        if ( 0 != [mConstraintID length]){
+            hasConstraint = YES;}
+        else{
+            hasConstraint = NO;}
         
         NSString* resolvedPath  = [[[COExperimentContext getInstance] systemConfig] getEDLFilePath];
         resolvedPath = [resolvedPath stringByDeletingLastPathComponent];
@@ -55,6 +61,7 @@ float mImageHeightHalf;
 {
     [mID release];
     [mImage release];
+    [mConstraintID release];
     
     [super dealloc];
 }

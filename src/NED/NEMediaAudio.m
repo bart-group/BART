@@ -14,9 +14,15 @@
 
 -(id)initWithID:(NSString*)objID 
         andFile:(NSString*)path 
+  constrainedBy:(NSString*)constraintID;
 {
     if ((self = [super init])) {
         mID    = [objID retain];
+        mConstraintID = [[constraintID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] retain];
+        if ( 0 != [mConstraintID length]){
+            hasConstraint = YES;}
+        else{
+            hasConstraint = NO;}
         
         NSString* resolvedPath  = [[[COExperimentContext getInstance] systemConfig] getEDLFilePath];
         resolvedPath = [resolvedPath stringByDeletingLastPathComponent];
@@ -33,6 +39,7 @@
 {    
     [mID release];
     [mTrack release];
+    [mConstraintID release];
     
     [super dealloc];
 }

@@ -13,6 +13,7 @@
 
 -(NSArray*)createActionListForType:(NSString*)type;
 -(NSArray*)createAllAvailableActions;
+
 @end
 
 @implementation NEConstraint
@@ -23,6 +24,7 @@
 @synthesize constraintActionsElse;
 @synthesize systemVariables;
 @synthesize constraintConditions;
+@synthesize numberOfExternalSources;
 
 -(id)init
 {
@@ -35,6 +37,7 @@
         constraintConditions = NULL;
         constraintActionsThen = NULL;
         constraintActionsElse = NULL;
+        //numberOfExternalSources = 0;
     }
     return self;
 }
@@ -52,34 +55,33 @@
         isActive = YES;
         
         // (2) read all available systemVariables
-        NSMutableArray *arrayVariables = [NSMutableArray arrayWithCapacity:1];
-        //read all available systemVariables
-        NSUInteger counterSystemVariables = [config countNodes:[NSString stringWithFormat:@"%@/systemVariables/systemVariable", key]];
-        //NSString *sysVariables = [config getProp:[NSString stringWithFormat:@"%@/systemVariables/systemVariable[1]", key]];
+        NSUInteger counterSystemVariables = [config countNodes:@"$systemVariables/systemVariable"];
+        NSMutableDictionary *dictSystemVariables = [NSMutableDictionary dictionaryWithCapacity:counterSystemVariables];
+        
         for (NSUInteger index = 0; index < counterSystemVariables; index++) {
 
-            NSString *source = [config getProp:[NSString stringWithFormat:@"%@/systemVariables/systemVariable[%d]/@source", key, counterSystemVariables]];
-            NSString *variableName = [config getProp:[NSString stringWithFormat:@"%@/systemVariables/systemVariable[%d]/@variableName", key, counterSystemVariables]];
+            NSString *source = [config getProp:[NSString stringWithFormat:@"$systemVariables/systemVariable[%d]/@source", index]];
+            NSString *variableName = [config getProp:[NSString stringWithFormat:@"$systemVariables/systemVariable[%d]/@systemVariableName", index]];
+            NSString *variableID = [config getProp:[NSString stringWithFormat:@"$systemVariables/systemVariable[%d]/@systemVariableID", index]];
             
-            NSDictionary *dictSystemVariables = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"variableName", variableName, @"source", source, nil];
-            
-            [arrayVariables addObject:dictSystemVariables];
+            [dictSystemVariables setObject:[NSDictionary dictionaryWithObjectsAndKeys:source, @"source", variableName, variableName, nil] forKey:variableID];
+
         }
-        systemVariables = [NSArray arrayWithArray:arrayVariables];
+        systemVariables = [[NSDictionary alloc ] initWithDictionary:dictSystemVariables];//[NSArray arrayWithArray:arrayVariables];
         
-        // (3) real all available conditions
-        NSUInteger nrVariables = [config countNodes:[NSString stringWithFormat:@"%@/condition/systemVariableReference", key]];
+        // (3) read all available conditions
+        NSUInteger nrVariables = [config countNodes:[NSString stringWithFormat:@"%@/conditions/condition", key]];
         NSMutableArray *arrayConditions = [NSMutableArray arrayWithCapacity:nrVariables];
         for (NSUInteger count = 0; count < nrVariables; count++) {
-            NSString *conditionVariable = [config getProp:[NSString stringWithFormat:@"%@/condition/systemVariableReference[%d]/@variableName", key, count]];
+            NSString *conditionVariable = [config getProp:[NSString stringWithFormat:@"%@/conditions/condition[%d]/systemVariableRef", key, count]];
             [arrayConditions addObject:conditionVariable];
         } 
         
-        constraintConditions = [NSArray arrayWithArray:arrayConditions];
+        constraintConditions = [[NSArray alloc] initWithArray:arrayConditions];
 
         // (4) read all actions
-        constraintActionsThen = [self createActionListForType:@"actions_then"];
-        constraintActionsElse = [self createActionListForType:@"actions_else"];
+        constraintActionsThen = [[NSArray alloc] initWithArray:[self createActionListForType:@"actions_then"]];
+        constraintActionsElse = [[NSArray alloc] initWithArray:[self createActionListForType:@"actions_else"]];
                
         
         
@@ -99,7 +101,7 @@
     NSDictionary *dictAddSE = [[NSDictionary alloc] initWithObjectsAndKeys:@"addStimulusEvent",@"actionNameInConfig", @"addStimulusEvent",@"actionNameInternal", nil];
     NSDictionary *dictChangeTimingSE = [[NSDictionary alloc] initWithObjectsAndKeys:@"changeTimingStimulusEvent",@"actionNameInConfig", @"changeTimingStimulusEvent", @"actionNameInternal", @"parameterName", @"parameterName", @"newValue",@"valueToSet", nil];
     
-    NSArray *allAvailableActions = [[NSArray alloc] initWithObjects:dictActionReplace, dictActionSetMO, dictRemoveSE, dictAddSE, dictChangeTimingSE, nil];
+    NSArray *allAvailableActions = [NSArray arrayWithObjects:dictActionReplace, dictActionSetMO, dictRemoveSE, dictAddSE, dictChangeTimingSE, nil];
     
     [dictAddSE release];
     [dictActionReplace release];
@@ -107,11 +109,11 @@
     [dictChangeTimingSE release];
     [dictRemoveSE release];
     
-    return [allAvailableActions retain];
+    return [allAvailableActions autorelease];
 
 }
 
--(NSArray*)createActionListForKey:(NSString *)type
+-(NSArray*)createActionListForType:(NSString *)type
 {
     //TODO: Wie verschiedene Fktname und Parameter aufloesen?
     NSString *path = [NSString stringWithFormat:@"$refConstraints/%@", type];
@@ -119,65 +121,51 @@
     COSystemConfig* config = [[COExperimentContext getInstance] systemConfig];
     NSUInteger counterActions = [config countNodes:[NSString stringWithFormat:@"%@/action", path] ];
     NSMutableArray *arrayActions = [NSMutableArray arrayWithCapacity:counterActions];
-    //NSUInteger counterActionsElse  = [config countNodes:[NSString stringWithFormat:@"%@/action", path ]];
-    //NSMutableArray *arrayActionsElse = [NSMutableArray arrayWithCapacity:counterActionsElse];
     
     for (NSUInteger index=0; index < counterActions; index++) {
         //ask each available action
         NSArray *allAvailableActions = [self createAllAvailableActions];
-        for (id element in allAvailableActions)
+        for (NSDictionary *element in allAvailableActions)
         {
             if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/action/%@", path, [element objectForKey:@"actionNameInConfig"] ]] )
             {
-                NSString *paraName = NULL;
-                NSString *valName = NULL;
-                NSString *fctName = [config getProp:[NSString stringWithFormat:@"%@/action/%@", path, [element objectForKey:@"actionNameInternal"] ]];
-                if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/action/%@/@%@", path, [element objectForKey:@"actionNameInConfig"], [element objectForKey:@"parameterName"] ]] )
+                NSString *paraName = @"";
+                NSString *paraKey = [element valueForKey:@"parameterName"];
+                NSString *valName = @"";
+                NSString *valKey = [element valueForKey:@"valueToSet"];
+                NSString *fctName = [config getProp:[NSString stringWithFormat:@"%@/action/%@", path, [element objectForKey:@"actionNameInConfig"] ]];
+                
+                if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/action/%@/@%@", path, [element objectForKey:@"actionNameInConfig"], paraKey ]] )
                 {
-                    paraName = [config getProp:[NSString stringWithFormat:@"%@/action/%@/@%@", path, [element objectForKey:@"actionNameInConfig"], [element objectForKey:@"parameterName"] ]];
+                    paraName = [config getProp:[NSString stringWithFormat:@"%@/action/%@/@%@", path, [element objectForKey:@"actionNameInConfig"], paraKey ]];
                 }
-                if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/action/%@/@%@", path, [element objectForKey:@"actionNameInConfig"], [element objectForKey:@"valueToSet"] ]] )
+                if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/action/%@/@%@", path, [element objectForKey:@"actionNameInConfig"], valKey ]] )
                 {
-                    valName = [config getProp:[NSString stringWithFormat:@"%@/action/%@/@%@", path, [element objectForKey:@"actionNameInConfig"], [element objectForKey:@"valueToSet"] ]];
+                    valName = [config getProp:[NSString stringWithFormat:@"%@/action/%@/@%@", path, [element objectForKey:@"actionNameInConfig"], valKey ]];
                 }
                 
-                NSDictionary *dictAction = [NSDictionary dictionaryWithObjectsAndKeys:fctName, @"functionName", paraName, @"parameterName", valName, @"valueName", nil];
+                NSString *fctNameInternal = [element valueForKey:@"actionNameInternal"];
+                
+                NSDictionary *dictAction = [NSDictionary dictionaryWithObjectsAndKeys:fctName, @"functionName", fctNameInternal, @"functionNameInternal", paraName, paraKey, valName, valKey, nil];
                 [arrayActions addObject:dictAction];
                 
             }
             
         }
     }
-    return arrayActions;
-    //constraintActionsThen = [NSArray arrayWithArray:arrayActionsThen];
-    
-//    for (NSUInteger index=0; index < counterActionsElse; index++) {
-//        //ask each available action
-//        for (id element in allAvailableActions)
-//        {
-//            if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/actions_else/action/%@", key, [element objectForKey:@"actionNameInConfig"] ]] )
-//            {
-//                NSString *paraName = NULL;
-//                NSString *valName = NULL;
-//                NSString *fctName = [config getProp:[NSString stringWithFormat:@"%@/actions_else/action/%@", key, [element objectForKey:@"actionNameInternal"] ]];
-//                if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/actions_else/action/%@/@%@", key, [element objectForKey:@"actionNameInConfig"], [element objectForKey:@"parameterName"] ]] )
-//                {
-//                    paraName = [config getProp:[NSString stringWithFormat:@"%@/actions_else/action/%@/@%@", key, [element objectForKey:@"actionNameInConfig"], [element objectForKey:@"parameterName"] ]];
-//                }
-//                if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/actions_else/action/%@/@%@", key, [element objectForKey:@"actionNameInConfig"], [element objectForKey:@"valueToSet"] ]] )
-//                {
-//                    valName = [config getProp:[NSString stringWithFormat:@"%@/actions_else/action/%@/@%@", key, [element objectForKey:@"actionNameInConfig"], [element objectForKey:@"valueToSet"] ]];
-//                }
-//                
-//                NSDictionary *dictAction = [NSDictionary dictionaryWithObjectsAndKeys:fctName, @"functionName", paraName, @"parameterName", valName, @"valueName", nil];
-//                [arrayActionsElse addObject:dictAction];
-//                
-//            }
-//            
-//        }
-//    }
-    //constraintActionsElse = [NSArray arrayWithArray:arrayActionsElse];
 
+    return arrayActions;
+   
+}
+
+-(void)dealloc
+{
+
+    [constraintConditions release];
+    [constraintActionsThen release];
+    [constraintActionsElse release];
+    [systemVariables release];
+    [super dealloc];
 }
 
 @end

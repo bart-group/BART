@@ -35,7 +35,8 @@
  * \return      A initialized NEMediaText object.
  */
 -(id)initWithID:(NSString*)objID
-        andText:(NSString*)text;
+        andText:(NSString*)text
+  constrainedBy:(NSString*)constraintID;
 
 /**
  * Initializes a newly allocated NEMediaText object
@@ -55,6 +56,7 @@
            Text:(NSString*)text 
          inSize:(NSUInteger)size 
        andColor:(NSColor*)color 
-      atPostion:(NSPoint)position;
+      atPostion:(NSPoint)position
+  constrainedBy:(NSString*)constraintID;;
 
 @end

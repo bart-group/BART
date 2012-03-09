@@ -383,6 +383,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         
         //ask for conditions
         NEStimEvent *event = [mTimetable previewNextEventAtTime:mTime];
+        //TODO if else part
         [self checkForExternalConditionsForEvent:event];
         
         
@@ -400,22 +401,30 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 
 -(BOOL)checkForExternalConditionsForEvent:(NEStimEvent *)event
 {
-    NSPoint p = [mExternalConditionController isConditionFullfilledForEvent:event];
-    
-    if ( (0.0 == p.x) || (0.0 == p.y) )
+    if (NO == [[event mediaObject] isDependentFromConstraint])
     {
-        //shift all coming events 20 ms
-        [mTimetable shiftOnsetForAllEventsToHappen:20];
-        return NO;
+        return YES;
     }
-    
-    
-    //get position from external device and set this to coming event
-    [[event mediaObject] setPosition:p];
+    else{
         
-    
-    return YES;
-    
+        //NSPoint p = [mExternalConditionController isConditionFullfilledForEvent:event];
+        
+        NSDictionary *dict = [mExternalConditionController checkConstraintForID:[[event mediaObject] getConstraintID]];
+        //if ( (0.0 == p.x) || (0.0 == p.y) )
+        if (nil != dict)
+        {
+            //shift all coming events 20 ms
+            [mTimetable shiftOnsetForAllEventsToHappen:20];
+            return NO;
+        }
+        
+        
+        //get position from external device and set this to coming event
+        //[[event mediaObject] setPosition:p];
+        
+        
+        return YES;
+    }
     
 }
 

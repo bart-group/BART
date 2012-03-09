@@ -12,7 +12,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class NEStimEvent;
+//@class NEStimEvent;
 
 @interface NEPresentationExternalConditionController : NSObject {
     
@@ -25,15 +25,15 @@
  * 
  * \return              An initialized NEPresentationExternalConditionController object.
  */
--(id)initWithMediaObjects:(NSArray*)newMediaObjects;
+-(id)initWithConstraints:(NSArray*)newConstraintsArray;
 
 
 /**
- * ask if all external conditions for one mediaObject are fullfilled to run the trial in the Presentation
+ * check the external conditions for the current mediaObject restricyed by a constraint
  * 
- * \param mediaObjectID        The ID for the mediaObject you want to check.
- * \return                     YES if all defined external conditions are fullfilled for this mediaObjectID, NO otherwise.
+ * \param constraintID          The ID for the constrint you want to check.
+ * \return                      a dictionary with the results for the conditions and relevant parameters for actions
  */
 
--(NSPoint)isConditionFullfilledForEvent:(NEStimEvent*)event;
+-(NSDictionary*)checkConstraintForID:(NSString*)constraintID;
 @end

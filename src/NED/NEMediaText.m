@@ -13,12 +13,18 @@
 
 -(id)initWithID:(NSString*)objID
         andText:(NSString*)text
+  constrainedBy:(NSString *)constraintID
 {
     if ((self = [super init])) {
         mID    = [objID retain];
         mText  = [text retain];
         mSize  = 5;
         mColor = [[NSColor whiteColor] retain];
+        mConstraintID = [[constraintID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] retain];
+        if ( 0 != [mConstraintID length]){
+            hasConstraint = YES;}
+        else{
+            hasConstraint = NO;}
     }
     
     return self;
@@ -28,6 +34,7 @@
          inSize:(NSUInteger)size 
        andColor:(NSColor*)color 
       atPostion:(NSPoint)position
+  constrainedBy:(NSString*)constraintID;
 {
     if ((self = [super init])) {
         mID       = [objID retain];
@@ -35,6 +42,12 @@
         mSize     = size;
         mColor    = [color retain];
         mPosition = position;
+        
+        mConstraintID = [[constraintID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] retain];
+        if ( 0 != [mConstraintID length]){
+            hasConstraint = YES;}
+        else{
+            hasConstraint = NO;}
     }
     
     return self;
@@ -43,6 +56,7 @@
 
 -(void)presentInContext:(CGContextRef)context andRect:(NSRect)rect
 {
+    #pragma unused(rect)
 //    CGContextSetRGBStrokeColor(context, 1, 1, 1, 1); 
 //    CGContextSetRGBFillColor(context, 1, 1, 1, 1);
     [mColor setStroke];
@@ -58,6 +72,7 @@
     [mID release];
     [mText release];
     [mColor release];
+    [mConstraintID release];
     
     [super dealloc];
 }
