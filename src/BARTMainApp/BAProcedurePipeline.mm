@@ -68,11 +68,11 @@
     #pragma unused(aNotification)
     config = [[COExperimentContext getInstance] systemConfig];
     
-    [self initData];
-	[self initDesign];
-	[self initAnalyzer];
-    //[self initPresentation];
-	[self startAnalysis];
+    //[self initData];
+	//[self initDesign];
+	//[self initAnalyzer];
+    [self initPresentation];
+	//[self startAnalysis];
     
 }
 
