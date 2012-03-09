@@ -57,7 +57,10 @@
 							@"$timeUnit",
 							@"$refFctsGamma",
 							@"$refFctsGlover",
-                            @"$refConstraints",
+                            @"$constraints",
+                            @"$timetable",
+                            @"$systemVariables",
+                            @"$mediaObjects",
 						    nil];
 	
 	NSArray *xpathValues = [NSArray arrayWithObjects:@"/rtExperiment/experimentData/imageModalities/TR", 
@@ -69,6 +72,9 @@
 							@"/rtExperiment/statistics/referenceFunctions/dGamma",
 							@"/rtExperiment/statistics/referenceFunctions/gloverKernel",
                             @"/rtExperiment/stimulusData/constraints",
+                            @"/rtExperiment/stimulusData/timetable",
+                            @"/rtExperiment/stimulusData/constraints/systemVariables",
+                            @"/rtExperiment/stimulusData/mediaObjectList",
 							nil];
 	mAbbreviations = [[NSDictionary alloc] initWithObjects:xpathValues
                                                    forKeys:shortKeys];
