@@ -26,6 +26,15 @@ NSString* fctFile = @"/Users/oliver/test/reg3d_test/dataset01/data_10timesteps.n
 NSString* anaFile = @"/Users/oliver/test/reg3d_test/dataset01/ana.nii"; //_visotrop.nii";
 NSString* mniFile = @"/Users/oliver/test/reg3d_test/mni_lipsia.nii";
 
+/* # Function declarations # */
+
+void testBARTRegistrationAnaOnlyParams(NSString* funPath,
+                                       NSString* anaPath,
+                                       int runs,
+                                       NSString* outPath);
+
+/* # Function definitions # */
+
 void testVnormdataRegistrationWorkflow() 
 {          
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -103,7 +112,18 @@ void testBARTRegistrationWorkflow()
     [pool drain];
 }
 
-void testBARTRegistrationAnaOnly() 
+void testBARTRegistrationAnaOnly()
+{
+    testBARTRegistrationAnaOnlyParams(fctFile,
+                                      anaFile,
+                                      1,
+                                      @"/tmp/BART_bartRegAnaOnly.nii");
+}
+
+void testBARTRegistrationAnaOnlyParams(NSString* funPath,
+                                       NSString* anaPath,
+                                       int runs,
+                                       NSString* outPath) 
 {
     TimeVal aliStart;
     TimeVal aliEnd;
@@ -111,18 +131,17 @@ void testBARTRegistrationAnaOnly()
     TimeDiff* diff;
     double alignTime = 0.0;
     double applyTime = 0.0;
-    int runs = 1;
     for (int i = 0; i < runs; i++) {
         
         NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
         
-        EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:fctFile
+        EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:funPath
                                                                    andSuffix:@"" 
                                                                   andDialect:@"" 
                                                                  ofImageType:IMAGE_FCTDATA];
         NSArray* forceMemoryLoad = [fctData getMinMaxOfDataElement];
         
-        EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaFile
+        EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaPath
                                                                    andSuffix:@"" 
                                                                   andDialect:@"" 
                                                                  ofImageType:IMAGE_ANADATA];
@@ -146,7 +165,7 @@ void testBARTRegistrationAnaOnly()
         applyTime += asDouble(diff);            // #
         free(diff);       // RUNTIME ANALYSIS CODE #
         
-        [fct2ana WriteDataElementToFile:@"/tmp/BART_bartRegAnaOnly.nii"];
+        [fct2ana WriteDataElementToFile:outPath];
         
         [method release];
         
@@ -158,7 +177,8 @@ void testBARTRegistrationAnaOnly()
     }
     alignTime /= static_cast<double>(runs);
     applyTime /= static_cast<double>(runs);
-    NSLog(@"Runtime BART_reg_anaonly for %d runs. Registration: %lfs, application: %lfs\n", runs, alignTime, applyTime);
+    NSLog(@"Runtime BART_reg_anaonly for %d runs. Fun: %@ ana: %@ out: %@. Registration: %lf s, application: %lf s\n", 
+          runs, funPath, anaPath, outPath, alignTime, applyTime);
 }
 
 void testAdapterConversion() {
