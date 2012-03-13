@@ -120,11 +120,13 @@ void testBARTRegistrationAnaOnly()
                                                                    andSuffix:@"" 
                                                                   andDialect:@"" 
                                                                  ofImageType:IMAGE_FCTDATA];
+        NSArray* forceMemoryLoad = [fctData getMinMaxOfDataElement];
         
         EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaFile
                                                                    andSuffix:@"" 
                                                                   andDialect:@"" 
                                                                  ofImageType:IMAGE_ANADATA];
+        forceMemoryLoad = [anaData getMinMaxOfDataElement];
         
         
         aliStart = now(); // RUNTIME ANALYSIS CODE #
@@ -196,11 +198,60 @@ void testAdapterConversion() {
 	[pool drain];
 }
 
+void testMemoryAdapter()
+{
+    int runs = 50;
+    for (int i = 0; i < runs; i++) {
+        testAdapterConversion();
+        
+//        NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+//        EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:fctFile
+//                                                                   andSuffix:@"" 
+//                                                                  andDialect:@"" 
+//                                                                 ofImageType:IMAGE_FCTDATA];
+//        ITKImage4D::Pointer fctITK = [fctData asITKImage4D];
+//        EDDataElement* fctDataConverted = [fctData convertFromITKImage4D:fctITK];
+//        
+//        [fctData WriteDataElementToFile:@"/tmp/adapter_fct.nii"];
+//        [fctDataConverted WriteDataElementToFile:@"/tmp/adapter_fct_converted.nii"];
+//        
+//        [fctData release];
+//        [pool drain];
+    }
+}
+
+void testPluginReadWrite()
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
+    EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:fctFile
+                                                               andSuffix:@"" 
+                                                              andDialect:@"" 
+                                                             ofImageType:IMAGE_FCTDATA];
+
+    EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaFile
+                                                               andSuffix:@"" 
+                                                              andDialect:@"" 
+                                                             ofImageType:IMAGE_ANADATA];
+    
+    [fctData WriteDataElementToFile:@"/tmp/BART_plugintest_fct.nii"];
+    [anaData WriteDataElementToFile:@"/tmp/BART_plugintest_ana.nii"];
+    
+    [anaData release];
+    [fctData release];
+    
+    [pool drain];
+}
+
 int main(void)
 {
-    testBARTRegistrationAnaOnly();
-
-//    testBARTRegistrationWorkflow();
-//    testVnormdataRegistrationWorkflow();    
+    /* # General Isis tests # */
 //    testAdapterConversion();
+//    testMemoryAdapter();
+//    testPluginReadWrite();
+
+    /* # Registration tests # */
+    testBARTRegistrationAnaOnly();
+//    testBARTRegistrationWorkflow();
+//    testVnormdataRegistrationWorkflow();
 }
