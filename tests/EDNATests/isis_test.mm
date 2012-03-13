@@ -22,9 +22,45 @@
 
 @end
 
+/* # Dataset files # */
+
 NSString* fctFile = @"/Users/oliver/test/reg3d_test/dataset01/data_10timesteps.nii";
 NSString* anaFile = @"/Users/oliver/test/reg3d_test/dataset01/ana.nii"; //_visotrop.nii";
 NSString* mniFile = @"/Users/oliver/test/reg3d_test/mni_lipsia.nii";
+
+NSString* OZ00fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_axial_128x128.nii";
+NSString* OZ00ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mdeft.nii";
+NSString* OZ00out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ00out.nii";
+
+NSString* OZ01fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_axial_64x64.nii";
+NSString* OZ01ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mdeft.nii";
+NSString* OZ01out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ01out.nii";
+
+NSString* OZ02fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_coronar_64x64.nii";
+NSString* OZ02ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mdeft.nii";
+NSString* OZ02out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ02out.nii";
+
+NSString* OZ03fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_sagittal_64x64.nii";
+NSString* OZ03ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mdeft.nii";
+NSString* OZ03out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ03out.nii";
+
+NSString* OZ10fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_axial_128x128.nii";
+NSString* OZ10ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mprage.nii";
+NSString* OZ10out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ10out.nii";
+
+NSString* OZ11fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_axial_64x64.nii";
+NSString* OZ11ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mprage.nii";
+NSString* OZ11out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ11out.nii";
+
+NSString* OZ12fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_coronar_64x64.nii";
+NSString* OZ12ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mprage.nii";
+NSString* OZ12out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ12out.nii";
+
+NSString* OZ13fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_sagittal_64x64.nii";
+NSString* OZ13ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mprage.nii";
+NSString* OZ13out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ13out.nii";
+
+
 
 /* # Function declarations # */
 
@@ -32,6 +68,8 @@ void testBARTRegistrationAnaOnlyParams(NSString* funPath,
                                        NSString* anaPath,
                                        int runs,
                                        NSString* outPath);
+
+
 
 /* # Function definitions # */
 
