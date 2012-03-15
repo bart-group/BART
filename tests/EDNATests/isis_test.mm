@@ -152,10 +152,22 @@ void testBARTRegistrationWorkflow()
 
 void testBARTRegistrationAnaOnly()
 {
+    int runs = 20;
     testBARTRegistrationAnaOnlyParams(fctFile,
                                       anaFile,
-                                      1,
+                                      runs,
                                       @"/tmp/BART_bartRegAnaOnly.nii");
+    
+//    system("rm -f /tmp/BART_regAnaOnly_runtime.txt");
+//    freopen("/tmp/BART_regAnaOnly_runtime.txt", "a", stderr);
+//    testBARTRegistrationAnaOnlyParams(OZ00fun, OZ00ana, runs, OZ00out);
+//    testBARTRegistrationAnaOnlyParams(OZ01fun, OZ01ana, runs, OZ01out);
+//    testBARTRegistrationAnaOnlyParams(OZ02fun, OZ02ana, runs, OZ02out);
+//    testBARTRegistrationAnaOnlyParams(OZ03fun, OZ03ana, runs, OZ03out);
+//    testBARTRegistrationAnaOnlyParams(OZ10fun, OZ10ana, runs, OZ10out);
+//    testBARTRegistrationAnaOnlyParams(OZ11fun, OZ11ana, runs, OZ11out);
+//    testBARTRegistrationAnaOnlyParams(OZ12fun, OZ12ana, runs, OZ12out);
+//    testBARTRegistrationAnaOnlyParams(OZ13fun, OZ13ana, runs, OZ13out);
 }
 
 void testBARTRegistrationAnaOnlyParams(NSString* funPath,
