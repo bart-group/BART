@@ -22,6 +22,10 @@
 
 @end
 
+/* # Constants # */
+
+const int RUNS = 20;
+
 /* # Dataset files # */
 
 NSString* fctFile = @"/Users/oliver/test/reg3d_test/dataset01/data_10timesteps.nii";
@@ -64,6 +68,18 @@ NSString* OZ13out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ13out.nii";
 
 /* # Function declarations # */
 
+void testVnormdataRegistrationWorkflowParams(NSString* funPath,
+                                             NSString* anaPath,
+                                             NSString* mniPath,
+                                             int runs,
+                                             NSString* outPath);
+
+void testBARTRegistrationWorkflowParams(NSString* funPath,
+                                        NSString* anaPath,
+                                        NSString* mniPath,
+                                        int runs,
+                                        NSString* outPath);
+
 void testBARTRegistrationAnaOnlyParams(NSString* funPath,
                                        NSString* anaPath,
                                        int runs,
@@ -73,93 +89,189 @@ void testBARTRegistrationAnaOnlyParams(NSString* funPath,
 
 /* # Function definitions # */
 
-void testVnormdataRegistrationWorkflow() 
-{          
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+void testVnormdataRegistrationWorkflow()
+{
+    int runs = RUNS;
+    NSString* vnormRegOut = @"/tmp/BART_vnormdata.nii";
+    testVnormdataRegistrationWorkflowParams(fctFile,
+                                            anaFile,
+                                            mniFile,
+                                            runs,
+                                            vnormRegOut);
     
-    // /Users/oliver/Development/BART/tests/BARTMainAppTests/testfiles
-    //    NSString* imageFile = @"TestDataset01-functional.nii";
-    
-    EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:fctFile
-                                                               andSuffix:@"" 
-                                                              andDialect:@"" 
-                                                             ofImageType:IMAGE_FCTDATA];
-    
-    EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaFile
-                                                               andSuffix:@"" 
-                                                              andDialect:@"" 
-                                                             ofImageType:IMAGE_ANADATA];
-    
-    EDDataElementIsis* mniData = [[EDDataElementIsis alloc] initWithFile:mniFile
-                                                               andSuffix:@"" 
-                                                              andDialect:@"" 
-                                                             ofImageType:IMAGE_ANADATA];
-    
-    
-    RORegistrationMethod* method = [[RORegistrationVnormdata alloc] initFindingTransform:fctData 
-                                                                                 anatomy:anaData
-                                                                               reference:mniData];
-    
-    EDDataElement* ana2fct2mni = [method apply:fctData];
-    
-    
-    [ana2fct2mni WriteDataElementToFile:@"/tmp/BART_vnormdata.nii"];
-    
-    [method release];
-    
-    [mniData release];
-    [anaData release];
-    [fctData release];
-    
-    [pool drain];
+    testVnormdataRegistrationWorkflowParams(OZ00fun, OZ00ana, mniFile, runs, vnormRegOut);
+    testVnormdataRegistrationWorkflowParams(OZ01fun, OZ01ana, mniFile, runs, vnormRegOut);
+    testVnormdataRegistrationWorkflowParams(OZ02fun, OZ02ana, mniFile, runs, vnormRegOut);
+    testVnormdataRegistrationWorkflowParams(OZ03fun, OZ03ana, mniFile, runs, vnormRegOut);
+    testVnormdataRegistrationWorkflowParams(OZ10fun, OZ10ana, mniFile, runs, vnormRegOut);
+    testVnormdataRegistrationWorkflowParams(OZ11fun, OZ11ana, mniFile, runs, vnormRegOut);
+    testVnormdataRegistrationWorkflowParams(OZ12fun, OZ12ana, mniFile, runs, vnormRegOut);
+    testVnormdataRegistrationWorkflowParams(OZ13fun, OZ13ana, mniFile, runs, vnormRegOut);
 }
 
-void testBARTRegistrationWorkflow() 
+void testVnormdataRegistrationWorkflowParams(NSString* funPath,
+                                             NSString* anaPath,
+                                             NSString* mniPath,
+                                             int runs,
+                                             NSString* outPath) 
 {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    TimeVal aliStart;
+    TimeVal aliEnd;
+    TimeVal appEnd;
+    TimeDiff* diff;
+    double alignTime = 0.0;
+    double applyTime = 0.0;
+    for (int i = 0; i < runs; i++) {
+        
+        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+        
+        // /Users/oliver/Development/BART/tests/BARTMainAppTests/testfiles
+        //    NSString* imageFile = @"TestDataset01-functional.nii";
+        
+        EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:funPath
+                                                                   andSuffix:@"" 
+                                                                  andDialect:@"" 
+                                                                 ofImageType:IMAGE_FCTDATA];
+        
+        EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaPath
+                                                                   andSuffix:@"" 
+                                                                  andDialect:@"" 
+                                                                 ofImageType:IMAGE_ANADATA];
+        
+        EDDataElementIsis* mniData = [[EDDataElementIsis alloc] initWithFile:mniPath
+                                                                   andSuffix:@"" 
+                                                                  andDialect:@"" 
+                                                                 ofImageType:IMAGE_ANADATA];
+        
+        aliStart = now(); // RUNTIME ANALYSIS CODE #
+        
+        RORegistrationMethod* method = [[RORegistrationVnormdata alloc] initFindingTransform:fctData 
+                                                                                     anatomy:anaData
+                                                                                   reference:mniData];
+        
+        aliEnd = now();   // RUNTIME ANALYSIS CODE #
+        
+        EDDataElement* ana2fct2mni = [method apply:fctData];
+        
+        appEnd = now();   // RUNTIME ANALYSIS CODE #
+        diff = newTimeDiff(&aliStart, &aliEnd); // #
+        alignTime += asDouble(diff);            // #
+        free(diff);                             // #
+        diff = newTimeDiff(&aliEnd, &appEnd);   // #
+        applyTime += asDouble(diff);            // #
+        free(diff);       // RUNTIME ANALYSIS CODE #
+        
+        [ana2fct2mni WriteDataElementToFile:outPath];
+        
+        [method release];
+        
+        [mniData release];
+        [anaData release];
+        [fctData release];
+        
+        [pool drain];
+        
+    }
+    alignTime /= static_cast<double>(runs);
+    applyTime /= static_cast<double>(runs);
+    NSLog(@"Runtime BART_vnormdata for %d runs. Fun: %@ ana: %@ mni: %@ out: %@. Registration: %lf s, application: %lf s\n", 
+          runs, funPath, anaPath, mniPath, outPath, alignTime, applyTime);
+}
+
+void testBARTRegistrationWorkflow()
+{
+    int runs = RUNS;
+    NSString* bartRegOut = @"/tmp/BART_bartReg.nii";
+    testBARTRegistrationWorkflowParams(fctFile, 
+                                       anaFile, 
+                                       mniFile, 
+                                       runs, 
+                                       bartRegOut);
     
-    EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:fctFile
-                                                               andSuffix:@"" 
-                                                              andDialect:@"" 
-                                                             ofImageType:IMAGE_FCTDATA];
-    
-    EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaFile
-                                                               andSuffix:@"" 
-                                                              andDialect:@"" 
-                                                             ofImageType:IMAGE_ANADATA];
-    
-    EDDataElementIsis* mniData = [[EDDataElementIsis alloc] initWithFile:mniFile
-                                                               andSuffix:@"" 
-                                                              andDialect:@"" 
-                                                             ofImageType:IMAGE_ANADATA];
-    
-    RORegistrationMethod* method = [[RORegistrationBART alloc] initFindingTransform:fctData
-                                                                            anatomy:anaData
-                                                                          reference:mniData];
-    
-    EDDataElement* fct2ana2mni = [method apply:fctData];
-    
-    [fct2ana2mni WriteDataElementToFile:@"/tmp/BART_bartReg.nii"];
-    
-    [method release];
-    
-    [mniData release];
-    [anaData release];
-    [fctData release];
-    
-    [pool drain];
+    testBARTRegistrationWorkflowParams(OZ00fun, OZ00ana, mniFile, runs, bartRegOut);
+    testBARTRegistrationWorkflowParams(OZ01fun, OZ01ana, mniFile, runs, bartRegOut);
+    testBARTRegistrationWorkflowParams(OZ02fun, OZ02ana, mniFile, runs, bartRegOut);
+    testBARTRegistrationWorkflowParams(OZ03fun, OZ03ana, mniFile, runs, bartRegOut);
+    testBARTRegistrationWorkflowParams(OZ10fun, OZ10ana, mniFile, runs, bartRegOut);
+    testBARTRegistrationWorkflowParams(OZ11fun, OZ11ana, mniFile, runs, bartRegOut);
+    testBARTRegistrationWorkflowParams(OZ12fun, OZ12ana, mniFile, runs, bartRegOut);
+    testBARTRegistrationWorkflowParams(OZ13fun, OZ13ana, mniFile, runs, bartRegOut);
+}
+
+void testBARTRegistrationWorkflowParams(NSString* funPath,
+                                        NSString* anaPath,
+                                        NSString* mniPath,
+                                        int runs,
+                                        NSString* outPath) 
+{
+    TimeVal aliStart;
+    TimeVal aliEnd;
+    TimeVal appEnd;
+    TimeDiff* diff;
+    double alignTime = 0.0;
+    double applyTime = 0.0;
+    for (int i = 0; i < runs; i++) {
+            
+        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+        
+        EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:funPath
+                                                                   andSuffix:@"" 
+                                                                  andDialect:@"" 
+                                                                 ofImageType:IMAGE_FCTDATA];
+        
+        EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaPath
+                                                                   andSuffix:@"" 
+                                                                  andDialect:@"" 
+                                                                 ofImageType:IMAGE_ANADATA];
+        
+        EDDataElementIsis* mniData = [[EDDataElementIsis alloc] initWithFile:mniPath
+                                                                   andSuffix:@"" 
+                                                                  andDialect:@"" 
+                                                                 ofImageType:IMAGE_ANADATA];
+        
+        aliStart = now(); // RUNTIME ANALYSIS CODE #
+        
+        RORegistrationMethod* method = [[RORegistrationBART alloc] initFindingTransform:fctData
+                                                                                anatomy:anaData
+                                                                              reference:mniData];
+        
+        aliEnd = now();   // RUNTIME ANALYSIS CODE #
+        
+        EDDataElement* fct2ana2mni = [method apply:fctData];
+        
+        appEnd = now();   // RUNTIME ANALYSIS CODE #
+        diff = newTimeDiff(&aliStart, &aliEnd); // #
+        alignTime += asDouble(diff);            // #
+        free(diff);                             // #
+        diff = newTimeDiff(&aliEnd, &appEnd);   // #
+        applyTime += asDouble(diff);            // #
+        free(diff);       // RUNTIME ANALYSIS CODE #
+        
+        [fct2ana2mni WriteDataElementToFile:outPath];
+        
+        [method release];
+        
+        [mniData release];
+        [anaData release];
+        [fctData release];
+        
+        [pool drain];
+        
+    }
+    alignTime /= static_cast<double>(runs);
+    applyTime /= static_cast<double>(runs);
+    NSLog(@"Runtime BART_reg for %d runs. Fun: %@ ana: %@ mni: %@ out: %@. Registration: %lf s, application: %lf s\n", 
+          runs, funPath, anaPath, mniPath, outPath, alignTime, applyTime);
 }
 
 void testBARTRegistrationAnaOnly()
 {
-    int runs = 20;
+    int runs = RUNS;
     testBARTRegistrationAnaOnlyParams(fctFile,
                                       anaFile,
                                       runs,
                                       @"/tmp/BART_bartRegAnaOnly.nii");
     
-//    system("rm -f /tmp/BART_regAnaOnly_runtime.txt");
-//    freopen("/tmp/BART_regAnaOnly_runtime.txt", "a", stderr);
 //    testBARTRegistrationAnaOnlyParams(OZ00fun, OZ00ana, runs, OZ00out);
 //    testBARTRegistrationAnaOnlyParams(OZ01fun, OZ01ana, runs, OZ01out);
 //    testBARTRegistrationAnaOnlyParams(OZ02fun, OZ02ana, runs, OZ02out);
@@ -315,13 +427,17 @@ void testPluginReadWrite()
 
 int main(void)
 {
+    /* # Output redirection # */
+    system("rm -f /tmp/BART_regRuntime.txt");
+    freopen("/tmp/BART_regRuntime.txt", "a", stderr);
+    
     /* # General Isis tests # */
 //    testAdapterConversion();
 //    testMemoryAdapter();
 //    testPluginReadWrite();
 
     /* # Registration tests # */
-    testBARTRegistrationAnaOnly();
-//    testBARTRegistrationWorkflow();
-//    testVnormdataRegistrationWorkflow();
+//    testBARTRegistrationAnaOnly();
+    testBARTRegistrationWorkflow();
+    testVnormdataRegistrationWorkflow();
 }
