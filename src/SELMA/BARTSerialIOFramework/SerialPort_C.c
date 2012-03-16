@@ -9,6 +9,9 @@
 
 #include "SerialPort_C.h"
 
+// Hold the original termios attributes so we can reset them
+static struct termios gOriginalTTYAttrs;
+
 // Returns an iterator across all known modems. Caller is responsible for
 // releasing the iterator when iteration is complete.
 kern_return_t FindModems(io_iterator_t *matchingServices)
@@ -132,11 +135,6 @@ kern_return_t GetModemPath(io_iterator_t serialPortIterator, char *bsdPath, CFIn
             
             if (result)
 			{
-                //char temp[lengthDeviceName+1];
-                //strncpy(temp, deviceName, lengthDeviceName);
-                //temp[lengthDeviceName] = '\0';
-                //char *ans;                
-                //ans = strstr(bsdPath,temp);
                 int ret = strcmp(bsdPath, deviceName);
                 printf("Modem found with BSD path: %s while searching for %s", bsdPath, deviceName);
                 if (ret == 0) {
@@ -146,7 +144,7 @@ kern_return_t GetModemPath(io_iterator_t serialPortIterator, char *bsdPath, CFIn
             }
         }
 		
-        printf("\n");
+       printf("\n");
 		
         // Release the io_service_t now that we are done with it.
 		
@@ -472,9 +470,7 @@ char ReadData(int fileDescriptor){
     char        buffer[100];	// Input buffer
     char        *bufPtr;		// Current char in buffer
     ssize_t     numBytes;		// Number of bytes read or written
-    int         tries;			// Number of tries so far
-    Boolean     result = false; 
- 
+   
     // Read characters into our buffer until we get a CR or LF
     //time_t rawtime;
     

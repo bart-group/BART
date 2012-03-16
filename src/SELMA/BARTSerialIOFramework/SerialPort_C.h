@@ -63,8 +63,7 @@ enum {
     kNumRetries = 3
 };
 
-// Hold the original termios attributes so we can reset them
-static struct termios gOriginalTTYAttrs;
+
 
 // Function prototypes
 kern_return_t FindModems(io_iterator_t *matchingServices);

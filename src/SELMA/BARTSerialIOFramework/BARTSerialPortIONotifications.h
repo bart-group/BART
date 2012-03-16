@@ -12,8 +12,6 @@
 
 /*define all the possible notifications that could be send by external sources*/
 
-//extern NSString *const BARTSerialIOScannerTriggerArrived;
 NSString *const BARTSerialIOScannerTriggerArrived = @"BARTSerialIOScannerTriggerArrived";
 NSString *const BARTSerialIOButtonBoxPressedKey = @"BARTSerialIOButtonBoxPressedKey";
 
-//extern NSString *const BARTSerialIOButtonBoxPressedKey;
