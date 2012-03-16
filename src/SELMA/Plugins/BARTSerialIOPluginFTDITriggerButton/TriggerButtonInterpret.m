@@ -88,9 +88,9 @@
 	[super dealloc];
 }
 
--(NSPoint)isConditionFullfilled:(NSDictionary*)params
+-(NSDictionary*)evaluateConstraintForParams:(NSDictionary*)params
 {
-	return NSMakePoint(0.0, 0.0);
+	return nil;
 }
 -(void)connectionIsOpen
 {}

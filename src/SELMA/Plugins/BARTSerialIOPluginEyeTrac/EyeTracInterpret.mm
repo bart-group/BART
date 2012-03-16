@@ -250,24 +250,25 @@
     
 }
 
--(NSPoint)isConditionFullfilled:(NSDictionary*)params
+-(NSDictionary*)evaluateConstraintForParams:(NSDictionary*)params
 {
-    NSPoint midPoint = NSMakePoint([[params valueForKey:@"xPosition"] floatValue], [[params valueForKey:@"yPosition"] floatValue]);
-    NSPoint dist;
-    BOOL dynamic = [[params valueForKey:@"isDynamic"] boolValue];
-    
-    if (YES == dynamic)
-    {
-        dist.x = 200;
-        dist.y = 150;
-    }
-    else
-    {
-        dist.x = 20;
-        dist.y = 20;
-    }
-    
-    return [self isFixationForMidpoint:(NSPoint)midPoint andXYDistance:(NSPoint)dist];
+    return nil;
+//    NSPoint midPoint = NSMakePoint([[params valueForKey:@"xPosition"] floatValue], [[params valueForKey:@"yPosition"] floatValue]);
+//    NSPoint dist;
+//    BOOL dynamic = [[params valueForKey:@"isDynamic"] boolValue];
+//    
+//    if (YES == dynamic)
+//    {
+//        dist.x = 200;
+//        dist.y = 150;
+//    }
+//    else
+//    {
+//        dist.x = 20;
+//        dist.y = 20;
+//    }
+//    
+//    return [self isFixationForMidpoint:(NSPoint)midPoint andXYDistance:(NSPoint)dist];
 }
 
 -(NSPoint)isFixationForMidpoint:(NSPoint)midPoint andXYDistance:(NSPoint)dist
