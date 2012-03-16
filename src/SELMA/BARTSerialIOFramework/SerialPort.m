@@ -15,10 +15,6 @@
  */
 
 
-//TODO 
-//testcase
-//Thread Canceling
-
 #import "SerialPort.h"
 
 @interface SerialPort (hidden) 
@@ -109,8 +105,11 @@
     if (res != 0) {
         NSString *domain = @"Fehler beim Schließen des Devices.";
         [domain stringByAppendingString:devicePath];
-        
         err = [NSError errorWithDomain:domain code:res userInfo:nil];
+        if (nil != err)
+        {
+            NSLog(@"Error closing serial Port: %s, %lu",[err.domain UTF8String], err.code);
+        }
 	}
     
     return;
@@ -137,7 +136,6 @@
 
 
 
-//return false : did not match BARTTriggerProtocol
 - (BOOL) addObserver:(id)anObserver {
    
 	if (YES == addingObserversAllowed)
@@ -158,7 +156,7 @@
 }
 
 - (void) createFinalObserverList {
-	
+	// to work with a static array 
     addingObserversAllowed = NO;
 	if (observerList != nil) {
         [observerList release];
@@ -211,12 +209,12 @@
     [super dealloc];
 }
 
--(NSPoint)isConditionFullfilled:(NSDictionary*)params
+-(NSDictionary*)evaluateConstraintForParams:(NSDictionary*)params
 {
 	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    __block NSPoint ret = NSMakePoint(0.0, 0.0);
+    __block NSDictionary *ret = nil;
     dispatch_apply([observerList count], queue, ^(size_t i) {
-		ret = [((id<BARTSerialIOProtocol>) [observerList objectAtIndex:i]) isConditionFullfilled:params];
+		ret = [((id<BARTSerialIOProtocol>) [observerList objectAtIndex:i]) evaluateConstraintForParams:params];
     });
 	return ret;
 }

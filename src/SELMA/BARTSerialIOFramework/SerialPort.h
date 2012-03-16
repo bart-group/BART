@@ -49,8 +49,6 @@
 
 
 
-//- (id) init;
-
 /** initialise the Serial Port with all needed descriptions
  *
  * \param aDevicePath			NSString from device manager (mostly look at /dev/cu.usbserial... )
@@ -94,7 +92,9 @@
 
 /*
  * ask for condition of external device
+ * \param params a dictionary with all neccessary parameters and their initial values inside, the plugin has to know how to use and evaluate the stuff out of it
+ * \returns dictionary with values for all the parameters given to the plugin, mostly needed to resolve the condition and eventually get information about needed values for resulting actions
  */
--(NSPoint) isConditionFullfilled:(NSDictionary*)params;
+-(NSDictionary*)evaluateConstraintForParams:(NSDictionary*)params;
    
 @end
