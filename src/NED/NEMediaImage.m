@@ -42,7 +42,7 @@ float mImageHeightHalf;
             // Resize the image
             CIFilter *scaleFilter = [CIFilter filterWithName:@"CILanczosScaleTransform"];
             [scaleFilter setValue:im forKey:@"inputImage"];
-            [scaleFilter setValue:[NSNumber numberWithFloat:0.5] forKey:@"inputScale"];
+            [scaleFilter setValue:[NSNumber numberWithFloat:1.0] forKey:@"inputScale"];
             [scaleFilter setValue:[NSNumber numberWithFloat:1.0] forKey:@"inputAspectRatio"];
             mImage = [[scaleFilter valueForKey:@"outputImage"] retain];
          
