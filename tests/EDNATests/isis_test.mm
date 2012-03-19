@@ -32,6 +32,8 @@ NSString* fctFile = @"/Users/oliver/test/reg3d_test/dataset01/data_10timesteps.n
 NSString* anaFile = @"/Users/oliver/test/reg3d_test/dataset01/ana.nii"; //_visotrop.nii";
 NSString* mniFile = @"/Users/oliver/test/reg3d_test/mni_lipsia.nii";
 
+NSString* OZfun1ts = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_axial_64x64_just1timestep.nii";
+
 NSString* OZ00fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_axial_128x128.nii";
 NSString* OZ00ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mdeft.nii";
 NSString* OZ00out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ00out.nii";
@@ -98,6 +100,9 @@ void testVnormdataRegistrationWorkflow()
                                             mniFile,
                                             runs,
                                             vnormRegOut);
+    
+    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ00ana, mniFile, runs, vnormRegOut);
+    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ10ana, mniFile, runs, vnormRegOut);
     
     testVnormdataRegistrationWorkflowParams(OZ00fun, OZ00ana, mniFile, runs, vnormRegOut);
     testVnormdataRegistrationWorkflowParams(OZ01fun, OZ01ana, mniFile, runs, vnormRegOut);
@@ -189,6 +194,9 @@ void testBARTRegistrationWorkflow()
                                        runs, 
                                        bartRegOut);
     
+    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ00ana, mniFile, runs, bartRegOut);
+    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ10ana, mniFile, runs, bartRegOut);
+    
     testBARTRegistrationWorkflowParams(OZ00fun, OZ00ana, mniFile, runs, bartRegOut);
     testBARTRegistrationWorkflowParams(OZ01fun, OZ01ana, mniFile, runs, bartRegOut);
     testBARTRegistrationWorkflowParams(OZ02fun, OZ02ana, mniFile, runs, bartRegOut);
@@ -268,11 +276,15 @@ void testBARTRegistrationWorkflowParams(NSString* funPath,
 void testBARTRegistrationAnaOnly()
 {
     int runs = RUNS;
+    NSString* bartRegAnaOnlyOut = @"/tmp/BART_bartRegAnaOnly.nii";
     
     testBARTRegistrationAnaOnlyParams(fctFile,
                                       anaFile,
                                       runs,
-                                      @"/tmp/BART_bartRegAnaOnly.nii");
+                                      bartRegAnaOnlyOut);
+    
+    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ00ana, mniFile, runs, bartRegAnaOnlyOut);
+    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ10ana, mniFile, runs, bartRegAnaOnlyOut);
     
 //    testBARTRegistrationAnaOnlyParams(OZ00fun, OZ00ana, runs, OZ00out);
 //    testBARTRegistrationAnaOnlyParams(OZ01fun, OZ01ana, runs, OZ01out);
