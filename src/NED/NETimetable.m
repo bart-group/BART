@@ -345,7 +345,7 @@
              #pragma unused(idx)
              //NSLog(@"shift onsets %lu", [(NEStimEvent*) stimEvent time]);
              [(NEStimEvent*) stimEvent setTime:([(NEStimEvent*) stimEvent time]+timeShift)];
-             NSLog(@"shifted onsets %lu", [(NEStimEvent*) stimEvent time]);
+             //NSLog(@"shifted onsets %lu", [(NEStimEvent*) stimEvent time]);
          }];
         
     }];
