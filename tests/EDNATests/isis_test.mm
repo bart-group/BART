@@ -182,6 +182,7 @@ void testBARTRegistrationWorkflow()
 {
     int runs = RUNS;
     NSString* bartRegOut = @"/tmp/BART_bartReg.nii";
+
     testBARTRegistrationWorkflowParams(fctFile, 
                                        anaFile, 
                                        mniFile, 
@@ -267,6 +268,7 @@ void testBARTRegistrationWorkflowParams(NSString* funPath,
 void testBARTRegistrationAnaOnly()
 {
     int runs = RUNS;
+    
     testBARTRegistrationAnaOnlyParams(fctFile,
                                       anaFile,
                                       runs,
@@ -382,8 +384,7 @@ void testAdapterConversion() {
 
 void testMemoryAdapter()
 {
-    int runs = 50;
-    for (int i = 0; i < runs; i++) {
+    for (int i = 0; i < RUNS; i++) {
         testAdapterConversion();
         
 //        NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
@@ -428,8 +429,8 @@ void testPluginReadWrite()
 int main(void)
 {
     /* # Output redirection # */
-    system("rm -f /tmp/BART_regRuntime.txt");
-    freopen("/tmp/BART_regRuntime.txt", "a", stderr);
+//    system("rm -f /tmp/BART_regRuntime.txt");
+//    freopen("/tmp/BART_regRuntime.txt", "a", stderr);
     
     /* # General Isis tests # */
 //    testAdapterConversion();
