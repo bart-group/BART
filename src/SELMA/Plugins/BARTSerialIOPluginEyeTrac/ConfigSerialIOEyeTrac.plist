@@ -25,5 +25,27 @@
 	<integer>128</integer>
 	<key>Limits</key>
 	<string>test</string>
+	<key>validDistanceX</key>
+	<integer>50</integer>
+	<key>validDistanceY</key>
+	<integer>50</integer>
+	<key>dependsOnCurrentStimuliPosition</key>
+	<false/>
+	<key>sampleRate</key>
+	<integer>120</integer>
+	<key>durationThresholdForFixation</key>
+	<integer>100</integer>
+	<key>visualAngleValidForFixation</key>
+	<integer>1</integer>
+	<key>distEyeFromScreen</key>
+	<real>102.5</real>
+	<key>heightScreen</key>
+	<integer>24</integer>
+	<key>scenePOGResolutionWidthInPoints</key>
+	<integer>260</integer>
+	<key>scenePOGResolutionHeightInPoints</key>
+	<integer>240</integer>
+	<key>maxNumberOfMissingValuesForFixation</key>
+	<integer>3</integer>
 </dict>
 </plist>

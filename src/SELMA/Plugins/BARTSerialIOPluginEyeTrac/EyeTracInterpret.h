@@ -25,59 +25,52 @@
 #define BITMASKOVERFLOWLSBVGAZ 0x00000004
 
 typedef struct EyeTracParams{
-    unsigned int pupilDiam;
-    unsigned int pupilRec;
+    NSUInteger pupilDiam;
+    NSUInteger pupilRec;
     float horGaze;
     float verGaze;
-    unsigned int corneaDiam;
-    unsigned int corneaRec;
+    NSUInteger corneaDiam;
+    NSUInteger corneaRec;
     int status;
 }TEyeTracParams;
 
 
 @interface EyeTracInterpret : NSObject <BARTSerialIOProtocol> {
 	
-	NSArray *byteMeanings;
-	NSNumber *relevantBytes;
+	NSUInteger relevantBytes;
 	char *valueBuffer;
-	unsigned int indexBuffer;
+	NSUInteger indexBuffer;
 	FILE *file, *fileFixationsOK, *fileFixationsOut, *fileAllBytes;
-	unsigned int posStatus;
-	unsigned int posHSBDiam;
-	unsigned int posLSBDiam;
-	unsigned int posHSBHgaz;
-	unsigned int posLSBHgaz;
-	unsigned int posHSBVgaz;
-	unsigned int posLSBVgaz;
-	unsigned int posOverflow1;
-	unsigned int posOverflow2;
+	NSUInteger posStatus;
+	NSUInteger posHSBDiam;
+	NSUInteger posLSBDiam;
+	NSUInteger posHSBHgaz;
+	NSUInteger posLSBHgaz;
+	NSUInteger posHSBVgaz;
+	NSUInteger posLSBVgaz;
+	NSUInteger posOverflow1;
+	NSUInteger posOverflow2;
 	NSUInteger posHSBCRDiam;
 	NSUInteger posLSBCRDiam;
 	NSString *logfilePath;
     BOOL isStarted;
+    BOOL isFixationDependingOnCurrentPosition;
+    NSPoint maxDistanceForFixation;
     
     @private
     enum PARAMS {
-        PDIAM = 0,
-        PREC,
-        HGAZE,
-        VGAZE,
-        CDIAM,
-        CREC,
-        STATUS
+        HGAZE = 0,
+        VGAZE
     };
-    
-    
     
     std::vector<TEyeTracParams> eyeTracParamsVector;
     
-    size_t mWindowSize;
+    NSUInteger analyseWindowSize;
     
-    size_t dispersionThreshold;
-    size_t validMissingsInFixation;
-    float distanceFromMidpointToBeValid;
-    size_t halfScenePOGResolutionHeight;
-    size_t halfScenePOGResolutionWidth;
+    NSUInteger dispersionThreshold;
+    NSUInteger validMissingsInFixation;
+    float scenePOGResolutionHeight; 
+    float scenePOGResolutionWidth;
     dispatch_queue_t serialQueue;
     
     //for timing log
@@ -89,8 +82,5 @@ typedef struct EyeTracParams{
 	
 }
 
-@property (copy, nonatomic) NSNumber * relevantBytes;
-@property (retain, nonatomic) NSArray * byteMeanings;
-@property (copy, nonatomic) NSString *logfilePath;
 
 @end
