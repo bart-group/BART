@@ -36,51 +36,21 @@
                                              optimizerTypes:optimizerTypes 
                                                    prealign:YES
                                                      smooth:SMOOTH_FWHM];
+      
+        transformTypes.push_back(VersorRigid3DTransform);
+        transformTypes.push_back(AffineTransform);
+        transformTypes.push_back(BSplineDeformableTransform);
         
-        std::vector<size_t> reso;
-        reso.push_back(1);
-        ITKImageContainer* transformResult = [self transform:NULL
-                                                orFunctional:funITK4D
-                                               withReference:self->m_anaITK
-                                              transformation:self->m_firstTransformation 
-                                                  resolution:reso];
+        optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
+        optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
+        optimizerTypes.push_back(LBFGSBOptimizer);
         
-        if (transformResult != NULL) {
-            ITKImage4D::Pointer fun2ana = transformResult->getImg4D();
-            delete transformResult;
-            
-            //        return [fun convertFromITKImage:fun2ana];
-            
-            transformTypes.push_back(VersorRigid3DTransform);
-            transformTypes.push_back(AffineTransform);
-            transformTypes.push_back(BSplineDeformableTransform);
-            
-            optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
-            optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
-            optimizerTypes.push_back(LBFGSBOptimizer);
-            
-            self->m_transformation = [self computeTransform:self->m_anaITK
-                                              withReference:self->m_refITK 
-                                             transformTypes:transformTypes
-                                             optimizerTypes:optimizerTypes 
-                                                   prealign:YES
-                                                     smooth:SMOOTH_FWHM];
-            
-            // START Compositor test!
-            //        typedef itk::DisplacementFieldCompositionFilter<DeformationFieldType, DeformationFieldType> TransformationCompositionFilter;
-            //        TransformationCompositionFilter::Pointer compositor = TransformationCompositionFilter::New();
-            //                
-            //        compositor->SetInput(0, trans_fun2ana);
-            //        compositor->SetInput(1, trans_ana2ref);
-            
-            //        compositor->SetInput(0, trans_ana2ref);
-            //        compositor->SetInput(1, trans_fun2ana);
-            
-            ////        compositor->Update();
-            
-            //        DeformationFieldType::Pointer combinedTrans = compositor->GetOutput();
-            // END Compositor test
-        }
+        self->m_transformation = [self computeTransform:self->m_anaITK
+                                          withReference:self->m_refITK 
+                                         transformTypes:transformTypes
+                                         optimizerTypes:optimizerTypes 
+                                               prealign:YES
+                                                 smooth:SMOOTH_FWHM];
     }
     
     return self;
