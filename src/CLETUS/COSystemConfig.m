@@ -58,7 +58,7 @@
 							@"$refFctsGamma",
 							@"$refFctsGlover",
                             @"$constraints",
-                            @"$timetable",
+                            @"$timeTable",
                             @"$systemVariables",
                             @"$mediaObjects",
 						    nil];
@@ -72,7 +72,7 @@
 							@"/rtExperiment/statistics/referenceFunctions/dGamma",
 							@"/rtExperiment/statistics/referenceFunctions/gloverKernel",
                             @"/rtExperiment/stimulusData/constraints",
-                            @"/rtExperiment/stimulusData/timetable",
+                            @"/rtExperiment/stimulusData/timeTable",
                             @"/rtExperiment/stimulusData/constraints/systemVariables",
                             @"/rtExperiment/stimulusData/mediaObjectList",
 							nil];
