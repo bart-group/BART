@@ -41,7 +41,7 @@
     
     NSString* objID   = [config getProp:[NSString stringWithFormat:@"%@/@moID", key]];
     NSString* objType = [config getProp:[NSString stringWithFormat:@"%@/@type", key]];
-    NSString* constraintID = [config getProp:[NSString stringWithFormat:@"%@/@constrainedBy", key]];
+    NSString* constraintID = [config getProp:[NSString stringWithFormat:@"%@/@useConstraint", key]];
     
     if ([objType compare:@"TEXT"] == 0) {
         NSString* text = [config getProp:[NSString stringWithFormat:@"%@/contentText/text", key]];
