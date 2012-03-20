@@ -122,6 +122,7 @@
 		00673D7913FD87B50056BD4F /* timeBasedRegressorNEDTest.edl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00709E4B12E86A06006389C4 /* timeBasedRegressorNEDTest.edl */; };
 		00673D7A13FD87B80056BD4F /* erDesignTest01.edl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00709E3212E74B05006389C4 /* erDesignTest01.edl */; };
 		00673D7B13FD87BA0056BD4F /* blockDesignTest01.edl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00E7A647117EF24F00696498 /* blockDesignTest01.edl */; };
+		0076642B150F9CD50090895F /* myNewScenario.edl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0076642A150F9CD50090895F /* myNewScenario.edl */; };
 		00786E1213EEC80F00BF2554 /* NEPresentationExternalConditionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 00786E1013EEC80E00BF2554 /* NEPresentationExternalConditionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00786E1313EEC80F00BF2554 /* NEPresentationExternalConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00786E1113EEC80E00BF2554 /* NEPresentationExternalConditionController.m */; };
 		00786E1613EED14600BF2554 /* COExperimentContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 00786E1413EED14600BF2554 /* COExperimentContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -483,6 +484,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
+				0076642B150F9CD50090895F /* myNewScenario.edl in CopyFiles */,
 				00673D4013FD73090056BD4F /* timeBasedRegressorNEDTest.edl in CopyFiles */,
 				0040B87B11414A8E00A57967 /* ColorMappingFilter.cikernel in CopyFiles */,
 				00673D4513FD75E40056BD4F /* TestDataset02-functional.nii in CopyFiles */,
@@ -618,6 +620,7 @@
 		00709ED112EA04A5006389C4 /* erDesignTest03_deriv1Reg1_3.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest03_deriv1Reg1_3.edl; sourceTree = "<group>"; };
 		00709ED312EA04A5006389C4 /* erDesignTest05_deriv2Reg2_4.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest05_deriv2Reg2_4.edl; sourceTree = "<group>"; };
 		00709ED412EA04A5006389C4 /* erDesignTest06_parametric.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest06_parametric.edl; sourceTree = "<group>"; };
+		0076642A150F9CD50090895F /* myNewScenario.edl */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = myNewScenario.edl; path = ../tests/NEDTests/myNewScenario.edl; sourceTree = "<group>"; };
 		00786E1013EEC80E00BF2554 /* NEPresentationExternalConditionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEPresentationExternalConditionController.h; sourceTree = "<group>"; };
 		00786E1113EEC80E00BF2554 /* NEPresentationExternalConditionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEPresentationExternalConditionController.m; sourceTree = "<group>"; };
 		00786E1413EED14600BF2554 /* COExperimentContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = COExperimentContext.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1535,6 +1538,7 @@
 		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
 			isa = PBXGroup;
 			children = (
+				0076642A150F9CD50090895F /* myNewScenario.edl */,
 				009CE2E314B707A800FFDED4 /* libisis_core.0.4.2.dylib */,
 				00198337146003B4006F8E27 /* BARTSerialIOPluginEyeTrac.bundle */,
 				00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */,
