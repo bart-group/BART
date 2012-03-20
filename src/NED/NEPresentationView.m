@@ -150,7 +150,8 @@
 -(void)clearView:(CGContextRef)context 
                 :(NSRect)rect 
 {
-    CGContextSetRGBFillColor(context, 0.5, 0.5, 0.5, 1.0);
+    //TODO: von außen setzbar machen
+    CGContextSetRGBFillColor(context, 0.77255, 0.77255, 0.77255, 1.0);
     CGContextFillRect(context, rect);
 }
 
