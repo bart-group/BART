@@ -54,8 +54,9 @@ typedef struct EyeTracParams{
 	NSUInteger posLSBCRDiam;
 	NSString *logfilePath;
     BOOL isStarted;
-    BOOL isFixationDependingOnCurrentPosition;
+    BOOL isFixationDependingOnScreenCenter;
     NSPoint maxDistanceForFixation;
+    NSPoint fixationDependsOnPoint;
     
     @private
     enum PARAMS {

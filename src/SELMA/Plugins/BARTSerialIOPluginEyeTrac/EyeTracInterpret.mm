@@ -24,6 +24,7 @@
 
 @implementation EyeTracInterpret
 
+
 -(id)init
 {
 	if ((self = [super init]))
@@ -95,10 +96,17 @@
         CGFloat maxDistanceForFixationY = [[arrayFromPlist objectForKey:@"validDistanceY"] floatValue];
         maxDistanceForFixation = NSMakePoint(maxDistanceForFixationX, maxDistanceForFixationY);
         
-        if (YES == [[arrayFromPlist objectForKey:@"dependsOnCurrentStimuliPosition"] boolValue]){
-            isFixationDependingOnCurrentPosition = YES;}
+        fixationDependsOnPoint = NSMakePoint(0.0, 0.0);
+        if (YES == [[arrayFromPlist objectForKey:@"FixationDependsOnScreenCenter"] boolValue]){
+            isFixationDependingOnScreenCenter = YES;
+        }
         else{
-            isFixationDependingOnCurrentPosition = NO;}
+            isFixationDependingOnScreenCenter = NO;
+            CGFloat fixPosX = [[arrayFromPlist objectForKey:@"FixationDependsOnPointX"] floatValue];
+            CGFloat fixPosY = [[arrayFromPlist objectForKey:@"FixationDependsOnPointY"] floatValue];
+            fixationDependsOnPoint.x = fixPosX;
+            fixationDependsOnPoint.y = fixPosY;
+        }
         validMissingsInFixation = [[arrayFromPlist objectForKey:@"maxNumberOfMissingValuesForFixation"] unsignedIntegerValue];
       	
         
@@ -245,34 +253,36 @@
     [params retain];
     //ATTENTION!!!!! TEST VERSION
     return nil;
-    // todo: evaluate target param from params dictionary
-   
-    NSPoint midPoint = NSMakePoint(0.0, 0.0);
-    if (YES == isFixationDependingOnCurrentPosition)
+    
+    // evaluate target param from params dictionary
+    NSArray *paramsArray = [params objectForKey:@"paramsArray"];
+    if (NSNotFound == [paramsArray indexOfObject:@"eyePosIsFixated"])
     {
-        if (   (nil != [params objectForKey:@"screenResolutionX"])
-            && (nil != [params objectForKey:@"screenResolutionY"])
-            && (nil != [params objectForKey:@"currentStimuliPosX"])
-            && (nil != [params objectForKey:@"currentStimuliPosY"]))
-        {
-            float resoX = [[params objectForKey:@"screenResolutionX"] floatValue];
-            float resoY = [[params objectForKey:@"screenResolutionY"] floatValue];
-            float posX = [[params objectForKey:@"currentStimuliPosX"] floatValue];
-            float posY = [[params objectForKey:@"currentStimuliPosY"] floatValue];
-            
-            midPoint.x = (posX/resoX) * scenePOGResolutionWidth;
-            midPoint.y = (posY/resoY) * scenePOGResolutionHeight;
-        }
-        else{
-            midPoint.x = 0.0;
-            midPoint.y = 0.0;
-        }
-        
+        NSLog(@"Eyetracker Plugin doesn't know which function to call to evaluate the constraint");
+        return nil;
     }
-    else//means midpoint of the screen but in eye tracker coordinates 
+    
+    // get stimuli environment resolution to convert between eye tracker corrdinates and screen
+    float resoX = 1.0;
+    float resoY = 1.0;
+    if (   (nil != [params objectForKey:@"screenResolutionX"]) 
+        && (nil != [params objectForKey:@"screenResolutionY"]) )
     {
+        resoX = [[params objectForKey:@"screenResolutionX"] floatValue];
+        resoY = [[params objectForKey:@"screenResolutionY"] floatValue];
+    }
+    
+    NSPoint midPoint = NSMakePoint(0.0, 0.0);
+    if (YES == isFixationDependingOnScreenCenter)
+    {
+        // midpoint of the screen but in eye tracker coordinates
         midPoint.x = 0.5 * scenePOGResolutionWidth;
-        midPoint.y = 0.5 * scenePOGResolutionHeight;        
+        midPoint.y = 0.5 * scenePOGResolutionHeight;
+    }
+    else 
+    {
+        midPoint.x = fixationDependsOnPoint.x;
+        midPoint.y = fixationDependsOnPoint.y;
     }
     
     // now, ask the fixation algorithm for its answer
@@ -281,8 +291,8 @@
     BOOL isFixated = [self isFixationForMidpoint:midPoint andXYDistance:maxDistanceForFixation atCurrentPos:currentEyePos];
     
     // reconvert eye tracker position data to screen position 
-    convertedEyePos.x = (currentEyePos.x * scenePOGResolutionWidth) / scenePOGResolutionWidth;
-    convertedEyePos.y = (currentEyePos.y * scenePOGResolutionWidth) / scenePOGResolutionWidth;
+    convertedEyePos.x = (currentEyePos.x * resoX) / scenePOGResolutionWidth;
+    convertedEyePos.y = (currentEyePos.y * resoY) / scenePOGResolutionWidth;
     
     //create dictionary to return
     //todo: just give back like that or sort in params and conditions???

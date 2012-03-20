@@ -29,9 +29,13 @@
 	<integer>50</integer>
 	<key>validDistanceY</key>
 	<integer>50</integer>
-	<key>dependsOnCurrentStimuliPosition</key>
-	<false/>
+	<key>FixationDependsOnScreenCenter</key>
+	<true/>
 	<key>sampleRate</key>
+	<integer>120</integer>
+	<key>FixationDependsOnPointX</key>
+	<integer>130</integer>
+	<key>FixationDependsOnPointY</key>
 	<integer>120</integer>
 	<key>durationThresholdForFixation</key>
 	<integer>100</integer>
