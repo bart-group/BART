@@ -49,7 +49,7 @@
     
     NSString *curDir = [[NSBundle mainBundle] resourcePath];
 //    NSString *fileName = [NSString stringWithFormat:@"/Users/Lydi/RealTimeProject/DynamicDesign/EyeTrackerIAPS/ScenarioForBART/EyeTrackerIAPSDynStat.edl", curDir ];
-    NSString *fileName = @"/timeBasedRegressorNEDTest.edl";
+    NSString *fileName = @"/myNewScenario.edl";
     NSString *file = [curDir stringByAppendingFormat:fileName];
    // NSString *fileName = @"../../../../tests/NEDTests/timeBasedRegressorNEDTest.edl";
     NSError *err = [experimentContext resetWithEDLFile:file];
