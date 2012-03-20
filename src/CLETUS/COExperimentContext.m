@@ -151,9 +151,9 @@ dispatch_queue_t serialDesignElementAccessQueue;
     }
     // setup the serial port for the eye tracker device
     //TODO get from config:
-    useSerialPortEyeTrac = NO;
+    useSerialPortEyeTrac = YES;
     if (YES == useSerialPortEyeTrac){
-        SerialPort* serialPortEyeTrac = [[self setupSerialPortEyeTrac] retain];
+        SerialPort* serialPortEyeTrac = [self setupSerialPortEyeTrac] ;
         if (nil != serialPortEyeTrac){
             [mutableDictPlugins setObject:serialPortEyeTrac forKey:[serialPortEyeTrac deviceDescription]];
         }
@@ -243,8 +243,8 @@ dispatch_queue_t serialDesignElementAccessQueue;
 -(SerialPort*)setupSerialPortEyeTrac
 {
 	//TODO: get from config
-	NSString *devPath = [[NSString alloc] initWithString:@"/dev/cu.usbserial"];
-	NSString *descr = @"ASLEyeTrac";
+	NSString *devPath = [[NSString alloc] initWithString:@"/dev/cu.usbserial-FTDWE6HC"];
+	NSString *descr = @"de.mpg.de.ASLEyetracker";
 	
 	SerialPort *serialPortEyeTrac = [[SerialPort alloc] initSerialPortWithDevicePath:devPath deviceDescript:descr
 															  symbolrate:57600 parity:PARNON andBits:CS8];
