@@ -50,6 +50,7 @@
 
 -(NSError*)writeDesignFile:(NSString*) path
 {
+    #pragma unused(path)
     [self doesNotRecognizeSelector:_cmd];
 	return nil;
 }
@@ -70,30 +71,39 @@
 
 -(NSNumber*)getValueFromExplanatoryVariable: (unsigned int)cov atTimestep:(unsigned int)t
 {
+    #pragma unused(t)
+    #pragma unused(cov)
 	[self doesNotRecognizeSelector:_cmd];
 	return nil;
 }
 
 -(void)setRegressor:(TrialList *)regressor
 {
+    #pragma unused(regressor)
     [self doesNotRecognizeSelector:_cmd];
 	return;
 }
 
 -(void)setRegressorTrial:(Trial)trial 
 {
+    #pragma unused(trial)
 	[self doesNotRecognizeSelector:_cmd];
 	return;
 }
 
 -(void)setCovariate:(float*)covariate forCovariateID:(int)covID
 {
+    #pragma unused(covID)
+    #pragma unused(covariate)
 	[self doesNotRecognizeSelector:_cmd];
 	return;
 }
 
 -(void)setCovariateValue:(float)value forCovariateID:(int)covID atTimestep:(int)timestep
 {
+    #pragma unused(value)
+    #pragma unused(covID)
+    #pragma unused(timestep)
 	[self doesNotRecognizeSelector:_cmd];
 	return;
 }

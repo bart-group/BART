@@ -46,6 +46,8 @@
 
 -(void)presentInContext:(CGContextRef)context andRect:(NSRect)rect
 {
+    #pragma unused(rect)
+    #pragma unused(context)
     [mTrack play];
 }
 

@@ -8,8 +8,8 @@
  */
 
 
-/*This class generates a Gamma function and tweo derivates described by the params in GammaParams
-/*
+ /* This class generates a Gamma function and tweo derivates described by the params in GammaParams
+ *
  * first implementation in the tool vgendesign from the Software Package Lipsia
  * and is based on the Glover kernel, see G.H. Glover, 1999, NeuroImage 9, 416-429 
  */
