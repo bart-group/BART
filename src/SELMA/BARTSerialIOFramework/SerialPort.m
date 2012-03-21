@@ -16,6 +16,10 @@
 
 
 #import "SerialPort.h"
+#include "SerialPort_C.h"
+#import <termios.h>
+
+
 
 @interface SerialPort (hidden) 
 
@@ -44,7 +48,8 @@
 - (id) initSerialPortWithDevicePath:(NSString*)aDevicePath 
                      deviceDescript:(NSString*)aDeviceDescription
 						 symbolrate:(int)aSymbolrate 
-                             parity:(int)aParity 
+                       enableParity:(BOOL)useParity 
+                          oddParity:(BOOL)oddParity 
                             andBits:(int)aBits
 {
 
@@ -52,7 +57,8 @@
 		devicePath = [aDevicePath copy];
 		deviceDescription = [aDeviceDescription copy];
         baud = aSymbolrate;
-        parity = aParity;
+        isParityEnabled = useParity;
+        isParityOdd = oddParity;
         bits = aBits;
         addingObserversAllowed = YES;
         observerMutableList = [[NSMutableArray alloc] initWithCapacity:0];
@@ -66,7 +72,9 @@
 
     const char *device = [devicePath cStringUsingEncoding:NSASCIIStringEncoding];
     
-    int res = FindAndOpenModem(device, strlen(device), baud, parity, bits, &portDescriptor);
+    int parenb = (YES == isParityEnabled) ? PARENB : 0;
+    int parodd = (YES == isParityOdd) ? PARODD : 0;
+    int res = FindAndOpenModem(device, strlen(device), baud, parenb, parodd, bits, &portDescriptor);
     if (res != 0) {
         NSString *domain = @"Fehler beim Finden und Oeffnen des Devices.";
         [domain stringByAppendingString:devicePath];
@@ -196,7 +204,13 @@
 		[self readChar];        
 	}
     
-	    
+    //TODO: CHECK THIS
+    [self closeSerialPort:err];
+    if (nil != err){
+        NSLog( @"Error: %s, %d\n", [err.domain UTF8String], (int) err.code );
+    }
+	 
+    NSLog(@"SerialPortThread canceled! Close SerialPort now!!!");
     [pool drain];
 }
 

@@ -7,13 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#include "SerialPort_C.h"
-#import <termios.h>
 #import "BARTSerialIOProtocol.h"
-
-#define PARNON 0
-#define ScannerSignal "ScannerSignal"
-#define ScannerNotification "ScannerNotification"
 
 /**
  * Objective-C class for controlling a serial Port, e.g. Trigger from Scanner or Keyboxes or EyeTracker signals.
@@ -30,7 +24,8 @@
 	NSString *devicePath;
 	NSString *deviceDescription;
 	int baud;
-    int parity;
+    BOOL isParityEnabled;
+    BOOL isParityOdd;
 	int bits;
     int portDescriptor;    
     // mutable list to collect all observers before start
@@ -62,7 +57,8 @@
 - (id) initSerialPortWithDevicePath:(NSString*)aDevicePath 
                      deviceDescript:(NSString*)aDeviceDescription
 						 symbolrate:(int)aSymbolrate 
-                             parity:(int)aParity 
+                       enableParity:(BOOL)useParity
+                          oddParity:(BOOL)oddParity 
                             andBits:(int)aBits;
 
 /**

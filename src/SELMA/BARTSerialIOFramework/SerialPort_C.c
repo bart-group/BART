@@ -54,27 +54,12 @@ kern_return_t FindModems(io_iterator_t *matchingServices)
 		 released. If the value is not of the sort expected by the
 		 retain or release callbacks, the behavior is undefined.
 		 */
-        /*CFDictionarySetValue(classesToMatch,
-		 CFSTR(kIOSerialBSDTypeKey),
-		 CFSTR(kIOSerialBSDModemType));*/
         CFDictionarySetValue(classesToMatch,
                              CFSTR(kIOSerialBSDTypeKey),
                              //CFSTR(kIOSerialBSDRS232Type)
 							 CFSTR(kIOSerialBSDAllTypes))
 		;
-        /*CFDictionarySetValue(classesToMatch,
-		 CFSTR(kIOSerialBSDTypeKey),
-		 CFSTR(kIOSerialBSDAllTypes));*/
-		
-		// Each serial device object has a property with key
-        // kIOSerialBSDTypeKey and a value that is one of kIOSerialBSDAllTypes,
-        // kIOSerialBSDModemType, or kIOSerialBSDRS232Type. You can experiment with the
-        // matching by changing the last parameter in the above call to CFDictionarySetValue.
-        
-        // As shipped, this sample is only interested in modems,
-        // so add this property to the CFDictionary we're matching on. 
-        // This will find devices that advertise themselves as modems,
-        // such as built-in and USB modems. However, this match won't find serial modems.
+       
     }
     
     /*! @function IOServiceGetMatchingServices
@@ -156,7 +141,7 @@ kern_return_t GetModemPath(io_iterator_t serialPortIterator, char *bsdPath, CFIn
 
 // Given the path to a serial device, open the device and configure it.
 // Return the file descriptor associated with the device.
-int OpenSerialPort(const char *bsdPath, int baud, int parity, int bits, int *portDescriptor)
+int OpenSerialPort(const char *bsdPath, int baud, int parenb, int parodd, int bits, int *portDescriptor)
 {
     int				fileDescriptor = -1;
     int				handshake;
@@ -248,18 +233,6 @@ int OpenSerialPort(const char *bsdPath, int baud, int parity, int bits, int *por
             break;
     }
     
-    switch (parity) {
-        case PARENB:
-            break;
-        case PARODD:
-            break;
-        case 0:
-            break;
-        default:
-            return PARITY_ERR;
-            break;
-    }
-    
     switch (bits) {
         case CS8:
             break;
@@ -269,17 +242,38 @@ int OpenSerialPort(const char *bsdPath, int baud, int parity, int bits, int *por
             break;
         case CS5:
             break;
+        case 8:
+            bits = CS8;
+            break;
+        case 7:
+            bits = CS7;
+            break;
+        case 6:
+            bits = CS6;
+            break;
+        case 5:
+            bits = CS5;
+            break;
         default:
             return BITS_ERR;
             break;
     }
     
-    cfsetspeed(&options, baud);		// Set baud    
-    options.c_cflag |= (bits 	   | 	// Use xx bit words
-						parity	   | 	// Parity enable (even parity if PARODD not also set)
-						CCTS_OFLOW | 	// CTS flow control of output
-						CRTS_IFLOW);	// RTS flow control of input
-	
+    cfsetspeed(&options, baud);		// Set baud  
+    
+    if (PARENB == parenb){
+        options.c_cflag |= (bits 	   | 	// Use xx bit words
+                            CCTS_OFLOW | 	// CTS flow control of output
+                            CRTS_IFLOW);	// RTS flow control of input
+    }
+    else{
+        options.c_cflag |= (bits 	   | 	// Use xx bit words
+                            parenb	   | 	// Parity enable
+                            parodd     |    // if parity is enabled set this to use odd parity
+                            CCTS_OFLOW | 	// CTS flow control of output
+                            CRTS_IFLOW);	// RTS flow control of input
+	}
+    
 #if defined(MAC_OS_X_VERSION_10_4) && (MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_4)
 	// Starting with Tiger, the IOSSIOSPEED ioctl can be used to set arbitrary baud rates
 	// other than those specified by POSIX. The driver for the underlying serial hardware
@@ -528,7 +522,7 @@ int CloseSerialPort(int fileDescriptor)
 }
 
 
-int FindAndOpenModem(const char *modemPath, int lengthModemPath, int baud, int parity, int bits, int *portDescriptor) {
+int FindAndOpenModem(const char *modemPath, int lengthModemPath, int baud, int parenb, int parodd, int bits, int *portDescriptor) {
  
     int			fileDescriptor;
     kern_return_t	kernResult; // on PowerPC this is an int (4 bytes)
@@ -560,7 +554,7 @@ int FindAndOpenModem(const char *modemPath, int lengthModemPath, int baud, int p
         return EX_UNAVAILABLE;
     }
 	
-    int err = OpenSerialPort(bsdPath, baud, parity, bits, &fileDescriptor);
+    int err = OpenSerialPort(bsdPath, baud, parenb, parodd, bits, &fileDescriptor);
     if (err != 0) {
         return err;
     }
