@@ -56,6 +56,7 @@
     if (err) {
         NSLog(@"%@", err);
 	}
+    [experimentContext startExperiment];
 	
 	
 	
@@ -77,6 +78,7 @@
 -(void)applicationWillTerminate:(NSNotification*)aNotification
 {
     #pragma unused(aNotification)
+    [[COExperimentContext getInstance] stopExperiment];
 	[procedurePipe release];
     [super dealloc];
 }
