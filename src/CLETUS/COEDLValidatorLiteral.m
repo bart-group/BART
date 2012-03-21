@@ -31,7 +31,7 @@ enum COLiteralArithmeticOperation {
  *
  * \param cur Current reading position in the literal string. 
  */
--(void)tokenize:(int*)cur;
+-(void)tokenize:(NSUInteger*)cur;
 
 /**
  * Methods identifing signaling characters for each token kind.
@@ -44,12 +44,12 @@ enum COLiteralArithmeticOperation {
 /**
  * Methods parsing a token of the appropriate token kind.
  */
--(void)parseSymbol:(int*)cur;
--(void)parseWord:(int*)cur;
--(void)parseString:(int*)cur;
+-(void)parseSymbol:(NSUInteger*)cur;
+-(void)parseWord:(NSUInteger*)cur;
+-(void)parseString:(NSUInteger*)cur;
 /* Numbers have to match the reg. expr.: [0-9]{1,*}[[\.[0-9]{1,*}]?    
  *                                 e.g.: 2, 90.02, 100.100, 5.0 */
--(void)parseNumber:(int*)cur;
+-(void)parseNumber:(NSUInteger*)cur;
 
 /**
  * Lookup all tokens of kind WORD_TOKEN that are not 
@@ -260,7 +260,7 @@ enum COLiteralArithmeticOperation {
 {    
     if ([mTokens count] == 0) {
         // Tokenize...
-        size_t cur = 0;
+        NSUInteger cur = 0;
         while (cur < [literalString length] && litValue != LIT_ERROR) {
             [self tokenize:&cur];
         }
@@ -309,7 +309,7 @@ enum COLiteralArithmeticOperation {
     return litValue;
 }
 
--(void)tokenize:(int*)cur
+-(void)tokenize:(NSUInteger*)cur
 {
     unichar character = [literalString characterAtIndex:*cur];
     
@@ -376,7 +376,7 @@ enum COLiteralArithmeticOperation {
     return NO;
 }
 
--(void)parseSymbol:(int*)cur
+-(void)parseSymbol:(NSUInteger*)cur
 {
     COEDLValidatorToken* token = nil;
     
@@ -418,7 +418,7 @@ enum COLiteralArithmeticOperation {
     [token release];
 }
 
--(void)parseWord:(int*)cur
+-(void)parseWord:(NSUInteger*)cur
 {
     NSMutableString* buffer = [[NSMutableString alloc] initWithString:@""];
     unichar character = [literalString characterAtIndex:(*cur)];
@@ -448,7 +448,7 @@ enum COLiteralArithmeticOperation {
     [buffer release];
 }
 
--(void)parseString:(int*)cur
+-(void)parseString:(NSUInteger*)cur
 {
     if ((*cur) >= [literalString length] - 1) {
         litValue = LIT_ERROR;
@@ -510,7 +510,7 @@ enum COLiteralArithmeticOperation {
     [buffer release];
 }
 
--(void)parseNumber:(int*)cur
+-(void)parseNumber:(NSUInteger*)cur
 {
     NSMutableString* buffer = [[NSMutableString alloc] initWithString:@""];
     unichar character = [literalString characterAtIndex:(*cur)];
