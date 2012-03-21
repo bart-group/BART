@@ -19,6 +19,7 @@
 
 -(NSString*) pluginTitle;
 -(NSString*) pluginDescription;
+-(NSDictionary*) portParameters;
 -(NSImage*) pluginIcon;
 
 

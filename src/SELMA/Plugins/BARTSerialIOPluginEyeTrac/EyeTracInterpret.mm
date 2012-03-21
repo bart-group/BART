@@ -17,6 +17,7 @@
 -(BOOL)getMin:(float*)minValue andMax:(float*)maxValue andMean:(float*)meanValue ofParam:(PARAMS)par fromVector:(std::vector<TEyeTracParams>)eyeTracParams;
 
 -(std::vector<TEyeTracParams>)getLastData;
+-(void)closeLogFiles;
 
 @end
 
@@ -116,9 +117,13 @@
         // the path for the own logfile
         logfilePath = [arrayFromPlist objectForKey:@"LogfilePath"];
         		
-                
+        // (6) collect the port parameters to give back for initialisation
+        // serial, baud, parity, odd, path, description
+        
+        dictPortParameters = [[NSDictionary alloc] initWithDictionary:[arrayFromPlist objectForKey:@"portParameters"]];
+        
         /*****************************/
-        // (6) temporary stuff to create an output file
+        // (7) temporary stuff to create an output file
 		struct tm* ptr;
 		time_t lt;
 		char fname[80];
@@ -287,19 +292,18 @@
     
     // now, ask the fixation algorithm for its answer
     NSPoint currentEyePos = NSMakePoint(0.0, 0.0);
-    NSPoint convertedEyePos = NSMakePoint(0.0, 0.0);
     BOOL isFixated = [self isFixationForMidpoint:midPoint andXYDistance:maxDistanceForFixation atCurrentPos:currentEyePos];
     
     // reconvert eye tracker position data to screen position 
-    convertedEyePos.x = (currentEyePos.x * resoX) / scenePOGResolutionWidth;
-    convertedEyePos.y = (currentEyePos.y * resoY) / scenePOGResolutionWidth;
+    float convertedEyePosX = (currentEyePos.x * resoX) / scenePOGResolutionWidth;
+    float convertedEyePosY = (currentEyePos.y * resoY) / scenePOGResolutionWidth;
     
     //create dictionary to return
     //todo: just give back like that or sort in params and conditions???
-    NSDictionary *dictReturn = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:convertedEyePos.x], @"eyePosX", [NSNumber numberWithFloat:convertedEyePos.y], @"eyePosY", isFixated, @"eyePosIsFixated", nil];
+    NSDictionary *dictReturn = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:convertedEyePosX], @"eyePosX", [NSNumber numberWithFloat:convertedEyePosY], @"eyePosY", [NSNumber numberWithBool:isFixated], @"eyePosIsFixated", nil];
    
     [params release];
-    return dictReturn;
+    return [dictReturn autorelease];
 }
 
 -(BOOL)isFixationForMidpoint:(NSPoint)midPoint andXYDistance:(NSPoint)dist atCurrentPos:(NSPoint)currentEyePos
@@ -429,7 +433,9 @@
 {}
 
 -(void)connectionIsClosed
-{}
+{
+    [self closeLogFiles];
+}
 
 
 -(NSString*) pluginTitle
@@ -445,8 +451,14 @@
 	return nil;
 }
 
+-(NSDictionary*) portParameters
+{
+    return dictPortParameters;
+}
+
 -(void)dealloc
 {
+    [dictPortParameters release];
 	free(valueBuffer);
 	[super dealloc];
 }

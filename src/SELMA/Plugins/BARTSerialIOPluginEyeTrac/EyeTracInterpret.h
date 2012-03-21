@@ -57,7 +57,7 @@ typedef struct EyeTracParams{
     BOOL isFixationDependingOnScreenCenter;
     NSPoint maxDistanceForFixation;
     NSPoint fixationDependsOnPoint;
-    
+    NSDictionary *dictPortParameters;
     @private
     enum PARAMS {
         HGAZE = 0,

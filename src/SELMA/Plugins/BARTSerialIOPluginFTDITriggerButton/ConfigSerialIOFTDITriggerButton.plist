@@ -4,5 +4,22 @@
 <dict>
 	<key>triggerID</key>
 	<integer>255</integer>
+	<key>portParameters</key>
+	<dict>
+		<key>pathToDevice</key>
+		<string>/dev/cu.usbserial</string>
+		<key>useOddParity</key>
+		<false/>
+		<key>enableParity</key>
+		<false/>
+		<key>baudRate</key>
+		<integer>19200</integer>
+		<key>isSerialPort</key>
+		<true/>
+		<key>useBits</key>
+		<integer>8</integer>
+		<key>deviceDescription</key>
+		<string>TriggerAndButtonBox</string>
+	</dict>
 </dict>
 </plist>

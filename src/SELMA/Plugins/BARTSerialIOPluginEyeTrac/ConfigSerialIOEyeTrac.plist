@@ -51,5 +51,22 @@
 	<integer>240</integer>
 	<key>maxNumberOfMissingValuesForFixation</key>
 	<integer>3</integer>
+	<key>portParameters</key>
+	<dict>
+		<key>pathToDevice</key>
+		<string>/dev/cu.usbserial-FTDWE6HC</string>
+		<key>useOddParity</key>
+		<false/>
+		<key>enableParity</key>
+		<false/>
+		<key>baudRate</key>
+		<integer>57600</integer>
+		<key>isSerialPort</key>
+		<true/>
+		<key>useBits</key>
+		<integer>8</integer>
+		<key>deviceDescription</key>
+		<string>ASLEyetracker</string>
+	</dict>
 </dict>
 </plist>

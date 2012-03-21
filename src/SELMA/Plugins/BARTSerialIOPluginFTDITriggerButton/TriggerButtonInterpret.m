@@ -53,6 +53,11 @@
 		
 		countTrigger = 0;
         
+        // (6) collect the port parameters to give back for initialisation
+        // serial, baud, parity, odd, path, description
+        
+        dictPortParameters = [[NSDictionary alloc] initWithDictionary:[temp objectForKey:@"portParameters"]];
+        
 		
 	}
 	return self;
@@ -83,8 +88,14 @@
 	return nil;
 }
 
+-(NSDictionary*) portParameters
+{
+    return dictPortParameters;
+}
+
 -(void)dealloc
 {
+    [dictPortParameters release];
 	[super dealloc];
 }
 
