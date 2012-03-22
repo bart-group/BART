@@ -298,10 +298,23 @@ dispatch_queue_t serialDesignElementAccessQueue;
 
 -(NSError*)stopExperiment
 {
+    // cancel all threads that had been started
     if ((nil != eyeTracThread) && [eyeTracThread isExecuting] ){
         [eyeTracThread cancel];}
     if ((nil != triggerThread) && [triggerThread isExecuting]){
         [triggerThread cancel];}
+    
+    // close all serial ports correctly to be able to ope them again when necessary
+    if ((nil != dictSerialIOPlugins) )
+    {
+        for (SerialPort *s in [dictSerialIOPlugins allValues])
+        {
+            [s closeSerialPort:nil];
+        }
+        
+    }
+
+    
     return nil;
 }
 

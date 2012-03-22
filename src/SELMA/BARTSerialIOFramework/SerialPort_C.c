@@ -175,12 +175,12 @@ int OpenSerialPort(const char *bsdPath, int baud, int parenb, int parodd, int bi
     // Now that the device is open, clear the O_NONBLOCK flag so subsequent I/O will block.
     // See fcntl(2) ("man 2 fcntl") for details.
     
-    if (fcntl(fileDescriptor, F_SETFL, 0) == -1)
-    {
-        printf("Error clearing O_NONBLOCK %s - %s(%d).\n",
-			   bsdPath, strerror(errno), errno);
-        goto error;
-    }
+//    if (fcntl(fileDescriptor, F_SETFL, 0) == -1)
+//    {
+//        printf("Error clearing O_NONBLOCK %s - %s(%d).\n",
+//			   bsdPath, strerror(errno), errno);
+//        goto error;
+//    }
     
     // Get the current options and save them so we can restore the default settings later.
     if (tcgetattr(fileDescriptor, &gOriginalTTYAttrs) == -1)
@@ -461,29 +461,24 @@ int initializeModemAndStartComm(int fileDescriptor) {
 
 char ReadData(int fileDescriptor){
     
-    char        buffer[100];	// Input buffer
+    char        buffer[1];	// Input buffer
     char        *bufPtr;		// Current char in buffer
     ssize_t     numBytes;		// Number of bytes read or written
    
     // Read characters into our buffer until we get a CR or LF
-    //time_t rawtime;
     
     bufPtr = buffer;
     numBytes = read(fileDescriptor, bufPtr, 1);
-    //time ( &rawtime );
-        //printf ( "(%c,'%d') - %6ld\n", bufPtr[0], bufPtr[0], ((timeStart.tv_sec * 1000) + (timeStart.tv_usec / 1000)) /*ctime (&rawtime)*/ );
-  
-    //printf("numBytes --> %d\n", (long)numBytes);
     if (numBytes == -1)
     {
         printf("Error reading from modem - %s(%d).\n", strerror(errno), errno);
+        return '\n';
     }
     else if (numBytes > 0)
     {
         if (bufPtr[0] == '\n' || bufPtr[0] == '\r')
         {
-            //printf("returning 0.\n");
-            return '\0';
+            return '\n';
         }
     }
     else {

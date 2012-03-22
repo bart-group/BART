@@ -153,6 +153,11 @@
 
 -(void) valueArrived:(char)value{
     
+    //don't do anything on \n (newline character)
+    if ( 0 != (value & (unsigned char)0x0a) ){
+        return;
+    }
+    
     if ((value & (unsigned char)0x80) != 0 ) {
 		//Ausgabe
 		// see Eye Tracker Manual (Model 504) for further explanation

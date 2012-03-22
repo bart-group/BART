@@ -28,7 +28,7 @@
 
 
 - (void) dispatchData:(unsigned char)data;
-- (unsigned char) readChar;
+- (void) readChar;
 - (void) createFinalObserverList;
 
 @end
@@ -119,18 +119,17 @@
             NSLog(@"Error closing serial Port: %s, %lu",[err.domain UTF8String], err.code);
         }
 	}
-    
+    NSLog(@"close serial port");
     return;
 }
 
 
-- (unsigned char) readChar {
+- (void) readChar {
 
     unsigned char c = ReadData(portDescriptor);    
-
-    [self dispatchData:c];    
-    
-    return c;
+    [self dispatchData:c];
+    return;
+    //return c;
 }
 
 - (void) dispatchData:(unsigned char)data {
@@ -201,16 +200,17 @@
     });
 	
 	while (![[NSThread currentThread] isCancelled]) {
+       // NSLog(@"read Char");
 		[self readChar];        
 	}
     
     //TODO: CHECK THIS
-    [self closeSerialPort:err];
-    if (nil != err){
-        NSLog( @"Error: %s, %d\n", [err.domain UTF8String], (int) err.code );
-    }
-	 
-    NSLog(@"SerialPortThread canceled! Close SerialPort now!!!");
+//    [self closeSerialPort:err];
+//    if (nil != err){
+//        NSLog( @"Error: %s, %d\n", [err.domain UTF8String], (int) err.code );
+//    }
+//	 
+//    NSLog(@"SerialPortThread canceled! Close SerialPort now!!!");
     [pool drain];
 }
 
