@@ -95,23 +95,23 @@ void testVnormdataRegistrationWorkflow()
 {
     int runs = RUNS;
     NSString* vnormRegOut = @"/tmp/BART_vnormdata.nii";
-    testVnormdataRegistrationWorkflowParams(fctFile,
-                                            anaFile,
-                                            mniFile,
-                                            runs,
-                                            vnormRegOut);
+//    testVnormdataRegistrationWorkflowParams(fctFile,
+//                                            anaFile,
+//                                            mniFile,
+//                                            runs,
+//                                            vnormRegOut);
     
-    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ00ana, mniFile, runs, vnormRegOut);
-    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ10ana, mniFile, runs, vnormRegOut);
-    
-    testVnormdataRegistrationWorkflowParams(OZ00fun, OZ00ana, mniFile, runs, vnormRegOut);
-    testVnormdataRegistrationWorkflowParams(OZ01fun, OZ01ana, mniFile, runs, vnormRegOut);
-    testVnormdataRegistrationWorkflowParams(OZ02fun, OZ02ana, mniFile, runs, vnormRegOut);
-    testVnormdataRegistrationWorkflowParams(OZ03fun, OZ03ana, mniFile, runs, vnormRegOut);
-    testVnormdataRegistrationWorkflowParams(OZ10fun, OZ10ana, mniFile, runs, vnormRegOut);
-    testVnormdataRegistrationWorkflowParams(OZ11fun, OZ11ana, mniFile, runs, vnormRegOut);
-    testVnormdataRegistrationWorkflowParams(OZ12fun, OZ12ana, mniFile, runs, vnormRegOut);
-    testVnormdataRegistrationWorkflowParams(OZ13fun, OZ13ana, mniFile, runs, vnormRegOut);
+    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ00ana, mniFile, runs, @"/tmp/BART_vnormdata.nii");
+//    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ10ana, mniFile, runs, @"/tmp/BART_vnormdata.nii");
+//    
+//    testVnormdataRegistrationWorkflowParams(OZ00fun, OZ00ana, mniFile, runs, vnormRegOut);
+//    testVnormdataRegistrationWorkflowParams(OZ01fun, OZ01ana, mniFile, runs, vnormRegOut);
+//    testVnormdataRegistrationWorkflowParams(OZ02fun, OZ02ana, mniFile, runs, vnormRegOut);
+//    testVnormdataRegistrationWorkflowParams(OZ03fun, OZ03ana, mniFile, runs, vnormRegOut);
+//    testVnormdataRegistrationWorkflowParams(OZ10fun, OZ10ana, mniFile, runs, vnormRegOut);
+//    testVnormdataRegistrationWorkflowParams(OZ11fun, OZ11ana, mniFile, runs, vnormRegOut);
+//    testVnormdataRegistrationWorkflowParams(OZ12fun, OZ12ana, mniFile, runs, vnormRegOut);
+//    testVnormdataRegistrationWorkflowParams(OZ13fun, OZ13ana, mniFile, runs, vnormRegOut);
 }
 
 void testVnormdataRegistrationWorkflowParams(NSString* funPath,
@@ -188,23 +188,23 @@ void testBARTRegistrationWorkflow()
     int runs = RUNS;
     NSString* bartRegOut = @"/tmp/BART_bartReg.nii";
 
-    testBARTRegistrationWorkflowParams(fctFile, 
-                                       anaFile, 
-                                       mniFile, 
-                                       runs, 
-                                       bartRegOut);
+//    testBARTRegistrationWorkflowParams(fctFile, 
+//                                       anaFile, 
+//                                       mniFile, 
+//                                       runs, 
+//                                       bartRegOut);
     
-    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ00ana, mniFile, runs, bartRegOut);
-    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ10ana, mniFile, runs, bartRegOut);
-    
-    testBARTRegistrationWorkflowParams(OZ00fun, OZ00ana, mniFile, runs, bartRegOut);
-    testBARTRegistrationWorkflowParams(OZ01fun, OZ01ana, mniFile, runs, bartRegOut);
-    testBARTRegistrationWorkflowParams(OZ02fun, OZ02ana, mniFile, runs, bartRegOut);
-    testBARTRegistrationWorkflowParams(OZ03fun, OZ03ana, mniFile, runs, bartRegOut);
-    testBARTRegistrationWorkflowParams(OZ10fun, OZ10ana, mniFile, runs, bartRegOut);
-    testBARTRegistrationWorkflowParams(OZ11fun, OZ11ana, mniFile, runs, bartRegOut);
-    testBARTRegistrationWorkflowParams(OZ12fun, OZ12ana, mniFile, runs, bartRegOut);
-    testBARTRegistrationWorkflowParams(OZ13fun, OZ13ana, mniFile, runs, bartRegOut);
+    testBARTRegistrationWorkflowParams(OZfun1ts, OZ00ana, mniFile, runs, bartRegOut);
+//    testBARTRegistrationWorkflowParams(OZfun1ts, OZ10ana, mniFile, runs, bartRegOut);
+//    
+//    testBARTRegistrationWorkflowParams(OZ00fun, OZ00ana, mniFile, runs, bartRegOut);
+//    testBARTRegistrationWorkflowParams(OZ01fun, OZ01ana, mniFile, runs, bartRegOut);
+//    testBARTRegistrationWorkflowParams(OZ02fun, OZ02ana, mniFile, runs, bartRegOut);
+//    testBARTRegistrationWorkflowParams(OZ03fun, OZ03ana, mniFile, runs, bartRegOut);
+//    testBARTRegistrationWorkflowParams(OZ10fun, OZ10ana, mniFile, runs, bartRegOut);
+//    testBARTRegistrationWorkflowParams(OZ11fun, OZ11ana, mniFile, runs, bartRegOut);
+//    testBARTRegistrationWorkflowParams(OZ12fun, OZ12ana, mniFile, runs, bartRegOut);
+//    testBARTRegistrationWorkflowParams(OZ13fun, OZ13ana, mniFile, runs, bartRegOut);
 }
 
 void testBARTRegistrationWorkflowParams(NSString* funPath,
@@ -278,14 +278,14 @@ void testBARTRegistrationAnaOnly()
     int runs = RUNS;
     NSString* bartRegAnaOnlyOut = @"/tmp/BART_bartRegAnaOnly.nii";
     
-    testBARTRegistrationAnaOnlyParams(fctFile,
-                                      anaFile,
-                                      runs,
-                                      bartRegAnaOnlyOut);
+//    testBARTRegistrationAnaOnlyParams(fctFile,
+//                                      anaFile,
+//                                      runs,
+//                                      bartRegAnaOnlyOut);
     
-    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ00ana, mniFile, runs, bartRegAnaOnlyOut);
-    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ10ana, mniFile, runs, bartRegAnaOnlyOut);
-    
+    testBARTRegistrationAnaOnlyParams(OZfun1ts, OZ00ana, runs, bartRegAnaOnlyOut);
+//    testBARTRegistrationAnaOnlyParams(OZfun1ts, OZ10ana, runs, bartRegAnaOnlyOut);
+//    
 //    testBARTRegistrationAnaOnlyParams(OZ00fun, OZ00ana, runs, OZ00out);
 //    testBARTRegistrationAnaOnlyParams(OZ01fun, OZ01ana, runs, OZ01out);
 //    testBARTRegistrationAnaOnlyParams(OZ02fun, OZ02ana, runs, OZ02out);
@@ -441,8 +441,8 @@ void testPluginReadWrite()
 int main(void)
 {
     /* # Output redirection # */
-//    system("rm -f /tmp/BART_regRuntime.txt");
-//    freopen("/tmp/BART_regRuntime.txt", "a", stderr);
+    system("rm -f /tmp/BART_regRuntime.txt");
+    freopen("/tmp/BART_regRuntime.txt", "a", stderr);
     
     /* # General Isis tests # */
 //    testAdapterConversion();
@@ -450,7 +450,7 @@ int main(void)
 //    testPluginReadWrite();
 
     /* # Registration tests # */
-//    testBARTRegistrationAnaOnly();
+    testBARTRegistrationAnaOnly();
     testBARTRegistrationWorkflow();
     testVnormdataRegistrationWorkflow();
 }
