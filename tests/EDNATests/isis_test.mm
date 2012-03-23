@@ -37,6 +37,9 @@ NSString* LIPSIA_MNI_SUFFIX = @"_lipsia-mni";
 
 NSString* DS01 = @"_dataset01";
 
+NSString* MDEFT = @"_mdeft";
+NSString* MPRAGE = @"_mprage";
+
 NSString* ONE_TS_MDEFT  = @"_1ts_mdeft";
 NSString* ONE_TS_MPRAGE = @"_1ts_mprage";
 
@@ -48,6 +51,12 @@ NSString* OZ10 = @"_OZ10";
 NSString* OZ11 = @"_OZ11";
 NSString* OZ12 = @"_OZ12";
 NSString* OZ13 = @"_OZ13";
+
+NSString* ZMAP_BASE_DS01 = @"dataset01_zmap"; 
+NSString* ZMAP_BASE = @"alignedZmapAxial64x64";
+NSString* ZMAP01 = @"_zmap01";
+NSString* ZMAP02 = @"_zmap02";
+NSString* ZMAP03 = @"_zmap03";
 
 NSString* NII_EXT = @".nii";
 
@@ -95,6 +104,12 @@ NSString* OZ13fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_sag
 NSString* OZ13ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mprage.nii";
 NSString* OZ13out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ13out.nii";
 
+/* ### Zmaps ### */
+NSString* dataset01zmap = @"/Users/oliver/test/reg3d_test/dataset01/zmap02_11timesteps.nii";
+NSString* OZzmap01 = @"/Users/oliver/test/reg3d_test_scansoliver/zmap01_10timesteps.nii";
+NSString* OZzmap02 = @"/Users/oliver/test/reg3d_test_scansoliver/zmap02_10timesteps.nii";
+NSString* OZzmap03 = @"/Users/oliver/test/reg3d_test_scansoliver/zmap03_10timesteps.nii";
+
 
 
 /* # Function declarations # */
@@ -130,6 +145,12 @@ void testBARTRegistrationAnaOnlyParams(NSString* funPath,
                                        NSString* anaPath,
                                        int runs,
                                        NSString* outPath);
+
+void testZmapsParams(NSString* funPath,
+                     NSString* anaPath,
+                     NSString* mapPath,
+                     int runs,
+                     NSString* outPath);
 
 
 
@@ -428,6 +449,93 @@ void testBARTRegistrationAnaOnlyParams(NSString* funPath,
           runs, funPath, anaPath, outPath, alignTime, applyTime);
 }
 
+void testZmaps()
+{
+//    axial64x64
+//    beide anatomie
+//    dataset01    
+    int runs = RUNS;
+    
+    testZmapsParams(fctFile, anaFile, dataset01zmap, runs, outFileName(@"/Users/oliver/test/reg3d_test/dataset01/",
+                                                                       ZMAP_BASE_DS01,
+                                                                       @""));
+
+    testZmapsParams(OZ01fun, OZ01ana, OZzmap01, runs, outFileName(@"/Users/oliver/test/reg3d_test_scansoliver/", ZMAP_BASE, ZMAP01));
+    testZmapsParams(OZ11fun, OZ11ana, OZzmap01, runs, outFileName(@"/Users/oliver/test/reg3d_test_scansoliver/", ZMAP_BASE, ZMAP01));
+    
+    testZmapsParams(OZ01fun, OZ01ana, OZzmap03, runs, outFileName(@"/Users/oliver/test/reg3d_test_scansoliver/", ZMAP_BASE, ZMAP03));
+    testZmapsParams(OZ11fun, OZ11ana, OZzmap03, runs, outFileName(@"/Users/oliver/test/reg3d_test_scansoliver/", ZMAP_BASE, ZMAP03));
+    
+}
+
+void testZmapsParams(NSString* funPath,
+                     NSString* anaPath,
+                     NSString* mapPath,
+                     int runs,
+                     NSString* outPath)
+{
+    TimeVal aliStart;
+    TimeVal aliEnd;
+    TimeVal appEnd;
+    TimeDiff* diff;
+    double alignTime = 0.0;
+    double applyTime = 0.0;
+    for (int i = 0; i < runs; i++) {
+        
+        NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+        
+        EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:funPath
+                                                                   andSuffix:@"" 
+                                                                  andDialect:@"" 
+                                                                 ofImageType:IMAGE_FCTDATA];
+        NSArray* forceMemoryLoad = [fctData getMinMaxOfDataElement];
+        
+        EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaPath
+                                                                   andSuffix:@"" 
+                                                                  andDialect:@"" 
+                                                                 ofImageType:IMAGE_ANADATA];
+        forceMemoryLoad = [anaData getMinMaxOfDataElement];
+        
+        EDDataElementIsis* mapData = [[EDDataElementIsis alloc] initWithFile:mapPath 
+                                                                   andSuffix:@"" 
+                                                                  andDialect:@"" 
+                                                                 ofImageType:IMAGE_ZMAP];
+        forceMemoryLoad = [mapData getMinMaxOfDataElement];
+        
+        aliStart = now(); // RUNTIME ANALYSIS CODE #
+        
+        RORegistrationMethod* method = [[RORegistrationBARTAnaOnly alloc] initFindingTransform:fctData
+                                                                                       anatomy:anaData
+                                                                                     reference:nil];
+        aliEnd = now();   // RUNTIME ANALYSIS CODE #
+        
+        EDDataElement* map2ana = [method apply:mapData];
+        
+        appEnd = now();   // RUNTIME ANALYSIS CODE #
+        diff = newTimeDiff(&aliStart, &aliEnd); // #
+        alignTime += asDouble(diff);            // #
+        free(diff);                             // #
+        diff = newTimeDiff(&aliEnd, &appEnd);   // #
+        applyTime += asDouble(diff);            // #
+        free(diff);       // RUNTIME ANALYSIS CODE #
+        
+        [map2ana WriteDataElementToFile:outPath];
+        
+        [method release];
+        
+        [mapData release];
+        [anaData release];
+        [fctData release];
+        
+        [pool drain];
+        
+    }
+    alignTime /= static_cast<double>(runs);
+    applyTime /= static_cast<double>(runs);
+    NSLog(@"Runtime BART_zmap for %d runs. Fun: %@ ana: %@ out: %@. Registration: %lf s, application: %lf s\n", 
+          runs, funPath, anaPath, outPath, alignTime, applyTime);
+}
+
 void testAdapterConversion() {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
@@ -524,8 +632,11 @@ int main(void)
 
     /* # Registration tests # */
 //    testBARTRegistrationAnaOnly();
-    testBARTRegistrationWorkflow();
-    testVnormdataRegistrationWorkflow();
+//    testBARTRegistrationWorkflow();
+//    testVnormdataRegistrationWorkflow();
+    
+    /* # Zmap tests # */
+    testZmaps();
     
     [pool drain];
 }
