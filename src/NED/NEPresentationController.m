@@ -114,12 +114,14 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 /**
  * checks for the fullfillment of the external conditions
  */
--(BOOL)checkForExternalConditionsForEvent:(NEStimEvent*)event;
+-(NSDictionary*)checkForExternalConditionsForEvent:(NEStimEvent*)event;
 
 /**
  * starts the updateThread ,i.e. the real start of the presentation
  */
 -(void)startPresentation;
+
+-(void)doActionOnTimeTable:(NSDictionary*)action atEvent:(NEStimEvent*)currentEvent;
 
 @end
 
@@ -383,8 +385,34 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         
         //ask for conditions
         NEStimEvent *event = [mTimetable previewNextEventAtTime:mTime];
-        //TODO if else part
-        [self checkForExternalConditionsForEvent:event];
+     
+        //evaluate external condition
+        NSDictionary* externalCondition = [[self checkForExternalConditionsForEvent:event] retain];
+        
+        if (nil != externalCondition)
+        {
+            BOOL isConditionFullfilled = YES;
+            for (NSString *s in [externalCondition objectForKey:@"conditionsArray"])
+            {
+                isConditionFullfilled = isConditionFullfilled && [s boolValue];
+            }
+            if (YES == isConditionFullfilled)
+            {
+                for (NSDictionary *action in [externalCondition objectForKey:@"actionsThen"])
+                {
+                    [self doActionOnTimeTable:action atEvent:event];
+                }
+            }
+            else
+            {
+                for (NSDictionary *action in [externalCondition objectForKey:@"actionsElse"])
+                {
+                    [self doActionOnTimeTable:action atEvent:event];
+                }
+            }
+            [externalCondition release];
+        }
+        
         
         
         [mViewManager setCurrentTime:mTime];
@@ -399,14 +427,15 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
     }
 }
 
--(BOOL)checkForExternalConditionsForEvent:(NEStimEvent *)event
+-(NSDictionary*)checkForExternalConditionsForEvent:(NEStimEvent *)event
 {
     if (NO == [[event mediaObject] isDependentFromConstraint])
     {
-        return YES;
+        return nil;
     }
-    else{
-        
+    
+    
+    NSDictionary *dictReturn = nil;
         //NSPoint p = [mExternalConditionController isConditionFullfilledForEvent:event];
         
         NSDictionary *dict = [mExternalConditionController checkConstraintForID:[[event mediaObject] getConstraintID]];
@@ -414,8 +443,9 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         if (nil != dict)
         {
             //shift all coming events 20 ms
-            [mTimetable shiftOnsetForAllEventsToHappen:20];
-            return NO;
+            
+//            [NSDictionary dictionaryWithObjectsAndKeys:<#(id), ...#>, nil]    
+            return dictReturn;
         }
         
         
@@ -423,8 +453,60 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         //[[event mediaObject] setPosition:p];
         
         
-        return YES;
+        return dictReturn;
+    
+    
+}
+
+-(void)doActionOnTimeTable:(NSDictionary*)action atEvent:(NEStimEvent*)currentEvent
+{
+
+    
+    NSString* fName = [action objectForKey:@"functionNameInternal"];
+    if (NSOrderedSame == [fName compare:@"replaceMediaObject"])
+    {
+        for (NEMediaObject* mediaObj in [mTimetable mediaObjects]) {
+            if (NSOrderedSame == [[mediaObj getID] compare:[action objectForKey:@"mediaObjectRef"]]) 
+            {
+                NEStimEvent *newEvent = [[NEStimEvent alloc] initWithTime:[currentEvent time] 
+                                                                 duration:[currentEvent duration] 
+                                                              mediaObject:mediaObj];
+                [self enqueueEvent:newEvent asReplacementFor:currentEvent];
+                return;
+            }
+        }
+        return;
     }
+    if (NSOrderedSame == [fName compare:@"setMediaObjectParamter"])
+    {
+        NSString *paraName = [action objectForKey:@"parameterName"];
+        float paraVal = [[action objectForKey:@"parameterValue"] floatValue];
+        NEMediaObject *mo = [currentEvent mediaObject];
+        NSPoint p = NSMakePoint([mo position].x, [mo position].y);
+        if ( 0 < [paraName rangeOfString:@"posX"].length )
+        {
+            p.x = paraVal;
+        }
+        if ( 0 < [paraName rangeOfString:@"posY"].length)
+        {
+            p.y = paraVal;
+        }
+        [mo setPosition:p];
+        return;
+    }
+    if (NSOrderedSame == [fName compare:@"removeCurrentStimulusEvent"])
+    {
+        return;
+    }
+    if (NSOrderedSame == [fName compare:@"changeTimingStimulusEvent"])
+    {
+        float time = 20;//[[action objectForKey:@"shiftTime"] floatValue];
+        [mTimetable shiftOnsetForAllEventsToHappen:time];
+        return;
+    }
+    
+
+    return;
     
 }
 

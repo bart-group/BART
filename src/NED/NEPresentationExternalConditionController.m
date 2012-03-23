@@ -78,7 +78,9 @@ NSUInteger screenResolutionY;
                 [mutableDictExternalCond 
                  setObject:[NSDictionary dictionaryWithObjectsAndKeys:
                             [dictSerialIOPlugins objectForKey:externalDevice], @"plugin", 
-                            [[constraint variables] objectForKey:externalDevice], @"paramsArray", nil ] 
+                            [[constraint variables] objectForKey:externalDevice], @"paramsArray",
+                            [constraint conditions], @"conditionsArray",
+                            nil ] 
                  forKey:constraintID ];
             }
         }
@@ -93,19 +95,49 @@ NSUInteger screenResolutionY;
 -(NSDictionary*)checkConstraintForID:(NSString*)constraintID;
 {
 
-    
     //call the external device and ask all your questions
     //TODO: mehrere Sourcen behandeln und diese im Block alle aufrufen
     SerialPort* s = [[dictExternalConditions objectForKey:constraintID] objectForKey:@"plugin"];
-
+  
     if (nil != s){
         
         NSDictionary *dictForPlugin = [NSDictionary dictionaryWithObjectsAndKeys:[[dictExternalConditions objectForKey:constraintID] objectForKey:@"paramsArray"], @"paramsArray", [NSNumber numberWithUnsignedInteger:screenResolutionX], @"screenResolutionX", [NSNumber numberWithUnsignedInteger:screenResolutionY], @"screenResolutionY",  nil];
         
-        return [s evaluateConstraintForParams:dictForPlugin];
+        NSDictionary *dictFromPlugin = [[s evaluateConstraintForParams:dictForPlugin] retain];
+        
+        //result 
+        NSDictionary *dictReturn;
+        NSMutableArray  *arrayConditions = [[NSMutableArray alloc] initWithCapacity:1];
+        NSArray *constraintConditions = [[dictExternalConditions objectForKey:constraintID] objectForKey:@"conditionsArray"]; 
+        NSArray *actions_then = [[dictExternalConditions objectForKey:constraintID] objectForKey:@"conditionsArray"];
+
+        
+        //collect conditions
+        for (NSString *para in [dictFromPlugin allKeys]){
+            if (NSNotFound != [constraintConditions indexOfObject:para])
+            {
+                [arrayConditions addObject:[dictFromPlugin objectForKey:para]];
+            }
+            else
+            {
+                
+            }
+        }
+        
+        //collect values for actions
+        
+        
+        
+        dictReturn = [[NSDictionary alloc] initWithObjectsAndKeys:arrayConditions, @"conditions", nil];
         
         // TODO sort conditions and params from different sources to feed in a return dictionary
        // return [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:p.x], @"eyePosX",[NSNumber numberWithFloat:p.y], @"eyePosY", nil];
+        
+        [dictFromPlugin release];
+        [arrayConditions removeAllObjects];
+        [arrayConditions release];
+        return [dictReturn autorelease];
+        
     }
 
     return nil;

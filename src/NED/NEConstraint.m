@@ -150,18 +150,18 @@
     NSDictionary *dictActionReplace = [[NSDictionary alloc] initWithObjectsAndKeys:@"replaceMediaObject",@"actionNameInConfig", @"replaceMediaObject",@"actionNameInternal",@"mediaObjectRef",@"valueToSet", nil];
     NSDictionary *dictActionSetMO = [[NSDictionary alloc] initWithObjectsAndKeys:@"setMediaObjectParameter",@"actionNameInConfig", @"setMediaObjectParamter",@"actionNameInternal",@"parameterName",@"parameterName", @"systemVariableRef",@"valueToSet", nil];
     NSDictionary *dictRemoveSE = [[NSDictionary alloc] initWithObjectsAndKeys:@"removeCurrentStimulusEvent",@"actionNameInConfig", @"removeCurrentStimulusEvent",@"actionNameInternal", nil];
-    NSDictionary *dictAddSE = [[NSDictionary alloc] initWithObjectsAndKeys:@"addStimulusEvent",@"actionNameInConfig", @"addStimulusEvent",@"actionNameInternal", nil];
+//    NSDictionary *dictAddSE = [[NSDictionary alloc] initWithObjectsAndKeys:@"addStimulusEvent",@"actionNameInConfig", @"addStimulusEvent",@"actionNameInternal", nil];
     NSDictionary *dictChangeTimingSE = [[NSDictionary alloc] initWithObjectsAndKeys:@"changeTimingStimulusEvent",@"actionNameInConfig", @"changeTimingStimulusEvent", @"actionNameInternal", @"parameterName", @"parameterName", @"newValue",@"valueToSet", nil];
     
-    NSArray *allAvailableActions = [NSArray arrayWithObjects:dictActionReplace, dictActionSetMO, dictRemoveSE, dictAddSE, dictChangeTimingSE, nil];
+    NSArray *allAvailableActions = [[NSArray alloc] initWithObjects:dictActionReplace, dictActionSetMO, dictRemoveSE, dictChangeTimingSE, nil];
     
-    [dictAddSE release];
+    //[dictAddSE release];
     [dictActionReplace release];
     [dictActionSetMO release];
     [dictChangeTimingSE release];
     [dictRemoveSE release];
     
-    return allAvailableActions;
+    return [allAvailableActions autorelease];
 
 }
 
@@ -176,7 +176,7 @@
     
     for (NSUInteger index=0; index < counterActions; index++) {
         //ask each available action
-        NSArray *allAvailableActions = [self createAllAvailableActions];
+        NSArray *allAvailableActions = [[self createAllAvailableActions] retain];
         for (NSDictionary *element in allAvailableActions)
         {
             if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/stimulusAction[%d]/%@", key, index+1,[element valueForKey:@"actionNameInConfig"] ]] )
@@ -217,6 +217,7 @@
             }
             
         }
+        [allAvailableActions release];
     }
 
     return arrayActions;
