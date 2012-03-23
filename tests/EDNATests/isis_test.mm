@@ -511,6 +511,8 @@ void testPluginReadWrite()
 
 int main(void)
 {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
     /* # Output redirection # */
     system("rm -f /tmp/BART_regRuntime.txt");
     freopen("/tmp/BART_regRuntime.txt", "a", stderr);
@@ -524,4 +526,6 @@ int main(void)
 //    testBARTRegistrationAnaOnly();
     testBARTRegistrationWorkflow();
     testVnormdataRegistrationWorkflow();
+    
+    [pool drain];
 }
