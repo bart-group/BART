@@ -471,7 +471,7 @@ char ReadData(int fileDescriptor){
     numBytes = read(fileDescriptor, bufPtr, 1);
     if (numBytes == -1)
     {
-        printf("Error reading from modem - %s(%d).\n", strerror(errno), errno);
+        //printf("Error reading from modem - %s(%d).\n", strerror(errno), errno);
         return '\n';
     }
     else if (numBytes > 0)
