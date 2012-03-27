@@ -122,6 +122,7 @@
 		00673D7913FD87B50056BD4F /* timeBasedRegressorNEDTest.edl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00709E4B12E86A06006389C4 /* timeBasedRegressorNEDTest.edl */; };
 		00673D7A13FD87B80056BD4F /* erDesignTest01.edl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00709E3212E74B05006389C4 /* erDesignTest01.edl */; };
 		00673D7B13FD87BA0056BD4F /* blockDesignTest01.edl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00E7A647117EF24F00696498 /* blockDesignTest01.edl */; };
+		006E842F15206ED400C05466 /* ConfigBARTApplication.plist in Resources */ = {isa = PBXBuildFile; fileRef = 006E842E15206ED400C05466 /* ConfigBARTApplication.plist */; };
 		0076642B150F9CD50090895F /* myNewScenario.edl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0076642A150F9CD50090895F /* myNewScenario.edl */; };
 		00786E1213EEC80F00BF2554 /* NEPresentationExternalConditionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 00786E1013EEC80E00BF2554 /* NEPresentationExternalConditionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00786E1313EEC80F00BF2554 /* NEPresentationExternalConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00786E1113EEC80E00BF2554 /* NEPresentationExternalConditionController.m */; };
@@ -614,6 +615,7 @@
 		00673D4213FD75C80056BD4F /* TestDataset02-functional.nii */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TestDataset02-functional.nii"; sourceTree = "<group>"; };
 		006E07531190260500CEEF38 /* EDDataElementIsis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EDDataElementIsis.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		006E07541190260500CEEF38 /* EDDataElementIsis.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; lineEnding = 0; path = EDDataElementIsis.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		006E842E15206ED400C05466 /* ConfigBARTApplication.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ConfigBARTApplication.plist; sourceTree = "<group>"; };
 		00709E3212E74B05006389C4 /* erDesignTest01.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest01.edl; sourceTree = "<group>"; };
 		00709E4B12E86A06006389C4 /* timeBasedRegressorNEDTest.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = timeBasedRegressorNEDTest.edl; sourceTree = "<group>"; };
 		00709ED012EA04A5006389C4 /* erDesignTest02_deriv1AllReg.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest02_deriv1AllReg.edl; sourceTree = "<group>"; };
@@ -1570,6 +1572,7 @@
 				8D1107310486CEB800E47090 /* BARTApplication-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+				006E842E15206ED400C05466 /* ConfigBARTApplication.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2097,6 +2100,7 @@
 				00673D4313FD75C80056BD4F /* TestDataset01-functional.nii in Resources */,
 				00673D4413FD75C80056BD4F /* TestDataset02-functional.nii in Resources */,
 				004E8DB2140283AE00D70294 /* PresentationControl.xib in Resources */,
+				006E842F15206ED400C05466 /* ConfigBARTApplication.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
