@@ -143,6 +143,8 @@
         fprintf(fileFixationsOK, "CentroidH\t\tCentroidV\n\n");
         fprintf(fileFixationsOut, "CentroidH\t\tCentroidV\n\n");
          
+        
+        srand(time(NULL));
          /******************************/
         
     }
@@ -262,7 +264,7 @@
 {
     [params retain];
     //ATTENTION!!!!! TEST VERSION
-    return nil;
+    //return nil;
     
     // evaluate target param from params dictionary
     NSArray *paramsArray = [params objectForKey:@"paramsArray"];
@@ -306,7 +308,15 @@
     //create dictionary to return
     //todo: just give back like that or sort in params and conditions???
     NSDictionary *dictReturn = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:convertedEyePosX], @"eyePosX", [NSNumber numberWithFloat:convertedEyePosY], @"eyePosY", [NSNumber numberWithBool:isFixated], @"eyePosIsFixated", nil];
-   
+
+//    float x = (rand() % 100) + 400;
+//    float y = (rand() % 100) + 300;
+//    NSDictionary *dictReturn = [[NSDictionary alloc] initWithObjectsAndKeys:
+//                                 [NSNumber numberWithFloat:x], @"eyePosX", 
+//                                [NSNumber numberWithFloat:y], @"eyePosY", 
+//                                [NSNumber numberWithBool:YES], @"eyePosIsFixated",
+//                                nil] ;
+    
     [params release];
     return [dictReturn autorelease];
 }
