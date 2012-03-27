@@ -112,22 +112,28 @@
             //check actions
             for (NSDictionary *dictAction in constraintActionsThen)
             {
-                NSString *sysVRef = [dictAction valueForKey:@"systemVariableRef"]; 
-                if (nil !=sysVRef){
-                    NSString *s2 = [[dictAllSystemVariables valueForKey:sysVRef] valueForKey:@"source"];
-                    if (NSOrderedSame == [s1 compare:s2 options:NSCaseInsensitiveSearch]){
-                        [arrayParams addObject:[[dictAllSystemVariables valueForKey:sysVRef] valueForKey:@"variableName"]];
-                    } 
+                for( NSDictionary *att in [dictAction objectForKey:@"attributesArray"])
+                {
+                    if (NSOrderedSame == [[att valueForKey:@"attributeType"] compare:@"systemVariableRef" options:NSCaseInsensitiveSearch])
+                    {
+                        NSString *sysVName = [att valueForKey:@"attributeName"];
+                        NSString *s2 = [[dictAllSystemVariables valueForKey:sysVName] valueForKey:@"source"];
+                        if (NSOrderedSame == [s1 compare:s2 options:NSCaseInsensitiveSearch]){
+                            [arrayParams addObject:sysVName];} 
+                    }
                 }
             }
             for (NSDictionary *dictAction in constraintActionsElse)
             {
-                NSString *sysVRef = [dictAction valueForKey:@"systemVariableRef"]; 
-                if (nil !=sysVRef){
-                    NSString *s2 = [[dictAllSystemVariables valueForKey:sysVRef] valueForKey:@"source"];
-                    if (NSOrderedSame == [s1 compare:s2 options:NSCaseInsensitiveSearch]){
-                        [arrayParams addObject:[[dictAllSystemVariables valueForKey:sysVRef] valueForKey:@"variableName"]];
-                    } 
+                for( NSDictionary *att in [dictAction objectForKey:@"attributesArray"])
+                {
+                    if (NSOrderedSame == [[att valueForKey:@"attributeType"] compare:@"systemVariableRef" options:NSCaseInsensitiveSearch])
+                    {
+                        NSString *sysVName = [att valueForKey:@"attributeName"];
+                        NSString *s2 = [[dictAllSystemVariables valueForKey:sysVName] valueForKey:@"source"];
+                        if (NSOrderedSame == [s1 compare:s2 options:NSCaseInsensitiveSearch]){
+                            [arrayParams addObject:sysVName];} 
+                    }
                 }
             }
  
@@ -147,18 +153,67 @@
 
     //todo: in eigene klasse oder global?
     
-    NSDictionary *dictActionReplace = [[NSDictionary alloc] initWithObjectsAndKeys:@"replaceMediaObject",@"actionNameInConfig", @"replaceMediaObject",@"actionNameInternal",@"mediaObjectRef",@"valueToSet", nil];
-    NSDictionary *dictActionSetMO = [[NSDictionary alloc] initWithObjectsAndKeys:@"setMediaObjectParameter",@"actionNameInConfig", @"setMediaObjectParamter",@"actionNameInternal",@"parameterName",@"parameterName", @"systemVariableRef",@"valueToSet", nil];
-    NSDictionary *dictRemoveSE = [[NSDictionary alloc] initWithObjectsAndKeys:@"removeCurrentStimulusEvent",@"actionNameInConfig", @"removeCurrentStimulusEvent",@"actionNameInternal", nil];
-//    NSDictionary *dictAddSE = [[NSDictionary alloc] initWithObjectsAndKeys:@"addStimulusEvent",@"actionNameInConfig", @"addStimulusEvent",@"actionNameInternal", nil];
-    NSDictionary *dictChangeTimingSE = [[NSDictionary alloc] initWithObjectsAndKeys:@"changeTimingStimulusEvent",@"actionNameInConfig", @"changeTimingStimulusEvent", @"actionNameInternal", @"parameterName", @"parameterName", @"newValue",@"valueToSet", nil];
+    NSDictionary *dictActionReplace = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                       @"replaceMediaObject",@"actionNameInConfig",
+                                       @"replaceMediaObject",@"actionNameInternal",
+                                       [NSArray arrayWithObjects:
+                                        [NSDictionary dictionaryWithObjectsAndKeys:
+                                         @"mediaObjectRef", @"attributeName",
+                                         @"mediaObjectRef", @"attributeType",
+                                         @"", @"attributeValue", nil],
+                                        nil], @"attributesArray",
+                                       nil];
     
-    NSArray *allAvailableActions = [[NSArray alloc] initWithObjects:dictActionReplace, dictActionSetMO, dictRemoveSE, dictChangeTimingSE, nil];
+    
+    NSDictionary *dictActionSetMO = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                     @"setMediaObjectParameter",@"actionNameInConfig", 
+                                     @"setMediaObjectParamter", @"actionNameInternal",
+                                     [NSArray arrayWithObjects:
+                                      [NSDictionary dictionaryWithObjectsAndKeys:
+                                       @"systemVariableRef", @"attributeName",
+                                       @"systemVariableRef", @"attributeType",
+                                       @"", @"attributeValue", nil],
+                                      [NSDictionary dictionaryWithObjectsAndKeys:
+                                       @"parameterName", @"attributeName", 
+                                       @"Name", @"attributeType",
+                                       @"", @"attributeValue", nil],
+                                      nil],@"attributesArray", 
+                                     nil];
+    
+    
+    NSDictionary *dictRemoveSE = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                  @"removeCurrentStimulusEvent",@"actionNameInConfig", 
+                                  @"removeCurrentStimulusEvent",@"actionNameInternal", 
+                                  nil];
+    
+    
+//    NSDictionary *dictAddSE = [[NSDictionary alloc] initWithObjectsAndKeys:@"addStimulusEvent",@"actionNameInConfig", @"addStimulusEvent",@"actionNameInternal", nil];
+    NSDictionary *dictInsertNew = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                   @"insertNewStimulusEvent",@"actionNameInConfig",
+                                   @"insertNewStimulusEvent", @"actionNameInternal", 
+                                   [NSArray arrayWithObjects:
+                                    [NSDictionary dictionaryWithObjectsAndKeys:
+                                     @"duration", @"attributeName", 
+                                     @"durationTime", @"attributeType",
+                                     [NSNumber numberWithUnsignedInt:0], @"attributeValue", nil],
+                                    [NSDictionary dictionaryWithObjectsAndKeys:
+                                     @"mediaObjectRef", @"attributeName",
+                                     @"mediaObjectRef", @"attributeType",
+                                     @"", @"attributeValue", nil],
+                                    [NSDictionary dictionaryWithObjectsAndKeys:
+                                     @"shiftFollowingStimulusEvents", @"attributeName", 
+                                     @"pushFlag", @"attributeType",
+                                     [NSNumber numberWithBool:NO], @"attributeValue", nil],
+                                    nil], @"attributesArray",
+                                   nil];
+    
+    NSArray *allAvailableActions = [[NSArray alloc] initWithObjects:
+                                    dictActionReplace, dictActionSetMO, dictRemoveSE, dictInsertNew, nil];
     
     //[dictAddSE release];
     [dictActionReplace release];
     [dictActionSetMO release];
-    [dictChangeTimingSE release];
+    [dictInsertNew release];
     [dictRemoveSE release];
     
     return [allAvailableActions autorelease];
@@ -174,53 +229,44 @@
     NSUInteger counterActions = [config countNodes:[NSString stringWithFormat:@"%@/stimulusAction", key] ];
     NSMutableArray *arrayActions = [NSMutableArray arrayWithCapacity:counterActions];
     
-    for (NSUInteger index=0; index < counterActions; index++) {
+    for (NSUInteger index = 0; index < counterActions; index++) {
         //ask each available action
         NSArray *allAvailableActions = [[self createAllAvailableActions] retain];
         for (NSDictionary *element in allAvailableActions)
         {
             if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/stimulusAction[%d]/%@", key, index+1,[element valueForKey:@"actionNameInConfig"] ]] )
             {
-                NSString *paraName = @"";
-                NSString *paraKey = [element valueForKey:@"parameterName"];
-                NSString *valName = @"";
-                NSString *valKey = [element valueForKey:@"valueToSet"];
                 NSString *fctName = [element valueForKey:@"actionNameInConfig"] ;
-                
-                NSLog(@"%@", [NSString stringWithFormat:@"%@/stimulusAction[%d]/%@/@%@", key,index+1, fctName, paraKey ]); 
-                if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/stimulusAction[%d]/%@/@%@", key,index+1, fctName, paraKey ]] )
+
+                NSMutableArray *arrayCollectAttributes = [NSMutableArray arrayWithCapacity:[[element objectForKey:@"attributesArray"] count]];
+                for (NSDictionary *att in [element objectForKey:@"attributesArray"])
                 {
-                    paraName = [config getProp:[NSString stringWithFormat:@"%@/stimulusAction[%d]/%@/@%@", key,index+1, fctName, paraKey ]];
-                }
-                if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/stimulusAction[%d]/%@/@%@", key,index+1, fctName, valKey ]] )
-                {
-                    valName = [config getProp:[NSString stringWithFormat:@"%@/stimulusAction[%d]/%@/@%@", key,index+1, fctName, valKey ]];
+                    //make a copy of att
+                    NSMutableDictionary *newAtt = [NSMutableDictionary dictionaryWithDictionary:att];
+
+                    NSString *attName = [att objectForKey:@"attributeName"];
+                    NSString *attVal;
+                    
+                    NSLog(@"%@", [NSString stringWithFormat:@"%@/stimulusAction[%d]/%@/@%@", key,index+1, fctName, attName ]); 
+                    if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/stimulusAction[%d]/%@/@%@", key,index+1, fctName, attName ]] )
+                    {
+                        attVal = [config getProp:[NSString stringWithFormat:@"%@/stimulusAction[%d]/%@/@%@", key,index+1, fctName, attName ]];
+                        [newAtt setValue:attVal forKey:@"attributeValue"];
+                        [arrayCollectAttributes addObject:newAtt];
+                    }
+
                 }
                 
                 NSString *fctNameInternal = [element valueForKey:@"actionNameInternal"];
-                
-                if (nil == paraKey){
-                    NSDictionary *dictAction = [NSDictionary dictionaryWithObjectsAndKeys:fctName, @"functionName", fctNameInternal, @"functionNameInternal", valName, valKey, nil];
-                    [arrayActions addObject:dictAction];
-                }
-                else if (nil == valKey){
-                    //todo : this case doesn't make sense
-                    NSDictionary *dictAction = [NSDictionary dictionaryWithObjectsAndKeys:fctName, @"functionName", fctNameInternal, @"functionNameInternal", paraName, paraKey, nil];
-                    [arrayActions addObject:dictAction];
-                }
-                else{
-                    NSDictionary *dictAction = [NSDictionary dictionaryWithObjectsAndKeys:fctName, @"functionName", fctNameInternal, @"functionNameInternal", paraName, paraKey, valName, valKey, nil];
-                    [arrayActions addObject:dictAction];
-                }
-                
-                
+                NSArray *arrayAttributes = [NSArray arrayWithArray:arrayCollectAttributes];//to be nonmutable
+                NSDictionary *dictAction = [NSDictionary dictionaryWithObjectsAndKeys:fctName, @"functionName", fctNameInternal, @"functionNameInternal", arrayAttributes, @"attributesArray", nil];
+                [arrayActions addObject:dictAction];
             }
-            
         }
         [allAvailableActions release];
     }
 
-    return arrayActions;
+    return [NSArray arrayWithArray:arrayActions] ;
    
 }
 

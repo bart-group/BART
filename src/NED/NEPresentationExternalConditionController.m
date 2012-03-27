@@ -80,6 +80,8 @@ NSUInteger screenResolutionY;
                             [dictSerialIOPlugins objectForKey:externalDevice], @"plugin", 
                             [[constraint variables] objectForKey:externalDevice], @"paramsArray",
                             [constraint conditions], @"conditionsArray",
+                            [constraint actionsThen], @"actionsThenArray",
+                            [constraint actionsElse], @"actionsElseArray",
                             nil ] 
                  forKey:constraintID ];
             }
@@ -109,8 +111,9 @@ NSUInteger screenResolutionY;
         NSDictionary *dictReturn;
         NSMutableArray  *arrayConditions = [[NSMutableArray alloc] initWithCapacity:1];
         NSArray *constraintConditions = [[dictExternalConditions objectForKey:constraintID] objectForKey:@"conditionsArray"]; 
-        NSArray *actions_then = [[dictExternalConditions objectForKey:constraintID] objectForKey:@"conditionsArray"];
-
+        NSArray *actionsThen = [[dictExternalConditions objectForKey:constraintID] objectForKey:@"actionsThenArray"];
+        NSArray *actionsElse = [[dictExternalConditions objectForKey:constraintID] objectForKey:@"actionsElseArray"];
+        NSMutableDictionary *dictSysVariablesResults = [[NSMutableDictionary alloc] initWithCapacity:1];
         
         //collect conditions
         for (NSString *para in [dictFromPlugin allKeys]){
@@ -119,16 +122,33 @@ NSUInteger screenResolutionY;
                 [arrayConditions addObject:[dictFromPlugin objectForKey:para]];
             }
             else
-            {
+            {//collect values for actions
+                [dictSysVariablesResults setValue:[dictFromPlugin objectForKey:para] forKey:para];
+//                for (NSDictionary *action in actionsThen)
+//                {
+//                    for (NSDictionary *att in [action objectForKey:@"attributesArray"])
+//                    {
+//                        if ( NSOrderedSame == [[att objectForKey:@"attributeName"] compare:para options:NSCaseInsensitiveSearch])
+//                        {
+//                            [att setValue:[dictFromPlugin objectForKey:para] forKey:@"attributeValue"];
+//                        }
+//                        
+//                    }
+//                }
                 
             }
         }
         
-        //collect values for actions
         
         
         
-        dictReturn = [[NSDictionary alloc] initWithObjectsAndKeys:arrayConditions, @"conditions", nil];
+        
+        dictReturn = [[NSDictionary alloc] initWithObjectsAndKeys:
+                      arrayConditions, @"conditions", 
+                      dictSysVariablesResults, @"resultVariables",
+                      actionsThen, @"actionsThen",
+                      actionsElse, @"actionsElse",
+                      nil];
         
         // TODO sort conditions and params from different sources to feed in a return dictionary
        // return [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:p.x], @"eyePosX",[NSNumber numberWithFloat:p.y], @"eyePosY", nil];
@@ -136,6 +156,9 @@ NSUInteger screenResolutionY;
         [dictFromPlugin release];
         [arrayConditions removeAllObjects];
         [arrayConditions release];
+        [dictSysVariablesResults removeAllObjects];
+        [dictSysVariablesResults release];
+        
         return [dictReturn autorelease];
         
     }
