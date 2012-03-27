@@ -27,7 +27,7 @@
 - (NSError*) initCommunication;
 
 
-- (void) dispatchData:(unsigned char)data;
+- (void) dispatchData:(char)data;
 - (void) readChar;
 - (void) createFinalObserverList;
 
@@ -126,13 +126,13 @@
 
 - (void) readChar {
 
-    unsigned char c = ReadData(portDescriptor);    
+    char c = ReadData(portDescriptor) & 0xFF;    
     [self dispatchData:c];
     return;
     //return c;
 }
 
-- (void) dispatchData:(unsigned char)data {
+- (void) dispatchData:(char)data {
 
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     

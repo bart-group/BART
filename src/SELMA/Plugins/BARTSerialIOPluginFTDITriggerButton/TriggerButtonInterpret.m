@@ -65,11 +65,7 @@
 
 -(void)valueArrived:(char)value
 {
-    //don't do anything on \n (newline character)
-    if ( 0 != (value & (unsigned char)0x0a) ){
-        return;
-    }
-	if (triggerIDChar == (unsigned char) value)
+    if (triggerIDChar == (unsigned char) value)
 	{
 		[[NSNotificationCenter defaultCenter] postNotificationName:BARTSerialIOScannerTriggerArrived object:[NSNumber numberWithUnsignedInt:countTrigger]];
 		countTrigger++;

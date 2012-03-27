@@ -175,12 +175,12 @@ int OpenSerialPort(const char *bsdPath, int baud, int parenb, int parodd, int bi
     // Now that the device is open, clear the O_NONBLOCK flag so subsequent I/O will block.
     // See fcntl(2) ("man 2 fcntl") for details.
     
-//    if (fcntl(fileDescriptor, F_SETFL, 0) == -1)
-//    {
-//        printf("Error clearing O_NONBLOCK %s - %s(%d).\n",
-//			   bsdPath, strerror(errno), errno);
-//        goto error;
-//    }
+    if (fcntl(fileDescriptor, F_SETFL, 0) == -1)
+    {
+        printf("Error clearing O_NONBLOCK %s - %s(%d).\n",
+			   bsdPath, strerror(errno), errno);
+        goto error;
+    }
     
     // Get the current options and save them so we can restore the default settings later.
     if (tcgetattr(fileDescriptor, &gOriginalTTYAttrs) == -1)
@@ -471,21 +471,16 @@ char ReadData(int fileDescriptor){
     numBytes = read(fileDescriptor, bufPtr, 1);
     if (numBytes == -1)
     {
-        //printf("Error reading from modem - %s(%d).\n", strerror(errno), errno);
+        printf("Error reading from modem - %s(%d).\n", strerror(errno), errno);
         return '\n';
     }
     else if (numBytes > 0)
     {
-        if (bufPtr[0] == '\n' || bufPtr[0] == '\r')
-        {
-            return '\n';
-        }
-    }
-    else {
-        printf("Nothing read.\n");
+         return bufPtr[0];
     }
     
-    return bufPtr[0];
+    printf("Nothing read.\n");
+    return 0;
 }
 
               
@@ -496,7 +491,7 @@ int CloseSerialPort(int fileDescriptor)
     // Block until all written output has been sent from the device.
     // Note that this call is simply passed on to the serial device driver. 
 	// See tcsendbreak(3) ("man 3 tcsendbreak") for details.
-    if (tcdrain(fileDescriptor) == -1)
+    if (tcflow(fileDescriptor, TCIOFF) == -1)
     {
         printf("Error waiting for drain - %s(%d).\n",
 			   strerror(errno), errno);

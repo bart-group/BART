@@ -155,11 +155,6 @@
 
 -(void) valueArrived:(char)value{
     
-    //don't do anything on \n (newline character)
-    if ( 0 != (value & (unsigned char)0x0a) ){
-        return;
-    }
-    
     if ((value & (unsigned char)0x80) != 0 ) {
 		//Ausgabe
 		// see Eye Tracker Manual (Model 504) for further explanation
@@ -205,8 +200,8 @@
 		params.pupilDiam = pupilDiam;
         params.horGaze = 0.1*static_cast<float>(horizGaze);
         params.verGaze = 0.1*static_cast<float>(vertGaze);
-        params.corneaRec = corneaDiam  == 0 ? 1 : 0; //INVERSE THE LOGIC FOR EASILY COUNTING LATER THE ONES NOT RECOGNIZED
-		params.corneaDiam = corneaDiam;
+        params.corneaRec = 0;//corneaDiam  == 0 ? 1 : 0; //INVERSE THE LOGIC FOR EASILY COUNTING LATER THE ONES NOT RECOGNIZED
+		params.corneaDiam = pupilDiam;//corneaDiam;
         params.status = static_cast<unsigned char>((valueBuffer[posStatus] & 0x7f));
         
         //clean the vetor if it's gettng long than the size of the window 
