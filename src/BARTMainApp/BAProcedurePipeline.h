@@ -29,9 +29,12 @@
     BOOL isRealTimeTCPInput;
     size_t startAnalysisAtTimeStep;
     BAProcedureStep_Paradigm *paradigm;
+    NSString *testDataFileName;
     
 
 }
+
+-(id)initWithTestDataset:(NSString*)testData;
 
 
 -(BOOL) initData;
@@ -39,5 +42,6 @@
 -(BOOL) initPresentation;
 -(BOOL) initAnalyzer;
 -(BOOL) startAnalysis;
+
 
 @end

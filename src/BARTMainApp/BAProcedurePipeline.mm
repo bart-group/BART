@@ -33,8 +33,24 @@
 @implementation BAProcedurePipeline
 
 
-
 -(id)init
+{
+    if ((self = [super init])) {
+        // TODO: appropriate init
+        mCurrentTimestep = 50;
+		config = [[COExperimentContext getInstance] systemConfig];
+		isRealTimeTCPInput = YES;
+		startAnalysisAtTimeStep = 15;
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(resetProcedurePipeline:) 
+                                                     name:BARTDidResetExperimentContextNotification object:nil];
+        testDataFileName = nil;
+    }
+	return self;
+}
+
+-(id)initWithTestDataset:(NSString*)testData
 {
     if ((self = [super init])) {
         // TODO: appropriate init
@@ -46,8 +62,10 @@
 		[[NSNotificationCenter defaultCenter] addObserver:self 
                                                  selector:@selector(resetProcedurePipeline:) 
                                                      name:BARTDidResetExperimentContextNotification object:nil];
+        testDataFileName = testData;
     }
 	return self;
+
 }
 
 -(void)dealloc
@@ -87,13 +105,17 @@
 	//FILE LOAD STUFF
 	if (FALSE == isRealTimeTCPInput){
 		// setup the input data
-        NSString *curDir = [[NSBundle mainBundle] resourcePath];
-        NSString *fileName = [NSString stringWithFormat:@"%@/TestDataset02-functional.nii", curDir ];
+        //NSString *curDir = [[NSBundle mainBundle] resourcePath];
+        //NSString *fileName = [NSString stringWithFormat:@"%@/TestDataset02-functional.nii", curDir ];
         
-		mInputData = [[EDDataElement alloc] initWithDataFile:fileName andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
-		if (nil == mInputData) {
-			return FALSE;
-		}
+        if (nil != testDataFileName){
+            mInputData = [[EDDataElement alloc] initWithDataFile:testDataFileName 
+                                                       andSuffix:@"" 
+                                                      andDialect:@"" 
+                                                     ofImageType:IMAGE_FCTDATA];}
+        if (nil == mInputData) {
+            return FALSE;
+        }
 		//POST 
 		[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadBackgroundImageNotification object:mInputData];
 	}
