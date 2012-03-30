@@ -8,11 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0000B16C13E15F7D00029A41 /* BAProcedureStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 0000B16B13E15F7D00029A41 /* BAProcedureStep.m */; };
-		0000B18513E1C92400029A41 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18413E1C92400029A41 /* Cocoa.framework */; };
-		0000B18F13E1C92400029A41 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18413E1C92400029A41 /* Cocoa.framework */; };
-		0000B19813E1C92400029A41 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0000B19613E1C92400029A41 /* InfoPlist.strings */; };
-		0000B19B13E1C92400029A41 /* TROYTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 0000B19A13E1C92400029A41 /* TROYTests.h */; };
-		0000B19D13E1C92400029A41 /* TROYTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0000B19C13E1C92400029A41 /* TROYTests.m */; };
 		0006F476122BFADD001DA2BB /* PRPreprocessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 0006F474122BFADD001DA2BB /* PRPreprocessor.h */; };
 		0006F477122BFADD001DA2BB /* PRPreprocessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F475122BFADD001DA2BB /* PRPreprocessor.m */; };
 		0006F482122BFC54001DA2BB /* BAAnalyzerGLMTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F481122BFC54001DA2BB /* BAAnalyzerGLMTest.m */; };
@@ -290,45 +285,33 @@
 		A713AA0B1445CFFE00BBF150 /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABE135C764F00562F3B /* libboost_filesystem.dylib */; };
 		A713AA0C1445CFFE00BBF150 /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABF135C764F00562F3B /* libboost_regex.dylib */; };
 		A713AA0D1445CFFE00BBF150 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8AC0135C764F00562F3B /* libboost_system.dylib */; };
-		A71ABB8F14DC26120074B510 /* ROTypedef.h in Headers */ = {isa = PBXBuildFile; fileRef = A71ABB8E14DC26120074B510 /* ROTypedef.h */; };
-		A71ABB9314DC417A0074B510 /* itkDisplacementFieldCompositionFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = A71ABB9114DC417A0074B510 /* itkDisplacementFieldCompositionFilter.h */; };
-		A71ABB9414DC417A0074B510 /* itkDisplacementFieldCompositionFilter.txx in Resources */ = {isa = PBXBuildFile; fileRef = A71ABB9214DC417A0074B510 /* itkDisplacementFieldCompositionFilter.txx */; };
-		A71ABB9514DC417A0074B510 /* itkDisplacementFieldCompositionFilter.txx in Resources */ = {isa = PBXBuildFile; fileRef = A71ABB9214DC417A0074B510 /* itkDisplacementFieldCompositionFilter.txx */; };
-		A71ABB9814F292640074B510 /* RORegistrationMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = A71ABB9614F292630074B510 /* RORegistrationMethod.h */; };
-		A71ABB9914F292640074B510 /* RORegistrationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = A71ABB9714F292640074B510 /* RORegistrationMethod.m */; };
-		A71ABB9A14F292640074B510 /* RORegistrationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = A71ABB9714F292640074B510 /* RORegistrationMethod.m */; };
-		A71ABB9B14F292640074B510 /* RORegistrationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = A71ABB9714F292640074B510 /* RORegistrationMethod.m */; };
-		A71ABB9C14F292640074B510 /* RORegistrationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = A71ABB9714F292640074B510 /* RORegistrationMethod.m */; };
-		A71ABB9F14F296CD0074B510 /* RORegistrationBART.h in Headers */ = {isa = PBXBuildFile; fileRef = A71ABB9D14F296CD0074B510 /* RORegistrationBART.h */; };
-		A71ABBA014F296CD0074B510 /* RORegistrationBART.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABB9E14F296CD0074B510 /* RORegistrationBART.mm */; };
-		A71ABBA114F296CD0074B510 /* RORegistrationBART.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABB9E14F296CD0074B510 /* RORegistrationBART.mm */; };
-		A71ABBA214F296CD0074B510 /* RORegistrationBART.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABB9E14F296CD0074B510 /* RORegistrationBART.mm */; };
-		A71ABBA314F296CD0074B510 /* RORegistrationBART.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABB9E14F296CD0074B510 /* RORegistrationBART.mm */; };
-		A71ABBA614F296F70074B510 /* RORegistrationVnormdata.h in Headers */ = {isa = PBXBuildFile; fileRef = A71ABBA414F296F70074B510 /* RORegistrationVnormdata.h */; };
-		A71ABBA714F296F70074B510 /* RORegistrationVnormdata.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABBA514F296F70074B510 /* RORegistrationVnormdata.mm */; };
-		A71ABBA814F296F70074B510 /* RORegistrationVnormdata.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABBA514F296F70074B510 /* RORegistrationVnormdata.mm */; };
-		A71ABBA914F296F70074B510 /* RORegistrationVnormdata.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABBA514F296F70074B510 /* RORegistrationVnormdata.mm */; };
-		A71ABBAA14F296F70074B510 /* RORegistrationVnormdata.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABBA514F296F70074B510 /* RORegistrationVnormdata.mm */; };
-		A71ABBAD1506103A0074B510 /* RORegistrationBARTAnaOnly.h in Headers */ = {isa = PBXBuildFile; fileRef = A71ABBAB1506103A0074B510 /* RORegistrationBARTAnaOnly.h */; };
-		A71ABBAE1506103A0074B510 /* RORegistrationBARTAnaOnly.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABBAC1506103A0074B510 /* RORegistrationBARTAnaOnly.mm */; };
-		A71ABBAF1506103A0074B510 /* RORegistrationBARTAnaOnly.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABBAC1506103A0074B510 /* RORegistrationBARTAnaOnly.mm */; };
-		A71ABBB01506103A0074B510 /* RORegistrationBARTAnaOnly.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABBAC1506103A0074B510 /* RORegistrationBARTAnaOnly.mm */; };
-		A71ABBB11506103A0074B510 /* RORegistrationBARTAnaOnly.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71ABBAC1506103A0074B510 /* RORegistrationBARTAnaOnly.mm */; };
-		A71ABBB315079C120074B510 /* TimeUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = A71ABBB215079C110074B510 /* TimeUtil.h */; };
-		A71DBC02143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A71DBC00143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp */; };
 		A744B0C513FD442200F4B13D /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
 		A744B0C713FD445300F4B13D /* EDDataElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B772C311417C6300B2931A /* EDDataElementVI.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A75A5D491403CF3D00514CD3 /* RORegistrationMethodTest.h in Headers */ = {isa = PBXBuildFile; fileRef = A75A5D471403CF3D00514CD3 /* RORegistrationMethodTest.h */; };
-		A75A5D4A1403CF3D00514CD3 /* RORegistrationMethodTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D481403CF3D00514CD3 /* RORegistrationMethodTest.mm */; };
-		A75A5D4C1403CF3D00514CD3 /* RORegistrationMethodTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = A75A5D481403CF3D00514CD3 /* RORegistrationMethodTest.mm */; };
-		A75A5D4D1403D87A00514CD3 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
+		A74EB3571525B09600AC7C59 /* isisRegistrationFactory3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A74EB3461525B09600AC7C59 /* isisRegistrationFactory3D.hpp */; };
+		A74EB3581525B09600AC7C59 /* isisRegistrationFactory3D_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A74EB3471525B09600AC7C59 /* isisRegistrationFactory3D_impl.hpp */; };
+		A74EB3591525B09600AC7C59 /* isisTimeStepExtractionFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A74EB3481525B09600AC7C59 /* isisTimeStepExtractionFilter.hpp */; };
+		A74EB35A1525B09600AC7C59 /* itkDisplacementFieldCompositionFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = A74EB34A1525B09600AC7C59 /* itkDisplacementFieldCompositionFilter.h */; };
+		A74EB35B1525B09600AC7C59 /* RORegistrationBART.h in Headers */ = {isa = PBXBuildFile; fileRef = A74EB34C1525B09600AC7C59 /* RORegistrationBART.h */; };
+		A74EB35C1525B09600AC7C59 /* RORegistrationBART.mm in Sources */ = {isa = PBXBuildFile; fileRef = A74EB34D1525B09600AC7C59 /* RORegistrationBART.mm */; };
+		A74EB35D1525B09600AC7C59 /* RORegistrationBARTAnaOnly.h in Headers */ = {isa = PBXBuildFile; fileRef = A74EB34E1525B09600AC7C59 /* RORegistrationBARTAnaOnly.h */; };
+		A74EB35E1525B09600AC7C59 /* RORegistrationBARTAnaOnly.mm in Sources */ = {isa = PBXBuildFile; fileRef = A74EB34F1525B09600AC7C59 /* RORegistrationBARTAnaOnly.mm */; };
+		A74EB35F1525B09600AC7C59 /* RORegistrationMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = A74EB3501525B09600AC7C59 /* RORegistrationMethod.h */; };
+		A74EB3601525B09600AC7C59 /* RORegistrationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = A74EB3511525B09600AC7C59 /* RORegistrationMethod.m */; };
+		A74EB3611525B09600AC7C59 /* RORegistrationVnormdata.h in Headers */ = {isa = PBXBuildFile; fileRef = A74EB3521525B09600AC7C59 /* RORegistrationVnormdata.h */; };
+		A74EB3621525B09600AC7C59 /* RORegistrationVnormdata.mm in Sources */ = {isa = PBXBuildFile; fileRef = A74EB3531525B09600AC7C59 /* RORegistrationVnormdata.mm */; };
+		A74EB3631525B09600AC7C59 /* ROTypedef.h in Headers */ = {isa = PBXBuildFile; fileRef = A74EB3541525B09600AC7C59 /* ROTypedef.h */; };
+		A74EB3641525B09600AC7C59 /* TimeUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = A74EB3551525B09600AC7C59 /* TimeUtil.h */; };
+		A74EB3701525B0BB00AC7C59 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A74EB3681525B0BB00AC7C59 /* InfoPlist.strings */; };
+		A74EB3711525B0BB00AC7C59 /* RORegistrationMethodTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = A74EB36B1525B0BB00AC7C59 /* RORegistrationMethodTest.mm */; };
+		A74EB3731525B0BB00AC7C59 /* TROYTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A74EB36F1525B0BB00AC7C59 /* TROYTests.m */; };
+		A74EB3751525B17A00AC7C59 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A74EB3741525B17A00AC7C59 /* Cocoa.framework */; };
+		A74EB3761525B1F600AC7C59 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
+		A74EB3771525B20400AC7C59 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A74EB3741525B17A00AC7C59 /* Cocoa.framework */; };
 		A75A5D611406887300514CD3 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440C0134B4F8800094A51 /* libboost_system-mt.dylib */; };
 		A75A5D64140689F900514CD3 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
 		A75A5D6514068D2000514CD3 /* TestDataset01-functional.nii in Resources */ = {isa = PBXBuildFile; fileRef = 00673D4113FD75C80056BD4F /* TestDataset01-functional.nii */; };
 		A7763C54143B09A500457A99 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
 		A7763C67143B34DE00457A99 /* TestDataset01-functional.nii in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00673D4113FD75C80056BD4F /* TestDataset01-functional.nii */; };
-		A7A476EE13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */; };
-		A7A476EF13F40EBE00426C70 /* isisRegistrationFactory3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A7A476ED13F40EBE00426C70 /* isisRegistrationFactory3D.hpp */; };
 		A7B9C45914C99D3C00DF35F1 /* libITKIOReview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D822611489226800CFFE0F /* libITKIOReview.a */; };
 		A7B9C45A14C99D4F00DF35F1 /* libITKIOReview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D822611489226800CFFE0F /* libITKIOReview.a */; };
 		A7B9C45B14C99D7400DF35F1 /* libITKIOReview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D822611489226800CFFE0F /* libITKIOReview.a */; };
@@ -666,14 +649,7 @@
 		0000B16A13E15F7D00029A41 /* BAProcedureStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAProcedureStep.h; sourceTree = "<group>"; };
 		0000B16B13E15F7D00029A41 /* BAProcedureStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureStep.m; sourceTree = "<group>"; };
 		0000B18313E1C92400029A41 /* TROY.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = TROY.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		0000B18413E1C92400029A41 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		0000B18813E1C92400029A41 /* TROY-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TROY-Prefix.pch"; sourceTree = "<group>"; };
 		0000B18E13E1C92400029A41 /* TROYTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TROYTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0000B19513E1C92400029A41 /* TROYTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TROYTests-Info.plist"; sourceTree = "<group>"; };
-		0000B19713E1C92400029A41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0000B19913E1C92400029A41 /* TROYTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TROYTests-Prefix.pch"; sourceTree = "<group>"; };
-		0000B19A13E1C92400029A41 /* TROYTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TROYTests.h; sourceTree = "<group>"; };
-		0000B19C13E1C92400029A41 /* TROYTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TROYTests.m; sourceTree = "<group>"; };
 		0006135611A3D84C00D369D0 /* EDNAUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EDNAUnitTestSuite.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0006135711A3D84C00D369D0 /* EDNAUnitTestSuite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "EDNAUnitTestSuite-Info.plist"; path = "../../projects/EDNAUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
 		0006284111A44D9300D369D0 /* EDDataElementIsisTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementIsisTest.h; sourceTree = "<group>"; };
@@ -930,25 +906,31 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* BARTApplication-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTApplication-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* BARTApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BARTApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A71ABB8E14DC26120074B510 /* ROTypedef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROTypedef.h; sourceTree = "<group>"; };
-		A71ABB9114DC417A0074B510 /* itkDisplacementFieldCompositionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = itkDisplacementFieldCompositionFilter.h; sourceTree = "<group>"; };
-		A71ABB9214DC417A0074B510 /* itkDisplacementFieldCompositionFilter.txx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = itkDisplacementFieldCompositionFilter.txx; sourceTree = "<group>"; };
-		A71ABB9614F292630074B510 /* RORegistrationMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationMethod.h; sourceTree = "<group>"; };
-		A71ABB9714F292640074B510 /* RORegistrationMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RORegistrationMethod.m; sourceTree = "<group>"; };
-		A71ABB9D14F296CD0074B510 /* RORegistrationBART.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationBART.h; sourceTree = "<group>"; };
-		A71ABB9E14F296CD0074B510 /* RORegistrationBART.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistrationBART.mm; sourceTree = "<group>"; };
-		A71ABBA414F296F70074B510 /* RORegistrationVnormdata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationVnormdata.h; sourceTree = "<group>"; };
-		A71ABBA514F296F70074B510 /* RORegistrationVnormdata.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistrationVnormdata.mm; sourceTree = "<group>"; };
-		A71ABBAB1506103A0074B510 /* RORegistrationBARTAnaOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationBARTAnaOnly.h; sourceTree = "<group>"; };
-		A71ABBAC1506103A0074B510 /* RORegistrationBARTAnaOnly.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistrationBARTAnaOnly.mm; sourceTree = "<group>"; };
-		A71ABBB215079C110074B510 /* TimeUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeUtil.h; sourceTree = "<group>"; };
-		A71DBC00143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisTimeStepExtractionFilter.hpp; sourceTree = "<group>"; };
-		A71DBC01143DF6CF00C9207B /* isisTimeStepExtractionFilter.txx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = isisTimeStepExtractionFilter.txx; sourceTree = "<group>"; };
-		A75A5D371403C78C00514CD3 /* isisIterationObserver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = isisIterationObserver.hpp; path = ../../../lipsia/src/new/valign3d/isisIterationObserver.hpp; sourceTree = "<group>"; };
-		A75A5D471403CF3D00514CD3 /* RORegistrationMethodTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationMethodTest.h; sourceTree = "<group>"; };
-		A75A5D481403CF3D00514CD3 /* RORegistrationMethodTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistrationMethodTest.mm; sourceTree = "<group>"; };
-		A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D_impl.hpp; sourceTree = "<group>"; };
-		A7A476ED13F40EBE00426C70 /* isisRegistrationFactory3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D.hpp; sourceTree = "<group>"; };
+		A74EB3461525B09600AC7C59 /* isisRegistrationFactory3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D.hpp; sourceTree = "<group>"; };
+		A74EB3471525B09600AC7C59 /* isisRegistrationFactory3D_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D_impl.hpp; sourceTree = "<group>"; };
+		A74EB3481525B09600AC7C59 /* isisTimeStepExtractionFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisTimeStepExtractionFilter.hpp; sourceTree = "<group>"; };
+		A74EB3491525B09600AC7C59 /* isisTimeStepExtractionFilter.txx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = isisTimeStepExtractionFilter.txx; sourceTree = "<group>"; };
+		A74EB34A1525B09600AC7C59 /* itkDisplacementFieldCompositionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = itkDisplacementFieldCompositionFilter.h; sourceTree = "<group>"; };
+		A74EB34B1525B09600AC7C59 /* itkDisplacementFieldCompositionFilter.txx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = itkDisplacementFieldCompositionFilter.txx; sourceTree = "<group>"; };
+		A74EB34C1525B09600AC7C59 /* RORegistrationBART.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationBART.h; sourceTree = "<group>"; };
+		A74EB34D1525B09600AC7C59 /* RORegistrationBART.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistrationBART.mm; sourceTree = "<group>"; };
+		A74EB34E1525B09600AC7C59 /* RORegistrationBARTAnaOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationBARTAnaOnly.h; sourceTree = "<group>"; };
+		A74EB34F1525B09600AC7C59 /* RORegistrationBARTAnaOnly.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistrationBARTAnaOnly.mm; sourceTree = "<group>"; };
+		A74EB3501525B09600AC7C59 /* RORegistrationMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationMethod.h; sourceTree = "<group>"; };
+		A74EB3511525B09600AC7C59 /* RORegistrationMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RORegistrationMethod.m; sourceTree = "<group>"; };
+		A74EB3521525B09600AC7C59 /* RORegistrationVnormdata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationVnormdata.h; sourceTree = "<group>"; };
+		A74EB3531525B09600AC7C59 /* RORegistrationVnormdata.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistrationVnormdata.mm; sourceTree = "<group>"; };
+		A74EB3541525B09600AC7C59 /* ROTypedef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROTypedef.h; sourceTree = "<group>"; };
+		A74EB3551525B09600AC7C59 /* TimeUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeUtil.h; sourceTree = "<group>"; };
+		A74EB3691525B0BB00AC7C59 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A74EB36A1525B0BB00AC7C59 /* RORegistrationMethodTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationMethodTest.h; sourceTree = "<group>"; };
+		A74EB36B1525B0BB00AC7C59 /* RORegistrationMethodTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistrationMethodTest.mm; sourceTree = "<group>"; };
+		A74EB36C1525B0BB00AC7C59 /* TROYTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TROYTests-Info.plist"; sourceTree = "<group>"; };
+		A74EB36D1525B0BB00AC7C59 /* TROYTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TROYTests-Prefix.pch"; sourceTree = "<group>"; };
+		A74EB36E1525B0BB00AC7C59 /* TROYTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TROYTests.h; sourceTree = "<group>"; };
+		A74EB36F1525B0BB00AC7C59 /* TROYTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TROYTests.m; sourceTree = "<group>"; };
+		A74EB3741525B17A00AC7C59 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = SDKs/MacOSX10.6.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		A74EB3781525B7A600AC7C59 /* TROYTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TROYTests-Info.plist"; sourceTree = "<group>"; };
 		A7BA11EC147FDB6E00DEEDF7 /* libisis_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisis_core.dylib; path = SDKs/MacOSX10.6.sdk/usr/local/lib/libisis_core.dylib; sourceTree = DEVELOPER_DIR; };
 		A7D1B6B4146448EA009A3335 /* libITKAlgorithms.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKAlgorithms.a; path = /usr/local/lib/InsightToolkit/libITKAlgorithms.a; sourceTree = "<absolute>"; };
 		A7D1B6B5146448EA009A3335 /* libITKBasicFilters.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKBasicFilters.a; path = /usr/local/lib/InsightToolkit/libITKBasicFilters.a; sourceTree = "<absolute>"; };
@@ -994,6 +976,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A74EB3751525B17A00AC7C59 /* Cocoa.framework in Frameworks */,
 				A7B9C45914C99D3C00DF35F1 /* libITKIOReview.a in Frameworks */,
 				A7BA11ED147FDB6E00DEEDF7 /* libisis_core.dylib in Frameworks */,
 				A7D1B6C1146448EB009A3335 /* libITKAlgorithms.a in Frameworks */,
@@ -1014,7 +997,6 @@
 				A7BA11E6146D70BE00DEEDF7 /* libitkv3p_netlib.a in Frameworks */,
 				A713AA0D1445CFFE00BBF150 /* libboost_system.dylib in Frameworks */,
 				A713AA091445CF1600BBF150 /* EDNA.dylib in Frameworks */,
-				0000B18513E1C92400029A41 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1022,6 +1004,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A74EB3771525B20400AC7C59 /* Cocoa.framework in Frameworks */,
+				A74EB3761525B1F600AC7C59 /* TROY.dylib in Frameworks */,
 				A7C601551524A2BD00E9085F /* libboost_filesystem.dylib in Frameworks */,
 				A7B9C45B14C99D7400DF35F1 /* libITKIOReview.a in Frameworks */,
 				A7D1B6CE14644A93009A3335 /* libITKAlgorithms.a in Frameworks */,
@@ -1037,8 +1021,6 @@
 				A7D1B6D914644A93009A3335 /* libitkvnl.a in Frameworks */,
 				A75A5D64140689F900514CD3 /* EDNA.dylib in Frameworks */,
 				A75A5D611406887300514CD3 /* libboost_system-mt.dylib in Frameworks */,
-				0000B18F13E1C92400029A41 /* Cocoa.framework in Frameworks */,
-				A75A5D4D1403D87A00514CD3 /* TROY.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1285,62 +1267,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0000B18613E1C92400029A41 /* TROY */ = {
-			isa = PBXGroup;
-			children = (
-				A71ABB9114DC417A0074B510 /* itkDisplacementFieldCompositionFilter.h */,
-				A71ABB9214DC417A0074B510 /* itkDisplacementFieldCompositionFilter.txx */,
-				A71DBC00143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp */,
-				A71DBC01143DF6CF00C9207B /* isisTimeStepExtractionFilter.txx */,
-				0000B18713E1C92400029A41 /* Supporting Files */,
-				A7A476EC13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp */,
-				A7A476ED13F40EBE00426C70 /* isisRegistrationFactory3D.hpp */,
-				A75A5D371403C78C00514CD3 /* isisIterationObserver.hpp */,
-				A71ABB8E14DC26120074B510 /* ROTypedef.h */,
-				A71ABB9614F292630074B510 /* RORegistrationMethod.h */,
-				A71ABB9714F292640074B510 /* RORegistrationMethod.m */,
-				A71ABB9D14F296CD0074B510 /* RORegistrationBART.h */,
-				A71ABB9E14F296CD0074B510 /* RORegistrationBART.mm */,
-				A71ABBAB1506103A0074B510 /* RORegistrationBARTAnaOnly.h */,
-				A71ABBAC1506103A0074B510 /* RORegistrationBARTAnaOnly.mm */,
-				A71ABBA414F296F70074B510 /* RORegistrationVnormdata.h */,
-				A71ABBA514F296F70074B510 /* RORegistrationVnormdata.mm */,
-				A71ABBB215079C110074B510 /* TimeUtil.h */,
-			);
-			path = TROY;
-			sourceTree = "<group>";
-		};
-		0000B18713E1C92400029A41 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				0000B18813E1C92400029A41 /* TROY-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		0000B19313E1C92400029A41 /* TROYTests */ = {
-			isa = PBXGroup;
-			children = (
-				0000B19A13E1C92400029A41 /* TROYTests.h */,
-				0000B19C13E1C92400029A41 /* TROYTests.m */,
-				0000B19413E1C92400029A41 /* Supporting Files */,
-				A75A5D471403CF3D00514CD3 /* RORegistrationMethodTest.h */,
-				A75A5D481403CF3D00514CD3 /* RORegistrationMethodTest.mm */,
-			);
-			name = TROYTests;
-			path = ../projects/TROYTests;
-			sourceTree = "<group>";
-		};
-		0000B19413E1C92400029A41 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				0000B19513E1C92400029A41 /* TROYTests-Info.plist */,
-				0000B19613E1C92400029A41 /* InfoPlist.strings */,
-				0000B19913E1C92400029A41 /* TROYTests-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		0006284011A44D6E00D369D0 /* EDNATests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1449,6 +1375,7 @@
 		0040B7921141470400A57967 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				A74EB3451525B09600AC7C59 /* TROY */,
 				004ABB7B137889D800B13077 /* SELMA */,
 				0006F473122BFADD001DA2BB /* PRINCE */,
 				0040B7931141470400A57967 /* ARTIE */,
@@ -1553,7 +1480,7 @@
 		0040B8521141472200A57967 /* tests */ = {
 			isa = PBXGroup;
 			children = (
-				0000B19313E1C92400029A41 /* TROYTests */,
+				A74EB3671525B0BB00AC7C59 /* TROYTests */,
 				0006F45E122BF3D0001DA2BB /* PRINCETests */,
 				0006284011A44D6E00D369D0 /* EDNATests */,
 				00E7A643117EF1B900696498 /* NEDTests */,
@@ -1911,11 +1838,12 @@
 		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
 			isa = PBXGroup;
 			children = (
+				A74EB3781525B7A600AC7C59 /* TROYTests-Info.plist */,
+				A74EB3741525B17A00AC7C59 /* Cocoa.framework */,
 				A7D822611489226800CFFE0F /* libITKIOReview.a */,
 				00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */,
 				0040B78F1141470400A57967 /* docs */,
 				0040B7921141470400A57967 /* src */,
-				0000B18613E1C92400029A41 /* TROY */,
 				0040B8521141472200A57967 /* tests */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -1963,6 +1891,43 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A74EB3451525B09600AC7C59 /* TROY */ = {
+			isa = PBXGroup;
+			children = (
+				A74EB3461525B09600AC7C59 /* isisRegistrationFactory3D.hpp */,
+				A74EB3471525B09600AC7C59 /* isisRegistrationFactory3D_impl.hpp */,
+				A74EB3481525B09600AC7C59 /* isisTimeStepExtractionFilter.hpp */,
+				A74EB3491525B09600AC7C59 /* isisTimeStepExtractionFilter.txx */,
+				A74EB34A1525B09600AC7C59 /* itkDisplacementFieldCompositionFilter.h */,
+				A74EB34B1525B09600AC7C59 /* itkDisplacementFieldCompositionFilter.txx */,
+				A74EB34C1525B09600AC7C59 /* RORegistrationBART.h */,
+				A74EB34D1525B09600AC7C59 /* RORegistrationBART.mm */,
+				A74EB34E1525B09600AC7C59 /* RORegistrationBARTAnaOnly.h */,
+				A74EB34F1525B09600AC7C59 /* RORegistrationBARTAnaOnly.mm */,
+				A74EB3501525B09600AC7C59 /* RORegistrationMethod.h */,
+				A74EB3511525B09600AC7C59 /* RORegistrationMethod.m */,
+				A74EB3521525B09600AC7C59 /* RORegistrationVnormdata.h */,
+				A74EB3531525B09600AC7C59 /* RORegistrationVnormdata.mm */,
+				A74EB3541525B09600AC7C59 /* ROTypedef.h */,
+				A74EB3551525B09600AC7C59 /* TimeUtil.h */,
+			);
+			path = TROY;
+			sourceTree = "<group>";
+		};
+		A74EB3671525B0BB00AC7C59 /* TROYTests */ = {
+			isa = PBXGroup;
+			children = (
+				A74EB3681525B0BB00AC7C59 /* InfoPlist.strings */,
+				A74EB36A1525B0BB00AC7C59 /* RORegistrationMethodTest.h */,
+				A74EB36B1525B0BB00AC7C59 /* RORegistrationMethodTest.mm */,
+				A74EB36C1525B0BB00AC7C59 /* TROYTests-Info.plist */,
+				A74EB36D1525B0BB00AC7C59 /* TROYTests-Prefix.pch */,
+				A74EB36E1525B0BB00AC7C59 /* TROYTests.h */,
+				A74EB36F1525B0BB00AC7C59 /* TROYTests.m */,
+			);
+			path = TROYTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1970,17 +1935,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7A476EE13F40EBE00426C70 /* isisRegistrationFactory3D_impl.hpp in Headers */,
-				A7A476EF13F40EBE00426C70 /* isisRegistrationFactory3D.hpp in Headers */,
-				A75A5D491403CF3D00514CD3 /* RORegistrationMethodTest.h in Headers */,
-				A71DBC02143DF6CF00C9207B /* isisTimeStepExtractionFilter.hpp in Headers */,
-				A71ABB8F14DC26120074B510 /* ROTypedef.h in Headers */,
-				A71ABB9314DC417A0074B510 /* itkDisplacementFieldCompositionFilter.h in Headers */,
-				A71ABB9814F292640074B510 /* RORegistrationMethod.h in Headers */,
-				A71ABB9F14F296CD0074B510 /* RORegistrationBART.h in Headers */,
-				A71ABBA614F296F70074B510 /* RORegistrationVnormdata.h in Headers */,
-				A71ABBAD1506103A0074B510 /* RORegistrationBARTAnaOnly.h in Headers */,
-				A71ABBB315079C120074B510 /* TimeUtil.h in Headers */,
+				A74EB3571525B09600AC7C59 /* isisRegistrationFactory3D.hpp in Headers */,
+				A74EB3581525B09600AC7C59 /* isisRegistrationFactory3D_impl.hpp in Headers */,
+				A74EB3591525B09600AC7C59 /* isisTimeStepExtractionFilter.hpp in Headers */,
+				A74EB35A1525B09600AC7C59 /* itkDisplacementFieldCompositionFilter.h in Headers */,
+				A74EB35B1525B09600AC7C59 /* RORegistrationBART.h in Headers */,
+				A74EB35D1525B09600AC7C59 /* RORegistrationBARTAnaOnly.h in Headers */,
+				A74EB35F1525B09600AC7C59 /* RORegistrationMethod.h in Headers */,
+				A74EB3611525B09600AC7C59 /* RORegistrationVnormdata.h in Headers */,
+				A74EB3631525B09600AC7C59 /* ROTypedef.h in Headers */,
+				A74EB3641525B09600AC7C59 /* TimeUtil.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2423,9 +2387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A75A5D6514068D2000514CD3 /* TestDataset01-functional.nii in Resources */,
-				0000B19813E1C92400029A41 /* InfoPlist.strings in Resources */,
-				0000B19B13E1C92400029A41 /* TROYTests.h in Resources */,
-				A71ABB9514DC417A0074B510 /* itkDisplacementFieldCompositionFilter.txx in Resources */,
+				A74EB3701525B0BB00AC7C59 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2484,7 +2446,6 @@
 				00673D4313FD75C80056BD4F /* TestDataset01-functional.nii in Resources */,
 				00673D4413FD75C80056BD4F /* TestDataset02-functional.nii in Resources */,
 				004E8DB2140283AE00D70294 /* PresentationControl.xib in Resources */,
-				A71ABB9414DC417A0074B510 /* itkDisplacementFieldCompositionFilter.txx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2610,10 +2571,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A71ABB9B14F292640074B510 /* RORegistrationMethod.m in Sources */,
-				A71ABBA214F296CD0074B510 /* RORegistrationBART.mm in Sources */,
-				A71ABBA914F296F70074B510 /* RORegistrationVnormdata.mm in Sources */,
-				A71ABBB01506103A0074B510 /* RORegistrationBARTAnaOnly.mm in Sources */,
+				A74EB35C1525B09600AC7C59 /* RORegistrationBART.mm in Sources */,
+				A74EB35E1525B09600AC7C59 /* RORegistrationBARTAnaOnly.mm in Sources */,
+				A74EB3601525B09600AC7C59 /* RORegistrationMethod.m in Sources */,
+				A74EB3621525B09600AC7C59 /* RORegistrationVnormdata.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2621,12 +2582,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0000B19D13E1C92400029A41 /* TROYTests.m in Sources */,
-				A75A5D4C1403CF3D00514CD3 /* RORegistrationMethodTest.mm in Sources */,
-				A71ABB9C14F292640074B510 /* RORegistrationMethod.m in Sources */,
-				A71ABBA314F296CD0074B510 /* RORegistrationBART.mm in Sources */,
-				A71ABBAA14F296F70074B510 /* RORegistrationVnormdata.mm in Sources */,
-				A71ABBB11506103A0074B510 /* RORegistrationBARTAnaOnly.mm in Sources */,
+				A74EB3711525B0BB00AC7C59 /* RORegistrationMethodTest.mm in Sources */,
+				A74EB3731525B0BB00AC7C59 /* TROYTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2690,10 +2647,6 @@
 				00D444D6134DEB3000094A51 /* EDDataElementVI.m in Sources */,
 				00D444D7134DEB3100094A51 /* EDDataElementIsis.mm in Sources */,
 				00D444E2134DEB5300094A51 /* BlockIO.c in Sources */,
-				A71ABB9A14F292640074B510 /* RORegistrationMethod.m in Sources */,
-				A71ABBA114F296CD0074B510 /* RORegistrationBART.mm in Sources */,
-				A71ABBA814F296F70074B510 /* RORegistrationVnormdata.mm in Sources */,
-				A71ABBAF1506103A0074B510 /* RORegistrationBARTAnaOnly.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2829,11 +2782,6 @@
 				0023CBD013EAC45B006303B6 /* BAProcedureStep_Preprocessing.m in Sources */,
 				0023CBD313EAC484006303B6 /* BAProcedureStep_Analysis.m in Sources */,
 				0023CBD613EAC4B3006303B6 /* BAProcedureStep_Feedback.m in Sources */,
-				A75A5D4A1403CF3D00514CD3 /* RORegistrationMethodTest.mm in Sources */,
-				A71ABB9914F292640074B510 /* RORegistrationMethod.m in Sources */,
-				A71ABBA014F296CD0074B510 /* RORegistrationBART.mm in Sources */,
-				A71ABBA714F296F70074B510 /* RORegistrationVnormdata.mm in Sources */,
-				A71ABBAE1506103A0074B510 /* RORegistrationBARTAnaOnly.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2946,14 +2894,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		0000B19613E1C92400029A41 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0000B19713E1C92400029A41 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2970,6 +2910,14 @@
 			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
+		A74EB3681525B0BB00AC7C59 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A74EB3691525B0BB00AC7C59 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -2983,8 +2931,8 @@
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TROY/TROY-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"_ENABLE_DEBUG=1",
 					"_ENABLE_LOG=1",
@@ -3012,8 +2960,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TROY/TROY-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				LIBRARY_SEARCH_PATHS = (
@@ -3035,8 +2983,8 @@
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TROYTests/TROYTests-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"_ENABLE_LOG=1",
 					"_ENABLE_DEBUG=1",
@@ -3044,7 +2992,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				INFOPLIST_FILE = "TROYTests/TROYTests-Info.plist";
+				INFOPLIST_FILE = "TROYTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib/InsightToolkit,
@@ -3073,11 +3021,11 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TROYTests/TROYTests-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				INFOPLIST_FILE = "TROYTests/TROYTests-Info.plist";
+				INFOPLIST_FILE = "TROYTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib/InsightToolkit,
