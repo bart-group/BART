@@ -12,7 +12,8 @@
     
     NSString* constraintID;
     BOOL      isActive;
-    NSDictionary* systemVariables;
+    NSDictionary* systemVariablesBySource;
+    NSDictionary* systemVariablesByID;
     NSArray* constraintConditions;
     NSArray* constraintActionsThen;
     NSArray* constraintActionsElse;
@@ -23,7 +24,7 @@
 //@property (readwrite, getter = position, setter = setPosition:) NSPoint mPosition;
 @property (readonly, getter = isActive) BOOL isActive;
 @property (readonly, getter = constraintID) NSString* constraintID;
-@property (readonly, getter = variables) NSDictionary* systemVariables;
+@property (readonly, getter = variables) NSDictionary* systemVariablesBySource;
 @property (readonly, getter = conditions) NSArray* constraintConditions;
 @property (readonly, getter = actionsThen) NSArray* constraintActionsThen;
 @property (readonly, getter = actionsElse) NSArray* constraintActionsElse;

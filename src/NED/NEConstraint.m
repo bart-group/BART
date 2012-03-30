@@ -22,7 +22,7 @@
 @synthesize constraintActionsThen;
 @synthesize constraintID;
 @synthesize constraintActionsElse;
-@synthesize systemVariables;
+@synthesize systemVariablesBySource;
 @synthesize constraintConditions;
 @synthesize numberOfExternalSources;
 
@@ -33,7 +33,8 @@
     {
         constraintID = @"";
         isActive = NO;
-        systemVariables = NULL;
+        systemVariablesBySource = NULL;
+        systemVariablesByID = NULL;
         constraintConditions = NULL;
         constraintActionsThen = NULL;
         constraintActionsElse = NULL;
@@ -69,6 +70,7 @@
             [dictAllSystemVariables setObject:[NSDictionary dictionaryWithObjectsAndKeys:source, @"source", variableName, @"variableName", nil] forKey:variableID];
 
         }
+        systemVariablesByID = [[NSDictionary alloc] initWithDictionary:dictAllSystemVariables];
         
         // (3) read all available conditions
         NSUInteger nrVariables = [config countNodes:[NSString stringWithFormat:@"%@/conditions/condition", key]];
@@ -77,7 +79,7 @@
         for (NSUInteger count = 0; count < nrVariables; count++) {
             NSString *conditionVariableRef = [config getProp:[NSString stringWithFormat:@"%@/conditions/condition[%d]/@systemVariableRef", key, count+1]];
             [arrayConditionReference addObject:conditionVariableRef];
-            [arrayConditions addObject:[[dictAllSystemVariables objectForKey:conditionVariableRef] objectForKey:@"variableName"]];
+            [arrayConditions addObject:[[systemVariablesByID objectForKey:conditionVariableRef] objectForKey:@"variableName"]];
         } 
         // TODO: namen einsortieren enstprechend der Bedingung
         constraintConditions = [[NSArray alloc] initWithArray:arrayConditions];
@@ -102,9 +104,9 @@
             //check conditions
             for (NSString *sysVRef in arrayConditionReference) {
                 //NSString *s1 = [uniqueVariableSources valueAtIndex:indSource];
-                NSString *s2 = [[dictAllSystemVariables valueForKey:sysVRef] valueForKey:@"source"]; 
+                NSString *s2 = [[systemVariablesByID valueForKey:sysVRef] valueForKey:@"source"]; 
                 if (NSOrderedSame == [s1 compare:s2 options:NSCaseInsensitiveSearch]){
-                    [arrayParams addObject:[[dictAllSystemVariables valueForKey:sysVRef] valueForKey:@"variableName"]];
+                    [arrayParams addObject:[[systemVariablesByID valueForKey:sysVRef] valueForKey:@"variableName"]];
                 }
                 //NSString *source = [dictAllSystemVariables objectForKey:sysVRef]; 
             }
@@ -117,7 +119,7 @@
                     if (NSOrderedSame == [[att valueForKey:@"attributeType"] compare:@"systemVariableRef" options:NSCaseInsensitiveSearch])
                     {
                         NSString *sysVName = [att valueForKey:@"attributeName"];
-                        NSString *s2 = [[dictAllSystemVariables valueForKey:sysVName] valueForKey:@"source"];
+                        NSString *s2 = [[systemVariablesByID valueForKey:sysVName] valueForKey:@"source"];
                         if (NSOrderedSame == [s1 compare:s2 options:NSCaseInsensitiveSearch]){
                             [arrayParams addObject:sysVName];} 
                     }
@@ -130,7 +132,7 @@
                     if (NSOrderedSame == [[att valueForKey:@"attributeType"] compare:@"systemVariableRef" options:NSCaseInsensitiveSearch])
                     {
                         NSString *sysVName = [att valueForKey:@"attributeName"];
-                        NSString *s2 = [[dictAllSystemVariables valueForKey:sysVName] valueForKey:@"source"];
+                        NSString *s2 = [[systemVariablesByID valueForKey:sysVName] valueForKey:@"source"];
                         if (NSOrderedSame == [s1 compare:s2 options:NSCaseInsensitiveSearch]){
                             [arrayParams addObject:sysVName];} 
                     }
@@ -140,7 +142,7 @@
             [dictSystemVariables setObject:arrayParams forKey:s1];
         }
         
-        systemVariables = [[NSDictionary alloc ] initWithDictionary:dictSystemVariables];
+        systemVariablesBySource = [[NSDictionary alloc ] initWithDictionary:dictSystemVariables];
         
         
     }
@@ -251,7 +253,13 @@
                     if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/stimulusAction[%d]/%@/@%@", key,index+1, fctName, attName ]] )
                     {
                         attVal = [config getProp:[NSString stringWithFormat:@"%@/stimulusAction[%d]/%@/@%@", key,index+1, fctName, attName ]];
-                        [newAtt setValue:attVal forKey:@"attributeValue"];
+                        
+                        if (nil != [systemVariablesByID objectForKey:attVal])
+                        {
+                            [newAtt setValue:[[systemVariablesByID objectForKey:attVal] objectForKey:@"variableName"] forKey:@"attributeValue"];
+                        }
+                        else{
+                            [newAtt setValue:attVal forKey:@"attributeValue"];}
                         [arrayCollectAttributes addObject:newAtt];
                     }
 
@@ -276,7 +284,8 @@
     [constraintConditions release];
     [constraintActionsThen release];
     [constraintActionsElse release];
-    [systemVariables release];
+    [systemVariablesBySource release];
+    [systemVariablesByID release];
     [super dealloc];
 }
 
