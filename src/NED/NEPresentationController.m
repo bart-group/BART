@@ -25,7 +25,7 @@
 
 
 /** The time interval for one update tick in milliseconds. */
-#define TICK_TIME 5
+#define TICK_TIME 1
 /** The time interval for the update in seconds.*/
 static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 
@@ -227,24 +227,21 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         return;
     }
     
-    for (NEMediaObject* mediaObj in [mTimetable mediaObjects]) {
-        if ([[mediaObj getID] compare:mID] == 0) {
-            NEStimEvent* event = [[NEStimEvent alloc] initWithTime:t 
-                                                          duration:dur 
-                                                       mediaObject:mediaObj];
-            if ([mUpdateThread isExecuting]) {
-                [mLockAddedEvents lock];
-                [mAddedEvents addObject:event];
-                [mLockAddedEvents unlock];
-                
-            } else {
-                [mTimetable addEvent:event];
-                [mViewManager updateTimeline];
-            }
-            [event release];
-            return;
-        }
+    NEMediaObject *mediaObj = [mTimetable getMediaObjectByID:mID];
+    NEStimEvent* event = [[NEStimEvent alloc] initWithTime:t 
+                                                  duration:dur 
+                                               mediaObject:mediaObj];
+    if ([mUpdateThread isExecuting]) {
+        [mLockAddedEvents lock];
+        [mAddedEvents addObject:event];
+        [mLockAddedEvents unlock];
+        
+    } else {
+        [mTimetable addEvent:event];
+        [mViewManager updateTimeline];
     }
+    [event release];
+    return;
 }
 
 -(void)enqueueEvent:(NEStimEvent*)newEvent
@@ -391,6 +388,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         //evaluate external condition
         NSDictionary* externalCondition = [[self checkForExternalConditionsForEvent:event] retain];
         
+        
         if (nil != externalCondition)
         {
             BOOL isConditionFullfilled = YES;
@@ -459,20 +457,16 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
     
     if (NSOrderedSame == [fName compare:@"replaceMediaObject"])
     {
-        for (NEMediaObject* mediaObj in [mTimetable mediaObjects]) {
-            for (NSDictionary *att in attArray){
-                if ( NSOrderedSame == [[att objectForKey:@"attributeType"] compare:@"mediaObjectRef" options:NSCaseInsensitiveSearch])
-                {
-                    if (NSOrderedSame == [[mediaObj getID] compare:[att objectForKey:@"attributeValue"]]) 
-                    {
-                        NEStimEvent *newEvent = [[NEStimEvent alloc] initWithTime:[currentEvent time] 
-                                                                         duration:[currentEvent duration] 
-                                                                      mediaObject:mediaObj];
-                        [self enqueueEvent:newEvent asReplacementFor:currentEvent];
-                        [newEvent release];
-                        return;
-                    }
-                }
+        for (NSDictionary *att in attArray){
+            if ( NSOrderedSame == [[att objectForKey:@"attributeType"] compare:@"mediaObjectRef" options:NSCaseInsensitiveSearch])
+            {
+                NEMediaObject *mediaObj = [mTimetable getMediaObjectByID:[att objectForKey:@"attributeValue"]];
+                NEStimEvent *newEvent = [[NEStimEvent alloc] initWithTime:[currentEvent time] 
+                                                                 duration:[currentEvent duration] 
+                                                              mediaObject:mediaObj];
+                [self enqueueEvent:newEvent asReplacementFor:currentEvent];
+                [newEvent release];
+                return;
             }
         }
         return;
@@ -485,7 +479,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         for (NSDictionary *att in attArray){
             if (NSOrderedSame == [[att objectForKey:@"attributeType"] compare:@"Name" options:NSCaseInsensitiveSearch])
             {
-                paraName = [att objectForKey:@"attributeName"];
+                paraName = [att objectForKey:@"attributeValue"];
             }
             else if (NSOrderedSame == [[att objectForKey:@"attributeType"] compare:@"systemVariableRef" options:NSCaseInsensitiveSearch])
             {
@@ -538,19 +532,10 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         
         }
         
-        for (NEMediaObject* mediaObj in [mTimetable mediaObjects]) {
-            if ((nil != moRef) && (NSOrderedSame == [[mediaObj getID] compare:moRef options:NSCaseInsensitiveSearch]) )
-            {
-                NEStimEvent *newEvent = [[NEStimEvent alloc] initWithTime:[currentEvent time] 
-                                                                 duration:duration 
-                                                              mediaObject:mediaObj];
-                [self enqueueEvent:newEvent asReplacementFor:currentEvent];
-                [newEvent release];
-                return;
-            }
-        }
+        //TODO
+        [self requestAdditionOfEventWithTime:[currentEvent time]+UPDATE_INTERVAL duration:duration andMediaObjectID:moRef];
+        
         if (YES == pushAllEvents){
-        //float time = 20;//[[action objectForKey:@"shiftTime"] floatValue];
             [mTimetable shiftOnsetForAllEventsToHappen:duration];}
         return;
     }

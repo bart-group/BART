@@ -30,6 +30,11 @@
     NSArray* mediaObjectIDs;
     
     /**
+     * TEST
+     */
+    NSDictionary* dictMediaObjects;
+    
+    /**
      * All events how they were originally configured
      * in EDL.
      * Key:   media object ID.
@@ -71,6 +76,7 @@
 @property (readonly) NSArray* mediaObjects;
 @property (readonly) NSUInteger duration;
 @property (readonly) NSUInteger numberOfMediaObjects;
+//@property (readonly) NSDictionary *dictMediaObjects;
 
 /**
  * Initializes a newly allocated NETimetable instance with
@@ -179,5 +185,13 @@
  * are still available.
  */
 -(void)resetTimetable;
+
+/**
+ * ask for a reference of a media object by its ID
+ *
+ * \param moID a string with the ID of the mediaObject
+ * \return a reference to the MediaObject
+ */
+-(NEMediaObject*)getMediaObjectByID:(NSString*)moID;
 
 @end

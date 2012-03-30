@@ -106,17 +106,24 @@ NSUInteger screenResolutionY;
         NSDictionary *dictForPlugin = [NSDictionary dictionaryWithObjectsAndKeys:[[dictExternalConditions objectForKey:constraintID] objectForKey:@"paramsArray"], @"paramsArray", [NSNumber numberWithUnsignedInteger:screenResolutionX], @"screenResolutionX", [NSNumber numberWithUnsignedInteger:screenResolutionY], @"screenResolutionY",  nil];
         
         NSDictionary *dictFromPlugin = [[s evaluateConstraintForParams:dictForPlugin] retain];
+        //NSLog(@"DICT FROM PLUGIN %@", dictFromPlugin);
         
         //result 
         NSDictionary *dictReturn;
         NSMutableArray  *arrayConditions = [[NSMutableArray alloc] initWithCapacity:1];
         NSArray *constraintConditions = [[dictExternalConditions objectForKey:constraintID] objectForKey:@"conditionsArray"]; 
+        //NSLog(@"CONDITIONSARRAY: %@", constraintConditions);
+        
+        
+        
         NSArray *actionsThen = [[dictExternalConditions objectForKey:constraintID] objectForKey:@"actionsThenArray"];
         NSArray *actionsElse = [[dictExternalConditions objectForKey:constraintID] objectForKey:@"actionsElseArray"];
         NSMutableDictionary *dictSysVariablesResults = [[NSMutableDictionary alloc] initWithCapacity:1];
         
         //collect conditions
         for (NSString *para in [dictFromPlugin allKeys]){
+            //NSLog(@"PARA: %@", para);
+            //NSLog(@"ALL KEYS: %@", [dictFromPlugin allKeys]);
             if (NSNotFound != [constraintConditions indexOfObject:para])
             {
                 [arrayConditions addObject:[dictFromPlugin objectForKey:para]];
@@ -144,7 +151,7 @@ NSUInteger screenResolutionY;
         
         
         dictReturn = [[NSDictionary alloc] initWithObjectsAndKeys:
-                      arrayConditions, @"conditions", 
+                      arrayConditions, @"conditionsArray", 
                       dictSysVariablesResults, @"resultVariables",
                       actionsThen, @"actionsThen",
                       actionsElse, @"actionsElse",
@@ -154,9 +161,9 @@ NSUInteger screenResolutionY;
        // return [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:p.x], @"eyePosX",[NSNumber numberWithFloat:p.y], @"eyePosY", nil];
         
         [dictFromPlugin release];
-        [arrayConditions removeAllObjects];
+        //[arrayConditions removeAllObjects];
         [arrayConditions release];
-        [dictSysVariablesResults removeAllObjects];
+        //[dictSysVariablesResults removeAllObjects];
         [dictSysVariablesResults release];
         
         return [dictReturn autorelease];
