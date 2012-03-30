@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0021FB131459C31100C25FDC /* BARTSerialIOFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0021FB121459C31100C25FDC /* BARTSerialIOFramework.framework */; };
 		00584B841298387700CEBEED /* ConfigSerialIOEyeTrac.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00584B831298387700CEBEED /* ConfigSerialIOEyeTrac.plist */; };
 		00997EF5129680F600AFFA8A /* EyeTracInterpret.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00997EF4129680F600AFFA8A /* EyeTracInterpret.mm */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0021FB121459C31100C25FDC /* BARTSerialIOFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BARTSerialIOFramework.framework; path = ../../../../runtime/BART_workspace/Build/Products/Debug/BARTSerialIOFramework.framework; sourceTree = "<group>"; };
 		00584B831298387700CEBEED /* ConfigSerialIOEyeTrac.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ConfigSerialIOEyeTrac.plist; sourceTree = "<group>"; };
 		00997EF3129680F600AFFA8A /* EyeTracInterpret.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeTracInterpret.h; sourceTree = "<group>"; };
 		00997EF4129680F600AFFA8A /* EyeTracInterpret.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EyeTracInterpret.mm; sourceTree = "<group>"; };
@@ -29,6 +31,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
+				0021FB131459C31100C25FDC /* BARTSerialIOFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +41,7 @@
 		089C166AFE841209C02AAC07 /* BARTSerialIOPluginEyeTrac */ = {
 			isa = PBXGroup;
 			children = (
+				0021FB121459C31100C25FDC /* BARTSerialIOFramework.framework */,
 				08FB77AFFE84173DC02AAC07 /* Classes */,
 				32C88E010371C26100C91783 /* Other Sources */,
 				089C167CFE841241C02AAC07 /* Resources */,
@@ -131,8 +135,11 @@
 /* Begin PBXProject section */
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "BARTSerialIOPluginEyeTrac" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -190,9 +197,11 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../runtime/BART_workspace/Build/Products/Debug\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -214,7 +223,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../runtime/BART_workspace/Build/Products/Debug\"",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BARTSerialIOPluginEyeTrac_Prefix.pch;
@@ -254,9 +266,8 @@
 					"-framework",
 					BARTSerialIOFramework,
 				);
-				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = "";
 			};
 			name = Debug;
@@ -284,9 +295,8 @@
 					"-framework",
 					BARTSerialIOFramework,
 				);
-				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};

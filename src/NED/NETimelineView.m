@@ -214,6 +214,7 @@ static const CGFloat DRAGGER_EDGE_LENGTH = 5.0;
 
 -(void)drawCoordinateSystem:(NSRect)rect
 {
+    #pragma unused(rect)
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
     
     // Draw axis of coordinates.
@@ -233,6 +234,7 @@ static const CGFloat DRAGGER_EDGE_LENGTH = 5.0;
 
 -(void)drawEventBars:(NSRect)rect
 {
+    #pragma unused(rect)
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
     NSUInteger mediaObjNr = 0;
     
@@ -280,6 +282,7 @@ static const CGFloat DRAGGER_EDGE_LENGTH = 5.0;
 
 -(void)drawDraggedArea:(NSRect)rect
 {
+    #pragma unused(rect)
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
     
     CGContextSetRGBStrokeColor(context, 0.5, 0.0, 1.0, 1.0); 
@@ -310,6 +313,7 @@ static const CGFloat DRAGGER_EDGE_LENGTH = 5.0;
 
 -(void)drawCurrentTimeLine:(NSRect)rect
 {
+    #pragma unused(rect)
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
     
     CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0); 

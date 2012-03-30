@@ -55,6 +55,7 @@
 
 -(void)drawRect:(NSRect)dirtyRect
 {
+    #pragma unused(dirtyRect)
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
 
     // Temperature between 0.0 and 1.0 (where 0.0 is minTemperature and 1.0 is maxTemperature).

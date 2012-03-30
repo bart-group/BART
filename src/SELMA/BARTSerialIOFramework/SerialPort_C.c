@@ -9,6 +9,9 @@
 
 #include "SerialPort_C.h"
 
+// Hold the original termios attributes so we can reset them
+static struct termios gOriginalTTYAttrs;
+
 // Returns an iterator across all known modems. Caller is responsible for
 // releasing the iterator when iteration is complete.
 kern_return_t FindModems(io_iterator_t *matchingServices)
@@ -51,27 +54,12 @@ kern_return_t FindModems(io_iterator_t *matchingServices)
 		 released. If the value is not of the sort expected by the
 		 retain or release callbacks, the behavior is undefined.
 		 */
-        /*CFDictionarySetValue(classesToMatch,
-		 CFSTR(kIOSerialBSDTypeKey),
-		 CFSTR(kIOSerialBSDModemType));*/
         CFDictionarySetValue(classesToMatch,
                              CFSTR(kIOSerialBSDTypeKey),
                              //CFSTR(kIOSerialBSDRS232Type)
 							 CFSTR(kIOSerialBSDAllTypes))
 		;
-        /*CFDictionarySetValue(classesToMatch,
-		 CFSTR(kIOSerialBSDTypeKey),
-		 CFSTR(kIOSerialBSDAllTypes));*/
-		
-		// Each serial device object has a property with key
-        // kIOSerialBSDTypeKey and a value that is one of kIOSerialBSDAllTypes,
-        // kIOSerialBSDModemType, or kIOSerialBSDRS232Type. You can experiment with the
-        // matching by changing the last parameter in the above call to CFDictionarySetValue.
-        
-        // As shipped, this sample is only interested in modems,
-        // so add this property to the CFDictionary we're matching on. 
-        // This will find devices that advertise themselves as modems,
-        // such as built-in and USB modems. However, this match won't find serial modems.
+       
     }
     
     /*! @function IOServiceGetMatchingServices
@@ -132,20 +120,16 @@ kern_return_t GetModemPath(io_iterator_t serialPortIterator, char *bsdPath, CFIn
             
             if (result)
 			{
-                char temp[lengthDeviceName+1];
-                strncpy(temp, deviceName, lengthDeviceName);
-                temp[lengthDeviceName] = '\0';
-                char *ans;                
-                ans = strstr(bsdPath,temp);
-                printf("Modem found with BSD path: %s", bsdPath);
-                if (ans != NULL) {
+                int ret = strcmp(bsdPath, deviceName);
+                printf("Modem found with BSD path: %s while searching for %s", bsdPath, deviceName);
+                if (ret == 0) {
                     modemFound = true;
                     kernResult = KERN_SUCCESS;
                 }
             }
         }
 		
-        printf("\n");
+       printf("\n");
 		
         // Release the io_service_t now that we are done with it.
 		
@@ -157,7 +141,7 @@ kern_return_t GetModemPath(io_iterator_t serialPortIterator, char *bsdPath, CFIn
 
 // Given the path to a serial device, open the device and configure it.
 // Return the file descriptor associated with the device.
-int OpenSerialPort(const char *bsdPath, int baud, int parity, int bits, int *portDescriptor)
+int OpenSerialPort(const char *bsdPath, int baud, int parenb, int parodd, int bits, int *portDescriptor)
 {
     int				fileDescriptor = -1;
     int				handshake;
@@ -249,18 +233,6 @@ int OpenSerialPort(const char *bsdPath, int baud, int parity, int bits, int *por
             break;
     }
     
-    switch (parity) {
-        case PARENB:
-            break;
-        case PARODD:
-            break;
-        case 0:
-            break;
-        default:
-            return PARITY_ERR;
-            break;
-    }
-    
     switch (bits) {
         case CS8:
             break;
@@ -270,17 +242,38 @@ int OpenSerialPort(const char *bsdPath, int baud, int parity, int bits, int *por
             break;
         case CS5:
             break;
+        case 8:
+            bits = CS8;
+            break;
+        case 7:
+            bits = CS7;
+            break;
+        case 6:
+            bits = CS6;
+            break;
+        case 5:
+            bits = CS5;
+            break;
         default:
             return BITS_ERR;
             break;
     }
     
-    cfsetspeed(&options, baud);		// Set baud    
-    options.c_cflag |= (bits 	   | 	// Use xx bit words
-						parity	   | 	// Parity enable (even parity if PARODD not also set)
-						CCTS_OFLOW | 	// CTS flow control of output
-						CRTS_IFLOW);	// RTS flow control of input
-	
+    cfsetspeed(&options, baud);		// Set baud  
+    
+    if (PARENB == parenb){
+        options.c_cflag |= (bits 	   | 	// Use xx bit words
+                            CCTS_OFLOW | 	// CTS flow control of output
+                            CRTS_IFLOW);	// RTS flow control of input
+    }
+    else{
+        options.c_cflag |= (bits 	   | 	// Use xx bit words
+                            parenb	   | 	// Parity enable
+                            parodd     |    // if parity is enabled set this to use odd parity
+                            CCTS_OFLOW | 	// CTS flow control of output
+                            CRTS_IFLOW);	// RTS flow control of input
+	}
+    
 #if defined(MAC_OS_X_VERSION_10_4) && (MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_4)
 	// Starting with Tiger, the IOSSIOSPEED ioctl can be used to set arbitrary baud rates
 	// other than those specified by POSIX. The driver for the underlying serial hardware
@@ -468,38 +461,26 @@ int initializeModemAndStartComm(int fileDescriptor) {
 
 char ReadData(int fileDescriptor){
     
-    char        buffer[100];	// Input buffer
+    char        buffer[1];	// Input buffer
     char        *bufPtr;		// Current char in buffer
     ssize_t     numBytes;		// Number of bytes read or written
-    int         tries;			// Number of tries so far
-    Boolean     result = false; 
- 
+   
     // Read characters into our buffer until we get a CR or LF
-    //time_t rawtime;
     
     bufPtr = buffer;
     numBytes = read(fileDescriptor, bufPtr, 1);
-    //time ( &rawtime );
-        //printf ( "(%c,'%d') - %6ld\n", bufPtr[0], bufPtr[0], ((timeStart.tv_sec * 1000) + (timeStart.tv_usec / 1000)) /*ctime (&rawtime)*/ );
-  
-    //printf("numBytes --> %d\n", (long)numBytes);
     if (numBytes == -1)
     {
         printf("Error reading from modem - %s(%d).\n", strerror(errno), errno);
+        return '\n';
     }
     else if (numBytes > 0)
     {
-        if (bufPtr[0] == '\n' || bufPtr[0] == '\r')
-        {
-            //printf("returning 0.\n");
-            return '\0';
-        }
-    }
-    else {
-        printf("Nothing read.\n");
+         return bufPtr[0];
     }
     
-    return bufPtr[0];
+    printf("Nothing read.\n");
+    return 0;
 }
 
               
@@ -510,7 +491,7 @@ int CloseSerialPort(int fileDescriptor)
     // Block until all written output has been sent from the device.
     // Note that this call is simply passed on to the serial device driver. 
 	// See tcsendbreak(3) ("man 3 tcsendbreak") for details.
-    if (tcdrain(fileDescriptor) == -1)
+    if (tcflow(fileDescriptor, TCIOFF) == -1)
     {
         printf("Error waiting for drain - %s(%d).\n",
 			   strerror(errno), errno);
@@ -531,7 +512,7 @@ int CloseSerialPort(int fileDescriptor)
 }
 
 
-int FindAndOpenModem(const char *modemPath, int lengthModemPath, int baud, int parity, int bits, int *portDescriptor) {
+int FindAndOpenModem(const char *modemPath, int lengthModemPath, int baud, int parenb, int parodd, int bits, int *portDescriptor) {
  
     int			fileDescriptor;
     kern_return_t	kernResult; // on PowerPC this is an int (4 bytes)
@@ -563,7 +544,7 @@ int FindAndOpenModem(const char *modemPath, int lengthModemPath, int baud, int p
         return EX_UNAVAILABLE;
     }
 	
-    int err = OpenSerialPort(bsdPath, baud, parity, bits, &fileDescriptor);
+    int err = OpenSerialPort(bsdPath, baud, parenb, parodd, bits, &fileDescriptor);
     if (err != 0) {
         return err;
     }

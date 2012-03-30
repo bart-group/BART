@@ -16,12 +16,15 @@
 @implementation NEMediaObject
 
 @synthesize mPosition;
+@synthesize hasConstraint;
 
 -(id)init
 {
     if ((self = [super init])) {
         mPosition = (NSPoint) {0, 0};
         mID = @"";
+        mConstraintID = @"";
+        hasConstraint = NO;
     }
     
     return self;
@@ -29,13 +32,16 @@
 
 -(id)initWithConfigEntry:(NSString*)key
 {
+    
     [self release];
     self = nil;
+    
     
     COSystemConfig* config = [[COExperimentContext getInstance] systemConfig];
     
     NSString* objID   = [config getProp:[NSString stringWithFormat:@"%@/@moID", key]];
     NSString* objType = [config getProp:[NSString stringWithFormat:@"%@/@type", key]];
+    NSString* constraintID = [config getProp:[NSString stringWithFormat:@"%@/@useConstraint", key]];
     
     if ([objType compare:@"TEXT"] == 0) {
         NSString* text = [config getProp:[NSString stringWithFormat:@"%@/contentText/text", key]];
@@ -48,17 +54,19 @@
         NSPoint position;
         position.x = [[config getProp:[NSString stringWithFormat:@"%@/contentText/posX", key]] floatValue];
         position.y = [[config getProp:[NSString stringWithFormat:@"%@/contentText/posY", key]] floatValue];
-
+        
         self = [[NEMediaText alloc] initWithID:objID
                                           Text:text 
                                         inSize:size
                                       andColor:color 
-                                     atPostion:position];
+                                     atPostion:position
+                                 constrainedBy:constraintID];
         
     } else if ([objType compare:@"SOUND"] == 0) {
         NSString* soundFilePath = [config getProp:[NSString stringWithFormat:@"%@/contentSound/soundFile", key]];
         self = [[NEMediaAudio alloc] initWithID:objID 
-                                        andFile:soundFilePath];
+                                        andFile:soundFilePath
+                                  constrainedBy:constraintID];
         
     } else if ([objType compare:@"IMAGE"] == 0) {
         NSString* imageFilePath = [config getProp:[NSString stringWithFormat:@"%@/contentImage/imageFile", key]];
@@ -68,7 +76,8 @@
         
         self = [[NEMediaImage alloc] initWithID:objID 
                                            file:imageFilePath 
-                                      displayAt:position];
+                                      displayAt:position
+                                  constrainedBy:constraintID];
     }
     
     return self;
@@ -76,6 +85,8 @@
 
 -(void)presentInContext:(CGContextRef)context andRect:(NSRect)rect
 {
+#pragma unused(context)
+#pragma unused(rect)
     return;
 }
 -(void)pausePresentation
@@ -94,6 +105,11 @@
 -(NSString*)getID
 {
     return mID;
+}
+
+-(NSString*)getConstraintID
+{
+    return mConstraintID;
 }
 
 

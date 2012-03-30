@@ -181,24 +181,25 @@
         mMessages = [[NSMutableArray alloc] initWithCapacity:1000];
         mDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%H:%M:%S.%F" allowNaturalLanguage:NO];
         mLogFormatter  = [[NELogFormatter alloc] init];
+        
+        
+        // print some general information
+        
+        NSDateFormatter *tempDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%Y-%m-%d %H:%M:%S" allowNaturalLanguage:NO];
+        
+        [mMessages addObject:[NSString stringWithFormat:@"BART Presentation Logfile", 
+                              [tempDateFormatter stringFromDate:[NSDate date]] 
+                              ]];
+        [mMessages addObject:[NSString stringWithFormat:@"Logfile started %@ \n\n", 
+                              [tempDateFormatter stringFromDate:[NSDate date]] 
+                              ]];
+        //TODO: Headlines for rows - Time, Time since Start, TrialID, ...
+        [mMessages addObject:[NSString stringWithFormat:@"", 
+                              [tempDateFormatter stringFromDate:[NSDate date]] 
+                              ]];
+        
+        [tempDateFormatter release];
     }
-    
-    // print some general information
-    
-    NSDateFormatter *tempDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%Y-%m-%d %H:%M:%S" allowNaturalLanguage:NO];
-    
-    [mMessages addObject:[NSString stringWithFormat:@"BART Presentation Logfile", 
-                          [tempDateFormatter stringFromDate:[NSDate date]] 
-                          ]];
-    [mMessages addObject:[NSString stringWithFormat:@"Logfile started %@ \n\n", 
-                          [tempDateFormatter stringFromDate:[NSDate date]] 
-                          ]];
-    //TODO: Headlines for rows - Time, Time since Start, TrialID, ...
-    [mMessages addObject:[NSString stringWithFormat:@"", 
-                          [tempDateFormatter stringFromDate:[NSDate date]] 
-                          ]];
-    
-    [tempDateFormatter release];
     return self;
 }
 
@@ -298,6 +299,7 @@
     }
     fclose(fp);
     [tempDateFormatter release];
+    [fm release];
 }
 
 -(void)printToNSLog

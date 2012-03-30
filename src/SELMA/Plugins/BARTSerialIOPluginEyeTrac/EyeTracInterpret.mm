@@ -11,40 +11,32 @@
 
 @interface EyeTracInterpret (PrivateMethods)
 
+-(BOOL)isFixationForMidpoint:(NSPoint)midPoint andXYDistance:(NSPoint)dist atCurrentPos:(NSPoint)currentEyePos;
 
-
-
-
--(NSPoint)isFixationForMidpoint:(NSPoint)midPoint andXYDistance:(NSPoint)dist;
-
--(size_t)calcDispersionThresholdForVisualAngle:(size_t)angle andDistanceEyeToScreen:(size_t)dist andHeightScreen:(size_t)heightScr andResolutionHeight:(size_t)res;
-//-(BOOL)getMin:(int*)minValue andMax:(int*)maxValue andMean:(float_t*)meanValue ofParam:(PARAMS)par fromVector:(std::vector<TEyeTracParams>)eyeTracParams;
--(BOOL)getMin:(float_t*)minValue andMax:(float_t*)maxValue andMean:(float_t*)meanValue ofParam:(PARAMS)par fromVector:(std::vector<TEyeTracParams>)eyeTracParams;
+-(NSUInteger)calcDispersionThresholdForVisualAngle:(float)angle andDistanceEyeToScreen:(float)dist andHeightScreen:(float)heightScr andResolutionHeight:(float)res;
+-(BOOL)getMin:(float*)minValue andMax:(float*)maxValue andMean:(float*)meanValue ofParam:(PARAMS)par fromVector:(std::vector<TEyeTracParams>)eyeTracParams;
 
 -(std::vector<TEyeTracParams>)getLastData;
-
+-(void)closeLogFiles;
 
 @end
 
+
+
 @implementation EyeTracInterpret
-
-@synthesize relevantBytes;
-@synthesize byteMeanings;
-@synthesize logfilePath;
-
-
 
 
 -(id)init
 {
 	if ((self = [super init]))
-	{//load the plugin own config file to read all the EyeTrac special configuration stuff
+	{
+        //(1) load the plugin own config file to read all the EyeTrac special configuration stuff
 		NSString *errDescr = nil;
 		NSPropertyListFormat format;
 		NSString *plistPath;
 		NSString *rootPath = 
-			[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) 
-			 objectAtIndex:0];
+        [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) 
+         objectAtIndex:0];
 		plistPath = [rootPath stringByAppendingPathComponent:@"ConfigSerialIOEyeTrac.plist"];
         NSBundle *thisBundle;
 		if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath])
@@ -53,26 +45,85 @@
             plistPath = [thisBundle pathForResource:@"ConfigSerialIOEyeTrac" ofType:@"plist"];
 		}
 		NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
-		NSDictionary *temp = (NSDictionary *) [NSPropertyListSerialization propertyListFromData:plistXML
-																			   mutabilityOption:NSPropertyListMutableContainersAndLeaves 
-																						 format:&format 
-																			   errorDescription:&errDescr];
-		if (!temp)
+		NSDictionary *arrayFromPlist = (NSDictionary *) [NSPropertyListSerialization propertyListFromData:plistXML
+                                                                                         mutabilityOption:NSPropertyListMutableContainersAndLeaves 
+                                                                                                   format:&format 
+                                                                                         errorDescription:&errDescr];
+		if (!arrayFromPlist)
 		{
 			NSLog(@"Error reading plist from BARTSerialIOPluginEyeTrac: %@, format: %lu", errDescr, format);
+            return nil;
 		}
-		self.logfilePath = [temp objectForKey:@"LogfilePath"];
-		self.relevantBytes = [temp objectForKey:@"RelevantBytes"];
-		NSMutableArray *tempByteMeanings = [NSMutableArray arrayWithArray:[temp objectForKey:@"ByteMeaning"]];
-		
-		self.byteMeanings = [NSArray arrayWithArray:tempByteMeanings];
         
-		
-		
-		valueBuffer = (char*) malloc(sizeof(char) * [self.relevantBytes intValue]);
+        // have a valid plist file read
+        //(2) all about the bytes that will be read
+		relevantBytes = [[arrayFromPlist objectForKey:@"RelevantBytes"] unsignedIntegerValue];
+        valueBuffer = (char*) malloc(sizeof(char) * relevantBytes);
 		indexBuffer = 0;
-		isStarted = NO;
-		// create an output file
+        isStarted = NO; //TODO: check if really neccessary
+        
+		NSArray *byteMeanings = [NSArray arrayWithArray:[arrayFromPlist objectForKey:@"ByteMeaning"]];
+        // find out positions of the parameters
+        posStatus = [byteMeanings indexOfObject:@"Status"];
+        posHSBDiam = [byteMeanings indexOfObject:@"PupilDiameterHSB"];
+        posLSBDiam = [byteMeanings indexOfObject:@"PupilDiameterLSB"];
+        posHSBHgaz = [byteMeanings indexOfObject:@"HorizontalGazeHSB"];
+        posLSBHgaz = [byteMeanings indexOfObject:@"HorizontalGazeLSB"];
+        posHSBVgaz = [byteMeanings indexOfObject:@"VerticalGazeHSB"];
+        posLSBVgaz = [byteMeanings indexOfObject:@"VerticalGazeLSB"];
+        posOverflow1 = [byteMeanings indexOfObject:@"Overflow1"];
+        posOverflow2 = [byteMeanings indexOfObject:@"Overflow2"];
+        posHSBCRDiam = [byteMeanings indexOfObject:@"CorneaDiameterHSB"];
+        posLSBCRDiam = [byteMeanings indexOfObject:@"CorneaDiameterLSB"];
+        if ( (NSNotFound == posHSBCRDiam) || (NSNotFound == posLSBCRDiam)){
+            posHSBCRDiam = 0;
+            posLSBCRDiam =0;
+        }
+		
+        //(3) read all relevant eye tracker parameters from plist 
+        NSUInteger sampleRate = [[arrayFromPlist objectForKey:@"sampleRate"] unsignedIntegerValue];
+        NSUInteger durationThreshold = [[arrayFromPlist objectForKey:@"durationThresholdForFixation"] unsignedIntegerValue];   
+        analyseWindowSize = static_cast<NSUInteger>((durationThreshold/1000.0) * sampleRate);
+        
+        float visualAngle = [[arrayFromPlist objectForKey:@"visualAngleValidForFixation"] floatValue]; //# the visual angle in °
+        float distEyeScreen = [[arrayFromPlist objectForKey:@"distEyeFromScreen"] floatValue];// # in cm
+        float heightScreen = [[arrayFromPlist objectForKey:@"heightScreen"] floatValue];// #in cm
+        scenePOGResolutionHeight = [[arrayFromPlist objectForKey:@"scenePOGResolutionHeightInPoints"] floatValue];//# in points
+        scenePOGResolutionWidth = [[arrayFromPlist objectForKey:@"scenePOGResolutionWidthInPoints"] floatValue];//# in points
+        dispersionThreshold = [self calcDispersionThresholdForVisualAngle:visualAngle andDistanceEyeToScreen:distEyeScreen andHeightScreen:heightScreen andResolutionHeight:scenePOGResolutionHeight];
+        
+        //(4) read all the fixation algorithm relevant parameters
+        CGFloat maxDistanceForFixationX = [[arrayFromPlist objectForKey:@"validDistanceX"] floatValue];
+        CGFloat maxDistanceForFixationY = [[arrayFromPlist objectForKey:@"validDistanceY"] floatValue];
+        maxDistanceForFixation = NSMakePoint(maxDistanceForFixationX, maxDistanceForFixationY);
+        
+        fixationDependsOnPoint = NSMakePoint(0.0, 0.0);
+        if (YES == [[arrayFromPlist objectForKey:@"FixationDependsOnScreenCenter"] boolValue]){
+            isFixationDependingOnScreenCenter = YES;
+        }
+        else{
+            isFixationDependingOnScreenCenter = NO;
+            CGFloat fixPosX = [[arrayFromPlist objectForKey:@"FixationDependsOnPointX"] floatValue];
+            CGFloat fixPosY = [[arrayFromPlist objectForKey:@"FixationDependsOnPointY"] floatValue];
+            fixationDependsOnPoint.x = fixPosX;
+            fixationDependsOnPoint.y = fixPosY;
+        }
+        validMissingsInFixation = [[arrayFromPlist objectForKey:@"maxNumberOfMissingValuesForFixation"] unsignedIntegerValue];
+      	
+        
+        // (5) Miscelleanous stuff have to be initialized
+		//Dispatch stuff
+        serialQueue = dispatch_queue_create("de.mpg.cbs.BART.EyeTrackerSerialQueue", NULL);
+        // the path for the own logfile
+        logfilePath = [arrayFromPlist objectForKey:@"LogfilePath"];
+        		
+        // (6) collect the port parameters to give back for initialisation
+        // serial, baud, parity, odd, path, description
+        
+        dictPortParameters = [[NSDictionary alloc] initWithDictionary:[arrayFromPlist objectForKey:@"portParameters"]];
+        
+        /*****************************/
+        // (7) temporary stuff to create an output file
 		struct tm* ptr;
 		time_t lt;
 		char fname[80];
@@ -91,67 +142,34 @@
 		fprintf(file, "Status\t\tTime\t\tPupilDiam\t\tCorneaDiam\t\tHorGaze\t\tVerGaze\n\n");
         fprintf(fileFixationsOK, "CentroidH\t\tCentroidV\n\n");
         fprintf(fileFixationsOut, "CentroidH\t\tCentroidV\n\n");
+         
         
+        srand(time(NULL));
+         /******************************/
         
-        
-        //Dispatch stuff
-        serialQueue = dispatch_queue_create("de.mpg.cbs.BART.EyeTrackerSerialQueue", NULL);
-
-		
-	}
-	// find out positions of the parameters
-	posStatus = [byteMeanings indexOfObject:@"Status"];
-	posHSBDiam = [byteMeanings indexOfObject:@"PupilDiameterHSB"];
-	posLSBDiam = [byteMeanings indexOfObject:@"PupilDiameterLSB"];
-	posHSBHgaz = [byteMeanings indexOfObject:@"HorizontalGazeHSB"];
-	posLSBHgaz = [byteMeanings indexOfObject:@"HorizontalGazeLSB"];
-	posHSBVgaz = [byteMeanings indexOfObject:@"VerticalGazeHSB"];
-	posLSBVgaz = [byteMeanings indexOfObject:@"VerticalGazeLSB"];
-	posOverflow1 = [byteMeanings indexOfObject:@"Overflow1"];
-	posOverflow2 = [byteMeanings indexOfObject:@"Overflow2"];
-    posHSBCRDiam = [byteMeanings indexOfObject:@"CorneaDiameterHSB"];
-    posLSBCRDiam = [byteMeanings indexOfObject:@"CorneaDiameterLSB"];
-    if ( (NSNotFound == posHSBCRDiam) || (NSNotFound == posLSBCRDiam)){
-        posHSBCRDiam = 0;
-        posLSBCRDiam =0;
     }
-    
-    //TODO: read from config
-    size_t sampleRate = 120;
-    size_t durationThreshold = 100;    
-    mWindowSize = (int) ((durationThreshold/1000.0) * sampleRate);
-	size_t visualAngle = 1; //# the visual angle in °
-    size_t distEyeScreen = 102.5;// # in cm
-    size_t heightScreen = 24;// #in cm
-    size_t scenePOGResolutionHeight = 240; //# in points
-    size_t scenePOGResolutionWidth = 260; //# in points
-    halfScenePOGResolutionWidth = scenePOGResolutionWidth/2;
-    halfScenePOGResolutionHeight = scenePOGResolutionHeight/2;
-    dispersionThreshold = [self calcDispersionThresholdForVisualAngle:visualAngle andDistanceEyeToScreen:distEyeScreen andHeightScreen:heightScreen andResolutionHeight:scenePOGResolutionHeight];
-    validMissingsInFixation = 3;
-    distanceFromMidpointToBeValid = 50;
 	
 	return self;
 	
 }
 
 -(void) valueArrived:(char)value{
-
+    
     if ((value & (unsigned char)0x80) != 0 ) {
 		//Ausgabe
 		// see Eye Tracker Manual (Model 504) for further explanation
 		// the story is to sum up the LSB and HSB with the missing first bit from the overflow byte
 		
 		unsigned int pupilDiam = (((valueBuffer[posOverflow1] & BITMASKOVERFLOWHSBDIAM) != 0 ? (valueBuffer[posHSBDiam] | 0x80) : valueBuffer[posHSBDiam]) << 8) | 
-                                  ((valueBuffer[posOverflow1] & BITMASKOVERFLOWLSBDIAM) != 0 ? (valueBuffer[posLSBDiam] | 0x80) : valueBuffer[posLSBDiam]);
+        ((valueBuffer[posOverflow1] & BITMASKOVERFLOWLSBDIAM) != 0 ? (valueBuffer[posLSBDiam] | 0x80) : valueBuffer[posLSBDiam]);
 		
         int horizGaze = (((valueBuffer[posOverflow1] & BITMASKOVERFLOWHSBHGAZ) != 0 ? (valueBuffer[posHSBHgaz] | 0x80) : valueBuffer[posHSBHgaz]) << 8) | 
-                         ((valueBuffer[posOverflow2] & BITMASKOVERFLOWLSBHGAZ) != 0 ? (valueBuffer[posLSBHgaz] | 0x80) : valueBuffer[posLSBHgaz]);
+        ((valueBuffer[posOverflow2] & BITMASKOVERFLOWLSBHGAZ) != 0 ? (valueBuffer[posLSBHgaz] | 0x80) : valueBuffer[posLSBHgaz]);
 		
 		// Attention: first bit for LSB for vertical in overflow2
         int vertGaze = (((valueBuffer[posOverflow2] & BITMASKOVERFLOWHSBVGAZ) != 0 ? (valueBuffer[posHSBVgaz] | 0x80) : valueBuffer[posHSBVgaz]) << 8) | 
-                        ((valueBuffer[posOverflow2] & BITMASKOVERFLOWLSBVGAZ) != 0 ? (valueBuffer[posLSBVgaz] | 0x80) : valueBuffer[posLSBVgaz]);
-				
+        ((valueBuffer[posOverflow2] & BITMASKOVERFLOWLSBVGAZ) != 0 ? (valueBuffer[posLSBVgaz] | 0x80) : valueBuffer[posLSBVgaz]);
+        
 		
         unsigned int corneaDiam = 0;
         
@@ -162,19 +180,6 @@
         }
         
         
-                    // just for TEST PURPOSE
-                           // printf("status: %d \n", (unsigned char)valueBuffer[posStatus] & 0x7f);
-//                    		printf("diam: %d \n", pupilDiam);
-//                            printf("corneadiam: %d \n", corneaDiam);
-//                    		printf("horizGaze: %.1f \n", 0.1*(float)horizGaze);
-//                    		printf("vertGaze: %.1f \n", 0.1*(float)vertGaze);
-//                            if ( 0 != (int)valueBuffer[posOverflow1]){
-//                    			printf("overflow1: %d\n", (int)valueBuffer[posOverflow1]);
-//                    		}
-//                    		if ( 0 != (int)valueBuffer[posOverflow2]){
-//                    			printf("overflow2: %d\n", (int)valueBuffer[posOverflow2]);
-//                    		}
-                    //		
         //calculate actual time for logfile
         gettimeofday(&timeval, NULL);
         actualtime = timeval.tv_sec;
@@ -193,16 +198,16 @@
         TEyeTracParams params;
         params.pupilRec = pupilDiam == 0 ? 1 : 0; //INVERSE THE LOGIC FOR EASILY COUNTING LATER THE ONES NOT RECOGNIZED 
 		params.pupilDiam = pupilDiam;
-        params.horGaze = 0.1*(float)horizGaze;
-        params.verGaze = 0.1*(float)vertGaze;
-        params.corneaRec = corneaDiam  == 0 ? 1 : 0; //INVERSE THE LOGIC FOR EASILY COUNTING LATER THE ONES NOT RECOGNIZED
-		params.corneaDiam = corneaDiam;
-        params.status = (unsigned char)(valueBuffer[posStatus] & 0x7f);
+        params.horGaze = 0.1*static_cast<float>(horizGaze);
+        params.verGaze = 0.1*static_cast<float>(vertGaze);
+        params.corneaRec = 0;//corneaDiam  == 0 ? 1 : 0; //INVERSE THE LOGIC FOR EASILY COUNTING LATER THE ONES NOT RECOGNIZED
+		params.corneaDiam = pupilDiam;//corneaDiam;
+        params.status = static_cast<unsigned char>((valueBuffer[posStatus] & 0x7f));
         
         //clean the vetor if it's gettng long than the size of the window 
         
         dispatch_sync(serialQueue, ^{
-            if (mWindowSize < eyeTracParamsVector.size()){
+            if (analyseWindowSize < eyeTracParamsVector.size()){
                 eyeTracParamsVector.erase(eyeTracParamsVector.begin());
                 eyeTracParamsVector.push_back(params);
             }
@@ -215,12 +220,12 @@
         fprintf(fileAllBytes, "\n");
         
         //clean up the buffer 
-		for (unsigned int i = 0; i < [self.relevantBytes intValue] - 1; i++){
+		for (unsigned int i = 0; i < relevantBytes - 1; i++){
 			valueBuffer[i] = 0;}
 		indexBuffer = 0;
 		isStarted = YES;		
 	}
-    if ((YES == isStarted) && ([relevantBytes intValue] > indexBuffer)){
+    if ((YES == isStarted) && (relevantBytes > indexBuffer)){
         valueBuffer[indexBuffer] = value;
         indexBuffer++;
         //for the allBytesFile
@@ -241,44 +246,88 @@
     
 }
 
--(size_t)calcDispersionThresholdForVisualAngle:(size_t)angle andDistanceEyeToScreen:(size_t)dist andHeightScreen:(size_t)heightScr andResolutionHeight:(size_t)res
+-(NSUInteger)calcDispersionThresholdForVisualAngle:(float)angle andDistanceEyeToScreen:(float)dist andHeightScreen:(float)heightScr andResolutionHeight:(float)res
 {
-    size_t ret = 0;
-	ret =  (size_t)(((tan((float)angle * M_PI / 180.0) * (float)dist)*(float)res)/(float)heightScr + 0.5);
+    NSUInteger ret = 0;
+	ret =  (NSUInteger)(((tan(angle * M_PI / 180.0) * dist)*res)/heightScr + 0.5);
 	NSLog(@"dispThresh: %lu", ret);
 	return ret;
     
 }
 
--(NSPoint)isConditionFullfilled:(NSDictionary*)params
+-(NSDictionary*)evaluateConstraintForParams:(NSDictionary*)params
 {
-    NSPoint midPoint = NSMakePoint([[params valueForKey:@"xPosition"] floatValue], [[params valueForKey:@"yPosition"] floatValue]);
-    NSPoint dist;
-    BOOL dynamic = [[params valueForKey:@"isDynamic"] boolValue];
+    [params retain];
+    //ATTENTION!!!!! TEST VERSION
+    //return nil;
     
-    if (YES == dynamic)
+    // evaluate target param from params dictionary
+    NSArray *paramsArray = [params objectForKey:@"paramsArray"];
+    if (NSNotFound == [paramsArray indexOfObject:@"eyePosIsFixated"])
     {
-        dist.x = 200;
-        dist.y = 150;
-    }
-    else
-    {
-        dist.x = 20;
-        dist.y = 20;
+        NSLog(@"Eyetracker Plugin doesn't know which function to call to evaluate the constraint");
+        return nil;
     }
     
-    return [self isFixationForMidpoint:(NSPoint)midPoint andXYDistance:(NSPoint)dist];
+    // get stimuli environment resolution to convert between eye tracker corrdinates and screen
+    float resoX = 1.0;
+    float resoY = 1.0;
+    if (   (nil != [params objectForKey:@"screenResolutionX"]) 
+        && (nil != [params objectForKey:@"screenResolutionY"]) )
+    {
+        resoX = [[params objectForKey:@"screenResolutionX"] floatValue];
+        resoY = [[params objectForKey:@"screenResolutionY"] floatValue];
+    }
+    
+    NSPoint midPoint = NSMakePoint(0.0, 0.0);
+    if (YES == isFixationDependingOnScreenCenter)
+    {
+        // midpoint of the screen but in eye tracker coordinates
+        midPoint.x = 0.5 * scenePOGResolutionWidth;
+        midPoint.y = 0.5 * scenePOGResolutionHeight;
+    }
+    else 
+    {
+        midPoint.x = fixationDependsOnPoint.x;
+        midPoint.y = fixationDependsOnPoint.y;
+    }
+    
+    // now, ask the fixation algorithm for its answer
+    NSPoint currentEyePos = NSMakePoint(0.0, 0.0);
+    BOOL isFixated = [self isFixationForMidpoint:midPoint andXYDistance:maxDistanceForFixation atCurrentPos:currentEyePos];
+    
+    // reconvert eye tracker position data to screen position 
+    float convertedEyePosX = (currentEyePos.x * resoX) / scenePOGResolutionWidth;
+    float convertedEyePosY = (currentEyePos.y * resoY) / scenePOGResolutionWidth;
+    
+    //create dictionary to return
+    //todo: just give back like that or sort in params and conditions???
+    NSDictionary *dictReturn = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:convertedEyePosX], @"eyePosX", [NSNumber numberWithFloat:convertedEyePosY], @"eyePosY", [NSNumber numberWithBool:isFixated], @"eyePosIsFixated", nil];
+
+//    float x = (rand() % 100) + 400;
+//    float y = (rand() % 100) + 300;
+//    NSDictionary *dictReturn = [[NSDictionary alloc] initWithObjectsAndKeys:
+//                                 [NSNumber numberWithFloat:x], @"eyePosX", 
+//                                [NSNumber numberWithFloat:y], @"eyePosY", 
+//                                [NSNumber numberWithBool:YES], @"eyePosIsFixated",
+//                                nil] ;
+    
+    [params release];
+    return [dictReturn autorelease];
 }
 
--(NSPoint)isFixationForMidpoint:(NSPoint)midPoint andXYDistance:(NSPoint)dist
+-(BOOL)isFixationForMidpoint:(NSPoint)midPoint andXYDistance:(NSPoint)dist atCurrentPos:(NSPoint)currentEyePos
 {
     std::vector<TEyeTracParams> actualData = [self getLastData];
-	float_t minValueHG = 0;
-    float_t maxValueHG = 0;
-    float_t meanValueHG = 0;
-    float_t minValueVG = 0;
-    float_t maxValueVG = 0;
-    float_t meanValueVG = 0;
+	float minValueHG = 0;
+    float maxValueHG = 0;
+    float meanValueHG = 0;
+    float minValueVG = 0;
+    float maxValueVG = 0;
+    float meanValueVG = 0;
+    
+    currentEyePos.x = 0.0;
+    currentEyePos.y = 0.0;
 	
 	[self getMin:&minValueHG andMax:&maxValueHG andMean:&meanValueHG ofParam:HGAZE  fromVector:actualData];
 	[self getMin:&minValueVG andMax:&maxValueVG andMean:&meanValueVG ofParam:VGAZE  fromVector:actualData];
@@ -290,45 +339,46 @@
         && (YES == [self getMin:&minValueVG andMax:&maxValueVG andMean:&meanValueVG ofParam:VGAZE  fromVector:actualData]))
     {
         if (dispersionThreshold > (maxValueHG-minValueHG)+(maxValueVG-minValueVG)){
-           // if ( (abs(meanValueHG - halfScenePOGResolutionWidth) < distanceFromMidpointToBeValid)
-           //     && (abs(meanValueVG- halfScenePOGResolutionHeight) < distanceFromMidpointToBeValid) )
-                if ( (abs(meanValueHG - midPoint.x) < dist.x)
-                    && (abs(meanValueVG- midPoint.y) < dist.y) )
+            if ( (abs(meanValueHG - midPoint.x) < dist.x)
+                && (abs(meanValueVG- midPoint.y) < dist.y) )
             {
-                // Fixiert im gueltigen Bereich
-				NSLog(@"ganz drin");
+                // everything is fine - fixated in the correct area
+				//todo: redirect output to logfile
+                NSLog(@"ganz drin");
                 fprintf(fileFixationsOK, "%.2f\t\t%.2f\n", meanValueHG, meanValueVG);
-                return  NSMakePoint(meanValueHG, meanValueVG);
+                currentEyePos.x = meanValueHG;
+                currentEyePos.y = meanValueVG;
+                return YES;
             }
-            // fixiert aber nicht im gueltigen Bereich
+            // fixated but not in valid area
 			NSLog(@"bissi drin");
             fprintf(fileFixationsOut, "%.2f\t\t%.2f\n", meanValueHG, meanValueVG);
-            return  NSMakePoint(0.0, 0.0);
+            return  NO;
         }
-        // nicht fixiert aber alle Daten da
+        // subject did not fixate
 		NSLog(@"bissi draußen");
-        return NSMakePoint(0.0, 0.0);
+        return NO;
         
     }
-    // nicht auswertbare Daten
+    // more invalid/noisy data than allowed
     else {
 		NSLog(@"ganz draußen");
-        return  NSMakePoint(0.0, 0.0);
+        return  NO;
     }
 	NSLog(@"mich gibts gar nicht");
-    return  NSMakePoint(0.0, 0.0);
+    return  NO;
     
 }
 
 
 //min
--(BOOL)getMin:(float_t*)minValue andMax:(float_t*)maxValue andMean:(float_t*)meanValue ofParam:(PARAMS)par fromVector:(std::vector<TEyeTracParams>)eyeTracParams{
+-(BOOL)getMin:(float*)minValue andMax:(float*)maxValue andMean:(float*)meanValue ofParam:(PARAMS)par fromVector:(std::vector<TEyeTracParams>)eyeTracParams{
     
     *minValue = MAXFLOAT;
     *maxValue = 0;
     float_t sum = 0;
-    size_t nrOfValues = 0;
-    size_t nrOfUnrecognized = 0;
+    NSUInteger nrOfValues = 0;
+    NSUInteger nrOfUnrecognized = 0;
     std::vector<TEyeTracParams>::iterator it;
     switch (par) {
         case HGAZE:
@@ -349,7 +399,7 @@
                 else {
                     nrOfUnrecognized++;
                 }
-
+                
             }
             
             break;
@@ -370,7 +420,7 @@
                 else {
                     nrOfUnrecognized++;
                 }
-
+                
             }
             
             break;
@@ -393,7 +443,9 @@
 {}
 
 -(void)connectionIsClosed
-{}
+{
+    [self closeLogFiles];
+}
 
 
 -(NSString*) pluginTitle
@@ -402,19 +454,22 @@
 }
 
 -(NSString*) pluginDescription{
-	return @"ASLEyeTrac";
+	return @"de.mpg.cbs.BARTSerialIOPlugin.ASLEyeTrac";
 }
 
 -(NSImage*) pluginIcon{
 	return nil;
 }
 
+-(NSDictionary*) portParameters
+{
+    return dictPortParameters;
+}
+
 -(void)dealloc
 {
-	fclose(file);
-    fclose(fileFixationsOK);
-    fclose(fileFixationsOut);
-    fclose(fileAllBytes);
+    [dictPortParameters release];
+	free(valueBuffer);
 	[super dealloc];
 }
 

@@ -16,6 +16,7 @@
 
 -(IBAction)sliderChanged:(id)sender
 {
+    #pragma unused(sender)
     if (feedbackObject) {
         NSDictionary* parameters = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%.1f", [temperatureSlider floatValue]] 
                                                                forKey:@"temperature"];

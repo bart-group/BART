@@ -15,11 +15,11 @@
  */
 
 
-//TODO 
-//testcase
-//Thread Canceling
-
 #import "SerialPort.h"
+#include "SerialPort_C.h"
+#import <termios.h>
+
+
 
 @interface SerialPort (hidden) 
 
@@ -27,8 +27,8 @@
 - (NSError*) initCommunication;
 
 
-- (void) dispatchData:(unsigned char)data;
-- (unsigned char) readChar;
+- (void) dispatchData:(char)data;
+- (void) readChar;
 - (void) createFinalObserverList;
 
 @end
@@ -48,7 +48,8 @@
 - (id) initSerialPortWithDevicePath:(NSString*)aDevicePath 
                      deviceDescript:(NSString*)aDeviceDescription
 						 symbolrate:(int)aSymbolrate 
-                             parity:(int)aParity 
+                       enableParity:(BOOL)useParity 
+                          oddParity:(BOOL)oddParity 
                             andBits:(int)aBits
 {
 
@@ -56,7 +57,8 @@
 		devicePath = [aDevicePath copy];
 		deviceDescription = [aDeviceDescription copy];
         baud = aSymbolrate;
-        parity = aParity;
+        isParityEnabled = useParity;
+        isParityOdd = oddParity;
         bits = aBits;
         addingObserversAllowed = YES;
         observerMutableList = [[NSMutableArray alloc] initWithCapacity:0];
@@ -70,7 +72,9 @@
 
     const char *device = [devicePath cStringUsingEncoding:NSASCIIStringEncoding];
     
-    int res = FindAndOpenModem(device, strlen(device), baud, parity, bits, &portDescriptor);
+    int parenb = (YES == isParityEnabled) ? PARENB : 0;
+    int parodd = (YES == isParityOdd) ? PARODD : 0;
+    int res = FindAndOpenModem(device, strlen(device), baud, parenb, parodd, bits, &portDescriptor);
     if (res != 0) {
         NSString *domain = @"Fehler beim Finden und Oeffnen des Devices.";
         [domain stringByAppendingString:devicePath];
@@ -109,24 +113,26 @@
     if (res != 0) {
         NSString *domain = @"Fehler beim Schließen des Devices.";
         [domain stringByAppendingString:devicePath];
-        
         err = [NSError errorWithDomain:domain code:res userInfo:nil];
+        if (nil != err)
+        {
+            NSLog(@"Error closing serial Port: %s, %lu",[err.domain UTF8String], err.code);
+        }
 	}
-    
+    NSLog(@"close serial port");
     return;
 }
 
 
-- (unsigned char) readChar {
+- (void) readChar {
 
-    unsigned char c = ReadData(portDescriptor);    
-
-    [self dispatchData:c];    
-    
-    return c;
+    char c = ReadData(portDescriptor) & 0xFF;    
+    [self dispatchData:c];
+    return;
+    //return c;
 }
 
-- (void) dispatchData:(unsigned char)data {
+- (void) dispatchData:(char)data {
 
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
@@ -137,7 +143,6 @@
 
 
 
-//return false : did not match BARTTriggerProtocol
 - (BOOL) addObserver:(id)anObserver {
    
 	if (YES == addingObserversAllowed)
@@ -158,7 +163,7 @@
 }
 
 - (void) createFinalObserverList {
-	
+	// to work with a static array 
     addingObserversAllowed = NO;
 	if (observerList != nil) {
         [observerList release];
@@ -195,10 +200,17 @@
     });
 	
 	while (![[NSThread currentThread] isCancelled]) {
+       // NSLog(@"read Char");
 		[self readChar];        
 	}
     
-	    
+    //TODO: CHECK THIS
+//    [self closeSerialPort:err];
+//    if (nil != err){
+//        NSLog( @"Error: %s, %d\n", [err.domain UTF8String], (int) err.code );
+//    }
+//	 
+//    NSLog(@"SerialPortThread canceled! Close SerialPort now!!!");
     [pool drain];
 }
 
@@ -211,12 +223,12 @@
     [super dealloc];
 }
 
--(NSPoint)isConditionFullfilled:(NSDictionary*)params
+-(NSDictionary*)evaluateConstraintForParams:(NSDictionary*)params
 {
 	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    __block NSPoint ret = NSMakePoint(0.0, 0.0);
+    __block NSDictionary *ret = nil;
     dispatch_apply([observerList count], queue, ^(size_t i) {
-		ret = [((id<BARTSerialIOProtocol>) [observerList objectAtIndex:i]) isConditionFullfilled:params];
+		ret = [((id<BARTSerialIOProtocol>) [observerList objectAtIndex:i]) evaluateConstraintForParams:params];
     });
 	return ret;
 }

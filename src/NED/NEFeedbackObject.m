@@ -21,6 +21,7 @@ static const NSTimeInterval UPDATE_INTERVAL = 1.0 / 30.0;
 
 -(id)initWithFrame:(NSRect)frameRect
 {
+    #pragma unused(frameRect)
     return nil;
 }
 
@@ -49,6 +50,7 @@ static const NSTimeInterval UPDATE_INTERVAL = 1.0 / 30.0;
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
+    #pragma unused(dirtyRect)
     return;
 }
 

@@ -8,8 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		0000B16C13E15F7D00029A41 /* BAProcedureStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 0000B16B13E15F7D00029A41 /* BAProcedureStep.m */; };
+<<<<<<< HEAD
+=======
+		0000B18513E1C92400029A41 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18413E1C92400029A41 /* Cocoa.framework */; };
+		0000B18F13E1C92400029A41 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18413E1C92400029A41 /* Cocoa.framework */; };
+		0000B19213E1C92400029A41 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
+		0000B19813E1C92400029A41 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0000B19613E1C92400029A41 /* InfoPlist.strings */; };
+		0000B19B13E1C92400029A41 /* TROYTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 0000B19A13E1C92400029A41 /* TROYTests.h */; };
+		0000B19D13E1C92400029A41 /* TROYTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0000B19C13E1C92400029A41 /* TROYTests.m */; };
 		0001EF8914FD1C8F006B34D2 /* NEConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 0001EF8714FD1C8D006B34D2 /* NEConstraint.h */; };
 		0001EF8A14FD1C8F006B34D2 /* NEConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0001EF8814FD1C8E006B34D2 /* NEConstraint.m */; };
+>>>>>>> group-master/master
 		0006F476122BFADD001DA2BB /* PRPreprocessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 0006F474122BFADD001DA2BB /* PRPreprocessor.h */; };
 		0006F477122BFADD001DA2BB /* PRPreprocessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F475122BFADD001DA2BB /* PRPreprocessor.m */; };
 		0006F482122BFC54001DA2BB /* BAAnalyzerGLMTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F481122BFC54001DA2BB /* BAAnalyzerGLMTest.m */; };
@@ -143,7 +152,7 @@
 		008CC1BA13FC173E008A3CB0 /* COExperimentContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 00786E1513EED14600BF2554 /* COExperimentContext.m */; };
 		009266AE13E5B4590025B384 /* NEDesignElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 009266AC13E5B4590025B384 /* NEDesignElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		009266AF13E5B4590025B384 /* NEDesignElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 009266AD13E5B4590025B384 /* NEDesignElement.m */; };
-		009CE2E414B707A800FFDED4 /* libisis_core.0.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 009CE2E314B707A800FFDED4 /* libisis_core.0.4.5.dylib */; };
+		009CE2E414B707A800FFDED4 /* libisis_core.0.4.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 009CE2E314B707A800FFDED4 /* libisis_core.0.4.2.dylib */; };
 		00B1AC24114554DB008FC09D /* COEDLValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AC22114554DB008FC09D /* COEDLValidator.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00B1AC25114554DB008FC09D /* COEDLValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC23114554DB008FC09D /* COEDLValidator.m */; };
 		00B1AC34114556C3008FC09D /* COEDLValidatorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC33114556C3008FC09D /* COEDLValidatorTest.m */; };
@@ -172,6 +181,11 @@
 		00D44159134B569400094A51 /* BAProcedurePipeline.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A21141470400A57967 /* BAProcedurePipeline.mm */; };
 		00D44165134B57E600094A51 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
 		00D44167134B57E600094A51 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
+<<<<<<< HEAD
+=======
+		00D44185134B587100094A51 /* EDDataElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B772C311417C6300B2931A /* EDDataElementVI.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		00D44186134B587200094A51 /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
+>>>>>>> group-master/master
 		00D44187134B587200094A51 /* EDDataElementIsis.h in Headers */ = {isa = PBXBuildFile; fileRef = 006E07531190260500CEEF38 /* EDDataElementIsis.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00D44188134B587400094A51 /* EDDataElementIsis.mm in Sources */ = {isa = PBXBuildFile; fileRef = 006E07541190260500CEEF38 /* EDDataElementIsis.mm */; };
 		00D44189134B587400094A51 /* EDDataElementRealTimeLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = E54934E21339151E003264FE /* EDDataElementRealTimeLoader.mm */; };
@@ -260,6 +274,13 @@
 		00EA8A9B135C72B300562F3B /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00EA8B07135C7C6A00562F3B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		00EA8DCB135D870000562F3B /* glmtest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F633122E5AA6001DA2BB /* glmtest.m */; };
+<<<<<<< HEAD
+		00EA8DCD135D870300562F3B /* libboost_date_time.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABD135C764F00562F3B /* libboost_date_time.dylib */; };
+		00EA8DCF135D870400562F3B /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABE135C764F00562F3B /* libboost_filesystem.dylib */; };
+		00EA8DD1135D870500562F3B /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABF135C764F00562F3B /* libboost_regex.dylib */; };
+		00EA8DD2135D870600562F3B /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8AC0135C764F00562F3B /* libboost_system.dylib */; };
+=======
+>>>>>>> group-master/master
 		00EA8DDA135D871A00562F3B /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
 		00EA8DDB135D871B00562F3B /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00EA8DF2135D879B00562F3B /* libfftw3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A15135C6F5000562F3B /* libfftw3.dylib */; };
@@ -278,6 +299,10 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A713AA091445CF1600BBF150 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
+		A713AA0A1445CFFE00BBF150 /* libboost_date_time.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABD135C764F00562F3B /* libboost_date_time.dylib */; };
+		A713AA0B1445CFFE00BBF150 /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABE135C764F00562F3B /* libboost_filesystem.dylib */; };
+		A713AA0C1445CFFE00BBF150 /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABF135C764F00562F3B /* libboost_regex.dylib */; };
+		A713AA0D1445CFFE00BBF150 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8AC0135C764F00562F3B /* libboost_system.dylib */; };
 		A744B0C513FD442200F4B13D /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
 		A744B0C713FD445300F4B13D /* EDDataElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B772C311417C6300B2931A /* EDDataElementVI.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A74EB3571525B09600AC7C59 /* isisRegistrationFactory3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A74EB3461525B09600AC7C59 /* isisRegistrationFactory3D.hpp */; };
@@ -303,16 +328,8 @@
 		A75A5D611406887300514CD3 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440C0134B4F8800094A51 /* libboost_system-mt.dylib */; };
 		A75A5D64140689F900514CD3 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
 		A75A5D6514068D2000514CD3 /* TestDataset01-functional.nii in Resources */ = {isa = PBXBuildFile; fileRef = 00673D4113FD75C80056BD4F /* TestDataset01-functional.nii */; };
-		A76C975D1525DCCF0044FE2D /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A76C975C1525DCCF0044FE2D /* libisis_core.dylib */; };
-		A76C975E1525DD140044FE2D /* libboost_date_time-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BA134B4F8800094A51 /* libboost_date_time-mt.dylib */; };
-		A76C975F1525DD140044FE2D /* libboost_filesystem-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BC134B4F8800094A51 /* libboost_filesystem-mt.dylib */; };
-		A76C97601525DD140044FE2D /* libboost_regex-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BE134B4F8800094A51 /* libboost_regex-mt.dylib */; };
-		A76C97611525DD140044FE2D /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440C0134B4F8800094A51 /* libboost_system-mt.dylib */; };
-		A76C97621525DD530044FE2D /* libboost_filesystem-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BC134B4F8800094A51 /* libboost_filesystem-mt.dylib */; };
 		A7763C54143B09A500457A99 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
 		A7763C67143B34DE00457A99 /* TestDataset01-functional.nii in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00673D4113FD75C80056BD4F /* TestDataset01-functional.nii */; };
-		A777CC451525DEEE001A3F1D /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A76C975C1525DCCF0044FE2D /* libisis_core.dylib */; };
-		A777CC461525DF32001A3F1D /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440C0134B4F8800094A51 /* libboost_system-mt.dylib */; };
 		A7B9C45914C99D3C00DF35F1 /* libITKIOReview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D822611489226800CFFE0F /* libITKIOReview.a */; };
 		A7B9C45A14C99D4F00DF35F1 /* libITKIOReview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D822611489226800CFFE0F /* libITKIOReview.a */; };
 		A7B9C45B14C99D7400DF35F1 /* libITKIOReview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D822611489226800CFFE0F /* libITKIOReview.a */; };
@@ -333,7 +350,11 @@
 		A7BA11E4146D6C8400DEEDF7 /* libitkv3p_netlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70214644C7C009A3335 /* libitkv3p_netlib.a */; };
 		A7BA11E5146D70BE00DEEDF7 /* libitkv3p_lsqr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70114644C7C009A3335 /* libitkv3p_lsqr.a */; };
 		A7BA11E6146D70BE00DEEDF7 /* libitkv3p_netlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B70214644C7C009A3335 /* libitkv3p_netlib.a */; };
+		A7BA11ED147FDB6E00DEEDF7 /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7BA11EC147FDB6E00DEEDF7 /* libisis_core.dylib */; };
+		A7BA11EE147FDB8100DEEDF7 /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7BA11EC147FDB6E00DEEDF7 /* libisis_core.dylib */; };
+		A7BA11F1147FDF2000DEEDF7 /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7BA11EC147FDB6E00DEEDF7 /* libisis_core.dylib */; };
 		A7BA11F2147FDF2A00DEEDF7 /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7BA11EC147FDB6E00DEEDF7 /* libisis_core.dylib */; };
+		A7C601551524A2BD00E9085F /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8ABE135C764F00562F3B /* libboost_filesystem.dylib */; };
 		A7D1B6C1146448EB009A3335 /* libITKAlgorithms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B4146448EA009A3335 /* libITKAlgorithms.a */; };
 		A7D1B6C2146448EB009A3335 /* libITKBasicFilters.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B5146448EA009A3335 /* libITKBasicFilters.a */; };
 		A7D1B6C3146448EB009A3335 /* libITKCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1B6B6146448EA009A3335 /* libITKCommon.a */; };
@@ -649,8 +670,16 @@
 		0000B16B13E15F7D00029A41 /* BAProcedureStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureStep.m; sourceTree = "<group>"; };
 		0000B18313E1C92400029A41 /* TROY.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = TROY.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		0000B18E13E1C92400029A41 /* TROYTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TROYTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+<<<<<<< HEAD
+=======
+		0000B19513E1C92400029A41 /* TROYTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TROYTests-Info.plist"; sourceTree = "<group>"; };
+		0000B19713E1C92400029A41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0000B19913E1C92400029A41 /* TROYTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TROYTests-Prefix.pch"; sourceTree = "<group>"; };
+		0000B19A13E1C92400029A41 /* TROYTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TROYTests.h; sourceTree = "<group>"; };
+		0000B19C13E1C92400029A41 /* TROYTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TROYTests.m; sourceTree = "<group>"; };
 		0001EF8714FD1C8D006B34D2 /* NEConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEConstraint.h; sourceTree = "<group>"; };
 		0001EF8814FD1C8E006B34D2 /* NEConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEConstraint.m; sourceTree = "<group>"; };
+>>>>>>> group-master/master
 		0006135611A3D84C00D369D0 /* EDNAUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EDNAUnitTestSuite.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0006135711A3D84C00D369D0 /* EDNAUnitTestSuite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "EDNAUnitTestSuite-Info.plist"; path = "../../projects/EDNAUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
 		0006284111A44D9300D369D0 /* EDDataElementIsisTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementIsisTest.h; sourceTree = "<group>"; };
@@ -784,7 +813,7 @@
 		008878221147B445009C7707 /* timeBasedRegressor.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = timeBasedRegressor.edl; sourceTree = "<group>"; };
 		009266AC13E5B4590025B384 /* NEDesignElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NEDesignElement.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		009266AD13E5B4590025B384 /* NEDesignElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NEDesignElement.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		009CE2E314B707A800FFDED4 /* libisis_core.0.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisis_core.0.4.5.dylib; path = /usr/local/lib/libisis_core.0.4.5.dylib; sourceTree = "<absolute>"; };
+		009CE2E314B707A800FFDED4 /* libisis_core.0.4.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisis_core.0.4.2.dylib; path = ../../../../../usr/local/lib/libisis_core.0.4.2.dylib; sourceTree = "<group>"; };
 		00A7DD4B117C366A00062AFE /* NEDUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NEDUnitTestSuite.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00A7DD4C117C366A00062AFE /* NEDUnitTestSuite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "NEDUnitTestSuite-Info.plist"; path = "../../projects/NEDUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
 		00AB18EA115246ED003BC915 /* main_SW_BoldModule_2ContinousTargetROIs.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = main_SW_BoldModule_2ContinousTargetROIs.edl; sourceTree = "<group>"; };
@@ -817,10 +846,17 @@
 		00C3A0021144FBEF00725668 /* COSystemConfigTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = COSystemConfigTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		00C3A07F114510CE00725668 /* Init_Links_1.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Init_Links_1.edl; sourceTree = "<group>"; };
 		00C3A080114510CE00725668 /* rtExperiment_v14.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rtExperiment_v14.xsd; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		00D440BA134B4F8800094A51 /* libboost_date_time-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_date_time-mt.dylib"; path = "/opt/local/lib/libboost_date_time-mt.dylib"; sourceTree = "<absolute>"; };
 		00D440BC134B4F8800094A51 /* libboost_filesystem-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_filesystem-mt.dylib"; path = "/opt/local/lib/libboost_filesystem-mt.dylib"; sourceTree = "<absolute>"; };
 		00D440BE134B4F8800094A51 /* libboost_regex-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_regex-mt.dylib"; path = "/opt/local/lib/libboost_regex-mt.dylib"; sourceTree = "<absolute>"; };
 		00D440C0134B4F8800094A51 /* libboost_system-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_system-mt.dylib"; path = "/opt/local/lib/libboost_system-mt.dylib"; sourceTree = "<absolute>"; };
+=======
+		00D440BA134B4F8800094A51 /* libboost_date_time-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_date_time-mt.dylib"; path = "/usr/local/lib/libboost_date_time-mt.dylib"; sourceTree = "<absolute>"; };
+		00D440BC134B4F8800094A51 /* libboost_filesystem-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_filesystem-mt.dylib"; path = "/usr/local/lib/libboost_filesystem-mt.dylib"; sourceTree = "<absolute>"; };
+		00D440BE134B4F8800094A51 /* libboost_regex-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_regex-mt.dylib"; path = "/usr/local/lib/libboost_regex-mt.dylib"; sourceTree = "<absolute>"; };
+		00D440C0134B4F8800094A51 /* libboost_system-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_system-mt.dylib"; path = "/usr/local/lib/libboost_system-mt.dylib"; sourceTree = "<absolute>"; };
+>>>>>>> group-master/master
 		00D44164134B57E600094A51 /* libvia.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvia.dylib; path = /usr/local/lib/libvia.dylib; sourceTree = "<absolute>"; };
 		00D44166134B57E600094A51 /* libviaio.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libviaio.dylib; path = /usr/local/lib/libviaio.dylib; sourceTree = "<absolute>"; };
 		00DB76B413E84B6C00BB6484 /* libPRINCE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPRINCE.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -926,11 +962,12 @@
 		A74EB3691525B0BB00AC7C59 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A74EB36A1525B0BB00AC7C59 /* RORegistrationMethodTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationMethodTest.h; sourceTree = "<group>"; };
 		A74EB36B1525B0BB00AC7C59 /* RORegistrationMethodTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistrationMethodTest.mm; sourceTree = "<group>"; };
+		A74EB36C1525B0BB00AC7C59 /* TROYTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TROYTests-Info.plist"; sourceTree = "<group>"; };
+		A74EB36D1525B0BB00AC7C59 /* TROYTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TROYTests-Prefix.pch"; sourceTree = "<group>"; };
 		A74EB36E1525B0BB00AC7C59 /* TROYTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TROYTests.h; sourceTree = "<group>"; };
 		A74EB36F1525B0BB00AC7C59 /* TROYTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TROYTests.m; sourceTree = "<group>"; };
 		A74EB3741525B17A00AC7C59 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = SDKs/MacOSX10.6.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		A74EB3781525B7A600AC7C59 /* TROYTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TROYTests-Info.plist"; sourceTree = "<group>"; };
-		A76C975C1525DCCF0044FE2D /* libisis_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisis_core.dylib; path = SDKs/MacOSX10.6.sdk/usr/local/lib/libisis_core.dylib; sourceTree = DEVELOPER_DIR; };
 		A7BA11EC147FDB6E00DEEDF7 /* libisis_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisis_core.dylib; path = SDKs/MacOSX10.6.sdk/usr/local/lib/libisis_core.dylib; sourceTree = DEVELOPER_DIR; };
 		A7D1B6B4146448EA009A3335 /* libITKAlgorithms.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKAlgorithms.a; path = /usr/local/lib/InsightToolkit/libITKAlgorithms.a; sourceTree = "<absolute>"; };
 		A7D1B6B5146448EA009A3335 /* libITKBasicFilters.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKBasicFilters.a; path = /usr/local/lib/InsightToolkit/libITKBasicFilters.a; sourceTree = "<absolute>"; };
@@ -976,13 +1013,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A76C975E1525DD140044FE2D /* libboost_date_time-mt.dylib in Frameworks */,
-				A76C975F1525DD140044FE2D /* libboost_filesystem-mt.dylib in Frameworks */,
-				A76C97601525DD140044FE2D /* libboost_regex-mt.dylib in Frameworks */,
-				A76C97611525DD140044FE2D /* libboost_system-mt.dylib in Frameworks */,
-				A76C975D1525DCCF0044FE2D /* libisis_core.dylib in Frameworks */,
 				A74EB3751525B17A00AC7C59 /* Cocoa.framework in Frameworks */,
 				A7B9C45914C99D3C00DF35F1 /* libITKIOReview.a in Frameworks */,
+				A7BA11ED147FDB6E00DEEDF7 /* libisis_core.dylib in Frameworks */,
 				A7D1B6C1146448EB009A3335 /* libITKAlgorithms.a in Frameworks */,
 				A7D1B6C2146448EB009A3335 /* libITKBasicFilters.a in Frameworks */,
 				A7D1B6C3146448EB009A3335 /* libITKCommon.a in Frameworks */,
@@ -994,8 +1027,12 @@
 				A7D1B6CA146448EB009A3335 /* libitkvnl_algo.a in Frameworks */,
 				A7D1B6CB146448EB009A3335 /* libitkvnl_inst.a in Frameworks */,
 				A7D1B6CC146448EB009A3335 /* libitkvnl.a in Frameworks */,
+				A713AA0A1445CFFE00BBF150 /* libboost_date_time.dylib in Frameworks */,
+				A713AA0B1445CFFE00BBF150 /* libboost_filesystem.dylib in Frameworks */,
+				A713AA0C1445CFFE00BBF150 /* libboost_regex.dylib in Frameworks */,
 				A7BA11E5146D70BE00DEEDF7 /* libitkv3p_lsqr.a in Frameworks */,
 				A7BA11E6146D70BE00DEEDF7 /* libitkv3p_netlib.a in Frameworks */,
+				A713AA0D1445CFFE00BBF150 /* libboost_system.dylib in Frameworks */,
 				A713AA091445CF1600BBF150 /* EDNA.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1004,9 +1041,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A76C97621525DD530044FE2D /* libboost_filesystem-mt.dylib in Frameworks */,
 				A74EB3771525B20400AC7C59 /* Cocoa.framework in Frameworks */,
 				A74EB3761525B1F600AC7C59 /* TROY.dylib in Frameworks */,
+				A7C601551524A2BD00E9085F /* libboost_filesystem.dylib in Frameworks */,
 				A7B9C45B14C99D7400DF35F1 /* libITKIOReview.a in Frameworks */,
 				A7D1B6CE14644A93009A3335 /* libITKAlgorithms.a in Frameworks */,
 				A7D1B6CF14644A93009A3335 /* libITKBasicFilters.a in Frameworks */,
@@ -1082,9 +1119,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A777CC461525DF32001A3F1D /* libboost_system-mt.dylib in Frameworks */,
-				A777CC451525DEEE001A3F1D /* libisis_core.dylib in Frameworks */,
 				A7B9C45A14C99D4F00DF35F1 /* libITKIOReview.a in Frameworks */,
+				A7BA11EE147FDB8100DEEDF7 /* libisis_core.dylib in Frameworks */,
 				A7D1B6E514644B8B009A3335 /* libitksys.a in Frameworks */,
 				A7D1B6DA14644B70009A3335 /* libITKAlgorithms.a in Frameworks */,
 				A7D1B6DB14644B70009A3335 /* libITKBasicFilters.a in Frameworks */,
@@ -1142,7 +1178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				009CE2E414B707A800FFDED4 /* libisis_core.0.4.5.dylib in Frameworks */,
+				009CE2E414B707A800FFDED4 /* libisis_core.0.4.2.dylib in Frameworks */,
 				00D44167134B57E600094A51 /* libviaio.dylib in Frameworks */,
 				A7BA11D1146D6C6700DEEDF7 /* libITKAlgorithms.a in Frameworks */,
 				A7BA11D2146D6C6700DEEDF7 /* libITKBasicFilters.a in Frameworks */,
@@ -1160,10 +1196,14 @@
 				A7BA11DC146D6C6700DEEDF7 /* libitkvnl.a in Frameworks */,
 				A7BA11DD146D6C6700DEEDF7 /* libitkzlib.a in Frameworks */,
 				00D44165134B57E600094A51 /* libvia.dylib in Frameworks */,
+<<<<<<< HEAD
+				A7BA11F1147FDF2000DEEDF7 /* libisis_core.dylib in Frameworks */,
+=======
 				0021FB151459C34C00C25FDC /* libboost_date_time-mt.dylib in Frameworks */,
 				0021FB161459C34E00C25FDC /* libboost_filesystem-mt.dylib in Frameworks */,
 				0021FB181459C35200C25FDC /* libboost_system-mt.dylib in Frameworks */,
 				0021FB171459C35000C25FDC /* libboost_regex-mt.dylib in Frameworks */,
+>>>>>>> group-master/master
 				00D441BA134B59D600094A51 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1553,6 +1593,14 @@
 		006E07721190295400CEEF38 /* isis */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+				00EA8ABD135C764F00562F3B /* libboost_date_time.dylib */,
+				00EA8ABE135C764F00562F3B /* libboost_filesystem.dylib */,
+				00EA8ABF135C764F00562F3B /* libboost_regex.dylib */,
+				00EA8AC0135C764F00562F3B /* libboost_system.dylib */,
+				A7BA11EC147FDB6E00DEEDF7 /* libisis_core.dylib */,
+=======
+>>>>>>> group-master/master
 				00D440BA134B4F8800094A51 /* libboost_date_time-mt.dylib */,
 				00D440BC134B4F8800094A51 /* libboost_filesystem-mt.dylib */,
 				00D440BE134B4F8800094A51 /* libboost_regex-mt.dylib */,
@@ -1827,13 +1875,15 @@
 		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
 			isa = PBXGroup;
 			children = (
-				A76C975C1525DCCF0044FE2D /* libisis_core.dylib */,
+<<<<<<< HEAD
 				A74EB3781525B7A600AC7C59 /* TROYTests-Info.plist */,
 				A74EB3741525B17A00AC7C59 /* Cocoa.framework */,
 				A7D822611489226800CFFE0F /* libITKIOReview.a */,
+=======
 				0076642A150F9CD50090895F /* myNewScenario.edl */,
-				009CE2E314B707A800FFDED4 /* libisis_core.0.4.5.dylib */,
+				009CE2E314B707A800FFDED4 /* libisis_core.0.4.2.dylib */,
 				00198337146003B4006F8E27 /* BARTSerialIOPluginEyeTrac.bundle */,
+>>>>>>> group-master/master
 				00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */,
 				0040B78F1141470400A57967 /* docs */,
 				0040B7921141470400A57967 /* src */,
@@ -1914,6 +1964,8 @@
 				A74EB3681525B0BB00AC7C59 /* InfoPlist.strings */,
 				A74EB36A1525B0BB00AC7C59 /* RORegistrationMethodTest.h */,
 				A74EB36B1525B0BB00AC7C59 /* RORegistrationMethodTest.mm */,
+				A74EB36C1525B0BB00AC7C59 /* TROYTests-Info.plist */,
+				A74EB36D1525B0BB00AC7C59 /* TROYTests-Prefix.pch */,
 				A74EB36E1525B0BB00AC7C59 /* TROYTests.h */,
 				A74EB36F1525B0BB00AC7C59 /* TROYTests.m */,
 			);
@@ -2939,7 +2991,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib/InsightToolkit,
-					/opt/local/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2964,7 +3015,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib/InsightToolkit,
-					/opt/local/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3057,8 +3107,16 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+<<<<<<< HEAD
 				HEADER_SEARCH_PATHS = "$(inherited)";
+=======
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/isis,
+					/opt/local/include,
+					/usr/include,
+				);
+>>>>>>> group-master/master
 				INFOPLIST_FILE = "EDNAUnitTestSuite-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
@@ -3096,8 +3154,16 @@
 					"_ENABLE_LOG=1",
 					"$(GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1)",
 				);
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+<<<<<<< HEAD
 				HEADER_SEARCH_PATHS = "$(inherited)";
+=======
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/isis,
+					/opt/local/include,
+					/usr/include,
+				);
+>>>>>>> group-master/master
 				INFOPLIST_FILE = "EDNAUnitTestSuite-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
@@ -3341,13 +3407,21 @@
 					"_ENABLE_LOG=1",
 					"$(GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1)",
 				);
+<<<<<<< HEAD
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = "$(inherited)";
+=======
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/isis,
+					/opt/local/include,
+					/usr/include,
+				);
+>>>>>>> group-master/master
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib/InsightToolkit,
-					/opt/local/lib,
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = isis_test;
@@ -3364,18 +3438,26 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
+<<<<<<< HEAD
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = "$(inherited)";
+=======
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+>>>>>>> group-master/master
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib/InsightToolkit,
-					/opt/local/lib,
 				);
+<<<<<<< HEAD
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
+=======
+>>>>>>> group-master/master
 				PRODUCT_NAME = isis_test;
 				SDKROOT = macosx10.6;
 				ZERO_LINK = NO;
@@ -3631,8 +3713,13 @@
 				LD_DYLIB_INSTALL_NAME = "$(EXECUTABLE_PATH)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+<<<<<<< HEAD
 					/usr/local/lib/InsightToolkit,
 					"\"$(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk/usr/local/lib\"",
+=======
+					"\"/opt/local/lib/InsightToolkit-3.16\"",
+					/usr/local/Cellar/boost/1.47.0/lib,
+>>>>>>> group-master/master
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -3657,15 +3744,28 @@
 				FRAMEWORK_SEARCH_PATHS = $inherited;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+<<<<<<< HEAD
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"_ENABLE_DEBUG=0",
+					"_ENABLE_LOG=1",
+					"$(GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1)",
+				);
+=======
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+>>>>>>> group-master/master
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INSTALL_PATH = /usr/local/lib;
 				LD_DYLIB_INSTALL_NAME = "$(EXECUTABLE_PATH)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+<<<<<<< HEAD
 					/usr/local/lib/InsightToolkit,
 					"\"$(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk/usr/local/lib\"",
+=======
+					"\"/opt/local/lib/InsightToolkit-3.16\"",
+					/usr/local/Cellar/boost/1.47.0/lib,
+>>>>>>> group-master/master
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -3673,6 +3773,11 @@
 					"-framework",
 					AppKit,
 				);
+<<<<<<< HEAD
+				PREBINDING = NO;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
+=======
+>>>>>>> group-master/master
 				PRODUCT_NAME = EDNA;
 				ZERO_LINK = NO;
 			};
@@ -3760,10 +3865,35 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1 = "";
+<<<<<<< HEAD
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					/usr/include,
+					/tmp/isis/include/isis,
+					/opt/local/include/boost,
+					/usr/local/include,
+					/opt/local/lib/InsightToolkit,
+					/opt/local/include/InsightToolkit/Utilities/vxl/core,
+					/opt/local/include/InsightToolkit/Utilities/vxl/vcl,
+					/opt/local/include/InsightToolkit/Common,
+				);
+				INFOPLIST_FILE = "BARTApplication-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/opt/local/lib,
+					/usr/lib,
+					/usr/local/lib/InsightToolkit,
+=======
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "BARTApplication-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/boost/1.47.0/lib,
+>>>>>>> group-master/master
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = BARTApplication;
@@ -3783,14 +3913,40 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+<<<<<<< HEAD
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"_ENABLE_DEBUG=0",
 					"_ENABLE_LOG=1",
 				);
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					/usr/include,
+					/tmp/isis/include/isis,
+					/opt/local/include/boost,
+					/usr/local/include,
+					/opt/local/lib/InsightToolkit,
+					/opt/local/include/InsightToolkit/Utilities/vxl/core,
+					/opt/local/include/InsightToolkit/Utilities/vxl/vcl,
+					/opt/local/include/InsightToolkit/Common,
+				);
+				INFOPLIST_FILE = "BARTApplication-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/opt/local/lib,
+					/usr/lib,
+					/usr/local/lib/InsightToolkit,
+=======
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "BARTApplication-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/boost/1.47.0/lib,
+>>>>>>> group-master/master
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = BARTApplication;
@@ -3836,7 +3992,10 @@
 					/opt/local/include,
 					/usr/include,
 					/usr/local/include/isis,
+<<<<<<< HEAD
 					/opt/local/include/boost,
+=======
+>>>>>>> group-master/master
 					/usr/local/include,
 					/usr/local/lib/InsightToolkit,
 					/usr/local/include/InsightToolkit/Utilities/vxl/core,
@@ -3857,17 +4016,35 @@
 					/usr/local/lib,
 					/opt/local/lib,
 					/usr/lib,
+<<<<<<< HEAD
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fvisibility=default",
+=======
+>>>>>>> group-master/master
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = "";
+<<<<<<< HEAD
+				PREBINDING = NO;
+				SDKROOT = "";
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
+				TEMP_DIR = /tmp/doxygen_temp;
+				TEST_HOST = "";
+				VALID_ARCHS = x86_64;
+=======
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = "";
 				TEMP_DIR = /tmp/doxygen_temp;
 				TEST_HOST = "";
 				VALID_ARCHS = x86_64;
 				VERSIONING_SYSTEM = "apple-generic";
+>>>>>>> group-master/master
 			};
 			name = Debug;
 		};
@@ -3880,9 +4057,14 @@
 					$HOME/Library/Frameworks,
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+<<<<<<< HEAD
+				GCC_MODEL_TUNING = "";
+				GCC_OPTIMIZATION_LEVEL = 2;
+=======
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+>>>>>>> group-master/master
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"_ENABLE_DEBUG=0",
 					"_ENABLE_LOG=0",
@@ -3900,7 +4082,10 @@
 					/opt/local/include,
 					/usr/include,
 					/usr/local/include/isis,
+<<<<<<< HEAD
 					/opt/local/include/boost,
+=======
+>>>>>>> group-master/master
 					/usr/local/include,
 					/usr/local/lib/InsightToolkit,
 					/usr/local/include/InsightToolkit/Utilities/vxl/core,
@@ -3922,12 +4107,25 @@
 					/opt/local/lib,
 					/usr/lib,
 				);
+<<<<<<< HEAD
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fvisibility=default",
+				);
+				PREBINDING = NO;
+				SDKROOT = "";
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
+				VALID_ARCHS = x86_64;
+=======
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = "";
 				VALID_ARCHS = x86_64;
 				VERSIONING_SYSTEM = "apple-generic";
+>>>>>>> group-master/master
 			};
 			name = Release;
 		};

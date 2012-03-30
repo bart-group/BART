@@ -44,6 +44,7 @@
 @synthesize mediaObjects;
 @synthesize duration;
 @synthesize numberOfMediaObjects;
+//@synthesize dictMediaObjects;
 
 
 -(id)initWithConfigEntry:(NSString*)key
@@ -58,12 +59,24 @@
         mEventsToHappen      = [[NSMutableDictionary alloc] initWithCapacity:0];
         mHappenedEvents      = [[NSMutableDictionary alloc] initWithCapacity:0];
         
+        /********/
+        NSMutableDictionary *dictMO = [[NSMutableDictionary alloc] initWithCapacity:numberOfMediaObjects];
+        
+        /********/
         for (NEMediaObject* mObj in mediaObjects) {
             mediaObjectIDs = [mediaObjectIDs arrayByAddingObject:[mObj getID]];
             [mEventsToHappen setObject:[NSMutableArray arrayWithCapacity:1] forKey:[mObj getID]];
             [mHappenedEvents setObject:[NSMutableArray arrayWithCapacity:1] forKey:[mObj getID]];
+            /********/
+            [dictMO setValue:mObj forKey:[mObj getID]];
+            
+            /********/ 
         }
         [mediaObjectIDs retain];
+        /********/
+        dictMediaObjects = [[NSDictionary alloc] initWithDictionary:dictMO];
+        
+        /********/
         
         [self buildEventsForTimetable:key];
         
@@ -205,6 +218,12 @@
     return mediaObjectIDs;
 }
 
+-(NEMediaObject*)getMediaObjectByID:(NSString*)moID
+{
+    return [dictMediaObjects objectForKey:moID];
+}
+
+
 -(NSArray*)happenedEventsForMediaObjectID:(NSString*)mediaObjID
 {
     [mLock lock];
@@ -345,7 +364,7 @@
              #pragma unused(idx)
              //NSLog(@"shift onsets %lu", [(NEStimEvent*) stimEvent time]);
              [(NEStimEvent*) stimEvent setTime:([(NEStimEvent*) stimEvent time]+timeShift)];
-             NSLog(@"shifted onsets %lu", [(NEStimEvent*) stimEvent time]);
+             //NSLog(@"shifted onsets %lu", [(NEStimEvent*) stimEvent time]);
          }];
         
     }];

@@ -19,9 +19,15 @@ float mImageHeightHalf;
 -(id)initWithID:(NSString*)objID
            file:(NSString*)path
       displayAt:(NSPoint)position
+  constrainedBy:(NSString *)constraintID
 {
     if ((self = [super init])) {
         mID       = [objID retain];
+        mConstraintID = [[constraintID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] retain];
+        if ( 0 != [mConstraintID length]){
+            hasConstraint = YES;}
+        else{
+            hasConstraint = NO;}
         
         NSString* resolvedPath  = [[[COExperimentContext getInstance] systemConfig] getEDLFilePath];
         resolvedPath = [resolvedPath stringByDeletingLastPathComponent];
@@ -36,7 +42,7 @@ float mImageHeightHalf;
             // Resize the image
             CIFilter *scaleFilter = [CIFilter filterWithName:@"CILanczosScaleTransform"];
             [scaleFilter setValue:im forKey:@"inputImage"];
-            [scaleFilter setValue:[NSNumber numberWithFloat:0.5] forKey:@"inputScale"];
+            [scaleFilter setValue:[NSNumber numberWithFloat:1.0] forKey:@"inputScale"];
             [scaleFilter setValue:[NSNumber numberWithFloat:1.0] forKey:@"inputAspectRatio"];
             mImage = [[scaleFilter valueForKey:@"outputImage"] retain];
          
@@ -55,6 +61,7 @@ float mImageHeightHalf;
 {
     [mID release];
     [mImage release];
+    [mConstraintID release];
     
     [super dealloc];
 }

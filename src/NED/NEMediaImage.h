@@ -32,6 +32,7 @@
  */
 -(id)initWithID:(NSString*)objID
            file:(NSString*)path
-      displayAt:(NSPoint)position;
+      displayAt:(NSPoint)position
+  constrainedBy:(NSString*)constraintID;
 
 @end

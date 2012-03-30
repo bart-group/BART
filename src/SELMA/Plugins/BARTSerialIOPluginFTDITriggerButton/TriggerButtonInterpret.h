@@ -17,6 +17,8 @@
 	unsigned char triggerIDChar;
     @private
     size_t countTrigger;
+    NSDictionary *dictPortParameters;
+
 }
 
 @property (copy, nonatomic) NSNumber *triggerID;

@@ -13,6 +13,7 @@
 #import "NED/NEPresentationExternalConditionController.h"
 #import "NEPresentationLogger.h"
 #import "NED/NEViewManager.h"
+#import "../NED/NEConstraint.h"
 
 @interface BAProcedureStep_Paradigm (PrivatMethods)
 
@@ -23,6 +24,14 @@
  * \return An array of NEMediaObjects.
  */
 -(NSArray*)buildMediaObjects;
+
+/**
+ * Builds an autoreleased array of NEConstraints
+ * by querying the configuration (EDL).
+ *
+ * \return An array of NEConstraints.
+ */
+-(NSArray*)buildConstraints;
 
 ///**
 // * Builds an autoreleased dictionary of NEPresentationEvent objects
@@ -46,7 +55,7 @@
 //private members
 COExperimentContext *expConfig;
 NEPresentationController *presentationController;
-NEPresentationExternalConditionController *externalCondition;
+NEPresentationExternalConditionController *externalConditions;
 NEViewManager* viewManager;
 
 - (id)init
@@ -61,15 +70,17 @@ NEViewManager* viewManager;
         //TODO : ask if Presentation is needed!!
         [NEPresentationLogger getInstance];
         
-
+        //load mediaObjects and timetable
         
         NSArray* mediaObjects = nil;
         NETimetable* timetable = nil;
+        NSArray* constraintsArray = nil;
         
         if ([[expConfig systemConfig] getProp:@"/rtExperiment/stimulusData"]) {
             mediaObjects = [self buildMediaObjects];
-            timetable = [[NETimetable alloc] initWithConfigEntry:@"/rtExperiment/stimulusData/timeTable" 
+            timetable = [[NETimetable alloc] initWithConfigEntry:@"$timeTable" 
                                                  andMediaObjects:mediaObjects];
+            constraintsArray = [self buildConstraints];
         }
         
         if (timetable) {
@@ -80,12 +91,15 @@ NEViewManager* viewManager;
             
             //TODO: ask if it's a dynamic design
             //if(dynamicDesign)
-            externalCondition = [[NEPresentationExternalConditionController alloc] initWithMediaObjects:mediaObjects];
-            [presentationController setMExternalConditionController:externalCondition];
+            externalConditions = [[NEPresentationExternalConditionController alloc] initWithConstraints:constraintsArray];
+            [presentationController setExternalConditions:externalConditions];
             
             [viewManager showAllWindows:nil];
             [timetable release];
         }
+        
+        
+        
     }
     
     return self;
@@ -94,7 +108,7 @@ NEViewManager* viewManager;
 - (void)dealloc
 {
     [presentationController release];
-    [externalCondition release];
+    [externalConditions release];
     [viewManager release];
     [super dealloc];
 }
@@ -125,29 +139,44 @@ NEViewManager* viewManager;
 
 -(NSArray*)buildMediaObjects
 {
-    NSMutableArray* mediaObjects = [NSMutableArray arrayWithCapacity:0];
+    NSMutableArray* mediaObjects = [NSMutableArray arrayWithCapacity:[[expConfig systemConfig] countNodes:@"$mediaObjects/mediaObject"]];
     
-    NSUInteger mediaObjectCounter = 1;
-    NSString* mediaObjectProp = [[expConfig systemConfig] getProp:@"/rtExperiment/stimulusData/mediaObjectList/mediaObject[1]"];
-    
-    while (mediaObjectProp) {
+    for (NSUInteger moCounter = 0; moCounter < [[expConfig systemConfig] countNodes:@"$mediaObjects/mediaObject"]; moCounter++ ) 
+    {    
         NEMediaObject* obj = [[NEMediaObject alloc] 
-                              initWithConfigEntry:[NSString stringWithFormat:@"/rtExperiment/stimulusData/mediaObjectList/mediaObject[%d]", 
-                                                   mediaObjectCounter]];
+                              initWithConfigEntry:[NSString stringWithFormat:@"$mediaObjects/mediaObject[%d]", moCounter+1]];
         if (obj) {
             [mediaObjects addObject:obj];
         } else {
             NSLog(@"Could not build media object!");
             // TODO: error!
         }
-        
         [obj release];
-        
-        mediaObjectCounter++;
-        mediaObjectProp = [[expConfig systemConfig]  getProp:[NSString stringWithFormat:@"/rtExperiment/stimulusData/mediaObjectList/mediaObject[%d]", mediaObjectCounter]];
     }
     
     return mediaObjects;
+}
+
+-(NSArray*)buildConstraints
+{
+    NSMutableArray* constraints = [NSMutableArray arrayWithCapacity:[[expConfig systemConfig] countNodes:@"$constraints/constraint"]];
+    NSLog(@"count nodes constraints: %lu", [[expConfig systemConfig] countNodes:@"$constraints/constraint"]);
+    
+    for (NSUInteger constraintCounter = 0; constraintCounter < [[expConfig systemConfig] countNodes:@"$constraints/constraint"]; constraintCounter++ ) {
+        NEConstraint* constraint = [[NEConstraint alloc] 
+                                    initWithConfigEntry:[NSString stringWithFormat:@"$constraints/constraint[%d]", constraintCounter+1]];
+        if (constraint) {
+            [constraints addObject:constraint];
+        } else {
+            NSLog(@"Could not build constraint list!");
+            // TODO: error!
+        }
+        
+        [constraint release];
+        
+    }
+    
+    return constraints;
 }
 
 

@@ -12,13 +12,14 @@
 @protocol BARTSerialIOProtocol
 
 -(void) valueArrived:(char)value;
--(NSPoint)isConditionFullfilled:(NSDictionary*)params;
+-(NSDictionary*)evaluateConstraintForParams:(NSDictionary*)params;
 
 -(void)connectionIsOpen;
 -(void)connectionIsClosed;
 
 -(NSString*) pluginTitle;
 -(NSString*) pluginDescription;
+-(NSDictionary*) portParameters;
 -(NSImage*) pluginIcon;
 
 

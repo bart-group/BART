@@ -74,7 +74,7 @@
     NEPresentationLogger* mLogger;
 }
 
-@property (readwrite, retain) NEPresentationExternalConditionController *mExternalConditionController;
+@property (readwrite, retain, setter = setExternalConditions:) NEPresentationExternalConditionController *mExternalConditionController;
 @property (readwrite) NSUInteger mTriggerCount;
 @property (readwrite) NSTimeInterval mLastTriggersTime;
 

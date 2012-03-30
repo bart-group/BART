@@ -54,9 +54,35 @@ extern NSString * const BARTTriggerArrivedNotification;
  */
 + (COExperimentContext*)getInstance;
 
+/**
+ * load a new experiment configuration
+ * \param edlPath the full path to an edl file containing the configuration for the experiment
+ * \returns nil if it works correctly, an error object otherwise
+ */
 -(NSError*)resetWithEDLFile:(NSString*)edlPath;
 
+
+/*
+ * register as an observer for a special kind of protocol
+ * \param object the one who wants to be the observer, mostly the calling object itself
+ * \param protocolName the name of the protocol 
+ * \returns YES, if everything works correctly, NO otherwise
+ */
 -(BOOL)addOberserver:(id)object forProtocol:(NSString*)protocolName;
+
+/**
+ * starts all components necessary to run the experiment
+ * \returns nil if it works correctly, an error object otherwise
+ */
+-(NSError*)startExperiment;
+
+/**
+ * stops properly all components before ending the application
+ * \returns nil if it works correctly, an error object otherwise
+ */
+
+-(NSError*)stopExperiment;
+
 
 
 @end

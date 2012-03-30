@@ -30,6 +30,7 @@
  * \return      A initialized NEMediaAudio object.
  */
 -(id)initWithID:(NSString*)objID 
-        andFile:(NSString*)path;
+        andFile:(NSString*)path
+  constrainedBy:(NSString*)constraintID;
 
 @end

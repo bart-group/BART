@@ -36,6 +36,7 @@ NSString * const BARTTriggerArrivedNotification = @"de.mpg.cbs.BARTTriggerArrive
 -(NSError*)reset;
 -(NSError*)configureExternalDevices;
 
+
 @end
 
 @implementation COExperimentContext
@@ -87,6 +88,8 @@ dispatch_queue_t serialDesignElementAccessQueue;
     if ((self = [super init])){
         systemConfig = [COSystemConfig getInstance];
         serialDesignElementAccessQueue = dispatch_queue_create("de.mpg.cbs.DesignElementAccesQueue", NULL);
+        eyeTracThread = nil;
+        triggerThread = nil;
     }
     
     return self;
@@ -94,6 +97,32 @@ dispatch_queue_t serialDesignElementAccessQueue;
 
 -(void)dealloc
 {
+    if ((nil != eyeTracThread) && [eyeTracThread isExecuting] ){
+        [eyeTracThread cancel];
+        [eyeTracThread release];
+        eyeTracThread = nil;
+    }
+    if ( (nil != triggerThread) && [triggerThread isExecuting]){
+        [triggerThread cancel];
+        [triggerThread release];
+        triggerThread = nil;
+    }
+    if (nil != dictSerialIOPlugins){
+        [dictSerialIOPlugins release];
+        dictSerialIOPlugins = nil;
+    }
+    if (nil != designElemRef) {
+        [designElemRef release];
+        designElemRef = nil;
+    }
+    if (nil != anatomyElemRef){
+        [anatomyElemRef release];
+        anatomyElemRef = nil;
+    }
+    if (nil != functionalOrigDataRef){
+        [functionalOrigDataRef release];
+        functionalOrigDataRef = nil;
+    }
     [super dealloc];
 }
 
@@ -101,13 +130,30 @@ dispatch_queue_t serialDesignElementAccessQueue;
 {
     if ([eyeTracThread isExecuting] ){
         [eyeTracThread cancel];
+        [eyeTracThread release];
+        eyeTracThread = nil;
     }
     if ([triggerThread isExecuting]){
-        [triggerThread cancel];}
-    [dictSerialIOPlugins release];
-    [designElemRef release];
-    [anatomyElemRef release];
-    [functionalOrigDataRef release];
+        [triggerThread cancel];
+        [triggerThread release];
+        triggerThread = nil;
+    }
+    if (nil != dictSerialIOPlugins){
+        [dictSerialIOPlugins release];
+        dictSerialIOPlugins = nil;
+    }
+    if (nil != designElemRef) {
+        [designElemRef release];
+        designElemRef = nil;
+    }
+    if (nil != anatomyElemRef){
+        [anatomyElemRef release];
+        anatomyElemRef = nil;
+    }
+    if (nil != functionalOrigDataRef){
+        [functionalOrigDataRef release];
+        functionalOrigDataRef = nil;
+    }
     return nil;
 }
 
@@ -125,7 +171,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:BARTDidResetExperimentContextNotification object:nil];
     return err;
-
+    
 }
 
 -(NSError*)fillSystemConfigWithContentsOfEDLFile:(NSString*)edlPath
@@ -147,16 +193,17 @@ dispatch_queue_t serialDesignElementAccessQueue;
         if (nil != serialPortTriggerAndButtonBox){
             [mutableDictPlugins setObject:serialPortTriggerAndButtonBox forKey:[serialPortTriggerAndButtonBox deviceDescription]];
         }
-        
+        [serialPortTriggerAndButtonBox release];
     }
     // setup the serial port for the eye tracker device
     //TODO get from config:
-    useSerialPortEyeTrac = NO;
+    useSerialPortEyeTrac = YES;
     if (YES == useSerialPortEyeTrac){
-        SerialPort* serialPortEyeTrac = [[self setupSerialPortEyeTrac] retain];
+        SerialPort* serialPortEyeTrac = [[self setupSerialPortEyeTrac] retain] ;
         if (nil != serialPortEyeTrac){
             [mutableDictPlugins setObject:serialPortEyeTrac forKey:[serialPortEyeTrac deviceDescription]];
         }
+        [serialPortEyeTrac release];
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self 
@@ -204,7 +251,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
         return YES;
         
     }
-
+    
     
     [object release];
     return NO;
@@ -216,7 +263,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    #pragma unused(zone)
+#pragma unused(zone)
     return self;
 }
 
@@ -230,7 +277,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
     return UINT_MAX;  //denotes an object that cannot be released
 }
 
-- (void)release
+- (oneway void)release
 {
     //do nothing
 }
@@ -240,37 +287,93 @@ dispatch_queue_t serialDesignElementAccessQueue;
     return self;
 }
 
+- (NSError*)startExperiment
+{
+    if (nil != eyeTracThread){
+        [eyeTracThread start];}
+    if (nil != triggerThread){
+        [triggerThread start];}
+    return nil;
+}
+
+-(NSError*)stopExperiment
+{
+    // cancel all threads that had been started
+    if ((nil != eyeTracThread) && [eyeTracThread isExecuting] ){
+        [eyeTracThread cancel];}
+    if ((nil != triggerThread) && [triggerThread isExecuting]){
+        [triggerThread cancel];}
+    
+    // close all serial ports correctly to be able to ope them again when necessary
+    if ((nil != dictSerialIOPlugins) )
+    {
+        for (SerialPort *s in [dictSerialIOPlugins allValues])
+        {
+            [s closeSerialPort:nil];
+        }
+        
+    }
+
+    
+    return nil;
+}
+
 -(SerialPort*)setupSerialPortEyeTrac
 {
-	//TODO: get from config
-	NSString *devPath = [[NSString alloc] initWithString:@"cu.usbserial   "];
-	NSString *descr = @"ASLEyeTrac";
-	
-	SerialPort *serialPortEyeTrac = [[SerialPort alloc] initSerialPortWithDevicePath:devPath deviceDescript:descr
-															  symbolrate:57600 parity:PARNON andBits:CS8];
+    SerialPort *serialPortEyeTrac = nil;
 	
 	//TODO: get from config
 	NSString* const bundleIDStr = @"de.mpg.cbs.BARTSerialIO.BARTSerialIOPluginEyeTrac";
 	NSArray *bundleArray = [[self loadPluginWithID:bundleIDStr] retain];
 	
-	//NSBundle *curBundle = nil;
-	NSEnumerator *instanceEnum = [bundleArray objectEnumerator];
-	size_t i = 0;
-	while ([instanceEnum nextObject]) {
+	//NSEnumerator *instanceEnum = [bundleArray objectEnumerator];
+	NSUInteger i = 0;
+	//while ([instanceEnum nextObject]) {
 		
 		id interpretSerialIO = [bundleArray objectAtIndex:i];
 		NSLog(@"%@", interpretSerialIO);
 		if (YES == [self pluginClassIsValid:interpretSerialIO])
 		{
+            NSDictionary* port  = [interpretSerialIO portParameters];
+            if (nil == port){
+                if (nil != serialPortEyeTrac){
+                    [serialPortEyeTrac release];}
+                [bundleArray release];
+                NSLog(@"No dict with port parameters got from external Plugin");
+                return nil;}
+            
+            NSString *devPath   = [port objectForKey:@"pathToDevice"];
+            NSString *descr     = [port objectForKey:@"deviceDescription"];
+            int baudRate        = [[port objectForKey:@"baudRate"] integerValue];
+            int bits            = [[port objectForKey:@"useBits"] integerValue];
+            BOOL enableParity   = [[port objectForKey:@"enableParity"] boolValue];
+            BOOL oddParity      = [[port objectForKey:@"useOddParity"] boolValue];//
+            BOOL isSerial       = [[port objectForKey:@"isSerialPort"] boolValue];
+            
+            if (NO == isSerial){
+                if (nil != serialPortEyeTrac){
+                    [serialPortEyeTrac release];}
+                [bundleArray release];
+                NSLog(@"No serial port wanted");
+                return nil;}
+            
+            serialPortEyeTrac = [[SerialPort alloc] initSerialPortWithDevicePath:devPath
+                                                                  deviceDescript:descr
+                                                                      symbolrate:baudRate 
+                                                                    enableParity:enableParity 
+                                                                       oddParity:oddParity 
+                                                                         andBits:bits];
 			[serialPortEyeTrac addObserver: interpretSerialIO];
 		}
-		i++;
-	}
+		//i++;
+	//}
 	
 	NSError *err = [[NSError alloc] init];
-	eyeTracThread = [[NSThread alloc] initWithTarget:serialPortEyeTrac selector:@selector(startSerialPortThread:) object:err]; //TODO error object    
-	[eyeTracThread start];
-    [devPath release];
+    if (nil != eyeTracThread){
+        [eyeTracThread release];}
+    eyeTracThread = [[NSThread alloc] initWithTarget:serialPortEyeTrac selector:@selector(startSerialPortThread:) object:err]; 
+   
+    
     [err release];
     [bundleArray release];
     return [serialPortEyeTrac autorelease];
@@ -278,36 +381,62 @@ dispatch_queue_t serialDesignElementAccessQueue;
 
 -(SerialPort*)setupSerialPortTriggerAndButtonBox
 {
-	//TODO: get from config
-	NSString *devPath = [[NSString alloc] initWithString:@"cu.usbserial-FTDWH1DI"];
-	NSString *descr = @"TriggerAndButtonBox";
-	
-	SerialPort *serialPortTriggerAndButtonBox = [[SerialPort alloc] initSerialPortWithDevicePath:devPath deviceDescript:descr
-                                                                          symbolrate:19200 parity:PARNON andBits:CS8];
+	SerialPort *serialPortTriggerAndButtonBox = nil;
 	
 	//TODO: get from config
 	NSString* const bundleIDStr = @"de.mpg.cbs.BARTSerialIO.BARTSerialIOPluginFTDITriggerButton";
 	NSArray *bundleArray = [[self loadPluginWithID:bundleIDStr] retain];
 	NSLog(@"bundleArray size: %lu", [bundleArray count]);
 	
-	//NSBundle *curBundle = nil;
-	NSEnumerator *instanceEnum = [bundleArray objectEnumerator];
-	size_t i = 0;
-	while ([instanceEnum nextObject]) {
+	//NSEnumerator *instanceEnum = [bundleArray objectEnumerator];
+	NSUInteger i = 0;
+	//while ([instanceEnum nextObject]) {
 		
 		id interpretSerialIO = [bundleArray objectAtIndex:i];
 		NSLog(@"%@", interpretSerialIO);
 		if (YES == [self pluginClassIsValid:interpretSerialIO])
 		{
+            NSDictionary* port  = [interpretSerialIO portParameters];
+            if (nil == port){
+                if (nil != serialPortTriggerAndButtonBox){
+                    [serialPortTriggerAndButtonBox release];}
+                [bundleArray release];
+                NSLog(@"No dict with port parameters got from external Plugin");
+                return nil;}
+            
+            NSString *devPath   = [port objectForKey:@"pathToDevice"];
+            NSString *descr     = [port objectForKey:@"deviceDescription"];
+            int baudRate        = [[port objectForKey:@"baudRate"] integerValue];
+            int bits            = [[port objectForKey:@"useBits"] integerValue];
+            BOOL enableParity   = [[port objectForKey:@"enableParity"] boolValue];
+            BOOL oddParity      = [[port objectForKey:@"useOddParity"] boolValue];//
+            BOOL isSerial       = [[port objectForKey:@"isSerialPort"] boolValue];
+            
+            if (NO == isSerial){
+                if (nil != serialPortTriggerAndButtonBox){
+                    [serialPortTriggerAndButtonBox release];}
+                [bundleArray release];
+                NSLog(@"No serial port wanted");
+                return nil;}
+            
+            serialPortTriggerAndButtonBox = [[SerialPort alloc] initSerialPortWithDevicePath:devPath
+                                                                              deviceDescript:descr
+                                                                                  symbolrate:baudRate 
+                                                                                enableParity:enableParity 
+                                                                                   oddParity:oddParity 
+                                                                                     andBits:bits];
 			[serialPortTriggerAndButtonBox addObserver: interpretSerialIO];
 		}
-		i++;
-	}
+		//i++;
+	//}
 	
 	NSError *err = [[NSError alloc] init];
-	triggerThread = [[NSThread alloc] initWithTarget:serialPortTriggerAndButtonBox selector:@selector(startSerialPortThread:) object:err]; //TODO error object    
-	[triggerThread start];
-    [devPath release];
+    if (nil != triggerThread){
+        [triggerThread release];
+    }
+	triggerThread = [[NSThread alloc] initWithTarget:serialPortTriggerAndButtonBox selector:@selector(startSerialPortThread:) object:err];    
+
+    
     [err release];
     [bundleArray release];
     return [serialPortTriggerAndButtonBox autorelease];

@@ -25,7 +25,7 @@
 
 
 /** The time interval for one update tick in milliseconds. */
-#define TICK_TIME 5
+#define TICK_TIME 1
 /** The time interval for the update in seconds.*/
 static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 
@@ -114,12 +114,16 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 /**
  * checks for the fullfillment of the external conditions
  */
--(BOOL)checkForExternalConditionsForEvent:(NEStimEvent*)event;
+-(NSDictionary*)checkForExternalConditionsForEvent:(NEStimEvent*)event;
 
 /**
  * starts the updateThread ,i.e. the real start of the presentation
  */
 -(void)startPresentation;
+
+-(void)doActionOnTimeTable:(NSDictionary*)action 
+       withResultVariables:(NSDictionary*)resVariables
+                   atEvent:(NEStimEvent*)currentEvent;
 
 @end
 
@@ -223,24 +227,21 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         return;
     }
     
-    for (NEMediaObject* mediaObj in [mTimetable mediaObjects]) {
-        if ([[mediaObj getID] compare:mID] == 0) {
-            NEStimEvent* event = [[NEStimEvent alloc] initWithTime:t 
-                                                          duration:dur 
-                                                       mediaObject:mediaObj];
-            if ([mUpdateThread isExecuting]) {
-                [mLockAddedEvents lock];
-                [mAddedEvents addObject:event];
-                [mLockAddedEvents unlock];
-                
-            } else {
-                [mTimetable addEvent:event];
-                [mViewManager updateTimeline];
-            }
-            [event release];
-            return;
-        }
+    NEMediaObject *mediaObj = [mTimetable getMediaObjectByID:mID];
+    NEStimEvent* event = [[NEStimEvent alloc] initWithTime:t 
+                                                  duration:dur 
+                                               mediaObject:mediaObj];
+    if ([mUpdateThread isExecuting]) {
+        [mLockAddedEvents lock];
+        [mAddedEvents addObject:event];
+        [mLockAddedEvents unlock];
+        
+    } else {
+        [mTimetable addEvent:event];
+        [mViewManager updateTimeline];
     }
+    [event release];
+    return;
 }
 
 -(void)enqueueEvent:(NEStimEvent*)newEvent
@@ -383,7 +384,39 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         
         //ask for conditions
         NEStimEvent *event = [mTimetable previewNextEventAtTime:mTime];
-        [self checkForExternalConditionsForEvent:event];
+     
+        //evaluate external condition
+        NSDictionary* externalCondition = [[self checkForExternalConditionsForEvent:event] retain];
+        
+        
+        if (nil != externalCondition)
+        {
+            BOOL isConditionFullfilled = YES;
+            for (NSString *s in [externalCondition objectForKey:@"conditionsArray"])
+            {
+                isConditionFullfilled = isConditionFullfilled && [s boolValue];
+            }
+            if (YES == isConditionFullfilled)
+            {
+                for (NSDictionary *action in [externalCondition objectForKey:@"actionsThen"])
+                {
+                    [self doActionOnTimeTable:action 
+                          withResultVariables:[externalCondition objectForKey:@"resultVariables"] 
+                                      atEvent:event];
+                }
+            }
+            else
+            {
+                for (NSDictionary *action in [externalCondition objectForKey:@"actionsElse"])
+                {
+                    [self doActionOnTimeTable:action 
+                          withResultVariables:[externalCondition objectForKey:@"resultVariables"]
+                                      atEvent:event];
+                }
+            }
+            [externalCondition release];
+        }
+        
         
         
         [mViewManager setCurrentTime:mTime];
@@ -398,24 +431,117 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
     }
 }
 
--(BOOL)checkForExternalConditionsForEvent:(NEStimEvent *)event
+-(NSDictionary*)checkForExternalConditionsForEvent:(NEStimEvent *)event
 {
-    NSPoint p = [mExternalConditionController isConditionFullfilledForEvent:event];
-    
-    if ( (0.0 == p.x) || (0.0 == p.y) )
+    if (NO == [[event mediaObject] isDependentFromConstraint])
     {
-        //shift all coming events 20 ms
-        [mTimetable shiftOnsetForAllEventsToHappen:20];
-        return NO;
+        return nil;
     }
     
     
-    //get position from external device and set this to coming event
-    [[event mediaObject] setPosition:p];
+    NSDictionary *dictReturn = nil;
+    dictReturn = [[mExternalConditionController checkConstraintForID:[[event mediaObject] getConstraintID]] retain];
+    if (nil != dictReturn)
+    {
+        return [dictReturn autorelease];
+    }
+    return nil;
+}
+
+-(void)doActionOnTimeTable:(NSDictionary*)action withResultVariables:(NSDictionary*)resVariables atEvent:(NEStimEvent*)currentEvent
+{
+    
+    NSString* fName = [action objectForKey:@"functionNameInternal"];
+    NSArray *attArray = [action objectForKey:@"attributesArray"];
+    
+    
+    if (NSOrderedSame == [fName compare:@"replaceMediaObject"])
+    {
+        for (NSDictionary *att in attArray){
+            if ( NSOrderedSame == [[att objectForKey:@"attributeType"] compare:@"mediaObjectRef" options:NSCaseInsensitiveSearch])
+            {
+                NEMediaObject *mediaObj = [mTimetable getMediaObjectByID:[att objectForKey:@"attributeValue"]];
+                NEStimEvent *newEvent = [[NEStimEvent alloc] initWithTime:[currentEvent time] 
+                                                                 duration:[currentEvent duration] 
+                                                              mediaObject:mediaObj];
+                [self enqueueEvent:newEvent asReplacementFor:currentEvent];
+                [newEvent release];
+                return;
+            }
+        }
+        return;
+    }
+    if (NSOrderedSame == [fName compare:@"setMediaObjectParamter"])
+    {
+        NSString *paraName = nil;
+        float paraVal = 0.0;
         
+        for (NSDictionary *att in attArray){
+            if (NSOrderedSame == [[att objectForKey:@"attributeType"] compare:@"Name" options:NSCaseInsensitiveSearch])
+            {
+                paraName = [att objectForKey:@"attributeValue"];
+            }
+            else if (NSOrderedSame == [[att objectForKey:@"attributeType"] compare:@"systemVariableRef" options:NSCaseInsensitiveSearch])
+            {
+                NSString *key = [att objectForKey:@"attributeValue"];
+                paraVal = [[resVariables objectForKey:key] floatValue];
+            }
+        }
+        
+        NEMediaObject *mo = [currentEvent mediaObject];
+        NSPoint p = NSMakePoint([mo position].x, [mo position].y);
+        if ( (nil != paraName) && (0 < [paraName rangeOfString:@"posX"].length) )
+        {
+            p.x = paraVal;
+        }
+        if ( (nil != paraName) && (0 < [paraName rangeOfString:@"posY"].length) )
+        {
+            p.y = paraVal;
+        }
+        
+        [mo setPosition:p];
+        return;
+    }
     
-    return YES;
+    if (NSOrderedSame == [fName compare:@"removeCurrentStimulusEvent"])
+    {
+        //TODO
+        return;
+    }
     
+    if (NSOrderedSame == [fName compare:@"insertNewStimulusEvent"])
+    {
+     
+        NSUInteger duration = 0;
+        NSString *moRef = nil;
+        BOOL pushAllEvents = NO;
+        for (NSDictionary *att in attArray)
+        {
+            if (NSOrderedSame == [[att objectForKey:@"attributeType"] compare:@"mediaObjectRef" options:NSCaseInsensitiveSearch])
+            {
+                moRef = [att objectForKey:@"attributeValue"];
+            }
+            else if (NSOrderedSame == [[att objectForKey:@"attributeType"] compare:@"durationTime" options:NSCaseInsensitiveSearch])
+            {
+                duration = [[att objectForKey:@"attributeValue"] floatValue];
+            }
+            else if (NSOrderedSame == [[att objectForKey:@"attributeType"] compare:@"pushFlag" options:NSCaseInsensitiveSearch])
+            {
+                pushAllEvents = [[att objectForKey:@"attributeValue"] boolValue];
+            }
+        
+        }
+        
+        //TODO
+        [self requestAdditionOfEventWithTime:[currentEvent time]+UPDATE_INTERVAL duration:duration andMediaObjectID:moRef];
+        
+        if (YES == pushAllEvents){
+            [mTimetable shiftOnsetForAllEventsToHappen:duration];}
+        return;
+    }
+    
+
+    return;
     
 }
 

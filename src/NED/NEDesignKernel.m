@@ -77,6 +77,7 @@
 
 -(id)initWithGeneralGammaParams:(GeneralGammaParams)gammaParams
 {
+    #pragma unused(gammaParams)
 	//NSLog(@"General Gamma Function is not supported at the moment!");
 //	return nil;
 	[self doesNotRecognizeSelector:_cmd];

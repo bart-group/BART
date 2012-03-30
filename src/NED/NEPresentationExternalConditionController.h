@@ -7,12 +7,12 @@
 //
 
 /* The class to hold the information about influences from external devices to the stimulus events in the Presentation 
- * of the paradigm. Connects the e.g. SerialPorts with mediaObjectIDs to while runtime about their current state.
+ * of the paradigm. Connects the e.g. SerialPorts with constraints to be asked while runtime about their current state.
  */
 
 #import <Foundation/Foundation.h>
 
-@class NEStimEvent;
+//@class NEStimEvent;
 
 @interface NEPresentationExternalConditionController : NSObject {
     
@@ -21,19 +21,20 @@
 /**
  * Initializes a newly allocated NEPresentationExternalConditionController object.
  * 
- * \param newMediaObjects   An array of all the mediaObjects to be influenced by external devices/conditions.
+ * \param newConstraintsArray   An array of all the constraints read from edl-file.
  * 
  * \return              An initialized NEPresentationExternalConditionController object.
  */
--(id)initWithMediaObjects:(NSArray*)newMediaObjects;
+-(id)initWithConstraints:(NSArray*)newConstraintsArray;
 
 
 /**
- * ask if all external conditions for one mediaObject are fullfilled to run the trial in the Presentation
+ * check the external conditions for the current constraint
  * 
- * \param mediaObjectID        The ID for the mediaObject you want to check.
- * \return                     YES if all defined external conditions are fullfilled for this mediaObjectID, NO otherwise.
+ * \param constraintID          The ID for the constrint you want to check.
+ * \return                      a dictionary with the results for the conditions and relevant parameters for actions
  */
 
--(NSPoint)isConditionFullfilledForEvent:(NEStimEvent*)event;
+-(NSDictionary*)checkConstraintForID:(NSString*)constraintID;
+
 @end

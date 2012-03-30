@@ -53,6 +53,11 @@
 		
 		countTrigger = 0;
         
+        // (6) collect the port parameters to give back for initialisation
+        // serial, baud, parity, odd, path, description
+        
+        dictPortParameters = [[NSDictionary alloc] initWithDictionary:[temp objectForKey:@"portParameters"]];
+        
 		
 	}
 	return self;
@@ -60,7 +65,7 @@
 
 -(void)valueArrived:(char)value
 {
-	if (triggerIDChar == (unsigned char) value)
+    if (triggerIDChar == (unsigned char) value)
 	{
 		[[NSNotificationCenter defaultCenter] postNotificationName:BARTSerialIOScannerTriggerArrived object:[NSNumber numberWithUnsignedInt:countTrigger]];
 		countTrigger++;
@@ -83,14 +88,20 @@
 	return nil;
 }
 
+-(NSDictionary*) portParameters
+{
+    return dictPortParameters;
+}
+
 -(void)dealloc
 {
+    [dictPortParameters release];
 	[super dealloc];
 }
 
--(NSPoint)isConditionFullfilled:(NSDictionary*)params
+-(NSDictionary*)evaluateConstraintForParams:(NSDictionary*)params
 {
-	return NSMakePoint(0.0, 0.0);
+	return nil;
 }
 -(void)connectionIsOpen
 {}

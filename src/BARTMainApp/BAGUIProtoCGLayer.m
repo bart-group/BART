@@ -390,7 +390,6 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
         for (row = 0; row < displayImageHeight; row++) {
             slice = ((row / sliceDimension) * slicesPerRow) + (col / sliceDimension);
             if (slice < numSlices) { 
-                pos = NUMBER_OF_CHANNELS * ((row * displayImageWidth) + col);
                 float value = 0.0;
                 
                // for (size_t icontrast = 0; icontrast < foregroundImage.mImageSize.slices; icontrast++) {
@@ -489,6 +488,7 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
 
 - (IBAction)updateSlider:(id)sender
 {
+    #pragma unused(sender)
     minThreshold = [minimumSlider floatValue];
     maxThreshold = [maximumSlider floatValue];
     

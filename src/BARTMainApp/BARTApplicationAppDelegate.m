@@ -35,25 +35,52 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(setGUIResultImage:)
 												 name:BARTDidCalcNextResultNotification object:nil];
-	
     
-    //COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+    
     COExperimentContext *experimentContext = [COExperimentContext getInstance];
     
-   //NSError *err = [config fillWithContentsOfEDLFile:@"../../../../tests/NEDTests/timeBasedRegressorNEDTest.edl"];
+    
+    //(1) load the app own config file to read test configuration stuff
+    NSString *errDescr = nil;
+    NSPropertyListFormat format;
+    NSString *plistPath;
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    plistPath = [rootPath stringByAppendingPathComponent:@"ConfigBARTApplication.plist"];
+    NSBundle *thisBundle;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath])
+    {
+        thisBundle = [NSBundle bundleForClass:[self class]]; 
+        plistPath = [thisBundle pathForResource:@"ConfigBARTApplication" ofType:@"plist"];
+    }
+    NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
+    NSDictionary *arrayFromPlist = (NSDictionary *) [NSPropertyListSerialization propertyListFromData:plistXML
+                                                                                     mutabilityOption:NSPropertyListMutableContainersAndLeaves 
+                                                                                               format:&format 
+                                                                                     errorDescription:&errDescr];
+    if (!arrayFromPlist)
+    {
+        NSLog(@"Error reading plist from ConfigBARTApplication: %@, format: %lu", errDescr, format);
+        return;
+    }
 	
 	guiController = [guiController initWithDefault];
-	
-    procedurePipe = [[BAProcedurePipeline alloc] init];
+
+    NSString *testData = [arrayFromPlist objectForKey:@"dataSetForTest"];
+
+    if (nil != testData){
+        procedurePipe = [[BAProcedurePipeline alloc] initWithTestDataset:testData];}
+    else{
+        procedurePipe = [[BAProcedurePipeline alloc] init];}
     
     
-    NSString *curDir = [[NSBundle mainBundle] resourcePath];
-//    NSString *fileName = [NSString stringWithFormat:@"/Users/Lydi/RealTimeProject/DynamicDesign/EyeTrackerIAPS/ScenarioForBART/EyeTrackerIAPSDynStat.edl", curDir ];
-    NSString *fileName = @"../../../../tests/NEDTests/timeBasedRegressorNEDTest.edl";
-    NSError *err = [experimentContext resetWithEDLFile:fileName];
+    NSString *file = [arrayFromPlist objectForKey:@"edlFile"];
+    
+    NSError *err = [experimentContext resetWithEDLFile:file];
     if (err) {
         NSLog(@"%@", err);
 	}
+
+    [experimentContext startExperiment];
 	
 	
 	
@@ -75,6 +102,7 @@
 -(void)applicationWillTerminate:(NSNotification*)aNotification
 {
     #pragma unused(aNotification)
+    [[COExperimentContext getInstance] stopExperiment];
 	[procedurePipe release];
     [super dealloc];
 }

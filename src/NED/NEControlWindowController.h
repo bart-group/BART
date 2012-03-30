@@ -67,7 +67,7 @@
     BOOL mIsPaused;
 }
 
-@property (readwrite) BOOL stimulationMode;
+//@property (readwrite) BOOL stimulationMode;
 
 /**
  * Sets the presentation controller that incooperates all

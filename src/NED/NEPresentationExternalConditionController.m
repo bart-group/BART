@@ -9,11 +9,11 @@
 #import "NEPresentationExternalConditionController.h"
 #import "CLETUS/COExperimentContext.h"
 #import "BARTSerialIOFramework/SerialPort.h"
-#import "NED/NEStimEvent.h"
+#import "NED/NEConstraint.h"
 
 @interface NEPresentationExternalConditionController (PrivateMethods)
 
--(NSError*)setExternalConditionsForMediaObjects;
+-(NSError*)buildConstraintDictionary;
 
 @end
 
@@ -21,97 +21,165 @@
 @implementation NEPresentationExternalConditionController
 
 COExperimentContext *expContext;
-NSArray *mediaObjectsArray;
+NSArray *constraintsArray;
 NSDictionary *dictExternalConditions;
+NSUInteger screenResolutionX;
+NSUInteger screenResolutionY;
 
-NSUInteger numberOfTrialsInBlock;
 
--(id)initWithMediaObjects:(NSArray*)newMediaObjects
+-(id)initWithConstraints:(NSArray*)newConstraintsArray
 {
     if ((self = [super init])){
         expContext = [COExperimentContext getInstance];
-        if (nil == mediaObjectsArray){
-            mediaObjectsArray = newMediaObjects;
+        if (nil == constraintsArray){
+            constraintsArray = [newConstraintsArray retain];
         }
         else{
-            [mediaObjectsArray release];
-            mediaObjectsArray = [newMediaObjects retain];
+            [constraintsArray release];
+            constraintsArray = [newConstraintsArray retain];
         }
-        if ( (nil == [self setExternalConditionsForMediaObjects])){
+        if ( (nil != [self buildConstraintDictionary])){
             NSLog(@"Can't init %@", self);
             return nil;
         }
-        numberOfTrialsInBlock = 12;
-
+        // temp formatter to convert from string to number
+        NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+        [f setNumberStyle:NSNumberFormatterDecimalStyle];
+        
+        screenResolutionX = [[f numberFromString:[[expContext systemConfig] getProp:@"$screenResolutionX"]] unsignedIntegerValue];
+        screenResolutionY = [[f numberFromString:[[expContext systemConfig] getProp:@"$screenResolutionY"]] unsignedIntegerValue];
+        [f release];
+        
     }
     return self;
 }
 
 
--(NSError*)setExternalConditionsForMediaObjects
+-(NSError*)buildConstraintDictionary
 {
     NSError *err = nil;
     NSDictionary *dictSerialIOPlugins = [expContext dictSerialIOPlugins];
-    NSMutableDictionary *mutableDictExternalCond = [[NSMutableDictionary alloc] initWithCapacity:[mediaObjectsArray count]];
+    NSMutableDictionary *mutableDictExternalCond = [[NSMutableDictionary alloc] initWithCapacity:[constraintsArray count]];
     
-    //TODO: implement this in EDL
-    NSString *externalCondition = @"ASLEyeTrac";
-    for (NEMediaObject* mediaObj in mediaObjectsArray)
+     
+    //TODO: 
+    //mehrere Sourcen verwalten!! MOMENTAN WIRD UEBERSCHRIEBEN
+    for (NEConstraint* constraint in constraintsArray)
     {
-        NSString *mediaObjID = [mediaObj getID];
-        //NSString *externalCondition = [mediaObjID getExternalCondition];
-        if (nil != [dictSerialIOPlugins objectForKey:externalCondition]){
-            [mutableDictExternalCond setObject:[dictSerialIOPlugins objectForKey:externalCondition] forKey:mediaObjID];
+        NSString *constraintID = [constraint constraintID];
+        
+        // get all sources for external variables and make unique names
+        NSSet *uniqueVariableSources = [NSSet setWithArray:[[constraint variables] allKeys] ];
+        NSLog(@"Number of Sources: %lu", [uniqueVariableSources count]);
+        
+        for (NSString *externalDevice in [[constraint variables] allKeys]) {
+            if (nil != [dictSerialIOPlugins objectForKey:externalDevice])
+            {
+                [mutableDictExternalCond 
+                 setObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                            [dictSerialIOPlugins objectForKey:externalDevice], @"plugin", 
+                            [[constraint variables] objectForKey:externalDevice], @"paramsArray",
+                            [constraint conditions], @"conditionsArray",
+                            [constraint actionsThen], @"actionsThenArray",
+                            [constraint actionsElse], @"actionsElseArray",
+                            nil ] 
+                 forKey:constraintID ];
+            }
         }
     }
     
     dictExternalConditions = [[NSDictionary alloc] initWithDictionary:mutableDictExternalCond];
     [mutableDictExternalCond release];
+    
     return err;
 }
 
--(NSPoint)isConditionFullfilledForEvent:(NEStimEvent*)event
+-(NSDictionary*)checkConstraintForID:(NSString*)constraintID;
 {
-    // todo: get this automatically from config
-    NSString *isDynamic = @"";
-    NSString *dyn = @"DYN";
-    NSString *stat = @"STAT";
-    
-    if ( NSNotFound != [[[event mediaObject] getID] rangeOfString:dyn options:NSCaseInsensitiveSearch].location ){
-        isDynamic = @"YES";
-    }
-    if ( NSNotFound != [[[event mediaObject] getID] rangeOfString:stat options:NSCaseInsensitiveSearch].location ){
-        isDynamic = @"NO";
-    }
-    
-    //setup the params dictionary
-    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:isDynamic, @"isDynamic", 
-                          [NSNumber numberWithFloat:[[event mediaObject] position].x], @"xPosition",
-                          [NSNumber numberWithFloat:[[event mediaObject] position].y], @"yPosition",
-                          nil];
-    
-    
+
     //call the external device and ask all your questions
-    SerialPort* s = [dictExternalConditions objectForKey:[[event mediaObject] getID]];
+    //TODO: mehrere Sourcen behandeln und diese im Block alle aufrufen
+    SerialPort* s = [[dictExternalConditions objectForKey:constraintID] objectForKey:@"plugin"];
+  
     if (nil != s){
-        return [s isConditionFullfilled:params];
-    }
-    else
-    {
-       return NSMakePoint(400.0, 300.0);
-    }
-    return NSMakePoint(0.0, 0.0);
         
+        NSDictionary *dictForPlugin = [NSDictionary dictionaryWithObjectsAndKeys:[[dictExternalConditions objectForKey:constraintID] objectForKey:@"paramsArray"], @"paramsArray", [NSNumber numberWithUnsignedInteger:screenResolutionX], @"screenResolutionX", [NSNumber numberWithUnsignedInteger:screenResolutionY], @"screenResolutionY",  nil];
+        
+        NSDictionary *dictFromPlugin = [[s evaluateConstraintForParams:dictForPlugin] retain];
+        //NSLog(@"DICT FROM PLUGIN %@", dictFromPlugin);
+        
+        //result 
+        NSDictionary *dictReturn;
+        NSMutableArray  *arrayConditions = [[NSMutableArray alloc] initWithCapacity:1];
+        NSArray *constraintConditions = [[dictExternalConditions objectForKey:constraintID] objectForKey:@"conditionsArray"]; 
+        //NSLog(@"CONDITIONSARRAY: %@", constraintConditions);
+        
+        
+        
+        NSArray *actionsThen = [[dictExternalConditions objectForKey:constraintID] objectForKey:@"actionsThenArray"];
+        NSArray *actionsElse = [[dictExternalConditions objectForKey:constraintID] objectForKey:@"actionsElseArray"];
+        NSMutableDictionary *dictSysVariablesResults = [[NSMutableDictionary alloc] initWithCapacity:1];
+        
+        //collect conditions
+        for (NSString *para in [dictFromPlugin allKeys]){
+            //NSLog(@"PARA: %@", para);
+            //NSLog(@"ALL KEYS: %@", [dictFromPlugin allKeys]);
+            if (NSNotFound != [constraintConditions indexOfObject:para])
+            {
+                [arrayConditions addObject:[dictFromPlugin objectForKey:para]];
+            }
+            else
+            {//collect values for actions
+                [dictSysVariablesResults setValue:[dictFromPlugin objectForKey:para] forKey:para];
+//                for (NSDictionary *action in actionsThen)
+//                {
+//                    for (NSDictionary *att in [action objectForKey:@"attributesArray"])
+//                    {
+//                        if ( NSOrderedSame == [[att objectForKey:@"attributeName"] compare:para options:NSCaseInsensitiveSearch])
+//                        {
+//                            [att setValue:[dictFromPlugin objectForKey:para] forKey:@"attributeValue"];
+//                        }
+//                        
+//                    }
+//                }
+                
+            }
+        }
+        
+        
+        
+        
+        
+        dictReturn = [[NSDictionary alloc] initWithObjectsAndKeys:
+                      arrayConditions, @"conditionsArray", 
+                      dictSysVariablesResults, @"resultVariables",
+                      actionsThen, @"actionsThen",
+                      actionsElse, @"actionsElse",
+                      nil];
+        
+        // TODO sort conditions and params from different sources to feed in a return dictionary
+       // return [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:p.x], @"eyePosX",[NSNumber numberWithFloat:p.y], @"eyePosY", nil];
+        
+        [dictFromPlugin release];
+        //[arrayConditions removeAllObjects];
+        [arrayConditions release];
+        //[dictSysVariablesResults removeAllObjects];
+        [dictSysVariablesResults release];
+        
+        return [dictReturn autorelease];
+        
+    }
+
+    return nil;
+    
+    
 }
 
--(NSEvent*)getAction:(NSEvent*)event
-{
-        
-}
+
 
 -(void)dealloc
 {
-    [mediaObjectsArray release];
+    [constraintsArray release];
     [dictExternalConditions release];
     [super dealloc];
 }

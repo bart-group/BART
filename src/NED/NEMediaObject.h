@@ -20,10 +20,18 @@
     
     /** ID of the media object. Used for referencing in EDL stimEvent-s */
     NSString* mID;
+    
+    /** the ID of a constraint a mediaObject depends on */
+    NSString* mConstraintID;
+    
+    /** the flag if this object depends on a constraint or not*/
+    BOOL hasConstraint;
+    
 
 }
 
 @property (readwrite, getter = position, setter = setPosition:) NSPoint mPosition;
+@property (readonly, getter = isDependentFromConstraint) BOOL hasConstraint;
 
 /**
  * Initializes a newly allocated NEMediaObject with an EDL mediaObject
@@ -68,5 +76,12 @@
  * \return ID of the media object.
  */
 -(NSString*)getID;
+
+/**
+ * Returns the constraintID the media object depends on.
+ *
+ * \return constraintID the media object depends on.
+ */
+-(NSString*)getConstraintID;
 
 @end

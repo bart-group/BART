@@ -63,17 +63,18 @@ enum {
     kNumRetries = 3
 };
 
-// Hold the original termios attributes so we can reset them
-static struct termios gOriginalTTYAttrs;
+
 
 // Function prototypes
 kern_return_t FindModems(io_iterator_t *matchingServices);
 kern_return_t GetModemPath(io_iterator_t serialPortIterator, char *bsdPath, CFIndex maxPathSize, const char* deviceName, int lengthDeviceName);
-int OpenSerialPort(const char *bsdPath, int baud, int parity, int bits, int *portDescriptor);
+
+int OpenSerialPort(const char *bsdPath, int baud, int parenb, int parodd, int bits, int *portDescriptor);
+
 static char *LogString(char *str);
 Boolean InitializeModemAndStartComm(int portDescriptor);
 
-extern int FindAndOpenModem(const char *modemPath, int lengthModemPath, int baud, int parity, int bits, int *portDescriptor);
+extern int FindAndOpenModem(const char *modemPath, int lengthModemPath, int baud, int parenb, int parodd, int bits, int *portDescriptor);
 extern int InitAndStartModem(int portDescriptor);
 extern int CloseSerialPort(int portDescriptor);
 extern char ReadData(int fileDescriptor);
