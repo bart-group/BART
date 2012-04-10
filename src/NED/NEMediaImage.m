@@ -37,18 +37,26 @@ float mImageHeightHalf;
         //mImage    = [[CIImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:resolvedPath]];
         
         /*********/
-        //TODO : Scale Factor?!
-            CIImage *im    = [[CIImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:resolvedPath]];
-            // Resize the image
-            CIFilter *scaleFilter = [CIFilter filterWithName:@"CILanczosScaleTransform"];
-            [scaleFilter setValue:im forKey:@"inputImage"];
-            [scaleFilter setValue:[NSNumber numberWithFloat:1.0] forKey:@"inputScale"];
-            [scaleFilter setValue:[NSNumber numberWithFloat:1.0] forKey:@"inputAspectRatio"];
-            mImage = [[scaleFilter valueForKey:@"outputImage"] retain];
-         
-            mImageWidthHalf = [mImage extent].size.width/2;
-            mImageHeightHalf = [mImage extent].size.height/2;
-
+        // Scale Factor !!
+        // temp formatter to convert from string to number
+        NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+        [f setNumberStyle:NSNumberFormatterDecimalStyle];
+        
+        float screenResolutionX = (float) [[f numberFromString:[[[COExperimentContext getInstance] systemConfig] getProp:@"$screenResolutionX"]] unsignedLongValue];
+        [f release];
+        
+        CIImage *im    = [[CIImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:resolvedPath]];
+        float scale = screenResolutionX / (float)[im extent].size.width;
+        // Resize the image
+        CIFilter *scaleFilter = [CIFilter filterWithName:@"CILanczosScaleTransform"];
+        [scaleFilter setValue:im forKey:@"inputImage"];
+        [scaleFilter setValue:[NSNumber numberWithFloat:scale] forKey:@"inputScale"];
+        [scaleFilter setValue:[NSNumber numberWithFloat:1.0] forKey:@"inputAspectRatio"];
+        mImage = [[scaleFilter valueForKey:@"outputImage"] retain];
+        
+        mImageWidthHalf = [mImage extent].size.width/2;
+        mImageHeightHalf = [mImage extent].size.height/2;
+        
         /******/
         mPosition = position;
         [im release];
@@ -70,8 +78,8 @@ float mImageHeightHalf;
 {
     //center the image to the position that is given
 	NSPoint pos;
-	pos.x = mPosition.x - mImageWidthHalf;
-	pos.y = mPosition.y - mImageHeightHalf;
+	//pos.x = mPosition.x - mImageWidthHalf;
+	//pos.y = mPosition.y - mImageHeightHalf;
     
     CIContext* ciContext = [CIContext contextWithCGContext:context options:nil];
     [ciContext  drawImage:mImage
