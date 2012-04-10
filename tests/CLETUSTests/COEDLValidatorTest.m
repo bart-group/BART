@@ -12,11 +12,13 @@
 
 @interface COEDLValidatorTest (PrivateStuff)
 
-COEDLValidator* validator;
+
 
 @end
 
 @implementation COEDLValidatorTest
+
+COEDLValidator* validator;
 
 -(void)setUp
 {
