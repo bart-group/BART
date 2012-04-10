@@ -533,14 +533,12 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         }
         
         //TODO
-        [self requestAdditionOfEventWithTime:[currentEvent time]+UPDATE_INTERVAL duration:duration andMediaObjectID:moRef];
+        //[self  requestAdditionOfEventWithTime:[currentEvent time] duration:duration andMediaObjectID:moRef]; 
         
         if (YES == pushAllEvents){
             [mTimetable shiftOnsetForAllEventsToHappen:duration];}
         return;
     }
-    
-
     return;
     
 }

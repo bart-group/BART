@@ -9,7 +9,7 @@
 #import "NEPresentationExternalConditionController.h"
 #import "CLETUS/COExperimentContext.h"
 #import "BARTSerialIOFramework/SerialPort.h"
-#import "NED/NEConstraint.h"
+#import "NEConstraint.h"
 
 @interface NEPresentationExternalConditionController (PrivateMethods)
 
