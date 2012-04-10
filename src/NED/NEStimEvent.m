@@ -14,6 +14,7 @@
 @synthesize time;
 @synthesize duration;
 @synthesize mediaObject;
+@synthesize isPreviewed;
 
 -(id)initWithTime:(NSUInteger)t 
          duration:(NSUInteger)dur
@@ -23,6 +24,7 @@
         time        = t;
         duration    = dur;
         mediaObject = [obj retain];
+        isPreviewed = NO;
     }
     
     return self;

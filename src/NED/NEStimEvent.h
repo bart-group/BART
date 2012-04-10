@@ -30,12 +30,18 @@
      * NEMediaObject that should be presented or hidden.
      */
     NEMediaObject* mediaObject;
-
+    
+    /*
+     * Flag if event already previewed
+     */
+    BOOL isPreviewed;
+    
 }
 
 @property (readwrite) NSUInteger time;
 @property (readwrite) NSUInteger duration;
 @property (retain) NEMediaObject* mediaObject;
+@property (readwrite, getter = isPreviewed, setter = setPreviewed:) BOOL isPreviewed; 
 
 /**
  * Initializes a NEPresentationEvent object.

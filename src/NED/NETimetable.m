@@ -175,7 +175,9 @@
         if ([eventsForMediaObject count] > 0) {
             
             NEStimEvent* event = [eventsForMediaObject objectAtIndex:0];
-            if ([event time] <= time) {
+            if ( ([event time] <= time) && (NO == [event isPreviewed]) )  {
+                [event setPreviewed:YES];
+                //NSLog(@"preview");
                 [mLock unlock];
                 return event;
             }
@@ -364,6 +366,7 @@
              #pragma unused(idx)
              //NSLog(@"shift onsets %lu", [(NEStimEvent*) stimEvent time]);
              [(NEStimEvent*) stimEvent setTime:([(NEStimEvent*) stimEvent time]+timeShift)];
+             [stimEvent setPreviewed:NO];
              //NSLog(@"shifted onsets %lu", [(NEStimEvent*) stimEvent time]);
          }];
         
