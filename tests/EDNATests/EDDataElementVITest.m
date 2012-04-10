@@ -11,12 +11,13 @@
 
 @interface EDDataElementVITest (MemberVariables)
 
-	EDDataElementVI *dataEl;
+	
 
 @end
 
 @implementation EDDataElementVITest
 
+EDDataElementVI *dataEl;
 
 - (void) setUp {
     dataEl = [[EDDataElementVI alloc] 

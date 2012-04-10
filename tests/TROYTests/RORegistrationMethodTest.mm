@@ -27,6 +27,8 @@ NSString* imageFile = @"TestDataset01-functional.nii";
 
 NSString* DIFF_FILE = @"/tmp/RORegistrationMethodTest_DiffFile.txt";
 
+NSString* testfilePath = @"/Users/Lydi/RealTimeProject/data/Testdata_Registration/TROYTests/";
+
 // ###
 // # Utility functions
 // ###
@@ -51,6 +53,7 @@ uint64_t getFileSize(NSString* file)
 {
 	curDir = [[NSBundle bundleForClass:[self class] ] resourcePath];
     fileName = [NSString stringWithFormat:@"%@/%@", curDir, imageFile];
+    
 }
 
 // ###
@@ -65,9 +68,9 @@ uint64_t getFileSize(NSString* file)
 
 -(void)testRegistrationVnormdata
 {
-    NSString* funPath = @"/Users/oliver/test/reg3d_test/dataset01/data_10timesteps.nii";
-    NSString* anaPath = @"/Users/oliver/test/reg3d_test/dataset01/ana.nii";
-    NSString* mniPath = @"/Users/oliver/test/reg3d_test/mni_lipsia.nii";
+    NSString* funPath = [testfilePath stringByAppendingPathComponent:@"data_10timesteps.nii"];
+    NSString* anaPath = [testfilePath stringByAppendingPathComponent:@"ana.nii"];
+    NSString* mniPath = [testfilePath stringByAppendingPathComponent:@"mni_lipsia.nii"];
     
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
@@ -95,7 +98,7 @@ uint64_t getFileSize(NSString* file)
     NSString* outPath = @"/tmp/RORegistrationMethodTest_out_vnormdata.nii";
     [ana2fct2mni WriteDataElementToFile:outPath];
     
-    NSString* refPath = @"/Users/oliver/test/reg3d_references/BART_vnormdata_11ts.nii";
+    NSString* refPath = [testfilePath stringByAppendingPathComponent:@"BART_vnormdata_11ts.nii"];
 
     NSString* diffCmd = makeDiffCmd(outPath, refPath, DIFF_FILE);
     system([diffCmd UTF8String]);
@@ -115,9 +118,9 @@ uint64_t getFileSize(NSString* file)
 
 -(void)testRegistrationBART
 {
-    NSString* funPath = @"/Users/oliver/test/reg3d_test/dataset01/data_10timesteps.nii";
-    NSString* anaPath = @"/Users/oliver/test/reg3d_test/dataset01/ana.nii";
-    NSString* mniPath = @"/Users/oliver/test/reg3d_test/mni_lipsia.nii";
+    NSString* funPath = [testfilePath stringByAppendingPathComponent:@"data_10timesteps.nii"];
+    NSString* anaPath = [testfilePath stringByAppendingPathComponent:@"ana.nii"];
+    NSString* mniPath = [testfilePath stringByAppendingPathComponent:@"mni_lipsia.nii"];
     
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
@@ -145,7 +148,7 @@ uint64_t getFileSize(NSString* file)
     NSString* outPath = @"/tmp/RORegistrationMethodTest_out_bartReg.nii";
     [fct2ana2mni WriteDataElementToFile:outPath];
     
-    NSString* refPath = @"/Users/oliver/test/reg3d_references/BART_bartReg.nii";
+    NSString* refPath = [testfilePath stringByAppendingPathComponent:@"BART_bartReg.nii"];
     
     NSString* diffCmd = makeDiffCmd(outPath, refPath, DIFF_FILE);
     system([diffCmd UTF8String]);
@@ -165,9 +168,9 @@ uint64_t getFileSize(NSString* file)
 
 -(void)testRegistrationBARTAnaOnly
 {
-    NSString* funPath = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_axial_64x64.nii";
-    NSString* anaPath = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mprage.nii";
-    NSString* mapPath = @"/Users/oliver/test/reg3d_test_scansoliver/zmap01_10timesteps.nii";
+    NSString* funPath = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_axial_64x64.nii"];
+    NSString* anaPath = [testfilePath stringByAppendingPathComponent:@"14265.5c_ana_mprage.nii"];
+    NSString* mapPath = [testfilePath stringByAppendingPathComponent:@"zmap01_10timesteps.nii"];
     
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
@@ -195,7 +198,7 @@ uint64_t getFileSize(NSString* file)
     NSString* outPath = @"/tmp/RORegistrationMethodTest_out_bartRegAnaOnly.nii";
     [map2ana WriteDataElementToFile:outPath];
     
-    NSString* refPath = @"/Users/oliver/test/reg3d_test_scansoliver/alignedZmapAxial64x64_zmap01.nii";
+    NSString* refPath = [testfilePath stringByAppendingPathComponent:@"alignedZmapAxial64x64_zmap01.nii"];
 //    EDDataElement* map2anaRef = [[EDDataElementIsis alloc] initWithFile:refPath
 //                                                              andSuffix:@"" 
 //                                                             andDialect:@"" 

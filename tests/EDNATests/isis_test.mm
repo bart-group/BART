@@ -60,55 +60,55 @@ NSString* ZMAP03 = @"_zmap03";
 
 NSString* NII_EXT = @".nii";
 
-NSString* T1_OUT_DIR = @"/Users/oliver/test/reg3d_test_t1out/";
+NSString* T1_OUT_DIR = @"/Users/Lydi/RealTimeProject/data/Testdata_Registration/TROYTests/";
 
+NSString *testfilePath = @"/Users/Lydi/RealTimeProject/data/Testdata_Registration/TROYTests/";
 
+NSString* fctFile = nil;
+NSString* anaFile = nil;
 
-NSString* fctFile = @"/Users/oliver/test/reg3d_test/dataset01/data_10timesteps.nii";
-NSString* anaFile = @"/Users/oliver/test/reg3d_test/dataset01/ana.nii"; //_visotrop.nii";
+NSString* mniFile = nil;
+NSString* t1File  = nil;
 
-NSString* mniFile = @"/Users/oliver/test/reg3d_test/mni_lipsia.nii";
-NSString* t1File  = @"/Users/oliver/test/reg3d_test/T1.nii";
+NSString* OZfun1ts =nil;
 
-NSString* OZfun1ts = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_axial_64x64_just1timestep.nii";
+NSString* OZ00fun = nil;
+NSString* OZ00ana = nil;
+NSString* OZ00out = nil;
 
-NSString* OZ00fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_axial_128x128.nii";
-NSString* OZ00ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mdeft.nii";
-NSString* OZ00out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ00out.nii";
+NSString* OZ01fun = nil;
+NSString* OZ01ana = nil;
+NSString* OZ01out = nil;
 
-NSString* OZ01fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_axial_64x64.nii";
-NSString* OZ01ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mdeft.nii";
-NSString* OZ01out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ01out.nii";
+NSString* OZ02fun = nil;
+NSString* OZ02ana = nil;
+NSString* OZ02out = nil;
 
-NSString* OZ02fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_coronar_64x64.nii";
-NSString* OZ02ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mdeft.nii";
-NSString* OZ02out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ02out.nii";
+NSString* OZ03fun = nil;
+NSString* OZ03ana = nil;
+NSString* OZ03out = nil;
 
-NSString* OZ03fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_sagittal_64x64.nii";
-NSString* OZ03ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mdeft.nii";
-NSString* OZ03out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ03out.nii";
+NSString* OZ10fun = nil;
+NSString* OZ10ana = nil;
+NSString* OZ10out = nil;
 
-NSString* OZ10fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_axial_128x128.nii";
-NSString* OZ10ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mprage.nii";
-NSString* OZ10out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ10out.nii";
+NSString* OZ11fun = nil;
+NSString* OZ11ana = nil;
+NSString* OZ11out = nil;
 
-NSString* OZ11fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_axial_64x64.nii";
-NSString* OZ11ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mprage.nii";
-NSString* OZ11out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ11out.nii";
+NSString* OZ12fun = nil;
+NSString* OZ12ana = nil;
+NSString* OZ12out = nil;
 
-NSString* OZ12fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_coronar_64x64.nii";
-NSString* OZ12ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mprage.nii";
-NSString* OZ12out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ12out.nii";
-
-NSString* OZ13fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_sagittal_64x64.nii";
-NSString* OZ13ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mprage.nii";
-NSString* OZ13out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ13out.nii";
+NSString* OZ13fun = nil;
+NSString* OZ13ana = nil;
+NSString* OZ13out = nil;
 
 /* ### Zmaps ### */
-NSString* dataset01zmap = @"/Users/oliver/test/reg3d_test/dataset01/zmap02_11timesteps.nii";
-NSString* OZzmap01 = @"/Users/oliver/test/reg3d_test_scansoliver/zmap01_10timesteps.nii";
-NSString* OZzmap02 = @"/Users/oliver/test/reg3d_test_scansoliver/zmap02_10timesteps.nii";
-NSString* OZzmap03 = @"/Users/oliver/test/reg3d_test_scansoliver/zmap03_10timesteps.nii";
+NSString* dataset01zmap = nil;
+NSString* OZzmap01 = nil;
+NSString* OZzmap02 = nil;
+NSString* OZzmap03 = nil;
 
 
 
@@ -456,15 +456,15 @@ void testZmaps()
 //    dataset01    
     int runs = RUNS;
     
-    testZmapsParams(fctFile, anaFile, dataset01zmap, runs, outFileName(@"/Users/oliver/test/reg3d_test/dataset01/",
+    testZmapsParams(fctFile, anaFile, dataset01zmap, runs, outFileName(testfilePath,
                                                                        ZMAP_BASE_DS01,
                                                                        @""));
 
-    testZmapsParams(OZ01fun, OZ01ana, OZzmap01, runs, outFileName(@"/Users/oliver/test/reg3d_test_scansoliver/", ZMAP_BASE, ZMAP01));
-    testZmapsParams(OZ11fun, OZ11ana, OZzmap01, runs, outFileName(@"/Users/oliver/test/reg3d_test_scansoliver/", ZMAP_BASE, ZMAP01));
+    testZmapsParams(OZ01fun, OZ01ana, OZzmap01, runs, outFileName(testfilePath, ZMAP_BASE, ZMAP01));
+    testZmapsParams(OZ11fun, OZ11ana, OZzmap01, runs, outFileName(testfilePath, ZMAP_BASE, ZMAP01));
     
-    testZmapsParams(OZ01fun, OZ01ana, OZzmap03, runs, outFileName(@"/Users/oliver/test/reg3d_test_scansoliver/", ZMAP_BASE, ZMAP03));
-    testZmapsParams(OZ11fun, OZ11ana, OZzmap03, runs, outFileName(@"/Users/oliver/test/reg3d_test_scansoliver/", ZMAP_BASE, ZMAP03));
+    testZmapsParams(OZ01fun, OZ01ana, OZzmap03, runs, outFileName(testfilePath, ZMAP_BASE, ZMAP03));
+    testZmapsParams(OZ11fun, OZ11ana, OZzmap03, runs, outFileName(testfilePath, ZMAP_BASE, ZMAP03));
     
 }
 
@@ -483,11 +483,12 @@ void testZmapsParams(NSString* funPath,
     for (int i = 0; i < runs; i++) {
         
         NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-        
+        NSLog(@"FUNPATH: %@", funPath);
         EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:funPath
                                                                    andSuffix:@"" 
                                                                   andDialect:@"" 
                                                                  ofImageType:IMAGE_FCTDATA];
+        
         NSArray* forceMemoryLoad = [fctData getMinMaxOfDataElement];
         
         EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaPath
@@ -540,7 +541,7 @@ void testAdapterConversion() {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     // Functional data
-    NSString* fctFile = @"/Users/oliver/test/reg3d_test/dataset01/data.nii";
+    NSString* fctFile = [testfilePath stringByAppendingPathComponent:@"data_10timesteps.nii"];
     EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:fctFile
                                                                andSuffix:@"" 
                                                               andDialect:@"" 
@@ -556,7 +557,7 @@ void testAdapterConversion() {
     
     
     // Anatomical data
-    NSString* anaFile = @"/Users/oliver/test/reg3d_test/dataset01/ana.nii"; //_visotrop.nii";
+    NSString* anaFile = [testfilePath stringByAppendingPathComponent:@"ana.nii"]; //_visotrop.nii";
     EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaFile
                                                                andSuffix:@"" 
                                                               andDialect:@"" 
@@ -621,9 +622,65 @@ int main(void)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
+    
+    fctFile = [testfilePath stringByAppendingPathComponent:@"data_10timesteps.nii"];
+    anaFile = [testfilePath stringByAppendingPathComponent:@"ana.nii"]; //_visotrop.nii";
+    
+    mniFile = [testfilePath stringByAppendingPathComponent:@"mni_lipsia.nii"];
+    t1File  = [testfilePath stringByAppendingPathComponent:@"T1.nii"];
+    
+    OZfun1ts = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_axial_64x64_just1timestep.nii"];
+    
+    OZ00fun = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_axial_128x128.nii"];
+    OZ00ana = [testfilePath stringByAppendingPathComponent:@"14265.5c_ana_mdeft.nii"];
+    OZ00out = [testfilePath stringByAppendingPathComponent:@"OZ00out.nii"];
+    
+    OZ01fun = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_axial_64x64.nii"];
+    OZ01ana = [testfilePath stringByAppendingPathComponent:@"14265.5c_ana_mdeft.nii"];
+    OZ01out = [testfilePath stringByAppendingPathComponent:@"OZ01out.nii"];
+    
+    OZ02fun = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_coronar_64x64.nii"];
+    OZ02ana = [testfilePath stringByAppendingPathComponent:@"14265.5c_ana_mdeft.nii"];
+    OZ02out = [testfilePath stringByAppendingPathComponent:@"OZ02out.nii"];
+    
+    OZ03fun = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_sagittal_64x64.nii"];
+    OZ03ana = [testfilePath stringByAppendingPathComponent:@"14265.5c_ana_mdeft.nii"];
+    OZ03out = [testfilePath stringByAppendingPathComponent:@"OZ03out.nii"];
+    
+    OZ10fun = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_axial_128x128.nii"];
+    OZ10ana = [testfilePath stringByAppendingPathComponent:@"14265.5c_ana_mprage.nii"];
+    OZ10out = [testfilePath stringByAppendingPathComponent:@"OZ10out.nii"];
+    
+    OZ11fun = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_axial_64x64.nii"];
+    OZ11ana = [testfilePath stringByAppendingPathComponent:@"14265.5c_ana_mprage.nii"];
+    OZ11out = [testfilePath stringByAppendingPathComponent:@"OZ11out.nii"];
+    
+    OZ12fun = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_coronar_64x64.nii"];
+    OZ12ana = [testfilePath stringByAppendingPathComponent:@"14265.5c_ana_mprage.nii"];
+    OZ12out = [testfilePath stringByAppendingPathComponent:@"OZ12out.nii"];
+    
+    OZ13fun = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_sagittal_64x64.nii"];
+    OZ13ana = [testfilePath stringByAppendingPathComponent:@"14265.5c_ana_mprage.nii"];
+    OZ13out = [testfilePath stringByAppendingPathComponent:@"OZ13out.nii"];
+    
+    /* ### Zmaps ### */
+    dataset01zmap = [testfilePath stringByAppendingPathComponent:@"zmap02_11timesteps.nii"];
+    OZzmap01 = [testfilePath stringByAppendingPathComponent:@"zmap01_10timesteps.nii"];
+    OZzmap02 = [testfilePath stringByAppendingPathComponent:@"zmap02_10timesteps.nii"];
+    OZzmap03 = [testfilePath stringByAppendingPathComponent:@"zmap03_10timesteps.nii"];
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /* # Output redirection # */
-    system("rm -f /tmp/BART_regRuntime.txt");
-    freopen("/tmp/BART_regRuntime.txt", "a", stderr);
+   // system("rm -f /tmp/BART_regRuntime.txt");
+   // freopen("/tmp/BART_regRuntime.txt", "a", stderr);
     
     /* # General Isis tests # */
 //    testAdapterConversion();
