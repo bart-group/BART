@@ -77,13 +77,13 @@ float mImageHeightHalf;
 -(void)presentInContext:(CGContextRef)context andRect:(NSRect)rect
 {
     //center the image to the position that is given
-	NSPoint pos;
+	//NSPoint pos;
 	//pos.x = mPosition.x - mImageWidthHalf;
 	//pos.y = mPosition.y - mImageHeightHalf;
     
     CIContext* ciContext = [CIContext contextWithCGContext:context options:nil];
     [ciContext  drawImage:mImage
-                  atPoint:pos
+                  atPoint:mPosition
                  fromRect:rect];
 }
 
