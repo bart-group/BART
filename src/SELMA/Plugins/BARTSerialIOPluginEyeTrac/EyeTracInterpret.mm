@@ -331,8 +331,8 @@
 	
 	[self getMin:&minValueHG andMax:&maxValueHG andMean:&meanValueHG ofParam:HGAZE  fromVector:actualData];
 	[self getMin:&minValueVG andMax:&maxValueVG andMean:&meanValueVG ofParam:VGAZE  fromVector:actualData];
-	NSLog(@"min: %.2f max: %.2f mean: %.2f min: %.2f max: %.2f mean: %.2f", minValueHG, maxValueHG, meanValueHG,
-		  minValueVG, maxValueVG, meanValueVG);
+	//NSLog(@"min: %.2f max: %.2f mean: %.2f min: %.2f max: %.2f mean: %.2f", minValueHG, maxValueHG, meanValueHG,
+	//	  minValueVG, maxValueVG, meanValueVG);
 	
     
     if ((YES == [self getMin:&minValueHG andMax:&maxValueHG andMean:&meanValueHG ofParam:HGAZE  fromVector:actualData])
