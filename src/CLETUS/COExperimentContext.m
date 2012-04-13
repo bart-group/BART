@@ -48,6 +48,7 @@ static COExperimentContext *sharedExperimentContext = nil;
 @synthesize designElemRef;
 @synthesize anatomyElemRef;
 @synthesize functionalOrigDataRef;
+@synthesize logfilePath;
 
 COSystemConfig *config;
 BOOL useSerialPortEyeTrac;
@@ -170,6 +171,9 @@ dispatch_queue_t serialDesignElementAccessQueue;
     err = [self configureExternalDevices];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:BARTDidResetExperimentContextNotification object:nil];
+    //TODO
+    logfilePath = [systemConfig getProp:@"/rtExperiment/environment/logging/logFolder"];
+    NSLog(@"LOGFILEPATH!!!!!!!!!!!!!! %@", logFilePath);
     return err;
     
 }
@@ -252,6 +256,16 @@ dispatch_queue_t serialDesignElementAccessQueue;
         
     }
     
+    if ( YES == [object conformsToProtocol:@protocol(BARTButtonPressProtocol)]  
+        && (YES == [protocolName compare:@"BARTButtonPressProtocol"]) )
+    {
+        
+        [[NSNotificationCenter defaultCenter]   addObserver:object  selector:@selector(buttonWasPressed:) name:BARTSerialIOButtonBoxPressedKey object:nil];
+        
+        return YES;
+        
+    }
+    
     
     [object release];
     return NO;
@@ -313,7 +327,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
         }
         
     }
-
+    
     
     return nil;
 }
@@ -329,50 +343,50 @@ dispatch_queue_t serialDesignElementAccessQueue;
 	//NSEnumerator *instanceEnum = [bundleArray objectEnumerator];
 	NSUInteger i = 0;
 	//while ([instanceEnum nextObject]) {
-		
-		id interpretSerialIO = [bundleArray objectAtIndex:i];
-		NSLog(@"%@", interpretSerialIO);
-		if (YES == [self pluginClassIsValid:interpretSerialIO])
-		{
-            NSDictionary* port  = [interpretSerialIO portParameters];
-            if (nil == port){
-                if (nil != serialPortEyeTrac){
-                    [serialPortEyeTrac release];}
-                [bundleArray release];
-                NSLog(@"No dict with port parameters got from external Plugin");
-                return nil;}
-            
-            NSString *devPath   = [port objectForKey:@"pathToDevice"];
-            NSString *descr     = [port objectForKey:@"deviceDescription"];
-            int baudRate        = [[port objectForKey:@"baudRate"] integerValue];
-            int bits            = [[port objectForKey:@"useBits"] integerValue];
-            BOOL enableParity   = [[port objectForKey:@"enableParity"] boolValue];
-            BOOL oddParity      = [[port objectForKey:@"useOddParity"] boolValue];//
-            BOOL isSerial       = [[port objectForKey:@"isSerialPort"] boolValue];
-            
-            if (NO == isSerial){
-                if (nil != serialPortEyeTrac){
-                    [serialPortEyeTrac release];}
-                [bundleArray release];
-                NSLog(@"No serial port wanted");
-                return nil;}
-            
-            serialPortEyeTrac = [[SerialPort alloc] initSerialPortWithDevicePath:devPath
-                                                                  deviceDescript:descr
-                                                                      symbolrate:baudRate 
-                                                                    enableParity:enableParity 
-                                                                       oddParity:oddParity 
-                                                                         andBits:bits];
-			[serialPortEyeTrac addObserver: interpretSerialIO];
-		}
-		//i++;
+    
+    id interpretSerialIO = [bundleArray objectAtIndex:i];
+    NSLog(@"%@", interpretSerialIO);
+    if (YES == [self pluginClassIsValid:interpretSerialIO])
+    {
+        NSDictionary* port  = [interpretSerialIO portParameters];
+        if (nil == port){
+            if (nil != serialPortEyeTrac){
+                [serialPortEyeTrac release];}
+            [bundleArray release];
+            NSLog(@"No dict with port parameters got from external Plugin");
+            return nil;}
+        
+        NSString *devPath   = [port objectForKey:@"pathToDevice"];
+        NSString *descr     = [port objectForKey:@"deviceDescription"];
+        int baudRate        = [[port objectForKey:@"baudRate"] integerValue];
+        int bits            = [[port objectForKey:@"useBits"] integerValue];
+        BOOL enableParity   = [[port objectForKey:@"enableParity"] boolValue];
+        BOOL oddParity      = [[port objectForKey:@"useOddParity"] boolValue];//
+        BOOL isSerial       = [[port objectForKey:@"isSerialPort"] boolValue];
+        
+        if (NO == isSerial){
+            if (nil != serialPortEyeTrac){
+                [serialPortEyeTrac release];}
+            [bundleArray release];
+            NSLog(@"No serial port wanted");
+            return nil;}
+        
+        serialPortEyeTrac = [[SerialPort alloc] initSerialPortWithDevicePath:devPath
+                                                              deviceDescript:descr
+                                                                  symbolrate:baudRate 
+                                                                enableParity:enableParity 
+                                                                   oddParity:oddParity 
+                                                                     andBits:bits];
+        [serialPortEyeTrac addObserver: interpretSerialIO];
+    }
+    //i++;
 	//}
 	
 	NSError *err = [[NSError alloc] init];
     if (nil != eyeTracThread){
         [eyeTracThread release];}
     eyeTracThread = [[NSThread alloc] initWithTarget:serialPortEyeTrac selector:@selector(startSerialPortThread:) object:err]; 
-   
+    
     
     [err release];
     [bundleArray release];
@@ -391,43 +405,43 @@ dispatch_queue_t serialDesignElementAccessQueue;
 	//NSEnumerator *instanceEnum = [bundleArray objectEnumerator];
 	NSUInteger i = 0;
 	//while ([instanceEnum nextObject]) {
-		
-		id interpretSerialIO = [bundleArray objectAtIndex:i];
-		NSLog(@"%@", interpretSerialIO);
-		if (YES == [self pluginClassIsValid:interpretSerialIO])
-		{
-            NSDictionary* port  = [interpretSerialIO portParameters];
-            if (nil == port){
-                if (nil != serialPortTriggerAndButtonBox){
-                    [serialPortTriggerAndButtonBox release];}
-                [bundleArray release];
-                NSLog(@"No dict with port parameters got from external Plugin");
-                return nil;}
-            
-            NSString *devPath   = [port objectForKey:@"pathToDevice"];
-            NSString *descr     = [port objectForKey:@"deviceDescription"];
-            int baudRate        = [[port objectForKey:@"baudRate"] integerValue];
-            int bits            = [[port objectForKey:@"useBits"] integerValue];
-            BOOL enableParity   = [[port objectForKey:@"enableParity"] boolValue];
-            BOOL oddParity      = [[port objectForKey:@"useOddParity"] boolValue];//
-            BOOL isSerial       = [[port objectForKey:@"isSerialPort"] boolValue];
-            
-            if (NO == isSerial){
-                if (nil != serialPortTriggerAndButtonBox){
-                    [serialPortTriggerAndButtonBox release];}
-                [bundleArray release];
-                NSLog(@"No serial port wanted");
-                return nil;}
-            
-            serialPortTriggerAndButtonBox = [[SerialPort alloc] initSerialPortWithDevicePath:devPath
-                                                                              deviceDescript:descr
-                                                                                  symbolrate:baudRate 
-                                                                                enableParity:enableParity 
-                                                                                   oddParity:oddParity 
-                                                                                     andBits:bits];
-			[serialPortTriggerAndButtonBox addObserver: interpretSerialIO];
-		}
-		//i++;
+    
+    id interpretSerialIO = [bundleArray objectAtIndex:i];
+    NSLog(@"%@", interpretSerialIO);
+    if (YES == [self pluginClassIsValid:interpretSerialIO])
+    {
+        NSDictionary* port  = [interpretSerialIO portParameters];
+        if (nil == port){
+            if (nil != serialPortTriggerAndButtonBox){
+                [serialPortTriggerAndButtonBox release];}
+            [bundleArray release];
+            NSLog(@"No dict with port parameters got from external Plugin");
+            return nil;}
+        
+        NSString *devPath   = [port objectForKey:@"pathToDevice"];
+        NSString *descr     = [port objectForKey:@"deviceDescription"];
+        int baudRate        = [[port objectForKey:@"baudRate"] integerValue];
+        int bits            = [[port objectForKey:@"useBits"] integerValue];
+        BOOL enableParity   = [[port objectForKey:@"enableParity"] boolValue];
+        BOOL oddParity      = [[port objectForKey:@"useOddParity"] boolValue];//
+        BOOL isSerial       = [[port objectForKey:@"isSerialPort"] boolValue];
+        
+        if (NO == isSerial){
+            if (nil != serialPortTriggerAndButtonBox){
+                [serialPortTriggerAndButtonBox release];}
+            [bundleArray release];
+            NSLog(@"No serial port wanted");
+            return nil;}
+        
+        serialPortTriggerAndButtonBox = [[SerialPort alloc] initSerialPortWithDevicePath:devPath
+                                                                          deviceDescript:descr
+                                                                              symbolrate:baudRate 
+                                                                            enableParity:enableParity 
+                                                                               oddParity:oddParity 
+                                                                                 andBits:bits];
+        [serialPortTriggerAndButtonBox addObserver: interpretSerialIO];
+    }
+    //i++;
 	//}
 	
 	NSError *err = [[NSError alloc] init];
@@ -435,7 +449,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
         [triggerThread release];
     }
 	triggerThread = [[NSThread alloc] initWithTarget:serialPortTriggerAndButtonBox selector:@selector(startSerialPortThread:) object:err];    
-
+    
     
     [err release];
     [bundleArray release];
@@ -597,5 +611,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
     return resDesign;
     
 }
+
+
 
 @end

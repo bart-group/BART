@@ -25,6 +25,12 @@ extern NSString * const BARTTriggerArrivedNotification;
 
 @end
 
+@protocol BARTButtonPressProtocol <NSObject>
+
+-(void)buttonWasPressed:(NSNotification*)aNotification;
+
+@end
+
 @protocol BARTDataIncomeProtocol <NSObject>
 
 -(void)dataArrived:(NSUInteger)tr;
@@ -37,6 +43,7 @@ extern NSString * const BARTTriggerArrivedNotification;
     NEDesignElement *designElemRef;
     EDDataElement *anatomyElemRef;
     EDDataElement *functionalOrigDataRef;
+    NSString *logFilePath;
 
 }
 
@@ -44,7 +51,8 @@ extern NSString * const BARTTriggerArrivedNotification;
 @property (readonly) NSDictionary *dictSerialIOPlugins;
 @property (readwrite, retain) NEDesignElement *designElemRef;
 @property (readwrite, retain) EDDataElement *anatomyElemRef;
-@property (readwrite, retain) EDDataElement *functionalOrigDataRef;;
+@property (readwrite, retain) EDDataElement *functionalOrigDataRef;
+@property (readonly, getter = logFilePath) NSString* logfilePath;
 
 
 /**
