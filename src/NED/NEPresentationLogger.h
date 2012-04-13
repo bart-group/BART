@@ -53,6 +53,33 @@
 -(void)logTrigger:(NSUInteger)triggerNumber  withTime:(NSUInteger)t;
 
 /**
+ * Logs conditions from constraint
+ * The message is automatically expanded by a timestamp (time
+ * the message was logged).
+ *
+ * \param dict dictionary describing the conditions - variables and status
+ */
+-(void)logConditions:(NSDictionary*)dict  withTime:(NSUInteger)t;
+
+/**
+ * Logs an action done if condition fullfilled
+ * The message is automatically expanded by a timestamp (time
+ * the message was logged).
+ *
+ * \param dict dictionary describing the actions - fctName, variables
+ */
+-(void)logActionsThen:(NSDictionary*)dict  withTime:(NSUInteger)t;
+
+/**
+ * Logs an action done if condition not fullfilled
+ * The message is automatically expanded by a timestamp (time
+ * the message was logged).
+ *
+ * \param dict dictionary describing the actions - fctName, variables
+ */
+-(void)logActionsElse:(NSDictionary*)dict  withTime:(NSUInteger)t;
+
+/**
  * Generates a log message for a starting event and adds this
  * message to the log.
  * The log entry is automatically expanded by a timestamp 

@@ -239,6 +239,28 @@
                           [mLogFormatter stringForTriggerNumber:triggerNumber]]];
 }
 
+-(void)logConditions:(NSDictionary *)dict withTime:(NSUInteger)t
+{
+    //TODO
+}
+
+-(void)logActionsElse:(NSDictionary *)dict withTime:(NSUInteger)t
+{
+    [mMessages addObject:[NSString stringWithFormat:@"%@\t%lu\t%@", 
+                          [mDateFormatter stringFromDate:[NSDate date]], 
+                          t,
+                          [mLogFormatter stringForActionElse:dict]]];
+}
+
+-(void)logActionsThen:(NSDictionary *)dict withTime:(NSUInteger)t
+{
+    [mMessages addObject:[NSString stringWithFormat:@"%@\t%lu\t%@", 
+                          [mDateFormatter stringFromDate:[NSDate date]], 
+                          t,
+                          [mLogFormatter stringForActionThen:dict]]];
+}
+
+
 -(void)logStartingEvent:(NEStimEvent*)event 
             withTrigger:(NSUInteger)triggerNumber
                 andTime:(NSUInteger)t

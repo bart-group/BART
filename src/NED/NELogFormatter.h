@@ -72,4 +72,20 @@
  */
 -(NSString*)stringForStimEvent:(NEStimEvent*)event;
 
+/**
+ * Converts a then action from a constraint into a log message.
+ *
+ * \param action The Dictionary describing the action.
+ * \return      The string representation of action.
+ */
+-(NSString*)stringForActionThen:(NSDictionary*)action;
+
+/**
+ * Converts an else action from a constraint into a log message.
+ *
+ * \param action The Dictionary describing the action.
+ * \return      The string representation of action.
+ */
+-(NSString*)stringForActionElse:(NSDictionary*)action;
+
 @end

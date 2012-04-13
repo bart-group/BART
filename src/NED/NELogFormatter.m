@@ -81,4 +81,14 @@
             endSetDelimiter];
 }
 
+-(NSString*)stringForActionThen:(NSDictionary *)action
+{
+    return @"t";//[NSString stringWithFormat:@"", ];
+}
+
+-(NSString*)stringForActionElse:(NSDictionary*)action
+{
+    return @"t";//[NSString stringWithFormat:@"", ];
+}
+
 @end

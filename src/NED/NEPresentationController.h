@@ -20,7 +20,7 @@
  * Controller for handling events and the general flow of the
  * presentation.
  */
-@interface NEPresentationController : NSObject <BARTScannerTriggerProtocol> {
+@interface NEPresentationController : NSObject <BARTScannerTriggerProtocol, BARTButtonPressProtocol> {
  
     /*
      * the controller instance to check for Conditions of external devices
@@ -75,8 +75,8 @@
 }
 
 @property (readwrite, retain, setter = setExternalConditions:) NEPresentationExternalConditionController *mExternalConditionController;
-@property (readwrite) NSUInteger mTriggerCount;
-@property (readwrite) NSTimeInterval mLastTriggersTime;
+@property (readwrite, setter = setTriggerCount:) NSUInteger mTriggerCount;
+@property (readwrite, setter = setLastTriggerTime:) NSTimeInterval mLastTriggersTime;
 
 /**
  * Initializes a newly allocated NESceneController object.

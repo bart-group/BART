@@ -161,7 +161,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         //register itself as an observer for the trigger messages from the sacnner
         COExperimentContext *expContext = [COExperimentContext getInstance];
         [expContext addOberserver:self forProtocol:@"BARTScannerTriggerProtocol"];
-        
+        [expContext addOberserver:self forProtocol:@"BARTButtonPressProtocol"];
         
         // TODO: hard-coded! get info from elsewhere!
 //        // Helicopter feedback.
@@ -206,7 +206,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 
 -(void)triggerArrived:(NSNotification*)aNotification
 {
-    if (0 == [[aNotification object] unsignedLongValue])
+    if (0 == [[aNotification object] unsignedCharValue])
     {
         [self startPresentation];
     }
@@ -215,8 +215,14 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
   
     [mLogger logTrigger:triggerCount withTime:mTime];
     
-    [self setMTriggerCount:triggerCount];
-    [self setMLastTriggersTime:[NSDate timeIntervalSinceReferenceDate]];
+    [self setTriggerCount:triggerCount];
+    [self setLastTriggerTime:[NSDate timeIntervalSinceReferenceDate]];
+}
+
+-(void)buttonWasPressed:(NSNotification *)aNotification
+{
+    NSString *toLog = [NSString stringWithFormat:@"Button pressed: %u", [[aNotification object] unsignedCharValue]];
+    [mLogger log:toLog withTime:mTime];
 }
 
 -(void)requestAdditionOfEventWithTime:(NSUInteger)t 
@@ -332,9 +338,15 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
      * TODO: place elsewere and get tolerance from config!
      */
     printf("### Log ###\n");
-    [mLogger printToFilePath:@"/tmp/MyLogFile.log"];
+    NSString *fName = @"BARTPresentationLogfile_";
+    
+    NSString *log = [NSString stringWithFormat:@"/tmp/%@.log", fName];
+
+    //[[[COExperimentContext getInstance] logFilePath] stringByAppendingPathExtension:fName];
+    [mLogger printToFilePath:log];
     [mLogger print];
     printf("\n");
+    
 //    printf("### Violations ###\n");
 //    for (NSString* violationMsg in [mLogger allMessagesViolatingTolerance:7]) {
 //        printf("%s\n", [violationMsg cStringUsingEncoding:NSUTF8StringEncoding]);
@@ -374,8 +386,6 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 {
     mCurrentTicksTime = [NSDate timeIntervalSinceReferenceDate];
     NSUInteger timeDifference = (NSUInteger) ((mCurrentTicksTime - [self mLastTriggersTime]) * 1000.0);
-    //mTime = [self mTriggerCount] * mTR + timeDifference;
-
     
     if (mTime <= [mTimetable duration]) {
         if (timeDifference < mTR - TICK_TIME) {
@@ -453,7 +463,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
     
     NSString* fName = [action objectForKey:@"functionNameInternal"];
     NSArray *attArray = [action objectForKey:@"attributesArray"];
-    
+    NSString* toLog = [NSString stringWithFormat:@"Action: %@ with " , fName];
     
     if (NSOrderedSame == [fName compare:@"replaceMediaObject"])
     {
@@ -466,6 +476,8 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
                                                               mediaObject:mediaObj];
                 [self enqueueEvent:newEvent asReplacementFor:currentEvent];
                 [newEvent release];
+                toLog = [toLog stringByAppendingFormat:@" %@", [mediaObj getID] ];
+                [mLogger log:toLog withTime:mTime];
                 return;
             }
         }
@@ -475,6 +487,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
     {
         NSString *paraName = nil;
         float paraVal = 0.0;
+        
         
         for (NSDictionary *att in attArray){
             if (NSOrderedSame == [[att objectForKey:@"attributeType"] compare:@"Name" options:NSCaseInsensitiveSearch])
@@ -486,7 +499,10 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
                 NSString *key = [att objectForKey:@"attributeValue"];
                 paraVal = [[resVariables objectForKey:key] floatValue];
             }
+            toLog = [toLog stringByAppendingFormat:@" parameter ",paraName];
+            toLog = [toLog stringByAppendingFormat:@"with value %.2f", paraVal];
         }
+        [mLogger log:toLog withTime:mTime];
         
         NEMediaObject *mo = [currentEvent mediaObject];
         NSPoint p = NSMakePoint([mo position].x, [mo position].y);
@@ -500,6 +516,8 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         }
         
         [mo setPosition:p];
+
+
         return;
     }
     
@@ -532,11 +550,19 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         
         }
         
+        
+        
         //TODO
         //[self  requestAdditionOfEventWithTime:[currentEvent time] duration:duration andMediaObjectID:moRef]; 
         
         if (YES == pushAllEvents){
-            [mTimetable shiftOnsetForAllEventsToHappen:duration];}
+            [mTimetable shiftOnsetForAllEventsToHappen:(NSUInteger)duration withStartingMediaObject:[[currentEvent mediaObject] getID]];
+            toLog = [toLog stringByAppendingFormat:@" %@ push %u ms", moRef, (NSUInteger)duration];
+        }
+        else{
+            toLog = [toLog stringByAppendingFormat:@" %@ no push", moRef];
+        }
+        [mLogger log:toLog withTime:mTime];
         return;
     }
     return;
@@ -601,7 +627,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 -(void)resetTimeAndTriggerCount
 {
     mTime = 0;
-    [self setMTriggerCount:0];
+    [self setTriggerCount:0];
     //[mLogger printToFilePath:@"/tmp/MyLogFile.log"];
 }
 
