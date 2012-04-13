@@ -206,7 +206,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 
 -(void)triggerArrived:(NSNotification*)aNotification
 {
-    if (0 == [[aNotification object] unsignedCharValue])
+    if (0 == [[aNotification object] unsignedLongValue])
     {
         [self startPresentation];
     }
@@ -556,7 +556,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         //[self  requestAdditionOfEventWithTime:[currentEvent time] duration:duration andMediaObjectID:moRef]; 
         
         if (YES == pushAllEvents){
-            [mTimetable shiftOnsetForAllEventsToHappen:(NSUInteger)duration withStartingMediaObject:[[currentEvent mediaObject] getID]];
+            [mTimetable shiftOnsetForAllEventsToHappen:(NSUInteger)duration];
             toLog = [toLog stringByAppendingFormat:@" %@ push %u ms", moRef, (NSUInteger)duration];
         }
         else{
