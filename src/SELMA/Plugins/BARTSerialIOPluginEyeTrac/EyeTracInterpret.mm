@@ -136,7 +136,7 @@
         strftime(fname, 80, "EyeTracFixationsOUT_%H_%M_%S.txt", ptr);
 		fileFixationsOut = fopen(fname, "w");
         strftime(fname, 80, "EyeTracAllBytes_%H_%M_%S.txt", ptr);
-		fileAllBytes = fopen(fname, "w");
+		//fileAllBytes = fopen(fname, "w");
         
 		//print a header to the file
 		fprintf(file, "Status\t\tTime\t\tPupilDiam\t\tCorneaDiam\t\tHorGaze\t\tVerGaze\n\n");
@@ -217,7 +217,7 @@
             
         });
         
-        fprintf(fileAllBytes, "\n");
+        //fprintf(fileAllBytes, "\n");
         
         //clean up the buffer 
 		for (unsigned int i = 0; i < relevantBytes - 1; i++){
@@ -229,7 +229,7 @@
         valueBuffer[indexBuffer] = value;
         indexBuffer++;
         //for the allBytesFile
-        fprintf(fileAllBytes, "%d ", value);
+        //fprintf(fileAllBytes, "%d ", value);
         
         
     }
@@ -344,25 +344,25 @@
             {
                 // everything is fine - fixated in the correct area
 				//todo: redirect output to logfile
-                NSLog(@"ganz drin");
-                fprintf(fileFixationsOK, "%.2f\t\t%.2f\n", meanValueHG, meanValueVG);
+                //NSLog(@"ganz drin");
+                //fprintf(fileFixationsOK, "%.2f\t\t%.2f\n", meanValueHG, meanValueVG);
                 currentEyePos.x = meanValueHG;
                 currentEyePos.y = meanValueVG;
                 return YES;
             }
             // fixated but not in valid area
-			NSLog(@"bissi drin");
-            fprintf(fileFixationsOut, "%.2f\t\t%.2f\n", meanValueHG, meanValueVG);
+			//NSLog(@"bissi drin");
+            //fprintf(fileFixationsOut, "%.2f\t\t%.2f\n", meanValueHG, meanValueVG);
             return  NO;
         }
         // subject did not fixate
-		NSLog(@"bissi draußen");
+		//NSLog(@"bissi draußen");
         return NO;
         
     }
     // more invalid/noisy data than allowed
     else {
-		NSLog(@"ganz draußen");
+		//NSLog(@"ganz draußen");
         return  NO;
     }
 	NSLog(@"mich gibts gar nicht");
@@ -430,7 +430,7 @@
     if (nrOfValues > 0){
         *meanValue = sum/(float_t)nrOfValues;
     }
-    NSLog(@"NRUnrocgnized: %lu", nrOfUnrecognized);
+    //NSLog(@"NRUnrocgnized: %lu", nrOfUnrecognized);
     if (nrOfUnrecognized > validMissingsInFixation){
         return NO;
     }
@@ -478,7 +478,7 @@
 	fclose(file);
     fclose(fileFixationsOK);
     fclose(fileFixationsOut);
-    fclose(fileAllBytes);
+   // fclose(fileAllBytes);
 }
 
 @end
