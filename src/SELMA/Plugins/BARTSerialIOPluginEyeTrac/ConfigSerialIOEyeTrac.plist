@@ -26,9 +26,9 @@
 	<key>Limits</key>
 	<string>test</string>
 	<key>validDistanceX</key>
-	<integer>50</integer>
+	<integer>30</integer>
 	<key>validDistanceY</key>
-	<integer>50</integer>
+	<integer>30</integer>
 	<key>FixationDependsOnScreenCenter</key>
 	<true/>
 	<key>sampleRate</key>
@@ -38,7 +38,7 @@
 	<key>FixationDependsOnPointY</key>
 	<integer>120</integer>
 	<key>durationThresholdForFixation</key>
-	<integer>100</integer>
+	<integer>200</integer>
 	<key>visualAngleValidForFixation</key>
 	<integer>1</integer>
 	<key>distEyeFromScreen</key>
@@ -54,7 +54,7 @@
 	<key>portParameters</key>
 	<dict>
 		<key>pathToDevice</key>
-		<string>/dev/cu.usbserial-FTDWE6HC</string>
+		<string>/dev/cu.usbserial</string>
 		<key>useOddParity</key>
 		<false/>
 		<key>enableParity</key>
