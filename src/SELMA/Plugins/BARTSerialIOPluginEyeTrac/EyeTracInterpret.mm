@@ -200,7 +200,7 @@
 		params.pupilDiam = pupilDiam;
         params.horGaze = 0.1*static_cast<float>(horizGaze);
         params.verGaze = 0.1*static_cast<float>(vertGaze);
-        params.corneaRec = 0;//corneaDiam  == 0 ? 1 : 0; //INVERSE THE LOGIC FOR EASILY COUNTING LATER THE ONES NOT RECOGNIZED
+        params.corneaRec = corneaDiam  == 0 ? 1 : 0; //INVERSE THE LOGIC FOR EASILY COUNTING LATER THE ONES NOT RECOGNIZED
 		params.corneaDiam = pupilDiam;//corneaDiam;
         params.status = static_cast<unsigned char>((valueBuffer[posStatus] & 0x7f));
         
