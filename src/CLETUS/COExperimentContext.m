@@ -247,7 +247,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
     
     
     if ( YES == [object conformsToProtocol:@protocol(BARTDataIncomeProtocol)]  
-        && (YES == [protocolName compare:@"BARTDataIncomeProtocol"]) )
+        && (NSOrderedSame == [protocolName compare:@"BARTDataIncomeProtocol"]) )
     {
         
         [[NSNotificationCenter defaultCenter]   addObserver:object  selector:@selector(dataArrived:) name:BARTDidLoadNextDataNotification object:nil];
@@ -255,9 +255,9 @@ dispatch_queue_t serialDesignElementAccessQueue;
         return YES;
         
     }
-    
+
     if ( YES == [object conformsToProtocol:@protocol(BARTButtonPressProtocol)]  
-        && (YES == [protocolName compare:@"BARTButtonPressProtocol"]) )
+        && (NSOrderedSame == [protocolName compare:@"BARTButtonPressProtocol"]) )
     {
         
         [[NSNotificationCenter defaultCenter]   addObserver:object  selector:@selector(buttonWasPressed:) name:BARTSerialIOButtonBoxPressedKey object:nil];
