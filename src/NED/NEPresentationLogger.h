@@ -15,8 +15,11 @@
  */
 @interface NEPresentationLogger : NSObject {
     
-    /** An array of NSStrings representing the log. */
+    /** An array of NSDictionaries representing the log. */
     NSMutableArray* mMessages;
+    
+    /** An array of NSStrings with some header information for logfile. */
+    NSMutableArray* mGeneralMessages;
     
     /** Date format for the timestamp in each message. */
     NSDateFormatter* mDateFormatter;
@@ -49,8 +52,23 @@
  *
  * \param triggerNumber The number of the trigger that needs to
  *                      appear in the message.
+ * \param t onset
  */
 -(void)logTrigger:(NSUInteger)triggerNumber  withTime:(NSUInteger)t;
+
+/**
+ * Logs a keyboard message.
+ * The message is automatically expanded by a timestamp (time
+ * the message was logged).
+ *
+ * \param button The pressed button ID that needs to
+ *                      appear in the message.
+ * \param triggerNumber The triggerNumber that needs to
+ *                      appear in the message.
+ * \param t The onset that needs to
+ *                      appear in the message.
+ */
+-(void)logButtonPress:(NSUInteger)button atTrigger:(NSUInteger)triggerNumber withTime:(NSUInteger)t;
 
 /**
  * Logs conditions from constraint

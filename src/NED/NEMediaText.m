@@ -26,6 +26,7 @@
         else{
             hasConstraint = NO;}
     }
+    mEventTypeDescription = @"Text";
     
     return self;
 }
@@ -49,7 +50,7 @@
         else{
             hasConstraint = NO;}
     }
-    
+    mEventTypeDescription = @"Text";
     return self;
 }
 

@@ -61,7 +61,7 @@ float mImageHeightHalf;
         mPosition = position;
         [im release];
     }
-    
+    mEventTypeDescription = @"Image";
     return self;
 }
 

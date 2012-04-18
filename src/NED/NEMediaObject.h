@@ -27,12 +27,16 @@
     /** the flag if this object depends on a constraint or not*/
     BOOL hasConstraint;
     
+    /* description of the event type used especially for logging*/
+    NSString* mEventTypeDescription;
+    
 
 }
 
 @property (readwrite, getter = position, setter = setPosition:) NSPoint mPosition;
 @property (readonly, getter = isDependentFromConstraint) BOOL hasConstraint;
-
+@property (readonly, getter = eventIdentifier) NSString *mEventTypeDescription;
+ 
 /**
  * Initializes a newly allocated NEMediaObject with an EDL mediaObject
  * from the configuration represented by key.

@@ -20,6 +20,7 @@
 @synthesize endSetDelimiter;
 
 @synthesize triggerIdentifier;
+@synthesize buttonIdentifier;
 
 @synthesize eventIdentifier;
 @synthesize startEventIdentifier;
@@ -28,14 +29,15 @@
 -(id)init
 {
     if ((self = [super init])) {
-        keyValuePairSeperator = @"\t";
-        keyValueSeperator     = @":";
+        keyValuePairSeperator = @",\t";
+        keyValueSeperator     = @",\t";
         
-        beginSetDelimiter     = @"\t{";
-        entrySeperator        = @"\t";
-        endSetDelimiter       = @"}";
+        beginSetDelimiter     = @"\t";
+        entrySeperator        = @",\t\t\t";
+        endSetDelimiter       = @",\t";
         
         triggerIdentifier     = @"Trigger";
+        buttonIdentifier      = @"Keyboard";
         
         eventIdentifier       = @"Event";
         startEventIdentifier  = @"Start";
@@ -60,13 +62,24 @@
 -(NSString*)stringForTriggerNumber:(NSUInteger)triggerNr
 {
     // @"T:triggerNr"
-    return [NSString stringWithFormat:@"%@%@%d", triggerIdentifier, keyValueSeperator, triggerNr];
+    //return [NSString stringWithFormat:@"%@%@%d", triggerIdentifier, keyValueSeperator, triggerNr];
+    return [NSString stringWithFormat:@"%lu", triggerNr];
+}
+
+-(NSString*)stringForButtonPress:(NSUInteger)button
+{
+    return [NSString stringWithFormat:@"%lu", button];
+}
+
+-(NSString*)stringForOnsetTime:(NSUInteger)t
+{
+    return [NSString stringWithFormat:@"%lu", t];
 }
 
 -(NSString*)stringForStimEvent:(NEStimEvent*)event
 {
     // @"E:{time,duration,ID}"
-    return [NSString stringWithFormat:@"%@%@%@%d%@%d%@%@%@%.0f,%0.f%@", 
+    return [NSString stringWithFormat:@"%@%@%@%d%@%d%@%@%@{%.0f %0.f}%@", 
             eventIdentifier, 
             keyValueSeperator, 
             beginSetDelimiter, 
@@ -79,6 +92,39 @@
             [[event mediaObject] position].x,
             [[event mediaObject] position].y,
             endSetDelimiter];
+}
+
+-(NSString*)stringForEventDescription:(NEStimEvent*)event
+{
+    
+    return [[event mediaObject] getID];
+}
+
+-(NSString*)stringForEventDuration:(NEStimEvent *)event
+{
+    return [NSString stringWithFormat:@"%d", 
+            [event duration]];
+}
+
+-(NSString*)stringForEventPos:(NEStimEvent*)event
+{
+    return [NSString stringWithFormat:@"{%.0f_%.0f}", 
+            [[event mediaObject] position].x, 
+            [[event mediaObject] position].y]; 
+}
+
+-(NSString*)stringForEndEventIdentifier:(NEStimEvent *)event
+{
+    return [NSString stringWithFormat:@"%@_%@",
+            [[event mediaObject] eventIdentifier],
+            endEventIdentifier];
+}
+
+-(NSString*)stringForStartEventIdentifier:(NEStimEvent *)event
+{
+    return [NSString stringWithFormat:@"%@_%@",
+            [[event mediaObject] eventIdentifier],
+            startEventIdentifier];
 }
 
 -(NSString*)stringForActionThen:(NSDictionary *)action

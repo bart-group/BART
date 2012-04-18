@@ -28,6 +28,7 @@
     NSString* endSetDelimiter;
     
     NSString* triggerIdentifier;
+    NSString* buttonIdentifier;
     
     NSString* eventIdentifier;
     NSString* startEventIdentifier;
@@ -43,6 +44,7 @@
 @property (readonly) NSString* endSetDelimiter;
 
 @property (readonly) NSString* triggerIdentifier;
+@property (readonly) NSString* buttonIdentifier;
 
 @property (readonly) NSString* eventIdentifier;
 @property (readonly) NSString* startEventIdentifier;
@@ -65,12 +67,71 @@
 -(NSString*)stringForTriggerNumber:(NSUInteger)triggerNr;
 
 /**
+ * Generates a button press message with a given button.
+ *
+ * \param button The number of the button press that needs to
+ *                  appear in the message.
+ * \return          A message predestinated for logging.
+ */
+-(NSString*)stringForButtonPress:(NSUInteger)button;
+
+/**
+ * Generates an onset time  message with a given onset.
+ *
+ * \param t The onset that needs to
+ *                  appear in the message.
+ * \return          A message predestinated for logging.
+ */
+
+-(NSString*)stringForOnsetTime:(NSUInteger)t;
+
+/**
  * Converts a NEStimEvent into a log message.
  *
  * \param event The NEStimEvent to convert.
  * \return      The string representation of event.
  */
 -(NSString*)stringForStimEvent:(NEStimEvent*)event;
+
+/**
+ * 
+ *
+ * \param event 
+ * \return      The string 
+ */
+-(NSString*)stringForEventDescription:(NEStimEvent*)event;
+
+/**
+ * 
+ *
+ * \param event 
+ * \return      The string 
+ */
+-(NSString*)stringForEventDuration:(NEStimEvent*)event;
+
+/**
+ * 
+ *
+ * \param event 
+ * \return      The string 
+ */
+-(NSString*)stringForEndEventIdentifier:(NEStimEvent*)event;
+
+/**
+ * 
+ *
+ * \param event 
+ * \return      The string 
+ */
+-(NSString*)stringForStartEventIdentifier:(NEStimEvent*)event;
+
+/**
+ * 
+ *
+ * \param event 
+ * \return      The string 
+ */
+-(NSString*)stringForEventPos:(NEStimEvent*)event;
 
 /**
  * Converts a then action from a constraint into a log message.

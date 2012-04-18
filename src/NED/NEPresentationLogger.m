@@ -178,7 +178,8 @@
 -(id)init
 {
     if ((self = [super init])) {
-        mMessages = [[NSMutableArray alloc] initWithCapacity:1000];
+        mMessages = [[NSMutableArray alloc] initWithCapacity:100000];
+        mGeneralMessages = [[NSMutableArray alloc] initWithCapacity:10];
         mDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%H:%M:%S.%F" allowNaturalLanguage:NO];
         mLogFormatter  = [[NELogFormatter alloc] init];
         
@@ -187,16 +188,26 @@
         
         NSDateFormatter *tempDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%Y-%m-%d %H:%M:%S" allowNaturalLanguage:NO];
         
-        [mMessages addObject:[NSString stringWithFormat:@"BART Presentation Logfile", 
+        [mGeneralMessages addObject:[NSString stringWithFormat:@"BART Presentation Logfile", 
                               [tempDateFormatter stringFromDate:[NSDate date]] 
                               ]];
-        [mMessages addObject:[NSString stringWithFormat:@"Logfile started %@ \n\n", 
+        [mGeneralMessages addObject:[NSString stringWithFormat:@"Logfile started %@ \n\n", 
                               [tempDateFormatter stringFromDate:[NSDate date]] 
                               ]];
         //TODO: Headlines for rows - Time, Time since Start, TrialID, ...
-        [mMessages addObject:[NSString stringWithFormat:@"", 
+        [mGeneralMessages addObject:[NSString stringWithFormat:@"", 
                               [tempDateFormatter stringFromDate:[NSDate date]] 
                               ]];
+        
+        [mMessages addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                              @"TIME", @"Time", 
+                              @"ONSET", @"Onset",
+                              @"TRIGGER", @"Trigger",
+                              @"EVENT", @"EventIdent",
+                              @"DESCR", @"EventDescription",
+                              @"DURATION", @"Duration",
+                              @"POS", @"Pos",
+                              nil]];
         
         [tempDateFormatter release];
     }
@@ -225,18 +236,52 @@
 
 -(void)log:(NSString*)msg withTime:(NSUInteger)t
 {
-    [mMessages addObject:[NSString stringWithFormat:@"%@\t%lu\t%@", 
-                          [mDateFormatter stringFromDate:[NSDate date]], 
-                          t,
-                          msg]];
+    NSDictionary *logDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   [mDateFormatter stringFromDate:[NSDate date]], @"Time", 
+                                   [mLogFormatter stringForOnsetTime:t], @"Onset",
+                                   @"0", @"Trigger",
+                                   @"Message", @"EventIdent",
+                                   msg, @"EventDescription",
+                                   
+                                   @"0", @"Duration",
+                                   @"0", @"Pos",
+                                   nil];
+    
+    [mMessages addObject:logDictionary];
+
 }
 
 -(void)logTrigger:(NSUInteger)triggerNumber withTime:(NSUInteger)t
 {
-    [mMessages addObject:[NSString stringWithFormat:@"%@\t%lu\t%@", 
-                          [mDateFormatter stringFromDate:[NSDate date]], 
-                          t,
-                          [mLogFormatter stringForTriggerNumber:triggerNumber]]];
+    NSDictionary *logDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   [mDateFormatter stringFromDate:[NSDate date]], @"Time", 
+                                   [mLogFormatter stringForOnsetTime:t], @"Onset",
+                                   [mLogFormatter stringForTriggerNumber:triggerNumber], @"Trigger",
+                                   [mLogFormatter triggerIdentifier], @"EventIdent",
+                                   [mLogFormatter stringForTriggerNumber:triggerNumber], @"EventDescription",
+                                   
+                                   @"0", @"Duration",
+                                   @"0", @"Pos",
+                                   nil];
+    
+    [mMessages addObject:logDictionary];
+    
+
+}
+
+-(void)logButtonPress:(NSUInteger)button atTrigger:(NSUInteger)triggerNumber withTime:(NSUInteger)t
+{
+    NSDictionary *logDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   [mDateFormatter stringFromDate:[NSDate date]], @"Time", 
+                                   [mLogFormatter stringForOnsetTime:t], @"Onset",
+                                   [mLogFormatter stringForTriggerNumber:triggerNumber], @"Trigger",
+                                   [mLogFormatter buttonIdentifier], @"EventIdent",
+                                   [mLogFormatter stringForButtonPress:button], @"EventDescription",
+                                   @"0", @"Duration",
+                                   @"0", @"Pos",
+                                   nil];
+    
+    [mMessages addObject:logDictionary];
 }
 
 -(void)logConditions:(NSDictionary *)dict withTime:(NSUInteger)t
@@ -246,18 +291,34 @@
 
 -(void)logActionsElse:(NSDictionary *)dict withTime:(NSUInteger)t
 {
-    [mMessages addObject:[NSString stringWithFormat:@"%@\t%lu\t%@", 
-                          [mDateFormatter stringFromDate:[NSDate date]], 
-                          t,
-                          [mLogFormatter stringForActionElse:dict]]];
+    NSDictionary *logDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   [mDateFormatter stringFromDate:[NSDate date]], @"Time", 
+                                   [mLogFormatter stringForOnsetTime:t], @"Onset",
+                                   @"TODO", @"Trigger",
+                                   @"Action", @"EventIdent",
+                                   @"TODO", @"EventDescription",
+                                   
+                                   @"TODO", @"Duration",
+                                   @"TODO", @"Pos",
+                                   nil];
+    [mMessages addObject:logDictionary];
 }
 
 -(void)logActionsThen:(NSDictionary *)dict withTime:(NSUInteger)t
 {
-    [mMessages addObject:[NSString stringWithFormat:@"%@\t%lu\t%@", 
-                          [mDateFormatter stringFromDate:[NSDate date]], 
-                          t,
-                          [mLogFormatter stringForActionThen:dict]]];
+
+    
+    NSDictionary *logDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   [mDateFormatter stringFromDate:[NSDate date]], @"Time", 
+                                   [mLogFormatter stringForOnsetTime:t], @"Onset",
+                                   @"TODO", @"Trigger",
+                                   @"Action", @"EventIdent",
+                                   @"TODO", @"EventDescription",
+                                   
+                                   @"TODO", @"Duration",
+                                   @"TODO", @"Pos",
+                                   nil];
+    [mMessages addObject:logDictionary];
 }
 
 
@@ -265,13 +326,18 @@
             withTrigger:(NSUInteger)triggerNumber
                 andTime:(NSUInteger)t
 {
-    // Not using [self log] due to time reasons.
-    [mMessages addObject:[NSString stringWithFormat:@"%@\t%lu\t%@\t%@\t%@",
-                          [mDateFormatter stringFromDate:[NSDate date]],
-                          t,
-                          [mLogFormatter startEventIdentifier],
-                          [mLogFormatter stringForStimEvent:event], 
-                          [mLogFormatter stringForTriggerNumber:triggerNumber]]];
+    NSDictionary *logDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   [mDateFormatter stringFromDate:[NSDate date]], @"Time", 
+                                   [mLogFormatter stringForOnsetTime:t], @"Onset",
+                                   [mLogFormatter stringForTriggerNumber:triggerNumber], @"Trigger",
+                                   [mLogFormatter stringForStartEventIdentifier:event], @"EventIdent",
+                                   [mLogFormatter stringForEventDescription:event], @"EventDescription",
+                                   
+                                   [mLogFormatter stringForEventDuration:event], @"Duration",
+                                   [mLogFormatter stringForEventPos:event], @"Pos",
+                                   nil];
+    
+    [mMessages addObject:logDictionary];
 }
 
 -(void)logEndingEvent:(NEStimEvent*)event 
@@ -279,12 +345,20 @@
               andTime:(NSUInteger)t
 {
     // Not using [self log] due to time reasons.
-    [mMessages addObject:[NSString stringWithFormat:@"%@\t%lu\t%@\t%@\t%@",
-                          [mDateFormatter stringFromDate:[NSDate date]],
-                          t,
-                          [mLogFormatter endEventIdentifier],
-                          [mLogFormatter stringForStimEvent:event], 
-                          [mLogFormatter stringForTriggerNumber:triggerNumber]]];
+    NSDictionary *logDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   [mDateFormatter stringFromDate:[NSDate date]], @"Time", 
+                                   [mLogFormatter stringForOnsetTime:t], @"Onset",
+                                   [mLogFormatter stringForTriggerNumber:triggerNumber], @"Trigger",
+                                   [mLogFormatter stringForEndEventIdentifier:event], @"EventIdent",
+                                   [mLogFormatter stringForEventDescription:event], @"EventDescription",
+                                   
+                                   [mLogFormatter stringForEventDuration:event], @"Duration",
+                                   [mLogFormatter stringForEventPos:event], @"Pos",
+                                   nil];
+    
+
+    
+    [mMessages addObject:logDictionary];
 }
 
 -(NSArray*)messages
@@ -294,9 +368,31 @@
 
 -(void)print
 {
-    for (NSString* msg in mMessages) {
-        printf("%s\n", [msg cStringUsingEncoding:NSUTF8StringEncoding]);
+    for (NSString* headermsg in mGeneralMessages)
+    {
+        printf( "%s\n", [headermsg cStringUsingEncoding:NSUTF8StringEncoding]);
     }
+    
+    for (NSDictionary* msgDict in [self messages]) {
+        printf( "%s", [[msgDict objectForKey:@"Time"] cStringUsingEncoding:NSUTF8StringEncoding]);
+        printf( "%s", [[mLogFormatter entrySeperator] cStringUsingEncoding:NSUTF8StringEncoding]);
+        printf( "%s", [[msgDict objectForKey:@"Onset"]  cStringUsingEncoding:NSUTF8StringEncoding]);
+        printf( "%s", [[mLogFormatter entrySeperator] cStringUsingEncoding:NSUTF8StringEncoding]);
+        printf( "%s", [[msgDict objectForKey:@"Trigger"] cStringUsingEncoding:NSUTF8StringEncoding]);
+        printf( "%s", [[mLogFormatter entrySeperator] cStringUsingEncoding:NSUTF8StringEncoding]);
+        printf( "%s", [[msgDict objectForKey:@"EventIdent"] cStringUsingEncoding:NSUTF8StringEncoding]);
+        printf( "%s", [[mLogFormatter entrySeperator] cStringUsingEncoding:NSUTF8StringEncoding]);
+        printf( "%s", [[msgDict objectForKey:@"EventDescription"] cStringUsingEncoding:NSUTF8StringEncoding]);
+        printf( "%s", [[mLogFormatter entrySeperator] cStringUsingEncoding:NSUTF8StringEncoding]);
+        printf( "%s", [[msgDict objectForKey:@"Duration"] cStringUsingEncoding:NSUTF8StringEncoding]);
+        printf( "%s", [[mLogFormatter entrySeperator] cStringUsingEncoding:NSUTF8StringEncoding]);
+        printf( "%s", [[msgDict objectForKey:@"Pos"] cStringUsingEncoding:NSUTF8StringEncoding]);
+        printf( "%s\n", [[mLogFormatter entrySeperator] cStringUsingEncoding:NSUTF8StringEncoding]);
+        
+    }
+
+    
+    
 }
 
 
@@ -316,9 +412,30 @@
         fName = [fName stringByAppendingString:@"_2"];
     }
     FILE* fp = fopen([fName cStringUsingEncoding:NSUTF8StringEncoding], "w");
-    for (NSString* msg in [self messages]) {
-        fprintf(fp, "%s\n", [msg cStringUsingEncoding:NSUTF8StringEncoding]);
+    
+    for (NSString* headermsg in mGeneralMessages)
+    {
+        fprintf(fp, "%s\n", [headermsg cStringUsingEncoding:NSUTF8StringEncoding]);
     }
+    
+    for (NSDictionary* msgDict in [self messages]) {
+        fprintf(fp, "%s", [[msgDict objectForKey:@"Time"] cStringUsingEncoding:NSUTF8StringEncoding]);
+        fprintf(fp, "%s", [[mLogFormatter entrySeperator] cStringUsingEncoding:NSUTF8StringEncoding]);
+        fprintf(fp, "%s", [[msgDict objectForKey:@"Onset"]  cStringUsingEncoding:NSUTF8StringEncoding]);
+        fprintf(fp, "%s", [[mLogFormatter entrySeperator] cStringUsingEncoding:NSUTF8StringEncoding]);
+        fprintf(fp, "%s", [[msgDict objectForKey:@"Trigger"] cStringUsingEncoding:NSUTF8StringEncoding]);
+        fprintf(fp, "%s", [[mLogFormatter entrySeperator] cStringUsingEncoding:NSUTF8StringEncoding]);
+        fprintf(fp, "%s", [[msgDict objectForKey:@"EventIdent"] cStringUsingEncoding:NSUTF8StringEncoding]);
+        fprintf(fp, "%s", [[mLogFormatter entrySeperator] cStringUsingEncoding:NSUTF8StringEncoding]);
+        fprintf(fp, "%s", [[msgDict objectForKey:@"EventDescription"] cStringUsingEncoding:NSUTF8StringEncoding]);
+        fprintf(fp, "%s", [[mLogFormatter entrySeperator] cStringUsingEncoding:NSUTF8StringEncoding]);
+        fprintf(fp, "%s", [[msgDict objectForKey:@"Duration"] cStringUsingEncoding:NSUTF8StringEncoding]);
+        fprintf(fp, "%s", [[mLogFormatter entrySeperator] cStringUsingEncoding:NSUTF8StringEncoding]);
+        fprintf(fp, "%s", [[msgDict objectForKey:@"Pos"] cStringUsingEncoding:NSUTF8StringEncoding]);
+        fprintf(fp, "%s\n", [[mLogFormatter entrySeperator] cStringUsingEncoding:NSUTF8StringEncoding]);
+
+    }
+    
     fclose(fp);
     [tempDateFormatter release];
     [fm release];
@@ -326,9 +443,29 @@
 
 -(void)printToNSLog
 {
-    for (NSString* msg in mMessages) {
-        NSLog(@"%@", msg);
+    for (NSString* headermsg in mGeneralMessages)
+    {
+        NSLog(@"%@", headermsg);
     }
+    
+    for (NSDictionary* msgDict in mMessages) {
+       
+        NSLog(@"%@", [msgDict objectForKey:@"Time"] );
+        NSLog(@"%@", [mLogFormatter entrySeperator] );
+        NSLog(@"%@", [msgDict objectForKey:@"Onset"]  );
+        NSLog(@"%@", [mLogFormatter entrySeperator] );
+        NSLog(@"%@", [msgDict objectForKey:@"Trigger"] );
+        NSLog(@"%@", [mLogFormatter entrySeperator] );
+        NSLog(@"%@", [msgDict objectForKey:@"EventIdent"] );
+        NSLog(@"%@", [mLogFormatter entrySeperator] );
+        NSLog(@"%@", [msgDict objectForKey:@"EventDescription"] );
+        NSLog(@"%@", [mLogFormatter entrySeperator] );
+        NSLog(@"%@", [msgDict objectForKey:@"Duration"] );
+        NSLog(@"%@", [mLogFormatter entrySeperator] );
+        NSLog(@"%@", [msgDict objectForKey:@"Pos"] );
+        NSLog(@"%@", [mLogFormatter entrySeperator] );
+    }
+
 }
 
 -(void)clear;

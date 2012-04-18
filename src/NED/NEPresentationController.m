@@ -221,8 +221,9 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 
 -(void)buttonWasPressed:(NSNotification *)aNotification
 {
-    NSString *toLog = [NSString stringWithFormat:@"Button pressed: %u", [[aNotification object] unsignedCharValue]];
-    [mLogger log:toLog withTime:mTime];
+   // NSString *toLog = [NSString stringWithFormat:@"Button pressed: %u", [[aNotification object] unsignedCharValue]];
+    [mLogger logButtonPress:[[aNotification object] unsignedIntegerValue] atTrigger:mTriggerCount withTime:mTime];
+    //[mLogger log:toLog withTime:mTime];
 }
 
 -(void)requestAdditionOfEventWithTime:(NSUInteger)t 

@@ -17,6 +17,7 @@
 
 @synthesize mPosition;
 @synthesize hasConstraint;
+@synthesize mEventTypeDescription;
 
 -(id)init
 {
@@ -25,6 +26,7 @@
         mID = @"";
         mConstraintID = @"";
         hasConstraint = NO;
+        mEventTypeDescription = @"";
     }
     
     return self;
