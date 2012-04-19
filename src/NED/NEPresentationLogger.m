@@ -201,12 +201,12 @@
         
         [mMessages addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                               @"TIME", @"Time", 
-                              @"ONSET", @"Onset",
-                              @"TRIGGER", @"Trigger",
-                              @"EVENT", @"EventIdent",
-                              @"DESCR", @"EventDescription",
-                              @"DURATION", @"Duration",
-                              @"POS", @"Pos",
+                              @"\tONSET", @"Onset",
+                              @"\tTRIGGER", @"Trigger",
+                              @"\tEVENTID", @"EventIdent",
+                              @"\tDESCR", @"EventDescription",
+                              @"\tDURATION", @"Duration",
+                              @"\tPOS", @"Pos",
                               nil]];
         
         [tempDateFormatter release];
@@ -269,7 +269,7 @@
 
 }
 
--(void)logButtonPress:(NSUInteger)button atTrigger:(NSUInteger)triggerNumber withTime:(NSUInteger)t
+-(void)logButtonPress:(NSUInteger)button withTrigger:(NSUInteger)triggerNumber andTime:(NSUInteger)t
 {
     NSDictionary *logDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                    [mDateFormatter stringFromDate:[NSDate date]], @"Time", 
@@ -289,34 +289,19 @@
     //TODO
 }
 
--(void)logActionsElse:(NSDictionary *)dict withTime:(NSUInteger)t
-{
-    NSDictionary *logDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   [mDateFormatter stringFromDate:[NSDate date]], @"Time", 
-                                   [mLogFormatter stringForOnsetTime:t], @"Onset",
-                                   @"TODO", @"Trigger",
-                                   @"Action", @"EventIdent",
-                                   @"TODO", @"EventDescription",
-                                   
-                                   @"TODO", @"Duration",
-                                   @"TODO", @"Pos",
-                                   nil];
-    [mMessages addObject:logDictionary];
-}
 
--(void)logActionsThen:(NSDictionary *)dict withTime:(NSUInteger)t
+-(void)logAction:(NSString *)descr withTrigger:(NSUInteger)triggerNumber andTime:(NSUInteger)t
 {
 
     
     NSDictionary *logDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                    [mDateFormatter stringFromDate:[NSDate date]], @"Time", 
                                    [mLogFormatter stringForOnsetTime:t], @"Onset",
-                                   @"TODO", @"Trigger",
-                                   @"Action", @"EventIdent",
-                                   @"TODO", @"EventDescription",
-                                   
-                                   @"TODO", @"Duration",
-                                   @"TODO", @"Pos",
+                                   [mLogFormatter stringForTriggerNumber:triggerNumber], @"Trigger",
+                                   [mLogFormatter actionIdentifier], @"EventIdent",
+                                   descr, @"EventDescription", 
+                                   @"0", @"Duration",
+                                   @"0", @"Pos",
                                    nil];
     [mMessages addObject:logDictionary];
 }

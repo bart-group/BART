@@ -29,6 +29,7 @@
     
     NSString* triggerIdentifier;
     NSString* buttonIdentifier;
+    NSString* actionIdentifier;
     
     NSString* eventIdentifier;
     NSString* startEventIdentifier;
@@ -45,6 +46,8 @@
 
 @property (readonly) NSString* triggerIdentifier;
 @property (readonly) NSString* buttonIdentifier;
+@property (readonly) NSString* actionIdentifier;
+
 
 @property (readonly) NSString* eventIdentifier;
 @property (readonly) NSString* startEventIdentifier;
@@ -133,20 +136,7 @@
  */
 -(NSString*)stringForEventPos:(NEStimEvent*)event;
 
-/**
- * Converts a then action from a constraint into a log message.
- *
- * \param action The Dictionary describing the action.
- * \return      The string representation of action.
- */
--(NSString*)stringForActionThen:(NSDictionary*)action;
 
-/**
- * Converts an else action from a constraint into a log message.
- *
- * \param action The Dictionary describing the action.
- * \return      The string representation of action.
- */
--(NSString*)stringForActionElse:(NSDictionary*)action;
+
 
 @end

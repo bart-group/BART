@@ -68,7 +68,9 @@
  * \param t The onset that needs to
  *                      appear in the message.
  */
--(void)logButtonPress:(NSUInteger)button atTrigger:(NSUInteger)triggerNumber withTime:(NSUInteger)t;
+-(void)logButtonPress:(NSUInteger)button 
+            withTrigger:(NSUInteger)triggerNumber 
+             andTime:(NSUInteger)t;
 
 /**
  * Logs conditions from constraint
@@ -79,23 +81,17 @@
  */
 -(void)logConditions:(NSDictionary*)dict  withTime:(NSUInteger)t;
 
-/**
- * Logs an action done if condition fullfilled
- * The message is automatically expanded by a timestamp (time
- * the message was logged).
- *
- * \param dict dictionary describing the actions - fctName, variables
- */
--(void)logActionsThen:(NSDictionary*)dict  withTime:(NSUInteger)t;
 
 /**
- * Logs an action done if condition not fullfilled
+ * Logs an action that was done
  * The message is automatically expanded by a timestamp (time
  * the message was logged).
  *
- * \param dict dictionary describing the actions - fctName, variables
+ * \param descr description of the action - fctName, variables
  */
--(void)logActionsElse:(NSDictionary*)dict  withTime:(NSUInteger)t;
+-(void)logAction:(NSString*)descr 
+             withTrigger:(NSUInteger)triggerNumber
+             andTime:(NSUInteger)t;
 
 /**
  * Generates a log message for a starting event and adds this

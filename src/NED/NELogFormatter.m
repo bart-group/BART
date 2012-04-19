@@ -21,6 +21,8 @@
 
 @synthesize triggerIdentifier;
 @synthesize buttonIdentifier;
+@synthesize actionIdentifier;
+
 
 @synthesize eventIdentifier;
 @synthesize startEventIdentifier;
@@ -33,11 +35,13 @@
         keyValueSeperator     = @",\t";
         
         beginSetDelimiter     = @"\t";
-        entrySeperator        = @",\t\t\t";
+        entrySeperator        = @",\t\t";
         endSetDelimiter       = @",\t";
         
         triggerIdentifier     = @"Trigger";
         buttonIdentifier      = @"Keyboard";
+        actionIdentifier      = @"Action";
+
         
         eventIdentifier       = @"Event";
         startEventIdentifier  = @"Start";
@@ -63,17 +67,17 @@
 {
     // @"T:triggerNr"
     //return [NSString stringWithFormat:@"%@%@%d", triggerIdentifier, keyValueSeperator, triggerNr];
-    return [NSString stringWithFormat:@"%lu", triggerNr];
+    return [NSString stringWithFormat:@"%5lu", triggerNr];
 }
 
 -(NSString*)stringForButtonPress:(NSUInteger)button
 {
-    return [NSString stringWithFormat:@"%lu", button];
+    return [NSString stringWithFormat:@"%5lu", button];
 }
 
 -(NSString*)stringForOnsetTime:(NSUInteger)t
 {
-    return [NSString stringWithFormat:@"%lu", t];
+    return [NSString stringWithFormat:@"%8lu", t];
 }
 
 -(NSString*)stringForStimEvent:(NEStimEvent*)event
@@ -127,14 +131,8 @@
             startEventIdentifier];
 }
 
--(NSString*)stringForActionThen:(NSDictionary *)action
-{
-    return @"t";//[NSString stringWithFormat:@"", ];
-}
 
--(NSString*)stringForActionElse:(NSDictionary*)action
-{
-    return @"t";//[NSString stringWithFormat:@"", ];
-}
+
+
 
 @end

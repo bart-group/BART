@@ -222,7 +222,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 -(void)buttonWasPressed:(NSNotification *)aNotification
 {
    // NSString *toLog = [NSString stringWithFormat:@"Button pressed: %u", [[aNotification object] unsignedCharValue]];
-    [mLogger logButtonPress:[[aNotification object] unsignedIntegerValue] atTrigger:mTriggerCount withTime:mTime];
+    [mLogger logButtonPress:[[aNotification object] unsignedIntegerValue] withTrigger:mTriggerCount andTime:mTime];
     //[mLogger log:toLog withTime:mTime];
 }
 
@@ -464,21 +464,22 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
     
     NSString* fName = [action objectForKey:@"functionNameInternal"];
     NSArray *attArray = [action objectForKey:@"attributesArray"];
-    NSString* toLog = [NSString stringWithFormat:@"Action: %@ with " , fName];
+    NSString* toLog = [NSString stringWithFormat:@"%@ " , fName];
     
     if (NSOrderedSame == [fName compare:@"replaceMediaObject"])
     {
         for (NSDictionary *att in attArray){
             if ( NSOrderedSame == [[att objectForKey:@"attributeType"] compare:@"mediaObjectRef" options:NSCaseInsensitiveSearch])
             {
+                NSString *oldMO = [[currentEvent mediaObject] getID];
                 NEMediaObject *mediaObj = [mTimetable getMediaObjectByID:[att objectForKey:@"attributeValue"]];
                 NEStimEvent *newEvent = [[NEStimEvent alloc] initWithTime:[currentEvent time] 
                                                                  duration:[currentEvent duration] 
                                                               mediaObject:mediaObj];
                 [self enqueueEvent:newEvent asReplacementFor:currentEvent];
                 [newEvent release];
-                toLog = [toLog stringByAppendingFormat:@" %@", [mediaObj getID] ];
-                [mLogger log:toLog withTime:mTime];
+                toLog = [toLog stringByAppendingFormat:@"%@ with %@", oldMO, [mediaObj getID] ];
+                [mLogger logAction:toLog withTrigger:mTriggerCount andTime:mTime];
                 return;
             }
         }
@@ -500,10 +501,10 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
                 NSString *key = [att objectForKey:@"attributeValue"];
                 paraVal = [[resVariables objectForKey:key] floatValue];
             }
-            toLog = [toLog stringByAppendingFormat:@" parameter ",paraName];
-            toLog = [toLog stringByAppendingFormat:@"with value %.2f", paraVal];
+            toLog = [toLog stringByAppendingFormat:@"%@ ",paraName];
+            toLog = [toLog stringByAppendingFormat:@"with %.2f", paraVal];
         }
-        [mLogger log:toLog withTime:mTime];
+        [mLogger logAction:toLog withTrigger:mTriggerCount andTime:mTime];
         
         NEMediaObject *mo = [currentEvent mediaObject];
         NSPoint p = NSMakePoint([mo position].x, [mo position].y);
@@ -563,7 +564,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         else{
             toLog = [toLog stringByAppendingFormat:@" %@ no push", moRef];
         }
-        [mLogger log:toLog withTime:mTime];
+        [mLogger logAction:toLog withTrigger:mTriggerCount andTime:mTime];
         return;
     }
     return;
