@@ -48,9 +48,9 @@ static COExperimentContext *sharedExperimentContext = nil;
 @synthesize designElemRef;
 @synthesize anatomyElemRef;
 @synthesize functionalOrigDataRef;
-@synthesize logfilePath;
+@synthesize mLogFilePath;
 
-COSystemConfig *config;
+//COSystemConfig *config;
 BOOL useSerialPortEyeTrac;
 BOOL useSerialPortTriggerAndButtonBox;
 //NSError *err;
@@ -87,7 +87,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
 -(id)init
 {
     if ((self = [super init])){
-        systemConfig = [COSystemConfig getInstance];
+        systemConfig = [[COSystemConfig alloc] init];
         serialDesignElementAccessQueue = dispatch_queue_create("de.mpg.cbs.DesignElementAccesQueue", NULL);
         eyeTracThread = nil;
         triggerThread = nil;
@@ -167,13 +167,11 @@ dispatch_queue_t serialDesignElementAccessQueue;
     
     if ( (err = [self fillSystemConfigWithContentsOfEDLFile:edlPath]) != nil )
         return err;
-    
     err = [self configureExternalDevices];
     
+    mLogFilePath = [systemConfig getProp:@"$logFolder"];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:BARTDidResetExperimentContextNotification object:nil];
-    //TODO
-    logfilePath = [systemConfig getProp:@"/rtExperiment/environment/logging/logFolder"];
-    NSLog(@"LOGFILEPATH!!!!!!!!!!!!!! %@", logFilePath);
     return err;
     
 }

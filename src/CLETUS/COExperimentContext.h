@@ -43,7 +43,7 @@ extern NSString * const BARTTriggerArrivedNotification;
     NEDesignElement *designElemRef;
     EDDataElement *anatomyElemRef;
     EDDataElement *functionalOrigDataRef;
-    NSString *logFilePath;
+    NSString *mLogFilePath;
 
 }
 
@@ -52,7 +52,7 @@ extern NSString * const BARTTriggerArrivedNotification;
 @property (readwrite, retain) NEDesignElement *designElemRef;
 @property (readwrite, retain) EDDataElement *anatomyElemRef;
 @property (readwrite, retain) EDDataElement *functionalOrigDataRef;
-@property (readonly, getter = logFilePath) NSString* logfilePath;
+@property (readonly, getter = logFilePath) NSString* mLogFilePath;
 
 
 /**
