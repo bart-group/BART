@@ -339,10 +339,15 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
      * TODO: place elsewere and get tolerance from config!
      */
     printf("### Log ###\n");
-    NSString *fName = @"BARTPresentationLogfile_";
-    
-    NSString *log = [NSString stringWithFormat:@"/tmp/%@.log", fName];
+    //NSString *log = @"BARTPresentationLogfile_.log";
+    //NSLog(@"NAME: %@ logName: ", log);
 
+    
+    
+    NSString *p = [[[COExperimentContext getInstance] systemConfig] getProp:@"$logFolder"];
+    
+    NSString *log = [p stringByAppendingPathComponent:@"BARTPresentationLogfile.log"];
+    NSLog(@" %@ logName: ", log);
     //[[[COExperimentContext getInstance] logFilePath] stringByAppendingPathExtension:fName];
     [mLogger printToFilePath:log];
     [mLogger print];
