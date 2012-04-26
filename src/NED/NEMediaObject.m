@@ -48,10 +48,12 @@
     if ([objType compare:@"TEXT"] == 0) {
         NSString* text = [config getProp:[NSString stringWithFormat:@"%@/contentText/text", key]];
         NSUInteger size = [[config getProp:[NSString stringWithFormat:@"%@/contentText/tSize", key]] intValue];
-        // TODO: implement text color!
-        NSColor* color = [NSColor colorWithCalibratedRed:1.0 
-                                                   green:1.0 
-                                                    blue:1.0 
+        float red = [[config getProp:[NSString stringWithFormat:@"%@/contentText/tColor/tcRed", key]] floatValue];
+        float green = [[config getProp:[NSString stringWithFormat:@"%@/contentText/tColor/tcGreen", key]] floatValue];
+        float blue = [[config getProp:[NSString stringWithFormat:@"%@/contentText/tColor/tcBlue", key]] floatValue];
+        NSColor* color = [NSColor colorWithCalibratedRed:red 
+                                                   green:green 
+                                                    blue:blue 
                                                    alpha:1.0];
         NSPoint position;
         position.x = [[config getProp:[NSString stringWithFormat:@"%@/contentText/posX", key]] floatValue];
