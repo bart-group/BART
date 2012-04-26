@@ -53,7 +53,7 @@ enum COSystemConfigError {
  *
  * \return COSystemConfig object.
  */
-+(COSystemConfig*)getInstance;
+//+(COSystemConfig*)getInstance;
 
 /**
  * Initializes the configuration with the information from an EDL file.

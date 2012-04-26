@@ -63,6 +63,7 @@
                             @"$mediaObjects",
                             @"$screenResolutionX",
                             @"$screenResolutionY",
+                            @"$logFolder",
 						    nil];
 	
 	NSArray *xpathValues = [NSArray arrayWithObjects:@"/rtExperiment/experimentData/imageModalities/TR", 
@@ -79,22 +80,23 @@
                             @"/rtExperiment/stimulusData/mediaObjectList",
                             @"/rtExperiment/stimulusData/stimEnvironment/screen/screenResolutionX",
                             @"/rtExperiment/stimulusData/stimEnvironment/screen/screenResolutionY",
+                            @"/rtExperiment/environment/logging/logFolder",
 							nil];
 	mAbbreviations = [[NSDictionary alloc] initWithObjects:xpathValues
                                                    forKeys:shortKeys];
 }
 
-+(COSystemConfig*)getInstance
-{
-    /** Singleton object of COSystemConfig. */
-    static COSystemConfig* mSingleton = nil;
-    
-	if (!mSingleton) {
-		mSingleton = [[self alloc] init];
-	} 
-	
-	return mSingleton;
-}
+//+(COSystemConfig*)getInstance
+//{
+//    /** Singleton object of COSystemConfig. */
+//    static COSystemConfig* mSingleton = nil;
+//    
+//	if (!mSingleton) {
+//		mSingleton = [[self alloc] init];
+//	} 
+//	
+//	return mSingleton;
+//}
 
 -(NSError*)fillWithContentsOfEDLFile:(NSString*)edlPath 
 {
@@ -113,8 +115,7 @@
     if (!error) {
         mEDLFilePath = [edlPath copy];
     }
-    
-	return error;
+   	return error;
 }
 
 -(NSError*)validateAgainstXSD:(NSString*)xsdPath
