@@ -188,17 +188,23 @@
         
         NSDateFormatter *tempDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%Y-%m-%d %H:%M:%S" allowNaturalLanguage:NO];
         
+        
         [mGeneralMessages addObject:[NSString stringWithFormat:@"BART Presentation Logfile", 
                               [tempDateFormatter stringFromDate:[NSDate date]] 
                               ]];
-        [mGeneralMessages addObject:[NSString stringWithFormat:@"Logfile started %@ \n\n", 
+        NSString *edlFileDescr = @"\nThe edl-file used:";
+        [mGeneralMessages addObject:edlFileDescr];
+        
+        NSString *edlFileName = [[[COExperimentContext getInstance] systemConfig] getEDLFilePath];
+        [mGeneralMessages addObject:edlFileName];
+
+        [mGeneralMessages addObject:[NSString stringWithFormat:@"\nLogfile started %@ \n\n", 
                               [tempDateFormatter stringFromDate:[NSDate date]] 
                               ]];
-        //TODO: Headlines for rows - Time, Time since Start, TrialID, ...
         [mGeneralMessages addObject:[NSString stringWithFormat:@"", 
                               [tempDateFormatter stringFromDate:[NSDate date]] 
                               ]];
-        
+                
         [mMessages addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                               @"TIME", @"Time", 
                               @"\tONSET", @"Onset",
