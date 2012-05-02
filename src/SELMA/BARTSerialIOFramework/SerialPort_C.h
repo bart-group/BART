@@ -7,6 +7,10 @@
  *
  */
 
+#ifndef SERIALPORT_C_H
+#define SERIALPORT_C_H
+
+
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -81,3 +85,4 @@ extern char ReadData(int fileDescriptor);
 
 extern TIME_DIFF * my_difftime (struct timeval * start, struct timeval * end);
 
+#endif //SERIALPORT_C_H

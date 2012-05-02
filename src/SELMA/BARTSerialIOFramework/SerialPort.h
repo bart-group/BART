@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
+#ifndef SERIALPORT_H
+#define SERIALPORT_H
+
 #import <Cocoa/Cocoa.h>
 #import "BARTSerialIOProtocol.h"
 
@@ -94,3 +97,5 @@
 -(NSDictionary*)evaluateConstraintForParams:(NSDictionary*)params;
    
 @end
+
+#endif //SERIALPORT_C_H

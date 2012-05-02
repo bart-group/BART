@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
+#ifndef BARTSERIALIOPROTOCOL_H
+#define BARTSERIALIOPROTOCOL_H
+
 #import <Cocoa/Cocoa.h>
 
 
@@ -25,3 +28,5 @@
 
 
 @end
+
+#endif //BARTSERIALIOPROTOCOL_H
