@@ -17,6 +17,9 @@
 -(void) valueArrived:(char)value;
 -(NSDictionary*)evaluateConstraintForParams:(NSDictionary*)params;
 
+-(void)setLogfilePath:(NSString*)path;
+-(void)setLogfileNameAppend:(NSString*)append;
+
 -(void)connectionIsOpen;
 -(void)connectionIsClosed;
 

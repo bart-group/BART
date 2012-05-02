@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LogfilePath</key>
-	<string>/tmp/</string>
 	<key>RelevantBytes</key>
 	<integer>12</integer>
 	<key>ByteMeaning</key>
@@ -54,7 +52,7 @@
 	<key>portParameters</key>
 	<dict>
 		<key>pathToDevice</key>
-		<string>/dev/cu.usbserial</string>
+		<string>/dev/cu.usbserial-FTDWE6HC</string>
 		<key>useOddParity</key>
 		<false/>
 		<key>enableParity</key>

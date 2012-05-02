@@ -108,4 +108,15 @@
 
 -(void)connectionIsClosed
 {}
+
+-(void)setLogfilePath:(NSString *)path
+{
+    mLogfilePath = path;
+}
+
+-(void)setLogfileNameAppend:(NSString *)append
+{
+    mLogfileNameAppend = append;
+}
+
 @end

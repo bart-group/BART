@@ -40,7 +40,7 @@ typedef struct EyeTracParams{
 	NSUInteger relevantBytes;
 	char *valueBuffer;
 	NSUInteger indexBuffer;
-	FILE *file, *fileFixationsOK, *fileFixationsOut, *fileAllBytes;
+	FILE *logFile;//, *fileFixationsOK, *fileFixationsOut, *fileAllBytes;
 	NSUInteger posStatus;
 	NSUInteger posHSBDiam;
 	NSUInteger posLSBDiam;
@@ -79,6 +79,9 @@ typedef struct EyeTracParams{
     time_t actualtime;
     struct tm *actualtm;
     char actualtmbuf[64], usecbuf[64];
+    
+    NSString *mLogfilePath;
+    NSString *mLogfileNameAppend;
 
 	
 }

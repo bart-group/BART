@@ -30,6 +30,10 @@
 {
 	if ((self = [super init]))
 	{
+        // init own members
+        mLogfilePath = @"";
+        
+        
         //(1) load the plugin own config file to read all the EyeTrac special configuration stuff
 		NSString *errDescr = nil;
 		NSPropertyListFormat format;
@@ -114,8 +118,7 @@
         // (5) Miscelleanous stuff have to be initialized
 		//Dispatch stuff
         serialQueue = dispatch_queue_create("de.mpg.cbs.BART.EyeTrackerSerialQueue", NULL);
-        // the path for the own logfile
-        logfilePath = [arrayFromPlist objectForKey:@"LogfilePath"];
+        
         		
         // (6) collect the port parameters to give back for initialisation
         // serial, baud, parity, odd, path, description
@@ -123,26 +126,7 @@
         dictPortParameters = [[NSDictionary alloc] initWithDictionary:[arrayFromPlist objectForKey:@"portParameters"]];
         
         /*****************************/
-        // (7) temporary stuff to create an output file
-		struct tm* ptr;
-		time_t lt;
-		char fname[80];
-		lt = time(NULL);
-		ptr = localtime(&lt);
-		strftime(fname, 80, "EyeTracLog_%H_%M_%S.txt", ptr);
-		file = fopen(fname, "w");
-        strftime(fname, 80, "EyeTracFixationsOK_%H_%M_%S.txt", ptr);
-		fileFixationsOK = fopen(fname, "w");
-        strftime(fname, 80, "EyeTracFixationsOUT_%H_%M_%S.txt", ptr);
-		fileFixationsOut = fopen(fname, "w");
-        strftime(fname, 80, "EyeTracAllBytes_%H_%M_%S.txt", ptr);
-		//fileAllBytes = fopen(fname, "w");
         
-		//print a header to the file
-		fprintf(file, "Status\t\tTime\t\tPupilDiam\t\tCorneaDiam\t\tHorGaze\t\tVerGaze\n\n");
-        fprintf(fileFixationsOK, "CentroidH\t\tCentroidV\n\n");
-        fprintf(fileFixationsOut, "CentroidH\t\tCentroidV\n\n");
-         
         
         srand(time(NULL));
          /******************************/
@@ -189,7 +173,7 @@
         
         // for the Logfile
         if (YES == isStarted){
-            fprintf(file, "%d\t\t%s\t\t%d\t\t%d\t\t%.1f\t\t%.1f\n", (unsigned char)(valueBuffer[posStatus] & 0x7f), usecbuf, pupilDiam, corneaDiam ,0.1*(float)horizGaze, 0.1*(float)vertGaze);
+            fprintf(logFile, "%d\t\t%s\t\t%d\t\t%d\t\t%.1f\t\t%.1f\n", (unsigned char)(valueBuffer[posStatus] & 0x7f), usecbuf, pupilDiam, corneaDiam ,0.1*(float)horizGaze, 0.1*(float)vertGaze);
         }
         
 		
@@ -440,7 +424,9 @@
 
 
 -(void)connectionIsOpen
-{}
+{
+    
+}
 
 -(void)connectionIsClosed
 {
@@ -475,10 +461,42 @@
 
 -(void)closeLogFiles
 {
-	fclose(file);
-    fclose(fileFixationsOK);
-    fclose(fileFixationsOut);
+	fclose(logFile);
+    //fclose(fileFixationsOK);
+    //fclose(fileFixationsOut);
    // fclose(fileAllBytes);
+}
+
+-(void)setLogfilePath:(NSString*)path
+{
+    mLogfilePath = path;
+    //TODO: DON't DO it HERE - need an array to collect messages and then write at the end with the current path
+    // (7) create a logfile
+    
+    NSDateFormatter *tempDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%Y_%m_%d_%H_%M_%S" allowNaturalLanguage:NO];
+    NSString *fileName = [NSString stringWithFormat:@"EyeTracLog_%@.log", [tempDateFormatter stringFromDate:[NSDate date]]];
+    NSString *logName = mLogfilePath;
+    NSLog(@"LOGFILEPATH: %@", mLogfilePath);
+    logName = [logName stringByAppendingPathComponent:fileName];
+    
+    // Handling if file exists
+    NSFileManager *fm = [[NSFileManager alloc] init];
+    if (YES == [fm fileExistsAtPath:logName]){
+        logName = [logName stringByAppendingString:@"_2"];
+    }
+    
+    logFile = fopen([logName cStringUsingEncoding:NSUTF8StringEncoding], "w");
+    NSLog(@"EYETRAC LOG: %@", logName);
+    
+   
+    //print a header to the file
+    fprintf(logFile, "Status\t\tTime\t\tPupilDiam\t\tCorneaDiam\t\tHorGaze\t\tVerGaze\n\n");
+    
+}
+
+-(void)setLogfileNameAppend:(NSString*)append
+{
+    mLogfileNameAppend = append;
 }
 
 @end

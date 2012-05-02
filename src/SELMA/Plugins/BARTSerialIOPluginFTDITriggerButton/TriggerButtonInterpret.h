@@ -18,6 +18,8 @@
     @private
     size_t countTrigger;
     NSDictionary *dictPortParameters;
+    NSString *mLogfilePath;
+    NSString *mLogfileNameAppend;
 
 }
 
