@@ -7,6 +7,9 @@
  *
  */
 
+#ifndef BARTSERIALPORTIONOTIFICATIONS_H
+#define BARTSERIALPORTIONOTIFICATIONS_H
+
 #import "Cocoa/Cocoa.h"
 
 
@@ -15,3 +18,4 @@
 NSString *const BARTSerialIOScannerTriggerArrived = @"BARTSerialIOScannerTriggerArrived";
 NSString *const BARTSerialIOButtonBoxPressedKey = @"BARTSerialIOButtonBoxPressedKey";
 
+#endif //BARTSERIALPORTIONOTIFICATIONS_H
