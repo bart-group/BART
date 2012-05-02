@@ -234,9 +234,16 @@ static const CGFloat DRAGGER_EDGE_LENGTH = 5.0;
 
 -(void)drawEventBars:(NSRect)rect
 {
+    // NSLog(@"drawEventBars called with NSRect {{%g, %g}, {%g, %g}}", NSMinX(rect), NSMinY(rect), NSWidth(rect), NSHeight(rect));
     #pragma unused(rect)
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
     NSUInteger mediaObjNr = 0;
+    
+
+    NEStimEvent* _firstDynamicEvent = [[mTimetable eventsToHappenForMediaObjectID:@"NEG2457DYN"] objectAtIndex:0];
+    NSLog(@"[_firstDynamicEvent time]                 = %lu", [_firstDynamicEvent time]); 
+    NSLog(@"[_firstDynamicEvent origin.x]             = %f", ([_firstDynamicEvent time] / 100.0) + FRAME_PADDING);
+    NSLog(@"[_firstDynamicEvent origin.x (corrected)] = %f", ((CGFloat)[_firstDynamicEvent time] / (CGFloat)[mTimetable duration]) * ([self frame].size.width - (2.0 * FRAME_PADDING)) + FRAME_PADDING);
     
     for (NSString* mediaObjID in [mTimetable getAllMediaObjectIDs]) {
         NSArray* happenedEvents = [mTimetable happenedEventsForMediaObjectID:mediaObjID];
@@ -248,7 +255,8 @@ static const CGFloat DRAGGER_EDGE_LENGTH = 5.0;
         
         for (NEStimEvent* event in happenedEvents) {
             NSRect eventRect;
-            eventRect.origin.x    = ([event time] / 100.0) + FRAME_PADDING;
+//            eventRect.origin.x    = ([event time] / 100.0) + FRAME_PADDING;
+            eventRect.origin.x    = ((CGFloat)[event time] / (CGFloat)[mTimetable duration]) * ([self frame].size.width - (2.0 * FRAME_PADDING)) + FRAME_PADDING;
             eventRect.origin.y    = (mediaObjNr * EVENT_BAR_HEIGHT) + FRAME_PADDING;
             eventRect.size.height = EVENT_BAR_HEIGHT;
             eventRect.size.width  = ([event duration] / 100.0);
@@ -257,7 +265,8 @@ static const CGFloat DRAGGER_EDGE_LENGTH = 5.0;
         }
         for (NEStimEvent* event in eventsToHappen) {
             NSRect eventRect;
-            eventRect.origin.x    = ([event time] / 100.0) + FRAME_PADDING;
+//            eventRect.origin.x    = ([event time] / 100.0) + FRAME_PADDING;
+            eventRect.origin.x    = ((CGFloat)[event time] / (CGFloat)[mTimetable duration]) * ([self frame].size.width - (2.0 * FRAME_PADDING)) + FRAME_PADDING;
             eventRect.origin.y    = (mediaObjNr * EVENT_BAR_HEIGHT) + FRAME_PADDING;
             eventRect.size.height = EVENT_BAR_HEIGHT;
             eventRect.size.width  = ([event duration] / 100.0);
@@ -316,6 +325,8 @@ static const CGFloat DRAGGER_EDGE_LENGTH = 5.0;
     #pragma unused(rect)
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
     
+    NSLog(@"[drawCurrentTimeLine] mCurrentTime       = %lu", mCurrentTime); 
+    NSLog(@"[drawCurrentTimeLine] timeCursorPosition = %f", ((CGFloat)mCurrentTime / (CGFloat)[mTimetable duration]) * ([self frame].size.width - (2.0 * FRAME_PADDING)) + FRAME_PADDING); 
     CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0); 
     CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 1.0);
     CGFloat timeCursorPosition = ((CGFloat)mCurrentTime / (CGFloat)[mTimetable duration]) * ([self frame].size.width - (2.0 * FRAME_PADDING));
