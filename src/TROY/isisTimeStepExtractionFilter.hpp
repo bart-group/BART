@@ -81,13 +81,19 @@ public:
 	;
 	itkSetMacro( RequestedTimeRangeEnd, unsigned int )
 	;
+    
+    // Needed for ITK 4
+    void SetDirectionCollapseToSubmatrix(); //When collapsing from a list of properly defined phsycial spaces (i.e. collapsing on time in a 3D+time image)
+    void SetDirectionCollapseToGuess();         //ITKv3 compatible, but not recommended
+    void SetDirectionCollapseToIdentity();      //If you don't care about resulting image dimension
+    
 	void Update( void );
 	typename OutputImageType::Pointer GetOutput() const;
 protected:
 	TimeStepExtractionFilter();
 	virtual ~TimeStepExtractionFilter() {
 	}
-
+    
 	typedef itk::ExtractImageFilter<InputImageType, OutputImageType>
 	ExtractFilterType;
 
