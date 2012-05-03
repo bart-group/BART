@@ -40,7 +40,7 @@ typedef struct EyeTracParams{
 	NSUInteger relevantBytes;
 	char *valueBuffer;
 	NSUInteger indexBuffer;
-	FILE *logFile;//, *fileFixationsOK, *fileFixationsOut, *fileAllBytes;
+	//FILE *logFile;//, *fileFixationsOK, *fileFixationsOut, *fileAllBytes;
 	NSUInteger posStatus;
 	NSUInteger posHSBDiam;
 	NSUInteger posLSBDiam;
@@ -82,6 +82,9 @@ typedef struct EyeTracParams{
     
     NSString *mLogfilePath;
     NSString *mLogfileNameAppend;
+    
+    /** An array of Strings representing the log. */
+    NSMutableArray* mLogMessages;
 
 	
 }

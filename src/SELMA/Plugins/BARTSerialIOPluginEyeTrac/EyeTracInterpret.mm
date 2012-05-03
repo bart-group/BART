@@ -17,7 +17,7 @@
 -(BOOL)getMin:(float*)minValue andMax:(float*)maxValue andMean:(float*)meanValue ofParam:(PARAMS)par fromVector:(std::vector<TEyeTracParams>)eyeTracParams;
 
 -(std::vector<TEyeTracParams>)getLastData;
--(void)closeLogFiles;
+-(void)printLogFile;
 
 @end
 
@@ -32,7 +32,7 @@
 	{
         // init own members
         mLogfilePath = @"";
-        
+                
         
         //(1) load the plugin own config file to read all the EyeTrac special configuration stuff
 		NSString *errDescr = nil;
@@ -125,6 +125,19 @@
         
         dictPortParameters = [[NSDictionary alloc] initWithDictionary:[arrayFromPlist objectForKey:@"portParameters"]];
         
+        // (7) init the logfile array
+            
+        mLogMessages = [[NSMutableArray alloc] initWithCapacity:100000];
+        // log some general information
+        NSDateFormatter *tempDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%Y_%m_%d_%H_%M_%S" allowNaturalLanguage:NO];
+        NSString *info = [NSString stringWithFormat:@"Logfile started at: %@", [tempDateFormatter stringFromDate:[NSDate date]]];
+        [tempDateFormatter release];
+        [mLogMessages addObject:info];
+        
+        //log a header 
+        [mLogMessages addObject:@"Status\t\tTime\t\tPupilDiam\t\tCorneaDiam\t\tHorGaze\t\tVerGaze\n\n"];
+        
+        
         /*****************************/
         
         
@@ -173,7 +186,8 @@
         
         // for the Logfile
         if (YES == isStarted){
-            fprintf(logFile, "%d\t\t%s\t\t%d\t\t%d\t\t%.1f\t\t%.1f\n", (unsigned char)(valueBuffer[posStatus] & 0x7f), usecbuf, pupilDiam, corneaDiam ,0.1*(float)horizGaze, 0.1*(float)vertGaze);
+            
+            [mLogMessages addObject:[NSString stringWithFormat:@"%d\t\t%s\t\t%d\t\t%d\t\t%.1f\t\t%.1f\n", (unsigned char)(valueBuffer[posStatus] & 0x7f), usecbuf, pupilDiam, corneaDiam ,0.1*(float)horizGaze, 0.1*(float)vertGaze] ];
         }
         
 		
@@ -242,8 +256,6 @@
 -(NSDictionary*)evaluateConstraintForParams:(NSDictionary*)params
 {
     [params retain];
-    //ATTENTION!!!!! TEST VERSION
-    //return nil;
     
     // evaluate target param from params dictionary
     NSArray *paramsArray = [params objectForKey:@"paramsArray"];
@@ -286,15 +298,7 @@
     
     //create dictionary to return
     //todo: just give back like that or sort in params and conditions???
-    NSDictionary *dictReturn = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:convertedEyePosX], @"eyePosX", [NSNumber numberWithFloat:convertedEyePosY], @"eyePosY", [NSNumber numberWithBool:isFixated], @"eyePosIsFixated", nil];
-
-//    float x = (rand() % 100) + 400;
-//    float y = (rand() % 100) + 300;
-//    NSDictionary *dictReturn = [[NSDictionary alloc] initWithObjectsAndKeys:
-//                                 [NSNumber numberWithFloat:x], @"eyePosX", 
-//                                [NSNumber numberWithFloat:y], @"eyePosY", 
-//                                [NSNumber numberWithBool:YES], @"eyePosIsFixated",
-//                                nil] ;
+    NSDictionary *dictReturn = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithFloat:convertedEyePosX], @"eyePosX", [NSNumber numberWithFloat:convertedEyePosY], @"eyePosY", [NSNumber numberWithBool:isFixated], @"eyePosIsFixated", nil];
     
     [params release];
     return [dictReturn autorelease];
@@ -430,7 +434,7 @@
 
 -(void)connectionIsClosed
 {
-    [self closeLogFiles];
+    [self printLogFile];
 }
 
 
@@ -456,27 +460,22 @@
 {
     [dictPortParameters release];
 	free(valueBuffer);
+    [mLogfilePath release];
+    [mLogMessages release];
+    [mLogfileNameAppend release];
 	[super dealloc];
 }
 
--(void)closeLogFiles
+-(void)printLogFile
 {
-	fclose(logFile);
-    //fclose(fileFixationsOK);
-    //fclose(fileFixationsOut);
-   // fclose(fileAllBytes);
-}
-
--(void)setLogfilePath:(NSString*)path
-{
-    mLogfilePath = path;
-    //TODO: DON't DO it HERE - need an array to collect messages and then write at the end with the current path
-    // (7) create a logfile
+    // print all the collected messages to the logfile
+    
+    //first add information is set from outside
+    [mLogMessages insertObject:[NSString stringWithFormat:@"General Information: %@", mLogfileNameAppend] atIndex:0];
     
     NSDateFormatter *tempDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%Y_%m_%d_%H_%M_%S" allowNaturalLanguage:NO];
     NSString *fileName = [NSString stringWithFormat:@"EyeTracLog_%@.log", [tempDateFormatter stringFromDate:[NSDate date]]];
     NSString *logName = mLogfilePath;
-    NSLog(@"LOGFILEPATH: %@", mLogfilePath);
     logName = [logName stringByAppendingPathComponent:fileName];
     
     // Handling if file exists
@@ -485,18 +484,24 @@
         logName = [logName stringByAppendingString:@"_2"];
     }
     
-    logFile = fopen([logName cStringUsingEncoding:NSUTF8StringEncoding], "w");
-    NSLog(@"EYETRAC LOG: %@", logName);
-    
-   
-    //print a header to the file
-    fprintf(logFile, "Status\t\tTime\t\tPupilDiam\t\tCorneaDiam\t\tHorGaze\t\tVerGaze\n\n");
-    
+    FILE* logFile = fopen([logName cStringUsingEncoding:NSUTF8StringEncoding], "w");
+    for (NSString* msg in mLogMessages)
+    {
+        fprintf(logFile, "%s\n", [msg cStringUsingEncoding:NSUTF8StringEncoding]);
+    }
+	fclose(logFile);
+    [tempDateFormatter release];
+    [fm release];
+}
+
+-(void)setLogfilePath:(NSString*)path
+{
+    mLogfilePath = [path retain];
 }
 
 -(void)setLogfileNameAppend:(NSString*)append
 {
-    mLogfileNameAppend = append;
+    mLogfileNameAppend = [append retain];
 }
 
 @end
