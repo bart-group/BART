@@ -322,6 +322,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
     {
         for (SerialPort *s in [dictSerialIOPlugins allValues])
         {
+            NSLog(@"closing serial port: %@", [s devicePath]);
             [s closeSerialPort:nil];
         }
         

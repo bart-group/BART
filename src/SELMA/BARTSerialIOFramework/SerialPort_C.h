@@ -81,7 +81,7 @@ Boolean InitializeModemAndStartComm(int portDescriptor);
 extern int FindAndOpenModem(const char *modemPath, int lengthModemPath, int baud, int parenb, int parodd, int bits, int *portDescriptor);
 extern int InitAndStartModem(int portDescriptor);
 extern int CloseSerialPort(int portDescriptor);
-extern char ReadData(int fileDescriptor);
+extern char ReadData(int fileDescriptor, int *isValid);
 
 extern TIME_DIFF * my_difftime (struct timeval * start, struct timeval * end);
 
