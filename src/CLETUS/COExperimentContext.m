@@ -167,10 +167,11 @@ dispatch_queue_t serialDesignElementAccessQueue;
     
     if ( (err = [self fillSystemConfigWithContentsOfEDLFile:edlPath]) != nil )
         return err;
-    err = [self configureExternalDevices];
     
     mLogFilePath = [systemConfig getProp:@"$logFolder"];
-
+    
+    err = [self configureExternalDevices];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:BARTDidResetExperimentContextNotification object:nil];
     return err;
     
@@ -375,6 +376,11 @@ dispatch_queue_t serialDesignElementAccessQueue;
                                                                 enableParity:enableParity 
                                                                    oddParity:oddParity 
                                                                      andBits:bits];
+        //set logfile stuff to plugin
+        [interpretSerialIO setLogfilePath:mLogFilePath];
+        //TODO
+        //[interpretSerialIO setLogfileNameAppend:[systemConfig getEDLFilePath]];
+        
         [serialPortEyeTrac addObserver: interpretSerialIO];
     }
     //i++;
@@ -437,6 +443,9 @@ dispatch_queue_t serialDesignElementAccessQueue;
                                                                             enableParity:enableParity 
                                                                                oddParity:oddParity 
                                                                                  andBits:bits];
+        //set logfile stuff to plugin
+        [interpretSerialIO setLogfilePath:mLogFilePath];
+        
         [serialPortTriggerAndButtonBox addObserver: interpretSerialIO];
     }
     //i++;
