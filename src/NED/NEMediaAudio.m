@@ -30,8 +30,9 @@
         resolvedPath = [NSString pathWithComponents:pathComponents];
         //TODO: error handling if file not found!
         mTrack = [[QTMovie movieWithURL:[NSURL fileURLWithPath:resolvedPath] error:nil] retain];
+        mEventTypeDescription = @"Audio";
     }
-    mEventTypeDescription = @"Audio";
+    
     return self;
 }
 

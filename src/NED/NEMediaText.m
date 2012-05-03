@@ -25,8 +25,9 @@
             hasConstraint = YES;}
         else{
             hasConstraint = NO;}
+        mEventTypeDescription = @"Text";
     }
-    mEventTypeDescription = @"Text";
+    
     
     return self;
 }
@@ -49,8 +50,9 @@
             hasConstraint = YES;}
         else{
             hasConstraint = NO;}
+        mEventTypeDescription = @"Text";
     }
-    mEventTypeDescription = @"Text";
+    
     return self;
 }
 
