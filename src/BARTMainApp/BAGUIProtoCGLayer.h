@@ -6,6 +6,9 @@
 //  Copyright 2009 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
+#ifndef BAGUIPROTOCGLAYER_H
+#define BAGUIPROTOCGLAYER_H
+
 #import <Cocoa/Cocoa.h>
 #import "../EDNA/EDDataElement.h"
 
@@ -92,4 +95,8 @@
 
 - (IBAction)updateSlider:(id)sender;
 
+- (IBAction)stopExperiment:(id)sender;
+
 @end
+
+#endif //BAGUIPROTOCGLAYER_H

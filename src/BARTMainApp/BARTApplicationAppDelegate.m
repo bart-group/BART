@@ -18,6 +18,7 @@
 
 -(void)setGUIBackgroundImage:(NSNotification*)aNotification;
 -(void)setGUIResultImage:(NSNotification*)aNotification;
+-(void)stopExperiment:(NSNotification*)aNotification;
 
 @end
 
@@ -35,6 +36,10 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(setGUIResultImage:)
 												 name:BARTDidCalcNextResultNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(stopExperiment:)
+												 name:BARTStopExperimentNotification object:nil];
     
     
     COExperimentContext *experimentContext = [COExperimentContext getInstance];
@@ -102,9 +107,15 @@
 -(void)applicationWillTerminate:(NSNotification*)aNotification
 {
     #pragma unused(aNotification)
-    [[COExperimentContext getInstance] stopExperiment];
-	[procedurePipe release];
+    [procedurePipe release];
     [super dealloc];
+}
+
+-(void)stopExperiment:(NSNotification *)aNotification
+{
+    #pragma unused(aNotification)
+    [[COExperimentContext getInstance] stopExperiment];
+	
 }
 
 @end

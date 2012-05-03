@@ -21,6 +21,7 @@
 
 #import "BAGUIProtoCGLayer.h"
 #import "ColorMappingFilter.h"
+#import "BARTNotifications.h"
 
 #import <CoreGraphics/CGColorSpace.h>
 #import <QuartzCore/QuartzCore.h>
@@ -494,6 +495,11 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
     
     [minimumValueLabel setStringValue:[NSString stringWithFormat:@"%1.2f", minThreshold]];
     [maximumValueLabel setStringValue:[NSString stringWithFormat:@"%1.2f", maxThreshold]];
+}
+
+- (IBAction)stopExperiment:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:BARTStopExperimentNotification object:nil];
 }
 
 -(void)awakeFromNib

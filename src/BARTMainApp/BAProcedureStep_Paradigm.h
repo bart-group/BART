@@ -6,6 +6,9 @@
 //  Copyright 2011 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
+#ifndef BAPROCEDURESTEP_PARADIGM_H
+#define BAPROCEDURESTEP_PARADIGM_H
+
 #import <Foundation/Foundation.h>
 #import "BAProcedureStep.h"
 
@@ -21,3 +24,5 @@
 -(void)doWhatIWant;
 
 @end
+
+#endif //BAPROCEDURESTEP_PARADIGM_H

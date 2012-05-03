@@ -14,6 +14,7 @@
 #import "NEPresentationLogger.h"
 #import "NED/NEViewManager.h"
 #import "../NED/NEConstraint.h"
+#import "BARTNotifications.h"
 
 @interface BAProcedureStep_Paradigm (PrivatMethods)
 
@@ -45,6 +46,8 @@
 // */
 //-(NSDictionary*)buildEventListWithMediaObjects:(NSArray*)mediaObjects;
 //
+
+-(void)stopExperiment:(NSNotification*)aNotificaton;
 
 @end
 
@@ -98,8 +101,9 @@ NEViewManager* viewManager;
             [timetable release];
         }
         
-        
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(stopExperiment:)
+                                                     name:BARTStopExperimentNotification object:nil];
     }
     
     return self;
@@ -179,5 +183,10 @@ NEViewManager* viewManager;
     return constraints;
 }
 
+-(void)stopExperiment:(NSNotification*)aNotification
+{
+    #pragma unused(aNotification)
+    [presentationController resetPresentationToOriginal:NO];
+}
 
 @end

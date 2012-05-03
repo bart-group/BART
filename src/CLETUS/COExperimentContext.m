@@ -379,7 +379,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
         //set logfile stuff to plugin
         [interpretSerialIO setLogfilePath:mLogFilePath];
         //TODO
-        //[interpretSerialIO setLogfileNameAppend:[systemConfig getEDLFilePath]];
+        [interpretSerialIO setLogfileNameAppend:[systemConfig getEDLFilePath]];
         
         [serialPortEyeTrac addObserver: interpretSerialIO];
     }
