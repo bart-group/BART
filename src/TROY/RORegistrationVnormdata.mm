@@ -214,8 +214,6 @@
 		movingImage = movingGaussianFilterZ->GetOutput();
 	}
     
-    
-    
     MatchingFilterType::Pointer matcher = MatchingFilterType::New();    
     bool histogram_matching = true;
     if( histogram_matching ) {
@@ -637,7 +635,7 @@
 			warper->SetOutputSize(fmriOutputSize);
 			warper->SetOutputSpacing(fmriOutputSpacing);
 			warper->SetInput(inputImage);
-            warper->SetDeformationField(trans);
+            warper->SetDisplacementField(trans);
 		}
         
 		itk::FixedArray<unsigned int, 4> layout;
@@ -691,6 +689,10 @@
 		for (unsigned int timestep = 0; timestep < numberOfTimeSteps; timestep++) {
 			std::cout << "Resampling timestep: " << timestep << "...\r" << std::flush;
 			timeStepExtractionFilter->SetRequestedTimeStep(timestep);
+            
+            // Strategy has to be specified for ITK 4
+            timeStepExtractionFilter->SetDirectionCollapseToSubmatrix();
+            
 			timeStepExtractionFilter->Update();
 			tmpImage = timeStepExtractionFilter->GetOutput();
 			tmpImage->SetDirection(inputImageDirection);
@@ -724,7 +726,7 @@
 			warper->SetOutputSpacing(outputSpacing);
 			warper->SetInput(inputImage);
             
-            warper->SetDeformationField(trans);
+            warper->SetDisplacementField(trans);
             
 			warper->Update();
             
