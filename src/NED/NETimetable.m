@@ -75,6 +75,7 @@
         [mediaObjectIDs retain];
         /********/
         dictMediaObjects = [[NSDictionary alloc] initWithDictionary:dictMO];
+        [dictMO release];
         
         /********/
         
