@@ -208,8 +208,8 @@ int OpenSerialPort(const char *bsdPath, int baud, int parenb, int parodd, int bi
     // See tcsetattr(4) ("man 4 tcsetattr") and termios(4) ("man 4 termios") for details.
     
     cfmakeraw(&options);
-    options.c_cc[VMIN] = 1;
-    options.c_cc[VTIME] = 10;
+    options.c_cc[VMIN] = 0;
+    options.c_cc[VTIME] = 0;
 	
     // The baud rate, word length, and handshake options can be set as follows:
     
@@ -459,15 +459,16 @@ int initializeModemAndStartComm(int fileDescriptor) {
     return 1; 
 }
 
-char ReadData(int fileDescriptor){
+char ReadData(int fileDescriptor, int *isValid) {
     
     char        buffer[1];	// Input buffer
     char        *bufPtr;		// Current char in buffer
     ssize_t     numBytes;		// Number of bytes read or written
-   
-    // Read characters into our buffer until we get a CR or LF
+
+    *isValid = 0;
     
     bufPtr = buffer;
+
     numBytes = read(fileDescriptor, bufPtr, 1);
     if (numBytes == -1)
     {
@@ -476,10 +477,12 @@ char ReadData(int fileDescriptor){
     }
     else if (numBytes > 0)
     {
-         return bufPtr[0];
+        *isValid = 1;
+        return bufPtr[0];
     }
     
-    printf("Nothing read.\n");
+    // printf("Nothing read.\n");
+    usleep(50);
     return 0;
 }
 
@@ -488,6 +491,8 @@ char ReadData(int fileDescriptor){
 // Given the file descriptor for a serial device, close that device.
 int CloseSerialPort(int fileDescriptor)
 {
+
+    
     // Block until all written output has been sent from the device.
     // Note that this call is simply passed on to the serial device driver. 
 	// See tcsendbreak(3) ("man 3 tcsendbreak") for details.

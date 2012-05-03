@@ -106,6 +106,7 @@
 	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
     dispatch_apply([observerList count], queue, ^(size_t i) {
+        NSLog(@"sending connectionIsClosed() to: %@", [observerList objectAtIndex:i]);
 		[((id<BARTSerialIOProtocol>) [observerList objectAtIndex:i]) connectionIsClosed];
     });
 	
@@ -119,15 +120,19 @@
             NSLog(@"Error closing serial Port: %s, %lu",[err.domain UTF8String], err.code);
         }
 	}
-    NSLog(@"close serial port");
+    NSLog(@"serial port closed: %@", devicePath);
     return;
 }
 
 
 - (void) readChar {
 
-    char c = ReadData(portDescriptor) & 0xFF;    
-    [self dispatchData:c];
+    int isValid = 0;
+    
+    char c = ReadData(portDescriptor, &isValid) & 0xFF;    
+    if(isValid > 0) {
+        [self dispatchData:c];
+    }
     return;
     //return c;
 }
