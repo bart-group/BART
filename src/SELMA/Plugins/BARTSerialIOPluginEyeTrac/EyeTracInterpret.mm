@@ -475,8 +475,15 @@
     
     NSDateFormatter *tempDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%Y_%m_%d_%H_%M_%S" allowNaturalLanguage:NO];
     NSString *fileName = [NSString stringWithFormat:@"EyeTracLog_%@.log", [tempDateFormatter stringFromDate:[NSDate date]]];
-    NSString *logName = mLogfilePath;
-    logName = [logName stringByAppendingPathComponent:fileName];
+    NSString *logName;
+    if (0 != [mLogfilePath length]){
+        logName = mLogfilePath;
+        logName = [logName stringByAppendingPathComponent:fileName];
+    }
+    else{
+        logName = fileName;
+    }
+    
     
     // Handling if file exists
     NSFileManager *fm = [[NSFileManager alloc] init];
