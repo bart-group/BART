@@ -50,7 +50,7 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::Reset(
 	transform.AFFINE = false;
 	transform.CENTEREDAFFINE = false;
 	transform.BSPLINEDEFORMABLETRANSFORM = false;
-	transform.RIGID3D = false;
+//	transform.RIGID3D = false;
 	metric.MATTESMUTUALINFORMATION = false;
 	metric.NORMALIZEDCORRELATION = false;
 	metric.VIOLAWELLSMUTUALINFORMATION = false;
@@ -184,11 +184,11 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetTransform(
 		m_BSplineTransform = BSplineTransformType::New();
 		m_RegistrationObject->SetTransform( m_BSplineTransform );
 		break;
-	case Rigid3DTransform:
-		transform.RIGID3D = true;
-		m_Rigid3DTransform = Rigid3DTransformType::New();
-		m_RegistrationObject->SetTransform( m_Rigid3DTransform );
-		break;
+//	case Rigid3DTransform:
+//		transform.RIGID3D = true;
+//		m_Rigid3DTransform = Rigid3DTransformType::New();
+//		m_RegistrationObject->SetTransform( m_Rigid3DTransform );
+//		break;
 	}
 }
 
@@ -250,7 +250,7 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetUpOptimizer()
 		//setting up the regular step gradient descent optimizer...
 		RegularStepGradientDescentOptimizerType::ScalesType optimizerScaleRegularStepGradient( m_NumberOfParameters );
 
-		if ( transform.VERSORRIGID or transform.CENTEREDAFFINE or transform.AFFINE or transform.BSPLINEDEFORMABLETRANSFORM  or transform.RIGID3D ) {
+		if ( transform.VERSORRIGID or transform.CENTEREDAFFINE or transform.AFFINE or transform.BSPLINEDEFORMABLETRANSFORM ) { // or transform.RIGID3D ) {
 			//...for the rigid transform
 			//number of parameters are dependent on the dimension of the images (2D: 4 parameter, 3D: 6 parameters)
 			if ( transform.VERSORRIGID ) {
@@ -272,15 +272,15 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetUpOptimizer()
 				optimizerScaleRegularStepGradient[4] = 1.0 / UserOptions.TRANSLATIONSCALE;
 				optimizerScaleRegularStepGradient[5] = 1.0 / UserOptions.TRANSLATIONSCALE;
 			}
-			if ( transform.RIGID3D ) {
-				for ( unsigned short i = 0; i < 9; i++ ) {
-					optimizerScaleRegularStepGradient[i] = 1.0;
-				}
-
-				optimizerScaleRegularStepGradient[9] = 1.0;
-				optimizerScaleRegularStepGradient[10] = 1.0;
-				optimizerScaleRegularStepGradient[11] = 1.0;
-			}
+//			if ( transform.RIGID3D ) {
+//				for ( unsigned short i = 0; i < 9; i++ ) {
+//					optimizerScaleRegularStepGradient[i] = 1.0;
+//				}
+//
+//				optimizerScaleRegularStepGradient[9] = 1.0;
+//				optimizerScaleRegularStepGradient[10] = 1.0;
+//				optimizerScaleRegularStepGradient[11] = 1.0;
+//			}
 
 			if ( transform.BSPLINEDEFORMABLETRANSFORM or transform.AFFINE or transform.CENTEREDAFFINE or transform.TRANSLATION ) {
 				optimizerScaleRegularStepGradient.Fill( 1.0 );
@@ -384,6 +384,15 @@ template<class TFixedImageType, class TMovingImageType>
 void RegistrationFactory3D <
 TFixedImageType, TMovingImageType >::prealign()
 {
+    typename MattesMutualInformationMetricType::Pointer tmpMetricHolder = m_MattesMutualInformationMetric;
+    m_MattesMutualInformationMetric = MattesMutualInformationMetricType::New();
+    
+    
+    
+    
+    
+    
+    
 	m_MattesMutualInformationMetric->SetNumberOfThreads( UserOptions.NumberOfThreads );	
 	m_VersorRigid3DTransform = VersorRigid3DTransformType::New();
 	m_RigidInitializer = RigidCenteredTransformInitializerType::New();
@@ -450,6 +459,13 @@ TFixedImageType, TMovingImageType >::prealign()
 	}
     
 	m_VersorRigid3DTransform->SetParameters( newParams );
+    
+    
+    
+    
+    
+    m_MattesMutualInformationMetric = tmpMetricHolder;
+//    metric.MATTESMUTUALINFORMATION = false;
 }
 
 template<class TFixedImageType, class TMovingImageType>
@@ -566,10 +582,10 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetUpTransform()
 		m_RegistrationObject->SetInitialTransformParameters( m_VersorRigid3DTransform->GetParameters() );
 	}
 
-	if ( transform.RIGID3D ) {
-		m_NumberOfParameters = m_Rigid3DTransform->GetNumberOfParameters();
-		m_RegistrationObject->SetInitialTransformParameters( m_Rigid3DTransform->GetParameters() );
-	}
+//	if ( transform.RIGID3D ) {
+//		m_NumberOfParameters = m_Rigid3DTransform->GetNumberOfParameters();
+//		m_RegistrationObject->SetInitialTransformParameters( m_Rigid3DTransform->GetParameters() );
+//	}
 
 	if ( transform.TRANSLATION ) {
 		m_NumberOfParameters = m_TranslationTransform->GetNumberOfParameters();
@@ -853,7 +869,7 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::StartRegistration
 	m_RegistrationObject->SetNumberOfThreads(UserOptions.NumberOfThreads);
 	
 	try {
-		m_RegistrationObject->StartRegistration();
+		m_RegistrationObject->Update();
 	} catch ( itk::ExceptionObject &err ) {
 		std::cerr << "isRegistrationFactory3D: Exception caught: " << std::endl << err << std::endl;
 	}

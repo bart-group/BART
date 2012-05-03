@@ -100,8 +100,7 @@ public:
 	typedef itk::SmartPointer<Self> Pointer;
 	typedef itk::SmartPointer<const Self> ConstPointer;
 
-	itkNewMacro( Self )
-	;
+	itkNewMacro( Self );
 
 	typedef TFixedImageType FixedImageType;
 	typedef TMovingImageType MovingImageType;
@@ -218,8 +217,7 @@ public:
 		AffineTransform,
 		CenteredAffineTransform,
 		BSplineDeformableTransform,
-		Rigid3DTransform
-
+//		Rigid3DTransform
 	};
 
 	enum eMetricType {
@@ -327,7 +325,7 @@ private:
 		bool AFFINE;
 		bool CENTEREDAFFINE;
 		bool BSPLINEDEFORMABLETRANSFORM;
-		bool RIGID3D;
+//		bool RIGID3D;
 	} transform;
 
 	struct Optimizer {
