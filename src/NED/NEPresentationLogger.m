@@ -387,22 +387,32 @@
 }
 
 
--(void)printToFilePath:(NSString*)path
+-(void)printToFile:(NSString*)fName atPath:(NSString*)path
 {
-    NSString *extension = [path pathExtension];
-    path = [path stringByDeletingPathExtension];
+    
+    NSString *extension = @"log";
+    [fName retain];
+    [path retain];
+    
+    //first check if path exists, otherwise create it (will crash if path not exists)
+    BOOL isDir;
+    NSFileManager *fileManager= [NSFileManager defaultManager]; 
+    if(![fileManager fileExistsAtPath:path isDirectory:&isDir])
+        if(![fileManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:NULL]){
+            NSLog(@"Error: Create folder failed %@", path);}
     
     NSDateFormatter *tempDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%Y_%m_%d_%H_%M_%S" allowNaturalLanguage:NO];
     
-    NSString *fName = [NSString stringWithFormat:@"%@_%@", path, [tempDateFormatter stringFromDate:[NSDate date]]];
-    fName = [fName stringByAppendingPathExtension:extension];
+    NSString *fileName = [NSString stringWithFormat:@"%@_%@", fName, [tempDateFormatter stringFromDate:[NSDate date]]];
+    fileName = [path stringByAppendingPathComponent:fileName];
+    fileName = [fileName stringByAppendingPathExtension:extension];
     
     //TODO: Handling if file exists?
     NSFileManager *fm = [[NSFileManager alloc] init];
-    if (YES == [fm fileExistsAtPath:fName]){
-        fName = [fName stringByAppendingString:@"_2"];
+    if (YES == [fm fileExistsAtPath:fileName]){
+        fileName = [fileName stringByAppendingString:@"_2"];
     }
-    FILE* fp = fopen([fName cStringUsingEncoding:NSUTF8StringEncoding], "w");
+    FILE* fp = fopen([fileName cStringUsingEncoding:NSUTF8StringEncoding], "w");
     
     for (NSString* headermsg in mGeneralMessages)
     {
@@ -430,6 +440,8 @@
     fclose(fp);
     [tempDateFormatter release];
     [fm release];
+    [fName release];
+    [path release];
 }
 
 -(void)printToNSLog

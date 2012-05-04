@@ -140,9 +140,10 @@
 /**
  * Writes all messages/the log to a file.
  *
- * \param path The file to write to.
+ * \param fName the name of the logfile, will be extended with unique date identifier and .log 
+ * \param path The path where to put the logfile, will be created if not existing.
  */
--(void)printToFilePath:(NSString*)path;
+-(void)printToFile:(NSString*)fName atPath:(NSString*)path;
 
 /**
  * Prints all messages/the log using NSLog.
