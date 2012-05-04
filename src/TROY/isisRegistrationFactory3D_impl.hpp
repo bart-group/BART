@@ -392,12 +392,7 @@ TFixedImageType, TMovingImageType >::prealign()
     typename MattesMutualInformationMetricType::Pointer tmpMetricHolder = m_MattesMutualInformationMetric;
     m_MattesMutualInformationMetric = MattesMutualInformationMetricType::New();
     
-    
-    
-    
-    
-    
-    
+
 	m_MattesMutualInformationMetric->SetNumberOfThreads( UserOptions.NumberOfThreads );	
 	m_VersorRigid3DTransform = VersorRigid3DTransformType::New();
 	m_RigidInitializer = RigidCenteredTransformInitializerType::New();
@@ -465,10 +460,7 @@ TFixedImageType, TMovingImageType >::prealign()
     
 	m_VersorRigid3DTransform->SetParameters( newParams );
     
-    
-    
-    
-    
+
     m_MattesMutualInformationMetric = tmpMetricHolder;
 //    metric.MATTESMUTUALINFORMATION = false;
 }
