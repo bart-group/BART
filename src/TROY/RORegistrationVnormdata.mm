@@ -81,7 +81,7 @@
             
             transformTypes.push_back(VersorRigid3DTransform);
             transformTypes.push_back(AffineTransform);
-            transformTypes.push_back(BSplineDeformableTransform);
+            transformTypes.push_back(BSplineTransform);
             
             optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
             optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
@@ -320,7 +320,7 @@
 			gridSize = GRID_SIZE_MINIMUM;
 		}
         
-        if (transform     == BSplineDeformableTransform 
+        if (transform     == BSplineTransform 
             and optimizer != 2) {
 			NSLog(@"It is recommended using the BSpline transform in connection with the LBFGSB optimizer!");
 		}
@@ -345,7 +345,7 @@
         switch (transform) {
             case         0: self->registrationFactory->SetTransform( RegistrationFactoryType::VersorRigid3DTransform );
                 break; case  1: self->registrationFactory->SetTransform( RegistrationFactoryType::AffineTransform );
-                break; case  2: self->registrationFactory->SetTransform( RegistrationFactoryType::BSplineDeformableTransform );
+                break; case  2: self->registrationFactory->SetTransform( RegistrationFactoryType::BSplineTransform );
                 break; case  3: self->registrationFactory->SetTransform( RegistrationFactoryType::TranslationTransform );
                 break; default: NSLog(@"Error: Unknown transform!");
                 return NULL;

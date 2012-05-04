@@ -224,7 +224,7 @@ public:
 		VersorRigid3DTransform,
 		AffineTransform,
 		CenteredAffineTransform,
-		BSplineDeformableTransform,
+		BSplineTransform
 //		Rigid3DTransform
 	};
 
@@ -332,7 +332,7 @@ private:
 		bool VERSORRIGID;
 		bool AFFINE;
 		bool CENTEREDAFFINE;
-		bool BSPLINEDEFORMABLETRANSFORM;
+		bool BSPLINETRANSFORM;
 //		bool RIGID3D;
 	} transform;
 

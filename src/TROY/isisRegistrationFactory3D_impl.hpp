@@ -54,7 +54,7 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::Reset(
 	transform.VERSORRIGID = false;
 	transform.AFFINE = false;
 	transform.CENTEREDAFFINE = false;
-	transform.BSPLINEDEFORMABLETRANSFORM = false;
+	transform.BSPLINETRANSFORM = false;
 //	transform.RIGID3D = false;
 	metric.MATTESMUTUALINFORMATION = false;
 	metric.NORMALIZEDCORRELATION = false;
@@ -184,8 +184,8 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetTransform(
 		m_CenteredAffineTransform = CenteredAffineTransformType::New();
 		m_RegistrationObject->SetTransform( m_CenteredAffineTransform );
 		break;
-	case BSplineDeformableTransform:
-		transform.BSPLINEDEFORMABLETRANSFORM = true;
+	case BSplineTransform:
+		transform.BSPLINETRANSFORM = true;
 		m_BSplineTransform = BSplineTransformType::New();
 		m_RegistrationObject->SetTransform( m_BSplineTransform );
 		break;
@@ -255,7 +255,7 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetUpOptimizer()
 		//setting up the regular step gradient descent optimizer...
 		RegularStepGradientDescentOptimizerType::ScalesType optimizerScaleRegularStepGradient( m_NumberOfParameters );
 
-		if ( transform.VERSORRIGID or transform.CENTEREDAFFINE or transform.AFFINE or transform.BSPLINEDEFORMABLETRANSFORM ) { // or transform.RIGID3D ) {
+		if ( transform.VERSORRIGID or transform.CENTEREDAFFINE or transform.AFFINE or transform.BSPLINETRANSFORM ) { // or transform.RIGID3D ) {
 			//...for the rigid transform
 			//number of parameters are dependent on the dimension of the images (2D: 4 parameter, 3D: 6 parameters)
 			if ( transform.VERSORRIGID ) {
@@ -287,7 +287,7 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetUpOptimizer()
 //				optimizerScaleRegularStepGradient[11] = 1.0;
 //			}
 
-			if ( transform.BSPLINEDEFORMABLETRANSFORM or transform.AFFINE or transform.CENTEREDAFFINE or transform.TRANSLATION ) {
+			if ( transform.BSPLINETRANSFORM or transform.AFFINE or transform.CENTEREDAFFINE or transform.TRANSLATION ) {
 				optimizerScaleRegularStepGradient.Fill( 1.0 );
 			}
 
@@ -305,7 +305,7 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetUpOptimizer()
 			m_RegularStepGradientDescentOptimizer->SetGradientMagnitudeTolerance( 0.00001 );
 			m_RegularStepGradientDescentOptimizer->SetMinimize( true );
 
-			if ( transform.BSPLINEDEFORMABLETRANSFORM ) {
+			if ( transform.BSPLINETRANSFORM ) {
 				m_RegularStepGradientDescentOptimizer->SetMaximumStepLength( 1.0 );
 			}
 		}
@@ -528,7 +528,7 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetUpTransform()
 //		}
 //	}
 
-	if ( transform.BSPLINEDEFORMABLETRANSFORM ) {
+	if ( transform.BSPLINETRANSFORM ) {
 #if ITK_VERSION_MAJOR < 4
 		typedef typename BSplineTransformType::RegionType BSplineRegionType;
 		typedef typename BSplineTransformType::SpacingType BSplineSpacingType;
@@ -620,7 +620,7 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetUpMetric()
 		m_MattesMutualInformationMetric->SetNumberOfHistogramBins( UserOptions.NumberOfBins );
 		m_MattesMutualInformationMetric->ReinitializeSeed( UserOptions.MattesMutualInitializeSeed );
 
-		if ( transform.BSPLINEDEFORMABLETRANSFORM ) {
+		if ( transform.BSPLINETRANSFORM ) {
 			m_MattesMutualInformationMetric->SetUseCachingOfBSplineWeights( true );
 		}
 	}
@@ -750,7 +750,7 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetInitialTransfo
 {
 	const char *initialTransformName = initialTransform->GetNameOfClass();
 
-    if (transform.BSPLINEDEFORMABLETRANSFORM) {
+    if (transform.BSPLINETRANSFORM) {
         if ( !strcmp( initialTransformName, "AffineTransform" ) ) {
             #if ITK_VERSION_MAJOR < 4
             m_BSplineTransform->SetBulkTransform( dynamic_cast<AffineTransformType *>( initialTransform ) );        

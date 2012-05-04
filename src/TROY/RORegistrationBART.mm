@@ -39,7 +39,7 @@
       
         transformTypes.push_back(VersorRigid3DTransform);
         transformTypes.push_back(AffineTransform);
-        transformTypes.push_back(BSplineDeformableTransform);
+        transformTypes.push_back(BSplineTransform);
         
         optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
         optimizerTypes.push_back(RegularStepGradientDescentOptimizer);
