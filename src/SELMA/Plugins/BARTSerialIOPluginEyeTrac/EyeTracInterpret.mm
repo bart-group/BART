@@ -471,12 +471,19 @@
     // print all the collected messages to the logfile
     
     //first add information is set from outside
-    [mLogMessages insertObject:[NSString stringWithFormat:@"General Information: %@", mLogfileNameAppend] atIndex:0];
+    [mLogMessages insertObject:[NSString stringWithFormat:@"General Information: %@\n\n", mLogfileNameAppend] atIndex:0];
     
     NSDateFormatter *tempDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%Y_%m_%d_%H_%M_%S" allowNaturalLanguage:NO];
     NSString *fileName = [NSString stringWithFormat:@"EyeTracLog_%@.log", [tempDateFormatter stringFromDate:[NSDate date]]];
     NSString *logName;
-    if (0 != [mLogfilePath length]){
+    if (0 != [mLogfilePath length]){ //just if a path was set, otherwise copy to current app directory
+        //first check if path exists, otherwise create it (will crash if path not exists)
+        BOOL isDir;
+        NSFileManager *fileManager= [NSFileManager defaultManager]; 
+        if(![fileManager fileExistsAtPath:mLogfilePath isDirectory:&isDir])
+            if(![fileManager createDirectoryAtPath:mLogfilePath withIntermediateDirectories:YES attributes:nil error:NULL]){
+                NSLog(@"Error: Create folder failed %@", mLogfilePath);}
+        // now combine path and filename
         logName = mLogfilePath;
         logName = [logName stringByAppendingPathComponent:fileName];
     }
