@@ -28,6 +28,11 @@ namespace isis
 namespace registration
 {
 
+    
+/** Border for spline order = 3 (1 lower, 2 upper) */
+const unsigned int SPLINE_ORDER = 3;
+    
+
 template<class TFixedImageType, class TMovingImageType>
 RegistrationFactory3D<TFixedImageType, TMovingImageType>::RegistrationFactory3D()
 {
@@ -532,6 +537,7 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetUpTransform()
 //	}
 
 	if ( transform.BSPLINEDEFORMABLETRANSFORM ) {
+#if ITK_VERSION_MAJOR < 4
 		typedef typename BSplineTransformType::RegionType BSplineRegionType;
 		typedef typename BSplineTransformType::SpacingType BSplineSpacingType;
 		typedef typename BSplineTransformType::OriginType BSplineOriginType;
@@ -541,7 +547,7 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetUpTransform()
 		typename BSplineRegionType::SizeType gridBorderSize;
 		typename BSplineRegionType::SizeType totalGridSize;
 		gridSizeOnImage.Fill( UserOptions.BSplineGridSize );
-		gridBorderSize.Fill( 3 ); //Border for spline order = 3 (1 lower, 2 upper)
+		gridBorderSize.Fill( SPLINE_ORDER ); 
 		totalGridSize = gridSizeOnImage + gridBorderSize;
 		bsplineRegion.SetSize( totalGridSize );
 		BSplineSpacingType bsplineSpacing = m_FixedImage->GetSpacing();
@@ -560,6 +566,22 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetUpTransform()
 		m_BSplineTransform->SetGridOrigin( bsplineOrigin );
 		m_BSplineTransform->SetGridRegion( bsplineRegion );
 		m_BSplineTransform->SetGridDirection( bsplineDirection );
+#else
+        typename BSplineTransformType::PhysicalDimensionsType   fixedPhysicalDimensions;
+        typename BSplineTransformType::MeshSizeType             meshSize;
+        for( unsigned int i=0; i < FixedImageDimension; i++ )
+        {
+            fixedPhysicalDimensions[i] = m_FixedImage->GetSpacing()[i] 
+                                         * static_cast<double>( m_FixedImage->GetLargestPossibleRegion().GetSize()[i] - 1 );
+        }
+        unsigned int numberOfGridNodesInOneDimension = 5;
+        meshSize.Fill( numberOfGridNodesInOneDimension - SPLINE_ORDER );
+        m_BSplineTransform->SetTransformDomainOrigin(    m_FixedImage->GetOrigin() );
+        m_BSplineTransform->SetTransformDomainPhysicalDimensions( fixedPhysicalDimensions );
+        m_BSplineTransform->SetTransformDomainMeshSize(  meshSize );
+        m_BSplineTransform->SetTransformDomainDirection( m_FixedImage->GetDirection() );
+#endif
+        
 		m_NumberOfParameters = m_BSplineTransform->GetNumberOfParameters();
 		m_BSplineParameters.SetSize( m_NumberOfParameters );
 		m_BSplineParameters.Fill( 0.0 );
@@ -736,18 +758,24 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetInitialTransfo
 {
 	const char *initialTransformName = initialTransform->GetNameOfClass();
 
-	if ( !strcmp( initialTransformName, "AffineTransform" ) and transform.BSPLINEDEFORMABLETRANSFORM ) {
-		m_BSplineTransform->SetBulkTransform( dynamic_cast<AffineTransformType *>( initialTransform ) );
-		m_RegistrationObject->SetInitialTransformParameters( m_BSplineTransform->GetParameters() );
-	}
+    if (transform.BSPLINEDEFORMABLETRANSFORM) {
+        if ( !strcmp( initialTransformName, "AffineTransform" ) ) {
+            #if ITK_VERSION_MAJOR < 4
+            m_BSplineTransform->SetBulkTransform( dynamic_cast<AffineTransformType *>( initialTransform ) );        
+            #endif
+            m_RegistrationObject->SetInitialTransformParameters( m_BSplineTransform->GetParameters() );
+        }
+        
+        #if ITK_VERSION_MAJOR < 4
+        if ( !strcmp( initialTransformName, "VersorRigid3DTransform" ) ) {
+            m_BSplineTransform->SetBulkTransform( dynamic_cast<VersorRigid3DTransformType *> ( initialTransform ) );
+        }
 
-	if ( !strcmp( initialTransformName, "VersorRigid3DTransform" ) and transform.BSPLINEDEFORMABLETRANSFORM ) {
-		m_BSplineTransform->SetBulkTransform( dynamic_cast<VersorRigid3DTransformType *> ( initialTransform ) );
-	}
-
-	if ( !strcmp( initialTransformName, "CenteredAffineTransform" ) and transform.BSPLINEDEFORMABLETRANSFORM ) {
-		m_BSplineTransform->SetBulkTransform( dynamic_cast<CenteredAffineTransformType *> ( initialTransform ) );
-	}
+        if ( !strcmp( initialTransformName, "CenteredAffineTransform" ) ) {
+            m_BSplineTransform->SetBulkTransform( dynamic_cast<CenteredAffineTransformType *> ( initialTransform ) );
+        }
+        #endif
+    }
 
 	if ( !strcmp( initialTransformName, "VersorRigid3DTransform" ) and transform.CENTEREDAFFINE ) {
 		m_CenteredAffineTransform->SetTranslation(

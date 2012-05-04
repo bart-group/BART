@@ -44,7 +44,11 @@
 
 
 //non-linear
+#if ITK_VERSION_MAJOR < 4
 #include "itkBSplineDeformableTransform.h"
+#else
+#include "itkBSplineTransform.h"
+#endif
 
 //metric includes
 #include "itkMutualInformationImageToImageMetric.h" //Viola-Wells-Mutual
@@ -171,7 +175,11 @@ public:
 
 	typedef itk::Transform<double, 3, 3> BulkTransformType;
 
-	typedef typename itk::BSplineDeformableTransform<CoordinateRepType, FixedImageDimension, 3> BSplineTransformType;
+#if ITK_VERSION_MAJOR < 4
+    typedef typename itk::BSplineDeformableTransform<CoordinateRepType, FixedImageDimension, 3> BSplineTransformType;
+#else
+    typedef typename itk::BSplineTransform<          CoordinateRepType, FixedImageDimension, 3> BSplineTransformType;
+#endif
 
 	//optimizer typedefs
 	typedef itk::RegularStepGradientDescentOptimizer RegularStepGradientDescentOptimizerType;
