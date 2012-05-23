@@ -326,6 +326,11 @@ public:
 	}
 
 private:
+    
+    static void Displace(DeformationFieldPointer deformationField,
+                         const TransformType* transform,
+                         typename itk::Transform<double, FixedImageDimension, MovingImageDimension>::InputPointType,
+                         unsigned int, unsigned int, unsigned int);
 
 	struct {
 		bool TRANSLATION;

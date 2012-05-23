@@ -279,10 +279,6 @@
 		A72DBEE8153DCD65008E8918 /* libboost_date_time-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BA134B4F8800094A51 /* libboost_date_time-mt.dylib */; };
 		A72DBEE9153DCD65008E8918 /* libboost_filesystem-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BC134B4F8800094A51 /* libboost_filesystem-mt.dylib */; };
 		A72DBEEA153DCD65008E8918 /* libboost_regex-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BE134B4F8800094A51 /* libboost_regex-mt.dylib */; };
-		A72DBEED154967D7008E8918 /* RORegistrationITK4.h in Headers */ = {isa = PBXBuildFile; fileRef = A72DBEEB154967D6008E8918 /* RORegistrationITK4.h */; };
-		A72DBEEE154967D7008E8918 /* RORegistrationITK4.mm in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEEC154967D7008E8918 /* RORegistrationITK4.mm */; };
-		A72DBEEF154967D7008E8918 /* RORegistrationITK4.mm in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEEC154967D7008E8918 /* RORegistrationITK4.mm */; };
-		A72DBEF0154967D7008E8918 /* RORegistrationITK4.mm in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEEC154967D7008E8918 /* RORegistrationITK4.mm */; };
 		A744B0C513FD442200F4B13D /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
 		A744B0C713FD445300F4B13D /* EDDataElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B772C311417C6300B2931A /* EDDataElementVI.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A74EB3571525B09600AC7C59 /* isisRegistrationFactory3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A74EB3461525B09600AC7C59 /* isisRegistrationFactory3D.hpp */; };
@@ -838,8 +834,6 @@
 		A72DBED215387793008E8918 /* libitkvnl_algo-4.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libitkvnl_algo-4.1.a"; path = "../../ITK-install/lib/libitkvnl_algo-4.1.a"; sourceTree = "<group>"; };
 		A72DBED315387793008E8918 /* libitkvnl-4.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libitkvnl-4.1.a"; path = "../../ITK-install/lib/libitkvnl-4.1.a"; sourceTree = "<group>"; };
 		A72DBEE61538790F008E8918 /* libitkzlib-4.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libitkzlib-4.1.a"; path = "../../ITK-install/lib/libitkzlib-4.1.a"; sourceTree = "<group>"; };
-		A72DBEEB154967D6008E8918 /* RORegistrationITK4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORegistrationITK4.h; sourceTree = "<group>"; };
-		A72DBEEC154967D7008E8918 /* RORegistrationITK4.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistrationITK4.mm; sourceTree = "<group>"; };
 		A74EB3461525B09600AC7C59 /* isisRegistrationFactory3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D.hpp; sourceTree = "<group>"; };
 		A74EB3471525B09600AC7C59 /* isisRegistrationFactory3D_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D_impl.hpp; sourceTree = "<group>"; };
 		A74EB3481525B09600AC7C59 /* isisTimeStepExtractionFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisTimeStepExtractionFilter.hpp; sourceTree = "<group>"; };
@@ -1763,8 +1757,6 @@
 				A74EB3531525B09600AC7C59 /* RORegistrationVnormdata.mm */,
 				A74EB3541525B09600AC7C59 /* ROTypedef.h */,
 				A74EB3551525B09600AC7C59 /* TimeUtil.h */,
-				A72DBEEB154967D6008E8918 /* RORegistrationITK4.h */,
-				A72DBEEC154967D7008E8918 /* RORegistrationITK4.mm */,
 			);
 			path = TROY;
 			sourceTree = "<group>";
@@ -1798,7 +1790,6 @@
 				A74EB3611525B09600AC7C59 /* RORegistrationVnormdata.h in Headers */,
 				A74EB3631525B09600AC7C59 /* ROTypedef.h in Headers */,
 				A74EB3641525B09600AC7C59 /* TimeUtil.h in Headers */,
-				A72DBEED154967D7008E8918 /* RORegistrationITK4.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2432,7 +2423,6 @@
 				A74EB35E1525B09600AC7C59 /* RORegistrationBARTAnaOnly.mm in Sources */,
 				A74EB3601525B09600AC7C59 /* RORegistrationMethod.m in Sources */,
 				A74EB3621525B09600AC7C59 /* RORegistrationVnormdata.mm in Sources */,
-				A72DBEEF154967D7008E8918 /* RORegistrationITK4.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2442,7 +2432,6 @@
 			files = (
 				A74EB3711525B0BB00AC7C59 /* RORegistrationMethodTest.mm in Sources */,
 				A74EB3731525B0BB00AC7C59 /* TROYTests.m in Sources */,
-				A72DBEF0154967D7008E8918 /* RORegistrationITK4.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2640,7 +2629,6 @@
 				0023CBD013EAC45B006303B6 /* BAProcedureStep_Preprocessing.m in Sources */,
 				0023CBD313EAC484006303B6 /* BAProcedureStep_Analysis.m in Sources */,
 				0023CBD613EAC4B3006303B6 /* BAProcedureStep_Feedback.m in Sources */,
-				A72DBEEE154967D7008E8918 /* RORegistrationITK4.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

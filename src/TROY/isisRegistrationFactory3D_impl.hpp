@@ -23,6 +23,8 @@
 
 #include "isisRegistrationFactory3D.hpp"
 
+#include <dispatch/dispatch.h>
+
 namespace isis
 {
 namespace registration
@@ -389,11 +391,11 @@ template<class TFixedImageType, class TMovingImageType>
 void RegistrationFactory3D <
 TFixedImageType, TMovingImageType >::prealign()
 {
-    typename MattesMutualInformationMetricType::Pointer tmpMetricHolder = m_MattesMutualInformationMetric;
-    m_MattesMutualInformationMetric = MattesMutualInformationMetricType::New();
-    
+//    typename MattesMutualInformationMetricType::Pointer tmpMetricHolder = m_MattesMutualInformationMetric;
+//    m_MattesMutualInformationMetric = MattesMutualInformationMetricType::New();
+    typename MattesMutualInformationMetricType::Pointer mattesMutualMetric = MattesMutualInformationMetricType::New();
 
-	m_MattesMutualInformationMetric->SetNumberOfThreads( UserOptions.NumberOfThreads );	
+    mattesMutualMetric->SetNumberOfThreads( UserOptions.NumberOfThreads );	
 	m_VersorRigid3DTransform = VersorRigid3DTransformType::New();
 	m_RigidInitializer = RigidCenteredTransformInitializerType::New();
 	m_RigidInitializer->SetTransform( m_VersorRigid3DTransform );
@@ -401,30 +403,25 @@ TFixedImageType, TMovingImageType >::prealign()
 	m_RigidInitializer->SetMovingImage( m_MovingImage );
 	m_RigidInitializer->GeometryOn();
 	m_RigidInitializer->InitializeTransform();
-	if(!metric.MATTESMUTUALINFORMATION) {
-		 m_MattesMutualInformationMetric = MattesMutualInformationMetricType::New();
-	}
+//	if(!metric.MATTESMUTUALINFORMATION) {
+//		 mattesMutualMetric = MattesMutualInformationMetricType::New();
+//	}
 
-	m_MattesMutualInformationMetric->SetMovingImage( m_MovingImage );
-	m_MattesMutualInformationMetric->SetFixedImage( m_FixedImage );
-	m_MattesMutualInformationMetric->SetFixedImageRegion( m_FixedImageRegion );
-	m_MattesMutualInformationMetric->SetTransform( m_VersorRigid3DTransform );
-	m_MattesMutualInformationMetric->SetNumberOfSpatialSamples( static_cast<uint32_t>(m_FixedImageRegion.GetNumberOfPixels()
+	mattesMutualMetric->SetMovingImage( m_MovingImage );
+	mattesMutualMetric->SetFixedImage( m_FixedImage );
+	mattesMutualMetric->SetFixedImageRegion( m_FixedImageRegion );
+	mattesMutualMetric->SetTransform( m_VersorRigid3DTransform );
+	mattesMutualMetric->SetNumberOfSpatialSamples( static_cast<uint32_t>(m_FixedImageRegion.GetNumberOfPixels()
 				* UserOptions.PixelDensity / 2) );
-	m_MattesMutualInformationMetric->SetNumberOfHistogramBins( UserOptions.NumberOfBins / 2);
-	m_MattesMutualInformationMetric->SetInterpolator( m_LinearInterpolator );
+	mattesMutualMetric->SetNumberOfHistogramBins( UserOptions.NumberOfBins / 2);
+	mattesMutualMetric->SetInterpolator( m_LinearInterpolator );
 	typename VersorRigid3DTransformType::ParametersType params = m_VersorRigid3DTransform->GetParameters();
 	typename VersorRigid3DTransformType::ParametersType searchParams = m_VersorRigid3DTransform->GetParameters();
 	typename VersorRigid3DTransformType::ParametersType newParams = m_VersorRigid3DTransform->GetParameters();
-	m_MattesMutualInformationMetric->Initialize();
+	mattesMutualMetric->Initialize();
 	typename MovingImageType::SizeType movingImageSize = m_MovingImageRegion.GetSize();
 	typename MovingImageType::SpacingType movingImageSpacing = m_MovingImage->GetSpacing();
 	short prec = 5;
-//	float ratio = 0.3;
-//	float minMaxX = ratio * movingImageSize[0] * movingImageSpacing[0];
-//	float minMaxY = ratio * movingImageSize[1] * movingImageSpacing[1];
-//	float minMaxZ = ratio * movingImageSize[2] * movingImageSpacing[2];
-    //TODO: insert this, throw out previous
     double ratio = 0.3;
     float minMaxX = static_cast<float>(ratio * movingImageSize[0] * movingImageSpacing[0]);
 	float minMaxY = static_cast<float>(ratio * movingImageSize[1] * movingImageSpacing[1]);
@@ -448,7 +445,7 @@ TFixedImageType, TMovingImageType >::prealign()
 				searchParams[3] = param_3 +  x;
 				searchParams[4] = param_4 +  y;
 				searchParams[5] = param_5 +  z;
-				metricValue = static_cast<double>( m_MattesMutualInformationMetric->GetValue(  searchParams ) );
+				metricValue = static_cast<double>( mattesMutualMetric->GetValue(  searchParams ) );
 				if ( value >  metricValue ) {
 					value = metricValue;
                     newParams = searchParams;
@@ -460,8 +457,7 @@ TFixedImageType, TMovingImageType >::prealign()
     
 	m_VersorRigid3DTransform->SetParameters( newParams );
     
-
-    m_MattesMutualInformationMetric = tmpMetricHolder;
+//    m_MattesMutualInformationMetric = tmpMetricHolder;
 //    metric.MATTESMUTUALINFORMATION = false;
 }
 
@@ -611,6 +607,7 @@ template<class TFixedImageType, class TMovingImageType>
 void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetUpMetric()
 {
 	if ( metric.MATTESMUTUALINFORMATION ) {
+
 		//setting up the mattes mutual information metric
 		m_MattesMutualInformationMetric->SetFixedImage( m_FixedImage );
 		m_MattesMutualInformationMetric->SetMovingImage( m_MovingImage );
@@ -618,6 +615,7 @@ void RegistrationFactory3D<TFixedImageType, TMovingImageType>::SetUpMetric()
 		m_MattesMutualInformationMetric->SetNumberOfSpatialSamples( m_FixedImageRegion.GetNumberOfPixels()
 				* UserOptions.PixelDensity );
 		m_MattesMutualInformationMetric->SetNumberOfHistogramBins( UserOptions.NumberOfBins );
+        
 		m_MattesMutualInformationMetric->ReinitializeSeed( UserOptions.MattesMutualInitializeSeed );
 
 		if ( transform.BSPLINETRANSFORM ) {
@@ -702,6 +700,30 @@ TFixedImageType, TMovingImageType >::GetTransform(
 {
 	return m_RegistrationObject->GetOutput()->Get();
 }
+    
+    
+template<class TFixedImageType, class TMovingImageType>
+void RegistrationFactory3D <TFixedImageType, TMovingImageType >
+    ::Displace(DeformationFieldPointer deformationField,
+               const TransformType* transform,
+               typename itk::Transform<double, FixedImageDimension, MovingImageDimension>::InputPointType fixedPoint,
+               unsigned int xMax, unsigned int yMax, unsigned int z)
+{
+    typename DeformationFieldType::IndexType index;
+    typename itk::Transform<double, FixedImageDimension, MovingImageDimension>::OutputPointType movingPoint;
+
+    index.SetElement(2, z);
+    for (unsigned int y = 0; y < yMax; y++) {
+        index.SetElement(1, y);
+        for (unsigned int x = 0; x < xMax; x++) {
+            index.SetElement(0, x);    
+            deformationField->TransformIndexToPhysicalPoint( index, fixedPoint );
+            movingPoint = transform->TransformPoint( fixedPoint );
+            
+            deformationField->SetPixel(index, movingPoint - fixedPoint);
+        }   
+    }
+}
 
 template<class TFixedImageType, class TMovingImageType>
 typename RegistrationFactory3D<TFixedImageType, TMovingImageType>::DeformationFieldPointer RegistrationFactory3D <
@@ -731,7 +753,37 @@ TFixedImageType, TMovingImageType >::GetTransformVectorField(
 		fi.Set( displacement );
 		++fi;
 	}
-
+    
+//    // Always have 3 dimensions (see DeformationFieldType typedef)
+//    const unsigned int dims = DeformationFieldType::ImageDimension;
+//    const typename DeformationFieldType::SizeType deformationSize = m_FixedImageRegion.GetSize();
+//    unsigned int xMax = deformationSize[0];
+//    unsigned int yMax = deformationSize[1];
+//    unsigned int zMax = deformationSize[2];
+//    
+//    const TransformType* transform = m_RegistrationObject->GetOutput()->Get();
+//    
+////    for (unsigned int z = 0; z < zMax; z++) {
+////        index.SetElement(2, z);
+////        for (unsigned int y = 0; y < yMax; y++) {
+////            index.SetElement(1, y);
+////            for (unsigned int x = 0; x < xMax; x++) {
+////                index.SetElement(0, x);    
+////                m_DeformationField->TransformIndexToPhysicalPoint( index, fixedPoint );
+////                movingPoint = transform->TransformPoint( fixedPoint );
+////
+////                m_DeformationField->SetPixel(index, movingPoint - fixedPoint);
+////            }   
+////        }    
+////    }
+//    
+//    dispatch_apply(zMax, dispatch_get_global_queue(0, 0), ^(size_t z) {
+//        RegistrationFactory3D::Displace(m_DeformationField,
+//                                        transform,
+//                                        fixedPoint, xMax, yMax, z);
+//    });
+    
+    
 	return m_DeformationField;
 }
 

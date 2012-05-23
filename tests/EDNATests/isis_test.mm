@@ -24,7 +24,7 @@
 
 /* # Constants # */
 
-const int RUNS = 20;
+const int RUNS = 1;
 
 /* # Dataset files # */
 
@@ -61,6 +61,7 @@ NSString* ZMAP03 = @"_zmap03";
 NSString* NII_EXT = @".nii";
 
 NSString* T1_OUT_DIR = @"/Users/oliver/test/reg3d_test_t1out/";
+NSString* MNI_LIPSIA_OUT_DIR = @"/Users/oliver/test/reg3d_test_Lipsia-MNI_out/";
 
 
 
@@ -152,6 +153,18 @@ void testZmapsParams(NSString* funPath,
                      int runs,
                      NSString* outPath);
 
+void testITK4RegistrationExample3Params(NSString* funPath,
+                                        NSString* anaPath,
+                                        NSString* mniPath,
+                                        int runs,
+                                        NSString* outPath);
+
+void testRegistrationITK4Params(NSString* funPath,
+                                NSString* anaPath,
+                                NSString* mniPath,
+                                int runs,
+                                NSString* outPath);
+
 
 
 /* # Function definitions # */
@@ -183,7 +196,7 @@ NSString* outFileName(NSString* baseDir,
 void testVnormdataRegistrationWorkflow()
 {
     int runs = RUNS;
-    NSString* dir = T1_OUT_DIR;
+    NSString* dir = @"/tmp/"; // [NSString stringWithFormat:@"%@%@", MNI_LIPSIA_OUT_DIR, @"itk4/"];
     NSString* mni = t1File;
     
     testVnormdataRegistrationWorkflowParams(fctFile,
@@ -192,17 +205,17 @@ void testVnormdataRegistrationWorkflow()
                                             runs,
                                             outFileName(dir, BART_VNORMDATA, DS01));
     
-    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ00ana, mni, runs, outFileName(dir, BART_VNORMDATA, ONE_TS_MDEFT));
-    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ10ana, mni, runs, outFileName(dir, BART_VNORMDATA, ONE_TS_MPRAGE));
-    
-    testVnormdataRegistrationWorkflowParams(OZ00fun, OZ00ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ00));
-    testVnormdataRegistrationWorkflowParams(OZ01fun, OZ01ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ01));
-    testVnormdataRegistrationWorkflowParams(OZ02fun, OZ02ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ02));
-    testVnormdataRegistrationWorkflowParams(OZ03fun, OZ03ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ03));
-    testVnormdataRegistrationWorkflowParams(OZ10fun, OZ10ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ10));
-    testVnormdataRegistrationWorkflowParams(OZ11fun, OZ11ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ11));
-    testVnormdataRegistrationWorkflowParams(OZ12fun, OZ12ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ12));
-    testVnormdataRegistrationWorkflowParams(OZ13fun, OZ13ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ13));
+//    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ00ana, mni, runs, outFileName(dir, BART_VNORMDATA, ONE_TS_MDEFT));
+//    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ10ana, mni, runs, outFileName(dir, BART_VNORMDATA, ONE_TS_MPRAGE));
+//    
+//    testVnormdataRegistrationWorkflowParams(OZ00fun, OZ00ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ00));
+//    testVnormdataRegistrationWorkflowParams(OZ01fun, OZ01ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ01));
+//    testVnormdataRegistrationWorkflowParams(OZ02fun, OZ02ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ02));
+//    testVnormdataRegistrationWorkflowParams(OZ03fun, OZ03ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ03));
+//    testVnormdataRegistrationWorkflowParams(OZ10fun, OZ10ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ10));
+//    testVnormdataRegistrationWorkflowParams(OZ11fun, OZ11ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ11));
+//    testVnormdataRegistrationWorkflowParams(OZ12fun, OZ12ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ12));
+//    testVnormdataRegistrationWorkflowParams(OZ13fun, OZ13ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ13));
 }
 
 void testVnormdataRegistrationWorkflowParams(NSString* funPath,
@@ -370,12 +383,12 @@ void testBARTRegistrationAnaOnly()
     int runs = RUNS;
     NSString* bartRegAnaOnlyOut = @"/tmp/BART_bartRegAnaOnly.nii";
     
-//    testBARTRegistrationAnaOnlyParams(fctFile,
-//                                      anaFile,
-//                                      runs,
-//                                      bartRegAnaOnlyOut);
+    testBARTRegistrationAnaOnlyParams(fctFile,
+                                      anaFile,
+                                      runs,
+                                      bartRegAnaOnlyOut);
     
-    testBARTRegistrationAnaOnlyParams(OZfun1ts, OZ00ana, runs, bartRegAnaOnlyOut);
+//    testBARTRegistrationAnaOnlyParams(OZfun1ts, OZ00ana, runs, bartRegAnaOnlyOut);
 //    testBARTRegistrationAnaOnlyParams(OZfun1ts, OZ10ana, runs, bartRegAnaOnlyOut);
 //    
 //    testBARTRegistrationAnaOnlyParams(OZ00fun, OZ00ana, runs, OZ00out);
@@ -617,9 +630,231 @@ void testPluginReadWrite()
     [pool drain];
 }
 
+void testITK4RegistrationExample3()
+{
+    int runs = 1;
+    NSString* mni = t1File;
+    
+//    NSLog(anaFile);
+//    NSLog(mni);
+
+    testITK4RegistrationExample3Params(fctFile,
+                                       anaFile,
+                                       mni,
+                                       runs,
+                                       @"/tmp/itk4_regtest_out.nii");
+}
+
+void testITK4RegistrationExample3Params(NSString* funPath,
+                                        NSString* anaPath,
+                                        NSString* mniPath,
+                                        int runs,
+                                        NSString* outPath)
+{
+    // ImageRegistration3.cxx
+    
+    EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:funPath
+                                                               andSuffix:@"" 
+                                                              andDialect:@"" 
+                                                             ofImageType:IMAGE_FCTDATA];
+    ITKImage::Pointer fctDataITK = [fctData asITKImage];
+    
+    EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaPath
+                                                               andSuffix:@"" 
+                                                              andDialect:@"" 
+                                                             ofImageType:IMAGE_ANADATA];
+    ITKImage::Pointer anaDataITK = [anaData asITKImage];
+    
+    EDDataElementIsis* mniData = [[EDDataElementIsis alloc] initWithFile:mniPath
+                                                               andSuffix:@"" 
+                                                              andDialect:@"" 
+                                                             ofImageType:IMAGE_ANADATA];
+    ITKImage::Pointer mniDataITK = [mniData asITKImage];
+
+    typedef itk::TranslationTransform< double, IMAGE_DIMENSION > TransformType;
+    
+    typedef itk::RegularStepGradientDescentOptimizer       OptimizerType;
+    
+    typedef itk::LinearInterpolateImageFunction<ITKImage, double> InterpolatorType;
+    
+    typedef itk::ImageRegistrationMethod<ITKImage, ITKImage>  RegistrationType;
+    
+    typedef itk::MattesMutualInformationImageToImageMetric<ITKImage,
+    ITKImage >  MetricType;
+    
+    TransformType::Pointer      transform     = TransformType::New();
+    OptimizerType::Pointer      optimizer     = OptimizerType::New();
+    InterpolatorType::Pointer   interpolator  = InterpolatorType::New();
+    RegistrationType::Pointer   registration  = RegistrationType::New();
+    
+    registration->SetOptimizer(     optimizer     );
+    registration->SetTransform(     transform     );
+    registration->SetInterpolator(  interpolator  );
+    
+    MetricType::Pointer      metric = MetricType::New();
+    
+    registration->SetMetric( metric );
+    
+    registration->SetFixedImage( mniDataITK);
+    registration->SetMovingImage(anaDataITK);
+ 
+    registration->SetFixedImageRegion(mniDataITK->GetBufferedRegion() );
+    
+    typedef RegistrationType::ParametersType ParametersType;
+    ParametersType initialParameters( transform->GetNumberOfParameters() );
+    
+    initialParameters[0] = 0.0;  // Initial offset in mm along X
+    initialParameters[1] = 0.0;  // Initial offset in mm along Y
+    
+    registration->SetInitialTransformParameters( initialParameters );
+    
+    optimizer->SetMaximumStepLength( 4.00 );
+    optimizer->SetMinimumStepLength( 0.01 );
+    optimizer->SetNumberOfIterations( 200 );
+    
+    optimizer->MaximizeOff();
+
+    try
+    {
+        registration->Update();
+        std::cout << "Optimizer stop condition: "
+        << registration->GetOptimizer()->GetStopConditionDescription()
+        << std::endl;
+    }
+    catch( itk::ExceptionObject & err )
+    {
+        std::cout << "ExceptionObject caught !" << std::endl;
+        std::cout << err << std::endl;
+    }
+
+    
+    
+    ParametersType finalParameters = registration->GetLastTransformParameters();
+    
+    const double TranslationAlongX = finalParameters[0];
+    const double TranslationAlongY = finalParameters[1];
+    
+    const unsigned int numberOfIterations = optimizer->GetCurrentIteration();
+    
+    const double bestValue = optimizer->GetValue();
+    
+    std::cout << "Registration done !" << std::endl;
+    std::cout << "Number of iterations = " << numberOfIterations << std::endl;
+    std::cout << "Translation along X  = " << TranslationAlongX << std::endl;
+    std::cout << "Translation along Y  = " << TranslationAlongY << std::endl;
+    std::cout << "Optimal metric value = " << bestValue << std::endl;
+    
+    
+    // Prepare the resampling filter in order to map the moving image.
+    //
+    typedef itk::ResampleImageFilter<ITKImage, ITKImage >    ResampleFilterType;
+    
+    TransformType::Pointer finalTransform = TransformType::New();
+    
+    finalTransform->SetParameters( finalParameters );
+    finalTransform->SetFixedParameters( transform->GetFixedParameters() );
+    
+    ResampleFilterType::Pointer resample = ResampleFilterType::New();
+    
+    resample->SetTransform( finalTransform );
+    resample->SetInput( anaDataITK );
+    
+    ITKImage::Pointer fixedImage = mniDataITK;
+    
+    resample->SetSize(    fixedImage->GetLargestPossibleRegion().GetSize() );
+    resample->SetOutputOrigin(  fixedImage->GetOrigin() );
+    resample->SetOutputSpacing( fixedImage->GetSpacing() );
+    resample->SetOutputDirection( fixedImage->GetDirection() );
+    resample->SetDefaultPixelValue( 100 );
+    
+    
+    resample->Update();
+    
+    EDDataElement* aligned = [anaData convertFromITKImage:resample->GetOutput()];
+    
+    [aligned WriteDataElementToFile:outPath];
+    
+    
+//    // Prepare a writer and caster filters to send the resampled moving image to
+//    // a file
+//    //
+//    typedef  unsigned char  OutputPixelType;
+//    
+//    typedef itk::Image< ITKImagePixelType, IMAGE_DIMENSION > OutputImageType;
+//    
+//    typedef itk::CastImageFilter<
+//    ITKImage,
+//    ITKImage > CastFilterType;
+//    
+//    
+//    CastFilterType::Pointer  caster =  CastFilterType::New();
+//    
+//
+//    caster->SetInput( resample->GetOutput() );
+//    writer->SetInput( caster->GetOutput()   );
+//    writer->Update();
+
+
+}
+
+//void testRegistrationITK4()
+//{
+//    int runs = 1;
+//    NSString* mni = t1File;
+//    
+//    //    NSLog(anaFile);
+//    //    NSLog(mni);
+//    
+//    testRegistrationITK4Params(fctFile,
+//                               anaFile,
+//                               mni,
+//                               runs,
+//                               @"/tmp/BART_regITK4_out.nii");
+//}
+
+//void testRegistrationITK4Params(NSString* funPath,
+//                                NSString* anaPath,
+//                                NSString* mniPath,
+//                                int runs,
+//                                NSString* outPath)
+//{
+//    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+//    
+//    EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:funPath
+//                                                               andSuffix:@"" 
+//                                                              andDialect:@"" 
+//                                                             ofImageType:IMAGE_FCTDATA];
+//    
+//    EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaPath
+//                                                               andSuffix:@"" 
+//                                                              andDialect:@"" 
+//                                                             ofImageType:IMAGE_ANADATA];
+//
+//    EDDataElementIsis* mniData = [[EDDataElementIsis alloc] initWithFile:mniPath
+//                                                               andSuffix:@"" 
+//                                                              andDialect:@"" 
+//                                                             ofImageType:IMAGE_ANADATA];
+//    
+////    RORegistrationMethod* method = [[RORegistrationITK4 alloc] initFindiform:fctData
+////                                                                            anatomy:anaDatangTrans
+////                                                                          reference:mniData];
+//
+//    EDDataElement* registeredFun = [method apply:fctData];
+//    
+//    [registeredFun WriteDataElementToFile:outPath];
+//    
+//    [method release];
+//    
+//    [mniData release];
+//    [anaData release];
+//    [fctData release];
+//    
+//    [pool drain];
+//}
+
 int main(void)
 {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
     /* # Output redirection # */
     system("rm -f /tmp/BART_regRuntime.txt");
@@ -631,12 +866,23 @@ int main(void)
 //    testPluginReadWrite();
 
     /* # Registration tests # */
-//    testBARTRegistrationAnaOnly();
+    testBARTRegistrationAnaOnly();
 //    testBARTRegistrationWorkflow();
 //    testVnormdataRegistrationWorkflow();
     
     /* # Zmap tests # */
-    testZmaps();
+//    testZmaps();
+    
+    /* # ITK 4 tests # */
+//    testITK4RegistrationExample3();
+//    testRegistrationITK4();
+    
+    
+//    testVnormdataRegistrationWorkflowParams(fctFile,
+//                                            anaFile,
+//                                            mniFile,
+//                                            1,
+//                                            @"/tmp/BART_ITK4vnormdata.nii");
     
     [pool drain];
 }
