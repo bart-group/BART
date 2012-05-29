@@ -8,6 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface BAMainSplitViewController : NSViewController
+@interface BAMainSplitViewController : NSViewController <NSSplitViewDelegate> {
+
+
+}
+
+- (void)splitViewWillResizeSubviews:(NSNotification *)notification;
 
 @end
+

@@ -7,12 +7,19 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
+
+#import "BAHierarchyElement.h"
+
 
 @interface BAHierarchyTree : NSObject
 {
 @private
-	
 }
+
+@property (readonly,getter = instance) BAHierarchyTree*    sharedTree;
+@property (copy,readwrite)             BAHierarchyElement* rootElement;
+
 
 + (BAHierarchyTree *) instance;
 

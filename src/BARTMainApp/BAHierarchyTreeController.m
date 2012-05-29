@@ -8,6 +8,25 @@
 
 #import "BAHierarchyTreeController.h"
 
+
 @implementation BAHierarchyTreeController
+
+- (NSView*)outlineView:(NSOutlineView *)outlineView
+    viewForTableColumn:(NSTableColumn *)tableColumn
+                  item:(id)item
+{
+    NSLog(@"outlineView:%@ viewForTableColumn:%@ item:%@", outlineView, tableColumn, item);
+    
+    
+    NSTableCellView *result = nil;
+    
+    result = [outlineView makeViewWithIdentifier:[tableColumn identifier] owner:self];
+    result.textField.stringValue = [(BAHierarchyElement*)[item representedObject] name];
+    result.imageView.image = nil;
+
+    result.backgroundStyle = NSBackgroundStyleLight;
+    
+    return result;
+}
 
 @end

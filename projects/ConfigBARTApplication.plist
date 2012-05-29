@@ -3,8 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>edlFile</key>
-	<string>/Users/Lydi/RealTimeProject/DynamicDesign/EyeTrackerIAPS/ScenarioForBART/dynamicDesign_proofOfConceptParadigm_order000.edl</string>
+	<string>/Users/torsten/Development/BartGUI/BART/tests/NEDTests/timeBasedRegressorNEDTest.edl</string>
 	<key>dataSetForTest</key>
-	<string>/Users/Lydi/Development/BART_lydiatgit/tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii</string>
+	<string>/Users/torsten/Development/BartGUI/BART/tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii</string>
+	<key>UseLuigi</key>
+	<string>YES</string>
 </dict>
 </plist>

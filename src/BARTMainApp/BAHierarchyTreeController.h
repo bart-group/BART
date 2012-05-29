@@ -8,6 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface BAHierarchyTreeController : NSTreeController
+#import "BAHierarchyElement.h"
+
+
+
+@interface BAHierarchyTreeController : NSTreeController <NSOutlineViewDelegate, NSOutlineViewDataSource>
+
 
 @end

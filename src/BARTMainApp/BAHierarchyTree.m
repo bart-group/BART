@@ -7,6 +7,10 @@
  */
 
 #import "BAHierarchyTree.h"
+#import "BASession.h"
+#import "BAExperiment.h"
+
+
 
 #pragma mark -
 #pragma mark Constants
@@ -56,6 +60,13 @@
 //	Properties
 //**************************************************
 
+@synthesize rootElement;
+@synthesize sharedTree=_default;
+
+- (BAHierarchyTree*)getSharedTree
+{
+    return [BAHierarchyTree instance];
+}
 
 #pragma mark -
 #pragma mark Constructors
@@ -68,6 +79,16 @@
 	if ((self = [super init]))
 	{
 		// Initialization code here.
+        BAHierarchyElement* session = [[BASession alloc] initWithName:@"First Ever Session"];
+        rootElement = session;
+        
+        BAHierarchyElement* experiment_01 = [[BAExperiment alloc] initWithName:@"First Ever Experiment"];
+        BAHierarchyElement* experiment_02 = [[BAExperiment alloc] initWithName:@"Experiment 01"];
+        BAHierarchyElement* experiment_03 = [[BAExperiment alloc] initWithName:@"Experiment 02"];
+        
+        [[session children] addObject:experiment_01];
+        [[session children] addObject:experiment_02];
+        [[session children] addObject:experiment_03];
 	}
 	
 	return self;
@@ -97,7 +118,7 @@
 		return _default;
 	}
 	
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_0
+#if __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__ >= __MAC_10_6
 	// Allocates once with Grand Central Dispatch (GCD) routine.
 	// It's thread safe.
 	static dispatch_once_t safer;
