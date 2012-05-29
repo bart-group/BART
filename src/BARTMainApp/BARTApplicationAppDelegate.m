@@ -68,25 +68,33 @@
         return;
     }
 	
-	guiController = [guiController initWithDefault];
-
-    NSString *testData = [arrayFromPlist objectForKey:@"dataSetForTest"];
-
-    if (nil != testData){
-        procedurePipe = [[BAProcedurePipeline alloc] initWithTestDataset:testData];}
-    else{
-        procedurePipe = [[BAProcedurePipeline alloc] init];}
-    
-    
-    NSString *file = [arrayFromPlist objectForKey:@"edlFile"];
-    
-    NSError *err = [experimentContext resetWithEDLFile:file];
-    if (err) {
-        NSLog(@"%@", err);
+    NSString *useLuigi = (NSString*)[arrayFromPlist objectForKey:@"UseLuigi"];
+    //NSLog(@"UseLuigi = %@", useLuigi);
+    if(useLuigi != nil && [useLuigi caseInsensitiveCompare:@"YES"] == NSOrderedSame) {
+        //// Initial Luigi Testing ////
+        NSLog(@"Using Luigi");
+        [NSBundle loadNibNamed:@"Luigi" owner:self];
+        
+    } else {
+        guiController = [guiController initWithDefault];
+        
+        NSString *testData = [arrayFromPlist objectForKey:@"dataSetForTest"];
+        
+        if (nil != testData){
+            procedurePipe = [[BAProcedurePipeline alloc] initWithTestDataset:testData];}
+        else{
+            procedurePipe = [[BAProcedurePipeline alloc] init];}
+        
+        
+        NSString *file = [arrayFromPlist objectForKey:@"edlFile"];
+        
+        NSError *err = [experimentContext resetWithEDLFile:file];
+        if (err) {
+            NSLog(@"%@", err);
+        }
+        
+        [experimentContext startExperiment];
 	}
-
-    [experimentContext startExperiment];
-	
 	
 	
   }
@@ -107,6 +115,7 @@
 -(void)applicationWillTerminate:(NSNotification*)aNotification
 {
     #pragma unused(aNotification)
+    NSLog(@"applicationWillTerminate: %@", aNotification);
     [procedurePipe release];
     [super dealloc];
 }
@@ -115,7 +124,12 @@
 {
     #pragma unused(aNotification)
     [[COExperimentContext getInstance] stopExperiment];
-	
+}	
+
+-(NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication*)sender
+{
+    NSLog(@"applicationShouldTerminate: %@", sender);
+    return NSTerminateNow;
 }
 
 @end

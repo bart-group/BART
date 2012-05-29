@@ -24,4 +24,23 @@
     return self;
 }
 
+//- (void)setView:(NSView *)view
+//{
+//    NSLog(@"setView: %@", view);
+//}
+
+//- (void)splitViewDidResizeSubviews:(NSNotification *)notification
+//{
+//    NSLog(@"%@", notification);
+//}
+
+- (CGFloat)splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMinimumPosition ofSubviewAt:(NSInteger)dividerIndex
+{
+    if(dividerIndex == 0) {
+        return proposedMinimumPosition + 150;
+    } else {
+        return proposedMinimumPosition;
+    }
+}
+
 @end
