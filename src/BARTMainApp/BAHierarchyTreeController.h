@@ -12,7 +12,13 @@
 
 
 
-@interface BAHierarchyTreeController : NSTreeController <NSOutlineViewDelegate, NSOutlineViewDataSource>
+@interface BAHierarchyTreeController : NSTreeController <NSOutlineViewDelegate, NSOutlineViewDataSource> {
+    
+    IBOutlet NSPopover *elementPopover;
+
+}
+
+- (IBAction)showElementPopover:(id)sender;
 
 
 @end
