@@ -16,3 +16,7 @@
 
 
 @end
+
+
+static NSDictionary *elementIconNames;
+

@@ -260,6 +260,11 @@
 		CE8A28D610F5121F002422B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		CE8A28D710F5121F002422B5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E42FB307B3F0F600E4EEF1 /* CoreData.framework */; };
 		CE8A2A3A10F61713002422B5 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8A2A3910F61713002422B5 /* Quartz.framework */; };
+		E50238EA1577A533009072E2 /* Hierarchy Element Icon Experiment.png in Resources */ = {isa = PBXBuildFile; fileRef = E50238E61577A533009072E2 /* Hierarchy Element Icon Experiment.png */; };
+		E50238EB1577A533009072E2 /* Hierarchy Element Icon M.png in Resources */ = {isa = PBXBuildFile; fileRef = E50238E71577A533009072E2 /* Hierarchy Element Icon M.png */; };
+		E50238EC1577A533009072E2 /* Hierarchy Element Icon Session.png in Resources */ = {isa = PBXBuildFile; fileRef = E50238E81577A533009072E2 /* Hierarchy Element Icon Session.png */; };
+		E50238ED1577A533009072E2 /* Hierarchy Element Icon Step.png in Resources */ = {isa = PBXBuildFile; fileRef = E50238E91577A533009072E2 /* Hierarchy Element Icon Step.png */; };
+		E50239041577AEA2009072E2 /* Hierarchy Element Icon Unknown.png in Resources */ = {isa = PBXBuildFile; fileRef = E50239031577AEA2009072E2 /* Hierarchy Element Icon Unknown.png */; };
 		E52D722015627C9B002E73CB /* BAMainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E52D721F15627C9B002E73CB /* BAMainSplitViewController.m */; };
 		E55B2D7A154989FE007A0452 /* BARTSerialIOFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55B2D79154989FE007A0452 /* BARTSerialIOFramework.framework */; };
 		E55B2DA5154AC27B007A0452 /* libvia.1.6.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E55B2DA3154AC27B007A0452 /* libvia.1.6.0.dylib */; };
@@ -812,6 +817,11 @@
 		CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		CED191F510AC8A7B00FAFA4F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		CED1922910AC8AD600FAFA4F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
+		E50238E61577A533009072E2 /* Hierarchy Element Icon Experiment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon Experiment.png"; path = "../src/BARTMainApp/Hierarchy Element Icon Experiment.png"; sourceTree = "<group>"; };
+		E50238E71577A533009072E2 /* Hierarchy Element Icon M.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon M.png"; path = "../src/BARTMainApp/Hierarchy Element Icon M.png"; sourceTree = "<group>"; };
+		E50238E81577A533009072E2 /* Hierarchy Element Icon Session.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon Session.png"; path = "../src/BARTMainApp/Hierarchy Element Icon Session.png"; sourceTree = "<group>"; };
+		E50238E91577A533009072E2 /* Hierarchy Element Icon Step.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon Step.png"; path = "../src/BARTMainApp/Hierarchy Element Icon Step.png"; sourceTree = "<group>"; };
+		E50239031577AEA2009072E2 /* Hierarchy Element Icon Unknown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon Unknown.png"; path = "../src/BARTMainApp/Hierarchy Element Icon Unknown.png"; sourceTree = "<group>"; };
 		E52D721E15627C9B002E73CB /* BAMainSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAMainSplitViewController.h; sourceTree = "<group>"; };
 		E52D721F15627C9B002E73CB /* BAMainSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAMainSplitViewController.m; sourceTree = "<group>"; };
 		E54934E21339151E003264FE /* EDDataElementRealTimeLoader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EDDataElementRealTimeLoader.mm; sourceTree = "<group>"; };
@@ -1581,6 +1591,11 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E50239031577AEA2009072E2 /* Hierarchy Element Icon Unknown.png */,
+				E50238E61577A533009072E2 /* Hierarchy Element Icon Experiment.png */,
+				E50238E71577A533009072E2 /* Hierarchy Element Icon M.png */,
+				E50238E81577A533009072E2 /* Hierarchy Element Icon Session.png */,
+				E50238E91577A533009072E2 /* Hierarchy Element Icon Step.png */,
 				0040B9B1114173BD00A57967 /* BARTUnitTestSuite-Info.plist */,
 				8D1107310486CEB800E47090 /* BARTApplication-Info.plist */,
 				006E842E15206ED400C05466 /* ConfigBARTApplication.plist */,
@@ -2167,6 +2182,11 @@
 				004E8DB2140283AE00D70294 /* PresentationControl.xib in Resources */,
 				006E842F15206ED400C05466 /* ConfigBARTApplication.plist in Resources */,
 				E562D7F115615CF900DE5631 /* Luigi.xib in Resources */,
+				E50238EA1577A533009072E2 /* Hierarchy Element Icon Experiment.png in Resources */,
+				E50238EB1577A533009072E2 /* Hierarchy Element Icon M.png in Resources */,
+				E50238EC1577A533009072E2 /* Hierarchy Element Icon Session.png in Resources */,
+				E50238ED1577A533009072E2 /* Hierarchy Element Icon Step.png in Resources */,
+				E50239041577AEA2009072E2 /* Hierarchy Element Icon Unknown.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
