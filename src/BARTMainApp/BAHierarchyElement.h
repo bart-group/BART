@@ -27,6 +27,7 @@
 extern NSString * const BA_ELEMENT_PROPERTY_NAME;
 extern NSString * const BA_ELEMENT_PROPERTY_COMMENT;
 extern NSString * const BA_ELEMENT_PROPERTY_STATE;
+extern NSString * const BA_ELEMENT_PROPERTY_UUID;
 
 extern NSInteger  const BA_ELEMENT_STATE_UNKNOWN;
 extern NSInteger  const BA_ELEMENT_STATE_ERROR;

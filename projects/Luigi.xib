@@ -1394,7 +1394,7 @@
 																	<bytes key="NSWhite">MC41AA</bytes>
 																</object>
 															</object>
-															<double key="NSRowHeight">17</double>
+															<double key="NSRowHeight">20</double>
 															<int key="NSTvFlags">-767557632</int>
 															<reference key="NSDelegate"/>
 															<reference key="NSDataSource"/>
@@ -1458,7 +1458,7 @@
 											<reference key="NSVScroller" ref="718693022"/>
 											<reference key="NSHScroller" ref="592415802"/>
 											<reference key="NSContentView" ref="193884623"/>
-											<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
+											<bytes key="NSScrollAmts">QSAAAEEgAABBsAAAQbAAAA</bytes>
 										</object>
 									</array>
 									<string key="NSFrameSize">{194, 600}</string>
@@ -2305,7 +2305,7 @@
 										<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
 										<string>NeXT TIFF v4.0 pasteboard type</string>
 									</set>
-									<string key="NSFrame">{{3, 0}, {17, 17}}</string>
+									<string key="NSFrame">{{3, 3}, {17, 17}}</string>
 									<reference key="NSSuperview" ref="337709483"/>
 									<reference key="NSNextKeyView" ref="827078088"/>
 									<string key="NSReuseIdentifierKey">_NS:11</string>
@@ -2328,7 +2328,7 @@
 								<object class="NSTextField" id="827078088">
 									<reference key="NSNextResponder" ref="337709483"/>
 									<int key="NSvFlags">266</int>
-									<string key="NSFrame">{{25, 0}, {166, 17}}</string>
+									<string key="NSFrame">{{25, 3}, {166, 17}}</string>
 									<reference key="NSSuperview" ref="337709483"/>
 									<reference key="NSNextKeyView" ref="718693022"/>
 									<string key="NSReuseIdentifierKey">_NS:20</string>
@@ -2353,7 +2353,7 @@
 									</object>
 								</object>
 							</array>
-							<string key="NSFrame">{{1, 1}, {191, 17}}</string>
+							<string key="NSFrame">{{1, 1}, {191, 20}}</string>
 							<reference key="NSNextKeyView" ref="850394925"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 						</object>

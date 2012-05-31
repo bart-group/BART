@@ -8,6 +8,11 @@
 
 #import "BAHierarchyTreeController.h"
 
+#import "BASession.h"
+#import "BAExperiment.h"
+#import "BAStep.h"
+
+
 
 @implementation BAHierarchyTreeController
 
@@ -22,11 +27,39 @@
     
     result = [outlineView makeViewWithIdentifier:[tableColumn identifier] owner:self];
     result.textField.stringValue = [(BAHierarchyElement*)[item representedObject] name];
-    result.imageView.image = nil;
 
+    NSString *elementType = NSStringFromClass([(BAHierarchyElement*)[item representedObject] class]);
+    NSLog(@"Class for element [%@]: %@", [[item representedObject] description], elementType);
+    if([[elementIconNames allKeys] containsObject:elementType]) {
+        NSLog(@"element icon name: %@", [elementIconNames valueForKey:elementType]);
+        result.imageView.image = [NSImage imageNamed:[elementIconNames valueForKey:elementType]];
+    } else {
+        NSLog(@"element icon name: %@", [elementIconNames valueForKey:@"Unknown"]);
+        result.imageView.image = [NSImage imageNamed:[elementIconNames valueForKey:@"Unknown"]];
+    }
+    
+    
     result.backgroundStyle = NSBackgroundStyleLight;
     
     return result;
+}
+
+
+- (NSImage*)imageForBAHierarchyElement:(BAHierarchyElement*)element
+{
+    [element class];
+    return nil;
+}
+
++ (void)initialize
+{
+    NSLog(@"+ (void)initialize");
+    elementIconNames = [[NSDictionary alloc] initWithObjectsAndKeys:
+                        @"Hierarchy Element Icon Session.png",    NSStringFromClass([BASession class]),
+                        @"Hierarchy Element Icon Experiment.png", NSStringFromClass([BAExperiment class]),
+                        @"Hierarchy Element Icon Step.png",       NSStringFromClass([BAStep class]),
+                        @"Hierarchy Element Icon Unknown.png",    @"Unknown",
+                        nil];
 }
 
 @end

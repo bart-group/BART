@@ -9,6 +9,7 @@
 #import "BAHierarchyTree.h"
 #import "BASession.h"
 #import "BAExperiment.h"
+#import "BAStep.h"
 
 
 
@@ -85,6 +86,19 @@
         BAHierarchyElement* experiment_01 = [[BAExperiment alloc] initWithName:@"First Ever Experiment"];
         BAHierarchyElement* experiment_02 = [[BAExperiment alloc] initWithName:@"Experiment 01"];
         BAHierarchyElement* experiment_03 = [[BAExperiment alloc] initWithName:@"Experiment 02"];
+
+        BAHierarchyElement* step_01 = [[BAStep alloc] initWithName:@"Step 01"];
+        BAHierarchyElement* step_02 = [[BAStep alloc] initWithName:@"Step 02"];
+        BAHierarchyElement* step_03 = [[BAStep alloc] initWithName:@"Step 03"];
+        BAHierarchyElement* step_04 = [[BAStep alloc] initWithName:@"Step 04"];
+        BAHierarchyElement* step_05 = [[BAStep alloc] initWithName:@"Step 05"];
+
+        [[experiment_01 children] addObject:step_01];
+        [[experiment_01 children] addObject:step_02];
+        
+        [[experiment_02 children] addObject:step_03];
+        [[experiment_02 children] addObject:step_04];
+        [[experiment_02 children] addObject:step_05];
         
         [[session children] addObject:experiment_01];
         [[session children] addObject:experiment_02];

@@ -14,6 +14,7 @@
 NSString * const BA_ELEMENT_PROPERTY_NAME    = @"ba.element.property.name";
 NSString * const BA_ELEMENT_PROPERTY_COMMENT = @"ba.element.property.comment";
 NSString * const BA_ELEMENT_PROPERTY_STATE   = @"ba.element.property.state";
+NSString * const BA_ELEMENT_PROPERTY_UUID    = @"ba.element.property.uuid";
 
 NSInteger  const BA_ELEMENT_STATE_UNKNOWN        = 0x0;
 NSInteger  const BA_ELEMENT_STATE_ERROR          = 0x1;
@@ -23,13 +24,13 @@ NSInteger  const BA_ELEMENT_STATE_RUNNING        = 0x4;
 NSInteger  const BA_ELEMENT_STATE_FINISHED       = 0x5;
 
 
-uuid_t               uuid;
+NSString            *uuid;
 NSMutableDictionary *properties;
 NSMutableArray      *children;
 BAHierarchyElement  *parent;
 
 
-@synthesize properties=properties, parent=parent, children=children;
+@synthesize properties=properties, parent=parent, children=children, uuid=uuid;
 
 
 -(NSString*)name
@@ -49,9 +50,7 @@ BAHierarchyElement  *parent;
 
 -(NSString*)uuid
 {
-    uuid_string_t uuid_string;
-    uuid_unparse(uuid, uuid_string);
-    return [NSString stringWithUTF8String:uuid_string];
+    return [[self properties] objectForKey:BA_ELEMENT_PROPERTY_UUID];
 }
 
 -(id)init
@@ -70,10 +69,11 @@ BAHierarchyElement  *parent;
         properties = [[NSMutableDictionary alloc] init];
         children   = [[NSMutableArray alloc] init];
         parent     = nil;
+        uuid       = [[NSProcessInfo processInfo] globallyUniqueString];
         [properties setObject: name forKey: BA_ELEMENT_PROPERTY_NAME];
         [properties setObject: comment forKey: BA_ELEMENT_PROPERTY_COMMENT];
         [properties setObject: [NSNumber numberWithInteger: BA_ELEMENT_STATE_UNKNOWN] forKey: BA_ELEMENT_PROPERTY_STATE];
-        uuid_generate(uuid);
+        [properties setObject: uuid forKey: BA_ELEMENT_PROPERTY_UUID];
     }
     
     NSLog(@"Hierarchy Element created: %@", [self description]);
