@@ -51,6 +51,14 @@
     return nil;
 }
 
+- (IBAction)showElementPopover:(id)sender
+{
+    NSLog(@"Element Popover Trigger for: %@", [[self selectedObjects] objectAtIndex:0]);
+}
+
+
+
+
 + (void)initialize
 {
     NSLog(@"+ (void)initialize");
