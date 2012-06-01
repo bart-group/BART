@@ -45,17 +45,18 @@
 }
 
 
-- (NSImage*)imageForBAHierarchyElement:(BAHierarchyElement*)element
+- (IBAction)selectTreeElement:(id)sender
 {
-    [element class];
-    return nil;
+    NSLog(@"Tree Element Selection changed: %@", [[self selectedObjects] objectAtIndex:0]);
+    NSLog(@"index path [0]: %@", [[self selectionIndexPath] indexAtPosition:0]);
 }
 
-- (IBAction)showElementPopover:(id)sender
-{
-    NSLog(@"Element Popover Trigger for: %@", [[self selectedObjects] objectAtIndex:0]);
-}
 
+- (void)outlineViewSelectionDidChange:(NSNotification *)notification
+{
+    NSLog(@"outlineViewSelectionDidChange: %@", notification);
+    NSLog(@"selected item: %@", [[[[notification object] itemAtRow:[[notification object] selectedRow]] representedObject] description]);
+}
 
 
 

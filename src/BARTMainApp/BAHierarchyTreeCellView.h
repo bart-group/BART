@@ -8,6 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface BAHierarchyTreeCellView : NSTableCellView
+@interface BAHierarchyTreeCellView : NSTableCellView {
+    
+    
+}
+
+
+- (void)mouseDown:(NSEvent *)theEvent;
+- (void)mouseUp:(NSEvent *)theEvent;
 
 @end
