@@ -3691,7 +3691,7 @@
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"/Users/oliver/Development/ITK-install/include/ITK-4.1",
+					"/usr/local/include/ITK-4.1",
 					/opt/local/include,
 					/usr/include,
 					/usr/local/include/isis,
@@ -3753,7 +3753,7 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"/Users/oliver/Development/ITK-install/include/ITK-4.1",
+					"/usr/local/include/ITK-4.1",
 					/opt/local/include,
 					/usr/include,
 					/usr/local/include/isis,
