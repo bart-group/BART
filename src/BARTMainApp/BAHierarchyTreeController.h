@@ -18,7 +18,9 @@
 
 }
 
-- (IBAction)showElementPopover:(id)sender;
+- (IBAction)selectTreeElement:(id)sender;
+
+- (void)outlineViewSelectionDidChange:(NSNotification *)notification;
 
 
 @end
