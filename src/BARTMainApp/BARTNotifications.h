@@ -7,9 +7,11 @@
 //
 #import "Cocoa/Cocoa.h"
 
-extern NSString *const BARTDidLoadNextDataNotification;
-extern NSString *const BARTDidCalcNextResultNotification ;
-extern NSString *const BARTDidLoadBackgroundImageNotification;
-extern NSString *const BARTDidReceiveNextTriggerNotification;
+extern NSString * const BARTDidLoadNextDataNotification;
+extern NSString * const BARTDidCalcNextResultNotification ;
+extern NSString * const BARTDidLoadBackgroundImageNotification;
+extern NSString * const BARTDidReceiveNextTriggerNotification;
 extern NSString * const BARTTestBackroundNotification;
 extern NSString * const BARTScannerSentTerminusNotification;
+
+extern NSString * const BARTHierarchyTreeContextSelectedElementChangedNotification;

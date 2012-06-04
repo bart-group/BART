@@ -1,16 +1,18 @@
 /*
- *	BAHierarchyTree.m
+ *	BAHierarchyTreeContext.m
  *	BARTApplication
  *	
  *	Created by Torsten Schlumm on 5/15/12.
  *	Copyright 2012 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
  */
 
-#import "BAHierarchyTree.h"
+#import "BAHierarchyTreeContext.h"
+
 #import "BASession.h"
 #import "BAExperiment.h"
 #import "BAStep.h"
 
+#import "BARTNotifications.h"
 
 
 #pragma mark -
@@ -37,7 +39,7 @@
 //	Private Category
 //**************************************************
 
-@interface BAHierarchyTree()
+@interface BAHierarchyTreeContext()
 
 // Make any initialization of your class.
 - (id) initSingleton;
@@ -53,7 +55,7 @@
 //
 //**********************************************************************************************************
 
-@implementation BAHierarchyTree
+@implementation BAHierarchyTreeContext
 
 #pragma mark -
 #pragma mark Properties
@@ -62,12 +64,30 @@
 //**************************************************
 
 @synthesize rootElement;
-@synthesize sharedTree=_default;
+@synthesize selectedElement;
 
-- (BAHierarchyTree*)getSharedTree
+@synthesize sharedContext=_default;
+
+- (BAHierarchyTreeContext*)getSharedContext
 {
-    return [BAHierarchyTree instance];
+    return [BAHierarchyTreeContext instance];
 }
+
+
+
+- (void)setSelectedElement:(BAHierarchyElement *)newSelectedElement
+{
+    if(![[self selectedElement] equals:newSelectedElement]) {
+        [selectedElement release];
+        selectedElement = [newSelectedElement retain];
+    }
+    [[NSNotificationQueue defaultQueue] 
+      enqueueNotification:[NSNotification notificationWithName:BARTHierarchyTreeContextSelectedElementChangedNotification object:self] 
+             postingStyle:NSPostASAP];
+    NSLog(@"BAHierarchyTreeContext selected element changed: %@", [selectedElement description]);
+}
+
+
 
 #pragma mark -
 #pragma mark Constructors
@@ -120,10 +140,10 @@
 //	Self Public Methods
 //**************************************************
 
-+ (BAHierarchyTree *) instance
++ (BAHierarchyTreeContext *) instance
 {
 	// Persistent instance.
-	static BAHierarchyTree *_default = nil;
+	static BAHierarchyTreeContext *_default = nil;
 	
 	// Small optimization to avoid wasting time after the
 	// singleton being initialized.
@@ -138,7 +158,7 @@
 	static dispatch_once_t safer;
 	dispatch_once(&safer, ^(void)
 				  {
-					  _default = [[BAHierarchyTree alloc] initSingleton];
+					  _default = [[BAHierarchyTreeContext alloc] initSingleton];
 				  });
 #else
 	// Allocates once using the old approach, it's slower.
@@ -149,7 +169,7 @@
 		// that only one thread will access this point at a time.
 		if (_default == nil)
 		{
-			_default = [[BAHierarchyTree alloc] initSingleton];
+			_default = [[BAHierarchyTreeContext alloc] initSingleton];
 		}
 	}
 #endif

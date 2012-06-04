@@ -11,6 +11,7 @@
 #import "BASession.h"
 #import "BAExperiment.h"
 #import "BAStep.h"
+#import "BAHierarchyTreeContext.h"
 
 
 
@@ -56,6 +57,8 @@
 {
     NSLog(@"outlineViewSelectionDidChange: %@", notification);
     NSLog(@"selected item: %@", [[[[notification object] itemAtRow:[[notification object] selectedRow]] representedObject] description]);
+    
+    [[BAHierarchyTreeContext instance] setSelectedElement:[[[notification object] itemAtRow:[[notification object] selectedRow]] representedObject]];
 }
 
 

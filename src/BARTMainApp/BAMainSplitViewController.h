@@ -10,10 +10,15 @@
 
 @interface BAMainSplitViewController : NSViewController <NSSplitViewDelegate> {
 
+    
+    IBOutlet NSView *currentElementConfigView;
+    IBOutlet NSView *CurrentElementRunView;
 
 }
 
-- (void)splitViewWillResizeSubviews:(NSNotification *)notification;
+
+- (void)treeSelectionChanged:(NSNotification*)notification;
+
 
 @end
 

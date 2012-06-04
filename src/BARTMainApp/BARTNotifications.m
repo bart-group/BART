@@ -13,3 +13,7 @@ NSString * const BARTDidLoadBackgroundImageNotification = @"BARTLoadedBackground
 NSString * const BARTDidReceiveNextTriggerNotification = @"BARTNextTriggerNotification";
 NSString * const BARTTestBackroundNotification = @"BARTTestBackroundNotification";
 NSString * const BARTScannerSentTerminusNotification = @"BARTScannerSentTerminusNotification";
+
+
+NSString * const BARTHierarchyTreeContextSelectedElementChangedNotification = @"BARTHierarchyTreeContextSelectedElementChangedNotification";
+
