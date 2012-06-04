@@ -16,9 +16,9 @@
 			<string>NSTableCellView</string>
 			<string>NSSplitView</string>
 			<string>NSImageView</string>
+			<string>NSImageCell</string>
 			<string>NSCustomView</string>
 			<string>NSViewController</string>
-			<string>NSImageCell</string>
 			<string>NSTextField</string>
 			<string>NSWindowTemplate</string>
 			<string>NSTextFieldCell</string>
@@ -27,8 +27,8 @@
 			<string>NSOutlineView</string>
 			<string>NSView</string>
 			<string>NSScrollView</string>
-			<string>NSTabViewItem</string>
 			<string>NSPopover</string>
+			<string>NSTabViewItem</string>
 			<string>NSScroller</string>
 			<string>NSMenuItem</string>
 			<string>NSTabView</string>
@@ -1395,7 +1395,7 @@
 																	<bytes key="NSWhite">MC41AA</bytes>
 																</object>
 															</object>
-															<double key="NSRowHeight">14</double>
+															<double key="NSRowHeight">20</double>
 															<int key="NSTvFlags">1379926016</int>
 															<reference key="NSDelegate"/>
 															<reference key="NSDataSource"/>
@@ -1474,58 +1474,67 @@
 									<reference key="NSNextResponder" ref="170394127"/>
 									<int key="NSvFlags">256</int>
 									<array class="NSMutableArray" key="NSSubviews">
-										<object class="NSTabView" id="650468741">
+										<object class="NSTabView" id="591172731">
 											<reference key="NSNextResponder" ref="357893913"/>
 											<int key="NSvFlags">18</int>
 											<string key="NSFrameSize">{829, 600}</string>
 											<reference key="NSSuperview" ref="357893913"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="823098138"/>
+											<reference key="NSNextKeyView" ref="851655236"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<array class="NSMutableArray" key="NSTabViewItems">
-												<object class="NSTabViewItem" id="986980347">
-													<object class="NSView" key="NSView" id="263781863">
+												<object class="NSTabViewItem" id="325600575">
+													<string key="NSIdentifier">1</string>
+													<object class="NSView" key="NSView" id="369492691">
 														<nil key="NSNextResponder"/>
 														<int key="NSvFlags">256</int>
-														<string key="NSFrame">{{10, 25}, {809, 562}}</string>
-														<reference key="NSNextKeyView" ref="650468741"/>
+														<string key="NSFrame">{{10, 33}, {809, 554}}</string>
+														<reference key="NSNextKeyView"/>
+														<string key="NSReuseIdentifierKey">_NS:11</string>
 													</object>
 													<string key="NSLabel">Config</string>
-													<object class="NSColor" key="NSColor" id="1067960862">
+													<object class="NSColor" key="NSColor" id="983731839">
 														<int key="NSColorSpace">6</int>
 														<string key="NSCatalogName">System</string>
 														<string key="NSColorName">controlColor</string>
 														<reference key="NSColor" ref="209654429"/>
 													</object>
-													<reference key="NSTabView" ref="650468741"/>
+													<reference key="NSTabView" ref="591172731"/>
 												</object>
-												<object class="NSTabViewItem" id="641282556">
-													<object class="NSView" key="NSView" id="823098138">
-														<reference key="NSNextResponder" ref="650468741"/>
+												<object class="NSTabViewItem" id="702684414">
+													<string key="NSIdentifier">2</string>
+													<object class="NSView" key="NSView" id="851655236">
+														<reference key="NSNextResponder" ref="591172731"/>
 														<int key="NSvFlags">256</int>
-														<string key="NSFrame">{{10, 25}, {809, 562}}</string>
-														<reference key="NSSuperview" ref="650468741"/>
+														<string key="NSFrame">{{10, 33}, {809, 554}}</string>
+														<reference key="NSSuperview" ref="591172731"/>
 														<reference key="NSWindow"/>
 														<reference key="NSNextKeyView"/>
+														<string key="NSReuseIdentifierKey">_NS:28</string>
 													</object>
 													<string key="NSLabel">Run</string>
-													<reference key="NSColor" ref="1067960862"/>
-													<reference key="NSTabView" ref="650468741"/>
+													<reference key="NSColor" ref="983731839"/>
+													<reference key="NSTabView" ref="591172731"/>
 												</object>
 											</array>
-											<reference key="NSSelectedTabViewItem" ref="641282556"/>
-											<reference key="NSFont" ref="26"/>
-											<int key="NSTvFlags">134217728</int>
+											<reference key="NSSelectedTabViewItem" ref="702684414"/>
+											<object class="NSFont" key="NSFont">
+												<string key="NSName">LucidaGrande</string>
+												<double key="NSSize">13</double>
+												<int key="NSfFlags">1044</int>
+											</object>
+											<int key="NSTvFlags">0</int>
+											<bool key="NSAllowTruncatedLabels">YES</bool>
 											<bool key="NSDrawsBackground">YES</bool>
 											<array class="NSMutableArray" key="NSSubviews">
-												<reference ref="823098138"/>
+												<reference ref="851655236"/>
 											</array>
 										</object>
 									</array>
 									<string key="NSFrame">{{195, 0}, {829, 600}}</string>
 									<reference key="NSSuperview" ref="170394127"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView" ref="650468741"/>
+									<reference key="NSNextKeyView" ref="591172731"/>
 									<string key="NSReuseIdentifierKey">_NS:13</string>
 									<string key="NSClassName">NSView</string>
 								</object>
@@ -1564,7 +1573,7 @@
 				<string key="NSTreeContentCountKey">childCount</string>
 			</object>
 			<object class="NSCustomObject" id="179864390">
-				<string key="NSClassName">BAHierarchyTree</string>
+				<string key="NSClassName">BAHierarchyTreeContext</string>
 			</object>
 			<object class="NSViewController" id="504778456"/>
 			<object class="NSPopover" id="457059193">
@@ -2261,20 +2270,20 @@
 					<int key="connectionID">863</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentObject: sharedTree.rootElement</string>
-						<reference key="source" ref="420403262"/>
-						<reference key="destination" ref="179864390"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="420403262"/>
-							<reference key="NSDestination" ref="179864390"/>
-							<string key="NSLabel">contentObject: sharedTree.rootElement</string>
-							<string key="NSBinding">contentObject</string>
-							<string key="NSKeyPath">sharedTree.rootElement</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">currentElementConfigView</string>
+						<reference key="source" ref="1018137745"/>
+						<reference key="destination" ref="369492691"/>
 					</object>
-					<int key="connectionID">882</int>
+					<int key="connectionID">1041</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">CurrentElementRunView</string>
+						<reference key="source" ref="1018137745"/>
+						<reference key="destination" ref="851655236"/>
+					</object>
+					<int key="connectionID">1042</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -2285,12 +2294,20 @@
 					<int key="connectionID">1011</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">selectTreeElement:</string>
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">contentObject: sharedContext.rootElement</string>
 						<reference key="source" ref="420403262"/>
-						<reference key="destination" ref="807777723"/>
+						<reference key="destination" ref="179864390"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="420403262"/>
+							<reference key="NSDestination" ref="179864390"/>
+							<string key="NSLabel">contentObject: sharedContext.rootElement</string>
+							<string key="NSBinding">contentObject</string>
+							<string key="NSKeyPath">sharedContext.rootElement</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
 					</object>
-					<int key="connectionID">1014</int>
+					<int key="connectionID">882</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -2379,7 +2396,7 @@
 										<reference key="NSSupport" ref="26"/>
 										<string key="NSCellIdentifier">_NS:20</string>
 										<reference key="NSControlView" ref="827078088"/>
-										<reference key="NSBackgroundColor" ref="1067960862"/>
+										<reference key="NSBackgroundColor" ref="983731839"/>
 										<object class="NSColor" key="NSTextColor">
 											<int key="NSColorSpace">1</int>
 											<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -3444,44 +3461,9 @@
 						<int key="objectID">825</int>
 						<reference key="object" ref="357893913"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="650468741"/>
+							<reference ref="591172731"/>
 						</array>
 						<reference key="parent" ref="170394127"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">827</int>
-						<reference key="object" ref="650468741"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="986980347"/>
-							<reference ref="641282556"/>
-						</array>
-						<reference key="parent" ref="357893913"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">832</int>
-						<reference key="object" ref="986980347"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="263781863"/>
-						</array>
-						<reference key="parent" ref="650468741"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">833</int>
-						<reference key="object" ref="263781863"/>
-						<reference key="parent" ref="986980347"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">834</int>
-						<reference key="object" ref="641282556"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="823098138"/>
-						</array>
-						<reference key="parent" ref="650468741"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">835</int>
-						<reference key="object" ref="823098138"/>
-						<reference key="parent" ref="641282556"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">858</int>
@@ -3591,6 +3573,41 @@
 						<reference key="object" ref="249770303"/>
 						<reference key="parent" ref="0"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1036</int>
+						<reference key="object" ref="591172731"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="325600575"/>
+							<reference ref="702684414"/>
+						</array>
+						<reference key="parent" ref="357893913"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1037</int>
+						<reference key="object" ref="325600575"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="369492691"/>
+						</array>
+						<reference key="parent" ref="591172731"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1038</int>
+						<reference key="object" ref="702684414"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="851655236"/>
+						</array>
+						<reference key="parent" ref="591172731"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1039</int>
+						<reference key="object" ref="851655236"/>
+						<reference key="parent" ref="702684414"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1040</int>
+						<reference key="object" ref="369492691"/>
+						<reference key="parent" ref="325600575"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3601,6 +3618,11 @@
 				<string key="1006.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1008.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="103.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1036.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1037.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1038.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1039.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1040.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="106.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="111.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="112.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3756,20 +3778,7 @@
 				<string key="824.userInterfaceItemIdentifier">HierarchyTreeView</string>
 				<string key="825.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="825.userInterfaceItemIdentifier">ContentView</string>
-				<object class="NSMutableDictionary" key="827.IBAttributePlaceholdersKey">
-					<string key="NS.key.0">InitialTabViewItem</string>
-					<object class="IBInitialTabViewItemAttribute" key="NS.object.0">
-						<string key="name">InitialTabViewItem</string>
-						<reference key="object" ref="650468741"/>
-						<reference key="initialTabViewItem" ref="986980347"/>
-					</object>
-				</object>
-				<string key="827.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="83.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="832.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="833.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="834.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="835.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="858.CustomClassName">BAMainSplitViewController</string>
 				<string key="858.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="865.CustomClassName">BAHierarchyTreeController</string>
@@ -3798,24 +3807,24 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1035</int>
+			<int key="maxID">1042</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">BAHierarchyTree</string>
-					<string key="superclassName">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/BAHierarchyTree.h</string>
-					</object>
-				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">BAHierarchyTreeCellView</string>
 					<string key="superclassName">NSTableCellView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/BAHierarchyTreeCellView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BAHierarchyTreeContext</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BAHierarchyTreeContext.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -3851,6 +3860,20 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">BAMainSplitViewController</string>
 					<string key="superclassName">NSViewController</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="CurrentElementRunView">NSView</string>
+						<string key="currentElementConfigView">NSView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="CurrentElementRunView">
+							<string key="name">CurrentElementRunView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="currentElementConfigView">
+							<string key="name">currentElementConfigView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/BAMainSplitViewController.h</string>

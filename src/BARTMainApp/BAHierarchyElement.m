@@ -16,6 +16,9 @@ NSString * const BA_ELEMENT_PROPERTY_COMMENT = @"ba.element.property.comment";
 NSString * const BA_ELEMENT_PROPERTY_STATE   = @"ba.element.property.state";
 NSString * const BA_ELEMENT_PROPERTY_UUID    = @"ba.element.property.uuid";
 
+NSString * const BA_ELEMENT_PROPERTY_CONFIGURATION_UI = @"ba.element.property.configuration.ui";
+NSString * const BA_ELEMENT_PROPERTY_EXECUTION_UI     = @"ba.element.property.execution.ui";
+
 NSInteger  const BA_ELEMENT_STATE_UNKNOWN        = 0x0;
 NSInteger  const BA_ELEMENT_STATE_ERROR          = 0x1;
 NSInteger  const BA_ELEMENT_STATE_NOT_CONFIGURED = 0x2;
@@ -89,6 +92,11 @@ BAHierarchyElement  *parent;
 -(BOOL)isLeaf
 {
     return (children == nil || [children count] == 0);
+}
+
+-(BOOL)equals:(BAHierarchyElement*)otherElement
+{
+    return ([[self uuid] compare:[otherElement uuid]] == NSOrderedSame);
 }
 
 -(NSUInteger)childCount

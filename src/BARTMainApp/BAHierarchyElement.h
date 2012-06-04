@@ -29,6 +29,10 @@ extern NSString * const BA_ELEMENT_PROPERTY_COMMENT;
 extern NSString * const BA_ELEMENT_PROPERTY_STATE;
 extern NSString * const BA_ELEMENT_PROPERTY_UUID;
 
+extern NSString * const BA_ELEMENT_PROPERTY_CONFIGURATION_UI;
+extern NSString * const BA_ELEMENT_PROPERTY_EXECUTION_UI;
+
+
 extern NSInteger  const BA_ELEMENT_STATE_UNKNOWN;
 extern NSInteger  const BA_ELEMENT_STATE_ERROR;
 extern NSInteger  const BA_ELEMENT_STATE_NOT_CONFIGURED;
@@ -43,6 +47,8 @@ extern NSInteger  const BA_ELEMENT_STATE_FINISHED;
 
 -(BOOL)isRoot;
 -(BOOL)isLeaf;
+
+-(BOOL)equals: (BAHierarchyElement*)otherElement;
 
 -(NSString*)description;
 

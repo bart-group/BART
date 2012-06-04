@@ -283,7 +283,7 @@
 		E562D7EC156158AD00DE5631 /* BAExperiment.m in Sources */ = {isa = PBXBuildFile; fileRef = E562D7EB156158AC00DE5631 /* BAExperiment.m */; };
 		E562D7EF156158DC00DE5631 /* BAStep.m in Sources */ = {isa = PBXBuildFile; fileRef = E562D7EE156158DC00DE5631 /* BAStep.m */; };
 		E562D7F115615CF900DE5631 /* Luigi.xib in Resources */ = {isa = PBXBuildFile; fileRef = E562D7F015615CF900DE5631 /* Luigi.xib */; };
-		E56CFEB71562D0F100CA9CC4 /* BAHierarchyTree.m in Sources */ = {isa = PBXBuildFile; fileRef = E56CFEB61562D0F100CA9CC4 /* BAHierarchyTree.m */; };
+		E56CFEB71562D0F100CA9CC4 /* BAHierarchyTreeContext.m in Sources */ = {isa = PBXBuildFile; fileRef = E56CFEB61562D0F100CA9CC4 /* BAHierarchyTreeContext.m */; };
 		E56CFEBE1563D6D000CA9CC4 /* BAHierarchyTreeCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = E56CFEBD1563D6D000CA9CC4 /* BAHierarchyTreeCellView.m */; };
 		E5A5B9CC15497FE700A7AA4F /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AF13E805FF00169848 /* CLETUS.dylib */; };
 		E5A5B9CD15497FE700A7AA4F /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
@@ -838,8 +838,8 @@
 		E562D7ED156158DC00DE5631 /* BAStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAStep.h; sourceTree = "<group>"; };
 		E562D7EE156158DC00DE5631 /* BAStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAStep.m; sourceTree = "<group>"; };
 		E562D7F015615CF900DE5631 /* Luigi.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Luigi.xib; sourceTree = "<group>"; };
-		E56CFEB51562D0F100CA9CC4 /* BAHierarchyTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyTree.h; sourceTree = "<group>"; };
-		E56CFEB61562D0F100CA9CC4 /* BAHierarchyTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTree.m; sourceTree = "<group>"; };
+		E56CFEB51562D0F100CA9CC4 /* BAHierarchyTreeContext.h */ = {isa = PBXFileReference; fileEncoding = 4; path = BAHierarchyTreeContext.h; sourceTree = "<group>"; };
+		E56CFEB61562D0F100CA9CC4 /* BAHierarchyTreeContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeContext.m; sourceTree = "<group>"; };
 		E56CFEBC1563D6D000CA9CC4 /* BAHierarchyTreeCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyTreeCellView.h; sourceTree = "<group>"; };
 		E56CFEBD1563D6D000CA9CC4 /* BAHierarchyTreeCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeCellView.m; sourceTree = "<group>"; };
 		E5D075371562B4C60058791E /* BAHierarchyTreeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyTreeController.h; sourceTree = "<group>"; };
@@ -1344,8 +1344,8 @@
 				E562D7EB156158AC00DE5631 /* BAExperiment.m */,
 				E562D7ED156158DC00DE5631 /* BAStep.h */,
 				E562D7EE156158DC00DE5631 /* BAStep.m */,
-				E56CFEB51562D0F100CA9CC4 /* BAHierarchyTree.h */,
-				E56CFEB61562D0F100CA9CC4 /* BAHierarchyTree.m */,
+				E56CFEB51562D0F100CA9CC4 /* BAHierarchyTreeContext.h */,
+				E56CFEB61562D0F100CA9CC4 /* BAHierarchyTreeContext.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -2527,7 +2527,7 @@
 				E562D7EF156158DC00DE5631 /* BAStep.m in Sources */,
 				E52D722015627C9B002E73CB /* BAMainSplitViewController.m in Sources */,
 				E5D075391562B4C60058791E /* BAHierarchyTreeController.m in Sources */,
-				E56CFEB71562D0F100CA9CC4 /* BAHierarchyTree.m in Sources */,
+				E56CFEB71562D0F100CA9CC4 /* BAHierarchyTreeContext.m in Sources */,
 				E56CFEBE1563D6D000CA9CC4 /* BAHierarchyTreeCellView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
