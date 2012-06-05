@@ -1,5 +1,5 @@
 //
-//  BAMainSplitViewController.h
+//  BAElementContentViewController.h
 //  BARTApplication
 //
 //  Created by Torsten Schlumm on 5/15/12.
@@ -8,11 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface BAMainSplitViewController : NSViewController <NSSplitViewDelegate> {
+@interface BAElementContentViewController : NSViewController {
 
     
-    IBOutlet NSView *currentElementConfigView;
-    IBOutlet NSView *CurrentElementRunView;
 
 }
 
