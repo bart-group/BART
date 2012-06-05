@@ -12,6 +12,8 @@
 #import "BAExperiment.h"
 #import "BAStep.h"
 
+#import "BAExampleStep.h"
+
 #import "BARTNotifications.h"
 
 
@@ -119,11 +121,19 @@
         [[experiment_02 children] addObject:step_03];
         [[experiment_02 children] addObject:step_04];
         [[experiment_02 children] addObject:step_05];
-        
+
         [[session children] addObject:experiment_01];
         [[session children] addObject:experiment_02];
         [[session children] addObject:experiment_03];
-	}
+
+
+        BAHierarchyElement* exampleStep = [[BAStep alloc] initWithName:@"Example Step Impl."];
+        [[exampleStep properties] setValue:@"BAExampleStepConfigView" forKey:BA_ELEMENT_PROPERTY_CONFIGURATION_UI];
+        [[experiment_02 children] addObject:exampleStep];
+        
+
+    
+    }
 	
 	return self;
 }
