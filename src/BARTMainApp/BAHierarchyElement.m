@@ -16,8 +16,11 @@ NSString * const BA_ELEMENT_PROPERTY_COMMENT = @"ba.element.property.comment";
 NSString * const BA_ELEMENT_PROPERTY_STATE   = @"ba.element.property.state";
 NSString * const BA_ELEMENT_PROPERTY_UUID    = @"ba.element.property.uuid";
 
-NSString * const BA_ELEMENT_PROPERTY_CONFIGURATION_UI = @"ba.element.property.configuration.ui";
-NSString * const BA_ELEMENT_PROPERTY_EXECUTION_UI     = @"ba.element.property.execution.ui";
+NSString * const BA_ELEMENT_PROPERTY_CONFIGURATION_UI_NAME = @"ba.element.property.configuration.ui.name";
+NSString * const BA_ELEMENT_PROPERTY_EXECUTION_UI_NAME     = @"ba.element.property.execution.ui.name";
+
+NSString * const BA_ELEMENT_PROPERTY_CONFIGURATION_UI_CONTROLLER = @"ba.element.property.configuration.ui.controller";
+NSString * const BA_ELEMENT_PROPERTY_EXECUTION_UI_CONTROLLER     = @"ba.element.property.execution.ui.controller";
 
 NSInteger  const BA_ELEMENT_STATE_UNKNOWN        = 0x0;
 NSInteger  const BA_ELEMENT_STATE_ERROR          = 0x1;
