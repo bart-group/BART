@@ -1,5 +1,5 @@
 //
-//  BAElementContentViewController.h
+//  BAHierarchyElementContentViewController.h
 //  BARTApplication
 //
 //  Created by Torsten Schlumm on 5/15/12.
@@ -8,9 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface BAElementContentViewController : NSViewController {
+@interface BAHierarchyElementContentViewController : NSViewController {
 
-    
+    IBOutlet NSView* emptyElementContentView;
 
 }
 

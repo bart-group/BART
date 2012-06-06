@@ -128,7 +128,7 @@
 
 
         BAHierarchyElement* exampleStep = [[BAStep alloc] initWithName:@"Example Step Impl."];
-        [[exampleStep properties] setValue:@"BAExampleStepConfigView" forKey:BA_ELEMENT_PROPERTY_CONFIGURATION_UI];
+        [[exampleStep properties] setValue:@"BAExampleStepConfigView" forKey:BA_ELEMENT_PROPERTY_CONFIGURATION_UI_NAME];
         [[experiment_02 children] addObject:exampleStep];
         
 

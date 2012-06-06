@@ -265,11 +265,13 @@
 		E50238EC1577A533009072E2 /* Hierarchy Element Icon Session.png in Resources */ = {isa = PBXBuildFile; fileRef = E50238E81577A533009072E2 /* Hierarchy Element Icon Session.png */; };
 		E50238ED1577A533009072E2 /* Hierarchy Element Icon Step.png in Resources */ = {isa = PBXBuildFile; fileRef = E50238E91577A533009072E2 /* Hierarchy Element Icon Step.png */; };
 		E50239041577AEA2009072E2 /* Hierarchy Element Icon Unknown.png in Resources */ = {isa = PBXBuildFile; fileRef = E50239031577AEA2009072E2 /* Hierarchy Element Icon Unknown.png */; };
-		E52D722015627C9B002E73CB /* BAElementContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E52D721F15627C9B002E73CB /* BAElementContentViewController.m */; };
+		E52D722015627C9B002E73CB /* BAHierarchyElementContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E52D721F15627C9B002E73CB /* BAHierarchyElementContentViewController.m */; };
 		E54B814C157E3F580029ECC4 /* BAHierarchyElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54B814B157E3F580029ECC4 /* BAHierarchyElementViewController.m */; };
 		E54B8151157E40030029ECC4 /* BAExampleStep.m in Sources */ = {isa = PBXBuildFile; fileRef = E54B8150157E40030029ECC4 /* BAExampleStep.m */; };
 		E54B8156157E40600029ECC4 /* BAExampleStepConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54B8154157E40600029ECC4 /* BAExampleStepConfigViewController.m */; };
 		E54B8157157E40600029ECC4 /* BAExampleStepConfigView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E54B8155157E40600029ECC4 /* BAExampleStepConfigView.xib */; };
+		E54B8159157F751D0029ECC4 /* BAEmptyElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E54B8158157F751D0029ECC4 /* BAEmptyElementView.xib */; };
+		E54B815B157F76AA0029ECC4 /* Luigi.png in Resources */ = {isa = PBXBuildFile; fileRef = E54B815A157F76AA0029ECC4 /* Luigi.png */; };
 		E55B2D7A154989FE007A0452 /* BARTSerialIOFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55B2D79154989FE007A0452 /* BARTSerialIOFramework.framework */; };
 		E55B2DA5154AC27B007A0452 /* libvia.1.6.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E55B2DA3154AC27B007A0452 /* libvia.1.6.0.dylib */; };
 		E55B2DA7154AC27B007A0452 /* libvia.1.6.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E55B2DA3154AC27B007A0452 /* libvia.1.6.0.dylib */; };
@@ -826,8 +828,8 @@
 		E50238E81577A533009072E2 /* Hierarchy Element Icon Session.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon Session.png"; path = "../src/BARTMainApp/Hierarchy Element Icon Session.png"; sourceTree = "<group>"; };
 		E50238E91577A533009072E2 /* Hierarchy Element Icon Step.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon Step.png"; path = "../src/BARTMainApp/Hierarchy Element Icon Step.png"; sourceTree = "<group>"; };
 		E50239031577AEA2009072E2 /* Hierarchy Element Icon Unknown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon Unknown.png"; path = "../src/BARTMainApp/Hierarchy Element Icon Unknown.png"; sourceTree = "<group>"; };
-		E52D721E15627C9B002E73CB /* BAElementContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = BAElementContentViewController.h; sourceTree = "<group>"; };
-		E52D721F15627C9B002E73CB /* BAElementContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAElementContentViewController.m; sourceTree = "<group>"; };
+		E52D721E15627C9B002E73CB /* BAHierarchyElementContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = BAHierarchyElementContentViewController.h; sourceTree = "<group>"; };
+		E52D721F15627C9B002E73CB /* BAHierarchyElementContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyElementContentViewController.m; sourceTree = "<group>"; };
 		E54934E21339151E003264FE /* EDDataElementRealTimeLoader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EDDataElementRealTimeLoader.mm; sourceTree = "<group>"; };
 		E54B814A157E3F580029ECC4 /* BAHierarchyElementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyElementViewController.h; sourceTree = "<group>"; };
 		E54B814B157E3F580029ECC4 /* BAHierarchyElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyElementViewController.m; sourceTree = "<group>"; };
@@ -836,6 +838,8 @@
 		E54B8153157E40600029ECC4 /* BAExampleStepConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAExampleStepConfigViewController.h; sourceTree = "<group>"; };
 		E54B8154157E40600029ECC4 /* BAExampleStepConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAExampleStepConfigViewController.m; sourceTree = "<group>"; };
 		E54B8155157E40600029ECC4 /* BAExampleStepConfigView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BAExampleStepConfigView.xib; sourceTree = "<group>"; };
+		E54B8158157F751D0029ECC4 /* BAEmptyElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BAEmptyElementView.xib; sourceTree = "<group>"; };
+		E54B815A157F76AA0029ECC4 /* Luigi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Luigi.png; path = ../src/BARTMainApp/Luigi.png; sourceTree = "<group>"; };
 		E55B2D79154989FE007A0452 /* BARTSerialIOFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BARTSerialIOFramework.framework; path = ../../DerivedData/BartGUI/Build/Products/Debug/BARTSerialIOFramework.framework; sourceTree = "<group>"; };
 		E55B2DA3154AC27B007A0452 /* libvia.1.6.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvia.1.6.0.dylib; path = /usr/lib/libvia.1.6.0.dylib; sourceTree = "<absolute>"; };
 		E55B2DA4154AC27B007A0452 /* libviaio.1.6.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libviaio.1.6.0.dylib; path = /usr/lib/libviaio.1.6.0.dylib; sourceTree = "<absolute>"; };
@@ -1317,8 +1321,8 @@
 			children = (
 				0040B7EF1141470400A57967 /* BARTApplicationAppDelegate.h */,
 				0040B7F01141470400A57967 /* BARTApplicationAppDelegate.m */,
-				E52D721E15627C9B002E73CB /* BAElementContentViewController.h */,
-				E52D721F15627C9B002E73CB /* BAElementContentViewController.m */,
+				E52D721E15627C9B002E73CB /* BAHierarchyElementContentViewController.h */,
+				E52D721F15627C9B002E73CB /* BAHierarchyElementContentViewController.m */,
 				E5D075371562B4C60058791E /* BAHierarchyTreeController.h */,
 				E5D075381562B4C60058791E /* BAHierarchyTreeController.m */,
 				E54B814A157E3F580029ECC4 /* BAHierarchyElementViewController.h */,
@@ -1610,6 +1614,7 @@
 				E50238E71577A533009072E2 /* Hierarchy Element Icon M.png */,
 				E50238E81577A533009072E2 /* Hierarchy Element Icon Session.png */,
 				E50238E91577A533009072E2 /* Hierarchy Element Icon Step.png */,
+				E54B815A157F76AA0029ECC4 /* Luigi.png */,
 				0040B9B1114173BD00A57967 /* BARTUnitTestSuite-Info.plist */,
 				8D1107310486CEB800E47090 /* BARTApplication-Info.plist */,
 				006E842E15206ED400C05466 /* ConfigBARTApplication.plist */,
@@ -1676,6 +1681,7 @@
 		E54B814E157E3FB50029ECC4 /* Element Implementations */ = {
 			isa = PBXGroup;
 			children = (
+				E54B8158157F751D0029ECC4 /* BAEmptyElementView.xib */,
 				E54B8152157E40170029ECC4 /* Example Step */,
 			);
 			name = "Element Implementations";
@@ -2222,6 +2228,8 @@
 				E50238ED1577A533009072E2 /* Hierarchy Element Icon Step.png in Resources */,
 				E50239041577AEA2009072E2 /* Hierarchy Element Icon Unknown.png in Resources */,
 				E54B8157157E40600029ECC4 /* BAExampleStepConfigView.xib in Resources */,
+				E54B8159157F751D0029ECC4 /* BAEmptyElementView.xib in Resources */,
+				E54B815B157F76AA0029ECC4 /* Luigi.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2560,7 +2568,7 @@
 				E562D7E91561586700DE5631 /* BASession.m in Sources */,
 				E562D7EC156158AD00DE5631 /* BAExperiment.m in Sources */,
 				E562D7EF156158DC00DE5631 /* BAStep.m in Sources */,
-				E52D722015627C9B002E73CB /* BAElementContentViewController.m in Sources */,
+				E52D722015627C9B002E73CB /* BAHierarchyElementContentViewController.m in Sources */,
 				E5D075391562B4C60058791E /* BAHierarchyTreeController.m in Sources */,
 				E56CFEB71562D0F100CA9CC4 /* BAHierarchyTreeContext.m in Sources */,
 				E56CFEBE1563D6D000CA9CC4 /* BAHierarchyTreeCellView.m in Sources */,
