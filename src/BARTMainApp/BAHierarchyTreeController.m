@@ -29,16 +29,20 @@
     result = [outlineView makeViewWithIdentifier:[tableColumn identifier] owner:self];
     result.textField.stringValue = [(BAHierarchyElement*)[item representedObject] name];
 
-    NSString *elementType = NSStringFromClass([(BAHierarchyElement*)[item representedObject] class]);
-    NSLog(@"Class for element [%@]: %@", [[item representedObject] description], elementType);
-    if([[elementIconNames allKeys] containsObject:elementType]) {
-        NSLog(@"element icon name: %@", [elementIconNames valueForKey:elementType]);
-        result.imageView.image = [NSImage imageNamed:[elementIconNames valueForKey:elementType]];
+    Class elementClass = [(BAHierarchyElement*)[item representedObject] class];
+    NSString *elementType;
+    if([elementClass isSubclassOfClass:[BASession class]]) {
+        elementType = NSStringFromClass([BASession class]);
+    } else if([elementClass isSubclassOfClass:[BAExperiment class]]) {
+        elementType = NSStringFromClass([BAExperiment class]);
+    } else if([elementClass isSubclassOfClass:[BAStep class]]) {
+        elementType = NSStringFromClass([BAStep class]);
+
     } else {
-        NSLog(@"element icon name: %@", [elementIconNames valueForKey:@"Unknown"]);
-        result.imageView.image = [NSImage imageNamed:[elementIconNames valueForKey:@"Unknown"]];
+        elementType = @"Unknown";
     }
     
+    result.imageView.image = [NSImage imageNamed:[elementIconNames valueForKey:elementType]];
     
     result.backgroundStyle = NSBackgroundStyleLight;
     
