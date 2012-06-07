@@ -37,7 +37,6 @@
         elementType = NSStringFromClass([BAExperiment class]);
     } else if([elementClass isSubclassOfClass:[BAStep class]]) {
         elementType = NSStringFromClass([BAStep class]);
-
     } else {
         elementType = @"Unknown";
     }
