@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session class="BASession" name="Analysis Test Session" description="">
+    <experiment class="BAExperiment" name="Analysis Test Experiment" description="">
+        <step class="BAExampleStep" name="Example Step 1" description=""/>
+        <step class="BAExampleStep" name="Example Step 2" description=""/>
+    </experiment>
+</session>

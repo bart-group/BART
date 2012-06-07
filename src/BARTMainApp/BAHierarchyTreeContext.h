@@ -25,4 +25,7 @@
 
 + (BAHierarchyTreeContext *) instance;
 
+
+- (NSInteger)loadSessionTree:(NSString*)treeDescriptionPath withEDL:(NSString*)edlPath;
+
 @end

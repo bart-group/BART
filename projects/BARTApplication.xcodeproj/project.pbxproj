@@ -265,6 +265,7 @@
 		E50238EC1577A533009072E2 /* Hierarchy Element Icon Session.png in Resources */ = {isa = PBXBuildFile; fileRef = E50238E81577A533009072E2 /* Hierarchy Element Icon Session.png */; };
 		E50238ED1577A533009072E2 /* Hierarchy Element Icon Step.png in Resources */ = {isa = PBXBuildFile; fileRef = E50238E91577A533009072E2 /* Hierarchy Element Icon Step.png */; };
 		E50239041577AEA2009072E2 /* Hierarchy Element Icon Unknown.png in Resources */ = {isa = PBXBuildFile; fileRef = E50239031577AEA2009072E2 /* Hierarchy Element Icon Unknown.png */; };
+		E50AD59B1580EBB7001A8154 /* AnalysisTest001TreeDescription.xml in Resources */ = {isa = PBXBuildFile; fileRef = E50AD59A1580EBB7001A8154 /* AnalysisTest001TreeDescription.xml */; };
 		E52D722015627C9B002E73CB /* BAHierarchyElementContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E52D721F15627C9B002E73CB /* BAHierarchyElementContentViewController.m */; };
 		E54B814C157E3F580029ECC4 /* BAHierarchyElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54B814B157E3F580029ECC4 /* BAHierarchyElementViewController.m */; };
 		E54B8151157E40030029ECC4 /* BAExampleStep.m in Sources */ = {isa = PBXBuildFile; fileRef = E54B8150157E40030029ECC4 /* BAExampleStep.m */; };
@@ -828,7 +829,8 @@
 		E50238E81577A533009072E2 /* Hierarchy Element Icon Session.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon Session.png"; path = "../src/BARTMainApp/Hierarchy Element Icon Session.png"; sourceTree = "<group>"; };
 		E50238E91577A533009072E2 /* Hierarchy Element Icon Step.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon Step.png"; path = "../src/BARTMainApp/Hierarchy Element Icon Step.png"; sourceTree = "<group>"; };
 		E50239031577AEA2009072E2 /* Hierarchy Element Icon Unknown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon Unknown.png"; path = "../src/BARTMainApp/Hierarchy Element Icon Unknown.png"; sourceTree = "<group>"; };
-		E52D721E15627C9B002E73CB /* BAHierarchyElementContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = BAHierarchyElementContentViewController.h; sourceTree = "<group>"; };
+		E50AD59A1580EBB7001A8154 /* AnalysisTest001TreeDescription.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = AnalysisTest001TreeDescription.xml; sourceTree = "<group>"; };
+		E52D721E15627C9B002E73CB /* BAHierarchyElementContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyElementContentViewController.h; sourceTree = "<group>"; };
 		E52D721F15627C9B002E73CB /* BAHierarchyElementContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyElementContentViewController.m; sourceTree = "<group>"; };
 		E54934E21339151E003264FE /* EDDataElementRealTimeLoader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EDDataElementRealTimeLoader.mm; sourceTree = "<group>"; };
 		E54B814A157E3F580029ECC4 /* BAHierarchyElementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyElementViewController.h; sourceTree = "<group>"; };
@@ -1621,6 +1623,7 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				E562D7F015615CF900DE5631 /* Luigi.xib */,
+				E50AD59A1580EBB7001A8154 /* AnalysisTest001TreeDescription.xml */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2230,6 +2233,7 @@
 				E54B8157157E40600029ECC4 /* BAExampleStepConfigView.xib in Resources */,
 				E54B8159157F751D0029ECC4 /* BAEmptyElementView.xib in Resources */,
 				E54B815B157F76AA0029ECC4 /* Luigi.png in Resources */,
+				E50AD59B1580EBB7001A8154 /* AnalysisTest001TreeDescription.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
