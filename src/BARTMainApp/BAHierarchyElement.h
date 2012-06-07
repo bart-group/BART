@@ -55,6 +55,7 @@ extern NSInteger  const BA_ELEMENT_STATE_FINISHED;
 
 -(NSString*)description;
 
+-(NSInteger)execute;
 
 @end
 
