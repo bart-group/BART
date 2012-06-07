@@ -8,13 +8,14 @@
 
 #import "BAHierarchyTreeContext.h"
 
+#import "BARTNotifications.h"
 #import "BASession.h"
 #import "BAExperiment.h"
 #import "BAStep.h"
 
 #import "BAExampleStep.h"
 
-#import "BARTNotifications.h"
+#import "COExperimentContext.h"
 
 
 #pragma mark -
@@ -89,6 +90,56 @@
     NSLog(@"BAHierarchyTreeContext selected element changed: %@", [selectedElement description]);
 }
 
+
+- (NSInteger)loadSessionTree:(NSString*)treeDescriptionPath withEDL:(NSString*)edlPath
+{
+
+    NSError* loadError = [[COExperimentContext getInstance] resetWithEDLFile:edlPath];
+    if (loadError) {
+        NSLog(@"%@", loadError);
+    }
+
+    NSURL* treeDescriptionURL = [NSURL fileURLWithPath:treeDescriptionPath];
+    
+    NSXMLDocument* treeDescription = [[NSXMLDocument alloc] initWithContentsOfURL:treeDescriptionURL options:0 error:&loadError];
+    if (loadError) {
+        NSLog(@"%@", loadError);
+    }
+    
+    
+    NSError      *treeParsingError;
+    NSArray      *sessions, *experiments, *steps;
+    NSXMLNode    *currentSession, *currentExperiment, *currentStep;
+    NSEnumerator *sessionEnumerator, *experimentEnumerator, *stepEnumerator;
+    
+    NSString *class, *name, *description;
+    
+    BAHierarchyElement *parent, *element;
+    
+    sessions = [treeDescription objectsForXQuery:@".//session" error:&treeParsingError];
+    if((sessionEnumerator = [sessions objectEnumerator]) != NULL)
+    {
+        while((currentSession = (NSXMLNode*)[sessionEnumerator nextObject]))
+        {
+            class       = [[currentSession objectsForXQuery:@"./@class"       error:&treeParsingError] objectAtIndex:0];
+            name        = [[currentSession objectsForXQuery:@"./@name"        error:&treeParsingError] objectAtIndex:0];
+            description = [[currentSession objectsForXQuery:@"./@description" error:&treeParsingError] objectAtIndex:0];
+            element = [((BAHierarchyElement*)[NSClassFromString(class) alloc]) initWithName:name];
+            
+            rootElement = element;
+            parent = element;
+            
+            experiments = [currentSession objectsForXQuery:@"./experiment" error:&treeParsingError];
+            if((experimentEnumerator = [experiments objectEnumerator]) != NULL)
+            {
+                while((currentExperiment = (NSXMLNode*)[experimentEnumerator nextObject]))
+        
+        }
+    }
+    
+    
+    return 0;
+}
 
 
 #pragma mark -
