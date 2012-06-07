@@ -112,4 +112,9 @@ BAHierarchyElement  *parent;
     return [NSString stringWithFormat:@"%@: %@ (%@, uuid: %@, state: %i)", NSStringFromClass([self class]), [self name], [self comment], [self uuid], [self state]];
 }
 
+-(NSInteger)execute
+{
+    return 0;
+}
+
 @end
