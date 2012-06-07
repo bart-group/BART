@@ -127,9 +127,13 @@
         [[session children] addObject:experiment_03];
 
 
-        BAHierarchyElement* exampleStep = [[BAStep alloc] initWithName:@"Example Step Impl."];
+        BAHierarchyElement* exampleStep = [[BAExampleStep alloc] initWithName:@"Example Step Impl."];
         [[exampleStep properties] setValue:@"BAExampleStepConfigView" forKey:BA_ELEMENT_PROPERTY_CONFIGURATION_UI_NAME];
-        [[experiment_02 children] addObject:exampleStep];
+        [[experiment_01 children] addObject:exampleStep];
+        
+        BAHierarchyElement* exampleStepTwo = [[BAExampleStep alloc] initWithName:@"Example Step Impl. 2nd"];
+        [[exampleStepTwo properties] setValue:@"BAExampleStepConfigView" forKey:BA_ELEMENT_PROPERTY_CONFIGURATION_UI_NAME];
+        [[experiment_02 children] addObject:exampleStepTwo];
         
 
     
