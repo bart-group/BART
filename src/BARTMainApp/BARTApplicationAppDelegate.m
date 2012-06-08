@@ -13,6 +13,8 @@
 #import "BARTNotifications.h"
 #import "CLETUS/COExperimentContext.h"
 
+#import "BAHierarchyTreeContext.h"
+
 
 @interface BARTApplicationAppDelegate ()
 
@@ -73,6 +75,11 @@
     if(useLuigi != nil && [useLuigi caseInsensitiveCompare:@"YES"] == NSOrderedSame) {
         //// Initial Luigi Testing ////
         NSLog(@"Using Luigi");
+
+        NSString *edlPath = [arrayFromPlist objectForKey:@"edlFile"];
+        NSString *treePath = [arrayFromPlist objectForKey:@"treeFile"];
+        [[BAHierarchyTreeContext instance] loadSessionTree:treePath withEDL:edlPath];
+        
         [NSBundle loadNibNamed:@"Luigi" owner:self];
         
     } else {

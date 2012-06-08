@@ -114,26 +114,53 @@
     
     NSString *class, *name, *description;
     
-    BAHierarchyElement *parent, *element;
+    BAHierarchyElement *session, *experiment, *step;
     
     sessions = [treeDescription objectsForXQuery:@".//session" error:&treeParsingError];
     if((sessionEnumerator = [sessions objectEnumerator]) != NULL)
     {
         while((currentSession = (NSXMLNode*)[sessionEnumerator nextObject]))
         {
-            class       = [[currentSession objectsForXQuery:@"./@class"       error:&treeParsingError] objectAtIndex:0];
-            name        = [[currentSession objectsForXQuery:@"./@name"        error:&treeParsingError] objectAtIndex:0];
-            description = [[currentSession objectsForXQuery:@"./@description" error:&treeParsingError] objectAtIndex:0];
-            element = [((BAHierarchyElement*)[NSClassFromString(class) alloc]) initWithName:name];
+            NSLog(@"currentSession: %@", currentSession);
+            class       = [[[currentSession objectsForXQuery:@"./@class"       error:&treeParsingError] objectAtIndex:0] objectValue];
+            name        = [[[currentSession objectsForXQuery:@"./@name"        error:&treeParsingError] objectAtIndex:0] objectValue];
+            description = [[[currentSession objectsForXQuery:@"./@description" error:&treeParsingError] objectAtIndex:0] objectValue];
             
-            rootElement = element;
-            parent = element;
+            session = [((BAHierarchyElement*)[[[NSBundle mainBundle] classNamed:class] alloc]) initWithName:name];
+                       
+            rootElement = session;
             
             experiments = [currentSession objectsForXQuery:@"./experiment" error:&treeParsingError];
             if((experimentEnumerator = [experiments objectEnumerator]) != NULL)
             {
                 while((currentExperiment = (NSXMLNode*)[experimentEnumerator nextObject]))
-        
+                {
+                    NSLog(@"currentExperiment: %@", currentExperiment);
+                    class       = [[[currentExperiment objectsForXQuery:@"./@class"       error:&treeParsingError] objectAtIndex:0] objectValue];
+                    name        = [[[currentExperiment objectsForXQuery:@"./@name"        error:&treeParsingError] objectAtIndex:0] objectValue];
+                    description = [[[currentExperiment objectsForXQuery:@"./@description" error:&treeParsingError] objectAtIndex:0] objectValue];
+
+                    experiment = [((BAHierarchyElement*)[[[NSBundle mainBundle] classNamed:class] alloc]) initWithName:name];
+
+                    [[session children] addObject:experiment];
+
+                    steps = [currentExperiment objectsForXQuery:@"./step" error:&treeParsingError];
+                    if((stepEnumerator = [steps objectEnumerator]) != NULL)
+                    {
+                        while((currentStep = (NSXMLNode*)[stepEnumerator nextObject]))
+                        {
+                            NSLog(@"currentStep: %@", currentStep);
+                            class       = [[[currentStep objectsForXQuery:@"./@class"       error:&treeParsingError] objectAtIndex:0] objectValue];
+                            name        = [[[currentStep objectsForXQuery:@"./@name"        error:&treeParsingError] objectAtIndex:0] objectValue];
+                            description = [[[currentStep objectsForXQuery:@"./@description" error:&treeParsingError] objectAtIndex:0] objectValue];
+
+                            step = [((BAHierarchyElement*)[[[NSBundle mainBundle] classNamed:class] alloc]) initWithName:name];
+                            
+                            [[experiment children] addObject:step];
+                        }
+                    }
+                }
+            }
         }
     }
     
