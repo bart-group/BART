@@ -266,6 +266,9 @@
 		E50238ED1577A533009072E2 /* Hierarchy Element Icon Step.png in Resources */ = {isa = PBXBuildFile; fileRef = E50238E91577A533009072E2 /* Hierarchy Element Icon Step.png */; };
 		E50239041577AEA2009072E2 /* Hierarchy Element Icon Unknown.png in Resources */ = {isa = PBXBuildFile; fileRef = E50239031577AEA2009072E2 /* Hierarchy Element Icon Unknown.png */; };
 		E50AD59B1580EBB7001A8154 /* AnalysisTest001TreeDescription.xml in Resources */ = {isa = PBXBuildFile; fileRef = E50AD59A1580EBB7001A8154 /* AnalysisTest001TreeDescription.xml */; };
+		E50AD5A615822E03001A8154 /* BASimulationDataProviderStep.m in Sources */ = {isa = PBXBuildFile; fileRef = E50AD5A515822E03001A8154 /* BASimulationDataProviderStep.m */; };
+		E50AD5AA15823013001A8154 /* BASimulationDataProviderConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50AD5A815823013001A8154 /* BASimulationDataProviderConfigViewController.m */; };
+		E50AD5AB15823013001A8154 /* BASimulationDataProviderConfigView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50AD5A915823013001A8154 /* BASimulationDataProviderConfigView.xib */; };
 		E52D722015627C9B002E73CB /* BAHierarchyElementContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E52D721F15627C9B002E73CB /* BAHierarchyElementContentViewController.m */; };
 		E54B814C157E3F580029ECC4 /* BAHierarchyElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54B814B157E3F580029ECC4 /* BAHierarchyElementViewController.m */; };
 		E54B8151157E40030029ECC4 /* BAExampleStep.m in Sources */ = {isa = PBXBuildFile; fileRef = E54B8150157E40030029ECC4 /* BAExampleStep.m */; };
@@ -830,6 +833,11 @@
 		E50238E91577A533009072E2 /* Hierarchy Element Icon Step.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon Step.png"; path = "../src/BARTMainApp/Hierarchy Element Icon Step.png"; sourceTree = "<group>"; };
 		E50239031577AEA2009072E2 /* Hierarchy Element Icon Unknown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon Unknown.png"; path = "../src/BARTMainApp/Hierarchy Element Icon Unknown.png"; sourceTree = "<group>"; };
 		E50AD59A1580EBB7001A8154 /* AnalysisTest001TreeDescription.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = AnalysisTest001TreeDescription.xml; sourceTree = "<group>"; };
+		E50AD5A415822E03001A8154 /* BASimulationDataProviderStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASimulationDataProviderStep.h; sourceTree = "<group>"; };
+		E50AD5A515822E03001A8154 /* BASimulationDataProviderStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASimulationDataProviderStep.m; sourceTree = "<group>"; };
+		E50AD5A715823013001A8154 /* BASimulationDataProviderConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASimulationDataProviderConfigViewController.h; sourceTree = "<group>"; };
+		E50AD5A815823013001A8154 /* BASimulationDataProviderConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASimulationDataProviderConfigViewController.m; sourceTree = "<group>"; };
+		E50AD5A915823013001A8154 /* BASimulationDataProviderConfigView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BASimulationDataProviderConfigView.xib; sourceTree = "<group>"; };
 		E52D721E15627C9B002E73CB /* BAHierarchyElementContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyElementContentViewController.h; sourceTree = "<group>"; };
 		E52D721F15627C9B002E73CB /* BAHierarchyElementContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyElementContentViewController.m; sourceTree = "<group>"; };
 		E54934E21339151E003264FE /* EDDataElementRealTimeLoader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EDDataElementRealTimeLoader.mm; sourceTree = "<group>"; };
@@ -1681,11 +1689,24 @@
 			path = TROYTests;
 			sourceTree = "<group>";
 		};
+		E50AD5A315821BDF001A8154 /* Simulation Data Provider */ = {
+			isa = PBXGroup;
+			children = (
+				E50AD5A415822E03001A8154 /* BASimulationDataProviderStep.h */,
+				E50AD5A515822E03001A8154 /* BASimulationDataProviderStep.m */,
+				E50AD5A715823013001A8154 /* BASimulationDataProviderConfigViewController.h */,
+				E50AD5A815823013001A8154 /* BASimulationDataProviderConfigViewController.m */,
+				E50AD5A915823013001A8154 /* BASimulationDataProviderConfigView.xib */,
+			);
+			name = "Simulation Data Provider";
+			sourceTree = "<group>";
+		};
 		E54B814E157E3FB50029ECC4 /* Element Implementations */ = {
 			isa = PBXGroup;
 			children = (
 				E54B8158157F751D0029ECC4 /* BAEmptyElementView.xib */,
 				E54B8152157E40170029ECC4 /* Example Step */,
+				E50AD5A315821BDF001A8154 /* Simulation Data Provider */,
 			);
 			name = "Element Implementations";
 			sourceTree = "<group>";
@@ -2234,6 +2255,7 @@
 				E54B8159157F751D0029ECC4 /* BAEmptyElementView.xib in Resources */,
 				E54B815B157F76AA0029ECC4 /* Luigi.png in Resources */,
 				E50AD59B1580EBB7001A8154 /* AnalysisTest001TreeDescription.xml in Resources */,
+				E50AD5AB15823013001A8154 /* BASimulationDataProviderConfigView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2579,6 +2601,8 @@
 				E54B814C157E3F580029ECC4 /* BAHierarchyElementViewController.m in Sources */,
 				E54B8151157E40030029ECC4 /* BAExampleStep.m in Sources */,
 				E54B8156157E40600029ECC4 /* BAExampleStepConfigViewController.m in Sources */,
+				E50AD5A615822E03001A8154 /* BASimulationDataProviderStep.m in Sources */,
+				E50AD5AA15823013001A8154 /* BASimulationDataProviderConfigViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
