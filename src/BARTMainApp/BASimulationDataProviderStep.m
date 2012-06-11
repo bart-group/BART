@@ -14,7 +14,8 @@
 {
     if(self = [super initWithNameAndComment:name comment:comment])
     {
-        [[self properties] setObject:@"BASimulationDataProviderConfigView" forKey: BA_ELEMENT_PROPERTY_CONFIGURATION_UI_NAME];
+        [[self properties] setObject:@"BASimulationDataProviderConfigView"    forKey: BA_ELEMENT_PROPERTY_CONFIGURATION_UI_NAME];
+        [[self properties] setObject:@"BASimulationDataProviderExecutionView" forKey: BA_ELEMENT_PROPERTY_EXECUTION_UI_NAME];
     }
     
     return self;

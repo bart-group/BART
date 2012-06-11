@@ -56,6 +56,56 @@
 }
 
 
+- (IBAction)openTreeWithEDL:(id)sender
+{
+    NSLog(@"Open Tree With EDL called by: %@", sender);
+
+    NSURL *treeDescriptionURL = nil;
+    NSURL *edlURL             = nil;
+    
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+
+    [openPanel setCanChooseFiles:TRUE];
+    [openPanel setCanCreateDirectories:FALSE];
+    [openPanel setAllowsMultipleSelection:FALSE];
+    [openPanel setCanSelectHiddenExtension:FALSE];
+    
+    [openPanel setTitle:@"Select Session Tree"];
+    [openPanel setAllowedFileTypes:[NSArray arrayWithObjects:@"xml", nil]];
+    
+    if([openPanel runModal] == NSFileHandlingPanelOKButton) {
+        treeDescriptionURL = [[openPanel URLs] objectAtIndex:0];
+    }
+
+
+    openPanel = [NSOpenPanel openPanel];
+    
+    [openPanel setCanChooseFiles:TRUE];
+    [openPanel setCanCreateDirectories:FALSE];
+    [openPanel setAllowsMultipleSelection:FALSE];
+    [openPanel setCanSelectHiddenExtension:FALSE];
+    
+    [openPanel setTitle:@"Select EDL"];
+    [openPanel setAllowedFileTypes:[NSArray arrayWithObjects:@"edl", nil]];
+
+    if([openPanel runModal] == NSFileHandlingPanelOKButton) {
+        edlURL = [[openPanel URLs] objectAtIndex:0];
+    }
+    
+
+    NSLog(@"selected tree description: %@", treeDescriptionURL);
+    NSLog(@"selected edl file:         %@", edlURL);
+    
+    if(treeDescriptionURL != nil && edlURL != nil) {
+        [[BAHierarchyTreeContext instance] loadSessionTree:[treeDescriptionURL path] withEDL:[edlURL path]];
+    }
+    
+    [self addObject:[[BAHierarchyTreeContext instance] rootElement]];
+    
+}
+
+
+
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification
 {
     NSLog(@"outlineViewSelectionDidChange: %@", notification);

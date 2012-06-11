@@ -78,7 +78,7 @@
 
         NSString *edlPath = [arrayFromPlist objectForKey:@"edlFile"];
         NSString *treePath = [arrayFromPlist objectForKey:@"treeFile"];
-        [[BAHierarchyTreeContext instance] loadSessionTree:treePath withEDL:edlPath];
+//        [[BAHierarchyTreeContext instance] loadSessionTree:treePath withEDL:edlPath];
         
         [NSBundle loadNibNamed:@"Luigi" owner:self];
         
