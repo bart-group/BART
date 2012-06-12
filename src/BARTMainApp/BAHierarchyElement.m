@@ -117,4 +117,20 @@ BAHierarchyElement  *parent;
     return 0;
 }
 
+-(BOOL)isReady
+{
+    if([self isLeaf]) {
+        return ([self state] == BA_ELEMENT_STATE_READY);
+    }
+    
+    BOOL ready = FALSE;
+    NSEnumerator *allChildren = [[self children] objectEnumerator];
+    BAHierarchyElement *element;
+    while((element = (BAHierarchyElement*)[allChildren nextObject])) {
+        ready &= ([element state] == BA_ELEMENT_STATE_READY);
+    }
+    
+    return ready;
+}
+
 @end

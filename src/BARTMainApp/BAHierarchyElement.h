@@ -57,5 +57,7 @@ extern NSInteger  const BA_ELEMENT_STATE_FINISHED;
 
 -(NSInteger)execute;
 
+-(BOOL)isReady;
+
 @end
 
