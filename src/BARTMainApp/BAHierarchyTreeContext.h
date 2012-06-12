@@ -28,4 +28,7 @@
 
 - (NSInteger)loadSessionTree:(NSString*)treeDescriptionPath withEDL:(NSString*)edlPath;
 
+- (NSInteger)execute:(BAHierarchyElement*)element;
+
+
 @end
