@@ -164,6 +164,7 @@
         }
     }
     
+    [self setSelectedElement:rootElement];
     
     return 0;
 }
