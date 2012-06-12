@@ -123,7 +123,7 @@ BAHierarchyElement  *parent;
         return ([self state] == BA_ELEMENT_STATE_READY);
     }
     
-    BOOL ready = FALSE;
+    BOOL ready = ([self state] == BA_ELEMENT_STATE_READY);
     NSEnumerator *allChildren = [[self children] objectEnumerator];
     BAHierarchyElement *element;
     while((element = (BAHierarchyElement*)[allChildren nextObject])) {
