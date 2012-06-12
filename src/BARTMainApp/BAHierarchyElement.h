@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface BAHierarchyElement : NSObject 
+@interface BAHierarchyElement : NSObject <NSCopying> 
 
 
 @property (readonly) NSString *uuid;

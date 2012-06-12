@@ -133,4 +133,11 @@ BAHierarchyElement  *parent;
     return ready;
 }
 
+-(id)copyWithZone:(NSZone *)zone
+{
+    // NSLog(@"inside copyWithZone [%@]", [self description]);
+    return self;
+}
+
+
 @end
