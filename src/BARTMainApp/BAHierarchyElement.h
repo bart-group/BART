@@ -43,10 +43,13 @@ extern NSInteger  const BA_ELEMENT_STATE_READY;
 extern NSInteger  const BA_ELEMENT_STATE_RUNNING;
 extern NSInteger  const BA_ELEMENT_STATE_FINISHED;
 
+extern NSInteger  const BA_ELEMENT_EXECUTION_RESULT_OK;
+extern NSInteger  const BA_ELEMENT_EXECUTION_RESULT_ERROR;
+
 
 -(id)init;
 -(id)initWithName: (NSString*)name;
--(id)initWithNameAndComment: (NSString*)name comment: (NSString*)comment;
+-(id)initWithName: (NSString*)name comment: (NSString*)comment;
 
 -(BOOL)isRoot;
 -(BOOL)isLeaf;

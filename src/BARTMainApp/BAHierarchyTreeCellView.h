@@ -13,8 +13,7 @@
     
 }
 
-
-- (void)mouseDown:(NSEvent *)theEvent;
-- (void)mouseUp:(NSEvent *)theEvent;
+- (NSImage*)imageForElementType;
+- (NSImage*)imageForElementState;
 
 @end

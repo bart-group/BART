@@ -17,64 +17,64 @@
 
 @implementation BAHierarchyTreeController
 
-- (NSView*)outlineView:(NSOutlineView *)outlineView
-    viewForTableColumn:(NSTableColumn *)tableColumn
-                  item:(id)item
-{
-    NSLog(@"outlineView:%@ viewForTableColumn:%@ item:%@", outlineView, tableColumn, item);
-    
-    
-    NSTableCellView *result = nil;
-    
-    result = [outlineView makeViewWithIdentifier:[tableColumn identifier] owner:self];
-
-    if([[tableColumn identifier] compare:@"HierarchyElementDescription"] == NSOrderedSame) {
-        result.textField.stringValue = [(BAHierarchyElement*)[item representedObject] name];
-        
-        Class elementClass = [(BAHierarchyElement*)[item representedObject] class];
-        NSString *elementType;
-        if([elementClass isSubclassOfClass:[BASession class]]) {
-            elementType = NSStringFromClass([BASession class]);
-        } else if([elementClass isSubclassOfClass:[BAExperiment class]]) {
-            elementType = NSStringFromClass([BAExperiment class]);
-        } else if([elementClass isSubclassOfClass:[BAStep class]]) {
-            elementType = NSStringFromClass([BAStep class]);
-        } else {
-            elementType = @"Unknown";
-        }
-        
-        result.imageView.image = [NSImage imageNamed:[elementIconNames valueForKey:elementType]];
-        result.backgroundStyle = NSBackgroundStyleLight;
-    }
-
-    if([[tableColumn identifier] compare:@"HierarchyElementState"] == NSOrderedSame) {
-        result.textField.stringValue = @"";
-        
-        NSInteger state = [(BAHierarchyElement*)[item representedObject] state];
-        
-        if(state == BA_ELEMENT_STATE_RUNNING) {
-            result.imageView.image = [NSImage imageNamed:NSImageNameStatusAvailable];
-            result.imageView.toolTip = @"State: Running";
-        } else if(state == BA_ELEMENT_STATE_READY) {
-            result.imageView.image = [NSImage imageNamed:NSImageNameStatusPartiallyAvailable];
-            result.imageView.toolTip = @"State: Ready";
-        } else if(state == BA_ELEMENT_STATE_FINISHED) {
-            result.imageView.image = [NSImage imageNamed:NSImageNameMenuOnStateTemplate];
-            result.imageView.toolTip = @"State: Finished";
-        } else if(state == BA_ELEMENT_STATE_UNKNOWN) {
-            result.imageView.image = [NSImage imageNamed:NSImageNameStatusNone];
-            result.imageView.toolTip = @"State: Unknown";
-        } else {
-            result.imageView.image = [NSImage imageNamed:NSImageNameStatusUnavailable];
-            result.imageView.toolTip = @"State: Error";
-        }
-        result.backgroundStyle = NSBackgroundStyleLight;
-        
-        // [(BAHierarchyElement*)[item representedObject] addObserver:
-    }
-    
-    return result;
-}
+//- (NSView*)outlineView:(NSOutlineView *)outlineView
+//    viewForTableColumn:(NSTableColumn *)tableColumn
+//                  item:(id)item
+//{
+//    NSLog(@"outlineView:%@ viewForTableColumn:%@ item:%@", outlineView, tableColumn, item);
+//    
+//    
+//    NSTableCellView *result = nil;
+//    
+//    result = [outlineView makeViewWithIdentifier:[tableColumn identifier] owner:self];
+//
+//    if([[tableColumn identifier] compare:@"HierarchyElementDescription"] == NSOrderedSame) {
+//        result.textField.stringValue = [(BAHierarchyElement*)[item representedObject] name];
+//        
+//        Class elementClass = [(BAHierarchyElement*)[item representedObject] class];
+//        NSString *elementType;
+//        if([elementClass isSubclassOfClass:[BASession class]]) {
+//            elementType = NSStringFromClass([BASession class]);
+//        } else if([elementClass isSubclassOfClass:[BAExperiment class]]) {
+//            elementType = NSStringFromClass([BAExperiment class]);
+//        } else if([elementClass isSubclassOfClass:[BAStep class]]) {
+//            elementType = NSStringFromClass([BAStep class]);
+//        } else {
+//            elementType = @"Unknown";
+//        }
+//        
+//        result.imageView.image = [NSImage imageNamed:[elementIconNames valueForKey:elementType]];
+//        result.backgroundStyle = NSBackgroundStyleLight;
+//    }
+//
+//    if([[tableColumn identifier] compare:@"HierarchyElementState"] == NSOrderedSame) {
+//        result.textField.stringValue = @"";
+//        
+//        NSInteger state = [(BAHierarchyElement*)[item representedObject] state];
+//        
+//        if(state == BA_ELEMENT_STATE_RUNNING) {
+//            result.imageView.image = [NSImage imageNamed:NSImageNameStatusAvailable];
+//            result.imageView.toolTip = @"State: Running";
+//        } else if(state == BA_ELEMENT_STATE_READY) {
+//            result.imageView.image = [NSImage imageNamed:NSImageNameStatusPartiallyAvailable];
+//            result.imageView.toolTip = @"State: Ready";
+//        } else if(state == BA_ELEMENT_STATE_FINISHED) {
+//            result.imageView.image = [NSImage imageNamed:NSImageNameMenuOnStateTemplate];
+//            result.imageView.toolTip = @"State: Finished";
+//        } else if(state == BA_ELEMENT_STATE_UNKNOWN) {
+//            result.imageView.image = [NSImage imageNamed:NSImageNameStatusNone];
+//            result.imageView.toolTip = @"State: Unknown";
+//        } else {
+//            result.imageView.image = [NSImage imageNamed:NSImageNameStatusUnavailable];
+//            result.imageView.toolTip = @"State: Error";
+//        }
+//        result.backgroundStyle = NSBackgroundStyleLight;
+//        
+//        // [(BAHierarchyElement*)[item representedObject] addObserver:
+//    }
+//    
+//    return result;
+//}
 
 
 - (IBAction)selectTreeElement:(id)sender
