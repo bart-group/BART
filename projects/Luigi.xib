@@ -1314,7 +1314,7 @@
 																</object>
 																<object class="NSTableColumn" id="590521169">
 																	<string key="NSIdentifier">HierarchyElementState</string>
-																	<double key="NSWidth">90</double>
+																	<double key="NSWidth">70</double>
 																	<double key="NSMinWidth">30</double>
 																	<double key="NSMaxWidth">1000</double>
 																	<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -1364,7 +1364,7 @@
 															<int key="NSTvFlags">1379926016</int>
 															<reference key="NSDelegate"/>
 															<reference key="NSDataSource"/>
-															<int key="NSColumnAutoresizingStyle">4</int>
+															<int key="NSColumnAutoresizingStyle">5</int>
 															<int key="NSDraggingSourceMaskForLocal">15</int>
 															<int key="NSDraggingSourceMaskForNonLocal">0</int>
 															<bool key="NSAllowsTypeSelect">YES</bool>
@@ -2307,6 +2307,22 @@
 					<int key="connectionID">987</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: arrangedObjects.uuid</string>
+						<reference key="source" ref="827078088"/>
+						<reference key="destination" ref="420403262"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="827078088"/>
+							<reference key="NSDestination" ref="420403262"/>
+							<string key="NSLabel">value: arrangedObjects.uuid</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">arrangedObjects.uuid</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1082</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">imageView</string>
 						<object class="NSTableCellView" key="source" id="459822895">
@@ -2324,7 +2340,7 @@
 										<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
 										<string>NeXT TIFF v4.0 pasteboard type</string>
 									</set>
-									<string key="NSFrame">{{-4, -7}, {24, 24}}</string>
+									<string key="NSFrame">{{-24, 0}, {24, 24}}</string>
 									<reference key="NSSuperview" ref="459822895"/>
 									<reference key="NSNextKeyView" ref="570082851"/>
 									<string key="NSReuseIdentifierKey">_NS:11</string>
@@ -2344,7 +2360,7 @@
 								<object class="NSTextField" id="570082851">
 									<reference key="NSNextResponder" ref="459822895"/>
 									<int key="NSvFlags">301</int>
-									<string key="NSFrame">{{25, 0}, {6, 17}}</string>
+									<string key="NSFrame">{{19, 0}, {6, 17}}</string>
 									<reference key="NSSuperview" ref="459822895"/>
 									<reference key="NSNextKeyView" ref="718693022"/>
 									<string key="NSReuseIdentifierKey">_NS:20</string>
@@ -2362,7 +2378,7 @@
 									</object>
 								</object>
 							</array>
-							<string key="NSFrame">{{154, 1}, {90, 17}}</string>
+							<string key="NSFrame">{{154, 1}, {70, 17}}</string>
 							<reference key="NSNextKeyView" ref="825325892"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 						</object>
@@ -3733,7 +3749,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1057</int>
+			<int key="maxID">1082</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

@@ -29,6 +29,9 @@ NSInteger  const BA_ELEMENT_STATE_READY          = 0x3;
 NSInteger  const BA_ELEMENT_STATE_RUNNING        = 0x4;
 NSInteger  const BA_ELEMENT_STATE_FINISHED       = 0x5;
 
+NSInteger  const BA_ELEMENT_EXECUTION_RESULT_OK    = 0x0;
+NSInteger  const BA_ELEMENT_EXECUTION_RESULT_ERROR = 0x1;
+
 
 NSString            *uuid;
 NSMutableDictionary *properties;
@@ -66,10 +69,10 @@ BAHierarchyElement  *parent;
 
 -(id)initWithName:(NSString *)name
 {
-    return [self initWithNameAndComment: name comment:NSStringFromClass([self class])];
+    return [self initWithName: name comment:NSStringFromClass([self class])];
 }
 
--(id)initWithNameAndComment:(NSString *)name comment:(NSString *)comment
+-(id)initWithName:(NSString *)name comment:(NSString *)comment
 {
     if(self = [super init]) {
         properties = [[NSMutableDictionary alloc] init];
@@ -114,7 +117,7 @@ BAHierarchyElement  *parent;
 
 -(NSInteger)execute
 {
-    return 0;
+    return BA_ELEMENT_EXECUTION_RESULT_OK;
 }
 
 -(BOOL)isReady

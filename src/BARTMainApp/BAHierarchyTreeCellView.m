@@ -8,6 +8,9 @@
 
 #import "BAHierarchyTreeCellView.h"
 
+#import "BAHierarchyElement.h"
+
+
 @implementation BAHierarchyTreeCellView
 
 - (BOOL)acceptsFirstResponder
@@ -15,14 +18,28 @@
     return YES;
 }
 
-- (void)mouseDown:(NSEvent *)theEvent
+- (NSImage*)imageForElementType
 {
-    NSLog(@"mouseDown: %@", theEvent);
+    
 }
 
-- (void)mouseUp:(NSEvent *)theEvent
+
+- (NSImage*)imageForElementState
 {
-    NSLog(@"mouseUp: %@", theEvent);
+    NSInteger state = [(BAHierarchyElement*)[self objectValue] state];
+    
+    if(state == BA_ELEMENT_STATE_RUNNING) {
+        return [NSImage imageNamed:NSImageNameStatusAvailable];
+    } else if(state == BA_ELEMENT_STATE_READY) {
+        return [NSImage imageNamed:NSImageNameStatusPartiallyAvailable];
+    } else if(state == BA_ELEMENT_STATE_FINISHED) {
+        return [NSImage imageNamed:NSImageNameMenuOnStateTemplate];
+    } else if(state == BA_ELEMENT_STATE_UNKNOWN) {
+        return [NSImage imageNamed:NSImageNameStatusNone];
+    } else {
+        return [NSImage imageNamed:NSImageNameStatusUnavailable];
+    }
+
 }
 
 

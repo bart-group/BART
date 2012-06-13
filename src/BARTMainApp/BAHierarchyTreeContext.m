@@ -169,6 +169,13 @@
     return 0;
 }
 
+- (NSInteger)execute:(BAHierarchyElement*)element
+{
+    
+    return BA_ELEMENT_EXECUTION_RESULT_OK;
+}
+
+
 
 #pragma mark -
 #pragma mark Constructors
