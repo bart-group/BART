@@ -1,28 +1,44 @@
 //
-//  BAHierarchyTreeCellView.m
+//  BAHierarchyTreeDescriptionCellView.m
 //  BARTApplication
 //
 //  Created by Torsten Schlumm on 5/16/12.
 //  Copyright (c) 2012 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#import "BAHierarchyTreeCellView.h"
+#import "BAHierarchyTreeDescriptionCellView.h"
 
 #import "BAHierarchyElement.h"
+#import "BASession.h"
+#import "BAExperiment.h"
+#import "BAStep.h"
 
 
-@implementation BAHierarchyTreeCellView
+@implementation BAHierarchyTreeDescriptionCellView
+
+
+@synthesize icon;
 
 - (BOOL)acceptsFirstResponder
 {
     return YES;
 }
 
-- (NSImage*)imageForElementType
+- (NSImage*)icon
 {
+    NSLog(@"getting icon for object: %@", self.objectValue);
+    Class elementClass = [[self objectValue] class];
+    if([elementClass isSubclassOfClass:[BASession class]]) {
+        return [NSImage imageNamed:@"Hierarchy Element Icon Session.png"];
+    } else if([elementClass isSubclassOfClass:[BAExperiment class]]) {
+        return [NSImage imageNamed:@"Hierarchy Element Icon Experiment.png"];
+    } else if([elementClass isSubclassOfClass:[BAStep class]]) {
+        return [NSImage imageNamed:@"Hierarchy Element Icon Step.png"];
+    } else {
+        return [NSImage imageNamed:@"Hierarchy Element Icon Unknown.png"];
+    }
     
 }
-
 
 - (NSImage*)imageForElementState
 {

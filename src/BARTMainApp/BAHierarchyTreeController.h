@@ -13,10 +13,13 @@
 
 
 @interface BAHierarchyTreeController : NSTreeController <NSOutlineViewDelegate, NSOutlineViewDataSource> {
-    
-    IBOutlet NSPopover *elementPopover;
+
+@private
+    IBOutlet NSOutlineView *_hierarchyTreeView;
 
 }
+
+
 
 - (IBAction)openTreeWithEDL:(id)sender;
 - (IBAction)selectTreeElement:(id)sender;

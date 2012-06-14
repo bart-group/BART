@@ -1,5 +1,5 @@
 //
-//  BAHierarchyTreeCellView.h
+//  BAHierarchyTreeDescriptionCellView.h
 //  BARTApplication
 //
 //  Created by Torsten Schlumm on 5/16/12.
@@ -8,12 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface BAHierarchyTreeCellView : NSTableCellView {
-    
+@interface BAHierarchyTreeDescriptionCellView : NSTableCellView {
     
 }
 
-- (NSImage*)imageForElementType;
-- (NSImage*)imageForElementState;
+@property (readonly) NSImage *icon;
+
 
 @end

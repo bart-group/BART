@@ -128,7 +128,8 @@
         [[BAHierarchyTreeContext instance] loadSessionTree:[treeDescriptionURL path] withEDL:[edlURL path]];
     }
     
-    [self addObject:[[BAHierarchyTreeContext instance] rootElement]];
+    [self setContent:[[BAHierarchyTreeContext instance] rootElement]];
+    [_hierarchyTreeView reloadData];
     
 }
 
@@ -154,5 +155,13 @@
                         @"Hierarchy Element Icon Unknown.png",    @"Unknown",
                         nil];
 }
+
+// for debugging purposes
+- (id)arrangedObjects
+{
+    NSLog(@"Tree Controller.arrangedObjects method: [arrangedObjects = %@]", [super arrangedObjects]);
+    return [super arrangedObjects];
+}
+
 
 @end

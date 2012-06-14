@@ -28,6 +28,7 @@
 			<string>NSView</string>
 			<string>NSScrollView</string>
 			<string>NSTabViewItem</string>
+			<string>NSUserDefaultsController</string>
 			<string>NSScroller</string>
 			<string>NSMenuItem</string>
 			<string>NSTabView</string>
@@ -1536,6 +1537,9 @@
 			<object class="NSCustomObject" id="179864390">
 				<string key="NSClassName">BAHierarchyTreeContext</string>
 			</object>
+			<object class="NSUserDefaultsController" id="221836458">
+				<bool key="NSSharedInstance">YES</bool>
+			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<array class="NSMutableArray" key="connectionRecords">
@@ -2172,6 +2176,14 @@
 					<int key="connectionID">1043</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">openTreeWithEDL:</string>
+						<reference key="source" ref="420403262"/>
+						<reference key="destination" ref="722745758"/>
+					</object>
+					<int key="connectionID">1044</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">contentObject: sharedContext.rootElement</string>
 						<reference key="source" ref="420403262"/>
@@ -2185,15 +2197,15 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">882</int>
+					<int key="connectionID">1117</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">openTreeWithEDL:</string>
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_hierarchyTreeView</string>
 						<reference key="source" ref="420403262"/>
-						<reference key="destination" ref="722745758"/>
+						<reference key="destination" ref="807777723"/>
 					</object>
-					<int key="connectionID">1044</int>
+					<int key="connectionID">1160</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -2308,19 +2320,39 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: arrangedObjects.uuid</string>
-						<reference key="source" ref="827078088"/>
-						<reference key="destination" ref="420403262"/>
+						<string key="label">value: icon</string>
+						<reference key="source" ref="850394925"/>
+						<reference key="destination" ref="337709483"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="827078088"/>
-							<reference key="NSDestination" ref="420403262"/>
-							<string key="NSLabel">value: arrangedObjects.uuid</string>
+							<reference key="NSSource" ref="850394925"/>
+							<reference key="NSDestination" ref="337709483"/>
+							<string key="NSLabel">value: icon</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">arrangedObjects.uuid</string>
+							<string key="NSKeyPath">icon</string>
+							<dictionary key="NSOptions">
+								<boolean value="NO" key="NSAllowsEditingMultipleValuesSelection"/>
+								<boolean value="NO" key="NSConditionallySetsEnabled"/>
+							</dictionary>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1082</int>
+					<int key="connectionID">1159</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: objectValue.name</string>
+						<reference key="source" ref="827078088"/>
+						<reference key="destination" ref="337709483"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="827078088"/>
+							<reference key="NSDestination" ref="337709483"/>
+							<string key="NSLabel">value: objectValue.name</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">objectValue.name</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1147</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -3548,6 +3580,11 @@
 						<reference key="object" ref="601379329"/>
 						<reference key="parent" ref="653818376"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1091</int>
+						<reference key="object" ref="221836458"/>
+						<reference key="parent" ref="0"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3566,7 +3603,7 @@
 					<reference ref="459822895"/>
 				</array>
 				<string key="1046.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1051.CustomClassName">BAHierarchyTreeCellView</string>
+				<string key="1051.CustomClassName">BAHierarchyTreeStateCellView</string>
 				<string key="1051.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1051.userInterfaceItemIdentifier">HierarchyElementState</string>
 				<string key="1052.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3574,6 +3611,7 @@
 				<string key="1054.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1055.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="106.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1091.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="111.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="129.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="130.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3737,7 +3775,7 @@
 				<string key="874.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="875.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="92.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="975.CustomClassName">BAHierarchyTreeCellView</string>
+				<string key="975.CustomClassName">BAHierarchyTreeDescriptionCellView</string>
 				<string key="975.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="975.userInterfaceItemIdentifier">HierarchyElementDescription</string>
 				<string key="976.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3749,7 +3787,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1082</int>
+			<int key="maxID">1160</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3770,14 +3808,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/BAHierarchyElementContentViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">BAHierarchyTreeCellView</string>
-					<string key="superclassName">NSTableCellView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/BAHierarchyTreeCellView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -3806,19 +3836,35 @@
 						</object>
 					</dictionary>
 					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">elementPopover</string>
-						<string key="NS.object.0">NSPopover</string>
+						<string key="NS.key.0">_hierarchyTreeView</string>
+						<string key="NS.object.0">NSOutlineView</string>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">elementPopover</string>
+						<string key="NS.key.0">_hierarchyTreeView</string>
 						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">elementPopover</string>
-							<string key="candidateClassName">NSPopover</string>
+							<string key="name">_hierarchyTreeView</string>
+							<string key="candidateClassName">NSOutlineView</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/BAHierarchyTreeController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BAHierarchyTreeDescriptionCellView</string>
+					<string key="superclassName">NSTableCellView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BAHierarchyTreeDescriptionCellView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BAHierarchyTreeStateCellView</string>
+					<string key="superclassName">NSTableCellView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BAHierarchyTreeStateCellView.h</string>
 					</object>
 				</object>
 			</array>
