@@ -40,7 +40,7 @@ BAHierarchyElement  *parent;
 
 
 @synthesize properties=properties, parent=parent, children=children, uuid=uuid;
-
+@synthesize typeIcon, stateIcon;
 
 -(NSString*)name
 {
@@ -61,6 +61,28 @@ BAHierarchyElement  *parent;
 {
     return [[self properties] objectForKey:BA_ELEMENT_PROPERTY_UUID];
 }
+
+-(NSImage*)typeIcon
+{
+    return [NSImage imageNamed:@"Hierarchy Element Icon Unknown.png"];
+}
+
+-(NSImage*)stateIcon
+{
+    if([self state] == BA_ELEMENT_STATE_RUNNING) {
+        return [NSImage imageNamed:NSImageNameStatusAvailable];
+    } else if([self state] == BA_ELEMENT_STATE_READY) {
+        return [NSImage imageNamed:NSImageNameStatusPartiallyAvailable];
+    } else if([self state] == BA_ELEMENT_STATE_FINISHED) {
+        return [NSImage imageNamed:NSImageNameMenuOnStateTemplate];
+    } else if([self state] == BA_ELEMENT_STATE_UNKNOWN) {
+        return [NSImage imageNamed:NSImageNameStatusNone];
+    } else {
+        return [NSImage imageNamed:NSImageNameStatusUnavailable];
+    }
+
+}
+
 
 -(id)init
 {

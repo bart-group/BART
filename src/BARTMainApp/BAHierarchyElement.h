@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <Cocoa/Cocoa.h>
 
 @interface BAHierarchyElement : NSObject <NSCopying> 
 
@@ -22,6 +22,9 @@
 
 @property (copy) BAHierarchyElement  *parent;
 @property (readonly) NSMutableArray  *children;
+
+@property (readonly) NSImage *typeIcon;
+@property (readonly) NSImage *stateIcon;
 
 
 extern NSString * const BA_ELEMENT_PROPERTY_NAME;

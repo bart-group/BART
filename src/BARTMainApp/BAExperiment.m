@@ -10,4 +10,9 @@
 
 @implementation BAExperiment
 
+-(NSImage*)typeIcon
+{
+    return [NSImage imageNamed:@"Hierarchy Element Icon Experiment.png"];
+}
+
 @end

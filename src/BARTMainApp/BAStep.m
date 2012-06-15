@@ -10,4 +10,9 @@
 
 @implementation BAStep
 
+-(NSImage*)typeIcon
+{
+    return [NSImage imageNamed:@"Hierarchy Element Icon Step.png"];
+}
+
 @end
