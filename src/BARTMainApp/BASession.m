@@ -10,4 +10,9 @@
 
 @implementation BASession
 
+-(NSImage*)typeIcon
+{
+    return [NSImage imageNamed:@"Hierarchy Element Icon Session.png"];
+}
+
 @end
