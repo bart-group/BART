@@ -10,4 +10,5 @@
 
 @interface BAHierarchyTreeStateCellView : NSTableCellView
 
+
 @end
