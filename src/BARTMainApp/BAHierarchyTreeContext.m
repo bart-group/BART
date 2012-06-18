@@ -126,7 +126,7 @@
             name        = [[[currentSession objectsForXQuery:@"./@name"        error:&treeParsingError] objectAtIndex:0] objectValue];
             description = [[[currentSession objectsForXQuery:@"./@description" error:&treeParsingError] objectAtIndex:0] objectValue];
             
-            session = [((BAHierarchyElement*)[[[NSBundle mainBundle] classNamed:class] alloc]) initWithName:name];
+            session = [((BAHierarchyElement*)[[[NSBundle mainBundle] classNamed:class] alloc]) initWithParent:nil name:name];
                        
             rootElement = session;
             
@@ -140,7 +140,7 @@
                     name        = [[[currentExperiment objectsForXQuery:@"./@name"        error:&treeParsingError] objectAtIndex:0] objectValue];
                     description = [[[currentExperiment objectsForXQuery:@"./@description" error:&treeParsingError] objectAtIndex:0] objectValue];
 
-                    experiment = [((BAHierarchyElement*)[[[NSBundle mainBundle] classNamed:class] alloc]) initWithName:name];
+                    experiment = [((BAHierarchyElement*)[[[NSBundle mainBundle] classNamed:class] alloc]) initWithParent:session name:name];
 
                     [[session children] addObject:experiment];
 
@@ -154,7 +154,7 @@
                             name        = [[[currentStep objectsForXQuery:@"./@name"        error:&treeParsingError] objectAtIndex:0] objectValue];
                             description = [[[currentStep objectsForXQuery:@"./@description" error:&treeParsingError] objectAtIndex:0] objectValue];
 
-                            step = [((BAHierarchyElement*)[[[NSBundle mainBundle] classNamed:class] alloc]) initWithName:name];
+                            step = [((BAHierarchyElement*)[[[NSBundle mainBundle] classNamed:class] alloc]) initWithParent:experiment name:name];
                             
                             [[experiment children] addObject:step];
                         }
@@ -188,18 +188,18 @@
 	if ((self = [super init]))
 	{
 		// Initialization code here.
-        BAHierarchyElement* session = [[BASession alloc] initWithName:@"First Ever Session"];
+        BAHierarchyElement* session = [[BASession alloc] initWithParent:nil name:@"First Ever Session"];
         rootElement = session;
         
-        BAHierarchyElement* experiment_01 = [[BAExperiment alloc] initWithName:@"First Ever Experiment"];
-        BAHierarchyElement* experiment_02 = [[BAExperiment alloc] initWithName:@"Experiment 01"];
-        BAHierarchyElement* experiment_03 = [[BAExperiment alloc] initWithName:@"Experiment 02"];
+        BAHierarchyElement* experiment_01 = [[BAExperiment alloc] initWithParent:session name:@"First Ever Experiment"];
+        BAHierarchyElement* experiment_02 = [[BAExperiment alloc] initWithParent:session name:@"Experiment 01"];
+        BAHierarchyElement* experiment_03 = [[BAExperiment alloc] initWithParent:session name:@"Experiment 02"];
 
-        BAHierarchyElement* step_01 = [[BAStep alloc] initWithName:@"Step 01"];
-        BAHierarchyElement* step_02 = [[BAStep alloc] initWithName:@"Step 02"];
-        BAHierarchyElement* step_03 = [[BAStep alloc] initWithName:@"Step 03"];
-        BAHierarchyElement* step_04 = [[BAStep alloc] initWithName:@"Step 04"];
-        BAHierarchyElement* step_05 = [[BAStep alloc] initWithName:@"Step 05"];
+        BAHierarchyElement* step_01 = [[BAStep alloc] initWithParent:experiment_01 name:@"Step 01"];
+        BAHierarchyElement* step_02 = [[BAStep alloc] initWithParent:experiment_01 name:@"Step 02"];
+        BAHierarchyElement* step_03 = [[BAStep alloc] initWithParent:experiment_02 name:@"Step 03"];
+        BAHierarchyElement* step_04 = [[BAStep alloc] initWithParent:experiment_02 name:@"Step 04"];
+        BAHierarchyElement* step_05 = [[BAStep alloc] initWithParent:experiment_02 name:@"Step 05"];
 
         [[experiment_01 children] addObject:step_01];
         [[experiment_01 children] addObject:step_02];
@@ -213,11 +213,11 @@
         [[session children] addObject:experiment_03];
 
 
-        BAHierarchyElement* exampleStep = [[BAExampleStep alloc] initWithName:@"Example Step Impl."];
+        BAHierarchyElement* exampleStep = [[BAExampleStep alloc] initWithParent:experiment_01 name:@"Example Step Impl."];
         [[exampleStep properties] setValue:@"BAExampleStepConfigView" forKey:BA_ELEMENT_PROPERTY_CONFIGURATION_UI_NAME];
         [[experiment_01 children] addObject:exampleStep];
         
-        BAHierarchyElement* exampleStepTwo = [[BAExampleStep alloc] initWithName:@"Example Step Impl. 2nd"];
+        BAHierarchyElement* exampleStepTwo = [[BAExampleStep alloc] initWithParent:experiment_02 name:@"Example Step Impl. 2nd"];
         [[exampleStepTwo properties] setValue:@"BAExampleStepConfigView" forKey:BA_ELEMENT_PROPERTY_CONFIGURATION_UI_NAME];
         [[experiment_02 children] addObject:exampleStepTwo];
         
