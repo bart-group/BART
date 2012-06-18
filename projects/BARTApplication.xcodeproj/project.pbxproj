@@ -298,6 +298,7 @@
 		E562D7F115615CF900DE5631 /* Luigi.xib in Resources */ = {isa = PBXBuildFile; fileRef = E562D7F015615CF900DE5631 /* Luigi.xib */; };
 		E56CFEB71562D0F100CA9CC4 /* BAHierarchyTreeContext.m in Sources */ = {isa = PBXBuildFile; fileRef = E56CFEB61562D0F100CA9CC4 /* BAHierarchyTreeContext.m */; };
 		E56CFEBE1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = E56CFEBD1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.m */; };
+		E5A085F8158F3287002871AA /* BAHierarchyTreeContextMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A085F7158F3286002871AA /* BAHierarchyTreeContextMenuController.m */; };
 		E5A5B9CC15497FE700A7AA4F /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AF13E805FF00169848 /* CLETUS.dylib */; };
 		E5A5B9CD15497FE700A7AA4F /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
 		E5A5B9CE15497FE700A7AA4F /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AE13E805FF00169848 /* NED.dylib */; };
@@ -875,6 +876,8 @@
 		E56CFEB61562D0F100CA9CC4 /* BAHierarchyTreeContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeContext.m; sourceTree = "<group>"; };
 		E56CFEBC1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyTreeDescriptionCellView.h; sourceTree = "<group>"; };
 		E56CFEBD1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeDescriptionCellView.m; sourceTree = "<group>"; };
+		E5A085F6158F3286002871AA /* BAHierarchyTreeContextMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyTreeContextMenuController.h; sourceTree = "<group>"; };
+		E5A085F7158F3286002871AA /* BAHierarchyTreeContextMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeContextMenuController.m; sourceTree = "<group>"; };
 		E5D075371562B4C60058791E /* BAHierarchyTreeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyTreeController.h; sourceTree = "<group>"; };
 		E5D075381562B4C60058791E /* BAHierarchyTreeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeController.m; sourceTree = "<group>"; };
 		E5E7BF80154EBE9900D093E4 /* BARTSerialIOPluginFTDITriggerButton.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = BARTSerialIOPluginFTDITriggerButton.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1345,6 +1348,8 @@
 				E5D075381562B4C60058791E /* BAHierarchyTreeController.m */,
 				E54B814A157E3F580029ECC4 /* BAHierarchyElementViewController.h */,
 				E54B814B157E3F580029ECC4 /* BAHierarchyElementViewController.m */,
+				E5A085F6158F3286002871AA /* BAHierarchyTreeContextMenuController.h */,
+				E5A085F7158F3286002871AA /* BAHierarchyTreeContextMenuController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -2619,6 +2624,7 @@
 				E50AD5AA15823013001A8154 /* BASimulationDataProviderConfigViewController.m in Sources */,
 				E50AD5AF1585FAA0001A8154 /* BASimulationDataProviderExecutionViewController.m in Sources */,
 				E5440C0F158A40F300AC541F /* BAHierarchyTreeStateCellView.m in Sources */,
+				E5A085F8158F3287002871AA /* BAHierarchyTreeContextMenuController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

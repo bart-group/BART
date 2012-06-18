@@ -12,7 +12,7 @@
 
 
 
-@interface BAHierarchyTreeController : NSTreeController <NSOutlineViewDelegate, NSOutlineViewDataSource> {
+@interface BAHierarchyTreeController : NSTreeController <NSOutlineViewDelegate, NSMenuDelegate, NSOutlineViewDataSource> {
 
 @private
     IBOutlet NSOutlineView *_hierarchyTreeView;
@@ -23,6 +23,10 @@
 
 - (IBAction)openTreeWithEDL:(id)sender;
 - (IBAction)selectTreeElement:(id)sender;
+
+
+- (IBAction)contextMenuExecuteAction:(id)sender;
+
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification;
 
