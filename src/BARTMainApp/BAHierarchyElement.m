@@ -57,6 +57,22 @@ BAHierarchyElement  *parent;
     return [[[self properties] objectForKey:BA_ELEMENT_PROPERTY_STATE] integerValue];
 }
 
+-(void)setState:(NSInteger)newState
+{
+    [self willChangeValueForKey:@"state"];
+
+    if(newState != BA_ELEMENT_STATE_ERROR &&
+       newState != BA_ELEMENT_STATE_FINISHED &&
+       newState != BA_ELEMENT_STATE_READY &&
+       newState != BA_ELEMENT_STATE_NOT_CONFIGURED &&
+       newState != BA_ELEMENT_STATE_RUNNING) {
+        newState = BA_ELEMENT_STATE_UNKNOWN;
+    }
+    [[self properties] setObject:[NSNumber numberWithInteger:newState] forKey:BA_ELEMENT_PROPERTY_STATE];
+    
+    [self didChangeValueForKey:@"state"];
+}
+
 -(NSString*)uuid
 {
     return [[self properties] objectForKey:BA_ELEMENT_PROPERTY_UUID];
@@ -69,6 +85,7 @@ BAHierarchyElement  *parent;
 
 -(NSImage*)stateIcon
 {
+//    NSLog(@"stateIcon getter called for element %@", [self description]);
     if([self state] == BA_ELEMENT_STATE_RUNNING) {
         return [NSImage imageNamed:NSImageNameStatusAvailable];
     } else if([self state] == BA_ELEMENT_STATE_READY) {
@@ -81,6 +98,18 @@ BAHierarchyElement  *parent;
         return [NSImage imageNamed:NSImageNameStatusUnavailable];
     }
 
+}
+
+// register 'stateIcon' as dependent key for 'state'
++ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString *)key
+{
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+    
+    if([key isEqualToString:@"stateIcon"]) {
+        return [keyPaths setByAddingObjectsFromSet:[NSSet setWithObjects:@"state", nil]];
+    }
+    
+    return keyPaths;
 }
 
 

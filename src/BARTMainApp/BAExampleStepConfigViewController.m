@@ -8,6 +8,10 @@
 
 #import "BAExampleStepConfigViewController.h"
 
+#import "BAHierarchyTreeContext.h"
+
+
+
 @interface BAExampleStepConfigViewController ()
 
 @end
@@ -24,6 +28,14 @@
     }
     
     return self;
+}
+
+
+-(IBAction)button1clicked:(id)sender
+{
+    NSLog(@"selected element: %@", [[BAHierarchyTreeContext instance] selectedElement]);
+//    [[[BAHierarchyTreeContext instance] selectedElement] setState:BA_ELEMENT_STATE_RUNNING];
+    [[[BAHierarchyTreeContext instance] selectedElement] setState:(random() % 6)];
 }
 
 @end

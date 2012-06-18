@@ -11,4 +11,6 @@
 @interface BAExampleStepConfigViewController : BAHierarchyElementViewController
 
 
+-(IBAction)button1clicked:(id)sender;
+
 @end

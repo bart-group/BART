@@ -16,7 +16,7 @@
 @property (readonly) NSString *name;
 @property (readonly) NSString *comment;
 
-@property (readonly) NSInteger state;
+@property (readwrite) NSInteger state;
 
 @property (readonly) NSMutableDictionary *properties;
 
