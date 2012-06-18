@@ -144,6 +144,21 @@
 }
 
 
+//
+// menu stuff
+//
+
+- (void)menuNeedsUpdate:(NSMenu *)menu
+{
+    NSLog(@"menuNeedsUpdate menu: %@", menu);
+}
+
+- (IBAction)contextMenuExecuteAction:(id)sender
+{
+    NSLog(@"contextMenuExecuteAction received from: %@", sender);
+}
+
+
 
 + (void)initialize
 {

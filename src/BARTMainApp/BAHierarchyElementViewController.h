@@ -8,6 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface BAHierarchyElementViewController : NSViewController
+@interface BAHierarchyElementViewController : NSViewController {
+
+
+}
+
 
 @end

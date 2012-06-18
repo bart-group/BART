@@ -1540,6 +1540,19 @@
 			<object class="NSUserDefaultsController" id="221836458">
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
+			<object class="NSMenu" id="121385411">
+				<string key="NSTitle"/>
+				<array class="NSMutableArray" key="NSMenuItems">
+					<object class="NSMenuItem" id="583225067">
+						<reference key="NSMenu" ref="121385411"/>
+						<string key="NSTitle">Execute</string>
+						<string key="NSKeyEquiv"/>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="353210768"/>
+						<reference key="NSMixedImage" ref="549394948"/>
+					</object>
+				</array>
+			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<array class="NSMutableArray" key="connectionRecords">
@@ -2208,6 +2221,14 @@
 					<int key="connectionID">1160</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">contextMenuExecuteAction:</string>
+						<reference key="source" ref="420403262"/>
+						<reference key="destination" ref="583225067"/>
+					</object>
+					<int key="connectionID">1174</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">content: arrangedObjects</string>
 						<reference key="source" ref="807777723"/>
@@ -2238,6 +2259,14 @@
 						<reference key="destination" ref="420403262"/>
 					</object>
 					<int key="connectionID">1004</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menu</string>
+						<reference key="source" ref="807777723"/>
+						<reference key="destination" ref="121385411"/>
+					</object>
+					<int key="connectionID">1171</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -2445,6 +2474,14 @@
 						</object>
 					</object>
 					<int key="connectionID">1165</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="121385411"/>
+						<reference key="destination" ref="420403262"/>
+					</object>
+					<int key="connectionID">1175</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3605,6 +3642,19 @@
 						<reference key="object" ref="221836458"/>
 						<reference key="parent" ref="0"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1167</int>
+						<reference key="object" ref="121385411"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="583225067"/>
+						</array>
+						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1170</int>
+						<reference key="object" ref="583225067"/>
+						<reference key="parent" ref="121385411"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3633,6 +3683,8 @@
 				<string key="106.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1091.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="111.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1167.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1170.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="129.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="130.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="131.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3807,7 +3859,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1166</int>
+			<int key="maxID">1175</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3842,10 +3894,15 @@
 					<string key="className">BAHierarchyTreeController</string>
 					<string key="superclassName">NSTreeController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="contextMenuExecuteAction:">id</string>
 						<string key="openTreeWithEDL:">id</string>
 						<string key="selectTreeElement:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="contextMenuExecuteAction:">
+							<string key="name">contextMenuExecuteAction:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="openTreeWithEDL:">
 							<string key="name">openTreeWithEDL:</string>
 							<string key="candidateClassName">id</string>
