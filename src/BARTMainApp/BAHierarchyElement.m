@@ -113,22 +113,22 @@ BAHierarchyElement  *parent;
 }
 
 
--(id)init
+-(id)initWithParent:(BAHierarchyElement *)elementParent
 {
-    return [self initWithName: NSStringFromClass([self class])];
+    return [self initWithParent:elementParent name:NSStringFromClass([self class])];
 }
 
--(id)initWithName:(NSString *)name
+-(id)initWithParent:(BAHierarchyElement *)elementParent name:(NSString *)name
 {
-    return [self initWithName: name comment:NSStringFromClass([self class])];
+    return [self initWithParent:elementParent name:name comment:NSStringFromClass([self class])];
 }
 
--(id)initWithName:(NSString *)name comment:(NSString *)comment
+-(id)initWithParent:(BAHierarchyElement *)elementParent name:(NSString *)name comment:(NSString *)comment
 {
     if(self = [super init]) {
         properties = [[NSMutableDictionary alloc] init];
         children   = [[NSMutableArray alloc] init];
-        parent     = nil;
+        parent     = elementParent;
         uuid       = [[NSProcessInfo processInfo] globallyUniqueString];
         [properties setObject: name forKey: BA_ELEMENT_PROPERTY_NAME];
         [properties setObject: comment forKey: BA_ELEMENT_PROPERTY_COMMENT];

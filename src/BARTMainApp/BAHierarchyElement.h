@@ -50,9 +50,9 @@ extern NSInteger  const BA_ELEMENT_EXECUTION_RESULT_OK;
 extern NSInteger  const BA_ELEMENT_EXECUTION_RESULT_ERROR;
 
 
--(id)init;
--(id)initWithName: (NSString*)name;
--(id)initWithName: (NSString*)name comment: (NSString*)comment;
+-(id)initWithParent: (BAHierarchyElement*)parent;
+-(id)initWithParent: (BAHierarchyElement*)parent name:(NSString*)name;
+-(id)initWithParent: (BAHierarchyElement*)parent name:(NSString*)name comment: (NSString*)comment;
 
 -(BOOL)isRoot;
 -(BOOL)isLeaf;
