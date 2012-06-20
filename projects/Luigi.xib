@@ -1398,7 +1398,7 @@
 													<string key="NSReuseIdentifierKey">_NS:58</string>
 													<reference key="NSTarget" ref="620335137"/>
 													<string key="NSAction">_doScroller:</string>
-													<double key="NSPercent">0.99833610648918469</double>
+													<double key="NSPercent">0.99728997289972898</double>
 												</object>
 												<object class="NSScroller" id="592415802">
 													<reference key="NSNextResponder" ref="620335137"/>
@@ -1411,7 +1411,7 @@
 													<int key="NSsFlags">1</int>
 													<reference key="NSTarget" ref="620335137"/>
 													<string key="NSAction">_doScroller:</string>
-													<double key="NSPercent">0.74329501915708818</double>
+													<double key="NSPercent">0.98790322580645162</double>
 												</object>
 											</array>
 											<string key="NSFrameSize">{246, 600}</string>
@@ -1540,11 +1540,11 @@
 			<object class="NSUserDefaultsController" id="221836458">
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
-			<object class="NSMenu" id="121385411">
+			<object class="NSMenu" id="149524091">
 				<string key="NSTitle"/>
 				<array class="NSMutableArray" key="NSMenuItems">
-					<object class="NSMenuItem" id="583225067">
-						<reference key="NSMenu" ref="121385411"/>
+					<object class="NSMenuItem" id="669780428">
+						<reference key="NSMenu" ref="149524091"/>
 						<string key="NSTitle">Execute</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
@@ -2224,7 +2224,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">contextMenuExecuteAction:</string>
 						<reference key="source" ref="420403262"/>
-						<reference key="destination" ref="583225067"/>
+						<reference key="destination" ref="669780428"/>
 					</object>
 					<int key="connectionID">1174</int>
 				</object>
@@ -2264,7 +2264,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">menu</string>
 						<reference key="source" ref="807777723"/>
-						<reference key="destination" ref="121385411"/>
+						<reference key="destination" ref="149524091"/>
 					</object>
 					<int key="connectionID">1171</int>
 				</object>
@@ -2474,14 +2474,6 @@
 						</object>
 					</object>
 					<int key="connectionID">1165</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="121385411"/>
-						<reference key="destination" ref="420403262"/>
-					</object>
-					<int key="connectionID">1175</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3644,16 +3636,16 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1167</int>
-						<reference key="object" ref="121385411"/>
+						<reference key="object" ref="149524091"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="583225067"/>
+							<reference ref="669780428"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1170</int>
-						<reference key="object" ref="583225067"/>
-						<reference key="parent" ref="121385411"/>
+						<reference key="object" ref="669780428"/>
+						<reference key="parent" ref="149524091"/>
 					</object>
 				</array>
 			</object>
@@ -3683,6 +3675,7 @@
 				<string key="106.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1091.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="111.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1167.CustomClassName">BAHierarchyTreeContextMenuController</string>
 				<string key="1167.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1170.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="129.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3859,7 +3852,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1175</int>
+			<int key="maxID">1176</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3888,6 +3881,28 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/BAHierarchyTreeContext.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BAHierarchyTreeContextMenuController</string>
+					<string key="superclassName">NSMenu</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="contextMenuExecute:">id</string>
+						<string key="contextMenuExecuteAction:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="contextMenuExecute:">
+							<string key="name">contextMenuExecute:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="contextMenuExecuteAction:">
+							<string key="name">contextMenuExecuteAction:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BAHierarchyTreeContextMenuController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

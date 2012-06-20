@@ -75,7 +75,7 @@
         NSString *treePath = [arrayFromPlist objectForKey:@"treeFile"];
 //        [[BAHierarchyTreeContext instance] loadSessionTree:treePath withEDL:edlPath];
         
-        [NSBundle loadNibNamed:@"Luigi" owner:self];
+        [NSBundle loadNibNamed:@"BigLuigi" owner:self];
         
     } else {
         guiController = [guiController initWithDefault];
