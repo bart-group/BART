@@ -87,11 +87,15 @@ BAHierarchyElement  *parent;
 {
 //    NSLog(@"stateIcon getter called for element %@", [self description]);
     if([self state] == BA_ELEMENT_STATE_RUNNING) {
-        return [NSImage imageNamed:NSImageNameStatusAvailable];
+        return [NSImage imageNamed:@"runner.png"];
     } else if([self state] == BA_ELEMENT_STATE_READY) {
+        return [NSImage imageNamed:NSImageNameStatusAvailable];
+    } else if([self state] == BA_ELEMENT_STATE_NOT_CONFIGURED) {
         return [NSImage imageNamed:NSImageNameStatusPartiallyAvailable];
     } else if([self state] == BA_ELEMENT_STATE_FINISHED) {
         return [NSImage imageNamed:NSImageNameMenuOnStateTemplate];
+    } else if([self state] == BA_ELEMENT_STATE_ERROR) {
+        return [NSImage imageNamed:NSImageNameStatusUnavailable];
     } else if([self state] == BA_ELEMENT_STATE_UNKNOWN) {
         return [NSImage imageNamed:NSImageNameStatusNone];
     } else {
@@ -99,6 +103,10 @@ BAHierarchyElement  *parent;
     }
 
 }
+
+
+
+
 
 // register 'stateIcon' as dependent key for 'state'
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString *)key
