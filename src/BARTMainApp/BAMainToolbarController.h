@@ -11,4 +11,6 @@
 @interface BAMainToolbarController : NSViewController <NSToolbarDelegate>
 
 
+- (NSImage*)openExperimentToolbarButtonIcon;
+
 @end
