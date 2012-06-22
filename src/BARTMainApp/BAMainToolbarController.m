@@ -16,5 +16,11 @@
 @implementation BAMainToolbarController
 
 
+- (NSImage*)openExperimentToolbarButtonIcon
+{
+    return [NSImage imageNamed:NSImageNameAddTemplate];
+//    return [NSImage imageNamed:@"Hierarchy Element Icon Experiment Template.png"];
+}
+
 @end
 
