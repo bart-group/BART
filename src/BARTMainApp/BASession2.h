@@ -14,8 +14,14 @@
 @interface BASession2 : NSObject
 
 
-@property (readonly,copy)    NSString* name;
-@property (readonly,copy)    NSString* description;
-@property (readwrite,assign) NSInteger state;
+@property (readonly,copy)    NSString  *name;
+@property (readonly,copy)    NSString  *description;
+@property (readwrite,assign) NSInteger  state;
+
+@property (readwrite,retain) NSArray   *experiments;
+
+
+- (id) initWithName:(NSString*)name description:(NSString*)description;
+- (id) initWithName:(NSString*)name description:(NSString*)description experiments:(NSArray*)experiments;
 
 @end

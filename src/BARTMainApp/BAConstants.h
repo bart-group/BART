@@ -26,8 +26,7 @@ enum {
     BA_NODE_STATE_READY               = 0x3,
     BA_NODE_STATE_RUNNING             = 0x4,
     BA_NODE_STATE_FINISHED            = 0x5
-}
+};
 
 typedef NSUInteger BASessionTreeNodeState;
 
-@end
