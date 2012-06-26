@@ -12,17 +12,17 @@
 #import "BAConstants.h"
 
 
-@interface BASessionTreeNode : NSObject {
+@interface BASessionTreeNode : NSObject <NSCopying>
     
 
 @property (readonly) id                     object;
-@property (readonly) NSString*              name;
-@property (readonly) NSString*              description;
+@property (readonly) NSString              *name;
+@property (readonly) NSString              *description;
 @property (readonly) BASessionTreeNodeType  type;
-@property (readonly) NSImage*               typeIcon;
+@property (readonly) NSImage               *typeIcon;
 @property (readonly) NSInteger              state;
-@property (readonly) NSImage*               stateIcon;
-@property (readonly) NSArray*               children;
+@property (readonly) NSImage               *stateIcon;
+@property (readonly) NSArray               *children;
 
 
 - (id)initWithObject:(id)object children:(NSArray*)children;

@@ -8,10 +8,34 @@
 
 #import "BAStep2.h"
 
+
 @implementation BAStep2
+
+#pragma mark -
+#pragma mark Global Properties
 
 @synthesize name        = _name;
 @synthesize description = _description;
 @synthesize state       = _state;
+
+#pragma mark -
+#pragma mark Local Properties
+
+@synthesize experiment = _experiment;
+
+
+#pragma mark -
+#pragma mark Initialization
+
+- (id) initWithName:(NSString *)name description:(NSString *)description
+{
+    if(self = [super init]) {
+        _name        = [name copy];
+        _description = [description copy];
+    }
+    
+    return self;
+}
+
 
 @end

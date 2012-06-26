@@ -9,12 +9,17 @@
 #import <Foundation/Foundation.h>
 
 #import "BAConstants.h"
+#import "BAExperiment2.h"
 
 
 @interface BAStep2 : NSObject
 
-@property (readonly,copy)    NSString* name;
-@property (readonly,copy)    NSString* description;
-@property (readwrite,assign) NSInteger state;
+@property (readonly,copy)    NSString  *name;
+@property (readonly,copy)    NSString  *description;
+@property (readwrite,assign) NSInteger  state;
+
+@property (readwrite,assign) BAExperiment2 *experiment;
+
+- (id) initWithName:(NSString*)name description:(NSString*)description;
 
 @end

@@ -9,12 +9,20 @@
 #import <Foundation/Foundation.h>
 
 #import "BAConstants.h"
+#import "BASession2.h"
 
 
 @interface BAExperiment2 : NSObject
 
-@property (readonly,copy)    NSString* name;
-@property (readonly,copy)    NSString* description;
-@property (readwrite,assign) NSInteger state;
+@property (readonly,copy)    NSString   *name;
+@property (readonly,copy)    NSString   *description;
+@property (readwrite,assign) NSInteger   state;
+
+@property (readwrite,retain) NSArray    *steps;
+@property (readwrite,assign) BASession2 *session;
+
+
+- (id) initWithName:(NSString*)name description:(NSString*)description;
+- (id) initWithName:(NSString*)name description:(NSString*)description steps:(NSArray*)steps;
 
 @end
