@@ -736,4 +736,33 @@
     return nil;
 }
 
+-(enum ImageOrientation)getMainOrientation
+{
+    switch (mIsisImage->getMainOrientation()){
+        case isis::data::Image::axial:
+            return ORIENT_AXIAL;
+            break;
+        case isis::data::Image::reversed_axial:
+            return ORIENT_REVAXIAL;
+            break;
+        case isis::data::Image::sagittal:
+            return ORIENT_SAGITTAL;
+            break;
+        case isis::data::Image::reversed_sagittal:
+            return ORIENT_REVSAGITTAL;
+            break;
+        case isis::data::Image::coronal:
+            return ORIENT_CORONAL;
+            break;
+        case isis::data::Image::reversed_coronal:
+            return ORIENT_REVCORONAL;
+            break;
+
+        default:
+            return ORIENT_UNKNOWN;
+            break;
+    }
+    
+}
+
 @end

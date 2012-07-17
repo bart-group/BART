@@ -28,6 +28,16 @@ enum ImageType {
 	IMAGE_UNKNOWN
 };
 
+enum ImageOrientation {
+    ORIENT_AXIAL,
+    ORIENT_REVAXIAL,
+	ORIENT_SAGITTAL,
+	ORIENT_REVSAGITTAL,
+	ORIENT_CORONAL,
+	ORIENT_REVCORONAL,
+	ORIENT_UNKNOWN
+};
+
 enum ImageDataType {
     IMAGE_DATA_FLOAT,
     IMAGE_DATA_INT16,
@@ -142,6 +152,8 @@ enum ImagePropertyID{
 -(id)getImageProperty:(enum ImagePropertyID)key;
 
 -(enum ImageDataType)getImageDataType;
+
+-(enum ImageOrientation)getMainOrientation;
 
 /*
  *
