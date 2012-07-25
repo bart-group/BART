@@ -55,7 +55,14 @@
 
 - (void) setExperiments:(NSArray *)experiments
 {
+    [self willChangeValueForKey:@"experiments"];
+    
     _experiments = experiments;
+    [_experiments enumerateObjectsUsingBlock:^(id experiment, NSUInteger index, BOOL *stop) {
+        [(BAExperiment2*)experiment setSession:self];
+    }];
+    
+    [self didChangeValueForKey:@"experiments"];
 }
 
 - (NSUInteger) countOfExperiments

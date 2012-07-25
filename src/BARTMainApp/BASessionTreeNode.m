@@ -24,6 +24,43 @@
 @synthesize description = _description;
 
 
++ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString *)key
+{
+    NSLog(@"[BASessionTreeNode keyPathsForValuesAffectingValueForKey]: %@", key);
+
+    if([key compare:@"stateIcon"] == NSOrderedSame) {
+        return [NSSet setWithObjects:@"state", @"object.state", nil];
+    }
+    
+    return nil;
+}
+
+//- (NSArray*)children
+//{
+//    return _children;
+//}
+
+- (NSUInteger)type
+{
+    return [[self object] type];
+}
+
+- (NSInteger)state
+{
+    return [[self object] state];
+}
+
+- (NSString*)name
+{
+    return [[self object] name];
+}
+
+- (NSString*)description
+{
+    return [[self object] description];
+}
+
+
 - (NSImage*)typeIcon
 {
     if(_type == BA_NODE_TYPE_SESSION) {
@@ -38,10 +75,22 @@
 }
 
 
+
 - (NSImage*)stateIcon
 {
-    
-    return nil;
+    if([[self object] state] == BA_NODE_STATE_RUNNING) {
+        return [NSImage imageNamed:@"runner.png"];
+    } else if ([[self object] state] == BA_NODE_STATE_READY) {
+        return [NSImage imageNamed:NSImageNameStatusAvailable];
+    } else if ([[self object] state] == BA_NODE_STATE_NEEDS_CONFIGURATION) {
+        return [NSImage imageNamed:NSImageNameStatusPartiallyAvailable];
+    } else if ([[self object] state] == BA_NODE_STATE_ERROR) {
+        return [NSImage imageNamed:NSImageNameStatusUnavailable];
+    } else if ([[self object] state] == BA_NODE_STATE_FINISHED) {
+        return [NSImage imageNamed:NSImageNameMenuOnStateTemplate];
+    } else {
+        return [NSImage imageNamed:NSImageNameStatusNone];
+    }
 }
 
 
@@ -49,7 +98,11 @@
 {
     if(self = [super init]) {
         _object = object;
-        _children = [NSArray arrayWithArray:children];
+        if(children == nil) {
+            _children = [[NSArray arrayWithObjects:nil] retain];
+        } else {
+            _children = [[NSArray arrayWithArray:children] retain];
+        }
         if([[_object class] isSubclassOfClass:[BASession2 class]]) {
             _type = BA_NODE_TYPE_SESSION;
         } else if ([[_object class] isSubclassOfClass:[BAExperiment2 class]]) {
@@ -62,7 +115,13 @@
         _name        = [[_object name] copy];
         _description = [[_object description] copy];
         _state       = [_object state];
-        [_object addObserver:self forKeyPath:@"state" options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
+        NSLog(@"Created BASessionTreeNode:");
+        NSLog(@"           name: %@", _name);
+        NSLog(@"    description: %@", _description);
+        NSLog(@"          state: %@", _state);
+        NSLog(@"       children: %@", _children);
+        
+//        [_object addObserver:self forKeyPath:@"state" options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
     }
     
     return self;
@@ -71,33 +130,42 @@
 
 - (void)dealloc
 {
-    [_object removeObserver:self forKeyPath:@"state"];
+//    [_object removeObserver:self forKeyPath:@"state"];
     [super dealloc];
 }
 
 -(BOOL)isRoot
 {
+    NSLog(@"[BASessionTreeNode isRoot] called");
     return _type == BA_NODE_TYPE_SESSION;
 }
 
 
 -(BOOL)isLeaf
 {
+    NSLog(@"[BASessionTreeNode isLeaf] called (%@)", _name);
     return (_children == nil || [_children count] == 0);
 }
 
 
 -(NSUInteger)childCount
 {
+    NSLog(@"[BASessionTreeNode childCount] called");
     return [_children count];
 }
 
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//    if(_object == object && [keyPath isEqualToString:@"state"]) {
+//        _state = (NSInteger)[change objectForKey:NSKeyValueChangeNewKey];
+//    }
+//}
+
+
+- (id)copyWithZone:(NSZone *)zone
 {
-    if(_object == object && [keyPath isEqualToString:@"state"]) {
-        _state = (NSInteger)[change objectForKey:NSKeyValueChangeNewKey];
-    }
+    return self;
 }
 
 @end

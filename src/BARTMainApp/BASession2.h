@@ -11,7 +11,7 @@
 #import "BAConstants.h"
 
 
-@interface BASession2 : NSObject
+@interface BASession2 : NSObject <NSCopying>
 
 
 @property (readonly,copy)    NSString  *name;

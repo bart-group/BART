@@ -12,7 +12,7 @@
 #import "BASession2.h"
 
 
-@interface BAExperiment2 : NSObject
+@interface BAExperiment2 : NSObject <NSCopying>
 
 @property (readonly,copy)    NSString   *name;
 @property (readonly,copy)    NSString   *description;
