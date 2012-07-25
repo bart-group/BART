@@ -8,6 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface BASessionTreeController : NSTreeController
+#import "BASessionTreeNode.h"
+
+
+@interface BASessionTreeController : NSTreeController <NSOutlineViewDelegate, NSOutlineViewDataSource> {
+    
+}
+
+@property (readonly) NSArray *treeRoots;
+
 
 @end

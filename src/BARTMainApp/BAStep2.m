@@ -24,6 +24,17 @@
 @synthesize experiment = _experiment;
 
 
+- (void)setState:(NSInteger)state
+{
+    [self willChangeValueForKey:@"state"];
+
+    NSLog(@"Step changing state from %lu to %lu", _state, state);
+    _state = state;
+    
+    [self didChangeValueForKey:@"state"];
+}
+
+
 #pragma mark -
 #pragma mark Initialization
 

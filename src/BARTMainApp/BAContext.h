@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "BASessionTreeNode.h"
+
 #import "BASession2.h"
 #import "BAExperiment2.h"
 #import "BAStep2.h"
@@ -16,14 +18,18 @@
 @interface BAContext : NSObject
 
 
-+ (id)sharedBAContext;
+@property (readonly,getter = sharedBAContext) BAContext *instance;
 
 
-@property (readwrite,retain) BASession2 *currentSession;
+@property (readwrite,retain) BASession2        *currentSession;
+@property (readonly)         NSArray           *sessionTreeContent;
+
+
++ (BAContext*)sharedBAContext;
 
 
 
-
+- (void)createExampleSession;
 
 
 @end
