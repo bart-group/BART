@@ -27,6 +27,8 @@
 
 + (BAContext*)sharedBAContext;
 
+- (IBAction)addExperiment:(id)sender;
+
 
 
 - (void)createExampleSession;

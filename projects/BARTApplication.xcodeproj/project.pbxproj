@@ -297,6 +297,10 @@
 		E562D7EF156158DC00DE5631 /* BAStep.m in Sources */ = {isa = PBXBuildFile; fileRef = E562D7EE156158DC00DE5631 /* BAStep.m */; };
 		E56CFEB71562D0F100CA9CC4 /* BAHierarchyTreeContext.m in Sources */ = {isa = PBXBuildFile; fileRef = E56CFEB61562D0F100CA9CC4 /* BAHierarchyTreeContext.m */; };
 		E56CFEBE1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = E56CFEBD1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.m */; };
+		E57D97F015C67F4F00E3D1C3 /* mainExp_Feedback_detrend_TR2000.edl in Resources */ = {isa = PBXBuildFile; fileRef = E57D97EE15C67F4F00E3D1C3 /* mainExp_Feedback_detrend_TR2000.edl */; };
+		E57D97F115C67F4F00E3D1C3 /* preScan_TR2000.edl in Resources */ = {isa = PBXBuildFile; fileRef = E57D97EF15C67F4F00E3D1C3 /* preScan_TR2000.edl */; };
+		E57D97FA15C6C74400E3D1C3 /* AddExperimentAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E57D97F915C6C74400E3D1C3 /* AddExperimentAccessoryView.xib */; };
+		E57D97FD15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E57D97FC15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewControllerViewController.m */; };
 		E597FE4A15937BDF0065A28C /* BASessionTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = E597FE4915937BDF0065A28C /* BASessionTreeController.m */; };
 		E597FE4E1594BABC0065A28C /* BASession2.m in Sources */ = {isa = PBXBuildFile; fileRef = E597FE4D1594BABC0065A28C /* BASession2.m */; };
 		E597FE511594BAD40065A28C /* BAExperiment2.m in Sources */ = {isa = PBXBuildFile; fileRef = E597FE501594BAD40065A28C /* BAExperiment2.m */; };
@@ -891,6 +895,11 @@
 		E56CFEB61562D0F100CA9CC4 /* BAHierarchyTreeContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeContext.m; sourceTree = "<group>"; };
 		E56CFEBC1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyTreeDescriptionCellView.h; sourceTree = "<group>"; };
 		E56CFEBD1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeDescriptionCellView.m; sourceTree = "<group>"; };
+		E57D97EE15C67F4F00E3D1C3 /* mainExp_Feedback_detrend_TR2000.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = mainExp_Feedback_detrend_TR2000.edl; path = ../src/BARTMainApp/mainExp_Feedback_detrend_TR2000.edl; sourceTree = "<group>"; };
+		E57D97EF15C67F4F00E3D1C3 /* preScan_TR2000.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = preScan_TR2000.edl; path = ../src/BARTMainApp/preScan_TR2000.edl; sourceTree = "<group>"; };
+		E57D97F915C6C74400E3D1C3 /* AddExperimentAccessoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddExperimentAccessoryView.xib; sourceTree = "<group>"; };
+		E57D97FB15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAAddExperimentAccessoryViewControllerViewController.h; sourceTree = "<group>"; };
+		E57D97FC15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAAddExperimentAccessoryViewControllerViewController.m; sourceTree = "<group>"; };
 		E597FE4815937BDF0065A28C /* BASessionTreeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASessionTreeController.h; sourceTree = "<group>"; };
 		E597FE4915937BDF0065A28C /* BASessionTreeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASessionTreeController.m; sourceTree = "<group>"; };
 		E597FE4C1594BABC0065A28C /* BASession2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASession2.h; sourceTree = "<group>"; };
@@ -1395,6 +1404,8 @@
 				E5ED3A6315920C3D00489E35 /* BAMainToolbarController.m */,
 				E597FE4815937BDF0065A28C /* BASessionTreeController.h */,
 				E597FE4915937BDF0065A28C /* BASessionTreeController.m */,
+				E57D97FB15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewControllerViewController.h */,
+				E57D97FC15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewControllerViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1714,6 +1725,9 @@
 				E562D7F015615CF900DE5631 /* Luigi.xib */,
 				E5A085FE1590A9C4002871AA /* BigLuigi.xib */,
 				E50AD5B115861063001A8154 /* AnalysisTest001TreeDescription.xml */,
+				E57D97EE15C67F4F00E3D1C3 /* mainExp_Feedback_detrend_TR2000.edl */,
+				E57D97EF15C67F4F00E3D1C3 /* preScan_TR2000.edl */,
+				E57D97F915C6C74400E3D1C3 /* AddExperimentAccessoryView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2348,6 +2362,9 @@
 				E5ED3A7715934F3700489E35 /* SessionTreeNodeIconSession.png in Resources */,
 				E5ED3A7815934F3700489E35 /* SessionTreeNodeIconStep.png in Resources */,
 				E5ED3A7915934F3700489E35 /* SessionTreeNodeIconUnknown.png in Resources */,
+				E57D97F015C67F4F00E3D1C3 /* mainExp_Feedback_detrend_TR2000.edl in Resources */,
+				E57D97F115C67F4F00E3D1C3 /* preScan_TR2000.edl in Resources */,
+				E57D97FA15C6C74400E3D1C3 /* AddExperimentAccessoryView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2707,6 +2724,7 @@
 				E5A8593D1599E07B00348C6D /* BAContext.m in Sources */,
 				E5D87BBC15BDAE4000532A1F /* BASessionTreeDescriptionCellView.m in Sources */,
 				E5D87BBF15C002F200532A1F /* BASessionTreeStateCellView.m in Sources */,
+				E57D97FD15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewControllerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
