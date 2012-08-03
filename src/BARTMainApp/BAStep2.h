@@ -22,4 +22,6 @@
 
 - (id) initWithName:(NSString*)name description:(NSString*)description;
 
++ (NSString*)displayTypeName;
+
 @end

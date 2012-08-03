@@ -7,6 +7,8 @@
 //
 
 #import "BAContext.h"
+#import "BAAddExperimentAccessoryViewControllerViewController.h"
+
 
 #import <dispatch/once.h>
 
@@ -68,12 +70,6 @@
 #pragma mark -
 #pragma mark Session Tree Related
 
-- (BAContext*)instance
-{
-    NSLog(@"[BAContext instance] called");
-    return [BAContext sharedBAContext];
-}
-
 - (void)buildTreeForView
 {
     NSLog(@"[BAContext buildTreeForView] called");
@@ -92,6 +88,32 @@
     sessionTreeContent = [NSArray arrayWithObjects:sessionNode, nil];
     NSLog(@"[BAContext buildTreeForView] new sessionTreeContent: %@", sessionTreeContent);
 }
+
+- (IBAction)addExperiment:(id)sender
+{
+    NSOpenPanel *chooseEDLFilePanel = [[NSOpenPanel openPanel] retain];
+    
+    BAAddExperimentAccessoryViewControllerViewController *accessoryViewController = [[BAAddExperimentAccessoryViewControllerViewController alloc] initWithNibName:@"AddExperimentAccessoryView" bundle:nil];
+    
+    [chooseEDLFilePanel setCanChooseFiles:YES];
+    [chooseEDLFilePanel setCanChooseDirectories:NO];
+    [chooseEDLFilePanel setAllowsMultipleSelection:NO];
+    [chooseEDLFilePanel setAllowedFileTypes:[NSArray arrayWithObject:@"edl"]];
+    [chooseEDLFilePanel setAllowsOtherFileTypes:YES];
+    [chooseEDLFilePanel setTitle:@"Add Experiment (with EDL File)"];
+    
+    [chooseEDLFilePanel setAccessoryView:[accessoryViewController view]];
+
+     [chooseEDLFilePanel beginSheetModalForWindow:[sender window] completionHandler:^(NSInteger result){
+        if (result == NSFileHandlingPanelOKButton) {
+            
+            NSLog(@"[chooseEDLFilePanel beginSheetModalForWindow] selected URL: %@", [chooseEDLFilePanel URL]);
+        }
+        
+        [chooseEDLFilePanel release];
+    }];
+}
+
 
 #pragma mark -
 #pragma mark Debug/Testing Related
@@ -126,6 +148,13 @@
 	dispatch_once(&predicate, ^{instance = [[self alloc] init];});
 	return instance;
 }
+
+- (BAContext*)instance
+{
+    NSLog(@"[BAContext instance] called");
+    return [BAContext sharedBAContext];
+}
+
 
 - (id) retain {
 	return self;

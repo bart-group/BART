@@ -49,4 +49,9 @@
 }
 
 
++ (NSString*)displayTypeName
+{
+    return @"Abstract Step";
+}
+
 @end

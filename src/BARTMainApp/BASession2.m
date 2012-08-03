@@ -80,4 +80,10 @@
     [_experiments getObjects:buffer range:inRange];
 }
 
+
++ (NSString*)displayTypeName
+{
+    return @"Abstract Session";
+}
+
 @end

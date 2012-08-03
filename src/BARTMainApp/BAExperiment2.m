@@ -80,5 +80,10 @@
     [_steps getObjects:buffer range:inRange];
 }
 
++ (NSString*)displayTypeName
+{
+    return @"Abstract Experiment";
+}
+
 
 @end
