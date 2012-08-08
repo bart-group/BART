@@ -107,7 +107,8 @@
             Class myClass = classes[i]; 
             Class superClass = class_getSuperclass(myClass);
             char *name = class_getName(myClass);
-            if(superClass == [self class] && [[NSString stringWithUTF8String:class_getName([self class])] rangeOfString:@"NSKVONotifying"].location == NSNotFound) {
+            // take all our subclasses except the generated classes beginning with 'NSKVONotifying...'
+            if(superClass == [self class] && [[NSString stringWithUTF8String:name] rangeOfString:@"NSKVONotifying"].location == NSNotFound) {
                 NSLog(@"Found Class: %@", [NSString stringWithUTF8String:name]);
                 [subClasses addObject:myClass];
             }
