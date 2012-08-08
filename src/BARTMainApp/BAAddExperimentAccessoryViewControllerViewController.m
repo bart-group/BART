@@ -15,7 +15,7 @@
 @interface BAAddExperimentAccessoryViewControllerViewController ()
 
 - (void)createHelpText;
-- (void)fillExperimentTypesArray;
+- (void)fillExperimentTypeDictionaries;
 
 @end
 
@@ -36,7 +36,9 @@
 
 @synthesize helpText=_helpText;
 
-@synthesize experimentTypes=_experimentTypes;
+@synthesize experimentTypeClasses      =_experimentTypeClasses;
+@synthesize experimentTypeNames        =_experimentTypeNames;
+@synthesize experimentTypeDescriptions =_experimentTypeDescriptions;
 
 
 - (IBAction)newSessionCheckboxSelector:(id)sender
@@ -60,7 +62,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self createHelpText];
-        [self fillExperimentTypesArray];
+        [self fillExperimentTypeDictionaries];
     }
     
     return self;
@@ -92,17 +94,30 @@
     
 }
 
-- (void)fillExperimentTypesArray
+- (void)fillExperimentTypeDictionaries
 {
-//    _experimentTypes = [NSMutableArray [[BAContext sharedBAContext] registeredExperimentTypes]];
+    NSArray *_experimentClasses = [[BAContext sharedBAContext] registeredExperimentTypes];
     
-    NSMutableArray *_types = [NSMutableArray arrayWithCapacity:0];
-    [_types addObject:@"Experiment Type 1"];
-    [_types addObject:@"Experiment Type 2"];
-    [_types addObject:@"Experiment Type 3"];
-    [_types addObject:@"My Experiment Type"];
+    NSLog(@"registeredExperimentTypes: %@", _experimentClasses);
     
-    _experimentTypes = [NSArray arrayWithArray:_types];
+    NSMutableArray *_classes      = [NSMutableArray array];
+    NSMutableArray *_names        = [NSMutableArray array];
+    NSMutableArray *_descriptions = [NSMutableArray array];
+
+    for(Class typeClass in _experimentClasses) {
+        [_classes      addObject:typeClass];
+        [_names        addObject:[typeClass typeDisplayName]];
+        [_descriptions addObject:[typeClass typeDescription]];
+    }
+    
+//    [_types addObject:@"Experiment Type 1"];
+//    [_types addObject:@"Experiment Type 2"];
+//    [_types addObject:@"Experiment Type 3"];
+//    [_types addObject:@"My Experiment Type"];
+    
+    _experimentTypeClasses      = [NSArray arrayWithArray:_classes];
+    _experimentTypeNames        = [NSArray arrayWithArray:_names];
+    _experimentTypeDescriptions = [NSArray arrayWithArray:_descriptions];
 }
 
 

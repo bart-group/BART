@@ -25,6 +25,9 @@
 - (id) initWithName:(NSString*)name description:(NSString*)description;
 - (id) initWithName:(NSString*)name description:(NSString*)description steps:(NSArray*)steps;
 
-+ (NSString*)displayTypeName;
++ (NSString*)typeDisplayName;
++ (NSString*)typeDescription;
+
++ (NSArray*)subclasses;
 
 @end

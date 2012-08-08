@@ -230,7 +230,7 @@
 									<object class="NSTextView" id="833115542">
 										<reference key="NSNextResponder" ref="308255153"/>
 										<int key="NSvFlags">2322</int>
-										<string key="NSFrameSize">{613, 0}</string>
+										<string key="NSFrameSize">{613, 14}</string>
 										<reference key="NSSuperview" ref="308255153"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="662716628"/>
@@ -383,8 +383,8 @@
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSComboBoxCell" key="NSCell" id="684120785">
-							<int key="NSCellFlags">343014976</int>
-							<int key="NSCellFlags2">272630784</int>
+							<int key="NSCellFlags">71433792</int>
+							<int key="NSCellFlags2">272636416</int>
 							<string key="NSContents"/>
 							<reference key="NSSupport" ref="28478108"/>
 							<string key="NSCellIdentifier">_NS:9</string>
@@ -405,7 +405,7 @@
 							<object class="NSComboTableView" key="NSTableView" id="10829975">
 								<reference key="NSNextResponder"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrameSize">{13, 21}</string>
+								<string key="NSFrameSize">{13, 84}</string>
 								<reference key="NSSuperview"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:24</string>
@@ -565,6 +565,39 @@
 						<reference key="destination" ref="93600911"/>
 					</object>
 					<int key="connectionID">35</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">content: experimentTypeNames</string>
+						<reference key="source" ref="684120785"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector" id="139054015">
+							<reference key="NSSource" ref="684120785"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">content: experimentTypeNames</string>
+							<string key="NSBinding">content</string>
+							<string key="NSKeyPath">experimentTypeNames</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">55</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">contentValues: experimentTypeClasses</string>
+						<reference key="source" ref="684120785"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="684120785"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">contentValues: experimentTypeClasses</string>
+							<string key="NSBinding">contentValues</string>
+							<string key="NSKeyPath">experimentTypeClasses</string>
+							<reference key="NSPreviousConnector" ref="139054015"/>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">57</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -799,7 +832,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">36</int>
+			<int key="maxID">57</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

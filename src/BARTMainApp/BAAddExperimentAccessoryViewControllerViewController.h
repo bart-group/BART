@@ -12,7 +12,10 @@
 
 @property (readonly) NSAttributedString *helpText;
 
-@property (readonly) NSArray *experimentTypes;
+@property (readonly) NSArray *experimentTypeClasses;
+@property (readonly) NSArray *experimentTypeNames;
+@property (readonly) NSArray *experimentTypeDescriptions;
+
 
 @property (assign) IBOutlet NSTextField *experimentTypeLabel;
 @property (assign) IBOutlet NSComboBox  *experimentTypeInput;
