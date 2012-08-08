@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface BAAddExperimentAccessoryViewControllerViewController : NSViewController
+@interface BAAddExperimentAccessoryViewControllerViewController : NSViewController <NSOpenSavePanelDelegate, NSTextFieldDelegate, NSComboBoxDelegate>
 
 @property (readonly) NSAttributedString *helpText;
 
@@ -29,6 +29,10 @@
 @property (assign) IBOutlet NSTextField *sessionNameLabel;
 @property (assign) IBOutlet NSTextField *sessionNameInput;
 
+@property (readwrite,assign) NSImage *experimentNameWarningImage;
+@property (readwrite,assign) NSImage *experimentTypeWarningImage;
+
+@property (readwrite,assign) NSImage *sessionNameWarningImage;
 
 - (IBAction)newSessionCheckboxSelector:(id)sender;
 
