@@ -14,32 +14,49 @@
 
 @interface BAAddExperimentAccessoryViewControllerViewController ()
 
+#pragma mark -
+#pragma mark Private Methods
+
 - (void)createHelpText;
 - (void)fillExperimentTypeDictionaries;
 
 @end
 
+
 @implementation BAAddExperimentAccessoryViewControllerViewController
+
+#pragma mark -
+#pragma mark Experiment Type and Name Properties
 
 @synthesize experimentTypeLabel=_experimentTypeLabel;
 @synthesize experimentTypeInput=_experimentTypeInput;
+@synthesize experimentTypeWarningImage=_experimentTypeWarningImage;
 
 @synthesize experimentNameLabel=_experimentNameLabel;
 @synthesize experimentNameInput=_experimentNameInput;
+@synthesize experimentNameWarningImage=_experimentNameWarningImage;
+
+@synthesize experimentTypeClasses      =_experimentTypeClasses;
+@synthesize experimentTypeNames        =_experimentTypeNames;
+@synthesize experimentTypeDescriptions =_experimentTypeDescriptions;
+
+#pragma mark -
+#pragma mark New Session and Name Properties
 
 @synthesize newSessionLabel    =_newSessionLabel;
 @synthesize newSessionCheckbox =_newSessionCheckbox;
 
 @synthesize sessionNameLabel   =_sessionNameLabel;
 @synthesize sessionNameInput   =_sessionNameInput;
+@synthesize sessionNameWarningImage=_sessionNameWarningImage;
 
+#pragma mark -
+#pragma mark Help Text Properties
 
 @synthesize helpText=_helpText;
 
-@synthesize experimentTypeClasses      =_experimentTypeClasses;
-@synthesize experimentTypeNames        =_experimentTypeNames;
-@synthesize experimentTypeDescriptions =_experimentTypeDescriptions;
-
+#pragma mark -
+#pragma mark Actions and Control Changes
 
 - (IBAction)newSessionCheckboxSelector:(id)sender
 {
@@ -48,21 +65,92 @@
         [[self sessionNameLabel] setEnabled:FALSE];
         [[self sessionNameLabel] setTextColor:[NSColor disabledControlTextColor]];
         [[self sessionNameInput] setEnabled:FALSE];
+        [self setSessionNameWarningImage:nil];
     } else {
         [[self sessionNameLabel] setEnabled:TRUE];
         [[self sessionNameLabel] setTextColor:[NSColor controlTextColor]];
         [[self sessionNameInput] setEnabled:TRUE];
+        if([[[self sessionNameInput] stringValue] compare:@""] == NSOrderedSame)
+        {
+            [self setSessionNameWarningImage:[NSImage imageNamed:NSImageNameCaution]];
+        } else {
+            [self setSessionNameWarningImage:nil];
+        }
     }
 }
 
 
+- (void)controlTextDidChange:(NSNotification*)notification
+{
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+    if([notification object] == [self experimentNameInput]) {
+        // NSLog(@"controlTextDidChange: %@", [notification object]);
+        if([[[self experimentNameInput] stringValue] compare:@"" options:nil] == NSOrderedSame) {
+            [self setExperimentNameWarningImage:[NSImage imageNamed:NSImageNameCaution]];
+        } else {
+            [self setExperimentNameWarningImage:nil];
+        }
+    }
+    if([notification object] == [self sessionNameInput]) {
+        // NSLog(@"controlTextDidChange: %@", [notification object]);
+        if([[[self sessionNameInput] stringValue] compare:@"" options:nil] == NSOrderedSame) {
+            [self setSessionNameWarningImage:[NSImage imageNamed:NSImageNameCaution]];
+        } else {
+            [self setSessionNameWarningImage:nil];
+        }
+    }
+}
+
+- (void)comboBoxSelectionDidChange:(NSNotification*)notification
+{
+    if([notification object] == [self experimentTypeInput]) {
+        // NSLog(@"controlSelectionDidChange: %@ to %@", [notification object], [[notification object] objectValueOfSelectedItem]);
+        if([[self experimentTypeInput] objectValueOfSelectedItem] == nil) {
+            [self setExperimentTypeWarningImage:[NSImage imageNamed:NSImageNameCaution]];
+        } else {
+            [self setExperimentTypeWarningImage:nil];
+        }
+    }
+
+}
+
+#pragma mark -
+#pragma mark NSOpenSavePanelDelegate Methods
+
+- (BOOL)panel:(id)sender validateURL:(NSURL*)url error:(NSError**)outError
+{
+    BOOL allValid = TRUE;
+
+    allValid &= ([[self experimentTypeInput] objectValueOfSelectedItem] != nil);
+    allValid &= ([[[self experimentNameInput] stringValue] compare:@"" options:nil] != NSOrderedSame);
+    if([[self newSessionCheckbox] state] == NSOnState) {
+        allValid &= ([[[self sessionNameInput] stringValue] compare:@"" options:nil] != NSOrderedSame);
+    }
+
+    return allValid;
+}
+
+
+#pragma mark -
+#pragma mark Initialization Related
+
+
+- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self createHelpText];
         [self fillExperimentTypeDictionaries];
+        if([[[self experimentNameInput] stringValue] compare:@""] == NSOrderedSame) {
+            [self setExperimentNameWarningImage:[NSImage imageNamed:NSImageNameCaution]];
+        }
+        if([[self experimentTypeInput] objectValueOfSelectedItem] == nil) {
+            [self setExperimentTypeWarningImage:[NSImage imageNamed:NSImageNameCaution]];
+        }
+        if([[self newSessionCheckbox] state] == NSOnState && [[[self sessionNameInput] stringValue] compare:@""] == NSOrderedSame)
+        {
+            [self setSessionNameWarningImage:[NSImage imageNamed:NSImageNameCaution]];
+        }
     }
     
     return self;
@@ -76,7 +164,7 @@
     NSString *rawText = @"";
     rawText = [rawText stringByAppendingString:@"This dialog adds a new experiment to an existing or newly created session."];
     rawText = [rawText stringByAppendingString:pSepString];
-    rawText = [rawText stringByAppendingString:@"Please choose your EDL file above and then select the desired experiment type and "];
+    rawText = [rawText stringByAppendingString:@"Please choose your EDL file above and then select the desired experiment type/name and "];
     rawText = [rawText stringByAppendingString:@"wether you want to append the experiment to an existing session or create an entirely new session. "];
     rawText = [rawText stringByAppendingString:@"Note however that if you create a new session the old one including all containing experiments "];
     rawText = [rawText stringByAppendingString:@"will be deleted."];

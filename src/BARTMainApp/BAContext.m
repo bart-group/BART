@@ -103,11 +103,18 @@
     [chooseEDLFilePanel setTitle:@"Add Experiment (with EDL File)"];
     
     [chooseEDLFilePanel setAccessoryView:[accessoryViewController view]];
-
+    [chooseEDLFilePanel setDelegate:accessoryViewController];
+    
      [chooseEDLFilePanel beginSheetModalForWindow:[sender window] completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelOKButton) {
             
-            NSLog(@"[chooseEDLFilePanel beginSheetModalForWindow] selected URL: %@", [chooseEDLFilePanel URL]);
+            NSLog(@"[BAContext addExperiment] EDL File URL: %@", [chooseEDLFilePanel URL]);
+            NSLog(@"[BAContext addExperiment] Experiment Type: %@", [[accessoryViewController experimentTypeInput] objectValueOfSelectedItem]);
+            NSLog(@"[BAContext addExperiment] Experiment Name: %@", [[accessoryViewController experimentNameInput] stringValue]);
+            NSLog(@"[BAContext addExperiment] Create Session: %@", ([[accessoryViewController newSessionCheckbox] state] ? @"True" : @"False"));
+            NSLog(@"[BAContext addExperiment] Session Name: %@", [[accessoryViewController sessionNameInput] stringValue]);
+            
+            
         }
         
         [chooseEDLFilePanel release];
