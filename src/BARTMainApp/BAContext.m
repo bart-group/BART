@@ -115,6 +115,13 @@
 }
 
 
+- (NSArray*)registeredExperimentTypes
+{
+    NSLog(@"[BAExperiment2 subclasses]: %@", [BAExperiment2 subclasses]);
+    
+    return [BAExperiment2 subclasses];
+}
+
 #pragma mark -
 #pragma mark Debug/Testing Related
 

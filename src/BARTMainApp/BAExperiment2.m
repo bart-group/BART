@@ -7,8 +7,10 @@
 //
 
 #import "BAExperiment2.h"
-
 #import "BAStep2.h"
+
+#import <objc/runtime.h>
+
 
 
 @implementation BAExperiment2
@@ -80,9 +82,39 @@
     [_steps getObjects:buffer range:inRange];
 }
 
-+ (NSString*)displayTypeName
++ (NSString*)typeDisplayName
 {
     return @"Abstract Experiment";
+}
+
++ (NSString*)typeDescription
+{
+    return @"Abstract Experiment Description";
+}
+
++ (NSArray*)subclasses
+{
+    NSMutableArray *subClasses = [NSMutableArray array];
+    Class *classes = nil;
+    int count = objc_getClassList(NULL, 0);
+    if(count) {
+        classes = malloc(sizeof(Class)* count); 
+        NSAssert(classes != NULL, @"Memory Allocation Failed in [Content +subclasses].");
+        (void) objc_getClassList(classes, count); 
+    }
+    if (classes) {
+        for(int i=0; i<count; i++) {
+            Class myClass = classes[i]; 
+            Class superClass = class_getSuperclass(myClass);
+            char *name = class_getName(myClass);
+            if(superClass == [self class] && [[NSString stringWithUTF8String:class_getName([self class])] rangeOfString:@"NSKVONotifying"].location == NSNotFound) {
+                NSLog(@"Found Class: %@", [NSString stringWithUTF8String:name]);
+                [subClasses addObject:myClass];
+            }
+        }
+        free(classes);
+    }
+    return subClasses;
 }
 
 

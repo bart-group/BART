@@ -297,6 +297,8 @@
 		E562D7EF156158DC00DE5631 /* BAStep.m in Sources */ = {isa = PBXBuildFile; fileRef = E562D7EE156158DC00DE5631 /* BAStep.m */; };
 		E56CFEB71562D0F100CA9CC4 /* BAHierarchyTreeContext.m in Sources */ = {isa = PBXBuildFile; fileRef = E56CFEB61562D0F100CA9CC4 /* BAHierarchyTreeContext.m */; };
 		E56CFEBE1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = E56CFEBD1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.m */; };
+		E5799B1615CFFC15009C0F31 /* FunctionalLocalizerExperiment.m in Sources */ = {isa = PBXBuildFile; fileRef = E5799B1515CFFC15009C0F31 /* FunctionalLocalizerExperiment.m */; };
+		E5799B1915D00723009C0F31 /* FirstEverExampleExperiment.m in Sources */ = {isa = PBXBuildFile; fileRef = E5799B1815D00723009C0F31 /* FirstEverExampleExperiment.m */; };
 		E57D97F015C67F4F00E3D1C3 /* mainExp_Feedback_detrend_TR2000.edl in Resources */ = {isa = PBXBuildFile; fileRef = E57D97EE15C67F4F00E3D1C3 /* mainExp_Feedback_detrend_TR2000.edl */; };
 		E57D97F115C67F4F00E3D1C3 /* preScan_TR2000.edl in Resources */ = {isa = PBXBuildFile; fileRef = E57D97EF15C67F4F00E3D1C3 /* preScan_TR2000.edl */; };
 		E57D97FA15C6C74400E3D1C3 /* AddExperimentAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E57D97F915C6C74400E3D1C3 /* AddExperimentAccessoryView.xib */; };
@@ -895,6 +897,10 @@
 		E56CFEB61562D0F100CA9CC4 /* BAHierarchyTreeContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeContext.m; sourceTree = "<group>"; };
 		E56CFEBC1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyTreeDescriptionCellView.h; sourceTree = "<group>"; };
 		E56CFEBD1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeDescriptionCellView.m; sourceTree = "<group>"; };
+		E5799B1415CFFC15009C0F31 /* FunctionalLocalizerExperiment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionalLocalizerExperiment.h; sourceTree = "<group>"; };
+		E5799B1515CFFC15009C0F31 /* FunctionalLocalizerExperiment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FunctionalLocalizerExperiment.m; sourceTree = "<group>"; };
+		E5799B1715D00723009C0F31 /* FirstEverExampleExperiment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstEverExampleExperiment.h; sourceTree = "<group>"; };
+		E5799B1815D00723009C0F31 /* FirstEverExampleExperiment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstEverExampleExperiment.m; sourceTree = "<group>"; };
 		E57D97EE15C67F4F00E3D1C3 /* mainExp_Feedback_detrend_TR2000.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = mainExp_Feedback_detrend_TR2000.edl; path = ../src/BARTMainApp/mainExp_Feedback_detrend_TR2000.edl; sourceTree = "<group>"; };
 		E57D97EF15C67F4F00E3D1C3 /* preScan_TR2000.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = preScan_TR2000.edl; path = ../src/BARTMainApp/preScan_TR2000.edl; sourceTree = "<group>"; };
 		E57D97F915C6C74400E3D1C3 /* AddExperimentAccessoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddExperimentAccessoryView.xib; sourceTree = "<group>"; };
@@ -1220,6 +1226,7 @@
 				00AE3E0B1337980800F2D01D /* View */,
 				00AE3E0A1337980200F2D01D /* Model */,
 				00AE3E09133797FA00F2D01D /* Controller */,
+				E5799B1215CFFBCB009C0F31 /* Experiment Implementations */,
 				E54B814E157E3FB50029ECC4 /* Element Implementations */,
 				0040B8631141483B00A57967 /* CIKernels */,
 				0040B7F81141470400A57967 /* main.m */,
@@ -1820,6 +1827,17 @@
 				E54B8155157E40600029ECC4 /* BAExampleStepConfigView.xib */,
 			);
 			name = "Example Step";
+			sourceTree = "<group>";
+		};
+		E5799B1215CFFBCB009C0F31 /* Experiment Implementations */ = {
+			isa = PBXGroup;
+			children = (
+				E5799B1415CFFC15009C0F31 /* FunctionalLocalizerExperiment.h */,
+				E5799B1515CFFC15009C0F31 /* FunctionalLocalizerExperiment.m */,
+				E5799B1715D00723009C0F31 /* FirstEverExampleExperiment.h */,
+				E5799B1815D00723009C0F31 /* FirstEverExampleExperiment.m */,
+			);
+			name = "Experiment Implementations";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2725,6 +2743,8 @@
 				E5D87BBC15BDAE4000532A1F /* BASessionTreeDescriptionCellView.m in Sources */,
 				E5D87BBF15C002F200532A1F /* BASessionTreeStateCellView.m in Sources */,
 				E57D97FD15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewControllerViewController.m in Sources */,
+				E5799B1615CFFC15009C0F31 /* FunctionalLocalizerExperiment.m in Sources */,
+				E5799B1915D00723009C0F31 /* FirstEverExampleExperiment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

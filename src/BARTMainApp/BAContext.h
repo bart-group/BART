@@ -23,6 +23,7 @@
 
 @property (readwrite,retain) BASession2        *currentSession;
 @property (readonly)         NSArray           *sessionTreeContent;
+@property (readonly)         NSArray           *registeredExperimentTypes;
 
 
 + (BAContext*)sharedBAContext;
