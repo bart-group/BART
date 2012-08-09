@@ -85,7 +85,7 @@
 
     if([notification object] == [self experimentNameInput]) {
         // NSLog(@"controlTextDidChange: %@", [notification object]);
-        if([[[self experimentNameInput] stringValue] compare:@"" options:nil] == NSOrderedSame) {
+        if([[[self experimentNameInput] stringValue] compare:@""] == NSOrderedSame) {
             [self setExperimentNameWarningImage:[NSImage imageNamed:NSImageNameCaution]];
         } else {
             [self setExperimentNameWarningImage:nil];
@@ -93,7 +93,7 @@
     }
     if([notification object] == [self sessionNameInput]) {
         // NSLog(@"controlTextDidChange: %@", [notification object]);
-        if([[[self sessionNameInput] stringValue] compare:@"" options:nil] == NSOrderedSame) {
+        if([[[self sessionNameInput] stringValue] compare:@""] == NSOrderedSame) {
             [self setSessionNameWarningImage:[NSImage imageNamed:NSImageNameCaution]];
         } else {
             [self setSessionNameWarningImage:nil];
@@ -122,9 +122,9 @@
     BOOL allValid = TRUE;
 
     allValid &= ([[self experimentTypeInput] objectValueOfSelectedItem] != nil);
-    allValid &= ([[[self experimentNameInput] stringValue] compare:@"" options:nil] != NSOrderedSame);
+    allValid &= ([[[self experimentNameInput] stringValue] compare:@""] != NSOrderedSame);
     if([[self newSessionCheckbox] state] == NSOnState) {
-        allValid &= ([[[self sessionNameInput] stringValue] compare:@"" options:nil] != NSOrderedSame);
+        allValid &= ([[[self sessionNameInput] stringValue] compare:@""] != NSOrderedSame);
     }
 
     return allValid;
