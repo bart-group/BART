@@ -47,7 +47,7 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="NSImageView" id="295872706">
+					<object class="NSImageView" id="812885599">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">256</int>
 						<set class="NSMutableSet" key="NSDragTypes">
@@ -64,7 +64,7 @@
 						<reference key="NSNextKeyView" ref="1023826395"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
-						<object class="NSImageCell" key="NSCell" id="164583010">
+						<object class="NSImageCell" key="NSCell" id="1023920793">
 							<int key="NSCellFlags">130560</int>
 							<int key="NSCellFlags2">0</int>
 							<string key="NSCellIdentifier">_NS:9</string>
@@ -75,7 +75,7 @@
 						</object>
 						<bool key="NSEditable">YES</bool>
 					</object>
-					<object class="NSImageView" id="58860876">
+					<object class="NSImageView" id="987408941">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">256</int>
 						<set class="NSMutableSet" key="NSDragTypes">
@@ -92,7 +92,7 @@
 						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
-						<object class="NSImageCell" key="NSCell" id="185967780">
+						<object class="NSImageCell" key="NSCell" id="1052943593">
 							<int key="NSCellFlags">130560</int>
 							<int key="NSCellFlags2">0</int>
 							<string key="NSCellIdentifier">_NS:9</string>
@@ -103,7 +103,7 @@
 						</object>
 						<bool key="NSEditable">YES</bool>
 					</object>
-					<object class="NSImageView" id="1059901801">
+					<object class="NSImageView" id="346957804">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">256</int>
 						<set class="NSMutableSet" key="NSDragTypes">
@@ -120,7 +120,7 @@
 						<reference key="NSNextKeyView" ref="325989317"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
-						<object class="NSImageCell" key="NSCell" id="72460513">
+						<object class="NSImageCell" key="NSCell" id="766048557">
 							<int key="NSCellFlags">130560</int>
 							<int key="NSCellFlags2">0</int>
 							<string key="NSCellIdentifier">_NS:9</string>
@@ -256,7 +256,7 @@
 						<string key="NSFrame">{{471, 28}, {160, 22}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="58860876"/>
+						<reference key="NSNextKeyView" ref="987408941"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="766249336">
@@ -290,7 +290,7 @@
 						<string key="NSFrame">{{471, 65}, {160, 22}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1059901801"/>
+						<reference key="NSNextKeyView" ref="346957804"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="942709175">
@@ -465,7 +465,7 @@
 						<string key="NSFrame">{{138, 63}, {163, 26}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="295872706"/>
+						<reference key="NSNextKeyView" ref="812885599"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSComboBoxCell" key="NSCell" id="684120785">
@@ -662,36 +662,36 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">content: experimentTypeNames</string>
-						<reference key="source" ref="684120785"/>
+						<string key="label">content: experimentTypeClasses</string>
+						<reference key="source" ref="1032416270"/>
 						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector" id="934701746">
-							<reference key="NSSource" ref="684120785"/>
+						<object class="NSNibBindingConnector" key="connector" id="381479751">
+							<reference key="NSSource" ref="1032416270"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">content: experimentTypeNames</string>
+							<string key="NSLabel">content: experimentTypeClasses</string>
 							<string key="NSBinding">content</string>
-							<string key="NSKeyPath">experimentTypeNames</string>
+							<string key="NSKeyPath">experimentTypeClasses</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">55</int>
+					<int key="connectionID">80</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentValues: experimentTypeClasses</string>
-						<reference key="source" ref="684120785"/>
+						<string key="label">contentValues: experimentTypeClasses.typeDisplayName</string>
+						<reference key="source" ref="1032416270"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="684120785"/>
+							<reference key="NSSource" ref="1032416270"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">contentValues: experimentTypeClasses</string>
+							<string key="NSLabel">contentValues: experimentTypeClasses.typeDisplayName</string>
 							<string key="NSBinding">contentValues</string>
-							<string key="NSKeyPath">experimentTypeClasses</string>
-							<reference key="NSPreviousConnector" ref="934701746"/>
+							<string key="NSKeyPath">experimentTypeClasses.typeDisplayName</string>
+							<reference key="NSPreviousConnector" ref="381479751"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">57</int>
+					<int key="connectionID">84</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -728,10 +728,10 @@
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: experimentNameWarningImage</string>
-						<reference key="source" ref="1059901801"/>
+						<reference key="source" ref="346957804"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="1059901801"/>
+							<reference key="NSSource" ref="346957804"/>
 							<reference key="NSDestination" ref="1001"/>
 							<string key="NSLabel">value: experimentNameWarningImage</string>
 							<string key="NSBinding">value</string>
@@ -744,10 +744,10 @@
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: experimentTypeWarningImage</string>
-						<reference key="source" ref="295872706"/>
+						<reference key="source" ref="812885599"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="295872706"/>
+							<reference key="NSSource" ref="812885599"/>
 							<reference key="NSDestination" ref="1001"/>
 							<string key="NSLabel">value: experimentTypeWarningImage</string>
 							<string key="NSBinding">value</string>
@@ -760,10 +760,10 @@
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: sessionNameWarningImage</string>
-						<reference key="source" ref="58860876"/>
+						<reference key="source" ref="987408941"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="58860876"/>
+							<reference key="NSSource" ref="987408941"/>
 							<reference key="NSDestination" ref="1001"/>
 							<string key="NSLabel">value: sessionNameWarningImage</string>
 							<string key="NSBinding">value</string>
@@ -813,9 +813,9 @@
 							<reference ref="325989317"/>
 							<reference ref="93600911"/>
 							<reference ref="1032416270"/>
-							<reference ref="1059901801"/>
-							<reference ref="295872706"/>
-							<reference ref="58860876"/>
+							<reference ref="346957804"/>
+							<reference ref="812885599"/>
+							<reference ref="987408941"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Add Experiment Accessory View</string>
@@ -956,42 +956,42 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">58</int>
-						<reference key="object" ref="1059901801"/>
+						<reference key="object" ref="346957804"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="72460513"/>
+							<reference ref="766048557"/>
 						</array>
 						<reference key="parent" ref="1005"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">59</int>
-						<reference key="object" ref="72460513"/>
-						<reference key="parent" ref="1059901801"/>
+						<reference key="object" ref="766048557"/>
+						<reference key="parent" ref="346957804"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">62</int>
-						<reference key="object" ref="295872706"/>
+						<reference key="object" ref="812885599"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="164583010"/>
+							<reference ref="1023920793"/>
 						</array>
 						<reference key="parent" ref="1005"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">63</int>
-						<reference key="object" ref="164583010"/>
-						<reference key="parent" ref="295872706"/>
+						<reference key="object" ref="1023920793"/>
+						<reference key="parent" ref="812885599"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">72</int>
-						<reference key="object" ref="58860876"/>
+						<reference key="object" ref="987408941"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="185967780"/>
+							<reference ref="1052943593"/>
 						</array>
 						<reference key="parent" ref="1005"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">73</int>
-						<reference key="object" ref="185967780"/>
-						<reference key="parent" ref="58860876"/>
+						<reference key="object" ref="1052943593"/>
+						<reference key="parent" ref="987408941"/>
 					</object>
 				</array>
 			</object>
@@ -1032,13 +1032,14 @@
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="73.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="8.userInterfaceItemIdentifier">Help Text</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">76</int>
+			<int key="maxID">86</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

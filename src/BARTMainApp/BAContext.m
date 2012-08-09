@@ -109,7 +109,8 @@
         if (result == NSFileHandlingPanelOKButton) {
             
             NSLog(@"[BAContext addExperiment] EDL File URL: %@", [chooseEDLFilePanel URL]);
-            NSLog(@"[BAContext addExperiment] Experiment Type: %@", [[accessoryViewController experimentTypeInput] objectValueOfSelectedItem]);
+//            NSLog(@"[BAContext addExperiment] Experiment Type: %@", [[accessoryViewController experimentTypeInput] objectValueOfSelectedItem]);
+            NSLog(@"[BAContext addExperiment] Experiment Type: %@", [[accessoryViewController experimentTypeInput] objectValue]);
             NSLog(@"[BAContext addExperiment] Experiment Name: %@", [[accessoryViewController experimentNameInput] stringValue]);
             NSLog(@"[BAContext addExperiment] Create Session: %@", ([[accessoryViewController newSessionCheckbox] state] ? @"True" : @"False"));
             NSLog(@"[BAContext addExperiment] Session Name: %@", [[accessoryViewController sessionNameInput] stringValue]);
