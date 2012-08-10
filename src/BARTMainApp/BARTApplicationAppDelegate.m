@@ -138,6 +138,7 @@
     [[COExperimentContext getInstance] stopExperiment];
 }	
 
+
 -(NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication*)sender
 {
     NSLog(@"applicationShouldTerminate: %@", sender);
