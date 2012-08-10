@@ -1,14 +1,14 @@
 //
-//  FunctionalLocalizerExperiment.m
+//  RTAnalysisExperiment.m
 //  BARTApplication
 //
 //  Created by Torsten Schlumm on 8/6/12.
 //  Copyright (c) 2012 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#import "FunctionalLocalizerExperiment.h"
+#import "RTAnalysisExperiment.h"
 
-@implementation FunctionalLocalizerExperiment
+@implementation RTAnalysisExperiment
 
 
 + (NSString*)typeDisplayName

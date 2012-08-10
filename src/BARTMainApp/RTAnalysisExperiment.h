@@ -1,5 +1,5 @@
 //
-//  FunctionalLocalizerExperiment.h
+//  RTAnalysisExperiment.h
 //  BARTApplication
 //
 //  Created by Torsten Schlumm on 8/6/12.
@@ -8,6 +8,6 @@
 
 #import "BAExperiment2.h"
 
-@interface FunctionalLocalizerExperiment : BAExperiment2
+@interface RTAnalysisExperiment : BAExperiment2
 
 @end
