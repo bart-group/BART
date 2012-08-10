@@ -313,7 +313,7 @@
 		E5A5B9CC15497FE700A7AA4F /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AF13E805FF00169848 /* CLETUS.dylib */; };
 		E5A5B9CD15497FE700A7AA4F /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
 		E5A5B9CE15497FE700A7AA4F /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AE13E805FF00169848 /* NED.dylib */; };
-		E5A8593D1599E07B00348C6D /* BAContext.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A8593C1599E07A00348C6D /* BAContext.m */; };
+		E5A8593D1599E07B00348C6D /* BASessionContext.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A8593C1599E07A00348C6D /* BASessionContext.m */; };
 		E5D075391562B4C60058791E /* BAHierarchyTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D075381562B4C60058791E /* BAHierarchyTreeController.m */; };
 		E5D87BBC15BDAE4000532A1F /* BASessionTreeDescriptionCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D87BBB15BDAE4000532A1F /* BASessionTreeDescriptionCellView.m */; };
 		E5D87BBF15C002F200532A1F /* BASessionTreeStateCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D87BBE15C002F200532A1F /* BASessionTreeStateCellView.m */; };
@@ -919,8 +919,8 @@
 		E5A085F7158F3286002871AA /* BAHierarchyTreeContextMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeContextMenuController.m; sourceTree = "<group>"; };
 		E5A085FE1590A9C4002871AA /* BigLuigi.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BigLuigi.xib; path = ../src/BARTMainApp/BigLuigi.xib; sourceTree = "<group>"; };
 		E5A086001591CD44002871AA /* runner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = runner.png; path = ../src/BARTMainApp/runner.png; sourceTree = "<group>"; };
-		E5A8593B1599E07A00348C6D /* BAContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAContext.h; sourceTree = "<group>"; };
-		E5A8593C1599E07A00348C6D /* BAContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAContext.m; sourceTree = "<group>"; };
+		E5A8593B1599E07A00348C6D /* BASessionContext.h */ = {isa = PBXFileReference; fileEncoding = 4; path = BASessionContext.h; sourceTree = "<group>"; };
+		E5A8593C1599E07A00348C6D /* BASessionContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASessionContext.m; sourceTree = "<group>"; };
 		E5D075371562B4C60058791E /* BAHierarchyTreeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyTreeController.h; sourceTree = "<group>"; };
 		E5D075381562B4C60058791E /* BAHierarchyTreeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeController.m; sourceTree = "<group>"; };
 		E5D87BBA15BDAE4000532A1F /* BASessionTreeDescriptionCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASessionTreeDescriptionCellView.h; sourceTree = "<group>"; };
@@ -1456,8 +1456,8 @@
 				E597FE4D1594BABC0065A28C /* BASession2.m */,
 				E597FE4F1594BAD40065A28C /* BAExperiment2.h */,
 				E597FE501594BAD40065A28C /* BAExperiment2.m */,
-				E5A8593B1599E07A00348C6D /* BAContext.h */,
-				E5A8593C1599E07A00348C6D /* BAContext.m */,
+				E5A8593B1599E07A00348C6D /* BASessionContext.h */,
+				E5A8593C1599E07A00348C6D /* BASessionContext.m */,
 				E597FE521594BAEA0065A28C /* BAStep2.h */,
 				E597FE531594BAEA0065A28C /* BAStep2.m */,
 				E597FE551594C4580065A28C /* BAConstants.h */,
@@ -2739,7 +2739,7 @@
 				E597FE4E1594BABC0065A28C /* BASession2.m in Sources */,
 				E597FE511594BAD40065A28C /* BAExperiment2.m in Sources */,
 				E597FE541594BAEA0065A28C /* BAStep2.m in Sources */,
-				E5A8593D1599E07B00348C6D /* BAContext.m in Sources */,
+				E5A8593D1599E07B00348C6D /* BASessionContext.m in Sources */,
 				E5D87BBC15BDAE4000532A1F /* BASessionTreeDescriptionCellView.m in Sources */,
 				E5D87BBF15C002F200532A1F /* BASessionTreeStateCellView.m in Sources */,
 				E57D97FD15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewControllerViewController.m in Sources */,
