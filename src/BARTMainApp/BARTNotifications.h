@@ -19,6 +19,5 @@ extern NSString * const BARTTestBackroundNotification;
 extern NSString * const BARTScannerSentTerminusNotification;
 extern NSString * const BARTStopExperimentNotification;
 extern NSString * const BARTHierarchyTreeContextSelectedElementChangedNotification;
-extern NSString * const BARTHierarchyTreeContextSelectedElementChangedNotification;
 
 #endif // BARTNOTIFICATIONS_H
