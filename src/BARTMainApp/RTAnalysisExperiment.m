@@ -13,12 +13,12 @@
 
 + (NSString*)typeDisplayName
 {
-    return @"Functional Localizer";
+    return @"RT Analysis";
 }
 
 + (NSString*)typeDescription
 {
-    return @"Functional Localizer Description";
+    return @"RT Analysis Experiment Description";
 }
 
 @end
