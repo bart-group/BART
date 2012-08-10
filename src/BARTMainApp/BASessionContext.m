@@ -1,5 +1,5 @@
 //
-//  BAContext.m
+//  BASessionContext.m
 //  BARTApplication
 //
 //  Created by Torsten Schlumm on 6/26/12.
