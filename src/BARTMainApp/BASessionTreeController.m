@@ -8,7 +8,7 @@
 
 #import "BASessionTreeController.h"
 
-#import "BAContext.h"
+#import "BASessionContext.h"
 
 
 
@@ -20,7 +20,7 @@
 
 - (NSArray*)treeRoots
 {
-    return [[BAContext sharedBAContext] sessionTreeContent];
+    return [[BASessionContext sharedBASessionContext] sessionTreeContent];
 }
 
 - (void)outlineViewSelectionDidChange:(NSNotification*)notification

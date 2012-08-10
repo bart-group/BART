@@ -6,21 +6,21 @@
 //  Copyright (c) 2012 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#import "BAContext.h"
+#import "BASessionContext.h"
 #import "BAAddExperimentAccessoryViewControllerViewController.h"
 
 
 #import <dispatch/once.h>
 
 
-@interface BAContext ()
+@interface BASessionContext ()
 
 - (void)buildTreeForView;
 
 @end
 
 
-@implementation BAContext 
+@implementation BASessionContext 
     
 
 #pragma mark -
@@ -156,18 +156,18 @@
 #pragma mark -
 #pragma mark Singleton Implementation
 
-+ (BAContext*)sharedBAContext {
++ (BASessionContext*)sharedBASessionContext {
     NSLog(@"[BAContext sharedBAContext] called");
 	static dispatch_once_t predicate;
-	static BAContext *instance = nil;
+	static BASessionContext *instance = nil;
 	dispatch_once(&predicate, ^{instance = [[self alloc] init];});
 	return instance;
 }
 
-- (BAContext*)instance
+- (BASessionContext*)instance
 {
     NSLog(@"[BAContext instance] called");
-    return [BAContext sharedBAContext];
+    return [BASessionContext sharedBASessionContext];
 }
 
 

@@ -15,10 +15,10 @@
 #import "BAStep2.h"
 
 
-@interface BAContext : NSObject
+@interface BASessionContext : NSObject
 
 
-@property (readonly,getter = sharedBAContext) BAContext *instance;
+@property (readonly,getter = sharedBAContext) BASessionContext *instance;
 
 
 @property (readwrite,retain) BASession2        *currentSession;
@@ -26,7 +26,7 @@
 @property (readonly)         NSArray           *registeredExperimentTypes;
 
 
-+ (BAContext*)sharedBAContext;
++ (BASessionContext*)sharedBASessionContext;
 
 - (IBAction)addExperiment:(id)sender;
 

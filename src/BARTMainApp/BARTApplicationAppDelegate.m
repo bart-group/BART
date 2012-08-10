@@ -13,7 +13,7 @@
 #import "BARTNotifications.h"
 #import "CLETUS/COExperimentContext.h"
 
-#import "BAContext.h"
+#import "BASessionContext.h"
 
 
 @interface BARTApplicationAppDelegate ()
@@ -76,9 +76,9 @@
 //        [[BAHierarchyTreeContext instance] loadSessionTree:treePath withEDL:edlPath];
 
         
-        [[BAContext sharedBAContext] createExampleSession];
+        [[BASessionContext sharedBASessionContext] createExampleSession];
 
-        NSLog(@"[BART] called [BAContext createExampleSession]: %@", [[BAContext sharedBAContext] sessionTreeContent]);
+        NSLog(@"[BART] called [BAContext createExampleSession]: %@", [[BASessionContext sharedBASessionContext] sessionTreeContent]);
         
         [NSBundle loadNibNamed:@"BigLuigi" owner:self];
         

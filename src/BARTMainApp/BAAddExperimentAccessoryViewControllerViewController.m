@@ -8,7 +8,7 @@
 
 #import "BAAddExperimentAccessoryViewControllerViewController.h"
 
-#import "BAContext.h"
+#import "BASessionContext.h"
 
 
 
@@ -184,7 +184,7 @@
 
 - (void)fillExperimentTypeDictionaries
 {
-    NSArray *_experimentClasses = [[BAContext sharedBAContext] registeredExperimentTypes];
+    NSArray *_experimentClasses = [[BASessionContext sharedBASessionContext] registeredExperimentTypes];
     
     NSLog(@"registeredExperimentTypes: %@", _experimentClasses);
     
