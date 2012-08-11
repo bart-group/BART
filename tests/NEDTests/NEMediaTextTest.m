@@ -18,7 +18,7 @@
 
 -(void)testInitWithIDAndText
 {
-    NEMediaObject* mediaObject = [[NEMediaText alloc] initWithID:@"foo" andText:@"bar"];
+    NEMediaObject* mediaObject = [[NEMediaText alloc] initWithID:@"foo" andText:@"bar" constrainedBy:@"constraint"];
     
     BOOL success = NO;
     
@@ -34,15 +34,17 @@
 -(void)testInitWithIDTextInSizeAndColorAtPostion
 {
     NEMediaObject* mediaObject = [[NEMediaText alloc] initWithID:@"baz"
-                                                            Text:@"bat" 
-                                                          inSize:2 
-                                                        andColor:[NSColor whiteColor] 
-                                                       atPostion:(NSPoint) {0, 0}];
+                                                            Text:@"bat"
+                                                          inSize:2
+                                                        andColor:[NSColor whiteColor]
+                                                       atPostion:(NSPoint) {0, 0}
+                                                   constrainedBy:@"con"];
     
     BOOL success = NO;
     if (mediaObject) {
         if ([mediaObject isMemberOfClass:[NEMediaText class]]
-            && [[mediaObject getID] compare:@"baz"] == 0) {
+            && [[mediaObject getID] compare:@"baz"] == 0
+            && [[mediaObject getConstraintID] compare:@"con"] == 0) {
             success = YES;
         }
     }

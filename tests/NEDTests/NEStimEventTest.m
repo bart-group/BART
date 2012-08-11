@@ -19,7 +19,7 @@
 
 -(void)testInitWithTimeMediaObjectAndIsEndEvent
 {
-    NEMediaText* mediaObj = [[NEMediaText alloc] initWithID:@"foo" andText:@"bar"];
+    NEMediaText* mediaObj = [[NEMediaText alloc] initWithID:@"foo" andText:@"bar" constrainedBy:@"con"];
     NEStimEvent* event = [[NEStimEvent alloc] initWithTime:42 duration:43 mediaObject:mediaObj];
     
     BOOL success = NO;
