@@ -189,7 +189,7 @@
         NSDateFormatter *tempDateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%Y-%m-%d %H:%M:%S" allowNaturalLanguage:NO];
         
         
-        [mGeneralMessages addObject:[NSString stringWithFormat:@"BART Presentation Logfile", 
+        [mGeneralMessages addObject:[NSString stringWithFormat:@"BART Presentation Logfile %@", 
                               [tempDateFormatter stringFromDate:[NSDate date]] 
                               ]];
         NSString *edlFileDescr = @"\nThe edl-file used:";
@@ -201,7 +201,7 @@
         [mGeneralMessages addObject:[NSString stringWithFormat:@"\nLogfile started %@ \n\n", 
                               [tempDateFormatter stringFromDate:[NSDate date]] 
                               ]];
-        [mGeneralMessages addObject:[NSString stringWithFormat:@"", 
+        [mGeneralMessages addObject:[NSString stringWithFormat:@"%@", 
                               [tempDateFormatter stringFromDate:[NSDate date]] 
                               ]];
                 
