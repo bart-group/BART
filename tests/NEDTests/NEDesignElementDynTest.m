@@ -57,14 +57,15 @@ NSString *curDir;
 -(void) testInitWithDynamic {
 	
 	//normal case: for this test file: timeBasedRegressorNEDTest.edl
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+	
      NSString *fileName = [NSString stringWithFormat:@"%@/timeBasedRegressorNEDTest.edl", curDir ];
+    COSystemConfig *config = [[COSystemConfig alloc] init ];
   	[config fillWithContentsOfEDLFile:fileName];
 	[config setProp:@"$nrTimesteps" :@"100"]; 
 	[config setProp:@"$TR" :@"1000"];
 		
 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc]
-                initWithDynamicData];
+                initWithDynamicDataFromConfig:config];
 	STAssertEquals(designEl.mNumberCovariates, (unsigned int)(0), @"Incorrect number of covariates.");
 	STAssertEquals(designEl.mNumberRegressors, (unsigned int)(3), @"Incorrect number of regressors.");
 	STAssertEquals(designEl.mNumberTimesteps,  (unsigned int)100, @"Incorrect number of timesteps.");
@@ -75,7 +76,7 @@ NSString *curDir;
 	
 	//config file not available	
 	[config fillWithContentsOfEDLFile:@"/tmp/dunno.edl"];
-	designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
+	designEl = [[NEDesignElementDyn alloc] initWithDynamicDataFromConfig:config];
 	STAssertEquals(designEl.mNumberCovariates, (unsigned int)(0), @"Incorrect number of covariates.");
 	STAssertEquals(designEl.mNumberRegressors, (unsigned int)(0), @"Incorrect number of regressors.");
 	STAssertEquals(designEl.mNumberTimesteps,  (unsigned int)0, @"Incorrect number of timesteps.");
@@ -91,13 +92,13 @@ NSString *curDir;
 
 -(void) testCopy
 {
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+	COSystemConfig *config = [[COSystemConfig alloc] init ];
     NSString *fileName = [NSString stringWithFormat:@"%@/timeBasedRegressorNEDTest.edl", curDir ];
   	[config fillWithContentsOfEDLFile:fileName];
 
 	
 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc]
-                initWithDynamicData];
+                initWithDynamicDataFromConfig:config];
 	
 	[config setProp:@"$nrTimesteps" :@"100"]; 
 	[config setProp:@"$TR" :@"1000"];
@@ -163,7 +164,7 @@ NSString *curDir;
 
 -(void)testGenerateDesign
 {
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+	COSystemConfig *config = [[COSystemConfig alloc] init ];
     NSString *fileName = [NSString stringWithFormat:@"%@/timeBasedRegressorNEDTest.edl", curDir ];
   	[config fillWithContentsOfEDLFile:fileName];
 
@@ -196,7 +197,7 @@ NSString *curDir;
 	}
 	
 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc]
-                initWithDynamicData];
+                initWithDynamicDataFromConfig:config];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -221,10 +222,10 @@ NSString *curDir;
 -(void)testUsualBlockDesign
 {
 	//test with blockDesignTest01.edl
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+	COSystemConfig *config = [[COSystemConfig alloc] init ];
     NSString *fileName = [NSString stringWithFormat:@"%@/blockDesignTest01.edl", curDir ];
   	[config fillWithContentsOfEDLFile:fileName];
-    NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
+    NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataFromConfig:config];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -246,10 +247,10 @@ NSString *curDir;
 -(void)testUsualERDesign
 {
 	//test with erDesignTest01.edl
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+	COSystemConfig *config = [[COSystemConfig alloc] init ];
 	NSString *fileName = [NSString stringWithFormat:@"%@/erDesignTest01.edl", curDir ];
   	[config fillWithContentsOfEDLFile:fileName];
-    NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
+    NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataFromConfig:config];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -273,10 +274,10 @@ NSString *curDir;
 
 -(void)testDesignAllWithFirstDeriv
 {
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+	COSystemConfig *config = [[COSystemConfig alloc] init ];
     NSString *fileName = [NSString stringWithFormat:@"%@/erDesignTest02_deriv1AllReg.edl", curDir ];
   	[config fillWithContentsOfEDLFile:fileName];
-  	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
+  	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataFromConfig:config];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -298,10 +299,10 @@ NSString *curDir;
 
 -(void)testDesignSomeWithFirstDeriv
 {
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+	COSystemConfig *config = [[COSystemConfig alloc] init ];
     NSString *fileName = [NSString stringWithFormat:@"%@/erDesignTest03_deriv1Reg1_3.edl", curDir ];
   	[config fillWithContentsOfEDLFile:fileName];
-  	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
+  	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataFromConfig:config];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -324,10 +325,10 @@ NSString *curDir;
 
 -(void)testDesignAllWithSecondDeriv
 {
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+	COSystemConfig *config = [[COSystemConfig alloc] init ];
     NSString *fileName = [NSString stringWithFormat:@"%@/erDesignTest04_deriv2AllReg.edl", curDir ];
   	[config fillWithContentsOfEDLFile:fileName];
- 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
+ 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataFromConfig:config];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -348,10 +349,10 @@ NSString *curDir;
 
 -(void)testDesignSomeWithSecondDeriv
 {
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+	COSystemConfig *config = [[COSystemConfig alloc] init ];;
     NSString *fileName = [NSString stringWithFormat:@"%@/erDesignTest05_deriv2Reg2_4.edl", curDir ];
   	[config fillWithContentsOfEDLFile:fileName];
-  	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
+  	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataFromConfig:config];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -374,10 +375,10 @@ NSString *curDir;
 
 -(void)testParametricDesignER
 {
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+	COSystemConfig *config = [[COSystemConfig alloc] init ];
     NSString *fileName = [NSString stringWithFormat:@"%@/erDesignTest06_parametric.edl", curDir ];
   	[config fillWithContentsOfEDLFile:fileName];
-	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataFromConfig:config];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -399,10 +400,10 @@ NSString *curDir;
 
 -(void)testParametricDesignBlock
 {
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+	COSystemConfig *config = [[COSystemConfig alloc] init ];
     NSString *fileName = [NSString stringWithFormat:@"%@/blockDesignTest02_parametric.edl", curDir ];
   	[config fillWithContentsOfEDLFile:fileName];
-   NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
+   NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataFromConfig:config];
 	
 	NEDesignElementReference *referenceDesign = [[NEDesignElementReference alloc] init];
 	
@@ -429,10 +430,10 @@ NSString *curDir;
 	
 	//all zeros
 	
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+	COSystemConfig *config = [[COSystemConfig alloc] init ];
     NSString *fileName = [NSString stringWithFormat:@"%@/allZeroRegressor.edl", curDir ];
   	[config fillWithContentsOfEDLFile:fileName];
-  	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
+  	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataFromConfig:config];
 	
 			
 	for (uint ev = 0; ev < [designEl mNumberExplanatoryVariables]; ev++){
@@ -449,7 +450,7 @@ NSString *curDir;
 	//no regressors
     fileName = [NSString stringWithFormat:@"%@/noRegressor.edl", curDir ];
   	[config fillWithContentsOfEDLFile:fileName];
-    designEl = [[NEDesignElementDyn alloc] initWithDynamicData];
+    designEl = [[NEDesignElementDyn alloc] initWithDynamicDataFromConfig:config];
 	
 	
 	for (uint ev = 0; ev < [designEl mNumberExplanatoryVariables]; ev++){
