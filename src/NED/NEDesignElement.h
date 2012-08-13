@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "CLETUS/COSystemConfig.h"
 //#import "BAElement.h"
 
 enum NEDesignElementError {
@@ -69,7 +70,16 @@ typedef struct TrialListStruct {
  *
  * returns an object of DesignElement
  */
--(id)initWithDynamicData;
+-(id)initWithDataFromConfig:(COSystemConfig*)config;
+
+/**
+ * Initialize a Design  element from an edl configuration
+ * the edl configuration has to be initialized
+ *
+ *
+ * returns an object of DesignElement
+ */
+-(id)initWithDynamicDataFromConfig:(COSystemConfig*)config;
 
 
 /**

@@ -20,14 +20,15 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 
 
--(id)init
+-(id)initWithConfig:(COSystemConfig*)config
 {
+    [config retain];
 	if ( (self = [super init] ))
     {
     
         mDesignHasChanged = NO;
         //NSLog(@"GenDesign GCD: START");
-        NSError *error = [self getPropertiesFromConfig];
+        NSError *error = [self getPropertiesFromConfig:config];
         if (nil != error){
             NSLog(@"%@", error);
             return nil;
@@ -47,7 +48,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
         //NSLog(@"GenDesign GCD: END");
     
     }
-	
+	[config release];
 	//[self writeDesignFile:@"/tmp/testDesign.v"];
 	return self;
 }
@@ -100,14 +101,16 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 	
 
--(NSError*)getPropertiesFromConfig
+-(NSError*)getPropertiesFromConfig:(COSystemConfig*)config
 {
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+	//COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 	NSError* error = nil;
 	// temp formatter due to converting from string to number
 	NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
 	[f setNumberStyle:NSNumberFormatterDecimalStyle];
-	
+	NSLog(@"EDL file path in DESIGN!!!! : %@", [config getEDLFilePath]);
+    NSLog(@"Config DESIGN!!!! : %@", config);
+    NSLog(@"Context DESIGN!!!! : %@",[COExperimentContext getInstance]);
 	
 	//what kind of design we have to ask for - in edl decision between growing / sliding window and dynamic
 	NSMutableString *expType = [[NSMutableString alloc ]initWithCapacity:20];

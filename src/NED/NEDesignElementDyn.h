@@ -46,6 +46,8 @@ typedef struct RegressorStruct {
 	fftw_plan *mFftPlanInverse;
 	
 	BOOL mDesignHasChanged;
+    
+    
 }
 
 -(void)copyValuesOfFinishedDesign:(float**)copyFromR andCovariates:(float**)copyFromC;
@@ -60,6 +62,7 @@ typedef struct RegressorStruct {
 
 @interface NEDesignElementDyn (PrivateMethods)
 
+-(id)initWithConfig:(COSystemConfig*)config;
 -(NSError*)parseInputFile:(NSString*)path;
 -(NSError*)initDesign;
 -(Complex)multiplComplex:(Complex)a withComplex:(Complex) b;
@@ -72,7 +75,7 @@ typedef struct RegressorStruct {
 -(void)tl_append:(TrialList*)head
                 :(TrialList*)newLast;
 
--(NSError*)getPropertiesFromConfig;
+-(NSError*)getPropertiesFromConfig:(COSystemConfig*)config;
 
 -(NSError*)correctForZeromean;
 -(void)initRegressorValues;
