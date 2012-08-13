@@ -19,18 +19,27 @@
 {
 	contrastVector = [NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0], [NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.0], nil];
 	srand(time(0));
+    
 }
 
 
 -(void)testAnalyzeDataAkk
 {
 
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+    
+	COSystemConfig *config = [[COSystemConfig alloc] init];
+    NSMutableString* co = [NSMutableString stringWithString:[[NSFileManager defaultManager] currentDirectoryPath]];
+    NSMutableString* data = [NSMutableString stringWithString:[[NSFileManager defaultManager] currentDirectoryPath]];
+    
+    [co appendString:@"/../tests/BARTMainAppTests/ConfigTestDataset02.edl"];
+     [data appendString:@"/../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii"];
 	
-	STAssertNil([config fillWithContentsOfEDLFile:@"../tests/BARTMainAppTests/ConfigTestDataset02.edl"], @"error while loading config");
-	EDDataElement *inputData = [[EDDataElement alloc] initWithDataFile:@"../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
-	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicData];
-	
+	STAssertNil([config fillWithContentsOfEDLFile:co], @"error while loading config");
+   
+	EDDataElement *inputData = [[EDDataElement alloc] initWithDataFile:data andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
+	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicDataFromConfig:config];
+	STAssertNotNil(inputDesign, @"error while loading design");
+    
 	uint fwhm = 4;
 	uint minval = 2000;
 	BOOL swa = NO;
@@ -81,10 +90,12 @@
 
 -(void)testAnalyzeDataAkkRandData
 {
-	
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
-	STAssertNil([config fillWithContentsOfEDLFile:@"../tests/BARTMainAppTests/ConfigTestDataset02.edl"], @"error while loading config");
-
+	COSystemConfig *config = [[COSystemConfig alloc] init];
+    NSMutableString* co = [NSMutableString stringWithString:[[NSFileManager defaultManager] currentDirectoryPath]];
+    [co appendString:@"/../tests/BARTMainAppTests/ConfigTestDataset02.edl"];
+ 	
+	STAssertNil([config fillWithContentsOfEDLFile:co], @"error while loading config");
+ 
 	
 	uint nrTimesteps = 39;
 	uint tr = 1560;
@@ -204,7 +215,7 @@
 		}
 	}
 						
-	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicData];
+	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicDataFromConfig:config];
 	
 	
 	BAAnalyzerGLMReference *glmReference = [[BAAnalyzerGLMReference alloc] initWithFwhm:fwhm 
@@ -306,8 +317,11 @@
 
 -(void)testAnalyzeDataWithSlidingWindow{
 	
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
-	STAssertNil([config fillWithContentsOfEDLFile:@"../tests/BARTMainAppTests/ConfigTestDataset02.edl"], @"error while loading config");
+	COSystemConfig *config = [[COSystemConfig alloc] init];
+    NSMutableString* co = [NSMutableString stringWithString:[[NSFileManager defaultManager] currentDirectoryPath]];
+    [co appendString:@"/../tests/BARTMainAppTests/ConfigTestDataset02.edl"];
+ 	
+	STAssertNil([config fillWithContentsOfEDLFile:co], @"error while loading config");
 	
 	uint nrTimesteps = 220;
 	uint tr = 1500;
@@ -426,7 +440,7 @@
 		}
 	}
 	
-	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicData];
+	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicDataFromConfig:config];
 	
 	
 	BAAnalyzerGLMReference *glmReference = [[BAAnalyzerGLMReference alloc] initWithFwhm:fwhm 
@@ -546,8 +560,11 @@
 -(void)testAnalyzeDataLimits
 {
 	
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
-	STAssertNil([config fillWithContentsOfEDLFile:@"../tests/BARTMainAppTests/ConfigTestDataset02.edl"], @"error while loading config");
+	COSystemConfig *config = [[COSystemConfig alloc] init];
+    NSMutableString* co = [NSMutableString stringWithString:[[NSFileManager defaultManager] currentDirectoryPath]];
+    [co appendString:@"/../tests/BARTMainAppTests/ConfigTestDataset02.edl"];
+ 	
+	STAssertNil([config fillWithContentsOfEDLFile:co], @"error while loading config");
 	
 	
 	uint nrTimesteps = 39;
@@ -637,7 +654,7 @@
 	[elemDesign addChild:elemRegressor2];
 	[config replaceProp:elemToReplaceKey withNode: elemDesign];	
 	
-	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicData];
+	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicDataFromConfig:config];
 	
 	uint rows = 52;
 	uint cols = 87;

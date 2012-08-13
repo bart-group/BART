@@ -22,14 +22,14 @@ int main(void)
 {
 	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+	COSystemConfig *config = [[COSystemConfig alloc] init];
 	NSError *err = [config fillWithContentsOfEDLFile:@"../../tests/BARTMainAppTests/ConfigTestDataset02.edl"];
 	if (nil != err)
 		NSLog(@"%@", err);
 	
 	
 	EDDataElement *inputData = [[EDDataElement alloc] initWithDataFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
-	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicData];
+	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicDataFromConfig:config];
 	
 	uint fwhm = 4;
 	uint minval = 2000;
@@ -42,10 +42,12 @@ int main(void)
 																			   withSize:sws];
 	
 	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
-	NSArray* contrastVector = [NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0], [NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.0], nil];
+	NSArray* contrastVector = [NSArray arrayWithObjects:
+                               [NSNumber numberWithFloat:1.0],
+                               [NSNumber numberWithFloat:0.0],
+                               [NSNumber numberWithFloat:0.0], nil];
 	
-	
-	EDDataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
+ 	EDDataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:inputDesign atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
 	EDDataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:inputDesign andCurrentTimestep:nrTimesteps];
 	
 	NSLog(@"%ld %ld", [outputAlg getImageSize].columns,      [outputRef getImageSize].columns);
