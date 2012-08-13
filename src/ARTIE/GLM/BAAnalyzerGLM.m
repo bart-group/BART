@@ -25,14 +25,16 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 
 @interface BAAnalyzerGLM (PrivateMethods)
      
--(void)Regression:(short)minval
+-(EDDataElement*)Regression:(short)minval
                  :(size_t)sliding_window_size
                  :(size_t)last_timestep
-				 :(NSArray*)contrastVector;
+				 :(NSArray*)contrastVector
+                 :(NEDesignElement*)copyDesign
+                 :data;
 
--(float_t)CalcSigma:(float_t)fwhm;
+-(float_t)CalcSigma:(float_t)fwhm forRepTime:(NSUInteger)repTime;
 
--(void)createOutputImages;
+//-(void)createOutputImages:(NEDesignElement*)des fromData:(EDDataElement*)data;
 
 @end
 
@@ -65,12 +67,15 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 			 andWriteResultInto:(EDDataElement*)resData;
 //TODO:Ergebnis als Referenz reingeben, nicht hier drin erzeugen UND Contrasts UND MINVAL mitgeben!!
 {
-    mDesign = [design copy];
-    mData = data;
-    /*
-     * create output images
-     */
-    [self createOutputImages];
+    NEDesignElement* copyDesign = [design retain];
+    NSLog(@"DesignEl in Analysis: %@", copyDesign);
+    [data retain];
+    
+    
+    
+    /**********************
+     * DO REGRESSION
+     *********************/
     
     NSLog(@"Time analysis: Start");
     
@@ -81,11 +86,13 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         index = timestep;
     }
     
-    [self Regression:2000 
-                    :index // sw: slidingWindowSize akk: indexForTimestep
-                    :timestep
-					:contrastVector];
-//    [self sendFinishNotification];
+    EDDataElement*  resMap = [self Regression:2000
+                                             :index // sw: slidingWindowSize akk: indexForTimestep
+                                             :timestep
+                                             :contrastVector
+                                             :copyDesign
+                                             :data];
+    //    [self sendFinishNotification];
 
     NSLog(@"Time analysis: End");
     
@@ -97,19 +104,16 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 //        [mResOutput WriteDataElementToFile:@"/tmp/outfromBART.v"];
 //    }
     
-	[mBetaOutput release];
-	[mResOutput release];
-	[mBCOVOutput release];
-	[mDesign release];
-    return [mResMap autorelease];
+	
+	[copyDesign release];
+    [data release];
+    return resMap ;
 }
 
 -(void)dealloc
 {
-    [mBetaOutput release];
-    [mResOutput release];
-    [mBCOVOutput release];
-	[mDesign release];;
+    
+
     [super dealloc];
 }
 
@@ -119,18 +123,20 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 }
 
 
--(void)Regression:(short)minval
+-(EDDataElement*)Regression:(short)minval
 				 :(size_t)sliding_window_size
 				 :(size_t)lastTimestep
-				 :(NSArray*)contrastVector{
+				 :(NSArray*)contrastVector
+                 :(NEDesignElement*)copyDesign
+                 :(EDDataElement*)data{
     
-    if (sliding_window_size <= lastTimestep) { 
+    if (sliding_window_size <= lastTimestep) {
         
-        size_t numberBands = mData.mImageSize.timesteps;
-		size_t numberSlices = mData.mImageSize.slices;
-        size_t numberRows = mData.mImageSize.rows;
-        size_t numberCols = mData.mImageSize.columns;
-        size_t numberExplanatoryVariables = mDesign.mNumberExplanatoryVariables;
+        size_t numberBands = data.mImageSize.timesteps;
+		size_t numberSlices = data.mImageSize.slices;
+        size_t numberRows = data.mImageSize.rows;
+        size_t numberCols = data.mImageSize.columns;
+        size_t numberExplanatoryVariables = copyDesign.mNumberExplanatoryVariables;
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0); /* Global asyn. dispatch queue. */
         
         gsl_set_error_handler_off();
@@ -140,19 +146,19 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         if (numberExplanatoryVariables >= MBETA) {
             NSLog(@" too many covariates (%lu), max is %d", numberExplanatoryVariables, MBETA);
         }
-        if (mDesign.mNumberTimesteps != numberBands) {
+        if (copyDesign.mNumberTimesteps != numberBands) {
             NSLog(@" design dimension inconsistency: %d (numberTimesteps design) %lu (numberTimesteps data)", 
-                  mDesign.mNumberTimesteps, numberBands);
+                  copyDesign.mNumberTimesteps, numberBands);
         }
         
         /* Read design matrix. */
-        gsl_matrix_float *X = NULL; /* mDesign matrix. */
+        gsl_matrix_float *X = NULL; /*   matrix. */
         X = gsl_matrix_float_alloc(sliding_window_size, numberExplanatoryVariables);
         double x; /* One entry of matrix X. */
         for (size_t timestep = (lastTimestep - sliding_window_size); timestep < lastTimestep; timestep++) {
             for (size_t covariate = 0; covariate < numberExplanatoryVariables; covariate++) {
 // TODO: use getFloatValue... (performance increase!)
-                x = [[mDesign getValueFromExplanatoryVariable:covariate atTimestep:timestep] floatValue];
+                x = [[copyDesign getValueFromExplanatoryVariable:covariate atTimestep:timestep] floatValue];
                 fmset(X, timestep - (lastTimestep - sliding_window_size), covariate, (float) x);
             }
         }
@@ -163,7 +169,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
          */
 //TODO: fwhm aus Konfig
         float fwhm = 4.0;
-        float_t sigma = [self CalcSigma:fwhm];
+        float_t sigma = [self CalcSigma:fwhm forRepTime:copyDesign.mRepetitionTimeInMs];
         gsl_matrix_float *S = NULL;	   /* Gaussian matrix / Gauss filter. */
         S = gsl_matrix_float_alloc(sliding_window_size, sliding_window_size);
         GaussMatrix((double) sigma, S);
@@ -203,9 +209,48 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         float df = (trace * trace) / trace2; /* df ... Degrees of freedom. */
         printf(" df = %.3f\n", df);
         
-        [mBetaOutput setImageProperty:PROPID_DF withValue:[NSNumber numberWithFloat:df]];
-        [mResOutput setImageProperty:PROPID_DF withValue:[NSNumber numberWithFloat:df]];
+        /**********************
+         * create output images
+         *********************/
+        BARTImageSize *s = [[data mImageSize] copy];
+        s.timesteps = copyDesign.mNumberExplanatoryVariables;
+        EDDataElement* betaOutput = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_BETAS];
         
+        NSArray *propsToCopy = [NSArray arrayWithObjects:
+                                @"voxelsize",
+                                @"subjectName",
+                                @"caPos",
+                                @"voxelGap",
+                                @"repetitionTime",
+                                @"capos",
+                                @"subjectAge",
+                                @"subjectWEIGHT",
+                                @"flipAngle",
+                                @"echoTime",
+                                @"acquisitionTime",
+                                @"rowVec",
+                                @"sliceVec",
+                                @"columnVec",
+                                @"sequenceNumber",
+                                @"indexOrigin",
+                                nil];
+        
+        [betaOutput copyProps:propsToCopy fromDataElement:data];
+        
+        s.timesteps = 1;
+        EDDataElement* resOutput = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
+        [resOutput copyProps:propsToCopy fromDataElement:data];
+        EDDataElement*  resMap = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
+        [ resMap copyProps:propsToCopy fromDataElement:data];
+        EDDataElement*  BCOVOutput = [[EDDataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:copyDesign.mNumberExplanatoryVariables andCols:copyDesign.mNumberExplanatoryVariables andSlices:1 andTimesteps:1];
+        [s release];
+        
+        [betaOutput setImageProperty:PROPID_DF withValue:[NSNumber numberWithFloat:df]];
+        [resOutput setImageProperty:PROPID_DF withValue:[NSNumber numberWithFloat:df]];
+        
+        /********************
+         * REGRESS NOW
+         ********************/
         gsl_vector *kernel;
         kernel = GaussKernel((double) sigma);
         
@@ -221,7 +266,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         for (size_t row = 0; row < numberExplanatoryVariables; row++) {
             for (size_t col = 0; col < numberExplanatoryVariables; col++) {
                 val = [NSNumber numberWithFloat:(*fPointer)];
-                [mBCOVOutput setVoxelValue:val atRow:row col:col slice:0 timestep:0];
+                [BCOVOutput setVoxelValue:val atRow:row col:col slice:0 timestep:0];
                 fPointer++;
             }
         }
@@ -234,7 +279,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         fPointer = betaCovariates->data;
         for (size_t row = 0; row < numberExplanatoryVariables; row++) {
             for (size_t col = 0; col < numberExplanatoryVariables; col++) {
-                *fPointer++ = [mBCOVOutput getFloatVoxelValueAtRow:row col:col slice:0 timestep:0];
+                *fPointer++ = [BCOVOutput getFloatVoxelValueAtRow:row col:col slice:0 timestep:0];
             }
         }
         gsl_matrix_float_transpose(betaCovariates);
@@ -267,13 +312,14 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
             if (slice % 5 == 0) {
                 fprintf(stderr, " slice: %3ld\r", slice);
             }
+            NSLog(@" Sl: %lu, TS: %lu", numberSlices, numberBands);
             
-            if (TRUE == [mData sliceIsZero:slice ]) {
+            if (TRUE == [data sliceIsZero:slice ]) {
                 
                 dispatch_apply(numberRows, queue, ^(size_t row) {
                     dispatch_apply(numberCols, queue, ^(size_t col) {
                         
-                        if ([mData getFloatVoxelValueAtRow:row col:col slice:slice timestep:0] >=  minval + 1) {
+                        if ([data getFloatVoxelValueAtRow:row col:col slice:slice timestep:0] >=  minval + 1) {
                             npix++;
                             float sum = 0.0;
                             float sum2 = 0.0;
@@ -284,7 +330,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                             float u;
                             
                             for (i = (lastTimestep - sliding_window_size); i < lastTimestep; i++) {
-                                u = [mData getFloatVoxelValueAtRow:row col:col slice:slice timestep:i];
+                                u = [data getFloatVoxelValueAtRow:row col:col slice:slice timestep:i];
                                 (*ptr1++) = u;
                                 sum += u;
                                 sum2 += u * u;
@@ -329,7 +375,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                                 /* Write residuals output. */
 								//STCHANGE!
                                 //[mResOutput setVoxelValue:val atRow:row col:col slice:0 timestep:slice];
-								[mResOutput setVoxelValue:val atRow:row col:col slice:slice timestep:0];
+								[resOutput setVoxelValue:val atRow:row col:col slice:slice timestep:0];
                                 
                                 /* Write beta output. */
                                 ptr1 = beta->data;
@@ -337,7 +383,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                                     val = [NSNumber numberWithFloat:(*ptr1)];
 									//STCHANGE!
                                     //[mBetaOutput setVoxelValue: val atRow:row col:col slice:i timestep:slice];
-									[mBetaOutput setVoxelValue: val atRow:row col:col slice:slice timestep:i];
+									[betaOutput setVoxelValue: val atRow:row col:col slice:slice timestep:i];
                                     ptr1++;
                                 }
                                 gsl_vector_float_free(beta);
@@ -356,13 +402,13 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                                 for (i = 0; i < numberExplanatoryVariables; i++) {
 									//STCHANGE!
                                     //*ptr1++ = [mBetaOutput getFloatVoxelValueAtRow:row col:col slice:i timestep:slice];
-									*ptr1++ = [mBetaOutput getFloatVoxelValueAtRow:row col:col slice:slice timestep:i];
+									*ptr1++ = [betaOutput getFloatVoxelValueAtRow:row col:col slice:slice timestep:i];
                                 }
                                 sum = fskalarproduct(beta, gslContrastVector);
                                 if (fabs(sum) >= 1.0e-10) {
 									//STCHANGE!!
                                     //s = [mResOutput getFloatVoxelValueAtRow:row col:col slice:0 timestep:slice];
-									s = [mResOutput getFloatVoxelValueAtRow:row col:col slice:slice timestep:0];
+									s = [resOutput getFloatVoxelValueAtRow:row col:col slice:slice timestep:0];
                                     tsigma = sqrt(s) * new_sigma;
                                     if (tsigma > 0.00001) {
                                         t = sum / tsigma;
@@ -379,7 +425,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                                     val = [NSNumber numberWithFloat:z_value];
 									//STCHANGE!
                                     //[mResMap setVoxelValue:val atRow:row col:col slice:0 timestep:slice];
-									[mResMap setVoxelValue:val atRow:row col:col slice:slice timestep:0];
+									[resMap setVoxelValue:val atRow:row col:col slice:slice timestep:0];
                                 }
                                 
                                 gsl_vector_float_free(beta);
@@ -398,14 +444,22 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         if (npix == 0) {
             NSLog(@" no voxels above threshold %d found", minval);
         }
+        
+        [betaOutput release];
+        [resOutput release];
+        [BCOVOutput release];
+    
+        return [resMap autorelease];
     }
+    
+    return nil;
 }
 
 
--(float_t)CalcSigma:(float_t)fwhm
+-(float_t)CalcSigma:(float_t)fwhm forRepTime:(NSUInteger)repTime
 {
     float sigma = 0.0;
-    float repetitionTime = (float) mDesign.mRepetitionTimeInMs/1000;
+    float repetitionTime = (float) repTime/1000;
     
 	if (repetitionTime > 0.001 && fwhm > 0.001) {
 		printf(" TR: %.3f seconds\n", repetitionTime);
@@ -420,42 +474,42 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     return sigma;
 }
 
-- (void)createOutputImages
-{
-        
-  
-	BARTImageSize *s = [[mData mImageSize] copy];
-	s.timesteps = mDesign.mNumberExplanatoryVariables;
-	mBetaOutput = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_BETAS];
-	
-	NSArray *propsToCopy = [NSArray arrayWithObjects:
-							 @"voxelsize",
-							 @"subjectName",
-							 @"caPos",
-							 @"voxelGap", 
-							 @"repetitionTime",
-							 @"capos",
-							 @"subjectAge",
-							 @"subjectWEIGHT",
-							 @"flipAngle",
-							 @"echoTime",
-							 @"acquisitionTime",
-							@"rowVec",
-							@"sliceVec",
-							@"columnVec",
-							@"sequenceNumber",
-							@"indexOrigin",
-							 nil];
-	
-	[mBetaOutput copyProps:propsToCopy fromDataElement:mData];
-
-	s.timesteps = 1;
-    mResOutput = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
-	[mResOutput copyProps:propsToCopy fromDataElement:mData];
-	mResMap = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
-	[ mResMap copyProps:propsToCopy fromDataElement:mData];
-	mBCOVOutput = [[EDDataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:mDesign.mNumberExplanatoryVariables andCols:mDesign.mNumberExplanatoryVariables andSlices:1 andTimesteps:1];
-    [s release];
-}
+//- (void)createOutputImages:(NEDesignElement*)des fromData:(EDDataElement*)data
+//{
+//        
+//  
+//	BARTImageSize *s = [[data mImageSize] copy];
+//	s.timesteps = des.mNumberExplanatoryVariables;
+//	mBetaOutput = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_BETAS];
+//	
+//	NSArray *propsToCopy = [NSArray arrayWithObjects:
+//							 @"voxelsize",
+//							 @"subjectName",
+//							 @"caPos",
+//							 @"voxelGap", 
+//							 @"repetitionTime",
+//							 @"capos",
+//							 @"subjectAge",
+//							 @"subjectWEIGHT",
+//							 @"flipAngle",
+//							 @"echoTime",
+//							 @"acquisitionTime",
+//							@"rowVec",
+//							@"sliceVec",
+//							@"columnVec",
+//							@"sequenceNumber",
+//							@"indexOrigin",
+//							 nil];
+//	
+//	[mBetaOutput copyProps:propsToCopy fromDataElement:data];
+//
+//	s.timesteps = 1;
+//    mResOutput = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
+//	[mResOutput copyProps:propsToCopy fromDataElement:data];
+//	mResMap = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
+//	[ mResMap copyProps:propsToCopy fromDataElement:data];
+//	mBCOVOutput = [[EDDataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:des.mNumberExplanatoryVariables andCols:des.mNumberExplanatoryVariables andSlices:1 andTimesteps:1];
+//    [s release];
+//}
 
 @end
