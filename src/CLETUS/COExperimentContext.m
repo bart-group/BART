@@ -62,16 +62,25 @@ NSThread *triggerThread;
 
 dispatch_queue_t serialDesignElementAccessQueue;
 
-
-+ (COExperimentContext*)getInstance
-{
-    @synchronized(self) {
-        if (sharedExperimentContext == nil) {
-            sharedExperimentContext = [[self alloc] init]; 
-        }
-    }
-    return sharedExperimentContext;
++ (COExperimentContext*)getInstance {
+    NSLog(@"[COExperimentContext getInstance] called");
+	static dispatch_once_t predicate;
+	static COExperimentContext *instance = nil;
+	dispatch_once(&predicate, ^{instance = [[self alloc] init];});
+	return instance;
 }
+
+//+ (COExperimentContext*)getInstance
+//{
+//    @synchronized(self) {
+//        if (sharedExperimentContext == nil) {
+//            sharedExperimentContext = [[self alloc] init]; 
+//        }
+//    }
+//    NSLog(@"CONTEXT DESCR: %@", [[NSThread currentThread] description]);
+//    NSLog(@"CONTEXT ADDR: %@", sharedExperimentContext);
+//    return sharedExperimentContext;
+//}
 
 + (id)allocWithZone:(NSZone *)zone
 {
@@ -173,6 +182,8 @@ dispatch_queue_t serialDesignElementAccessQueue;
     err = [self configureExternalDevices];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:BARTDidResetExperimentContextNotification object:nil];
+    
+    NSLog(@"Context in Context: %@", self);
     return err;
     
 }
@@ -200,7 +211,7 @@ dispatch_queue_t serialDesignElementAccessQueue;
     }
     // setup the serial port for the eye tracker device
     //TODO get from config:
-    useSerialPortEyeTrac = YES;
+    useSerialPortEyeTrac = NO;
     if (YES == useSerialPortEyeTrac){
         SerialPort* serialPortEyeTrac = [[self setupSerialPortEyeTrac] retain] ;
         if (nil != serialPortEyeTrac){
