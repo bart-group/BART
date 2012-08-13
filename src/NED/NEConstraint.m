@@ -62,10 +62,10 @@
         
         for (NSUInteger index = 0; index < counterSystemVariables; index++) {
 
-            NSString *source = [config getProp:[NSString stringWithFormat:@"$systemVariables/systemVariable[%d]/@source", index+1]];
+            NSString *source = [config getProp:[NSString stringWithFormat:@"$systemVariables/systemVariable[%ld]/@source", index+1]];
             [arrayAllSourceNames addObject:source];
-            NSString *variableName = [config getProp:[NSString stringWithFormat:@"$systemVariables/systemVariable[%d]/@systemVariableName", index+1]];
-            NSString *variableID = [config getProp:[NSString stringWithFormat:@"$systemVariables/systemVariable[%d]/@systemVariableID", index+1]];
+            NSString *variableName = [config getProp:[NSString stringWithFormat:@"$systemVariables/systemVariable[%ld]/@systemVariableName", index+1]];
+            NSString *variableID = [config getProp:[NSString stringWithFormat:@"$systemVariables/systemVariable[%ld]/@systemVariableID", index+1]];
             
             [dictAllSystemVariables setObject:[NSDictionary dictionaryWithObjectsAndKeys:source, @"source", variableName, @"variableName", nil] forKey:variableID];
 
@@ -77,7 +77,7 @@
         NSMutableArray *arrayConditions = [NSMutableArray arrayWithCapacity:nrVariables];
         NSMutableArray *arrayConditionReference = [NSMutableArray arrayWithCapacity:nrVariables];
         for (NSUInteger count = 0; count < nrVariables; count++) {
-            NSString *conditionVariableRef = [config getProp:[NSString stringWithFormat:@"%@/conditions/condition[%d]/@systemVariableRef", key, count+1]];
+            NSString *conditionVariableRef = [config getProp:[NSString stringWithFormat:@"%@/conditions/condition[%ld]/@systemVariableRef", key, count+1]];
             [arrayConditionReference addObject:conditionVariableRef];
             [arrayConditions addObject:[[systemVariablesByID objectForKey:conditionVariableRef] objectForKey:@"variableName"]];
         } 
@@ -236,7 +236,7 @@
         NSArray *allAvailableActions = [[self createAllAvailableActions] retain];
         for (NSDictionary *element in allAvailableActions)
         {
-            if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/stimulusAction[%d]/%@", key, index+1,[element valueForKey:@"actionNameInConfig"] ]] )
+            if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/stimulusAction[%ld]/%@", key, index+1,[element valueForKey:@"actionNameInConfig"] ]] )
             {
                 NSString *fctName = [element valueForKey:@"actionNameInConfig"] ;
 
@@ -249,10 +249,10 @@
                     NSString *attName = [att objectForKey:@"attributeName"];
                     NSString *attVal;
                     
-                    NSLog(@"%@", [NSString stringWithFormat:@"%@/stimulusAction[%d]/%@/@%@", key,index+1, fctName, attName ]); 
-                    if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/stimulusAction[%d]/%@/@%@", key,index+1, fctName, attName ]] )
+                    NSLog(@"%@", [NSString stringWithFormat:@"%@/stimulusAction[%ld]/%@/@%@", key,index+1, fctName, attName ]); 
+                    if ( 0 != [config countNodes:[NSString stringWithFormat:@"%@/stimulusAction[%ld]/%@/@%@", key,index+1, fctName, attName ]] )
                     {
-                        attVal = [config getProp:[NSString stringWithFormat:@"%@/stimulusAction[%d]/%@/@%@", key,index+1, fctName, attName ]];
+                        attVal = [config getProp:[NSString stringWithFormat:@"%@/stimulusAction[%ld]/%@/@%@", key,index+1, fctName, attName ]];
                         
                         if (nil != [systemVariablesByID objectForKey:attVal])
                         {
