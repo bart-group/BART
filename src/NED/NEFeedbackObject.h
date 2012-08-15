@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef BARTNEFEEDBACKOBJECT_H
+#define BARTNEFEEDBACKHELI_H
+
 #import <Cocoa/Cocoa.h>
 
 
@@ -68,3 +71,5 @@
 -(void)tick;
 
 @end
+
+#endif // BARTNEFEEDBACKHELI_H

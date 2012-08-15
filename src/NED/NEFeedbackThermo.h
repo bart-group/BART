@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef BARTNEFEEDBACKTHERMO_H
+#define BARTNEFEEDBACKTHERMO_H
+
 #import <Cocoa/Cocoa.h>
 #import "NEFeedbackObject.h"
 
@@ -29,3 +32,5 @@
 }
 
 @end
+
+#endif //BARTNEFEEDBACKTHERMO_H

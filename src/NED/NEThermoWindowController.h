@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef BARTNETHERMOWINDOWCONTROLLER_H
+#define BARTNETHERMOWINDOWCONTROLLER_H
+
 #import <Cocoa/Cocoa.h>
 
 
@@ -29,3 +32,5 @@
 -(IBAction)sliderChanged:(id)sender;
 
 @end
+
+#endif //BARTNETHERMOWINDOWCONTROLLER_H
