@@ -18,7 +18,7 @@
 @interface BASessionContext : NSObject
 
 
-@property (readonly,getter = sharedBAContext) BASessionContext *instance;
+@property (readonly,getter = sharedBASessionContext) BASessionContext *instance;
 
 
 @property (readwrite,retain) BASession2        *currentSession;

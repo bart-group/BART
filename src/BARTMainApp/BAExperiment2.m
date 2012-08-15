@@ -20,6 +20,7 @@
 
 @synthesize name        = _name;
 @synthesize description = _description;
+@synthesize edl         = _edl;
 @synthesize state       = _state;
 
 #pragma mark -
@@ -31,16 +32,27 @@
 #pragma mark -
 #pragma mark Initialization
 
-- (id) initWithName:(NSString *)name description:(NSString *)description
++ (id) experimentWithEDL:(COSystemConfig*)edl name:(NSString*)name description:(NSString*)description
 {
-    return [self initWithName:name description:description steps:nil];
+    return [[[self alloc] initWithEDL:edl name:name description:description] autorelease];
 }
 
-- (id) initWithName:(NSString *)name description:(NSString *)description steps:(NSArray *)steps
+- (id) initWithEDL:(COSystemConfig*)edl name:(NSString *)name
+{
+    return [self initWithEDL:edl name:name description:name steps:nil];
+}
+
+- (id) initWithEDL:(COSystemConfig*)edl name:(NSString *)name description:(NSString *)description
+{
+    return [self initWithEDL:edl name:name description:description steps:nil];
+}
+
+- (id) initWithEDL:(COSystemConfig*)edl name:(NSString *)name description:(NSString *)description steps:(NSArray *)steps
 {
     if(self = [super init]) {
         _name        = [name copy];
         _description = [description copy];
+        _edl         = [edl retain];
         [self setSteps:steps];
     }
     

@@ -21,4 +21,15 @@
     return @"RT Analysis Experiment Description";
 }
 
++ (id) experimentWithEDL:(COSystemConfig*)edl name:(NSString*)name description:(NSString*)description
+{
+    self = [super experimentWithEDL:edl name:name description:description];
+    
+    if(self) {
+        NSLog(@"[RTAnalysisExperiment] initialization started ...");
+    }
+    
+    return self;
+}
+
 @end
