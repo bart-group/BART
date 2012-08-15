@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef BARTNECONTROLWINDOWCONTROLLEER_H
+#define BARTNECONTROLWINDOWCONTROLLEER_H
+
 #import <Cocoa/Cocoa.h>
 #import "NEStimEvent.h"
 
@@ -137,3 +140,5 @@
 -(void)showEvent:(NEStimEvent*)event;
 
 @end
+
+#endif //BARTNECONTROLWINDOWCONTROLLEER_H

@@ -10,6 +10,9 @@
  * of the paradigm. Connects the e.g. SerialPorts with constraints to be asked while runtime about their current state.
  */
 
+#ifndef BARTNEPRESENTATIONEXTERNALCONDITIONCONTROLLER_H
+#define BARTNEPRESENTATIONEXTERNALCONDITIONCONTROLLER_H
+
 #import <Foundation/Foundation.h>
 
 //@class NEStimEvent;
@@ -38,3 +41,5 @@
 -(NSDictionary*)checkConstraintForID:(NSString*)constraintID;
 
 @end
+
+#endif //BARTNEPRESENTATIONEXTERNALCONDITIONCONTROLLER_H
