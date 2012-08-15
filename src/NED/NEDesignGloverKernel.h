@@ -14,6 +14,8 @@
  * and is based on the Glover kernel, see G.H. Glover, 1999, NeuroImage 9, 416-429 
  */
 
+#ifndef NEDESIGNGLOVERKERNEL_H
+#define NEDESIGNGLOVERKERNEL_H
 
 #import <Cocoa/Cocoa.h>
 
@@ -32,3 +34,5 @@
 
 
 @end
+
+#endif //NEDESIGNGLOVERKERNEL_H

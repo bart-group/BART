@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef NETIMETABLE_H
+#define NETIMETABLE_H
+
 #import <Cocoa/Cocoa.h>
 #import "NEMediaObject.h"
 #import "NEStimEvent.h"
@@ -195,3 +198,5 @@
 -(NEMediaObject*)getMediaObjectByID:(NSString*)moID;
 
 @end
+
+#endif //NETIMETABLE_H

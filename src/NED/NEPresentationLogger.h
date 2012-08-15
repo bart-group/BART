@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef NEPRESENTATIONLOGGER_H
+#define NEPRESENTATIONLOGGER_H
+
 #import <Cocoa/Cocoa.h>
 #import "NELogFormatter.h"
 
@@ -167,3 +170,5 @@
 -(NSArray*)allMessagesViolatingTolerance:(NSUInteger)tolerance;
 
 @end
+
+#endif //NEPRESENTATIONLOGGER_H

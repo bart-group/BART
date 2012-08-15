@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef NELOGFORMATTER_H
+#define NELOGFORMATTER_H
+
 #import <Cocoa/Cocoa.h>
 
 
@@ -140,3 +143,5 @@
 
 
 @end
+
+#endif //NELOGFORMATTER_H

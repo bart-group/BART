@@ -6,6 +6,9 @@
 //  Copyright 2009 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
+#ifndef NEDESIGNELEMENT_H
+#define NEDESIGNELEMENT_H
+
 #import <Cocoa/Cocoa.h>
 #import "CLETUS/COSystemConfig.h"
 //#import "BAElement.h"
@@ -28,7 +31,7 @@ enum NEDesignElementError {
 };
 
 typedef struct TrialStruct{
-    unsigned int id;               // Stimulus number.
+    unsigned int trialid;               // Stimulus number.
     float onset;
     float duration;         // in seconds
     float height;
@@ -61,7 +64,7 @@ typedef struct TrialListStruct {
 //-(void)setTimesteps:(unsigned int)val;
 //-(unsigned int)timesteps;
 
--(id)initWithDatasetFile:(NSString*)path;// ofImageDataType:(enum ImageDataType)type;
+//-(id)initWithDatasetFile:(NSString*)path;// ofImageDataType:(enum ImageDataType)type;
 
 /**
  * Initialize a Design  element from an edl configuration
@@ -127,4 +130,4 @@ typedef struct TrialListStruct {
 
 @end
 
-
+#endif // NEDESIGNELEMNT_H

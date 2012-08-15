@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef NEXMLFORMATTER_H
+#define NEXMLFORMATTER_H
+
 #import <Cocoa/Cocoa.h>
 
 
@@ -36,3 +39,5 @@
 -(NSXMLElement*)xmlTreeForTimetable:(NETimetable*)timetable;
 
 @end
+
+#endif // NEXMLFORMATTER
