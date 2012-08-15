@@ -302,7 +302,7 @@
 		E57D97F015C67F4F00E3D1C3 /* mainExp_Feedback_detrend_TR2000.edl in Resources */ = {isa = PBXBuildFile; fileRef = E57D97EE15C67F4F00E3D1C3 /* mainExp_Feedback_detrend_TR2000.edl */; };
 		E57D97F115C67F4F00E3D1C3 /* preScan_TR2000.edl in Resources */ = {isa = PBXBuildFile; fileRef = E57D97EF15C67F4F00E3D1C3 /* preScan_TR2000.edl */; };
 		E57D97FA15C6C74400E3D1C3 /* AddExperimentAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E57D97F915C6C74400E3D1C3 /* AddExperimentAccessoryView.xib */; };
-		E57D97FD15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E57D97FC15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewControllerViewController.m */; };
+		E57D97FD15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E57D97FC15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewController.m */; };
 		E597FE4A15937BDF0065A28C /* BASessionTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = E597FE4915937BDF0065A28C /* BASessionTreeController.m */; };
 		E597FE4E1594BABC0065A28C /* BASession2.m in Sources */ = {isa = PBXBuildFile; fileRef = E597FE4D1594BABC0065A28C /* BASession2.m */; };
 		E597FE511594BAD40065A28C /* BAExperiment2.m in Sources */ = {isa = PBXBuildFile; fileRef = E597FE501594BAD40065A28C /* BAExperiment2.m */; };
@@ -897,15 +897,15 @@
 		E56CFEB61562D0F100CA9CC4 /* BAHierarchyTreeContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeContext.m; sourceTree = "<group>"; };
 		E56CFEBC1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyTreeDescriptionCellView.h; sourceTree = "<group>"; };
 		E56CFEBD1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeDescriptionCellView.m; sourceTree = "<group>"; };
-		E5799B1415CFFC15009C0F31 /* RTAnalysisExperiment.h */ = {isa = PBXFileReference; fileEncoding = 4; path = RTAnalysisExperiment.h; sourceTree = "<group>"; };
+		E5799B1415CFFC15009C0F31 /* RTAnalysisExperiment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTAnalysisExperiment.h; sourceTree = "<group>"; };
 		E5799B1515CFFC15009C0F31 /* RTAnalysisExperiment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTAnalysisExperiment.m; sourceTree = "<group>"; };
 		E5799B1715D00723009C0F31 /* FirstEverExampleExperiment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstEverExampleExperiment.h; sourceTree = "<group>"; };
 		E5799B1815D00723009C0F31 /* FirstEverExampleExperiment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstEverExampleExperiment.m; sourceTree = "<group>"; };
 		E57D97EE15C67F4F00E3D1C3 /* mainExp_Feedback_detrend_TR2000.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = mainExp_Feedback_detrend_TR2000.edl; path = ../src/BARTMainApp/mainExp_Feedback_detrend_TR2000.edl; sourceTree = "<group>"; };
 		E57D97EF15C67F4F00E3D1C3 /* preScan_TR2000.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = preScan_TR2000.edl; path = ../src/BARTMainApp/preScan_TR2000.edl; sourceTree = "<group>"; };
 		E57D97F915C6C74400E3D1C3 /* AddExperimentAccessoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddExperimentAccessoryView.xib; sourceTree = "<group>"; };
-		E57D97FB15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAAddExperimentAccessoryViewControllerViewController.h; sourceTree = "<group>"; };
-		E57D97FC15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAAddExperimentAccessoryViewControllerViewController.m; sourceTree = "<group>"; };
+		E57D97FB15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = BAAddExperimentAccessoryViewController.h; sourceTree = "<group>"; };
+		E57D97FC15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAAddExperimentAccessoryViewController.m; sourceTree = "<group>"; };
 		E597FE4815937BDF0065A28C /* BASessionTreeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASessionTreeController.h; sourceTree = "<group>"; };
 		E597FE4915937BDF0065A28C /* BASessionTreeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASessionTreeController.m; sourceTree = "<group>"; };
 		E597FE4C1594BABC0065A28C /* BASession2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASession2.h; sourceTree = "<group>"; };
@@ -919,8 +919,8 @@
 		E5A085F7158F3286002871AA /* BAHierarchyTreeContextMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeContextMenuController.m; sourceTree = "<group>"; };
 		E5A085FE1590A9C4002871AA /* BigLuigi.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BigLuigi.xib; path = ../src/BARTMainApp/BigLuigi.xib; sourceTree = "<group>"; };
 		E5A086001591CD44002871AA /* runner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = runner.png; path = ../src/BARTMainApp/runner.png; sourceTree = "<group>"; };
-		E5A8593B1599E07A00348C6D /* BASessionContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASessionContext.h; sourceTree = "<group>"; };
-		E5A8593C1599E07A00348C6D /* BASessionContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASessionContext.m; sourceTree = "<group>"; };
+		E5A8593B1599E07A00348C6D /* BASessionContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BASessionContext.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		E5A8593C1599E07A00348C6D /* BASessionContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BASessionContext.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E5D075371562B4C60058791E /* BAHierarchyTreeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyTreeController.h; sourceTree = "<group>"; };
 		E5D075381562B4C60058791E /* BAHierarchyTreeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeController.m; sourceTree = "<group>"; };
 		E5D87BBA15BDAE4000532A1F /* BASessionTreeDescriptionCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASessionTreeDescriptionCellView.h; sourceTree = "<group>"; };
@@ -1411,8 +1411,8 @@
 				E5ED3A6315920C3D00489E35 /* BAMainToolbarController.m */,
 				E597FE4815937BDF0065A28C /* BASessionTreeController.h */,
 				E597FE4915937BDF0065A28C /* BASessionTreeController.m */,
-				E57D97FB15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewControllerViewController.h */,
-				E57D97FC15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewControllerViewController.m */,
+				E57D97FB15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewController.h */,
+				E57D97FC15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -2742,7 +2742,7 @@
 				E5A8593D1599E07B00348C6D /* BASessionContext.m in Sources */,
 				E5D87BBC15BDAE4000532A1F /* BASessionTreeDescriptionCellView.m in Sources */,
 				E5D87BBF15C002F200532A1F /* BASessionTreeStateCellView.m in Sources */,
-				E57D97FD15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewControllerViewController.m in Sources */,
+				E57D97FD15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewController.m in Sources */,
 				E5799B1615CFFC15009C0F31 /* RTAnalysisExperiment.m in Sources */,
 				E5799B1915D00723009C0F31 /* FirstEverExampleExperiment.m in Sources */,
 			);
