@@ -1,29 +1,29 @@
 //
-//  BAAddExperimentAccessoryViewControllerViewController.m
+//  BAAddExperimentAccessoryViewController.m
 //  BARTApplication
 //
 //  Created by Torsten Schlumm on 7/30/12.
 //  Copyright (c) 2012 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#import "BAAddExperimentAccessoryViewControllerViewController.h"
+#import "BAAddExperimentAccessoryViewController.h"
 
 #import "BASessionContext.h"
 
 
 
-@interface BAAddExperimentAccessoryViewControllerViewController ()
+@interface BAAddExperimentAccessoryViewController ()
 
 #pragma mark -
 #pragma mark Private Methods
 
 - (void)createHelpText;
-- (void)fillExperimentTypeDictionaries;
+- (void)fillExperimentTypeArrays;
 
 @end
 
 
-@implementation BAAddExperimentAccessoryViewControllerViewController
+@implementation BAAddExperimentAccessoryViewController
 
 #pragma mark -
 #pragma mark Experiment Type and Name Properties
@@ -140,7 +140,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self createHelpText];
-        [self fillExperimentTypeDictionaries];
+        [self fillExperimentTypeArrays];
         if([[[self experimentNameInput] stringValue] compare:@""] == NSOrderedSame) {
             [self setExperimentNameWarningImage:[NSImage imageNamed:NSImageNameCaution]];
         }
@@ -182,7 +182,7 @@
     
 }
 
-- (void)fillExperimentTypeDictionaries
+- (void)fillExperimentTypeArrays
 {
     NSArray *_experimentClasses = [[BASessionContext sharedBASessionContext] registeredExperimentTypes];
     

@@ -1,5 +1,5 @@
 //
-//  BAAddExperimentAccessoryViewControllerViewController.h
+//  BAAddExperimentAccessoryViewController.h
 //  BARTApplication
 //
 //  Created by Torsten Schlumm on 7/30/12.
@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface BAAddExperimentAccessoryViewControllerViewController : NSViewController <NSOpenSavePanelDelegate, NSTextFieldDelegate, NSComboBoxDelegate>
+@interface BAAddExperimentAccessoryViewController : NSViewController <NSOpenSavePanelDelegate, NSTextFieldDelegate, NSComboBoxDelegate>
 
 @property (readonly) NSAttributedString *helpText;
 
