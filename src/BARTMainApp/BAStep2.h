@@ -20,8 +20,9 @@
 
 @property (readwrite,assign) BAExperiment2 *experiment;
 
-- (id) initWithName:(NSString*)name description:(NSString*)description;
+- (id) initWithExperiment:(BAExperiment2*)experiment name:(NSString*)name description:(NSString*)description;
 
-+ (NSString*)displayTypeName;
++ (NSString*)typeDisplayName;
++ (NSString*)typeDescription;
 
 @end

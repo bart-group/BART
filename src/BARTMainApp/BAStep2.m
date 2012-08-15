@@ -38,20 +38,26 @@
 #pragma mark -
 #pragma mark Initialization
 
-- (id) initWithName:(NSString *)name description:(NSString *)description
+- (id) initWithExperiment:(BAExperiment2*)experiment name:(NSString*)name description:(NSString*)description;
 {
     if(self = [super init]) {
         _name        = [name copy];
         _description = [description copy];
+        _experiment  = [experiment retain];
     }
     
     return self;
 }
 
 
-+ (NSString*)displayTypeName
++ (NSString*)typeDisplayName
 {
     return @"Abstract Step";
+}
+
++ (NSString*)typeDescription
+{
+    return @"Abstract Step Description";
 }
 
 @end

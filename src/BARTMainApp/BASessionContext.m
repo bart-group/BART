@@ -106,7 +106,7 @@
     [chooseEDLFilePanel setAccessoryView:[accessoryViewController view]];
     [chooseEDLFilePanel setDelegate:accessoryViewController];
     
-     [chooseEDLFilePanel beginSheetModalForWindow:[sender window] completionHandler:^(NSInteger result){
+    [chooseEDLFilePanel beginSheetModalForWindow:[sender window] completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelOKButton) {
             
             Class *selectedExperimentClass = (Class*)[[accessoryViewController experimentTypeClasses] objectAtIndex:[[accessoryViewController experimentTypeInput] indexOfSelectedItem]];
@@ -117,9 +117,12 @@
             NSLog(@"[BASessionContext addExperiment] Create Session: %@", ([[accessoryViewController newSessionCheckbox] state] ? @"True" : @"False"));
             NSLog(@"[BASessionContext addExperiment] Session Name: %@", [[accessoryViewController sessionNameInput] stringValue]);
 
+            COSystemConfig *edl = [[COSystemConfig alloc] init];
+            [edl fillWithContentsOfEDLFile:[[chooseEDLFilePanel URL] path]];
+            
             BAExperiment2 *newExperiment = objc_msgSend((id)selectedExperimentClass,
                                                         @selector(experimentWithEDL:name:description:),
-                                                        nil,
+                                                        edl,
                                                         [[accessoryViewController experimentNameInput] stringValue],
                                                         [[accessoryViewController experimentNameInput] stringValue]);
 
@@ -145,16 +148,16 @@
 {
     NSLog(@"[BASessionContext createExampleSession] called");
 
-    BAStep2 *step001 = [[BAStep2 alloc] initWithName:@"Step 001" description:@"Description of Step 001"]; 
-    BAStep2 *step002 = [[BAStep2 alloc] initWithName:@"Step 002" description:@"Description of Step 002"]; 
-    BAStep2 *step003 = [[BAStep2 alloc] initWithName:@"Step 003" description:@"Description of Step 003"]; 
-    BAStep2 *step004 = [[BAStep2 alloc] initWithName:@"Step 004" description:@"Description of Step 004"]; 
-    BAStep2 *step005 = [[BAStep2 alloc] initWithName:@"Step 005" description:@"Description of Step 005"]; 
-
     BAExperiment2 *experiment001 = [[BAExperiment2 alloc] initWithEDL:nil
                                                                  name:@"Experiment 001"
-                                                          description:@"Description of Experiment 001"
-                                                                steps:[NSMutableArray arrayWithObjects:step001, step002, step003, step004, step005, nil]];
+                                                          description:@"Description of Experiment 001"];
+
+    BAStep2 *step001 = [[BAStep2 alloc] initWithExperiment:experiment001 name:@"Step 001" description:@"Description of Step 001"]; 
+    BAStep2 *step002 = [[BAStep2 alloc] initWithExperiment:experiment001 name:@"Step 002" description:@"Description of Step 002"]; 
+    BAStep2 *step003 = [[BAStep2 alloc] initWithExperiment:experiment001 name:@"Step 003" description:@"Description of Step 003"]; 
+    BAStep2 *step004 = [[BAStep2 alloc] initWithExperiment:experiment001 name:@"Step 004" description:@"Description of Step 004"]; 
+    BAStep2 *step005 = [[BAStep2 alloc] initWithExperiment:experiment001 name:@"Step 005" description:@"Description of Step 005"]; 
+
     
     BASession2 *session001 = [[BASession2 alloc] initWithName:@"Session 001" description:@"Description of Session 001" experiments:[NSMutableArray arrayWithObjects:experiment001, nil]];
     

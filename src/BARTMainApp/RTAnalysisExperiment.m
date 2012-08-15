@@ -27,6 +27,8 @@
     
     if(self) {
         NSLog(@"[RTAnalysisExperiment] initialization started ...");
+        NSLog(@"[RTAnalysisExperiment] EDL: %@", edl);
+        NSLog(@"[RTAnalysisExperiment] EDL node count: %lu", [[(BAExperiment2*)self edl] countNodes:@"*/*/*"]);
     }
     
     return self;
