@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef NETIMELINEVIEW_H
+#define NETIMELINEVIEW_H
+
 #import <Cocoa/Cocoa.h>
 #import "NEStimEvent.h"
 #import "NETimetable.h"
@@ -114,4 +117,5 @@ enum NEGrabSpot {
 
 
 @end
- 
+
+#endif //NETIMELINEVIEW_H

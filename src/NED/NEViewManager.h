@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef NEVIEWMANAGER_H
+#define NEVIEWMANAGER_H
+
 #import <Cocoa/Cocoa.h>
 
 
@@ -163,3 +166,5 @@
 -(void)setFeedback:(NEFeedbackObject*)feedbackObj;
 
 @end
+
+#endif //NEVIEWMANAGER_H
