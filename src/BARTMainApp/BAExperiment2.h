@@ -20,8 +20,8 @@
 @property (readonly,assign)  COSystemConfig *edl;
 @property (readwrite,assign) NSInteger       state;
 
-@property (readwrite,retain) NSArray    *steps;
-@property (readwrite,assign) BASession2 *session;
+@property (readwrite,assign) NSArray        *steps;
+@property (readwrite,assign) BASession2     *session;
 
 // this is the method to overwrite in the specific experiment implementation to
 // kick-off all the necessary creation/configuration etc. of steps and other stuff
@@ -40,11 +40,13 @@
 //     return self;
 // }
 //
-+ (id) experimentWithEDL:(COSystemConfig*)edl name:(NSString*)name description:(NSString*)description;
++ (id)experimentWithEDL:(COSystemConfig*)edl name:(NSString*)name description:(NSString*)description;
 
-- (id) initWithEDL:(COSystemConfig*)edl name:(NSString*)name;
-- (id) initWithEDL:(COSystemConfig*)edl name:(NSString*)name description:(NSString*)description;
-- (id) initWithEDL:(COSystemConfig*)edl name:(NSString*)name description:(NSString*)description steps:(NSArray*)steps;
+- (id)initWithEDL:(COSystemConfig*)edl name:(NSString*)name;
+- (id)initWithEDL:(COSystemConfig*)edl name:(NSString*)name description:(NSString*)description;
+- (id)initWithEDL:(COSystemConfig*)edl name:(NSString*)name description:(NSString*)description steps:(NSArray*)steps;
+
+- (void)appendStep:(id)step;
 
 + (NSString*)typeDisplayName;
 + (NSString*)typeDescription;

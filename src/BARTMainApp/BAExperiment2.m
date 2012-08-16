@@ -62,12 +62,12 @@
 #pragma mark -
 #pragma mark Property Methods 'steps'
 
-- (NSArray*) steps
+- (NSArray*)steps
 {
     return _steps;
 }
 
-- (void) setSteps:(NSArray *)steps
+- (void) setSteps:(NSArray*)steps
 {
     [self willChangeValueForKey:@"steps"];
 
@@ -79,20 +79,47 @@
     [self didChangeValueForKey:@"steps"];
 }
 
-- (NSUInteger) countOfSteps
+- (NSUInteger)countOfSteps
 {
     return [_steps count];
 }
 
-- (id) objectInStepsAtIndex:(NSUInteger)index
+- (id)objectInStepsAtIndex:(NSUInteger)index
 {
     return [_steps objectAtIndex:index];
 }
 
-- (void) getSteps:(BAExperiment2 **)buffer range:(NSRange)inRange
+- (void)getSteps:(BAExperiment2 **)buffer range:(NSRange)inRange
 {
     [_steps getObjects:buffer range:inRange];
 }
+
+- (void)insertObject:(BAStep2*)step inStepsAtIndex:(NSUInteger)index
+{
+    [[self mutableArrayValueForKey:@"steps"] insertObject:step atIndex:index];
+}
+
+- (void)removeObjectFromStepsAtIndex:(NSUInteger)index
+{
+    [[self mutableArrayValueForKey:@"steps"] removeObjectAtIndex:index];
+}
+
+- (void)replaceObjectInStepsAtIndex:(NSUInteger)index withObject:(id)step
+{
+    [[self mutableArrayValueForKey:@"steps"] replaceObjectAtIndex:index withObject:step];
+}
+
+#pragma mark -
+#pragma mark Instance Methods (Structure)
+
+- (void)appendStep:(id)step
+{
+    [self insertObject:step inStepsAtIndex:[self countOfSteps]];
+}
+
+
+#pragma mark -
+#pragma mark Class Methods
 
 + (NSString*)typeDisplayName
 {
