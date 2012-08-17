@@ -20,7 +20,7 @@
 @property (readonly,assign)  COSystemConfig *edl;
 @property (readwrite,assign) NSInteger       state;
 
-@property (readwrite,assign) NSArray        *steps;
+@property (readonly,retain)  NSArray        *steps;
 @property (readwrite,assign) BASession2     *session;
 
 // this is the method to overwrite in the specific experiment implementation to

@@ -13,7 +13,10 @@
 
 
 
-@implementation BAExperiment2
+@implementation BAExperiment2 {
+    
+    NSMutableArray *_steps;
+}
 
 #pragma mark -
 #pragma mark Global Properties
@@ -71,7 +74,7 @@
 {
     [self willChangeValueForKey:@"steps"];
 
-    _steps = steps;
+    _steps = [NSMutableArray arrayWithArray:steps];
     [_steps enumerateObjectsUsingBlock:^(id step, NSUInteger index, BOOL *stop) {
         [(BAStep2*)step setExperiment:self];
     }];
@@ -96,17 +99,26 @@
 
 - (void)insertObject:(BAStep2*)step inStepsAtIndex:(NSUInteger)index
 {
-    [[self mutableArrayValueForKey:@"steps"] insertObject:step atIndex:index];
+    [self willChangeValueForKey:@"steps"];
+    NSLog(@"insertObject:%@ inStepsAtIndex:%lu", step, index);
+    [step setExperiment:self];
+    [_steps insertObject:step atIndex:index];
+    [self didChangeValueForKey:@"steps"];
 }
 
 - (void)removeObjectFromStepsAtIndex:(NSUInteger)index
 {
-    [[self mutableArrayValueForKey:@"steps"] removeObjectAtIndex:index];
+    [self willChangeValueForKey:@"steps"];
+    [_steps removeObjectAtIndex:index];
+    [self didChangeValueForKey:@"steps"];
 }
 
 - (void)replaceObjectInStepsAtIndex:(NSUInteger)index withObject:(id)step
 {
-    [[self mutableArrayValueForKey:@"steps"] replaceObjectAtIndex:index withObject:step];
+    [self willChangeValueForKey:@"steps"];
+    [step setExperiment:self];
+    [_steps replaceObjectAtIndex:index withObject:step];
+    [self didChangeValueForKey:@"steps"];
 }
 
 #pragma mark -

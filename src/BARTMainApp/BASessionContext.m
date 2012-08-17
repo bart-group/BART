@@ -86,7 +86,9 @@
     }
     BASessionTreeNode *sessionNode = [[BASessionTreeNode alloc] initWithObject:currentSession children:experiments];
     NSLog(@"[BASessionContext buildTreeForView] added session: %@", sessionNode);
+    [self willChangeValueForKey:@"sessionTreeContent"];
     sessionTreeContent = [NSArray arrayWithObjects:sessionNode, nil];
+    [self didChangeValueForKey:@"sessionTreeContent"];
     NSLog(@"[BASessionContext buildTreeForView] new sessionTreeContent: %@", sessionTreeContent);
 }
 
@@ -152,12 +154,25 @@
                                                                  name:@"Experiment 001"
                                                           description:@"Description of Experiment 001"];
 
-    BAStep2 *step001 = [[BAStep2 alloc] initWithExperiment:experiment001 name:@"Step 001" description:@"Description of Step 001"]; 
-    BAStep2 *step002 = [[BAStep2 alloc] initWithExperiment:experiment001 name:@"Step 002" description:@"Description of Step 002"]; 
-    BAStep2 *step003 = [[BAStep2 alloc] initWithExperiment:experiment001 name:@"Step 003" description:@"Description of Step 003"]; 
-    BAStep2 *step004 = [[BAStep2 alloc] initWithExperiment:experiment001 name:@"Step 004" description:@"Description of Step 004"]; 
-    BAStep2 *step005 = [[BAStep2 alloc] initWithExperiment:experiment001 name:@"Step 005" description:@"Description of Step 005"]; 
+    BAStep2 *step001 = [[BAStep2 alloc] initWithName:@"Step 001" description:@"Description of Step 001"]; 
+    BAStep2 *step002 = [[BAStep2 alloc] initWithName:@"Step 002" description:@"Description of Step 002"]; 
+    BAStep2 *step003 = [[BAStep2 alloc] initWithName:@"Step 003" description:@"Description of Step 003"]; 
+    BAStep2 *step004 = [[BAStep2 alloc] initWithName:@"Step 004" description:@"Description of Step 004"]; 
+    BAStep2 *step005 = [[BAStep2 alloc] initWithName:@"Step 005" description:@"Description of Step 005"]; 
 
+    [experiment001 appendStep:step001];
+    [experiment001 appendStep:step002];
+    [experiment001 appendStep:step003];
+    [experiment001 appendStep:step004];
+
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSLog(@"waiting to add another step ...");
+        sleep(15);
+        NSLog(@"adding another step ...");
+        [experiment001 appendStep:step005];
+    });
+    
     
     BASession2 *session001 = [[BASession2 alloc] initWithName:@"Session 001" description:@"Description of Session 001" experiments:[NSMutableArray arrayWithObjects:experiment001, nil]];
     
