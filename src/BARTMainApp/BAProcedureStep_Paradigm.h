@@ -12,7 +12,7 @@
 #import <Foundation/Foundation.h>
 #import "BAProcedureStep.h"
 
-
+@class NEDesignElement;
 
 @interface BAProcedureStep_Paradigm : BAProcedureStep {
     
@@ -21,7 +21,8 @@
     
 }
 
--(void)doWhatIWant;
+@property (readonly, getter = designElement) NEDesignElement* mDesignElement;
+//-(void)doWhatIWant;
 
 @end
 
