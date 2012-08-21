@@ -63,7 +63,6 @@ NSThread *triggerThread;
 dispatch_queue_t serialDesignElementAccessQueue;
 
 + (COExperimentContext*)getInstance {
-    NSLog(@"[COExperimentContext getInstance] called");
 	static dispatch_once_t predicate;
 	static COExperimentContext *instance = nil;
 	dispatch_once(&predicate, ^{instance = [[self alloc] init];});
@@ -183,7 +182,6 @@ dispatch_queue_t serialDesignElementAccessQueue;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:BARTDidResetExperimentContextNotification object:nil];
     
-    NSLog(@"Context in Context: %@", self);
     return err;
     
 }
