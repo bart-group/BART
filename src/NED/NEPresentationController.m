@@ -137,7 +137,7 @@ NSString * const BARTPresentationAddedEventsNotification = @"de.mpg.cbs.BARTPres
 @synthesize mLastTriggersTime = _mLastTriggersTime;
 @synthesize mExternalConditionController = _mExternalConditionController;
 @synthesize mTR = _mTR;
-
+@synthesize mPresentTimeUnit = _mPresentTimeUnit;
 
 
 -(id)initWithView:(NEViewManager*)view
@@ -146,6 +146,14 @@ NSString * const BARTPresentationAddedEventsNotification = @"de.mpg.cbs.BARTPres
     if ((self = [super init])) {
         mViewManager = [view retain];
         mTimetable = [timetable retain];
+        
+        if ([[[[COExperimentContext getInstance] systemConfig] getProp:@"$timeUnit"] isEqualToString:@"milliseconds"]){
+			_mPresentTimeUnit = PRES_TIME_MS;}
+		else {
+			NSLog(@"timeUnit in configuration is NOT milliseconds!");
+            return nil;
+        }
+
         
         mEventsToEnd       = [[NSMutableArray alloc] initWithCapacity:0];
         mAddedEvents       = [[NSMutableArray alloc] initWithCapacity:0];
@@ -157,7 +165,8 @@ NSString * const BARTPresentationAddedEventsNotification = @"de.mpg.cbs.BARTPres
         
         mUpdateThread = [[NSThread alloc] initWithTarget:self selector:@selector(runUpdateThread) object:nil];
         _mTR           = (NSUInteger) [[[[COExperimentContext getInstance] systemConfig] getProp:@"$TR"] integerValue];
-        [self resetTimeAndTriggerCount];
+        
+         [self resetTimeAndTriggerCount];
         
         [mViewManager setTimetable:mTimetable];
         [mViewManager setController:self];
@@ -379,10 +388,12 @@ NSString * const BARTPresentationAddedEventsNotification = @"de.mpg.cbs.BARTPres
         [NSThread sleepForTimeInterval:UPDATE_INTERVAL];
     } while (![[NSThread currentThread] isCancelled]);
         
+    
+    NSLog(@"AP IN THREAD:%@", autoreleasePool);
     [autoreleasePool drain];
     autoreleasePool = nil;
     
-    [NSThread exit];
+    //[NSThread exit];
 }
 
 -(void)tick
@@ -598,7 +609,7 @@ NSString * const BARTPresentationAddedEventsNotification = @"de.mpg.cbs.BARTPres
 
 -(void)handleStartingEvents
 {
-    NSMutableArray* arrayAllStartingEvents = [NSMutableArray arrayWithCapacity:2];
+    NSMutableArray* arrayAllStartingEvents = [[NSMutableArray alloc] initWithCapacity:2];
     NEStimEvent* event = [mTimetable nextEventAtTime:mTime];
     while (event) {
         
@@ -654,7 +665,7 @@ NSString * const BARTPresentationAddedEventsNotification = @"de.mpg.cbs.BARTPres
 -(void)terminusFromScannerArrived:(NSNotification *)msg
 {
     NSLog(@"%@", msg);
-    [self resetPresentationToOriginal:NO];
+    //[self resetPresentationToOriginal:NO];
 }
 
 @end

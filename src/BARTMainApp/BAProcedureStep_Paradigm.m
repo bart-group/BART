@@ -216,7 +216,7 @@ NEViewManager* viewManager;
     // so, take them all, add to the design and generate the design for update
     // do all this in an additional thread
     
-    NSArray* arrayAddedEvents = [aNotificaton object];
+    NSArray* arrayAddedEvents = [[aNotificaton object] retain];
     [arrayAddedEvents enumerateObjectsUsingBlock:^(id stimEvent, NSUInteger idx, BOOL *stop) {
         #pragma unused(stop)
         #pragma unused(idx)
@@ -224,6 +224,7 @@ NEViewManager* viewManager;
         [mDesignElement setRegressorTrial:newTrial];
     }
     ];
+    [arrayAddedEvents release];
      
     [mDesignElement updateDesign];
      

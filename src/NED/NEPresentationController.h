@@ -19,6 +19,7 @@
 @class NEViewManager;
 @class NEPresentationExternalConditionController;
 
+typedef enum { PRES_TIME_MS = 0, PRES_TIME_S = 1 } NEPresentationTimeUnit;
 
 extern NSString * const BARTPresentationAddedEventsNotification;
 
@@ -87,6 +88,8 @@ extern NSString * const BARTPresentationAddedEventsNotification;
 @property (readwrite, setter = setLastTriggerTime:) NSTimeInterval mLastTriggersTime;
 /** Repetition time (in milliseconds). */
 @property (readonly, getter = repetitionTime) NSUInteger mTR;
+/*  the time unit of the presentation, should be ms   */
+@property (readonly, getter = timeUnit) NSUInteger mPresentTimeUnit;
 
 /**
  * Initializes a newly allocated NESceneController object.
