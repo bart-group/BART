@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1487" systemVersion="11E53" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Entity1" syncable="YES"/>
+    <entity name="Entity2" syncable="YES"/>
+    <entity name="Test" syncable="YES">
+        <attribute name="a" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="relationship" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Entity1" syncable="YES"/>
+        <fetchedProperty name="fetchedProperty" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Test"/>
+        </fetchedProperty>
+    </entity>
+    <elements>
+        <element name="Test" positionX="160" positionY="192" width="128" height="104"/>
+        <element name="Entity1" positionX="160" positionY="192" width="128" height="45"/>
+        <element name="Entity2" positionX="160" positionY="192" width="128" height="45"/>
+    </elements>
+</model>
