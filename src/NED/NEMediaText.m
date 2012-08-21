@@ -14,6 +14,7 @@
 -(id)initWithID:(NSString*)objID
         andText:(NSString*)text
   constrainedBy:(NSString *)constraintID
+andRegAssignment:(NERegressorAssignment*)regAssign
 {
     if ((self = [super init])) {
         mID    = [objID retain];
@@ -26,17 +27,26 @@
         else{
             hasConstraint = NO;}
         mEventTypeDescription = @"Text";
+        
+        if ( nil != regAssign){
+            mRegAssignment = [regAssign retain];
+            hasRegAssignment = YES;
+        }
+        else{
+            hasRegAssignment = NO;
+        }
     }
     
     
     return self;
 }
 -(id)initWithID:(NSString*)objID
-           Text:(NSString*)text 
-         inSize:(NSUInteger)size 
-       andColor:(NSColor*)color 
+           Text:(NSString*)text
+         inSize:(NSUInteger)size
+       andColor:(NSColor*)color
       atPostion:(NSPoint)position
-  constrainedBy:(NSString*)constraintID;
+  constrainedBy:(NSString*)constraintID
+andRegAssignment:(NERegressorAssignment*)regAssign
 {
     if ((self = [super init])) {
         mID       = [objID retain];
@@ -51,6 +61,14 @@
         else{
             hasConstraint = NO;}
         mEventTypeDescription = @"Text";
+        
+        if ( nil != regAssign){
+            mRegAssignment = [regAssign retain];
+            hasRegAssignment = YES;
+        }
+        else{
+            hasRegAssignment = NO;
+        }
     }
     
     return self;
@@ -59,14 +77,14 @@
 
 -(void)presentInContext:(CGContextRef)context andRect:(NSRect)rect
 {
-    #pragma unused(rect)
-//    CGContextSetRGBStrokeColor(context, 1, 1, 1, 1); 
-//    CGContextSetRGBFillColor(context, 1, 1, 1, 1);
+#pragma unused(rect)
+    //    CGContextSetRGBStrokeColor(context, 1, 1, 1, 1);
+    //    CGContextSetRGBFillColor(context, 1, 1, 1, 1);
     [mColor setStroke];
     [mColor setFill];
     CGContextSelectFont(context, "Monaco" /*"Arial"*//* "Helvetica-Bold" */, (CGFloat)mSize, kCGEncodingMacRoman);
-    //CGContextSetCharacterSpacing(context, 1); 
-    CGContextSetTextDrawingMode(context, kCGTextFillStroke); 
+    //CGContextSetCharacterSpacing(context, 1);
+    CGContextSetTextDrawingMode(context, kCGTextFillStroke);
     CGContextShowTextAtPoint(context, mPosition.x, mPosition.y, [mText cStringUsingEncoding:NSUTF8StringEncoding], [mText length]);
 }
 
@@ -76,6 +94,7 @@
     [mText release];
     [mColor release];
     [mConstraintID release];
+    [mRegAssignment release];
     
     [super dealloc];
 }

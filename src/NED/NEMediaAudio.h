@@ -6,10 +6,13 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef NEMEDIAAUDIO_H
+#define NEMEDIAAUDIO_H
+
 #import <Cocoa/Cocoa.h>
 #import <QTKit/QTKit.h>
 #import "NEMediaObject.h"
-
+#import "NERegressorAssignment.h"
 
 /**
  * Represents an audio media object in a MRI stimulus presentation.
@@ -18,7 +21,7 @@
 
     /** Playable track. */
     QTMovie* mTrack;
-    
+
 }
 
 /**
@@ -31,6 +34,9 @@
  */
 -(id)initWithID:(NSString*)objID 
         andFile:(NSString*)path
-  constrainedBy:(NSString*)constraintID;
+  constrainedBy:(NSString*)constraintID
+andRegAssignment:(NERegressorAssignment*)regAssign;
 
 @end
+
+#endif // NEMEDIAAUDIO_H

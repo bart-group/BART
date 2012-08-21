@@ -6,9 +6,12 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef NEMEDIATEXT_H
+#define NEMEDIATEXT_H
+
 #import <Cocoa/Cocoa.h>
 #import "NEMediaObject.h"
-
+#import "NERegressorAssignment.h"
 
 /**
  * Represents a text media object in a MRI stimulus presentation.
@@ -36,11 +39,12 @@
  */
 -(id)initWithID:(NSString*)objID
         andText:(NSString*)text
-  constrainedBy:(NSString*)constraintID;
+  constrainedBy:(NSString*)constraintID
+andRegAssignment:(NERegressorAssignment*)regAssign;
 
 /**
  * Initializes a newly allocated NEMediaText object
- * with an ID, text, text size, text color and 
+ * with an ID, text, text size, text color and
  * frame position.
  *
  * \param objID   ID of the media object.
@@ -53,10 +57,13 @@
  * \return        A initialized NEMediaText object.
  */
 -(id)initWithID:(NSString*)objID
-           Text:(NSString*)text 
-         inSize:(NSUInteger)size 
-       andColor:(NSColor*)color 
+           Text:(NSString*)text
+         inSize:(NSUInteger)size
+       andColor:(NSColor*)color
       atPostion:(NSPoint)position
-  constrainedBy:(NSString*)constraintID;;
+  constrainedBy:(NSString*)constraintID
+andRegAssignment:(NERegressorAssignment*)regAssign;
 
 @end
+
+#endif //NEMEDIATEXT_H

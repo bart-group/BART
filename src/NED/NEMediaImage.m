@@ -20,6 +20,7 @@ float mImageHeightHalf;
            file:(NSString*)path
       displayAt:(NSPoint)position
   constrainedBy:(NSString *)constraintID
+andRegAssignment:(NERegressorAssignment*)regAssign
 {
     if ((self = [super init])) {
         mID       = [objID retain];
@@ -28,6 +29,15 @@ float mImageHeightHalf;
             hasConstraint = YES;}
         else{
             hasConstraint = NO;}
+        
+        if ( nil != regAssign){
+            mRegAssignment = [regAssign retain];
+            hasRegAssignment = YES;
+        }
+        else{
+            hasRegAssignment = NO;
+        }
+
         
         NSString* resolvedPath  = [[[COExperimentContext getInstance] systemConfig] getEDLFilePath];
         resolvedPath = [resolvedPath stringByDeletingLastPathComponent];
@@ -71,7 +81,7 @@ float mImageHeightHalf;
     [mID release];
     [mImage release];
     [mConstraintID release];
-    
+    [mRegAssignment release];
     [super dealloc];
 }
 

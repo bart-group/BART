@@ -6,8 +6,12 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef NEMEDIAOBJECT_H
+#define NEMEDIAOBJECT_H
+
 #import <Cocoa/Cocoa.h>
 
+@class NERegressorAssignment;
 
 /**
  * Abstract representation of a media object in a MRI
@@ -30,12 +34,19 @@
     /* description of the event type used especially for logging*/
     NSString* mEventTypeDescription;
     
+    /*the regressor assignment */
+    BOOL hasRegAssignment;
+    
+    /** the assignment to a regressor */
+    NERegressorAssignment* mRegAssignment;
 
 }
 
 @property (readwrite, getter = position, setter = setPosition:) NSPoint mPosition;
 @property (readonly, getter = isDependentFromConstraint) BOOL hasConstraint;
 @property (readonly, getter = eventIdentifier) NSString *mEventTypeDescription;
+/*flag if media object has an assignment to a regressor */
+@property (readonly, getter = isAssignedToRegressor) BOOL hasRegAssignment;
  
 /**
  * Initializes a newly allocated NEMediaObject with an EDL mediaObject
@@ -88,4 +99,14 @@
  */
 -(NSString*)getConstraintID;
 
+/**
+ * Returns a pointer to the assigned regressor function
+ *
+ * \return NERegressorAssignment - pointer to the assigned regressor function
+ */
+-(NERegressorAssignment*)getRegressorAssignment;
+
+
 @end
+
+#endif // NEMEDIAOBJECT_H

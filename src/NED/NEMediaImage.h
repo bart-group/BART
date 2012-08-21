@@ -6,9 +6,12 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef NEMEDIAIMAGE_H
+#define NEMEDIAIMAGE_H
+
 #import <Cocoa/Cocoa.h>
 #import "NEMediaObject.h"
-
+#import "NERegressorAssignment.h"
 
 /**
  * Represents an image media object in a MRI stimulus presentation.
@@ -17,7 +20,7 @@
     
     /** Image (bitmap) information. */
     CIImage* mImage;
-
+    
 }
 
 /**
@@ -33,6 +36,9 @@
 -(id)initWithID:(NSString*)objID
            file:(NSString*)path
       displayAt:(NSPoint)position
-  constrainedBy:(NSString*)constraintID;
+  constrainedBy:(NSString*)constraintID
+andRegAssignment:(NERegressorAssignment*)regAssign;
 
 @end
+
+#endif // NEMEDIAIMAGE_H

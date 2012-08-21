@@ -14,7 +14,8 @@
 
 -(id)initWithID:(NSString*)objID 
         andFile:(NSString*)path 
-  constrainedBy:(NSString*)constraintID;
+  constrainedBy:(NSString*)constraintID
+andRegAssignment:(NERegressorAssignment*)regAssign
 {
     if ((self = [super init])) {
         mID    = [objID retain];
@@ -23,6 +24,15 @@
             hasConstraint = YES;}
         else{
             hasConstraint = NO;}
+        
+        if ( nil != regAssign){
+            mRegAssignment = [regAssign retain];
+            hasRegAssignment = YES;
+        }
+        else{
+            hasRegAssignment = NO;
+        }
+
         
         NSString* resolvedPath  = [[[COExperimentContext getInstance] systemConfig] getEDLFilePath];
         resolvedPath = [resolvedPath stringByDeletingLastPathComponent];
@@ -41,7 +51,7 @@
     [mID release];
     [mTrack release];
     [mConstraintID release];
-    
+    [mRegAssignment release];
     [super dealloc];
 }
 
