@@ -25,6 +25,8 @@ typedef struct RegressorStruct {
 	NSString *regID;
 	NSString *regDescription;
 	NEDesignKernel *regConvolKernel;
+    NSString* regRefFunction;
+    unsigned long length;
 } TRegressor;
 
 @interface NEDesignElementDyn : NEDesignElement {
@@ -54,7 +56,7 @@ typedef struct RegressorStruct {
 }
 
 -(void)copyValuesOfFinishedDesign:(float**)copyFromR andCovariates:(float**)copyFromC;
--(NSError*)generateDesign;
+//-(NSError*)generateDesign;
 
 
 

@@ -7,37 +7,37 @@
 //
 
 #import "NEDesignElement.h"
-#import "NEDesignElementVI.h"
+//#import "NEDesignElementStat.h"
 #import "NEDesignElementDyn.h"
 
 
 
 @implementation NEDesignElement
 
-@synthesize mRepetitionTimeInMs;
-@synthesize mNumberExplanatoryVariables;
-@synthesize mNumberTimesteps;
-@synthesize mNumberRegressors;
-@synthesize mNumberCovariates;
+@synthesize mRepetitionTimeInMs = _mRepetitionTimeInMs;
+@synthesize mNumberExplanatoryVariables = _mNumberExplanatoryVariables;
+@synthesize mNumberTimesteps = _mNumberTimesteps;
+@synthesize mNumberRegressors = _mNumberRegressors;
+@synthesize mNumberCovariates = _mNumberCovariates;
 
 -(id)init
 {
 	if ((self = [super init])){
-		mRepetitionTimeInMs = 0;
-		mNumberExplanatoryVariables = 0;
-		mNumberTimesteps = 0;
-		mNumberRegressors = 0;
-		mNumberCovariates = 0;
+		_mRepetitionTimeInMs = 0;
+		_mNumberExplanatoryVariables = 0;
+		_mNumberTimesteps = 0;
+		_mNumberRegressors = 0;
+		_mNumberCovariates = 0;
 	}
 	return self;
 }
 
--(id)initWithDatasetFile:(NSString*)path 
-{
-	if ((self = [super init])){
-		self = [[NEDesignElementVI alloc] initWithFile:path];} 
-    return self;
-}
+//-(id)initWithDatasetFile:(NSString*)path 
+//{
+//	if ((self = [super init])){
+//		self = [[NEDesignElementVI alloc] initWithFile:path];} 
+//    return self;
+//}
 
 -(id)initWithDataFromConfig:(COSystemConfig*)config
 {
@@ -65,11 +65,11 @@
 {
 	id newDesign = [[[self class] allocWithZone:zone] init];
 	
-	[newDesign setMRepetitionTimeInMs:[self mRepetitionTimeInMs]];
-	[newDesign setMNumberExplanatoryVariables: [self mNumberExplanatoryVariables]];
-	[newDesign setMNumberTimesteps: [self mNumberTimesteps]];
-	[newDesign setMNumberRegressors: [self mNumberRegressors]];
-	[newDesign setMNumberCovariates: [self mNumberCovariates]];
+	[newDesign setRepetitionTime:_mRepetitionTimeInMs];
+	[newDesign setNumberExplanatoryVariables: _mNumberExplanatoryVariables];
+	[newDesign setNumberTimesteps: _mNumberTimesteps];
+	[newDesign setNumberRegressors: _mNumberRegressors];
+	[newDesign setNumberCovariates: _mNumberCovariates];
 	
 	
 	return newDesign;
@@ -114,6 +114,11 @@
 	return;
 }
 
+-(NSError*)updateDesign
+{
+    [self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
 
 @end
 

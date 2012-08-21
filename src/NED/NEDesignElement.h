@@ -46,25 +46,13 @@ typedef struct TrialListStruct {
 
 @interface NEDesignElement : NSObject  <NSCopying> {
 
-   // unsigned int mRepetitionTimeInMs;
-    unsigned int mNumberExplanatoryVariables;
-    unsigned int mNumberTimesteps;
-    unsigned int mNumberRegressors;
-	unsigned int mNumberCovariates;  
-	    
 }
 
-@property ( assign) unsigned int mRepetitionTimeInMs;
-@property ( assign) unsigned int mNumberExplanatoryVariables;
-@property ( assign) unsigned int mNumberTimesteps;
-@property ( assign) unsigned int mNumberRegressors;
-@property ( assign) unsigned int mNumberCovariates;   
-//@property ( assign) enum ImageDataType mImageDataType;
-
-//-(void)setTimesteps:(unsigned int)val;
-//-(unsigned int)timesteps;
-
-//-(id)initWithDatasetFile:(NSString*)path;// ofImageDataType:(enum ImageDataType)type;
+@property ( readwrite, getter = repetitionTimeMS, setter = setRepetitionTime:) NSUInteger mRepetitionTimeInMs;
+@property ( readwrite, getter = numberExplanatoryVariables, setter = setNumberExplanatoryVariables:) NSUInteger mNumberExplanatoryVariables;
+@property ( readwrite, getter = numberTimesteps, setter = setNumberTimesteps:) NSUInteger mNumberTimesteps;
+@property ( readwrite, getter = numberRegressors, setter = setNumberRegressors:) NSUInteger mNumberRegressors;
+@property ( readwrite, getter = numberCovariates, setter = setNumberCovariates:) NSUInteger mNumberCovariates;
 
 /**
  * Initialize a Design  element from an edl configuration
@@ -127,6 +115,14 @@ typedef struct TrialListStruct {
  * \param timestep set value at the timestep
  */
 -(void)setCovariateValue:(float)value forCovariateID:(int)covID atTimestep:(int)timestep;
+
+
+/**
+ * calculate an updated design
+ * 
+ * \return  nil if succesful, NSError object otherwise
+ */
+-(NSError*)updateDesign;
 
 @end
 
