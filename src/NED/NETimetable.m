@@ -33,7 +33,7 @@
  * \param event     The last event that was added to eventList
  *                  and that might mask events.
  */
--(void)removeMaskedEventsIn:(NSMutableArray*)eventList 
+-(void)removeMaskedEventsIn:(NSMutableArray*)eventList
                  startingAt:(NEStimEvent*)event;
 
 @end
@@ -70,7 +70,7 @@
             /********/
             [dictMO setValue:mObj forKey:[mObj getID]];
             
-            /********/ 
+            /********/
         }
         [mediaObjectIDs retain];
         /********/
@@ -124,7 +124,7 @@
     NSUInteger blockDuration = 0;
     
     // Build events - also the repeated ones.
-    while ((repeatCounter <= repeats) 
+    while ((repeatCounter <= repeats)
            && (eventProp != nil)) {
         NSUInteger eventTime     = [[[[COExperimentContext getInstance] systemConfig] getProp:[NSString stringWithFormat:@"%@/@time", eventKey]] integerValue];
         NSUInteger eventDuration = [[[[COExperimentContext getInstance] systemConfig] getProp:[NSString stringWithFormat:@"%@/@duration", eventKey]] integerValue];
@@ -147,7 +147,7 @@
         }
         
         eventCounter++;
-        eventKey = [stimDesignKey stringByAppendingFormat:@"/stimEvent[%d]", eventCounter];
+        eventKey = [stimDesignKey stringByAppendingFormat:@"/stimEvent[%ld]", eventCounter];
         eventProp = [[[COExperimentContext getInstance] systemConfig] getProp:eventKey];
         
         // Check for block repeat or outro stimuli if current eventProp is nil.
@@ -178,7 +178,6 @@
             NEStimEvent* event = [eventsForMediaObject objectAtIndex:0];
             if ( ([event time] <= time) && (NO == [event isPreviewed]) )  {
                 [event setPreviewed:YES];
-                //NSLog(@"preview");
                 [mLock unlock];
                 return event;
             }
@@ -196,7 +195,6 @@
         [mLock lock];
         NSMutableArray* eventsForMediaObject = [mEventsToHappen objectForKey:mediaObjectID];
         if ([eventsForMediaObject count] > 0) {
-            
             NEStimEvent* event = [eventsForMediaObject objectAtIndex:0];
             if ([event time] <= time) {
                 
@@ -261,7 +259,7 @@
     [mLock lock];
     NSMutableArray* eventsForMediaObject = [mEventsToHappen objectForKey:[[toReplace mediaObject] getID]];
     [eventsForMediaObject removeObject:toReplace];
-  
+    
     if ([replacement duration] > 0) {
         [NEStimEvent startTimeSortedInsertOf:replacement inEventList:eventsForMediaObject];
         [self removeMaskedEventsIn:eventsForMediaObject startingAt:replacement];
@@ -269,14 +267,14 @@
     [mLock unlock];
 }
 
--(void)removeMaskedEventsIn:(NSMutableArray*)eventList 
+-(void)removeMaskedEventsIn:(NSMutableArray*)eventList
                  startingAt:(NEStimEvent*)event
 {
     NSMutableArray* maskedEvents = [[NSMutableArray alloc] initWithCapacity:0];
     NSUInteger eventEndTime   = [event time] + [event duration];
     NSUInteger eventIndex     = [eventList indexOfObject:event];
     
-    // Check whether event is masking/masked by its predecessor. 
+    // Check whether event is masking/masked by its predecessor.
     if (eventIndex > 0) {
         NEStimEvent* previousEvent = [eventList objectAtIndex:(eventIndex - 1)];
         NSUInteger previousEndTime = [previousEvent time] + [previousEvent duration];
@@ -284,7 +282,7 @@
             if (previousEndTime >= eventEndTime) {
                 [maskedEvents addObject:event];
             } else {
-                NEStimEvent* replacement = [[NEStimEvent alloc] initWithTime:[previousEvent time] 
+                NEStimEvent* replacement = [[NEStimEvent alloc] initWithTime:[previousEvent time]
                                                                     duration:(eventEndTime - [previousEvent time])
                                                                  mediaObject:[event mediaObject]];
                 [eventList replaceObjectAtIndex:eventIndex withObject:replacement];
@@ -303,7 +301,7 @@
         if ([nextEvent time] <= eventEndTime) {
             NSUInteger nextEventEndTime = [nextEvent time] + [nextEvent duration];
             if (nextEventEndTime > eventEndTime) {
-                NEStimEvent* replacement = [[NEStimEvent alloc] initWithTime:[event time] 
+                NEStimEvent* replacement = [[NEStimEvent alloc] initWithTime:[event time]
                                                                     duration:(nextEventEndTime - [event time])
                                                                  mediaObject:[event mediaObject]];
                 [eventList replaceObjectAtIndex:eventIndex withObject:replacement];
@@ -325,7 +323,7 @@
 {
     [mEventsToHappen release];
     mEventsToHappen = [mOriginalEvents mutableCopy];
-
+    
     for (NSString* mediaObjID in mediaObjectIDs) {
         [mEventsToHappen setValue:[[[mOriginalEvents objectForKey:mediaObjID] mutableCopy] autorelease] forKey:mediaObjID];
         [[mHappenedEvents valueForKey:mediaObjID] removeAllObjects];
@@ -348,31 +346,26 @@
 
 -(void)shiftOnsetForAllEventsToHappen:(NSUInteger)shift
 {
-//    NEStimEvent *ev = [mEventsToHappen valueAtIndex:0 inPropertyWithKey:@"mo1"];
-//    NSLog(@"shift onsets %lu", [ev time]);
-//    [ev setTime:([ev time] + shift)];
-//    NSLog(@"shifted onsets %lu", [ev time]);
-//
-    
     [mLock lock];
     __block const NSUInteger timeShift = shift;
-    [mEventsToHappen enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent                                            usingBlock:^(id mediaID, id stimArray, BOOL *stop) {
-        //        
-        #pragma unused(mediaID)
-        #pragma unused(stop)
-        [(NSArray*) stimArray enumerateObjectsWithOptions:NSEnumerationConcurrent 
-                                               usingBlock:^(id stimEvent, NSUInteger idx, BOOL *stop)
-         {
-             #pragma unused(stop)
-             #pragma unused(idx)
-             //NSLog(@"shift onsets %lu", [(NEStimEvent*) stimEvent time]);
-             [(NEStimEvent*) stimEvent setTime:([(NEStimEvent*) stimEvent time]+timeShift)];
-             [stimEvent setPreviewed:NO];
-             //NSLog(@"shifted onsets %lu", [(NEStimEvent*) stimEvent time]);
-         }];
-        
-    }];
-    duration = [self duration]+shift; 
+    [mEventsToHappen
+     enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent
+     usingBlock:^(id mediaID, id stimArray, BOOL *stop) {
+         //
+            #pragma unused(mediaID)
+            #pragma unused(stop)
+         [(NSArray*) stimArray enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                                usingBlock:^(id stimEvent, NSUInteger idx, BOOL *stop)
+          {
+              
+                #pragma unused(stop)
+                #pragma unused(idx)
+              [(NEStimEvent*) stimEvent setTime:([(NEStimEvent*) stimEvent time]+timeShift)];
+              [stimEvent setPreviewed:NO];
+          }];
+         
+     }];
+    duration = [self duration]+shift;
     [mLock unlock];
 }
 
