@@ -147,7 +147,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
             NSLog(@" too many covariates (%lu), max is %d", numberExplanatoryVariables, MBETA);
         }
         if (copyDesign.mNumberTimesteps != numberBands) {
-            NSLog(@" design dimension inconsistency: %d (numberTimesteps design) %lu (numberTimesteps data)", 
+            NSLog(@" design dimension inconsistency: %ld (numberTimesteps design) %lu (numberTimesteps data)", 
                   copyDesign.mNumberTimesteps, numberBands);
         }
         
