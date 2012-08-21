@@ -6,6 +6,9 @@
 //  Copyright (c) 2012 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
+#ifndef NECONSTRAINT_H
+#define NECONSTRAINT_H
+
 #import <Cocoa/Cocoa.h>
 
 @interface NEConstraint : NSObject{
@@ -35,3 +38,5 @@
 
 
 @end
+
+#endif // NECONSTRAINT_H

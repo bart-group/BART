@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
+#ifndef NEDESIGNKERNEL_H
+#define NEDESIGNKERNEL_H
+
 #import <Cocoa/Cocoa.h>
 #import <fftw3.h>
 
@@ -86,3 +89,5 @@ typedef struct GeneralGammaStruct {
 -(float**)plotGammaWithDerivs:(unsigned int)derivs;
 
 @end
+
+#endif //NEDESIGNKERNEL_H
