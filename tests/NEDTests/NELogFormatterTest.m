@@ -17,7 +17,7 @@
 -(void)testStringForTriggerNumber
 {
     NELogFormatter* formatter = [[NELogFormatter alloc] init];
-    NSString* expected = [NSString stringWithFormat:@"%5lu", 42];
+    NSString* expected = [NSString stringWithFormat:@"%5u", 42];
     
     NSString* actual = [formatter stringForTriggerNumber:42];
     
@@ -32,7 +32,7 @@
 
 -(void)testStringForStimEvent
 {
-    NEMediaText *mObj = [[NEMediaText alloc] initWithID:@"foo" andText:@"bar" constrainedBy:@"constraintID"];
+    NEMediaText *mObj = [[NEMediaText alloc] initWithID:@"foo" andText:@"bar" constrainedBy:@"constraintID" andRegAssignment:nil];
     NEStimEvent* event = [[NEStimEvent alloc] initWithTime:24 
                                                   duration:42 
                                                mediaObject:mObj];

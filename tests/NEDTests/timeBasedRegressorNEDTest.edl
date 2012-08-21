@@ -14,13 +14,6 @@
         <dataFolder>/Users/Lydi/data/TestDirectory/dicom</dataFolder>
         <dataFolderTarget>/Users/Lydi/data/TestDirectory/dicom</dataFolderTarget>
         <resultFolder>/Users/Lydi/data/TestDirectory/results</resultFolder>
-        <resultImage>
-            <imageModalities imgDataExtension=".hdr" imgDataType="image" imgType="ANALYZE">
-                <imgBase>results_</imgBase>
-                <byteOrder/>
-                <img3D/>
-            </imageModalities>
-        </resultImage>
     </environment>
     <experimentData trSimulation="false">
         <paradigm ignoreScansAtStart="0">
@@ -155,6 +148,8 @@
             <startTrigger waitForInitialTrigger="true">
                 <parallelPortTrigger>
                     <triggerPort>0x379</triggerPort>
+                    <bitOffset>6</bitOffset>
+                    <negativeLogic>0</negativeLogic>
                 </parallelPortTrigger>
             </startTrigger>
             <logEvents writeAtRuntime="off" writeMatFile="on" writeTextFile="on">

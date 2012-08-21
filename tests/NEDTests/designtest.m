@@ -21,7 +21,49 @@ int main(void)
 {
 	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
+	
+    srand(time(NULL));
+
+    
+    
+    COSystemConfig *config = [[COSystemConfig alloc] init ];
+    NSString *fileName = [NSString stringWithFormat:@"../../tests/NEDTests/timeBasedRegressorNEDTest.edl" ];
+  	[config fillWithContentsOfEDLFile:fileName];
+    
+	
+	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc]
+                                    initWithDynamicDataFromConfig:config];
+	
+	[config setProp:@"$nrTimesteps" :@"100"];
+	[config setProp:@"$TR" :@"1000"];
+	
+    NSUInteger nrTrialsInRegr1 = 18;
+	
+	for (unsigned int k = 0; k < nrTrialsInRegr1; k++)
+	{
+		NSString *stringTrialTime = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@time", 1, k+1];
+		NSString *stringTrialDuration = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@duration",1, k+1];
+		NSString *stringTrialHeight = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@height",1, k+1];
+		[config setProp:stringTrialTime :[NSString stringWithFormat:@"%d",rand()%500000]];
+		[config setProp:stringTrialHeight :@"1"];
+		[config setProp:stringTrialDuration :[NSString stringWithFormat:@"%d", rand()%40000]];
+	}
+	NSUInteger nrTrialsInRegr2 = 27;
+	
+	for (unsigned int k = 0; k < nrTrialsInRegr2; k++)
+	{
+		NSString *stringTrialTime = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@time", 2, k+1];
+		NSString *stringTrialDuration = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@duration",2, k+1];
+		NSString *stringTrialHeight = [NSString stringWithFormat:@"$gwDesign/timeBasedRegressor[%d]/tbrDesign/statEvent[%d]/@height",2, k+1];
+		[config setProp:stringTrialTime :[NSString stringWithFormat:@"%d",rand()%700000]];
+		[config setProp:stringTrialHeight :@"1"];
+		[config setProp:stringTrialDuration :[NSString stringWithFormat:@"%d", rand()%80000]];
+	}
+    
+	[designEl updateDesign];
+    
+    
+    
 //	//erDesignTest02_deriv1AllReg
 //	//erDesignTest03_deriv1Reg1_3
 //	//erDesignTest04_deriv2AllReg
@@ -55,11 +97,11 @@ int main(void)
 //	[toTestDesign writeDesignFile:@"/tmp/testblockDesignTest02_parametric.v"];
 //	[referenceDesign writeDesignFile:@"/tmp/referenceblockDesignTest02_parametric.v"];
     
-    NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] init];
+    //NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] init];
 	
-    NSLog(@"0 vs %u ", [designEl mNumberTimesteps]);
-	[designEl setMNumberTimesteps: 896];
-    NSLog(@"896 vs %u ", [designEl mNumberTimesteps]);
+    NSLog(@"0 vs %u ", [designEl numberTimesteps]);
+	[designEl setNumberTimesteps: 896];
+    NSLog(@"896 vs %u ", [designEl numberTimesteps]);
 	
 //	//TODO: what to do with stupid values, negative, large?!
 //	[designEl setMNumberTimesteps: 12233344];

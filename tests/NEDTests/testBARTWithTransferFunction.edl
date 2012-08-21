@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rtExperiment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" edlVersion="1.6" xsi:noNamespaceSchemaLocation="rtExperiment_v15.xsd">
+    <environment globalTimeUnit="milliseconds">
+        <logging doLogging="true">
+            <logFolder>/tmp/</logFolder>
+            <logFile>logRT_main.txt</logFile>
+        </logging>
+        <startTrigger waitForInitialTrigger="true">
+            <parallelPortTrigger>
+                <triggerPort>0x379</triggerPort>
+                <bitOffset>6</bitOffset>
+                <negativeLogic>0</negativeLogic>
+            </parallelPortTrigger>
+        </startTrigger>
+        <dataFolder>../../temp/</dataFolder>
+        <dataFolderTarget>/Users/Lydi/temp</dataFolderTarget>
+        <resultFolder>/Users/Lydi/temp</resultFolder>
+    </environment>
+    <experimentData trSimulation="false">
+        <paradigm ignoreScansAtStart="0">
+            <dynamicDesignStruct maxLength="720000">
+                <dynamicTimeBasedRegressor length="720000" name="visualStim" regressorID="regVisual" scaleHeightToZeroMean="false" useRefFct="gloverGammaBlockDesign" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false"/>
+                <dynamicTimeBasedRegressor length="720000" name="auditStim" regressorID="regAudit" scaleHeightToZeroMean="false" useRefFct="gloverGammaBlockDesign" useRefFctFirstDerivative="false" useRefFctSecondDerivative="false"/>
+            </dynamicDesignStruct>
+        </paradigm>
+        <imageModalities imgDataExtension=".ima" imgDataType="image" imgType="IMA">
+            <imgBase>IBMI_FMRI_</imgBase>
+            <byteOrder>littleEndian</byteOrder>
+            <TR>1000</TR>
+            <imgMosaic>
+                <imgWidth>384</imgWidth>
+                <imgHeight>384</imgHeight>
+                <slices>10</slices>
+                <tileWidth>64</tileWidth>
+                <tileHeight>64</tileHeight>
+                <bpp>uint16</bpp>
+            </imgMosaic>
+        </imageModalities>
+    </experimentData>
+    <mriParams fieldStrength="3T" systemVersion="VA25A" vendorName="Siemens">
+        <MR_TAG_BANDWIDTH vendorTag="bw">1816</MR_TAG_BANDWIDTH>
+        <MR_TAG_BASE_RESOLUTION vendorTag="matrix">64</MR_TAG_BASE_RESOLUTION>
+        <MR_TAG_PHASE_RESOLUTION vendorTag="ph_res">100</MR_TAG_PHASE_RESOLUTION>
+        <MR_TAG_TE vendorTag="te">29</MR_TAG_TE>
+        <MR_TAG_TR vendorTag="tr">1000</MR_TAG_TR>
+        <MR_TAG_SG_SIZE vendorTag="sg.0.size">10</MR_TAG_SG_SIZE>
+        <MR_TAG_SLICE_THICKNESS vendorTag="sl_thick">4.0</MR_TAG_SLICE_THICKNESS>
+        <MR_TAG_SG_DISTANCE_FACTOR vendorTag="sg.0.df">10</MR_TAG_SG_DISTANCE_FACTOR>
+        <MR_TAG_READOUT_FOV vendorTag="readout_fov">210</MR_TAG_READOUT_FOV>
+        <MR_TAG_PHASE_FOV vendorTag="phase_fov">100</MR_TAG_PHASE_FOV>
+        <MR_TAG_FLIP_ANGLE vendorTag="angle_array.0">90</MR_TAG_FLIP_ANGLE>
+        <MR_TAG_MEASUREMENTS vendorTag="meas">720</MR_TAG_MEASUREMENTS>
+    </mriParams>
+    <preprocessing>
+        <spatialFilter>
+            <kernelType>GAUSS</kernelType>
+            <kernelSize>3</kernelSize>
+        </spatialFilter>
+        <linearDetrending>1</linearDetrending>
+    </preprocessing>
+    <statistics>
+        <corrAnalysis/>
+        <referenceFunctions>
+            <dGamma refFctID="dGamma1">
+                <tPeak1>6000</tPeak1>
+                <mWidth1>5100</mWidth1>
+                <scale1>1</scale1>
+                <tPeak2>16000</tPeak2>
+                <mWidth2>8000</mWidth2>
+                <scale2>0.09</scale2>
+                <offset>0</offset>
+                <overallWidth>30000</overallWidth>
+            </dGamma>
+            <gloverKernel refFctID="gloverGammaBlockDesign">
+                <tPeak1>6000</tPeak1>
+                <tPeak1Scale>0.9</tPeak1Scale>
+                <tPeak2>12000</tPeak2>
+                <tPeak2Scale>0.9</tPeak2Scale>
+                <ratioTPeaks>0.1</ratioTPeaks>
+                <heightScale>120</heightScale>
+                <offset>0</offset>
+                <overallWidth>30000</overallWidth>
+            </gloverKernel>
+            <gloverKernel refFctID="gloverGammaEventRelDesign">
+                <tPeak1>6000</tPeak1>
+                <tPeak1Scale>0.9</tPeak1Scale>
+                <tPeak2>12000</tPeak2>
+                <tPeak2Scale>0.9</tPeak2Scale>
+                <ratioTPeaks>0.35</ratioTPeaks>
+                <heightScale>20</heightScale>
+                <offset>0</offset>
+                <overallWidth>30000</overallWidth>
+            </gloverKernel>
+        </referenceFunctions>
+    </statistics>
+    <stimulusData>
+        <stimEnvironment>
+            <startTrigger waitForInitialTrigger="true">
+                <parallelPortTrigger>
+                    <triggerPort>0x379</triggerPort>
+                    <bitOffset>6</bitOffset>
+                    <negativeLogic>0</negativeLogic>
+                </parallelPortTrigger>
+            </startTrigger>
+            <logEvents writeAtRuntime="off" writeMatFile="on" writeTextFile="on">
+                <logFileBase>\LOG_UG\logUG</logFileBase>
+            </logEvents>
+            <screen>
+                <screenResolutionX>800</screenResolutionX>
+                <screenResolutionY>600</screenResolutionY>
+            </screen>
+        </stimEnvironment>
+        <mediaObjectList>
+            <mediaObject moID="mo1" name="text1" type="TEXT">
+                <contentText>
+                    <text>+</text>
+                    <tColor>
+                        <tcRed>1.0</tcRed>
+                        <tcGreen>1.0</tcGreen>
+                        <tcBlue>1.0</tcBlue>
+                    </tColor>
+                    <tSize>40</tSize>
+                    <posX>150</posX>
+                    <posY>150</posY>
+                </contentText>
+                <regressorAssignment assignToRegressor="regVisual" useTransferFunction="transFunc1"/>
+            </mediaObject>
+            <mediaObject moID="mo2" name="soundFrog" type="SOUND">
+                <contentSound>
+                    <soundFile>Frog.aiff</soundFile>
+                </contentSound>
+                <regressorAssignment assignToRegressor="regAudit" useTransferFunction="transFunc1"/>
+            </mediaObject>
+        </mediaObjectList>
+        <timeTable timeTolerance="20">
+            <freeStimulusDesign overallPresLength="720000">
+                <stimEvent duration="13000" time="17000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="20000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="43000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="60000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="69000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="95000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="100000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="121000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="140000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="147000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="173000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="180000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="199000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="220000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="225000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="251000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="260000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="277000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="300000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="303000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="329000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="340000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="355000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="380000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="381000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="407000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="420000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="433000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="459000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="460000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="485000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="500000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="511000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="537000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="540000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="563000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="580000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="589000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="615000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="620000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="641000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="660000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="667000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="13000" time="693000">
+                    <mObjectID>mo2</mObjectID>
+                </stimEvent>
+                <stimEvent duration="20000" time="700000">
+                    <mObjectID>mo1</mObjectID>
+                </stimEvent>
+            </freeStimulusDesign>
+        </timeTable>
+        <transferFunctions>
+            <transferFunction durationScaleFactor="1" parametricScaleFactor="1" timeOffset="0" transferFunctionID="transFunc1"/>
+        </transferFunctions>
+    </stimulusData>
+    <viewProperties>
+        <view>MIP</view>
+        <anatomy>
+            <imgFile>none</imgFile>
+        </anatomy>
+    </viewProperties>
+</rtExperiment>

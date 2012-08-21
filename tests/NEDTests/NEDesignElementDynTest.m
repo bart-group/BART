@@ -25,31 +25,31 @@ NSString *curDir;
 	
 	NEDesignElement *designEl = [[NEDesignElement alloc] init];
 	
-    STAssertTrue([designEl mNumberTimesteps] == (unsigned int)(0), @"initial value timesteps in design not null");
-	[designEl setMNumberTimesteps: 896];
-	STAssertTrue([designEl mNumberTimesteps] == (unsigned int)(896), @"set positive value not correctly ");
+    STAssertTrue([designEl numberTimesteps] == (unsigned int)(0), @"initial value timesteps in design not null");
+	[designEl setNumberTimesteps: 896];
+	STAssertTrue([designEl numberTimesteps] == (unsigned int)(896), @"set positive value not correctly ");
 	
 	//TODO: what to do with stupid values, negative, large?!
-	[designEl setMNumberTimesteps: 12233344];
+	[designEl setNumberTimesteps: 12233344];
 	
 	
-	STAssertTrue([designEl mNumberTimesteps] == (unsigned int)(12233344), @"set value correct");
+	STAssertTrue([designEl numberTimesteps] == (unsigned int)(12233344), @"set value correct");
 	
-	STAssertTrue([designEl mNumberExplanatoryVariables] == 0, @"initial value explanatory variable is not null");
-	[designEl setMNumberExplanatoryVariables:123];
-	STAssertTrue([designEl mNumberExplanatoryVariables] == 123, @"set value explanatory variable is not correct");
+	STAssertTrue([designEl numberExplanatoryVariables] == 0, @"initial value explanatory variable is not null");
+	[designEl setNumberExplanatoryVariables:123];
+	STAssertTrue([designEl numberExplanatoryVariables] == 123, @"set value explanatory variable is not correct");
 	
-	STAssertTrue([designEl mRepetitionTimeInMs] == 0, @"initial value repetition time variable is not null");
-	[designEl setMRepetitionTimeInMs:234];
-	STAssertTrue([designEl mRepetitionTimeInMs] == 234, @"set value repetition time variable is not correct");
+	STAssertTrue([designEl repetitionTimeMS] == 0, @"initial value repetition time variable is not null");
+	[designEl setRepetitionTime:234];
+	STAssertTrue([designEl repetitionTimeMS] == 234, @"set value repetition time variable is not correct");
 	
-	STAssertTrue([designEl mNumberRegressors] == 0, @"initial value regressors variable is not null");
-	[designEl setMNumberRegressors: 456];
-	STAssertTrue([designEl mNumberRegressors] == 456, @"set value regressors variable is not correct");
+	STAssertTrue([designEl numberRegressors] == 0, @"initial value regressors variable is not null");
+	[designEl setNumberRegressors: 456];
+	STAssertTrue([designEl numberRegressors] == 456, @"set value regressors variable is not correct");
 	
-	STAssertTrue([designEl mNumberCovariates] == 0, @"initial value covariates variable is not null");
-	[designEl setMNumberCovariates: 456];
-	STAssertTrue([designEl mNumberCovariates] == 456, @"set value covariates variable is not correct");
+	STAssertTrue([designEl numberCovariates] == 0, @"initial value covariates variable is not null");
+	[designEl setNumberCovariates: 456];
+	STAssertTrue([designEl numberCovariates] == 456, @"set value covariates variable is not correct");
 	[designEl release];
 }
 
@@ -66,22 +66,22 @@ NSString *curDir;
 		
 	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc]
                 initWithDynamicDataFromConfig:config];
-	STAssertEquals(designEl.mNumberCovariates, (unsigned int)(0), @"Incorrect number of covariates.");
-	STAssertEquals(designEl.mNumberRegressors, (unsigned int)(3), @"Incorrect number of regressors.");
-	STAssertEquals(designEl.mNumberTimesteps,  (unsigned int)100, @"Incorrect number of timesteps.");
-	STAssertEquals(designEl.mNumberExplanatoryVariables,(unsigned int) (3), @"Incorrect number of explanatory variables.");
-    STAssertEquals(designEl.mRepetitionTimeInMs, (unsigned int) (1000), @"Incorrect repetition time.");
+	STAssertEquals(designEl.mNumberCovariates, (NSUInteger)(0), @"Incorrect number of covariates.");
+	STAssertEquals(designEl.mNumberRegressors, (NSUInteger)(3), @"Incorrect number of regressors.");
+	STAssertEquals(designEl.mNumberTimesteps,  (NSUInteger)100, @"Incorrect number of timesteps.");
+	STAssertEquals(designEl.mNumberExplanatoryVariables,(NSUInteger) (3), @"Incorrect number of explanatory variables.");
+    STAssertEquals(designEl.mRepetitionTimeInMs, (NSUInteger) (1000), @"Incorrect repetition time.");
     STAssertTrue(nil != [designEl getValueFromExplanatoryVariable: 0 atTimestep: 5] , @"return value of initalized design must not be zero" );
 	[designEl release];
 	
 	//config file not available	
 	[config fillWithContentsOfEDLFile:@"/tmp/dunno.edl"];
 	designEl = [[NEDesignElementDyn alloc] initWithDynamicDataFromConfig:config];
-	STAssertEquals(designEl.mNumberCovariates, (unsigned int)(0), @"Incorrect number of covariates.");
-	STAssertEquals(designEl.mNumberRegressors, (unsigned int)(0), @"Incorrect number of regressors.");
-	STAssertEquals(designEl.mNumberTimesteps,  (unsigned int)0, @"Incorrect number of timesteps.");
-	STAssertEquals(designEl.mNumberExplanatoryVariables,(unsigned int) (0), @"Incorrect number of explanatory variables.");
-    STAssertEquals(designEl.mRepetitionTimeInMs, (unsigned int) (0), @"Incorrect repetition time.");
+	STAssertEquals(designEl.mNumberCovariates, (NSUInteger)(0), @"Incorrect number of covariates.");
+	STAssertEquals(designEl.mNumberRegressors, (NSUInteger)(0), @"Incorrect number of regressors.");
+	STAssertEquals(designEl.mNumberTimesteps,  (NSUInteger)0, @"Incorrect number of timesteps.");
+	STAssertEquals(designEl.mNumberExplanatoryVariables,(NSUInteger) (0), @"Incorrect number of explanatory variables.");
+    STAssertEquals(designEl.mRepetitionTimeInMs, (NSUInteger) (0), @"Incorrect repetition time.");
     
 	STAssertTrue(nil == [designEl getValueFromExplanatoryVariable: 23 atTimestep: 5], @"return value of uninitalized design must be zero" );
 	STAssertTrue(nil == [designEl getValueFromExplanatoryVariable: 0 atTimestep: 0] , @"return value of uninitalized design must be zero" );
@@ -126,7 +126,7 @@ NSString *curDir;
 		[config setProp:stringTrialDuration :[NSString stringWithFormat:@"%d", rand()%80000]];
 	}
 
-	[designEl generateDesign];
+	[designEl updateDesign];
 
 	
 	
@@ -148,7 +148,7 @@ NSString *curDir;
 	}
 	
 	// but the copy does not contain the information to generate the design - so after generate on the copy everything should be zero
-	[copyDesign generateDesign];
+	[copyDesign updateDesign];
 	for (unsigned int i = 0; i < designEl.mNumberExplanatoryVariables-1; i++){
 		for (unsigned int t = 0; t < designEl.mNumberTimesteps; t++)
 		{
@@ -436,8 +436,8 @@ NSString *curDir;
   	NEDesignElementDyn *designEl = [[NEDesignElementDyn alloc] initWithDynamicDataFromConfig:config];
 	
 			
-	for (uint ev = 0; ev < [designEl mNumberExplanatoryVariables]; ev++){
-		for (uint t = 0; t < [designEl mNumberTimesteps]; t++){
+	for (uint ev = 0; ev < [designEl numberExplanatoryVariables]; ev++){
+		for (uint t = 0; t < [designEl numberTimesteps]; t++){
 			
 			NSNumber *toTestValue = [designEl getValueFromExplanatoryVariable: ev atTimestep:t];
 			STAssertNil(toTestValue, @"testLimits all Regressors Zero: Design Element not nil");
@@ -453,8 +453,8 @@ NSString *curDir;
     designEl = [[NEDesignElementDyn alloc] initWithDynamicDataFromConfig:config];
 	
 	
-	for (uint ev = 0; ev < [designEl mNumberExplanatoryVariables]; ev++){
-		for (uint t = 0; t < [designEl mNumberTimesteps]; t++){
+	for (uint ev = 0; ev < [designEl numberExplanatoryVariables]; ev++){
+		for (uint t = 0; t < [designEl numberTimesteps]; t++){
 			
 			NSNumber *toTestValue = [designEl getValueFromExplanatoryVariable: ev atTimestep:t];
 			STAssertNil(toTestValue, @"testLimits no Regressors: Design Element not nil");
