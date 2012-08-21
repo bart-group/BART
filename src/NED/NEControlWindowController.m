@@ -97,7 +97,8 @@ NSTimeInterval mFakeTriggerIntervall = 1.0;
 {
     presentationController = presController;
     presentationDuration = [presentationController presentationDuration];
-    mFakeTriggerIntervall = (NSTimeInterval)[presentationController repetitionTime];
+    if (PRES_TIME_MS == [presentationController timeUnit]){
+        mFakeTriggerIntervall = (NSTimeInterval)([presentationController repetitionTime]/1000);}
 }
 
 -(void)setTimelineWindowController:(NETimelineWindowController*)tmlnWindowController
