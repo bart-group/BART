@@ -544,6 +544,8 @@ BOOL isDynamicDesign = NO;
             
             // (4)
             NSXMLElement* tbrDesign = [[NSXMLElement alloc] initWithName:@"tbrDesign"];
+            [tbrDesign addAttribute:[NSXMLNode attributeWithName:@"length" stringValue:length]];
+            [tbrDesign addAttribute:[NSXMLNode attributeWithName:@"repetitions" stringValue:@"1"]];
             
             //replace dynamicTimeBasedRegressor with timebAsedRegressor
             //add tbrDesign
@@ -552,7 +554,7 @@ BOOL isDynamicDesign = NO;
             
             TrialList* tl = mRegressorList[i]->regTrialList;
             
-            while ((nil != tl) && (tl->next != NULL))
+            while (NULL != tl)
             {
                 NSString *ons = [NSString stringWithFormat:@"%.0f", tl->trial.onset];
                 NSString *dur = [NSString stringWithFormat:@"%.0f", tl->trial.duration];
@@ -563,8 +565,9 @@ BOOL isDynamicDesign = NO;
                 [statEvent addAttribute:[NSXMLNode attributeWithName:@"parametricScaleFactor" stringValue:hgt]];
                 [statEventsArray addObject:statEvent];
                 [statEvent release];
-                    
+                tl = tl->next;
             }
+            
             // (5) collect to complete description of the regressor
             [tbrDesign insertChildren:statEventsArray atIndex:0];
             [tRegressor insertChild:tbrDesign atIndex:0];
