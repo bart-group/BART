@@ -292,6 +292,8 @@
 
 -(void)logConditions:(NSDictionary *)dict withTime:(NSUInteger)t
 {
+    #pragma unused (dict)
+    #pragma unused (t)
     //TODO
 }
 
