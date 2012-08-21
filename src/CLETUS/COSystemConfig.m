@@ -64,6 +64,8 @@
                             @"$screenResolutionX",
                             @"$screenResolutionY",
                             @"$logFolder",
+                            @"$transferFunctions",
+                            @"$stimulusData",
 						    nil];
 	
 	NSArray *xpathValues = [NSArray arrayWithObjects:@"/rtExperiment/experimentData/imageModalities/TR", 
@@ -81,6 +83,8 @@
                             @"/rtExperiment/stimulusData/stimEnvironment/screen/screenResolutionX",
                             @"/rtExperiment/stimulusData/stimEnvironment/screen/screenResolutionY",
                             @"/rtExperiment/environment/logging/logFolder",
+                            @"/rtExperiment/stimulusData/transferFunctions",
+                            @"/rtExperiment/stimulusData",
 							nil];
 	mAbbreviations = [[NSDictionary alloc] initWithObjects:xpathValues
                                                    forKeys:shortKeys];
@@ -228,7 +232,7 @@
 		[[queryResult objectAtIndex:0] setStringValue:value];
 	} else {
 		if (err == nil) {
-			NSString* errorString = [NSString stringWithFormat:@"Found %d configuration entries for the given key (1 would be expected)!", 
+			NSString* errorString = [NSString stringWithFormat:@"Found %ld configuration entries for the given key (1 would be expected)!", 
                                      [queryResult count]];
 			err = [NSError errorWithDomain:errorString code:CONFIG_ENTRY userInfo:nil];
 		}
@@ -303,7 +307,7 @@
         }
     } else {
         if (err == nil) {
-            NSString* errorString = [NSString stringWithFormat:@"Found %d configuration entries for the given key (1 would be expected)!", 
+            NSString* errorString = [NSString stringWithFormat:@"Found %ld configuration entries for the given key (1 would be expected)!", 
                                      [queryResult count]];
             err = [NSError errorWithDomain:errorString code:CONFIG_ENTRY userInfo:nil];
         }
