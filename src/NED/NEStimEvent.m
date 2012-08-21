@@ -7,24 +7,25 @@
 //
 
 #import "NEStimEvent.h"
+#import "NERegressorAssignment.h"
 
 
 @implementation NEStimEvent
 
-@synthesize time;
-@synthesize duration;
-@synthesize mediaObject;
-@synthesize isPreviewed;
+@synthesize mOnsetTime = _mOnsetTime;
+@synthesize mDuration = _mDuration;
+@synthesize mMediaObject = _mMediaObject;
+@synthesize isPreviewed = _isPreviewed;
 
 -(id)initWithTime:(NSUInteger)t 
          duration:(NSUInteger)dur
       mediaObject:(NEMediaObject*)obj 
 {
     if ((self = [super init])) {
-        time        = t;
-        duration    = dur;
-        mediaObject = [obj retain];
-        isPreviewed = NO;
+        _mOnsetTime        = t;
+        _mDuration    = dur;
+        _mMediaObject = [obj retain];
+        _isPreviewed = NO;
     }
     
     return self;
@@ -32,7 +33,7 @@
 
 -(void)dealloc
 {
-    [mediaObject release];
+    [_mMediaObject release];
     
     [super dealloc];
 }
@@ -77,6 +78,33 @@
         
         insertIndex++;
     }
+}
+
+-(Trial)createTrialFromThis
+{
+    Trial newTrial;
+    newTrial.trialid = 0;
+    newTrial.onset = 0;
+    newTrial.height = 1;
+    newTrial.duration = 0;
+    
+    if (YES == [_mMediaObject isAssignedToRegressor])
+    {
+        Trial newTrial;
+        
+        NERegressorAssignment* t = [_mMediaObject getRegressorAssignment];
+        newTrial.trialid = [t trialID];
+        // time
+        if ((NSInteger)_mOnsetTime > [t timeOffset]){
+            newTrial.onset = _mOnsetTime + [t timeOffset];}
+        newTrial.duration = _mDuration * [t scaleDuration];
+        newTrial.height = [t scaleParametric];
+
+        return newTrial;
+            
+    }
+    return newTrial;
+    
 }
 
 @end

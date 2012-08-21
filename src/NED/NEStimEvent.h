@@ -11,40 +11,30 @@
 
 #import <Cocoa/Cocoa.h>
 #import "NEMediaObject.h"
-
+#import "NEDesignElement.h"
 
 /**
  * Represents a stimulus event in the presentation.
  */
 @interface NEStimEvent : NSObject {
-    
-    /**
-     * Time at which the event should occur (relative to 
-     * beginning of the presentation).
-     */
-    NSUInteger time;
-    
-    /**
-     * Duration of the event.
-     */
-    NSUInteger duration;
-    
-    /**
-     * NEMediaObject that should be presented or hidden.
-     */
-    NEMediaObject* mediaObject;
-    
-    /*
-     * Flag if event already previewed
-     */
-    BOOL isPreviewed;
-    
 }
-
-@property (readwrite) NSUInteger time;
-@property (readwrite) NSUInteger duration;
-@property (retain) NEMediaObject* mediaObject;
-@property (readwrite, getter = isPreviewed, setter = setPreviewed:) BOOL isPreviewed; 
+/**
+ * Time at which the event should occur (relative to
+ * beginning of the presentation).
+ */
+@property (readwrite, getter = time, setter = setTime:) NSUInteger mOnsetTime;
+/**
+ * Duration of the event.
+ */
+@property (readwrite, getter = duration, setter = setDuration:) NSUInteger mDuration;
+/**
+ * NEMediaObject that should be presented or hidden.
+ */
+@property (retain, getter = mediaObject) NEMediaObject* mMediaObject;
+/*
+ * Flag if event already previewed
+ */
+@property (readwrite, getter = isPreviewed, setter = setPreviewed:) BOOL isPreviewed;
 
 /**
  * Initializes a NEPresentationEvent object.
@@ -57,6 +47,13 @@
 -(id)initWithTime:(NSUInteger)t 
          duration:(NSUInteger)dur
       mediaObject:(NEMediaObject*)obj;
+
+/*
+ * creates a trial from this event via a the regressor assignment function
+ * 
+ * \return the new created Trial that can be used for the design matrix
+ */
+-(Trial)createTrialFromThis;
 
 /**
  * Utility method.
