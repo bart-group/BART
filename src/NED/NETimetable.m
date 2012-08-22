@@ -199,7 +199,11 @@ dispatch_queue_t serialAccessQueueTimetable;
 {
     __block NEStimEvent* retEvent = nil;
     dispatch_sync(serialAccessQueueTimetable, ^{
-        for (NSString* mediaObjectID in mediaObjectIDs) {
+        
+        [mediaObjectIDs enumerateObjectsUsingBlock:^( id mediaObjectID, NSUInteger idx, BOOL *stop) {
+        //for (NSString* mediaObjectID in mediaObjectIDs) {
+            
+            #pragma unused(idx)
             NSMutableArray* eventsForMediaObject = [mEventsToHappen objectForKey:mediaObjectID];
             if ([eventsForMediaObject count] > 0) {
                 NEStimEvent* event = [eventsForMediaObject objectAtIndex:0];
@@ -209,13 +213,13 @@ dispatch_queue_t serialAccessQueueTimetable;
                         [[mHappenedEvents objectForKey:mediaObjectID] addObject:event];
                         [eventsForMediaObject removeObject:event];
                         retEvent = event;
-                        return ;
+                        *stop = YES;
                     } else {
                         [eventsForMediaObject removeObject:event];
                     }
                 }
             }
-        }
+        }];
     });
     return retEvent;
 }
