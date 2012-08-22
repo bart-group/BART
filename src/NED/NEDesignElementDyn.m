@@ -459,7 +459,7 @@ BOOL isDynamicDesign = NO;
                 currentTrial = currentTrial->next;
             }
             
-            if (trialcount < 0) {
+            if ((NO == isDynamicDesign) && (trialcount < 1)) {
                 NSString* errorString = [NSString stringWithFormat:@"No trials in event %ld, please re-number event-IDs!", eventNr + 1];
                 error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
             }
