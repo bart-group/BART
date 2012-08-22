@@ -27,13 +27,17 @@
 @implementation NEPresentationView
 
 //@synthesize feedbackObject;
-@synthesize needsDisplay;
+@synthesize needsDisplay = _needsDisplay;
+
+dispatch_queue_t serialPresentationViewAccessQueue;
 
 -(id)initWithFrame:(NSRect)frameRect
 {
     if ((self = [super initWithFrame:frameRect])) {
+        serialPresentationViewAccessQueue = dispatch_queue_create("de.mpg.cbs.NEPresentationViewSerialAccessQueue", DISPATCH_QUEUE_SERIAL);
+        
         mMediaObjects     = [[NSMutableArray alloc] initWithCapacity:0];
-        mLockMediaObjects = [[NSLock alloc] init];
+        //mLockMediaObjects = [[NSLock alloc] init];
         mDisplayCounts    = [[NSMutableDictionary alloc] initWithCapacity:0];
 //        feedbackObject    = [[NEFeedbackObject alloc] initWithFrame:frameRect];
         feedbackIsSet = NO;
@@ -47,75 +51,74 @@
 
 -(void)addMediaObject:(NEMediaObject*)mediaObj
 {
-    [mLockMediaObjects lock];
-    if ([mMediaObjects containsObject:mediaObj]) {
-        int displayCount = [[mDisplayCounts objectForKey:[mediaObj getID]] intValue];
-        displayCount++;
-        [mDisplayCounts setObject:[NSNumber numberWithInt:displayCount] forKey:[mediaObj getID]];
-        //[mLockMediaObjects unlock];
-    } else {
-        [mMediaObjects addObject:mediaObj];
-        [mDisplayCounts setObject:[NSNumber numberWithInt:1] forKey:[mediaObj getID]];
-        //[mLockMediaObjects unlock];
-        //[self display];
-        [self setNeedsDisplay:YES];
-    }
-    [mLockMediaObjects unlock];
+    dispatch_sync(serialPresentationViewAccessQueue, ^{
+        if ([mMediaObjects containsObject:mediaObj]) {
+            int displayCount = [[mDisplayCounts objectForKey:[mediaObj getID]] intValue];
+            displayCount++;
+            [mDisplayCounts setObject:[NSNumber numberWithInt:displayCount] forKey:[mediaObj getID]];
+        } else {
+            [mMediaObjects addObject:mediaObj];
+            [mDisplayCounts setObject:[NSNumber numberWithInt:1] forKey:[mediaObj getID]];
+            [self setNeedsDisplay:YES];
+        }
+    });
 }
 
 -(void)removeMediaObject:(NEMediaObject*)mediaObj
 {
-    [mLockMediaObjects lock];
-    if ([mMediaObjects containsObject:mediaObj]) {
-        int displayCount = [[mDisplayCounts objectForKey:[mediaObj getID]] intValue];
-        displayCount--;
-        if (displayCount == 0) {
-            [mediaObj stopPresentation];
-            [mMediaObjects removeObject:mediaObj];
-            [mDisplayCounts removeObjectForKey:[mediaObj getID]];
-            //[mLockMediaObjects unlock];
-            //[self display];
-            //return; // To avoid a second unlock.
-            [self setNeedsDisplay:YES];
-        } else {
-            [mDisplayCounts setObject:[NSNumber numberWithInt:displayCount] forKey:[mediaObj getID]];
+    dispatch_sync(serialPresentationViewAccessQueue, ^{
+        if ([mMediaObjects containsObject:mediaObj]) {
+            int displayCount = [[mDisplayCounts objectForKey:[mediaObj getID]] intValue];
+            displayCount--;
+            if (displayCount == 0) {
+                [mediaObj stopPresentation];
+                [mMediaObjects removeObject:mediaObj];
+                [mDisplayCounts removeObjectForKey:[mediaObj getID]];
+                [self setNeedsDisplay:YES];
+            } else {
+                [mDisplayCounts setObject:[NSNumber numberWithInt:displayCount] forKey:[mediaObj getID]];
+            }
         }
-    }
-    [mLockMediaObjects unlock];
+    });
 }
 
 -(void)removeAllMediaObjects
 {
-    [mLockMediaObjects lock];
-    for (NEMediaObject* mediaObj in mMediaObjects) {
-        [mediaObj stopPresentation];
-    }
-    
-    [mMediaObjects removeAllObjects];
-    [mDisplayCounts removeAllObjects];
-    [mLockMediaObjects unlock];
-    
-    [self setNeedsDisplay:YES];
+    dispatch_sync(serialPresentationViewAccessQueue, ^{
+        [mMediaObjects enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id mediaObj, NSUInteger idx, BOOL *stop) {
+            
+            #pragma unused(stop)
+            #pragma unused(idx)
+            [mediaObj stopPresentation];
+        }];
+        
+        [mMediaObjects removeAllObjects];
+        [mDisplayCounts removeAllObjects];
+        [self setNeedsDisplay:YES];
+    });
 }
 
 -(void)pausePresentation
 {
-    [mLockMediaObjects lock];
-    for (NEMediaObject* mediaObj in mMediaObjects) {
-        [mediaObj pausePresentation];
-    }
-    [mLockMediaObjects unlock];
+    dispatch_sync(serialPresentationViewAccessQueue, ^{
+        [mMediaObjects enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id mediaObj, NSUInteger idx, BOOL *stop) {
+            #pragma unused(stop)
+            #pragma unused (idx)
+            [mediaObj pausePresentation];
+        }];
+    });
 }
 
 -(void)continuePresentation
 {
-    [mLockMediaObjects lock];
-    for (NEMediaObject* mediaObj in mMediaObjects) {
-        [mediaObj continuePresentation];
-    }
-    [mLockMediaObjects unlock];
-    
-    [self setNeedsDisplay:YES];
+    dispatch_sync(serialPresentationViewAccessQueue, ^{
+        [mMediaObjects enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id mediaObj, NSUInteger idx, BOOL *stop) {
+            #pragma unused(stop)
+            #pragma unused (idx)
+            [mediaObj continuePresentation];
+        }];
+        [self setNeedsDisplay:YES];
+    });
 }
 
 -(void)setFeedback:(NEFeedbackObject*)feedbackObj
@@ -134,20 +137,19 @@
 
 -(void)drawRect:(NSRect)rect
 {
-    CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
-
-    [self clearView:context :rect];
-    
-    [mLockMediaObjects lock];
-    for (NEMediaObject* mediaObj in mMediaObjects) {
-        [mediaObj presentInContext:context andRect:rect];
-    }
-    [mLockMediaObjects unlock];
-    
-    [self setNeedsDisplay:NO];
+    dispatch_sync(serialPresentationViewAccessQueue, ^{
+        CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
+        [self clearView:context :rect];
+        [mMediaObjects enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id mediaObj, NSUInteger idx, BOOL *stop) {
+            #pragma unused(stop)
+            #pragma unused (idx)
+            [mediaObj presentInContext:context andRect:rect];
+        }];
+        [self setNeedsDisplay:NO];
+    });
 }
 
--(void)clearView:(CGContextRef)context 
+-(void)clearView:(CGContextRef)context
                 :(NSRect)rect 
 {
     //TODO: von außen setzbar machen
@@ -158,8 +160,9 @@
 -(void)dealloc
 {
     [mMediaObjects release];
-    [mLockMediaObjects release];
+    //[mLockMediaObjects release];
     [mDisplayCounts release];
+    dispatch_release(serialPresentationViewAccessQueue);
 //    [feedbackObject release];
     
     [super dealloc];

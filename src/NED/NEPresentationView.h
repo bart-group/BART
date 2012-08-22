@@ -27,7 +27,7 @@
      */
     NSMutableArray* mMediaObjects;
     /** Lock for synchronizing access to mMediaObjects. */
-    NSLock* mLockMediaObjects;
+    //NSLock* mLockMediaObjects;
     
     /**
      * Holds the DisplayCount for each media object
@@ -48,7 +48,7 @@
      */
 //    NEFeedbackObject* feedbackObject;
     
-    /** Indicates whether the view needs to be displayed/redrawn. */
+    
     BOOL needsDisplay;
     
     /** Indicates whether a feedback object has been set. */
@@ -56,6 +56,7 @@
 }
 
 //@property (retain) NEFeedbackObject* feedbackObject;
+/** Indicates whether the view needs to be displayed/redrawn. */
 @property (readwrite) BOOL needsDisplay;
 
 /**
