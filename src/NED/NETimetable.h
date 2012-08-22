@@ -21,12 +21,6 @@
 @interface NETimetable : NSObject {
     
     /**
-     * All NEMediaObjects that are used for the
-     * presentation events.
-     */
-    NSArray* mediaObjects;
-    
-    /**
      * The IDs of all media objects (keys of the event dictionary).
      * Hold redundant for better key quering from multiple threads.
      */
@@ -57,27 +51,23 @@
      * All events that happened.
      */
     NSMutableDictionary* mHappenedEvents;
-    
-    /**
-     * Duration of the presentation according to the event
-     * with the highest end time 
-     * (end time = [event time] + [event duration]).
-     */
-    NSUInteger    duration;
-    
-    /**
-     * Number of media objects (number of elements in
-     * mediaObjects).
-     */
-    NSUInteger    numberOfMediaObjects;
-    
-    /** Lock for synchronized access to the timetable. */
-    NSLock* mLock;
-    
 }
 
+/**
+ * All NEMediaObjects that are used for the
+ * presentation events.
+ */
 @property (readonly) NSArray* mediaObjects;
+/**
+ * Duration of the presentation according to the event
+ * with the highest end time
+ * (end time = [event time] + [event duration]).
+ */
 @property (readonly) NSUInteger duration;
+/**
+ * Number of media objects (number of elements in
+ * mediaObjects).
+ */
 @property (readonly) NSUInteger numberOfMediaObjects;
 //@property (readonly) NSDictionary *dictMediaObjects;
 
