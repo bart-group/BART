@@ -26,6 +26,7 @@
 
 
 - (id)initWithObject:(id)object children:(NSArray*)children;
+- (id)initWithType:(BASessionTreeNodeType)type name:(NSString*)name description:(NSString*)description children:(NSArray*)children;
 
 
 -(BOOL)isRoot;

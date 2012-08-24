@@ -10,15 +10,13 @@
 
 #import "BAConstants.h"
 #import "BASession2.h"
+#import "BASessionTreeNode.h"
 #import "COSystemConfig.h"
 
 
-@interface BAExperiment2 : NSObject <NSCopying>
+@interface BAExperiment2 : BASessionTreeNode <NSCopying>
 
-@property (readonly,copy)    NSString       *name;
-@property (readonly,copy)    NSString       *description;
 @property (readonly,assign)  COSystemConfig *edl;
-@property (readwrite,assign) NSInteger       state;
 
 @property (readonly,retain)  NSArray        *steps;
 @property (readwrite,assign) BASession2     *session;

@@ -9,14 +9,11 @@
 #import <Foundation/Foundation.h>
 
 #import "BAConstants.h"
+#import "BASessionTreeNode.h"
 
 
-@interface BASession2 : NSObject <NSCopying>
+@interface BASession2 : BASessionTreeNode <NSCopying>
 
-
-@property (readonly,copy)    NSString  *name;
-@property (readonly,copy)    NSString  *description;
-@property (readwrite,assign) NSInteger  state;
 
 @property (readwrite,retain) NSArray   *experiments;
 

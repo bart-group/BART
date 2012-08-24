@@ -21,10 +21,7 @@
 #pragma mark -
 #pragma mark Global Properties
 
-@synthesize name        = _name;
-@synthesize description = _description;
 @synthesize edl         = _edl;
-@synthesize state       = _state;
 
 #pragma mark -
 #pragma mark Local Properties
@@ -52,11 +49,8 @@
 
 - (id) initWithEDL:(COSystemConfig*)edl name:(NSString *)name description:(NSString *)description steps:(NSArray *)steps
 {
-    if(self = [super init]) {
-        _name        = [name copy];
-        _description = [description copy];
-        _edl         = [edl retain];
-        [self setSteps:steps];
+    if(self = [super initWithType:BA_NODE_TYPE_EXPERIMENT name:name description:description children:steps]) {
+        _edl = [edl retain];
     }
     
     return self;
@@ -67,7 +61,7 @@
 
 - (NSArray*)steps
 {
-    return _steps;
+    return [self children];
 }
 
 - (void) setSteps:(NSArray*)steps

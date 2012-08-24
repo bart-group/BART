@@ -16,10 +16,6 @@
 #pragma mark -
 #pragma mark Global Properties
 
-@synthesize name        = _name;
-@synthesize description = _description;
-@synthesize state       = _state;
-
 #pragma mark -
 #pragma mark Local Properties
 
@@ -35,13 +31,7 @@
 
 - (id) initWithName:(NSString *)name description:(NSString *)description experiments:(NSArray *)experiments
 {
-    if(self = [super init]) {
-        _name        = [name copy];
-        _description = [description copy];
-        [self setExperiments:experiments];
-    }
-    
-    return self;
+    return [super initWithType:BA_NODE_TYPE_SESSION name:name description:description children:experiments];
 }
 
 
@@ -50,7 +40,7 @@
 
 - (NSArray*) experiments
 {
-    return _experiments;
+    return [self children];
 }
 
 - (void) setExperiments:(NSArray *)experiments
@@ -80,6 +70,9 @@
     [_experiments getObjects:buffer range:inRange];
 }
 
+
+#pragma mark -
+#pragma mark Class Methods
 
 + (NSString*)displayTypeName
 {

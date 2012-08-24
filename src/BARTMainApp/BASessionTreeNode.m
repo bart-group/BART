@@ -35,31 +35,6 @@
     return nil;
 }
 
-//- (NSArray*)children
-//{
-//    return _children;
-//}
-
-- (NSUInteger)type
-{
-    return [[self object] type];
-}
-
-- (NSInteger)state
-{
-    return [[self object] state];
-}
-
-- (NSString*)name
-{
-    return [[self object] name];
-}
-
-- (NSString*)description
-{
-    return [[self object] description];
-}
-
 
 - (NSImage*)typeIcon
 {
@@ -91,6 +66,31 @@
     } else {
         return [NSImage imageNamed:NSImageNameStatusNone];
     }
+}
+
+
+- (id)initWithType:(BASessionTreeNodeType)type name:(NSString*)name description:(NSString*)description children:(NSArray*)children
+{
+    if(self = [super init]) {
+        if(children == nil) {
+            _children = [[NSArray arrayWithObjects:nil] retain];
+        } else {
+            _children = [[NSArray arrayWithArray:children] retain];
+        }
+        _type        = type;
+        _name        = [name copy];
+        _description = [description copy];
+        _state       = BA_NODE_STATE_UNKNOWN;
+        NSLog(@"Created BASessionTreeNode:");
+        NSLog(@"           type: %@", _type);
+        NSLog(@"           name: %@", _name);
+        NSLog(@"    description: %@", _description);
+        NSLog(@"          state: %@", _state);
+        NSLog(@"       children: %@", _children);
+        
+    }
+    
+    return self;
 }
 
 

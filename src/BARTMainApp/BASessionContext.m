@@ -45,14 +45,14 @@
 {
     if(newCurrentSession != currentSession) {
         [self willChangeValueForKey:@"currentSession"];
+        [newCurrentSession retain];
         if(currentSession != nil) {
             [currentSession release];
         }
         currentSession = newCurrentSession;
-        [currentSession retain];
         NSLog(@"[BASessionContext setCurrentSession] currentSession changed to: %@", currentSession);
         NSLog(@"[currentSession retainCount] %lu", [currentSession retainCount]);
-        [self buildTreeForView];
+        // [self buildTreeForView];
         NSLog(@"[BASessionContext setCurrentSession] after building tree: _sessionTreeContent = %@", sessionTreeContent);
         [self willChangeValueForKey:@"currentSession"];
     }
@@ -64,7 +64,7 @@
  - (NSArray*)sessionTreeContent
 {
     NSLog(@"[BASessionContext sessionTreeContent] called ... returning %@", sessionTreeContent);
-    return sessionTreeContent;
+    return [NSArray arrayWithObjects:[self currentSession], nil];
 }
 
 
@@ -171,6 +171,7 @@
         sleep(15);
         NSLog(@"adding another step ...");
         [experiment001 appendStep:step005];
+        [self buildTreeForView];
     });
     
     
