@@ -195,7 +195,12 @@
 {
     NSError* error = nil;
     NSData* xmlData = [mRuntimeSetting XMLDataWithOptions:NSXMLNodePrettyPrint];
-    NSString* expandedPath = [path stringByExpandingTildeInPath];
+    NSString* expandedPath = [path stringByStandardizingPath];
+    
+    NSString *pathDirectory = [path stringByDeletingLastPathComponent];
+    if(![[NSFileManager defaultManager] createDirectoryAtPath:pathDirectory withIntermediateDirectories:YES attributes:nil error:NULL]){
+            NSLog(@"Error: Create folder failed %@", pathDirectory);
+    }
     
     if (![xmlData writeToFile:expandedPath atomically:YES]) {
         NSString* errorString = [NSString stringWithFormat:@"Could not write the configuration to \"%@\"!", expandedPath];
