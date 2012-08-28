@@ -1,4 +1,4 @@
-//
+    //
 //  BAGUIProtoCGLayer.m
 //  BARTApplication
 //
@@ -52,6 +52,9 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
 
 
 @implementation BAGUIProtoCGLayer
+
+CGImageRef foregroundCGImage = nil;
+CGImageRef backgroundCGImage = nil;
 
 -(id)initWithDefault
 {
@@ -157,9 +160,13 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
     
     CGContextScaleCTM(layerOneContext, scaleFactor, scaleFactor);
     
-    CGImageRef backgroundCGImage = [myCIContext createCGImage:backgroundCIImage fromRect:boundaries format:shortFormat colorSpace:colorSpace];    
+    if (nil != backgroundCGImage){
+        CGImageRelease(backgroundCGImage);
+    }
+    backgroundCGImage = [myCIContext createCGImage:backgroundCIImage fromRect:boundaries format:shortFormat colorSpace:colorSpace];
+    CGImageRetain(backgroundCGImage);
     CGContextDrawImage(layerOneContext, boundaries, backgroundCGImage);
-    CFRelease(backgroundCGImage);
+    
     CGContextDrawLayerAtPoint ([[applicationWindow graphicsContext] graphicsPort], CGPointZero, backgroundLayer);
     
     foregroundLayer = CGLayerCreateWithContext([[applicationWindow graphicsContext] graphicsPort], windowRect.size, NULL);
@@ -199,18 +206,22 @@ static const CGFloat MAX_SCALE_FACTOR = 8.0;
         
         [foregroundCIImage release];
 		foregroundCIImage = nil;
-		foregroundCIImage = [colorMappingFilter valueForKey:@"outputImage"];
+		foregroundCIImage = [[colorMappingFilter valueForKey:@"outputImage"] retain];
 		
     }
     /********************************************************************************/
     
-    CGImageRef foregroundCGImage = [myCIContext createCGImage:foregroundCIImage fromRect:boundaries format:floatFormat colorSpace:colorSpace];    
+    if (nil != foregroundCGImage){
+        CGImageRelease(foregroundCGImage);
+    }
+    foregroundCGImage = [myCIContext createCGImage:foregroundCIImage fromRect:boundaries format:floatFormat colorSpace:colorSpace];
+    CGImageRetain(foregroundCGImage);
     CGContextDrawImage(layerTwoContext, boundaries, foregroundCGImage);
     CGContextDrawLayerAtPoint ([[applicationWindow graphicsContext] graphicsPort], CGPointZero, foregroundLayer);
     //
     [applicationWindow setViewsNeedDisplay:YES];
     [applicationWindow flushWindow];
-    //CGImageRelease(foregroundCGImage);
+    //;
 }
 
 - (void)setupImages {
