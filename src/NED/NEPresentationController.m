@@ -633,6 +633,9 @@ NSString * const BARTPresentationAddedEventsNotification = @"de.mpg.cbs.BARTPres
     {
         [[NSNotificationCenter defaultCenter] postNotificationName:BARTPresentationAddedEventsNotification object:[arrayAllStartingEvents autorelease]];
     }
+    else{
+        [arrayAllStartingEvents release];
+    }
 }
 
 -(void)handleEndingEvents
