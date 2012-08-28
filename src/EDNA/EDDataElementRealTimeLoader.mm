@@ -61,7 +61,7 @@
 
 -(void)loadNextVolumeOfImageType:(enum ImageType)imgType
 {
-	isis::data::enableLog<isis::util::DefaultMsgPrint>( isis::warning );
+	isis::data::enableLog<isis::util::DefaultMsgPrint>( isis::error );
 	
     NSLog(@"loadNextVolumeOfImageType START");
 

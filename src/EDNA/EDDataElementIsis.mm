@@ -40,9 +40,9 @@
 	// set  isis loglevels
 	//isis::data::ImageList images;
 	std::list<isis::data::Image> images;
-	isis::image_io::enableLog<isis::util::DefaultMsgPrint>( isis::warning );
-	isis::data::enableLog<isis::util::DefaultMsgPrint>( isis::warning );
-	isis::util::enableLog<isis::util::DefaultMsgPrint>( isis::warning );
+	isis::image_io::enableLog<isis::util::DefaultMsgPrint>( isis::error );
+	isis::data::enableLog<isis::util::DefaultMsgPrint>( isis::error );
+	isis::util::enableLog<isis::util::DefaultMsgPrint>( isis::error );
 	
 	// the most important thing - load with isis factory
 	mIsisImageList = isis::data::IOFactory::load( [path cStringUsingEncoding:NSUTF8StringEncoding], [suffix cStringUsingEncoding:NSUTF8StringEncoding], [dialect cStringUsingEncoding:NSUTF8StringEncoding]);
