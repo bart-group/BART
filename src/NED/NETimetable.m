@@ -46,7 +46,7 @@
 @synthesize numberOfMediaObjects = _numberOfMediaObjects;
 //@synthesize dictMediaObjects;
 
-dispatch_queue_t serialAccessQueueTimetable;
+//dispatch_queue_t serialAccessQueueTimetable;
 
 
 -(id)initWithConfigEntry:(NSString*)key
@@ -61,8 +61,8 @@ dispatch_queue_t serialAccessQueueTimetable;
         _duration             = 0;
         _numberOfMediaObjects = [mediaObjs count];
         mediaObjectIDs       = [NSArray array];
-        mEventsToHappen      = [[NSMutableDictionary alloc] initWithCapacity:0];
-        mHappenedEvents      = [[NSMutableDictionary alloc] initWithCapacity:0];
+        mEventsToHappen      = [[NSMutableDictionary alloc] initWithCapacity:10];
+        mHappenedEvents      = [[NSMutableDictionary alloc] initWithCapacity:10];
         
         /********/
         NSMutableDictionary *dictMO = [[NSMutableDictionary alloc] initWithCapacity:_numberOfMediaObjects];
@@ -103,7 +103,8 @@ dispatch_queue_t serialAccessQueueTimetable;
     [mEventsToHappen release];
     [mHappenedEvents release];
     [mOriginalEvents release];
-    dispatch_release(serialAccessQueueTimetable);
+    //if (nil != serialAccessQueueTimetable){
+      //  dispatch_release(serialAccessQueueTimetable);}
     
     [super dealloc];
 }
@@ -239,18 +240,19 @@ dispatch_queue_t serialAccessQueueTimetable;
 {
     __block NSArray* happendEvents = nil;
     dispatch_sync(serialAccessQueueTimetable, ^{
-        happendEvents = [[[mHappenedEvents valueForKey:mediaObjID] copy] autorelease];
+        happendEvents = [mHappenedEvents valueForKey:mediaObjID];
     });
-    return happendEvents;
+    return [[happendEvents copy] autorelease];
+    
 }
 
 -(NSArray*)eventsToHappenForMediaObjectID:(NSString*)mediaObjID
 {
     __block NSArray* eventsToHappen = nil;
     dispatch_sync(serialAccessQueueTimetable, ^{
-        eventsToHappen = [[[mEventsToHappen valueForKey:mediaObjID] copy] autorelease];
+        eventsToHappen = [[mEventsToHappen valueForKey:mediaObjID] copy];
     });
-    return eventsToHappen;
+    return [eventsToHappen autorelease];
 }
 
 -(void)addEvent:(NEStimEvent*)event
@@ -335,27 +337,31 @@ dispatch_queue_t serialAccessQueueTimetable;
 
 -(void)resetTimetableToOriginalEvents
 {
-    [mEventsToHappen release];
-    mEventsToHappen = [mOriginalEvents mutableCopy];
-    
-    for (NSString* mediaObjID in mediaObjectIDs) {
-        [mEventsToHappen setValue:[[[mOriginalEvents objectForKey:mediaObjID] mutableCopy] autorelease] forKey:mediaObjID];
-        [[mHappenedEvents valueForKey:mediaObjID] removeAllObjects];
-    }
+    dispatch_sync(serialAccessQueueTimetable, ^{
+        [mEventsToHappen release];
+        mEventsToHappen = [mOriginalEvents mutableCopy];
+        
+        for (NSString* mediaObjID in mediaObjectIDs) {
+            [mEventsToHappen setValue:[[[mOriginalEvents objectForKey:mediaObjID] mutableCopy] autorelease] forKey:mediaObjID];
+            [[mHappenedEvents valueForKey:mediaObjID] removeAllObjects];
+        }
+    });
 }
 
 -(void)resetTimetable
 {
-    for (NSString* mediaObjID in mediaObjectIDs) {
-        
-        NSMutableArray* happendEventsForMediaObj = [mHappenedEvents valueForKey:mediaObjID];
-        for (NEStimEvent* eventToAdd in happendEventsForMediaObj) {
+    dispatch_sync(serialAccessQueueTimetable, ^{
+        for (NSString* mediaObjID in mediaObjectIDs) {
             
-            [NEStimEvent startTimeSortedInsertOf:eventToAdd inEventList:[mEventsToHappen valueForKey:mediaObjID]];
+            NSMutableArray* happendEventsForMediaObj = [mHappenedEvents valueForKey:mediaObjID];
+            for (NEStimEvent* eventToAdd in happendEventsForMediaObj) {
+                
+                [NEStimEvent startTimeSortedInsertOf:eventToAdd inEventList:[mEventsToHappen valueForKey:mediaObjID]];
+            }
+            
+            [happendEventsForMediaObj removeAllObjects];
         }
-        
-        [happendEventsForMediaObj removeAllObjects];
-    }
+    });
 }
 
 -(void)shiftOnsetForAllEventsToHappen:(NSUInteger)shift

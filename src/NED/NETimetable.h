@@ -51,6 +51,8 @@
      * All events that happened.
      */
     NSMutableDictionary* mHappenedEvents;
+    
+    dispatch_queue_t serialAccessQueueTimetable;
 }
 
 /**
