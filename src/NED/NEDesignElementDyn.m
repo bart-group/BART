@@ -130,6 +130,7 @@ BOOL isDynamicDesign = NO;
 	else {
 		NSString* errorString = [NSString stringWithFormat:@"No design struct found in edl-file. Define gwDesignStruct or swDesignStruct or dynamicDesignStruct! "];
         [expType release];
+        [regType release];
         [f release];
 		return error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
 	}
@@ -300,6 +301,7 @@ BOOL isDynamicDesign = NO;
 				if (nil == mRegressorList[eventNr]->regConvolKernel){
 					[params release];
                     [expType release];
+                    [regType release];
                     [f release];
 					return error = [NSError errorWithDomain:@"generation of design kernel failed" code:CONVOLUTION_KERNEL_NOT_SPECIFIED userInfo:nil];
 				}
@@ -315,6 +317,7 @@ BOOL isDynamicDesign = NO;
 				mRegressorList[eventNr]->regConvolKernel = [[NEDesignKernel alloc] initWithGeneralGammaParams:params];
 				if (nil == mRegressorList[eventNr]->regConvolKernel){
                     [expType release];
+                    [regType release];
                     [f release];
 					return error = [NSError errorWithDomain:@"generation of design kernel failed" code:CONVOLUTION_KERNEL_NOT_SPECIFIED userInfo:nil];
 				}
@@ -326,6 +329,7 @@ BOOL isDynamicDesign = NO;
     self.mNumberExplanatoryVariables = self.mNumberRegressors + self.mNumberCovariates;
 	[f release];//temp for conversion purposes
 	[expType release];
+    [regType release];
 	return error;
 }
 
@@ -583,7 +587,7 @@ BOOL isDynamicDesign = NO;
         
         
         NSError *err = [configCopy writeToFile:path];
-        
+        [desStruct release];
         if (nil != err){
             NSLog(@"%@", err);
             return [NSError errorWithDomain:[err description] code:WRITE_OUTPUT userInfo:nil];
@@ -721,8 +725,7 @@ BOOL isDynamicDesign = NO;
 -(void)setRegressor:(TrialList *)regressor
 {
     dispatch_sync(serialDesignElementAccessQueue, ^{
-        free(mRegressorList[regressor->trial.trialid - 1]);
-        mRegressorList[regressor->trial.trialid -1] = NULL;
+        free(mRegressorList[regressor->trial.trialid -1]->regTrialList);
         mRegressorList[regressor->trial.trialid - 1]->regTrialList = regressor;
         mDesignHasChanged = YES;
     });
