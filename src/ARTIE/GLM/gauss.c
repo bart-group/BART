@@ -54,7 +54,7 @@ GaussKernel(double sigma)
 void
 GaussMatrix(double sigma,gsl_matrix_float *S)
 {
-  unsigned int i,j,k,m,dim;
+  unsigned int i,j,k,m;
   float x,sum;
   gsl_vector *kernel;
 
@@ -67,14 +67,19 @@ GaussMatrix(double sigma,gsl_matrix_float *S)
 
   m = S->size1;
   kernel = GaussKernel(sigma);
-  dim = kernel->size/2;
+    unsigned int kernel_size = 0;
+    unsigned int dim = 0;
+    if (NULL != kernel){
+        kernel_size = kernel->size;
+        dim = kernel->size/2;
+    }
 
   gsl_matrix_float_set_zero(S);
   for (i=0; i<m; i++) {
     sum = 0;
     for (j=0; j<m; j++) {
       k = i-j+dim;
-      if (k < 0 || k >= kernel->size) continue;
+      if (k >= kernel_size) continue;
       x = dvget(kernel,k);
       sum += x;
       fmset(S,i,j,x);

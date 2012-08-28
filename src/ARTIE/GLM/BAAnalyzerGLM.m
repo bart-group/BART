@@ -68,7 +68,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 //TODO:Ergebnis als Referenz reingeben, nicht hier drin erzeugen UND Contrasts UND MINVAL mitgeben!!
 {
     NEDesignElement* copyDesign = [design retain];
-    NSLog(@"DesignEl in Analysis: %@", copyDesign);
+   // NSLog(@"DesignEl in Analysis: %@", copyDesign);
     [data retain];
     
     
@@ -86,7 +86,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         index = timestep;
     }
     
-    EDDataElement*  resMap = [self Regression:2000
+    EDDataElement*  resMap = [self Regression:200
                                              :index // sw: slidingWindowSize akk: indexForTimestep
                                              :timestep
                                              :contrastVector
@@ -312,7 +312,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
             if (slice % 5 == 0) {
                 fprintf(stderr, " slice: %3ld\r", slice);
             }
-            NSLog(@" Sl: %lu, TS: %lu", numberSlices, numberBands);
+            //NSLog(@" Sl: %lu, TS: %lu", numberSlices, numberBands);
             
             if (TRUE == [data sliceIsZero:slice ]) {
                 
