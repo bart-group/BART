@@ -72,7 +72,7 @@
 
     NSString *testData = [arrayFromPlist objectForKey:@"dataSetForTest"];
 
-    if (nil != testData){
+    if (0 != [testData length]){
         procedurePipe = [[BAProcedurePipeline alloc] initWithTestDataset:testData];}
     else{
         procedurePipe = [[BAProcedurePipeline alloc] init];}
