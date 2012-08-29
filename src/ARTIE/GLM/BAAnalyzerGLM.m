@@ -69,9 +69,8 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 {
     NEDesignElement* copyDesign = [design retain];
    // NSLog(@"DesignEl in Analysis: %@", copyDesign);
-    [data retain];
-    
-    
+    EDDataElement* copyData = [data retain];
+        
     
     /**********************
      * DO REGRESSION
@@ -91,7 +90,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                                              :timestep
                                              :contrastVector
                                              :copyDesign
-                                             :data];
+                                             :copyData];
     //    [self sendFinishNotification];
 
     NSLog(@"Time analysis: End");
@@ -106,7 +105,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     
 	
 	[copyDesign release];
-    [data release];
+    [copyData release];
     return resMap ;
 }
 
