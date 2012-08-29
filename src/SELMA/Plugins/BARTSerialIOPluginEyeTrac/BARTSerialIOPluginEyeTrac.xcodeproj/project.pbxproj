@@ -206,6 +206,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BARTSerialIOPluginEyeTrac_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				LIBRARY_SEARCH_PATHS = "";
@@ -214,6 +215,7 @@
 					BARTSerialIO.framework,
 				);
 				PRODUCT_NAME = BARTSerialIOPluginEyeTrac;
+				SDKROOT = "";
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -230,6 +232,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BARTSerialIOPluginEyeTrac_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				LIBRARY_SEARCH_PATHS = "";
@@ -239,6 +242,7 @@
 					BARTSerialIOFramework,
 				);
 				PRODUCT_NAME = BARTSerialIOPluginEyeTrac;
+				SDKROOT = "";
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
