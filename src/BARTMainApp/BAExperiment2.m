@@ -16,6 +16,8 @@
 @implementation BAExperiment2 {
     
     NSMutableArray *_steps;
+    
+    NSDictionary *globalObjectTable;
 }
 
 #pragma mark -
@@ -30,7 +32,7 @@
 @synthesize session = _session;
 
 #pragma mark -
-#pragma mark Initialization
+#pragma mark Initialization and Destruction
 
 + (id) experimentWithEDL:(COSystemConfig*)edl name:(NSString*)name description:(NSString*)description
 {
@@ -53,8 +55,18 @@
         _edl = [edl retain];
     }
     
+    // init global object table
+    globalObjectTable = [[NSDictionary alloc] initWithObjectsAndKeys:nil];
+    
     return self;
 }
+
+- (void)dealloc
+{
+    [globalObjectTable release];
+    [super dealloc];
+}
+
 
 #pragma mark -
 #pragma mark Property Methods 'steps'
@@ -121,6 +133,19 @@
 - (void)appendStep:(id)step
 {
     [self insertObject:step inStepsAtIndex:[self countOfSteps]];
+}
+
+#pragma mark -
+#pragma mark Instance Methods (Global Objects)
+
+- (void)addObjectToGlobalTable:(id)object name:(NSString*)name
+{
+    [globalObjectTable setValue:object forKey:name];
+}
+
+- (id)objectFromGlobalTable:(NSString*)name
+{
+    return [globalObjectTable objectForKey:name];
 }
 
 

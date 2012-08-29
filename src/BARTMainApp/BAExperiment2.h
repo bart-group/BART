@@ -46,6 +46,11 @@
 
 - (void)appendStep:(id)step;
 
+- (void)addObjectToGlobalTable:(id)object name:(NSString*)name;
+- (id)objectFromGlobalTable:(NSString*)name;
+
+
+
 + (NSString*)typeDisplayName;
 + (NSString*)typeDescription;
 
