@@ -37,7 +37,7 @@
 {
     if ((self = [super init])) {
         // TODO: appropriate init
-        mCurrentTimestep = 300;
+        mCurrentTimestep = 0;
 		config = [[COExperimentContext getInstance] systemConfig];
 		isRealTimeTCPInput = YES;
 		startAnalysisAtTimeStep = 15;
@@ -217,7 +217,7 @@
 			[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadBackgroundImageNotification object:mInputData];
 		}
 		
-		NSLog(@"Nr of Timesteps in InputData: %lu", [mInputData getImageSize].timesteps);
+		//NSLog(@"Nr of Timesteps in InputData: %lu", [mInputData getImageSize].timesteps);
 		if (([mInputData getImageSize].timesteps > startAnalysisAtTimeStep-1 ) && ([mInputData getImageSize].timesteps < [[paradigm designElement] numberTimesteps])) {
 			[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
 		}
@@ -230,7 +230,7 @@
 
 -(void)processDataThread
 {
-	NSLog(@"processDataThread START");
+	//NSLog(@"processDataThread START");
 	NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
 	EDDataElement *resData;
 	
@@ -238,8 +238,10 @@
 	//TODO : get from config or gui
 	float cVecFromConfig[[[paradigm designElement] numberExplanatoryVariables]];
     memset(cVecFromConfig, 0, (sizeof(float)* [[paradigm designElement] numberExplanatoryVariables] ));
-	cVecFromConfig[0] = -1.0;
+	cVecFromConfig[0] = 1.0;
 	cVecFromConfig[1] = 1.0;
+    cVecFromConfig[0] = -1.0;
+	cVecFromConfig[1] = -1.0;
 	//cVecFromConfig[2] = 0.0;
 	NSMutableArray *contrastVector = [[NSMutableArray alloc] init];
 	for (size_t i = 0; i < [[paradigm designElement] numberExplanatoryVariables]; i++){
@@ -252,8 +254,13 @@
 	}
 	else {
 		resData = [[mAnalyzer anaylzeTheData:mInputData withDesign:[paradigm designElement] atCurrentTimestep:[mInputData getImageSize].timesteps forContrastVector:contrastVector andWriteResultInto:nil] retain];
-		NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%lu.nii", [mInputData getImageSize].timesteps];
-		[resData WriteDataElementToFile:fname];
+        
+        NSString *fname =[NSString stringWithFormat:@"zmapnr_%lu.nii", [mInputData getImageSize].timesteps];
+        NSString* newFileName = [[[COExperimentContext getInstance] systemConfig] getProp:@"$logFolder"];
+        newFileName = [newFileName stringByAppendingPathComponent:fname];
+        
+		//NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%lu.nii", [mInputData getImageSize].timesteps];
+		[resData WriteDataElementToFile:newFileName];
 	}
 	
 	//NSLog(@"!!!!resData retainCoung pre notification %d", [resData retainCount]);
@@ -265,7 +272,7 @@
 
     [contrastVector release];
 	[autoreleasePool drain];
-	NSLog(@"processDataThread END");
+	//NSLog(@"processDataThread END");
 	[NSThread exit];
 }
 
@@ -277,7 +284,7 @@
 	if (mCurrentTimestep > [[paradigm designElement] numberTimesteps]){
 		[[NSThread currentThread] cancel];}
 	
-	[NSThread sleepForTimeInterval:1.0];
+	[NSThread sleepForTimeInterval:2.0];
 	[NSThread detachNewThreadSelector:@selector(timerThread) toTarget:self withObject:nil];
 	
 	[autoreleasePool drain];
@@ -287,27 +294,32 @@
 
 -(void)terminusFromScannerArrived:(NSNotification*)aNotification
 {
-    #pragma unused (aNotification)
+#pragma unused (aNotification)
 	//NSTimeInterval ti = [[NSDate date] timeIntervalSince1970];
 	//TODO: folder from edl
-//    if ( nil != [aNotification object] ){
-//        NSString *fname =[NSString stringWithFormat:@"/tmp/{subjectName}_{sequenceNumber}_volumes_%lu_%f.nii", [[aNotification object] getImageSize].timesteps, ti];
-//        [[aNotification object] WriteDataElementToFile:fname];
-//    }/Users/Lydi/Development/BART/src/CLETUS/COExperimentContext.h
-    NSString* edlFileName = [[[[COExperimentContext getInstance] systemConfig] getEDLFilePath] lastPathComponent];
-    NSString* justName = [edlFileName stringByDeletingPathExtension];
-    justName = [justName stringByAppendingString:@"_DynamicallyCreated.edl"];
-    NSString* newFileName = [[[COExperimentContext getInstance] systemConfig] getProp:@"$logFolder"];
-    newFileName = [newFileName stringByAppendingPathComponent:justName];
-    
-    [[paradigm designElement] writeDesignFile:newFileName];
+    if ( nil != [aNotification object] ){
+        
+        NSString *fname =[NSString stringWithFormat:@"image_{sequenceDescription}_{DICOM/ImageType}_{sequenceNumber}_volumes_%lu.nii", [mInputData getImageSize].timesteps];
+        
+        NSString* newDataFileName = [[[COExperimentContext getInstance] systemConfig] getProp:@"$logFolder"];
+        newDataFileName = [newDataFileName stringByAppendingPathComponent:fname];
+        [[aNotification object] WriteDataElementToFile:newDataFileName];
+        
+        NSString* edlFileName = [[[[COExperimentContext getInstance] systemConfig] getEDLFilePath] lastPathComponent];
+        NSString* justName = [edlFileName stringByDeletingPathExtension];
+        justName = [justName stringByAppendingString:@"_DynamicallyCreated.edl"];
+        NSString* newFileName = [[[COExperimentContext getInstance] systemConfig] getProp:@"$logFolder"];
+        newFileName = [newFileName stringByAppendingPathComponent:justName];
+        
+        [[paradigm designElement] writeDesignFile:newFileName];
+    }
 }
 
 -(void)triggerArrived:(NSNotification*)aNotification
 {
     if (0 == [[aNotification object] unsignedLongValue])
     {
-        //[self startAnalysis];
+        [self startAnalysis];
     }
 }
 
