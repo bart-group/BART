@@ -69,7 +69,7 @@
 }
 
 
-- (id)initWithType:(BASessionTreeNodeType)type name:(NSString*)name description:(NSString*)description children:(NSArray*)children
+- (id)initWithType:(uint)type name:(NSString*)name description:(NSString*)description children:(NSArray*)children
 {
     if(self = [super init]) {
         if(children == nil) {
@@ -82,11 +82,11 @@
         _description = [description copy];
         _state       = BA_NODE_STATE_UNKNOWN;
         NSLog(@"Created BASessionTreeNode:");
-        NSLog(@"           type: %@", _type);
-        NSLog(@"           name: %@", _name);
-        NSLog(@"    description: %@", _description);
-        NSLog(@"          state: %@", _state);
-        NSLog(@"       children: %@", _children);
+        NSLog(@"           type: %lu", _type);
+        NSLog(@"           name: %@",  _name);
+        NSLog(@"    description: %@",  _description);
+        NSLog(@"          state: %@",  _state);
+        NSLog(@"       children: %@",  _children);
         
     }
     
@@ -144,14 +144,14 @@
 -(BOOL)isLeaf
 {
     NSLog(@"[BASessionTreeNode isLeaf] called (%@)", _name);
-    return (_children == nil || [_children count] == 0);
+    return ([self children] == nil || [[self children] count] == 0);
 }
 
 
 -(NSUInteger)childCount
 {
     NSLog(@"[BASessionTreeNode childCount] called");
-    return [_children count];
+    return [[self children] count];
 }
 
 
@@ -166,6 +166,17 @@
 - (id)copyWithZone:(NSZone *)zone
 {
     return self;
+}
+
+
+- (void)dump
+{
+    NSLog(@"BASessionTreeNode Dump:");
+    NSLog(@"           type: %lu", [self type]);
+    NSLog(@"           name: %@",  [self name]);
+    NSLog(@"    description: %@",  [self description]);
+    NSLog(@"          state: %@",  [self state]);
+    NSLog(@"       children: %@",  [self children]);
 }
 
 @end

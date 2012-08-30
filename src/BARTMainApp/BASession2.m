@@ -38,9 +38,9 @@
 #pragma mark -
 #pragma mark Property Methods 'experiments'
 
-- (NSArray*) experiments
+- (NSArray*) children
 {
-    return [self children];
+    return [self experiments];
 }
 
 - (void) setExperiments:(NSArray *)experiments

@@ -29,68 +29,66 @@
 
 @synthesize instance;
 
-@synthesize currentSession;
-@synthesize sessionTreeContent = sessionTreeContent;
+@synthesize currentSession = _currentSession;
+@synthesize sessionArray;
+
++ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString *)key
+{
+    NSLog(@"[BASessionContext keyPathsForValuesAffectingValueForKey]: %@", key);
+    
+    if([key compare:@"sessionArray"] == NSOrderedSame) {
+        return [NSSet setWithObjects:@"currentSession", nil];
+    }
+    
+    return nil;
+}
+
 
 #pragma mark -
 #pragma mark Property Methods 'currentSession'
 
 - (BASession2*)currentSession
 {
-    return currentSession;
+    return _currentSession;
 }
 
 
 - (void)setCurrentSession:(BASession2 *)newCurrentSession
 {
-    if(newCurrentSession != currentSession) {
+    if(newCurrentSession != _currentSession) {
         [self willChangeValueForKey:@"currentSession"];
         [newCurrentSession retain];
-        if(currentSession != nil) {
-            [currentSession release];
+        if(_currentSession != nil) {
+            [_currentSession release];
         }
-        currentSession = newCurrentSession;
-        NSLog(@"[BASessionContext setCurrentSession] currentSession changed to: %@", currentSession);
-        NSLog(@"[currentSession retainCount] %lu", [currentSession retainCount]);
+        _currentSession = newCurrentSession;
+        NSLog(@"[BASessionContext setCurrentSession] currentSession changed to: %@", _currentSession);
+        NSLog(@"[currentSession retainCount] %lu", [_currentSession retainCount]);
         // [self buildTreeForView];
-        NSLog(@"[BASessionContext setCurrentSession] after building tree: _sessionTreeContent = %@", sessionTreeContent);
         [self willChangeValueForKey:@"currentSession"];
     }
 }
 
+
+- (NSArray*)sessionArray
+{
+    if(_currentSession == nil) {
+        return [NSArray array];
+    } else {
+        return [NSArray arrayWithObject:_currentSession];
+    }
+}
+
+
+
 #pragma mark -
 #pragma mark Property Methods 'currentSession'
 
- - (NSArray*)sessionTreeContent
-{
-    NSLog(@"[BASessionContext sessionTreeContent] called ... returning %@", sessionTreeContent);
-    return [NSArray arrayWithObjects:[self currentSession], nil];
-}
 
 
 #pragma mark -
 #pragma mark Session Tree Related
 
-- (void)buildTreeForView
-{
-    NSLog(@"[BASessionContext buildTreeForView] called");
-    NSMutableArray *experiments = [NSMutableArray arrayWithObjects: nil];
-    for (BAExperiment2 *experiment in [currentSession experiments]) {
-        NSMutableArray *steps = [NSMutableArray arrayWithObjects: nil];
-        for(BAStep2 *step in [experiment steps]) {
-            [steps addObject:[[BASessionTreeNode alloc] initWithObject:step children:nil]];
-            NSLog(@"[BASessionContext buildTreeForView] added step: %@", [steps lastObject]);
-        }
-        [experiments addObject:[[BASessionTreeNode alloc] initWithObject:experiment children:steps]];
-        NSLog(@"[BASessionContext buildTreeForView] added experiment: %@", [experiments lastObject]);
-    }
-    BASessionTreeNode *sessionNode = [[BASessionTreeNode alloc] initWithObject:currentSession children:experiments];
-    NSLog(@"[BASessionContext buildTreeForView] added session: %@", sessionNode);
-    [self willChangeValueForKey:@"sessionTreeContent"];
-    sessionTreeContent = [NSArray arrayWithObjects:sessionNode, nil];
-    [self didChangeValueForKey:@"sessionTreeContent"];
-    NSLog(@"[BASessionContext buildTreeForView] new sessionTreeContent: %@", sessionTreeContent);
-}
 
 - (IBAction)addExperiment:(id)sender
 {
@@ -165,14 +163,17 @@
     [experiment001 appendStep:step003];
     [experiment001 appendStep:step004];
 
+    [experiment001 dump];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSLog(@"waiting to add another step ...");
-        sleep(15);
+        [NSThread sleepForTimeInterval:10];
         NSLog(@"adding another step ...");
         [experiment001 appendStep:step005];
-        [self buildTreeForView];
+        [experiment001 dump];
     });
+    
+
     
     
     BASession2 *session001 = [[BASession2 alloc] initWithName:@"Session 001" description:@"Description of Session 001" experiments:[NSMutableArray arrayWithObjects:experiment001, nil]];

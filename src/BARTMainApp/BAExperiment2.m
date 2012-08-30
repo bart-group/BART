@@ -55,6 +55,12 @@
         _edl = [edl retain];
     }
     
+    if(steps == nil) {
+        _steps = [[NSMutableArray arrayWithCapacity:0] retain];
+    } else {
+        _steps = [[NSMutableArray arrayWithArray:steps] retain];
+    }
+    
     // init global object table
     globalObjectTable = [[NSDictionary alloc] initWithObjectsAndKeys:nil];
     
@@ -71,9 +77,9 @@
 #pragma mark -
 #pragma mark Property Methods 'steps'
 
-- (NSArray*)steps
+- (NSArray*)children
 {
-    return [self children];
+    return [self steps];
 }
 
 - (void) setSteps:(NSArray*)steps

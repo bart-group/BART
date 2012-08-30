@@ -83,7 +83,7 @@
         
         [[BASessionContext sharedBASessionContext] createExampleSession];
 
-        NSLog(@"[BART] called [BASessionContext createExampleSession]: %@", [[BASessionContext sharedBASessionContext] sessionTreeContent]);
+        NSLog(@"[BART] called [BASessionContext createExampleSession]: %@", [[BASessionContext sharedBASessionContext] currentSession]);
         
         [NSBundle loadNibNamed:@"BigLuigi" owner:self];
         

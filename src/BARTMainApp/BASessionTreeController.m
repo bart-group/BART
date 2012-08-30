@@ -20,7 +20,7 @@
 
 - (NSArray*)treeRoots
 {
-    return [[BASessionContext sharedBASessionContext] sessionTreeContent];
+    return [NSArray arrayWithObject:[[BASessionContext sharedBASessionContext] currentSession]];
 }
 
 - (void)outlineViewSelectionDidChange:(NSNotification*)notification
@@ -34,13 +34,19 @@
 }
 
 
+#pragma mark -
+#pragma mark Stuff for Debugging
 
-
-// for debugging purposes
 - (id)arrangedObjects
 {
-    NSLog(@"Tree Controller.arrangedObjects method: [arrangedObjects = %@]", [super arrangedObjects]);
+    NSLog(@"[BASessionTreeController arrangedObjects] called: [arrangedObjects = %@]", [super arrangedObjects]);
     return [super arrangedObjects];
+}
+
+- (id)content
+{
+    NSLog(@"[BASessionTreeController content] called: [content = %@]", [super content]);
+    return [super content];
 }
 
 @end
