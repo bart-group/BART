@@ -378,8 +378,9 @@ NSString * const BARTPresentationAddedEventsNotification = @"de.mpg.cbs.BARTPres
     NSAutoreleasePool* autoreleasePool = [[NSAutoreleasePool alloc] init];
 
     [mUpdateThread setThreadPriority:1.0];
-    
+//    NSLog(@"IAMTRIGGERCOUNT: %lu", _mTriggerCount);
     while (_mTriggerCount == 0) {
+        usleep(1);
         // TODO: find suitable sleep interval!
     }
     
