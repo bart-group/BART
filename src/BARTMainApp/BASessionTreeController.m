@@ -49,4 +49,12 @@
     return [super content];
 }
 
+
+- (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item
+{
+    NSLog(@"[BASessionTreeController childOfItem]: %@ | %@ | %lu", outlineView, item, index);
+    
+}
+
+
 @end
