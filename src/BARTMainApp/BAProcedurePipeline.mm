@@ -293,8 +293,14 @@
 //    if ( nil != [aNotification object] ){
 //        NSString *fname =[NSString stringWithFormat:@"/tmp/{subjectName}_{sequenceNumber}_volumes_%lu_%f.nii", [[aNotification object] getImageSize].timesteps, ti];
 //        [[aNotification object] WriteDataElementToFile:fname];
-//    }
-    [[paradigm designElement] writeDesignFile:@"/tmp/thefinalcreatededl.edl"];
+//    }/Users/Lydi/Development/BART/src/CLETUS/COExperimentContext.h
+    NSString* edlFileName = [[[[COExperimentContext getInstance] systemConfig] getEDLFilePath] lastPathComponent];
+    NSString* justName = [edlFileName stringByDeletingPathExtension];
+    justName = [justName stringByAppendingString:@"_DynamicallyCreated.edl"];
+    NSString* newFileName = [[[COExperimentContext getInstance] systemConfig] getProp:@"$logFolder"];
+    newFileName = [newFileName stringByAppendingPathComponent:justName];
+    
+    [[paradigm designElement] writeDesignFile:newFileName];
 }
 
 -(void)triggerArrived:(NSNotification*)aNotification
