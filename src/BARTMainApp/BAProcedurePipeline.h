@@ -6,20 +6,24 @@
 //  Copyright 2009 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
+#ifndef BAPROCEDUREPIPELINE_H
+#define BAPROCEDUREPIPELINE_H
+
 #import <Cocoa/Cocoa.h>
 #import "BAProcedureStep_Paradigm.h"
+#import "COExperimentContext.h"
 
 @class EDDataElement;
-@class NEDesignElement;
+//@class NEDesignElement;
 @class BAAnalyzerElement;
 @class EDDataElementRealTimeLoader;
-@class COSystemConfig;
 
 
-@interface BAProcedurePipeline : NSObject {
+
+@interface BAProcedurePipeline : NSObject <BARTScannerTriggerProtocol> {
 
 	EDDataElement *mInputData;
-    NEDesignElement *mDesignData;
+    //NEDesignElement *mDesignData;
     EDDataElement *mResultData;
     BAAnalyzerElement *mAnalyzer;
     size_t mCurrentTimestep;
@@ -38,10 +42,12 @@
 
 
 -(BOOL) initData;
--(BOOL) initDesign;
--(BOOL) initPresentation;
+//-(BOOL) initDesign;
+-(BOOL) initParadigm;
 -(BOOL) initAnalyzer;
 -(BOOL) startAnalysis;
 
 
 @end
+
+#endif //BAPROCEDUREPIPELINE_H

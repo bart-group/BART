@@ -24,7 +24,7 @@
 
 -(void)processDataThread;
 -(void)timerThread;
--(void)lastScanArrived:(NSNotification*)aNotification;
+//-(void)lastScanArrived:(NSNotification*)aNotification;
 -(void)resetProcedurePipeline:(NSNotification*)aNotification;
 
 @end
@@ -63,7 +63,13 @@
                                                  selector:@selector(resetProcedurePipeline:) 
                                                      name:BARTDidResetExperimentContextNotification object:nil];
         testDataFileName = testData;
+        
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(terminusFromScannerArrived:)
+                                                     name:BARTStopExperimentNotification object:nil];
     }
+    
 	return self;
 
 }
@@ -87,10 +93,10 @@
     config = [[COExperimentContext getInstance] systemConfig];
     
     [self initData];
-	[self initDesign];
+	//[self initDesign];
 	[self initAnalyzer];
-    //[self initPresentation];
-	[self startAnalysis];
+    [self initParadigm];
+	//[self startAnalysis];
     
 }
 
@@ -129,32 +135,34 @@
 												 selector:@selector(nextDataArrived:)
 													 name:BARTDidLoadNextDataNotification object:nil];
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(lastScanArrived:)
-													 name:BARTScannerSentTerminusNotification object:nil];
-		
+//		[[NSNotificationCenter defaultCenter] addObserver:self 
+//												 selector:@selector(lastScanArrived:)
+//													 name:BARTScannerSentTerminusNotification object:nil];
+//		
 		
 		
 	}
 	
+    COExperimentContext *expContext = [COExperimentContext getInstance];
+    [expContext addOberserver:self forProtocol:@"BARTScannerTriggerProtocol"];
 	
 	return TRUE;
 }
 
--(BOOL) initDesign
-{
-	if (nil != mDesignData){
-		[mDesignData release];
-		mDesignData = nil;}
-	
-	mDesignData = [[NEDesignElement alloc] initWithDynamicDataFromConfig:[[COExperimentContext getInstance] systemConfig]];
-	if (nil == mDesignData){
-		return FALSE;}
-	
-	return TRUE;
-}
+//-(BOOL) initDesign
+//{
+//	if (nil != mDesignData){
+//		[mDesignData release];
+//		mDesignData = nil;}
+//	
+//	mDesignData = [[NEDesignElement alloc] initWithDynamicDataFromConfig:[[COExperimentContext getInstance] systemConfig]];
+//	if (nil == mDesignData){
+//		return FALSE;}
+//	
+//	return TRUE;
+//}
 
--(BOOL) initPresentation
+-(BOOL) initParadigm
 {
     paradigm = [[BAProcedureStep_Paradigm alloc] init];
     
@@ -192,7 +200,7 @@
 {
 	if (FALSE == isRealTimeTCPInput){
 		NSLog(@"Timestep: %lu", mCurrentTimestep+1);
-		if ((mCurrentTimestep > startAnalysisAtTimeStep-1 ) && (mCurrentTimestep < [mDesignData mNumberTimesteps])) {
+		if ((mCurrentTimestep > startAnalysisAtTimeStep-1 ) && (mCurrentTimestep < [[paradigm designElement] numberTimesteps])) {
 			[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
 		}
 		mCurrentTimestep++;
@@ -210,7 +218,7 @@
 		}
 		
 		NSLog(@"Nr of Timesteps in InputData: %lu", [mInputData getImageSize].timesteps);
-		if (([mInputData getImageSize].timesteps > startAnalysisAtTimeStep-1 ) && ([mInputData getImageSize].timesteps < [mDesignData mNumberTimesteps])) {
+		if (([mInputData getImageSize].timesteps > startAnalysisAtTimeStep-1 ) && ([mInputData getImageSize].timesteps < [[paradigm designElement] numberTimesteps])) {
 			[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
 		}
 		// JUST FOR TEST
@@ -228,22 +236,22 @@
 	
 	
 	//TODO : get from config or gui
-	float cVecFromConfig[mDesignData.mNumberExplanatoryVariables];
-    memset(cVecFromConfig, 0, (sizeof(float)* mDesignData.mNumberExplanatoryVariables ));
+	float cVecFromConfig[[[paradigm designElement] numberExplanatoryVariables]];
+    memset(cVecFromConfig, 0, (sizeof(float)* [[paradigm designElement] numberExplanatoryVariables] ));
 	cVecFromConfig[0] = -1.0;
 	cVecFromConfig[1] = 1.0;
 	//cVecFromConfig[2] = 0.0;
 	NSMutableArray *contrastVector = [[NSMutableArray alloc] init];
-	for (size_t i = 0; i < mDesignData.mNumberExplanatoryVariables; i++){
+	for (size_t i = 0; i < [[paradigm designElement] numberExplanatoryVariables]; i++){
 		NSNumber *nr = [NSNumber numberWithFloat:cVecFromConfig[i]];
 		[contrastVector addObject:nr];}
 	
 	if (FALSE == isRealTimeTCPInput){
-		resData = [[mAnalyzer anaylzeTheData:mInputData withDesign:mDesignData  atCurrentTimestep:mCurrentTimestep-1 forContrastVector:contrastVector andWriteResultInto:nil] retain];
+		resData = [[mAnalyzer anaylzeTheData:mInputData withDesign:[paradigm designElement]  atCurrentTimestep:mCurrentTimestep-1 forContrastVector:contrastVector andWriteResultInto:nil] retain];
         
 	}
 	else {
-		resData = [[mAnalyzer anaylzeTheData:mInputData withDesign:mDesignData atCurrentTimestep:[mInputData getImageSize].timesteps forContrastVector:contrastVector andWriteResultInto:nil] retain];
+		resData = [[mAnalyzer anaylzeTheData:mInputData withDesign:[paradigm designElement] atCurrentTimestep:[mInputData getImageSize].timesteps forContrastVector:contrastVector andWriteResultInto:nil] retain];
 		NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%lu.nii", [mInputData getImageSize].timesteps];
 		[resData WriteDataElementToFile:fname];
 	}
@@ -252,8 +260,8 @@
    
 	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidCalcNextResultNotification object:[resData autorelease]];
 	//NSLog(@"!!!!!resData retainCoung post notification %d", [resData retainCount]);
-    NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%lu.nii", mCurrentTimestep-1];
-    [resData WriteDataElementToFile:fname];
+    //NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%lu.nii", mCurrentTimestep-1];
+    //[resData WriteDataElementToFile:fname];
 
     [contrastVector release];
 	[autoreleasePool drain];
@@ -266,7 +274,7 @@
 	NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
 	
 	[self nextDataArrived:nil];
-	if (mCurrentTimestep > [mDesignData mNumberTimesteps]){
+	if (mCurrentTimestep > [[paradigm designElement] numberTimesteps]){
 		[[NSThread currentThread] cancel];}
 	
 	[NSThread sleepForTimeInterval:1.0];
@@ -277,15 +285,25 @@
 }
 
 
--(void)lastScanArrived:(NSNotification*)aNotification
+-(void)terminusFromScannerArrived:(NSNotification*)aNotification
 {
-	NSTimeInterval ti = [[NSDate date] timeIntervalSince1970];
+    #pragma unused (aNotification)
+	//NSTimeInterval ti = [[NSDate date] timeIntervalSince1970];
 	//TODO: folder from edl
-    if ( nil != [aNotification object] ){
-        NSString *fname =[NSString stringWithFormat:@"/tmp/{subjectName}_{sequenceNumber}_volumes_%lu_%f.nii", [[aNotification object] getImageSize].timesteps, ti];
-        [[aNotification object] WriteDataElementToFile:fname];
+//    if ( nil != [aNotification object] ){
+//        NSString *fname =[NSString stringWithFormat:@"/tmp/{subjectName}_{sequenceNumber}_volumes_%lu_%f.nii", [[aNotification object] getImageSize].timesteps, ti];
+//        [[aNotification object] WriteDataElementToFile:fname];
+//    }
+    [[paradigm designElement] writeDesignFile:@"/tmp/thefinalcreatededl.edl"];
+}
+
+-(void)triggerArrived:(NSNotification*)aNotification
+{
+    if (0 == [[aNotification object] unsignedLongValue])
+    {
+        //[self startAnalysis];
     }
 }
 
-
 @end
+

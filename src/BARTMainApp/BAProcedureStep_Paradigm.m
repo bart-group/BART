@@ -49,6 +49,11 @@
 
 -(void)stopExperiment:(NSNotification*)aNotificaton;
 
+/*
+ *
+ */
+-(void)updateExperimentDesign:(NSNotification*)aNotificaton;
+
 @end
 
 
@@ -61,25 +66,38 @@ NEPresentationController *presentationController;
 NEPresentationExternalConditionController *externalConditions;
 NEViewManager* viewManager;
 
+@synthesize mDesignElement;
+
 - (id)init
 {
     self = [super init];
     if (self) {
+        // TODO: WILL BE REPLACED WITH NEW SINGLETON CLASS
         expConfig = [COExperimentContext getInstance];
         
-        
-     //  designElement = [[NEDesignElement alloc] initWithDynamicData];
+        // (1) init design
+        if (nil != mDesignElement)
+        {
+            [mDesignElement release];
+            mDesignElement = nil;
+        }
+        mDesignElement = [[NEDesignElement alloc] initWithDynamicDataFromConfig:[expConfig systemConfig]];
+        if (nil == mDesignElement)
+        {
+            NSLog(@"Design could not be loaded");
+            return nil;
+        }
                 
-        //TODO : ask if Presentation is needed!!
-        [NEPresentationLogger getInstance];
-        
-        //load mediaObjects and timetable
+        // (2) load mediaObjects and timetable if needed
         
         NSArray* mediaObjects = nil;
         NETimetable* timetable = nil;
         NSArray* constraintsArray = nil;
         
-        if ([[expConfig systemConfig] getProp:@"/rtExperiment/stimulusData"]) {
+        // ask edl for stimulusData to know if BARTPresentation is used
+        if ([[expConfig systemConfig] getProp:@"$stimulusData"]) {
+            
+            [NEPresentationLogger getInstance];
             mediaObjects = [self buildMediaObjects];
             timetable = [[NETimetable alloc] initWithConfigEntry:@"$timeTable" 
                                                  andMediaObjects:mediaObjects];
@@ -104,6 +122,9 @@ NEViewManager* viewManager;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(stopExperiment:)
                                                      name:BARTStopExperimentNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(updateExperimentDesign:)
+                                                     name:BARTPresentationAddedEventsNotification object:nil];
     }
     
     return self;
@@ -148,7 +169,7 @@ NEViewManager* viewManager;
     for (NSUInteger moCounter = 0; moCounter < [[expConfig systemConfig] countNodes:@"$mediaObjects/mediaObject"]; moCounter++ ) 
     {    
         NEMediaObject* obj = [[NEMediaObject alloc] 
-                              initWithConfigEntry:[NSString stringWithFormat:@"$mediaObjects/mediaObject[%d]", moCounter+1]];
+                              initWithConfigEntry:[NSString stringWithFormat:@"$mediaObjects/mediaObject[%ld]", moCounter+1]];
         if (obj) {
             [mediaObjects addObject:obj];
         } else {
@@ -168,7 +189,7 @@ NEViewManager* viewManager;
     
     for (NSUInteger constraintCounter = 0; constraintCounter < [[expConfig systemConfig] countNodes:@"$constraints/constraint"]; constraintCounter++ ) {
         NEConstraint* constraint = [[NEConstraint alloc] 
-                                    initWithConfigEntry:[NSString stringWithFormat:@"$constraints/constraint[%d]", constraintCounter+1]];
+                                    initWithConfigEntry:[NSString stringWithFormat:@"$constraints/constraint[%ld]", constraintCounter+1]];
         if (constraint) {
             [constraints addObject:constraint];
         } else {
@@ -187,6 +208,26 @@ NEViewManager* viewManager;
 {
     #pragma unused(aNotification)
     [presentationController resetPresentationToOriginal:NO];
+}
+
+-(void)updateExperimentDesign:(NSNotification*)aNotificaton
+{
+    // notification contains the array with alle added events
+    // so, take them all, add to the design and generate the design for update
+    // do all this in an additional thread
+    
+    NSArray* arrayAddedEvents = [aNotificaton object];
+    [arrayAddedEvents enumerateObjectsUsingBlock:^(id stimEvent, NSUInteger idx, BOOL *stop) {
+        #pragma unused(stop)
+        #pragma unused(idx)
+        Trial newTrial = [stimEvent createTrialFromThis];
+        [mDesignElement setRegressorTrial:newTrial];
+    }
+    ];
+     
+    [mDesignElement updateDesign];
+     
+    
 }
 
 @end
