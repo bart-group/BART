@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef BARTNEHELIWINDOWCONTROLLER_H
+#define BARTNEHELIWINDOWCONTROLLER_H
+
 #import <Cocoa/Cocoa.h>
 
 
@@ -30,3 +33,5 @@
 -(IBAction)sliderChanged:(id)sender;
 
 @end
+
+#endif //BARTNEHELIWINDOWCONTROLLER_H
