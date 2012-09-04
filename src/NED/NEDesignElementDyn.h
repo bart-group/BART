@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
+#ifndef NEDESIGNELEMENTDYN_H
+#define NEDESIGNELEMENTDYN_H
+
 #import <Cocoa/Cocoa.h>
 #import "NEDesignElement.h"
 #import <fftw3.h>
@@ -85,3 +88,4 @@ typedef struct RegressorStruct {
 
 @end
 
+#endif //NEDESIGNELEMENTDYN_H

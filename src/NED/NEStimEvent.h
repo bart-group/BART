@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef NESTIMEVENT_H
+#define NESTIMEVENT_H
+
 #import <Cocoa/Cocoa.h>
 #import "NEMediaObject.h"
 
@@ -78,3 +81,5 @@
                  inEventList:(NSMutableArray*)eventList;
 
 @end
+
+#endif //NESTIMEVENT_H
