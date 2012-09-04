@@ -17,10 +17,7 @@
 -(void)testStringForTriggerNumber
 {
     NELogFormatter* formatter = [[NELogFormatter alloc] init];
-    NSString* expected = [NSString stringWithFormat:@"%@%@%d", 
-                          [formatter triggerIdentifier], 
-                          [formatter keyValueSeperator], 
-                          42];
+    NSString* expected = [NSString stringWithFormat:@"%5lu", 42];
     
     NSString* actual = [formatter stringForTriggerNumber:42];
     
@@ -35,23 +32,26 @@
 
 -(void)testStringForStimEvent
 {
-    NEMediaText *mObj = [[NEMediaText alloc] initWithID:@"foo" andText:@"bar"];
+    NEMediaText *mObj = [[NEMediaText alloc] initWithID:@"foo" andText:@"bar" constrainedBy:@"constraintID"];
     NEStimEvent* event = [[NEStimEvent alloc] initWithTime:24 
                                                   duration:42 
                                                mediaObject:mObj];
     
     NELogFormatter* formatter = [[NELogFormatter alloc] init];
     
-    NSString* expected = [NSString stringWithFormat:@"%@%@%@%d%@%d%@%@%@",
-                          [formatter eventIdentifier],
-                          [formatter keyValueSeperator],
-                          [formatter beginSetDelimiter],
-                          24,
-                          [formatter entrySeperator],
-                          42,
-                          [formatter entrySeperator],
-                          @"foo",
-                          [formatter endSetDelimiter]];
+    NSString* expected = [NSString stringWithFormat:@"%@%@%@%ld%@%ld%@%@%@{%.0f %0.f}%@",
+                                 [formatter eventIdentifier],
+                                 [formatter keyValueSeperator],
+                                 [formatter beginSetDelimiter],
+                                 24l,
+                                 [formatter entrySeperator],
+                                 42l,
+                                 [formatter entrySeperator],
+                                 @"foo",
+                                 [formatter entrySeperator],
+                                 0.0,
+                                 0.0,
+                                 [formatter endSetDelimiter]];
     
     NSString* actual = [formatter stringForStimEvent:event];
     
