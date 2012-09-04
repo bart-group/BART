@@ -83,7 +83,7 @@
 -(NSString*)stringForStimEvent:(NEStimEvent*)event
 {
     // @"E:{time,duration,ID}"
-    return [NSString stringWithFormat:@"%@%@%@%d%@%d%@%@%@{%.0f %0.f}%@", 
+    return [NSString stringWithFormat:@"%@%@%@%ld%@%ld%@%@%@{%.0f %0.f}%@", 
             eventIdentifier, 
             keyValueSeperator, 
             beginSetDelimiter, 
@@ -106,7 +106,7 @@
 
 -(NSString*)stringForEventDuration:(NEStimEvent *)event
 {
-    return [NSString stringWithFormat:@"%d", 
+    return [NSString stringWithFormat:@"%ld", 
             [event duration]];
 }
 

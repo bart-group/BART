@@ -39,15 +39,21 @@
     return self;
 }
 
--(id)initWithDynamicData
+-(id)initWithDataFromConfig:(COSystemConfig*)config
 {
-	if ((self = [super init])){
-        self = [[NEDesignElementDyn alloc] init];
-    }
-    return self;
+    #pragma unused(config)
+    [self doesNotRecognizeSelector:_cmd];
+	return nil;
 	
 }
 
+-(id)initWithDynamicDataFromConfig:(COSystemConfig*)config
+{
+    if ((self = [super init])){
+        self = [[NEDesignElementDyn alloc] initWithConfig:config];
+    }
+    return self;
+}
 -(NSError*)writeDesignFile:(NSString*) path
 {
     #pragma unused(path)

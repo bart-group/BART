@@ -37,7 +37,7 @@
 {
     if ((self = [super init])) {
         // TODO: appropriate init
-        mCurrentTimestep = 50;
+        mCurrentTimestep = 300;
 		config = [[COExperimentContext getInstance] systemConfig];
 		isRealTimeTCPInput = YES;
 		startAnalysisAtTimeStep = 15;
@@ -147,7 +147,7 @@
 		[mDesignData release];
 		mDesignData = nil;}
 	
-	mDesignData = [[NEDesignElement alloc] initWithDynamicData];
+	mDesignData = [[NEDesignElement alloc] initWithDynamicDataFromConfig:[[COExperimentContext getInstance] systemConfig]];
 	if (nil == mDesignData){
 		return FALSE;}
 	
@@ -230,8 +230,8 @@
 	//TODO : get from config or gui
 	float cVecFromConfig[mDesignData.mNumberExplanatoryVariables];
     memset(cVecFromConfig, 0, (sizeof(float)* mDesignData.mNumberExplanatoryVariables ));
-	cVecFromConfig[0] = 1.0;
-	cVecFromConfig[1] = -1.0;
+	cVecFromConfig[0] = -1.0;
+	cVecFromConfig[1] = 1.0;
 	//cVecFromConfig[2] = 0.0;
 	NSMutableArray *contrastVector = [[NSMutableArray alloc] init];
 	for (size_t i = 0; i < mDesignData.mNumberExplanatoryVariables; i++){
@@ -240,10 +240,11 @@
 	
 	if (FALSE == isRealTimeTCPInput){
 		resData = [[mAnalyzer anaylzeTheData:mInputData withDesign:mDesignData  atCurrentTimestep:mCurrentTimestep-1 forContrastVector:contrastVector andWriteResultInto:nil] retain];
+        
 	}
 	else {
 		resData = [[mAnalyzer anaylzeTheData:mInputData withDesign:mDesignData atCurrentTimestep:[mInputData getImageSize].timesteps forContrastVector:contrastVector andWriteResultInto:nil] retain];
-		NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%d.nii", [mInputData getImageSize].timesteps];
+		NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%lu.nii", [mInputData getImageSize].timesteps];
 		[resData WriteDataElementToFile:fname];
 	}
 	
@@ -251,6 +252,8 @@
    
 	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidCalcNextResultNotification object:[resData autorelease]];
 	//NSLog(@"!!!!!resData retainCoung post notification %d", [resData retainCount]);
+    NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%lu.nii", mCurrentTimestep-1];
+    [resData WriteDataElementToFile:fname];
 
     [contrastVector release];
 	[autoreleasePool drain];
@@ -279,7 +282,7 @@
 	NSTimeInterval ti = [[NSDate date] timeIntervalSince1970];
 	//TODO: folder from edl
     if ( nil != [aNotification object] ){
-        NSString *fname =[NSString stringWithFormat:@"/tmp/{subjectName}_{sequenceNumber}_volumes_%d_%d.nii", [[aNotification object] getImageSize].timesteps, ti];
+        NSString *fname =[NSString stringWithFormat:@"/tmp/{subjectName}_{sequenceNumber}_volumes_%lu_%f.nii", [[aNotification object] getImageSize].timesteps, ti];
         [[aNotification object] WriteDataElementToFile:fname];
     }
 }
