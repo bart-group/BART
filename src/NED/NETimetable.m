@@ -41,29 +41,34 @@
 
 @implementation NETimetable
 
-@synthesize mediaObjects;
-@synthesize duration;
-@synthesize numberOfMediaObjects;
+@synthesize mediaObjects = _mediaObjects;
+@synthesize duration = _duration;
+@synthesize numberOfMediaObjects = _numberOfMediaObjects;
 //@synthesize dictMediaObjects;
+
+dispatch_queue_t serialAccessQueueTimetable;
 
 
 -(id)initWithConfigEntry:(NSString*)key
          andMediaObjects:(NSArray*)mediaObjs
 {
     if ((self = [super init])) {
-        mLock                = [[NSLock alloc] init];
-        mediaObjects         = [mediaObjs retain];
-        duration             = 0;
-        numberOfMediaObjects = [mediaObjs count];
+        
+        serialAccessQueueTimetable = dispatch_queue_create("de.mpg.cbs.NETimetableSerialAccessQueue", DISPATCH_QUEUE_SERIAL);
+        
+        
+        _mediaObjects         = [mediaObjs retain];
+        _duration             = 0;
+        _numberOfMediaObjects = [mediaObjs count];
         mediaObjectIDs       = [NSArray array];
         mEventsToHappen      = [[NSMutableDictionary alloc] initWithCapacity:0];
         mHappenedEvents      = [[NSMutableDictionary alloc] initWithCapacity:0];
         
         /********/
-        NSMutableDictionary *dictMO = [[NSMutableDictionary alloc] initWithCapacity:numberOfMediaObjects];
+        NSMutableDictionary *dictMO = [[NSMutableDictionary alloc] initWithCapacity:_numberOfMediaObjects];
         
         /********/
-        for (NEMediaObject* mObj in mediaObjects) {
+        for (NEMediaObject* mObj in _mediaObjects) {
             mediaObjectIDs = [mediaObjectIDs arrayByAddingObject:[mObj getID]];
             [mEventsToHappen setObject:[NSMutableArray arrayWithCapacity:1] forKey:[mObj getID]];
             [mHappenedEvents setObject:[NSMutableArray arrayWithCapacity:1] forKey:[mObj getID]];
@@ -92,12 +97,13 @@
 
 -(void)dealloc
 {
-    [mLock release];
-    [mediaObjects release];
+    
+    [_mediaObjects release];
     [mediaObjectIDs release];
     [mEventsToHappen release];
     [mHappenedEvents release];
     [mOriginalEvents release];
+    dispatch_release(serialAccessQueueTimetable);
     
     [super dealloc];
 }
@@ -114,7 +120,7 @@
         stimDesignKey       = [key stringByAppendingFormat:@"/freeStimulusDesign"];
         repeats = 1;
     }
-    duration = [[[[COExperimentContext getInstance] systemConfig] getProp:[stimDesignKey stringByAppendingFormat:@"/@overallPresLength"]] integerValue];
+    _duration = [[[[COExperimentContext getInstance] systemConfig] getProp:[stimDesignKey stringByAppendingFormat:@"/@overallPresLength"]] integerValue];
     
     NSUInteger eventCounter  = 1;
     NSString* eventKey  = [stimDesignKey stringByAppendingFormat:@"/stimEvent[1]"];
@@ -135,7 +141,7 @@
             blockDuration = eventTime + eventDuration;
         }
         
-        for (NEMediaObject* obj in mediaObjects) {
+        for (NEMediaObject* obj in _mediaObjects) {
             if ([[obj getID] compare:mediaObjID] == 0) {
                 NEStimEvent* event = [[NEStimEvent alloc] initWithTime:(((repeatCounter - 1) * timeOffset) + eventTime)
                                                               duration:eventDuration
@@ -170,50 +176,48 @@
 
 -(NEStimEvent*)previewNextEventAtTime:(NSUInteger)time
 {
-    for (NSString* mediaObjectID in mediaObjectIDs) {
-        [mLock lock];
-        NSMutableArray* eventsForMediaObject = [mEventsToHappen objectForKey:mediaObjectID];
-        if ([eventsForMediaObject count] > 0) {
-            
-            NEStimEvent* event = [eventsForMediaObject objectAtIndex:0];
-            if ( ([event time] <= time) && (NO == [event isPreviewed]) )  {
-                [event setPreviewed:YES];
-                //NSLog(@"preview");
-                [mLock unlock];
-                return event;
+    __block NEStimEvent* retEvent = nil;
+    dispatch_sync(serialAccessQueueTimetable, ^{
+        for (NSString* mediaObjectID in mediaObjectIDs) {
+            NSMutableArray* eventsForMediaObject = [mEventsToHappen objectForKey:mediaObjectID];
+            if ([eventsForMediaObject count] > 0) {
+                
+                NEStimEvent* event = [eventsForMediaObject objectAtIndex:0];
+                if ( ([event time] <= time) && (NO == [event isPreviewed]) )  {
+                    [event setPreviewed:YES];
+                    retEvent = event;
+                    return;
+                }
             }
         }
-        [mLock unlock];
-    }
-    
-    return nil;
+    });
+    return retEvent;
 }
 
 
 -(NEStimEvent*)nextEventAtTime:(NSUInteger)time
 {
-    for (NSString* mediaObjectID in mediaObjectIDs) {
-        [mLock lock];
-        NSMutableArray* eventsForMediaObject = [mEventsToHappen objectForKey:mediaObjectID];
-        if ([eventsForMediaObject count] > 0) {
-            
-            NEStimEvent* event = [eventsForMediaObject objectAtIndex:0];
-            if ([event time] <= time) {
-                
-                if ([event time] + [event duration] > time) {
-                    [[mHappenedEvents objectForKey:mediaObjectID] addObject:event];
-                    [eventsForMediaObject removeObject:event];
-                    [mLock unlock];
-                    return event;
-                } else {
-                    [eventsForMediaObject removeObject:event];
+    __block NEStimEvent* retEvent = nil;
+    dispatch_sync(serialAccessQueueTimetable, ^{
+        for (NSString* mediaObjectID in mediaObjectIDs) {
+            NSMutableArray* eventsForMediaObject = [mEventsToHappen objectForKey:mediaObjectID];
+            if ([eventsForMediaObject count] > 0) {
+                NEStimEvent* event = [eventsForMediaObject objectAtIndex:0];
+                if ([event time] <= time) {
+                    
+                    if ([event time] + [event duration] > time) {
+                        [[mHappenedEvents objectForKey:mediaObjectID] addObject:event];
+                        [eventsForMediaObject removeObject:event];
+                        retEvent = event;
+                        return ;
+                    } else {
+                        [eventsForMediaObject removeObject:event];
+                    }
                 }
             }
         }
-        [mLock unlock];
-    }
-    
-    return nil;
+    });
+    return retEvent;
 }
 
 -(NSArray*)getAllMediaObjectIDs
@@ -229,44 +233,48 @@
 
 -(NSArray*)happenedEventsForMediaObjectID:(NSString*)mediaObjID
 {
-    [mLock lock];
-    NSArray* happendEvents = [[[mHappenedEvents valueForKey:mediaObjID] copy] autorelease];
-    [mLock unlock];
+    __block NSArray* happendEvents = nil;
+    dispatch_sync(serialAccessQueueTimetable, ^{
+        happendEvents = [[[mHappenedEvents valueForKey:mediaObjID] copy] autorelease];
+    });
     return happendEvents;
 }
 
 -(NSArray*)eventsToHappenForMediaObjectID:(NSString*)mediaObjID
 {
-    [mLock lock];
-    NSArray* eventsToHappen = [[[mEventsToHappen valueForKey:mediaObjID] copy] autorelease];
-    [mLock unlock];
+    __block NSArray* eventsToHappen = nil;
+    dispatch_sync(serialAccessQueueTimetable, ^{
+        eventsToHappen = [[[mEventsToHappen valueForKey:mediaObjID] copy] autorelease];
+    });
     return eventsToHappen;
 }
 
 -(void)addEvent:(NEStimEvent*)event
 {
-    if ([event time] + [event duration] <= [self duration]
-        && [event duration] > 0) {
-        [mLock lock];
-        NSMutableArray* eventsForMediaObject = [mEventsToHappen objectForKey:[[event mediaObject] getID]];
-        [NEStimEvent startTimeSortedInsertOf:event inEventList:eventsForMediaObject];
-        [self removeMaskedEventsIn:eventsForMediaObject startingAt:event];
-        [mLock unlock];
-    }
+    dispatch_sync(serialAccessQueueTimetable, ^{
+        if ([event time] + [event duration] <= _duration
+            && [event duration] > 0) {
+            
+            NSMutableArray* eventsForMediaObject = [mEventsToHappen objectForKey:[[event mediaObject] getID]];
+            [NEStimEvent startTimeSortedInsertOf:event inEventList:eventsForMediaObject];
+            [self removeMaskedEventsIn:eventsForMediaObject startingAt:event];
+        }
+    });
 }
 
 -(void)replaceEvent:(NEStimEvent*)toReplace
           withEvent:(NEStimEvent*)replacement
 {
-    [mLock lock];
-    NSMutableArray* eventsForMediaObject = [mEventsToHappen objectForKey:[[toReplace mediaObject] getID]];
-    [eventsForMediaObject removeObject:toReplace];
-  
-    if ([replacement duration] > 0) {
-        [NEStimEvent startTimeSortedInsertOf:replacement inEventList:eventsForMediaObject];
-        [self removeMaskedEventsIn:eventsForMediaObject startingAt:replacement];
-    }
-    [mLock unlock];
+    dispatch_sync(serialAccessQueueTimetable, ^{
+        
+        NSMutableArray* eventsForMediaObject = [mEventsToHappen objectForKey:[[toReplace mediaObject] getID]];
+        [eventsForMediaObject removeObject:toReplace];
+        
+        if ([replacement duration] > 0) {
+            [NEStimEvent startTimeSortedInsertOf:replacement inEventList:eventsForMediaObject];
+            [self removeMaskedEventsIn:eventsForMediaObject startingAt:replacement];
+        }
+    });
 }
 
 -(void)removeMaskedEventsIn:(NSMutableArray*)eventList 
@@ -348,32 +356,28 @@
 
 -(void)shiftOnsetForAllEventsToHappen:(NSUInteger)shift
 {
-//    NEStimEvent *ev = [mEventsToHappen valueAtIndex:0 inPropertyWithKey:@"mo1"];
-//    NSLog(@"shift onsets %lu", [ev time]);
-//    [ev setTime:([ev time] + shift)];
-//    NSLog(@"shifted onsets %lu", [ev time]);
-//
-    
-    [mLock lock];
-    __block const NSUInteger timeShift = shift;
-    [mEventsToHappen enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent                                            usingBlock:^(id mediaID, id stimArray, BOOL *stop) {
-        //        
-        #pragma unused(mediaID)
-        #pragma unused(stop)
-        [(NSArray*) stimArray enumerateObjectsWithOptions:NSEnumerationConcurrent 
-                                               usingBlock:^(id stimEvent, NSUInteger idx, BOOL *stop)
-         {
-             #pragma unused(stop)
-             #pragma unused(idx)
-             //NSLog(@"shift onsets %lu", [(NEStimEvent*) stimEvent time]);
-             [(NEStimEvent*) stimEvent setTime:([(NEStimEvent*) stimEvent time]+timeShift)];
-             [stimEvent setPreviewed:NO];
-             //NSLog(@"shifted onsets %lu", [(NEStimEvent*) stimEvent time]);
-         }];
+    dispatch_sync(serialAccessQueueTimetable, ^{
         
-    }];
-    duration = [self duration]+shift; 
-    [mLock unlock];
+        __block const NSUInteger timeShift = shift;
+        [mEventsToHappen
+         enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent
+         usingBlock:^(id mediaID, id stimArray, BOOL *stop) {
+             //
+                #pragma unused(mediaID)
+                #pragma unused(stop)
+             [(NSArray*) stimArray enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                                    usingBlock:^(id stimEvent, NSUInteger idx, BOOL *stop)
+              {
+                  
+                #pragma unused(stop)
+                #pragma unused(idx)
+                  [(NEStimEvent*) stimEvent setTime:([(NEStimEvent*) stimEvent time]+timeShift)];
+                  [stimEvent setPreviewed:NO];
+              }];
+             
+         }];
+        _duration = _duration+shift;
+    });
 }
 
 @end
