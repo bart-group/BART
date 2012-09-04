@@ -126,6 +126,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	else {
 		NSString* errorString = [NSString stringWithFormat:@"No design struct found in edl-file. Define gwDesignStruct or swDesignStruct or dynamicDesignStruct! "];
         [expType release];
+        [regType release];
         [f release];
 		return error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
 	}
@@ -269,6 +270,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 				if (nil == mRegressorList[eventNr]->regConvolKernel){
 					[params release];
                     [expType release];
+                    [regType release];
                     [f release];
 					return error = [NSError errorWithDomain:@"generation of design kernel failed" code:CONVOLUTION_KERNEL_NOT_SPECIFIED userInfo:nil];
 				}
@@ -284,6 +286,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 				mRegressorList[eventNr]->regConvolKernel = [[NEDesignKernel alloc] initWithGeneralGammaParams:params];
 				if (nil == mRegressorList[eventNr]->regConvolKernel){
                     [expType release];
+                    [regType release];
                     [f release];
 					return error = [NSError errorWithDomain:@"generation of design kernel failed" code:CONVOLUTION_KERNEL_NOT_SPECIFIED userInfo:nil];
 				}
@@ -295,6 +298,7 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     mNumberExplanatoryVariables = mNumberRegressors + mNumberCovariates;
 	[f release];//temp for conversion purposes
 	[expType release];
+    [regType release];
 	return error;
 }
 
@@ -469,30 +473,89 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
     VImage outDesign = NULL;
     outDesign = VCreateImage(1, mNumberTimesteps, mNumberRegressors, VFloatRepn);
     
-    VSetAttr(VImageAttrList(outDesign), "modality", NULL, VStringRepn, "X");
-    VSetAttr(VImageAttrList(outDesign), "name", NULL, VStringRepn, "X");
-    VSetAttr(VImageAttrList(outDesign), "repetition_time", NULL, VLongRepn, (VLong) [self mRepetitionTimeInMs]);
-    VSetAttr(VImageAttrList(outDesign), "ntimesteps", NULL, VLongRepn, (VLong) mNumberTimesteps);
-    
-    VSetAttr(VImageAttrList(outDesign), "derivatives", NULL, VShortRepn, mRegressorList[0]->regDerivations);
-    
-    // evil: Copy&Paste from initDesign()
-    float delay = 6.0;              
-    float understrength = 0.35;
-    float undershoot = 12.0;
-    char buf[10000];
-    
-    VSetAttr(VImageAttrList(outDesign), "delay", NULL, VFloatRepn, delay);
-    VSetAttr(VImageAttrList(outDesign), "undershoot", NULL, VFloatRepn, undershoot);
-    sprintf(buf, "%.3f", understrength);
-    VSetAttr(VImageAttrList(outDesign), "understrength", NULL, VStringRepn, &buf);
-    
-    VSetAttr(VImageAttrList(outDesign), "nsessions", NULL, VShortRepn, (VShort) 1);
-    VSetAttr(VImageAttrList(outDesign), "designtype", NULL, VShortRepn, (VShort) 1);
-    
-    for (unsigned int col = 0; col < mNumberRegressors; col++) {
-        for (unsigned int ts = 0; ts < mNumberTimesteps; ts++) {
-				VPixel(outDesign, 0, ts, col, VFloat) = (VFloat) mRegressorValues[col][ts];
+    if (YES == isDynamicDesign)
+    {
+        COSystemConfig* configCopy = [[COExperimentContext getInstance] systemConfig];
+        
+        /*******************************/
+        // (1) the outer DesignStruct
+        NSXMLElement* desStruct = [[NSXMLElement alloc] initWithName:@"gwDesignStruct"];
+        
+        //(2)
+        for (NSUInteger i = 0; i < mNumberEvents; i++)
+        {
+            //(3)
+            // get everything from RegressorList and set it to new node
+            NSString* ref1 = @"false";
+            NSString* ref2 = @"false";
+            if (1 == mRegressorList[i]->regDerivations)
+            {
+                ref1 = @"true";
+            }
+            else if (2 == mRegressorList[i]->regDerivations)
+            {
+                ref1 = @"true";
+                ref2 = @"true";
+            }
+            NSString* length = [NSString stringWithFormat:@"%lu", mRegressorList[i]->length];
+            
+            
+            NSXMLElement* tRegressor = [[NSXMLElement alloc] initWithName:@"timeBasedRegressor"];
+            
+            [tRegressor addAttribute:[NSXMLNode attributeWithName:@"regressorID" stringValue:mRegressorList[i]->regID]];
+            [tRegressor addAttribute:[NSXMLNode attributeWithName:@"name" stringValue:mRegressorList[i]->regDescription]];
+            [tRegressor addAttribute:[NSXMLNode attributeWithName:@"length" stringValue:length]];
+            [tRegressor addAttribute:[NSXMLNode attributeWithName:@"useRefFct" stringValue:mRegressorList[i]->regRefFunction]];
+            [tRegressor addAttribute:[NSXMLNode attributeWithName:@"useRefFctFirstDerivative" stringValue:ref1]];
+            [tRegressor addAttribute:[NSXMLNode attributeWithName:@"useRefFctSecondDerivative" stringValue:ref2]];
+            //TODO: CARE ABOUT THIS
+            [tRegressor addAttribute:[NSXMLNode attributeWithName:@"scaleHeightToZeroMean" stringValue:@"false"]];
+            
+            // (4)
+            NSXMLElement* tbrDesign = [[NSXMLElement alloc] initWithName:@"tbrDesign"];
+            [tbrDesign addAttribute:[NSXMLNode attributeWithName:@"length" stringValue:length]];
+            [tbrDesign addAttribute:[NSXMLNode attributeWithName:@"repetitions" stringValue:@"1"]];
+            
+            //replace dynamicTimeBasedRegressor with timebAsedRegressor
+            //add tbrDesign
+            // (5) add statEvents from Trials
+            NSMutableArray *statEventsArray = [NSMutableArray arrayWithCapacity:100];
+            
+            TrialList* tl = mRegressorList[i]->regTrialList;
+            
+            while (NULL != tl)
+            {
+                NSString *ons = [NSString stringWithFormat:@"%.0f", tl->trial.onset];
+                NSString *dur = [NSString stringWithFormat:@"%.0f", tl->trial.duration];
+                NSString *hgt = [NSString stringWithFormat:@"%.1f", tl->trial.height];
+                NSXMLElement *statEvent = [[NSXMLElement alloc] initWithName:@"statEvent"];
+                [statEvent addAttribute:[NSXMLNode attributeWithName:@"time" stringValue:ons]];
+                [statEvent addAttribute:[NSXMLNode attributeWithName:@"duration" stringValue:dur]];
+                [statEvent addAttribute:[NSXMLNode attributeWithName:@"parametricScaleFactor" stringValue:hgt]];
+                [statEventsArray addObject:statEvent];
+                [statEvent release];
+                tl = tl->next;
+            }
+            
+            // (5) collect to complete description of the regressor
+            [tbrDesign insertChildren:statEventsArray atIndex:0];
+            [tRegressor insertChild:tbrDesign atIndex:0];
+            [desStruct insertChild:tRegressor atIndex:i];
+            [tbrDesign release];
+            [tRegressor release];
+            
+        }
+        //(6) now set it to the config (mostly: edl) file
+        [configCopy replaceProp:@"$dynDesign" withNode:desStruct];
+        /**********************/
+        
+        
+        
+        NSError *err = [configCopy writeToFile:path];
+        [desStruct release];
+        if (nil != err){
+            NSLog(@"%@", err);
+            return [NSError errorWithDomain:[err description] code:WRITE_OUTPUT userInfo:nil];
         }
     }
     
@@ -642,10 +705,11 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 -(void)setRegressor:(TrialList *)regressor
 {
-    free(mRegressorList[regressor->trial.id - 1]);
-    mRegressorList[regressor->trial.id -1] = NULL;
-    mRegressorList[regressor->trial.id - 1]->regTrialList = regressor;
-	mDesignHasChanged = YES;
+    dispatch_sync(serialDesignElementAccessQueue, ^{
+        free(mRegressorList[regressor->trial.trialid -1]->regTrialList);
+        mRegressorList[regressor->trial.trialid - 1]->regTrialList = regressor;
+        mDesignHasChanged = YES;
+    });
 }
 
 -(void)setRegressorTrial:(Trial)trial 

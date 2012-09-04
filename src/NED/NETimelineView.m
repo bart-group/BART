@@ -154,7 +154,7 @@ static const CGFloat DRAGGER_EDGE_LENGTH = 5.0;
     [[NSThread currentThread] setThreadPriority:0.6];
 
     do {
-        [self display];
+        [self setNeedsDisplay:YES];
         [NSThread sleepForTimeInterval:0.037];
     } while (![[NSThread currentThread] isCancelled]);
     
@@ -172,8 +172,10 @@ static const CGFloat DRAGGER_EDGE_LENGTH = 5.0;
 
 -(void)setTimetable:(NETimetable*)timetable
 {
+    [timetable retain];
     [mTimetable release];
-    mTimetable = [timetable retain];
+    mTimetable = timetable;
+        
     
     NSRect newFrame;
     newFrame.origin.x    = 0.0;//[self frame].origin.x;
@@ -240,8 +242,8 @@ static const CGFloat DRAGGER_EDGE_LENGTH = 5.0;
     
 
     for (NSString* mediaObjID in [mTimetable getAllMediaObjectIDs]) {
-        NSArray* happenedEvents = [mTimetable happenedEventsForMediaObjectID:mediaObjID];
-        NSArray* eventsToHappen = [mTimetable eventsToHappenForMediaObjectID:mediaObjID];
+        NSArray* happenedEvents = [[mTimetable happenedEventsForMediaObjectID:mediaObjID] retain];
+        NSArray* eventsToHappen = [[mTimetable eventsToHappenForMediaObjectID:mediaObjID] retain];
         
         CGContextSetRGBStrokeColor(context, 1.0, 1.0, 1.0, 1.0); 
         CGContextSetRGBFillColor(context, 1.0, 1.0, 1.0, 1.0); 
@@ -256,6 +258,7 @@ static const CGFloat DRAGGER_EDGE_LENGTH = 5.0;
             CGContextSetRGBFillColor(context, (mediaObjNr + 1.0) / [mTimetable numberOfMediaObjects], 1.0, (mediaObjNr + 1.0) / [mTimetable numberOfMediaObjects], 1.0);
             CGContextFillRect(context, eventRect);
         }
+        [happenedEvents release];
         for (NEStimEvent* event in eventsToHappen) {
             NSRect eventRect;
             eventRect.origin.x    = ((CGFloat)[event time] / (CGFloat)[mTimetable duration]) * ([self frame].size.width - (2.0 * FRAME_PADDING)) + FRAME_PADDING;
@@ -265,6 +268,7 @@ static const CGFloat DRAGGER_EDGE_LENGTH = 5.0;
             CGContextSetRGBFillColor(context, (mediaObjNr + 1.0) / [mTimetable numberOfMediaObjects], 1.0, (mediaObjNr + 1.0) / [mTimetable numberOfMediaObjects], 1.0);
             CGContextFillRect(context, eventRect);
         }
+        [eventsToHappen release];
         mediaObjNr++;
     }
 }
