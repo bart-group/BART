@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef NEPRESENTATIONVIEW_H
+#define NEPRESENTATIONVIEW_H
+
 #import <Cocoa/Cocoa.h>
 #import "NEMediaObject.h"
 
@@ -105,3 +108,5 @@
 -(void)setFeedback:(NEFeedbackObject*)feedbackObj;
 
 @end
+
+#endif // NEPRESENTATIONVIEW_H
