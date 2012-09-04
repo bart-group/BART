@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef BARTNETIMELINEWINDOWCONTROLLER_H
+#define BARTNETIMELINEWINDOWCONTROLLER_H
+
 #import <Cocoa/Cocoa.h>
 #import "NETimelineView.h"
 
@@ -91,3 +94,5 @@
 -(void)clearSelection;
 
 @end
+
+#endif // BARTNETIMELINEWINDOWCONTROLLER_H

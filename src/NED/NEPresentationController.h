@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Scienes Leipzig. All rights reserved.
 //
 
+#ifndef BARTNEPRESENTATIONCONTROLLER_H
+#define BARTNEPRESENTATIONCONTROLLER_H
+
 #import <Cocoa/Cocoa.h>
 #import "NEMediaObject.h"
 #import "NETimetable.h"
@@ -15,6 +18,10 @@
 @class NELogFormatter;
 @class NEViewManager;
 @class NEPresentationExternalConditionController;
+
+
+extern NSString * const BARTPresentationAddedEventsNotification;
+
 
 /**
  * Controller for handling events and the general flow of the
@@ -163,3 +170,5 @@
 -(NSUInteger)presentationDuration;
 
 @end
+
+#endif // BARTNEPRESENTATIONCONTROLLER_H
