@@ -12,7 +12,7 @@
 
 
 /** Used for trigger simulation. */
-static const NSTimeInterval FAKE_TRIGGER_INTERVAL = 2.0;
+//static const NSTimeInterval FAKE_TRIGGER_INTERVAL = 1.0;
 
 /** 
  * Error message that is displayed when trying to add an
@@ -82,6 +82,8 @@ static NSString* const TOO_LONG_EVENT_ERROR_MESSAGE = @"Did not add event that e
 
 @synthesize mIsPaused;
 
+NSTimeInterval mFakeTriggerIntervall = 1.0;
+
 -(void)dealloc
 {
     if (mTriggerThread) {
@@ -95,6 +97,7 @@ static NSString* const TOO_LONG_EVENT_ERROR_MESSAGE = @"Did not add event that e
 {
     presentationController = presController;
     presentationDuration = [presentationController presentationDuration];
+    mFakeTriggerIntervall = (NSTimeInterval)[presentationController repetitionTime];
 }
 
 -(void)setTimelineWindowController:(NETimelineWindowController*)tmlnWindowController
@@ -132,7 +135,7 @@ static NSString* const TOO_LONG_EVENT_ERROR_MESSAGE = @"Did not add event that e
     
     do {
         [self fireTrigger];
-        [NSThread sleepForTimeInterval:FAKE_TRIGGER_INTERVAL];
+        [NSThread sleepForTimeInterval:mFakeTriggerIntervall];
     } while (![[NSThread currentThread] isCancelled]);
     
     [autoreleasePool drain];
@@ -289,7 +292,7 @@ static NSString* const TOO_LONG_EVENT_ERROR_MESSAGE = @"Did not add event that e
         for (NSInteger i = [[valueRange objectAtIndex:0] integerValue]; 
              i <= [[valueRange objectAtIndex:2] integerValue]; 
              i += [[valueRange objectAtIndex:1] integerValue]) {
-            [values addObject:[NSString stringWithFormat:@"%d", i]];
+            [values addObject:[NSString stringWithFormat:@"%ld", i]];
         }
         
         return values;
@@ -310,8 +313,8 @@ static NSString* const TOO_LONG_EVENT_ERROR_MESSAGE = @"Did not add event that e
 -(void)showEvent:(NEStimEvent*)event
 {
     if (event) {
-        [eventTimeField setStringValue:[NSString stringWithFormat:@"%d", [event time]]];
-        [eventDurationField setStringValue:[NSString stringWithFormat:@"%d", [event duration]]];
+        [eventTimeField setStringValue:[NSString stringWithFormat:@"%ld", [event time]]];
+        [eventDurationField setStringValue:[NSString stringWithFormat:@"%ld", [event duration]]];
         [eventMediaObjectIDField setStringValue:[[event mediaObject] getID]];
     } else {
         [self clearTextFields];

@@ -18,7 +18,10 @@
 
 -(void)testInitWithIDAndText
 {
-    NEMediaObject* mediaObject = [[NEMediaText alloc] initWithID:@"foo" andText:@"bar" constrainedBy:@"constraint"];
+    NEMediaObject* mediaObject = [[NEMediaText alloc] initWithID:@"foo"
+                                                         andText:@"bar"
+                                                   constrainedBy:@"constraint"
+                                                andRegAssignment:nil];
     
     BOOL success = NO;
     
@@ -38,7 +41,8 @@
                                                           inSize:2
                                                         andColor:[NSColor whiteColor]
                                                        atPostion:(NSPoint) {0, 0}
-                                                   constrainedBy:@"con"];
+                                                   constrainedBy:@"con"
+                                                andRegAssignment:nil];
     
     BOOL success = NO;
     if (mediaObject) {

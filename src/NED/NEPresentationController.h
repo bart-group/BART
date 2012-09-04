@@ -50,12 +50,11 @@ extern NSString * const BARTPresentationAddedEventsNotification;
      * (in milliseconds).
      */
     NSUInteger mTime;
-    /** Trigger counter.  */
-    NSUInteger mTriggerCount;
-    /** Repetition time (in milliseconds). */
-    NSUInteger mTR;
+//   
+//    NSUInteger mTriggerCount;
+   
     /** Time the last trigger happened. */
-    NSTimeInterval mLastTriggersTime;
+    //NSTimeInterval mLastTriggersTime;
     /** Time of the current tick. */
     NSTimeInterval mCurrentTicksTime;
     
@@ -82,8 +81,12 @@ extern NSString * const BARTPresentationAddedEventsNotification;
 }
 
 @property (readwrite, retain, setter = setExternalConditions:) NEPresentationExternalConditionController *mExternalConditionController;
+ /** Trigger counter.  */
 @property (readwrite, setter = setTriggerCount:) NSUInteger mTriggerCount;
+/** Time the last trigger happened. */
 @property (readwrite, setter = setLastTriggerTime:) NSTimeInterval mLastTriggersTime;
+/** Repetition time (in milliseconds). */
+@property (readonly, getter = repetitionTime) NSUInteger mTR;
 
 /**
  * Initializes a newly allocated NESceneController object.

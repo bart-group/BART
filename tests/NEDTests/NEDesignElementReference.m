@@ -10,7 +10,7 @@
 #import "COExperimentContext.h"
 
 // just as long as it will be written as .v
-#include <viaio/VImage.h>
+//#include <viaio/VImage.h>
 
 @implementation NEDesignElementReference
 
@@ -141,7 +141,7 @@ const TrialListRef R_TRIALLIST_INIT = { {0,0,0,0}, NULL};
 	for (unsigned int eventNr = 0; eventNr < mNumberEvents; eventNr++)
 	{
 		unsigned int trialID = eventNr+1;
-		NSString *requestTrialsInReg = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent", expType, trialID, trialID];
+		NSString *requestTrialsInReg = [NSString stringWithFormat:@"%@/timeBasedRegressor[%d]/tbrDesign/statEvent", expType, trialID];
 		NSUInteger nrTrialsInRegr = [config countNodes:requestTrialsInReg ];
 		
 		
@@ -389,11 +389,11 @@ const TrialListRef R_TRIALLIST_INIT = { {0,0,0,0}, NULL};
         }
         
         if (trialcount < 1) {
-            NSString* errorString = [NSString stringWithFormat:@"No trials in event %d, please re-number event-IDs!", eventNr + 1];
+            NSString* errorString = [NSString stringWithFormat:@"No trials in event %ld, please re-number event-IDs!", eventNr + 1];
             error = [NSError errorWithDomain:errorString code:R_EVENT_NUMERATION userInfo:nil];
         }
         if (trialcount < 4) {
-            NSLog(@"Warning: too few trials (%d) in event %d. Statistics will be unreliable.",
+            NSLog(@"Warning: too few trials (%d) in event %ld. Statistics will be unreliable.",
                   trialcount, eventNr + 1);
         }
         
@@ -430,69 +430,69 @@ const TrialListRef R_TRIALLIST_INIT = { {0,0,0,0}, NULL};
 
 -(NSError*)writeDesignFile:(NSString*) path 
 {
-    VImage outDesign = NULL;
-    outDesign = VCreateImage(1, mNumberTimesteps, mNumberRegressors, VFloatRepn);
-    
-    VSetAttr(VImageAttrList(outDesign), "modality", NULL, VStringRepn, "X");
-    VSetAttr(VImageAttrList(outDesign), "name", NULL, VStringRepn, "X");
-    VSetAttr(VImageAttrList(outDesign), "repetition_time", NULL, VLongRepn, (VLong) mRepetitionTimeInMs);
-    VSetAttr(VImageAttrList(outDesign), "ntimesteps", NULL, VLongRepn, (VLong) mNumberTimesteps);
-    
-    VSetAttr(VImageAttrList(outDesign), "derivatives", NULL, VShortRepn, mRegressorList[0]->regDerivations);
-    
-    // evil: Copy&Paste from initDesign()
-    float delay = 6.0;              
-    float understrength = 0.35;
-    float undershoot = 12.0;
-    char buf[R_BUFFER_LENGTH];
-    
-    VSetAttr(VImageAttrList(outDesign), "delay", NULL, VFloatRepn, delay);
-    VSetAttr(VImageAttrList(outDesign), "undershoot", NULL, VFloatRepn, undershoot);
-    sprintf(buf, "%.3f", understrength);
-    VSetAttr(VImageAttrList(outDesign), "understrength", NULL, VStringRepn, &buf);
-    
-    VSetAttr(VImageAttrList(outDesign), "nsessions", NULL, VShortRepn, (VShort) 1);
-    VSetAttr(VImageAttrList(outDesign), "designtype", NULL, VShortRepn, (VShort) 1);
-    
-    for (unsigned int col = 0; col < mNumberRegressors; col++) {
-        for (unsigned int ts = 0; ts < mNumberTimesteps; ts++) {
-			VPixel(outDesign, 0, ts, col, VFloat) = (VFloat) mRegressorValues[col][ts];
-        }
-    }
-    
-    
-    VAttrList out_list = NULL;                         
-    out_list = VCreateAttrList();
-    VAppendAttr(out_list, "image", NULL, VImageRepn, outDesign);
-    
-    // Numbers taken from Plot_gamma()
-    int ncols = (int) (28.0 / 0.2);
-    int nrows = mRegressorList[0]->regDerivations + 2;
-    VImage plot_image = NULL;
-    plot_image = VCreateImage(1, nrows, ncols, VFloatRepn);
-    float** plot_image_raw = NULL;
-    plot_image_raw = [mRegressorList[0]->regConvolKernel plotGammaWithDerivs:mRegressorList[0]->regDerivations];//take first event, here just one fct possible
-    
-    for (int col = 0; col < ncols; col++) {
-        for (int row = 0; row < nrows; row++) {
-            VPixel(plot_image, 0, row, col, VFloat) = (VFloat) plot_image_raw[col][row];
-        }
-    }
-	
-	
-	// VAppendAttr(out_list, "plot_gamma", NULL, VImageRepn, plot_image);
-    
-    char* outputFilename = (char*) malloc(sizeof(char) * UINT16_MAX);
-    [path getCString:outputFilename maxLength:UINT16_MAX  encoding:NSUTF8StringEncoding];
-    FILE *out_file = fopen(outputFilename, "w"); //fopen("/tmp/testDesign.v", "w");
-	
-    if (!VWriteFile(out_file, out_list)) {
-        return [NSError errorWithDomain:@"Writing output design image failed." code:R_WRITE_OUTPUT userInfo:nil];
-    }
-    
-    fclose(out_file);
-    free(outputFilename);
-    
+//    VImage outDesign = NULL;
+//    outDesign = VCreateImage(1, mNumberTimesteps, mNumberRegressors, VFloatRepn);
+//    
+//    VSetAttr(VImageAttrList(outDesign), "modality", NULL, VStringRepn, "X");
+//    VSetAttr(VImageAttrList(outDesign), "name", NULL, VStringRepn, "X");
+//    VSetAttr(VImageAttrList(outDesign), "repetition_time", NULL, VLongRepn, (VLong) mRepetitionTimeInMs);
+//    VSetAttr(VImageAttrList(outDesign), "ntimesteps", NULL, VLongRepn, (VLong) mNumberTimesteps);
+//    
+//    VSetAttr(VImageAttrList(outDesign), "derivatives", NULL, VShortRepn, mRegressorList[0]->regDerivations);
+//    
+//    // evil: Copy&Paste from initDesign()
+//    float delay = 6.0;              
+//    float understrength = 0.35;
+//    float undershoot = 12.0;
+//    char buf[R_BUFFER_LENGTH];
+//    
+//    VSetAttr(VImageAttrList(outDesign), "delay", NULL, VFloatRepn, delay);
+//    VSetAttr(VImageAttrList(outDesign), "undershoot", NULL, VFloatRepn, undershoot);
+//    sprintf(buf, "%.3f", understrength);
+//    VSetAttr(VImageAttrList(outDesign), "understrength", NULL, VStringRepn, &buf);
+//    
+//    VSetAttr(VImageAttrList(outDesign), "nsessions", NULL, VShortRepn, (VShort) 1);
+//    VSetAttr(VImageAttrList(outDesign), "designtype", NULL, VShortRepn, (VShort) 1);
+//    
+//    for (unsigned int col = 0; col < mNumberRegressors; col++) {
+//        for (unsigned int ts = 0; ts < mNumberTimesteps; ts++) {
+//			VPixel(outDesign, 0, ts, col, VFloat) = (VFloat) mRegressorValues[col][ts];
+//        }
+//    }
+//    
+//    
+//    VAttrList out_list = NULL;                         
+//    out_list = VCreateAttrList();
+//    VAppendAttr(out_list, "image", NULL, VImageRepn, outDesign);
+//    
+//    // Numbers taken from Plot_gamma()
+//    int ncols = (int) (28.0 / 0.2);
+//    int nrows = mRegressorList[0]->regDerivations + 2;
+//    VImage plot_image = NULL;
+//    plot_image = VCreateImage(1, nrows, ncols, VFloatRepn);
+//    float** plot_image_raw = NULL;
+//    plot_image_raw = [mRegressorList[0]->regConvolKernel plotGammaWithDerivs:mRegressorList[0]->regDerivations];//take first event, here just one fct possible
+//    
+//    for (int col = 0; col < ncols; col++) {
+//        for (int row = 0; row < nrows; row++) {
+//            VPixel(plot_image, 0, row, col, VFloat) = (VFloat) plot_image_raw[col][row];
+//        }
+//    }
+//	
+//	
+//	// VAppendAttr(out_list, "plot_gamma", NULL, VImageRepn, plot_image);
+//    
+//    char* outputFilename = (char*) malloc(sizeof(char) * UINT16_MAX);
+//    [path getCString:outputFilename maxLength:UINT16_MAX  encoding:NSUTF8StringEncoding];
+//    FILE *out_file = fopen(outputFilename, "w"); //fopen("/tmp/testDesign.v", "w");
+//	
+//    if (!VWriteFile(out_file, out_list)) {
+//        return [NSError errorWithDomain:@"Writing output design image failed." code:R_WRITE_OUTPUT userInfo:nil];
+//    }
+//    
+//    fclose(out_file);
+//    free(outputFilename);
+//    
     return nil;
 }
 

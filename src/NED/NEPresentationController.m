@@ -29,6 +29,9 @@
 /** The time interval for the update in seconds.*/
 static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 
+/* notifications about the adapted design */
+NSString * const BARTPresentationAddedEventsNotification = @"de.mpg.cbs.BARTPresentationAddedEventNotification";
+
 
 /* Simple tuple class because Cocoa lacks one... */
 @interface _NETuple : NSObject
@@ -130,9 +133,10 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 
 @implementation NEPresentationController
 
-@synthesize mTriggerCount;
-@synthesize mLastTriggersTime;
-@synthesize mExternalConditionController;
+@synthesize mTriggerCount = _mTriggerCount;
+@synthesize mLastTriggersTime = _mLastTriggersTime;
+@synthesize mExternalConditionController = _mExternalConditionController;
+@synthesize mTR = _mTR;
 
 
 
@@ -152,7 +156,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         mLogger = [NEPresentationLogger getInstance];
         
         mUpdateThread = [[NSThread alloc] initWithTarget:self selector:@selector(runUpdateThread) object:nil];
-        mTR           = (NSUInteger) [[[[COExperimentContext getInstance] systemConfig] getProp:@"$TR"] integerValue];
+        _mTR           = (NSUInteger) [[[[COExperimentContext getInstance] systemConfig] getProp:@"$TR"] integerValue];
         [self resetTimeAndTriggerCount];
         
         [mViewManager setTimetable:mTimetable];
@@ -211,7 +215,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         [self startPresentation];
     }
 
-    NSUInteger triggerCount = [self mTriggerCount] + 1;//tr
+    NSUInteger triggerCount = _mTriggerCount + 1;//tr
   
     [mLogger logTrigger:triggerCount withTime:mTime];
     
@@ -222,7 +226,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 -(void)buttonWasPressed:(NSNotification *)aNotification
 {
    // NSString *toLog = [NSString stringWithFormat:@"Button pressed: %u", [[aNotification object] unsignedCharValue]];
-    [mLogger logButtonPress:[[aNotification object] unsignedIntegerValue] withTrigger:mTriggerCount andTime:mTime];
+    [mLogger logButtonPress:[[aNotification object] unsignedIntegerValue] withTrigger:_mTriggerCount andTime:mTime];
     //[mLogger log:toLog withTime:mTime];
 }
 
@@ -299,7 +303,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 
 -(void)startPresentation
 {
-    mLastTriggersTime = [NSDate timeIntervalSinceReferenceDate];
+    _mLastTriggersTime = [NSDate timeIntervalSinceReferenceDate];
     [mUpdateThread start];
 }
 
@@ -366,7 +370,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 
     [mUpdateThread setThreadPriority:1.0];
     
-    while ([self mTriggerCount] == 0) {
+    while (_mTriggerCount == 0) {
         // TODO: find suitable sleep interval!
     }
     
@@ -384,11 +388,11 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 -(void)tick
 {
     mCurrentTicksTime = [NSDate timeIntervalSinceReferenceDate];
-    NSUInteger timeDifference = (NSUInteger) ((mCurrentTicksTime - [self mLastTriggersTime]) * 1000.0);
+    NSUInteger timeDifference = (NSUInteger) ((mCurrentTicksTime - _mLastTriggersTime) * 1000.0);
     
     if (mTime <= [mTimetable duration]) {
-        if (timeDifference < mTR - TICK_TIME) {
-            mTime = ([self mTriggerCount] - 1) * mTR + timeDifference;
+        if (timeDifference < _mTR - TICK_TIME) {
+            mTime = (_mTriggerCount - 1) * _mTR + timeDifference;
         }
         
         //ask for conditions
@@ -449,7 +453,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
     
     
     NSDictionary *dictReturn = nil;
-    dictReturn = [[mExternalConditionController checkConstraintForID:[[event mediaObject] getConstraintID]] retain];
+    dictReturn = [[_mExternalConditionController checkConstraintForID:[[event mediaObject] getConstraintID]] retain];
     if (nil != dictReturn)
     {
         return [dictReturn autorelease];
@@ -477,7 +481,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
                 [self enqueueEvent:newEvent asReplacementFor:currentEvent];
                 [newEvent release];
                 toLog = [toLog stringByAppendingFormat:@"%@ with %@", oldMO, [mediaObj getID] ];
-                [mLogger logAction:toLog withTrigger:mTriggerCount andTime:mTime];
+                [mLogger logAction:toLog withTrigger:_mTriggerCount andTime:mTime];
                 return;
             }
         }
@@ -502,7 +506,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
             toLog = [toLog stringByAppendingFormat:@"%@ ",paraName];
             toLog = [toLog stringByAppendingFormat:@"with %.2f", paraVal];
         }
-        [mLogger logAction:toLog withTrigger:mTriggerCount andTime:mTime];
+        [mLogger logAction:toLog withTrigger:_mTriggerCount andTime:mTime];
         
         NEMediaObject *mo = [currentEvent mediaObject];
         NSPoint p = NSMakePoint([mo position].x, [mo position].y);
@@ -557,12 +561,12 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
         
         if (YES == pushAllEvents){
             [mTimetable shiftOnsetForAllEventsToHappen:(NSUInteger)duration];
-            toLog = [toLog stringByAppendingFormat:@" %@ push %u ms", moRef, (NSUInteger)duration];
+            toLog = [toLog stringByAppendingFormat:@" %@ push %lu ms", moRef, (NSUInteger)duration];
         }
         else{
             toLog = [toLog stringByAppendingFormat:@" %@ no push", moRef];
         }
-        [mLogger logAction:toLog withTrigger:mTriggerCount andTime:mTime];
+        [mLogger logAction:toLog withTrigger:_mTriggerCount andTime:mTime];
         return;
     }
     return;
@@ -594,15 +598,29 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
 
 -(void)handleStartingEvents
 {
+    NSMutableArray* arrayAllStartingEvents = [NSMutableArray arrayWithCapacity:2];
     NEStimEvent* event = [mTimetable nextEventAtTime:mTime];
     while (event) {
         
         [mViewManager present:[event mediaObject]];
         [NEStimEvent endTimeSortedInsertOf:event 
                                inEventList:mEventsToEnd];
-        [mLogger logStartingEvent:event withTrigger:[self mTriggerCount] andTime:mTime];
+        [mLogger logStartingEvent:event withTrigger:_mTriggerCount andTime:mTime];
+        
+        if (nil != event)
+        {
+            if(YES == [[event mediaObject] isAssignedToRegressor])
+            {
+                [arrayAllStartingEvents addObject:event];
+            }
+        }
         
         event = [mTimetable nextEventAtTime:mTime];
+    }
+    
+    if ( 0 != [arrayAllStartingEvents count])
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:BARTPresentationAddedEventsNotification object:[arrayAllStartingEvents autorelease]];
     }
 }
 
@@ -616,7 +634,7 @@ static const NSTimeInterval UPDATE_INTERVAL = TICK_TIME * 0.001;
             
             [mViewManager stopPresentationOf:[event mediaObject]];
             [mEventsToEnd removeObject:event];
-            [mLogger logEndingEvent:event withTrigger:[self mTriggerCount] andTime:mTime];
+            [mLogger logEndingEvent:event withTrigger:_mTriggerCount andTime:mTime];
             
         } else {
             done = YES;
