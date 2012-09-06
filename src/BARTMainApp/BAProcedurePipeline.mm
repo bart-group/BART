@@ -54,7 +54,7 @@
 {
     if ((self = [super init])) {
         // TODO: appropriate init
-        mCurrentTimestep = 1;
+        mCurrentTimestep = 0;
 		config = [[COExperimentContext getInstance] systemConfig];
 		isRealTimeTCPInput = NO;
 		startAnalysisAtTimeStep = 15;
@@ -240,8 +240,8 @@
     memset(cVecFromConfig, 0, (sizeof(float)* [[paradigm designElement] numberExplanatoryVariables] ));
 	cVecFromConfig[0] = 1.0;
 	cVecFromConfig[1] = 1.0;
-    cVecFromConfig[0] = -1.0;
-	cVecFromConfig[1] = -1.0;
+    cVecFromConfig[2] = -1.0;
+    cVecFromConfig[3] = -1.0;
 	//cVecFromConfig[2] = 0.0;
 	NSMutableArray *contrastVector = [[NSMutableArray alloc] init];
 	for (size_t i = 0; i < [[paradigm designElement] numberExplanatoryVariables]; i++){
