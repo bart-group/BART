@@ -38,11 +38,6 @@
 //		self = [[NEDesignElementVI alloc] initWithFile:path];} 
 //    return self;
 //}
-{
-	if ((self = [super init])){
-		self = [[NEDesignElementVI alloc] initWithFile:path];} 
-    return self;
-}
 
 -(id)initWithDataFromConfig:(COSystemConfig*)config
 {
