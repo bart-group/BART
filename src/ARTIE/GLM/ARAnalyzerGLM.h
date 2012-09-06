@@ -1,13 +1,16 @@
 //
-//  BAAnalyzerGLM.h
-//  BARTCommandLine
+//  ARAnalyzerGLM.h
+//  BARTApplication
 //
 //  Created by Lydia Hellrung on 10/29/09.
 //  Copyright 2009 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
+#ifndef ARANALYZERELEMENTGLM_H
+#define ARANALYZERELEMENTGLM_H
+
 #import <Cocoa/Cocoa.h>
-#import "../../BARTMainApp/BAAnalyzerElement.h"
+#import "../ARAnalyzerElement.h"
 
 // strange MAXKONSTANTEN aus vcolorglm - sicherheitshalber noch da - Test notwendig
 #define ETMP     64   /* max number of temporary images for smoothness estim */
@@ -15,7 +18,7 @@
 #define MBETA    64   /* max number of covariates */
 
 
-@interface BAAnalyzerGLM : BAAnalyzerElement {
+@interface ARAnalyzerGLM : ARAnalyzerElement {
     
   //  NEDesignElement *mDesign;
   //  EDDataElement *mData;
@@ -39,3 +42,6 @@
 
 
 @end
+
+#endif //ARANALYZERELEMENTGLM_H
+

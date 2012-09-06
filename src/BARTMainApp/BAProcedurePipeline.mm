@@ -9,7 +9,7 @@
 #import "BAProcedurePipeline.h"
 #import "EDNA/EDDataElement.h"
 #import "NED/NEDesignElement.h"
-#import "BAAnalyzerElement.h"
+#import "ARTIE/ARAnalyzerElement.h"
 #import "EDNA/EDDataElementRealTimeLoader.h"
 #import "BARTNotifications.h"
 #import "CLETUS/COExperimentContext.h"
@@ -175,7 +175,7 @@
 		[mAnalyzer release];
 		mAnalyzer = nil;}
 	
-	mAnalyzer = [[BAAnalyzerElement alloc] initWithAnalyzerType:kAnalyzerGLM];
+	mAnalyzer = [[ARAnalyzerElement alloc] initWithAnalyzerType:kAnalyzerGLM];
 	if (nil == mAnalyzer){
 		return FALSE;}
 	return TRUE;

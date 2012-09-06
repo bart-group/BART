@@ -1,10 +1,13 @@
 //
-//  BAAnalyzerElement.h
+//  ARAnalyzerElement.h
 //  BARTCommandLine
 //
 //  Created by Lydia Hellrung on 10/14/09.
 //  Copyright 2009 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
+
+#ifndef ARANALYZERELEMENT_H
+#define ARANALYZERELEMENT_H
 
 #import <Cocoa/Cocoa.h>
 
@@ -15,9 +18,12 @@
 
 
 // Supported Analyzer types:
-extern NSString *const kAnalyzerGLM;
+static NSString *const kAnalyzerGLM = @"GLM";
+static NSString *const kAnalyzerPluginNameKey = @"AnalyzerPluginName";
+static NSString *const kAnalyzerPluginAnalyzerTypeKey = @"AnalyzerPluginType";
 
-@interface BAAnalyzerElement : NSObject
+
+@interface ARAnalyzerElement : NSObject
 
 {
    
@@ -37,7 +43,7 @@ extern NSString *const kAnalyzerGLM;
 
 #pragma mark -
 
-@interface BAAnalyzerElement (AbstractMethods)
+@interface ARAnalyzerElement (AbstractMethods)
 
 // abstract methods to be implemented by subclasses
 -(EDDataElement*)anaylzeTheData:(EDDataElement*)data 
@@ -53,10 +59,12 @@ extern NSString *const kAnalyzerGLM;
 
 #pragma mark -
 
-@interface BAAnalyzerElement (SubclassUseOnly)
+@interface ARAnalyzerElement (SubclassUseOnly)
 
 // Private, concrete methods used by subclasses:
 -(void)whatever:(BOOL) findParameters;
 -(void)setDataToAnalyze:(EDDataElement*) src;
 
 @end
+
+#endif //ARANALYZERELEMENT_H

@@ -9,7 +9,7 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 
-@interface BAAnalyzerGLMTest : SenTestCase {
+@interface ARAnalyzerGLMTest : SenTestCase {
 	NSArray *contrastVector;
 }
 

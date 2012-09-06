@@ -6,7 +6,7 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#import "BAAnalyzerGLMReference.h"
+#import "ARAnalyzerGLMReference.h"
 
 
 /***********************************************
@@ -333,7 +333,7 @@ skip: ;
  BAAnalyzerGLMReference
  ************************************************/
 
-@interface BAAnalyzerGLMReference (PrivateMethods)
+@interface ARAnalyzerGLMReference (PrivateMethods)
 
 -(void)Regression:(short)minval
                  :(int)sliding_window_size
@@ -346,7 +346,7 @@ skip: ;
 @end
 
 
-@implementation BAAnalyzerGLMReference
+@implementation ARAnalyzerGLMReference
 
 
 @synthesize mSlidingWindowAnalysis;

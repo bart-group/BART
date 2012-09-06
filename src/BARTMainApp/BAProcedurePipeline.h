@@ -15,7 +15,7 @@
 
 @class EDDataElement;
 //@class NEDesignElement;
-@class BAAnalyzerElement;
+@class ARAnalyzerElement;
 @class EDDataElementRealTimeLoader;
 
 
@@ -25,7 +25,7 @@
 	EDDataElement *mInputData;
     //NEDesignElement *mDesignData;
     EDDataElement *mResultData;
-    BAAnalyzerElement *mAnalyzer;
+    ARAnalyzerElement *mAnalyzer;
     size_t mCurrentTimestep;
     EDDataElementRealTimeLoader *mRtLoader;
     COSystemConfig *config;

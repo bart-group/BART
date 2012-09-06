@@ -1,27 +1,22 @@
 //
-//  BAAnalyzerElement.m
+//  ARAnalyzerElement.m
 //  BARTCommandLine
 //
 //  Created by Lydia Hellrung on 10/14/09.
 //  Copyright 2009 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#import "BAAnalyzerElement.h"
-
-NSString *const kAnalyzerPluginNameKey = @"AnalyzerPluginName";
-NSString *const kAnalyzerPluginAnalyzerTypeKey = @"AnalyzerPluginType";
+#import "ARAnalyzerElement.h"
 
 
-NSString *const kAnalyzerGLM = @"GLM";
-
-@implementation BAAnalyzerElement
+@implementation ARAnalyzerElement
 
 static NSDictionary const *sSubclassToPluginTypeMap = nil;
 
 + (void)initialize
 {
     // TODO: memory leak
-    sSubclassToPluginTypeMap = [[NSDictionary alloc] initWithObjectsAndKeys:@"BAAnalyzerGLM", kAnalyzerGLM, nil];
+    sSubclassToPluginTypeMap = [[NSDictionary alloc] initWithObjectsAndKeys:@"ARAnalyzerGLM", kAnalyzerGLM, nil];
 }
 
 -(id)initWithAnalyzerType:(NSString *) analyzerType

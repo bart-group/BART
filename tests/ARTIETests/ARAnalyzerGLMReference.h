@@ -12,7 +12,7 @@
 
 
 #define MBETA    64   /* max number of covariates */
-@interface BAAnalyzerGLMReference : NSObject {
+@interface ARAnalyzerGLMReference : NSObject {
 
 	
 	NEDesignElement *mDesign;

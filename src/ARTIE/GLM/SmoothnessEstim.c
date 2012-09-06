@@ -77,7 +77,7 @@ VSmoothnessEstim(VImage *resmap,int ntimesteps)
     }
   }
   if (nx < 2) {
-    VWarning(" smoothness estimation failed: no voxels found");
+    //VWarning(" smoothness estimation failed: no voxels found");
     return 0;
   }
 

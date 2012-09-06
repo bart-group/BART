@@ -6,14 +6,14 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#import "BAAnalyzerGLMTest.h"
+#import "ARAnalyzerGLMTest.h"
 #import "CLETUS/COExperimentContext.h"
-#import "../../src/ARTIE/GLM/BAAnalyzerGLM.h"
-#import "BAAnalyzerGLMReference.h"
+#import "ARAnalyzerGLM.h"
+#import "ARAnalyzerGLMReference.h"
 #import "EDNA/EDDataElement.h"
 
 
-@implementation BAAnalyzerGLMTest
+@implementation ARAnalyzerGLMTest
 
 -(void)setUp
 {
@@ -31,8 +31,8 @@
     NSMutableString* co = [NSMutableString stringWithString:[[NSFileManager defaultManager] currentDirectoryPath]];
     NSMutableString* data = [NSMutableString stringWithString:[[NSFileManager defaultManager] currentDirectoryPath]];
     
-    [co appendString:@"/../tests/BARTMainAppTests/ConfigTestDataset02.edl"];
-     [data appendString:@"/../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii"];
+    [co appendString:@"/../tests/ARTIETests/ConfigTestDataset02.edl"];
+     [data appendString:@"/../tests/ARTIETests/testfiles/TestDataset02-functional.nii"];
 	
 	STAssertNil([config fillWithContentsOfEDLFile:co], @"error while loading config");
    
@@ -45,12 +45,12 @@
 	BOOL swa = NO;
 	uint sws = 40;
 	uint nrTimesteps = 720;
-	BAAnalyzerGLMReference *glmReference = [[BAAnalyzerGLMReference alloc] initWithFwhm:fwhm 
+	ARAnalyzerGLMReference *glmReference = [[ARAnalyzerGLMReference alloc] initWithFwhm:fwhm 
 																	  andMinval:minval 
 															 forSlidingAnalysis:swa 
 																	   withSize:sws];
 	
-	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
+	ARAnalyzerGLM *glmAlg = [[ARAnalyzerGLM alloc] init];
 	
 
 	EDDataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:[inputDesign copy] atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
@@ -92,7 +92,7 @@
 {
 	COSystemConfig *config = [[COSystemConfig alloc] init];
     NSMutableString* co = [NSMutableString stringWithString:[[NSFileManager defaultManager] currentDirectoryPath]];
-    [co appendString:@"/../tests/BARTMainAppTests/ConfigTestDataset02.edl"];
+    [co appendString:@"/../tests/ARTIETests/ConfigTestDataset02.edl"];
  	
 	STAssertNil([config fillWithContentsOfEDLFile:co], @"error while loading config");
  
@@ -218,12 +218,12 @@
 	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicDataFromConfig:config];
 	
 	
-	BAAnalyzerGLMReference *glmReference = [[BAAnalyzerGLMReference alloc] initWithFwhm:fwhm 
+	ARAnalyzerGLMReference *glmReference = [[ARAnalyzerGLMReference alloc] initWithFwhm:fwhm 
 																			  andMinval:minval 
 																	 forSlidingAnalysis:swa 
 																			   withSize:sws];
 	
-	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
+	ARAnalyzerGLM *glmAlg = [[ARAnalyzerGLM alloc] init];
 	EDDataElement* outputAlg = [glmAlg anaylzeTheData:inputData withDesign:[inputDesign copy] atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];
 	EDDataElement* outputRef = [glmReference anaylzeTheData:inputData withDesign:[inputDesign copy] andCurrentTimestep:nrTimesteps];
 	
@@ -262,9 +262,9 @@
 	//
 //	COSystemConfig *config = [[COExperimentContext getInstance] systemConfig];
 //	
-//	STAssertNil([config fillWithContentsOfEDLFile:@"../tests/BARTMainAppTests/ConfigTestDataset02.edl"], @"error while loading config");
-//	EDDataElement *inputData = [[EDDataElement alloc] initWithDatasetFile:@"../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" ofImageDataType:IMAGE_DATA_FLOAT];
-//	EDDataElement *inputDataRef = [[EDDataElementVI alloc] initWithFile:@"../tests/BARTMainAppTests/testfiles/TestDataset02-functional.v" ofImageDataType:IMAGE_DATA_SHORT];
+//	STAssertNil([config fillWithContentsOfEDLFile:@"../tests/ARTIETests/ConfigTestDataset02.edl"], @"error while loading config");
+//	EDDataElement *inputData = [[EDDataElement alloc] initWithDatasetFile:@"../tests/ARTIETests/testfiles/TestDataset02-functional.nii" ofImageDataType:IMAGE_DATA_FLOAT];
+//	EDDataElement *inputDataRef = [[EDDataElementVI alloc] initWithFile:@"../tests/ARTIETests/testfiles/TestDataset02-functional.v" ofImageDataType:IMAGE_DATA_SHORT];
 //	
 //	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicDataOfImageDataType:IMAGE_DATA_FLOAT];
 //	
@@ -319,7 +319,7 @@
 	
 	COSystemConfig *config = [[COSystemConfig alloc] init];
     NSMutableString* co = [NSMutableString stringWithString:[[NSFileManager defaultManager] currentDirectoryPath]];
-    [co appendString:@"/../tests/BARTMainAppTests/ConfigTestDataset02.edl"];
+    [co appendString:@"/../tests/ARTIETests/ConfigTestDataset02.edl"];
  	
 	STAssertNil([config fillWithContentsOfEDLFile:co], @"error while loading config");
 	
@@ -443,11 +443,11 @@
 	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicDataFromConfig:config];
 	
 	
-	BAAnalyzerGLMReference *glmReference = [[BAAnalyzerGLMReference alloc] initWithFwhm:fwhm 
+	ARAnalyzerGLMReference *glmReference = [[ARAnalyzerGLMReference alloc] initWithFwhm:fwhm 
 																			  andMinval:minval 
 																	 forSlidingAnalysis:swa 
 																			   withSize:sws];
-	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
+	ARAnalyzerGLM *glmAlg = [[ARAnalyzerGLM alloc] init];
 	
 	//TODO: will be changed with config
 	glmAlg.slidingWindowSize = sws;
@@ -562,7 +562,7 @@
 	
 	COSystemConfig *config = [[COSystemConfig alloc] init];
     NSMutableString* co = [NSMutableString stringWithString:[[NSFileManager defaultManager] currentDirectoryPath]];
-    [co appendString:@"/../tests/BARTMainAppTests/ConfigTestDataset02.edl"];
+    [co appendString:@"/../tests/ARTIETests/ConfigTestDataset02.edl"];
  	
 	STAssertNil([config fillWithContentsOfEDLFile:co], @"error while loading config");
 	
@@ -736,12 +736,12 @@
 	BOOL swa = NO;
 	uint sws = 40;
 		
-	BAAnalyzerGLMReference *glmReference = [[BAAnalyzerGLMReference alloc] initWithFwhm:fwhm 
+	ARAnalyzerGLMReference *glmReference = [[ARAnalyzerGLMReference alloc] initWithFwhm:fwhm 
 																			  andMinval:minval 
 																	 forSlidingAnalysis:swa 
 																			   withSize:sws];
 	
-	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
+	ARAnalyzerGLM *glmAlg = [[ARAnalyzerGLM alloc] init];
 	
 	
 	EDDataElement* outputAlg1TS = [glmAlg anaylzeTheData:inputData1TS withDesign:[inputDesign copy] atCurrentTimestep:nrTimesteps forContrastVector:contrastVector andWriteResultInto:nil];

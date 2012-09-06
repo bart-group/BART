@@ -1,13 +1,13 @@
 //
-//  BAAnalyzerGLM.m
-//  BARTCommandLine
+//  ARAnalyzerGLM.m
+//  BARTApplication
 //
 //  Created by Lydia Hellrung on 10/29/09.
 //  Copyright 2009 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#import "BAAnalyzerGLM.h"
-#import "../../EDNA/EDDataElement.h"
+#import "ARAnalyzerGLM.h"
+#import "EDNA/EDDataElement.h"
 #import "NEDesignElement.h"
 #import "BAGUIProtoCGLayer.h"
 
@@ -23,7 +23,7 @@ extern void GaussMatrix(double, gsl_matrix_float *);
 extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 										gsl_vector *);
 
-@interface BAAnalyzerGLM (PrivateMethods)
+@interface ARAnalyzerGLM (PrivateMethods)
      
 -(EDDataElement*)Regression:(short)minval
                  :(size_t)sliding_window_size
@@ -39,7 +39,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 @end
 
 
-@implementation BAAnalyzerGLM
+@implementation ARAnalyzerGLM
 
 //TODO : get from config
 @synthesize slidingWindowSize;
@@ -78,7 +78,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
     
     NSLog(@"Time analysis: Start");
     
-    int index = 0;
+    int64_t index = 0;
     if (mSlidingWindowAnalysis){
         index = slidingWindowSize;
     } else {
@@ -320,9 +320,9 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                         
                         if ([data getFloatVoxelValueAtRow:row col:col slice:slice timestep:0] >=  minval + 1) {
                             npix++;
-                            float sum = 0.0;
-                            float sum2 = 0.0;
-                            float nx = 0.0;
+                            float sum = 0.0L;
+                            float sum2 = 0.0L;
+                            float nx = 0.0L;
                             gsl_vector_float *y = gsl_vector_float_alloc(sliding_window_size);
                             float *ptr1 = y->data;
                             size_t i;

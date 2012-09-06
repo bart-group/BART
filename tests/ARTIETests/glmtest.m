@@ -8,10 +8,10 @@
 
 #import "glmtest.h"
 
-#import "../../src/CLETUS/COExperimentContext.h"
-#import "../../src/ARTIE/GLM/BAAnalyzerGLM.h"
-#import "BAAnalyzerGLMReference.h"
-#import "../../src/EDNA/EDDataElementVI.h"
+#import "CLETUS/COExperimentContext.h"
+#import "ARAnalyzerGLM.h"
+#import "ARAnalyzerGLMReference.h"
+#import "EDNA/EDDataElementVI.h"
 	
 
 @implementation glmtest
@@ -36,12 +36,12 @@ int main(void)
 	BOOL swa = NO;
 	uint sws = 40;
 	uint nrTimesteps = 720;
-	BAAnalyzerGLMReference *glmReference = [[BAAnalyzerGLMReference alloc] initWithFwhm:fwhm 
+	ARAnalyzerGLMReference *glmReference = [[ARAnalyzerGLMReference alloc] initWithFwhm:fwhm 
 																			  andMinval:minval 
 																	 forSlidingAnalysis:swa 
 																			   withSize:sws];
 	
-	BAAnalyzerGLM *glmAlg = [[BAAnalyzerGLM alloc] init];
+	ARAnalyzerGLM *glmAlg = [[ARAnalyzerGLM alloc] init];
 	NSArray* contrastVector = [NSArray arrayWithObjects:
                                [NSNumber numberWithFloat:1.0],
                                [NSNumber numberWithFloat:0.0],
