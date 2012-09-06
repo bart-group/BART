@@ -48,13 +48,25 @@ typedef struct TrialListStruct {
 
 }
 
+<<<<<<< HEAD
 @property ( readwrite, getter = repetitionTimeMS, setter = setRepetitionTime:) NSUInteger mRepetitionTimeInMs;
 @property ( readwrite, getter = numberExplanatoryVariables, setter = setNumberExplanatoryVariables:) NSUInteger mNumberExplanatoryVariables;
 @property ( readwrite, getter = numberTimesteps, setter = setNumberTimesteps:) NSUInteger mNumberTimesteps;
 @property ( readwrite, getter = numberRegressors, setter = setNumberRegressors:) NSUInteger mNumberRegressors;
 @property ( readwrite, getter = numberCovariates, setter = setNumberCovariates:) NSUInteger mNumberCovariates;
+=======
+@property ( assign) unsigned int mRepetitionTimeInMs;
+@property ( assign) unsigned int mNumberExplanatoryVariables;
+@property ( assign) unsigned int mNumberTimesteps;
+@property ( assign) unsigned int mNumberRegressors;
+@property ( assign) unsigned int mNumberCovariates;   
+//@property ( assign) enum ImageDataType mImageDataType;
+
+//-(void)setTimesteps:(unsigned int)val;
+//-(unsigned int)timesteps;
 
 //-(id)initWithDatasetFile:(NSString*)path;// ofImageDataType:(enum ImageDataType)type;
+>>>>>>> bart-group__ts_ui_development
 
 /**
  * Initialize a Design  element from an edl configuration
@@ -119,6 +131,7 @@ typedef struct TrialListStruct {
 -(void)setCovariateValue:(float)value forCovariateID:(int)covID atTimestep:(int)timestep;
 
 
+<<<<<<< HEAD
 /**
  * calculate an updated design
  * 
@@ -128,4 +141,6 @@ typedef struct TrialListStruct {
 
 @end
 
+=======
+>>>>>>> bart-group__ts_ui_development
 #endif // NEDESIGNELEMNT_H

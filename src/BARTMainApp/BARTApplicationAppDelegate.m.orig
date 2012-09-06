@@ -70,6 +70,23 @@
         return;
     }
 	
+<<<<<<< HEAD
+	guiController = [guiController initWithDefault];
+
+    NSString *testData = [arrayFromPlist objectForKey:@"dataSetForTest"];
+
+    if (0 != [testData length]){
+        procedurePipe = [[BAProcedurePipeline alloc] initWithTestDataset:testData];}
+    else{
+        procedurePipe = [[BAProcedurePipeline alloc] init];}
+    
+    
+    NSString *file = [arrayFromPlist objectForKey:@"edlFile"];
+    
+    NSError *err = [experimentContext resetWithEDLFile:file];
+    if (err) {
+        NSLog(@"%@", err);
+=======
     NSString *useLuigi = (NSString*)[arrayFromPlist objectForKey:@"UseLuigi"];
     //NSLog(@"UseLuigi = %@", useLuigi);
     if(useLuigi != nil && [useLuigi caseInsensitiveCompare:@"YES"] == NSOrderedSame) {
@@ -80,8 +97,8 @@
         NSString *treePath = [arrayFromPlist objectForKey:@"treeFile"];
 //        [[BAHierarchyTreeContext instance] loadSessionTree:treePath withEDL:edlPath];
 
-   [[BASessionContext sharedBASessionContext] createExampleSession];
-
+        
+        [[BASessionContext sharedBASessionContext] createExampleSession];
 
         NSLog(@"[BART] called [BASessionContext createExampleSession]: %@", [[BASessionContext sharedBASessionContext] currentSession]);
         
@@ -92,7 +109,7 @@
         
         NSString *testData = [arrayFromPlist objectForKey:@"dataSetForTest"];
         
-        if (0 != [testData length]){
+        if (nil != testData){
             procedurePipe = [[BAProcedurePipeline alloc] initWithTestDataset:testData];}
         else{
             procedurePipe = [[BAProcedurePipeline alloc] init];}
@@ -106,6 +123,7 @@
         }
         
         [experimentContext startExperiment];
+>>>>>>> bart-group__ts_ui_development
 	}
 	
 	

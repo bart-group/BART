@@ -54,6 +54,7 @@
 		0040B87B11414A8E00A57967 /* ColorMappingFilter.cikernel in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0040B7F51141470400A57967 /* ColorMappingFilter.cikernel */; };
 		0041E41D13E8057C00169848 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E41713E804AB00169848 /* AppKit.framework */; };
 		0041E4B113E819A600169848 /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AF13E805FF00169848 /* CLETUS.dylib */; };
+		004ABAF41378791400B13077 /* BADynamicDesignPipeline.m in Sources */ = {isa = PBXBuildFile; fileRef = 004ABAF31378791400B13077 /* BADynamicDesignPipeline.m */; };
 		00486A2C15D6F9E200A32A3A /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AE13E805FF00169848 /* NED.dylib */; };
 		00486A2D15D6F9E500A32A3A /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
 		00486A2E15D6F9E700A32A3A /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AF13E805FF00169848 /* CLETUS.dylib */; };
@@ -82,8 +83,6 @@
 		00673D5E13FD78CB0056BD4F /* TestDataset01-functional.nii in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00673D4113FD75C80056BD4F /* TestDataset01-functional.nii */; };
 		00673D5F13FD78CD0056BD4F /* TestDataset02-functional.nii in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00673D4213FD75C80056BD4F /* TestDataset02-functional.nii */; };
 		00673D6013FD78D10056BD4F /* ConfigTestDataset02.edl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0006F61C122E59EE001DA2BB /* ConfigTestDataset02.edl */; };
-		00673D6213FD7BF00056BD4F /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
-		00673D6313FD7BF20056BD4F /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00673D6413FD7BF60056BD4F /* libfftw3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A15135C6F5000562F3B /* libfftw3.dylib */; };
 		00673D6513FD7C210056BD4F /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AF13E805FF00169848 /* CLETUS.dylib */; };
 		00673D6613FD7C310056BD4F /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AE13E805FF00169848 /* NED.dylib */; };
@@ -108,14 +107,12 @@
 		00673D7A13FD87B80056BD4F /* erDesignTest01.edl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00709E3212E74B05006389C4 /* erDesignTest01.edl */; };
 		00673D7B13FD87BA0056BD4F /* blockDesignTest01.edl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00E7A647117EF24F00696498 /* blockDesignTest01.edl */; };
 		006E842F15206ED400C05466 /* ConfigBARTApplication.plist in Resources */ = {isa = PBXBuildFile; fileRef = 006E842E15206ED400C05466 /* ConfigBARTApplication.plist */; };
-		007529D71525FF5C00BBCBD6 /* BARTSerialIOFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 007529D61525FF5C00BBCBD6 /* BARTSerialIOFramework.framework */; };
 		007529D81525FFA900BBCBD6 /* BARTNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AE42B0133CB00400F2D01D /* BARTNotifications.m */; };
 		0076642B150F9CD50090895F /* myNewScenario.edl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0076642A150F9CD50090895F /* myNewScenario.edl */; };
 		00786E1213EEC80F00BF2554 /* NEPresentationExternalConditionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 00786E1013EEC80E00BF2554 /* NEPresentationExternalConditionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00786E1313EEC80F00BF2554 /* NEPresentationExternalConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00786E1113EEC80E00BF2554 /* NEPresentationExternalConditionController.m */; };
 		00786E1613EED14600BF2554 /* COExperimentContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 00786E1413EED14600BF2554 /* COExperimentContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00786E1713EED14600BF2554 /* COExperimentContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 00786E1513EED14600BF2554 /* COExperimentContext.m */; };
-		00786E1813EEE08000BF2554 /* BARTSerialIOFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 004ABB5E137887AC00B13077 /* BARTSerialIOFramework.framework */; };
 		007932B3114FB79E007BEB66 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F81141470400A57967 /* main.m */; };
 		007932B4114FB79E007BEB66 /* ColorMappingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F71141470400A57967 /* ColorMappingFilter.m */; };
 		007932B7114FB7A3007BEB66 /* BAGUIPrototyp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B41141470400A57967 /* BAGUIPrototyp.m */; };
@@ -125,9 +122,6 @@
 		0079349E114FF120007BEB66 /* COEDLValidatorLiteral.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AD76114645A3008FC09D /* COEDLValidatorLiteral.m */; };
 		007934EC1150FBF7007BEB66 /* COErrorCode.h in Headers */ = {isa = PBXBuildFile; fileRef = 007934EB1150FBF7007BEB66 /* COErrorCode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		007A6DB013E81B0E00F5DE58 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E3F013E8025300169848 /* Cocoa.framework */; };
-		007A6DB113E81CB700F5DE58 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
-		007A6DB213E81CBC00F5DE58 /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AF13E805FF00169848 /* CLETUS.dylib */; };
-		007A6DB313E81CC700F5DE58 /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AE13E805FF00169848 /* NED.dylib */; };
 		007E4FB9116249D700C9D686 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		008877CC1147A5ED009C7707 /* COEDLValidatorLiteralTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 008877CB1147A5ED009C7707 /* COEDLValidatorLiteralTest.m */; };
 		008878241147B445009C7707 /* edlValidation_rules.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 008878201147B445009C7707 /* edlValidation_rules.xsd */; };
@@ -160,11 +154,7 @@
 		00C3A02B1144FF9700725668 /* COSystemConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 00C39FEA1144FADC00725668 /* COSystemConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00C3A081114510CE00725668 /* Init_Links_1.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00C3A07F114510CE00725668 /* Init_Links_1.edl */; };
 		00C3A082114510CE00725668 /* rtExperiment_v14.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 00C3A080114510CE00725668 /* rtExperiment_v14.xsd */; };
-		00C730B61369F03500FC8546 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
-		00C730B71369F03600FC8546 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00D44159134B569400094A51 /* BAProcedurePipeline.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7A21141470400A57967 /* BAProcedurePipeline.mm */; };
-		00D44165134B57E600094A51 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
-		00D44167134B57E600094A51 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00D44187134B587200094A51 /* EDDataElementIsis.h in Headers */ = {isa = PBXBuildFile; fileRef = 006E07531190260500CEEF38 /* EDDataElementIsis.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00D44188134B587400094A51 /* EDDataElementIsis.mm in Sources */ = {isa = PBXBuildFile; fileRef = 006E07541190260500CEEF38 /* EDDataElementIsis.mm */; };
 		00D44189134B587400094A51 /* EDDataElementRealTimeLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = E54934E21339151E003264FE /* EDDataElementRealTimeLoader.mm */; };
@@ -173,8 +163,6 @@
 		00D4418C134B587600094A51 /* EDDataElementIsisRealTime.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00AE43A71343912400F2D01D /* EDDataElementIsisRealTime.mm */; };
 		00D441BA134B59D600094A51 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		00D44261134B5E8C00094A51 /* BARTNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AE42B0133CB00400F2D01D /* BARTNotifications.m */; };
-		00D444DC134DEB4100094A51 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
-		00D444DD134DEB4200094A51 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00D444E2134DEB5300094A51 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
 		00DB77E913EA8AD500BB6484 /* NELogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77D313EA8AD500BB6484 /* NELogFormatter.h */; };
 		00DB77EA13EA8AD500BB6484 /* NELogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77D413EA8AD500BB6484 /* NELogFormatter.m */; };
@@ -222,9 +210,6 @@
 		00DE9C6F12F6EBB50089B99A /* designtest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DE9C6E12F6EBB50089B99A /* designtest.m */; };
 		00E0434A13E6A53F006B17B0 /* EDDataElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E0434813E6A53F006B17B0 /* EDDataElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00E0434B13E6A540006B17B0 /* EDDataElement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00E0434913E6A53F006B17B0 /* EDDataElement.mm */; };
-		00E0434C13E6A901006B17B0 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
-		00E63B85135325D500DC8A50 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
-		00E63B86135325D500DC8A50 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00E63C9F13533ED900DC8A50 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
 		00E7A649117EF24F00696498 /* blockDesignTest01.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00E7A647117EF24F00696498 /* blockDesignTest01.edl */; };
 		00E7A656117EF60900696498 /* NEDesignElementDynTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E7A655117EF60900696498 /* NEDesignElementDynTest.m */; };
@@ -232,7 +217,6 @@
 		00EA89E2135C6CB600562F3B /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
 		00EA89E5135C6CB800562F3B /* EDDataElementIsisRealTime.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00AE43A71343912400F2D01D /* EDDataElementIsisRealTime.mm */; };
 		00EA89EA135C6CC900562F3B /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
-		00EA8A36135C6FFF00562F3B /* libfftw3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A15135C6F5000562F3B /* libfftw3.dylib */; };
 		00EA8A6B135C725C00562F3B /* NEDesignKernel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0036104F117F9AED00A84F44 /* NEDesignKernel.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00EA8A6D135C725D00562F3B /* NEDesignKernel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00361050117F9AED00A84F44 /* NEDesignKernel.m */; };
 		00EA8A6E135C725E00562F3B /* NEDesignElementDyn.h in Headers */ = {isa = PBXBuildFile; fileRef = 0083769F116BB12D00369B20 /* NEDesignElementDyn.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -240,15 +224,9 @@
 		00EA8A72135C725F00562F3B /* NEDesignElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 008376A1116BB12D00369B20 /* NEDesignElementVI.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00EA8A76135C726100562F3B /* NEDesignGloverKernel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0085EB2211511B2C004795FD /* NEDesignGloverKernel.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00EA8A78135C726200562F3B /* NEDesignGloverKernel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0085EB2311511B2C004795FD /* NEDesignGloverKernel.m */; };
-		00EA8A99135C72B200562F3B /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
-		00EA8A9B135C72B300562F3B /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00EA8B07135C7C6A00562F3B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		00EA8DCB135D870000562F3B /* glmtest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F633122E5AA6001DA2BB /* glmtest.m */; };
-		00EA8DDA135D871A00562F3B /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44164134B57E600094A51 /* libvia.dylib */; };
-		00EA8DDB135D871B00562F3B /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D44166134B57E600094A51 /* libviaio.dylib */; };
 		00EA8DF2135D879B00562F3B /* libfftw3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A15135C6F5000562F3B /* libfftw3.dylib */; };
-		00EA8E11135D88E000562F3B /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573111459587007C02CB /* libgslcblas.dylib */; };
-		00EA8E13135D88E100562F3B /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573B11459605007C02CB /* libgsl.0.dylib */; };
 		00EA8E50135D8B8400562F3B /* BAAnalyzerGLMReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F53F122D3366001DA2BB /* BAAnalyzerGLMReference.m */; };
 		00EA8E59135D8BA700562F3B /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573111459587007C02CB /* libgslcblas.dylib */; };
 		00EA8E5B135D8BA800562F3B /* libfftw3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A15135C6F5000562F3B /* libfftw3.dylib */; };
@@ -264,8 +242,6 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A713AA091445CF1600BBF150 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
-		A744B0C513FD442200F4B13D /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
-		A744B0C713FD445300F4B13D /* EDDataElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B772C311417C6300B2931A /* EDDataElementVI.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A74EB3571525B09600AC7C59 /* isisRegistrationFactory3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A74EB3461525B09600AC7C59 /* isisRegistrationFactory3D.hpp */; };
 		A74EB3581525B09600AC7C59 /* isisRegistrationFactory3D_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A74EB3471525B09600AC7C59 /* isisRegistrationFactory3D_impl.hpp */; };
 		A74EB3591525B09600AC7C59 /* isisTimeStepExtractionFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A74EB3481525B09600AC7C59 /* isisTimeStepExtractionFilter.hpp */; };
@@ -283,9 +259,7 @@
 		A74EB3701525B0BB00AC7C59 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A74EB3681525B0BB00AC7C59 /* InfoPlist.strings */; };
 		A74EB3711525B0BB00AC7C59 /* RORegistrationMethodTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = A74EB36B1525B0BB00AC7C59 /* RORegistrationMethodTest.mm */; };
 		A74EB3731525B0BB00AC7C59 /* TROYTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A74EB36F1525B0BB00AC7C59 /* TROYTests.m */; };
-		A74EB3751525B17A00AC7C59 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A74EB3741525B17A00AC7C59 /* Cocoa.framework */; };
 		A74EB3761525B1F600AC7C59 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
-		A74EB3771525B20400AC7C59 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A74EB3741525B17A00AC7C59 /* Cocoa.framework */; };
 		A75A5D64140689F900514CD3 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
 		A75A5D6514068D2000514CD3 /* TestDataset01-functional.nii in Resources */ = {isa = PBXBuildFile; fileRef = 00673D4113FD75C80056BD4F /* TestDataset01-functional.nii */; };
 		A7763C54143B09A500457A99 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
@@ -296,6 +270,71 @@
 		CE8A28D610F5121F002422B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		CE8A28D710F5121F002422B5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E42FB307B3F0F600E4EEF1 /* CoreData.framework */; };
 		CE8A2A3A10F61713002422B5 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8A2A3910F61713002422B5 /* Quartz.framework */; };
+		E50238EA1577A533009072E2 /* Hierarchy Element Icon Experiment.png in Resources */ = {isa = PBXBuildFile; fileRef = E50238E61577A533009072E2 /* Hierarchy Element Icon Experiment.png */; };
+		E50238EB1577A533009072E2 /* Hierarchy Element Icon M.png in Resources */ = {isa = PBXBuildFile; fileRef = E50238E71577A533009072E2 /* Hierarchy Element Icon M.png */; };
+		E50238EC1577A533009072E2 /* Hierarchy Element Icon Session.png in Resources */ = {isa = PBXBuildFile; fileRef = E50238E81577A533009072E2 /* Hierarchy Element Icon Session.png */; };
+		E50238ED1577A533009072E2 /* Hierarchy Element Icon Step.png in Resources */ = {isa = PBXBuildFile; fileRef = E50238E91577A533009072E2 /* Hierarchy Element Icon Step.png */; };
+		E50239041577AEA2009072E2 /* Hierarchy Element Icon Unknown.png in Resources */ = {isa = PBXBuildFile; fileRef = E50239031577AEA2009072E2 /* Hierarchy Element Icon Unknown.png */; };
+		E50AD5A615822E03001A8154 /* BASimulationDataProviderStep.m in Sources */ = {isa = PBXBuildFile; fileRef = E50AD5A515822E03001A8154 /* BASimulationDataProviderStep.m */; };
+		E50AD5AA15823013001A8154 /* BASimulationDataProviderConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50AD5A815823013001A8154 /* BASimulationDataProviderConfigViewController.m */; };
+		E50AD5AB15823013001A8154 /* BASimulationDataProviderConfigView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50AD5A915823013001A8154 /* BASimulationDataProviderConfigView.xib */; };
+		E50AD5AF1585FAA0001A8154 /* BASimulationDataProviderExecutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50AD5AD1585FAA0001A8154 /* BASimulationDataProviderExecutionViewController.m */; };
+		E50AD5B01585FAA0001A8154 /* BASimulationDataProviderExecutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50AD5AE1585FAA0001A8154 /* BASimulationDataProviderExecutionView.xib */; };
+		E50AD5B215861063001A8154 /* AnalysisTest001TreeDescription.xml in Resources */ = {isa = PBXBuildFile; fileRef = E50AD5B115861063001A8154 /* AnalysisTest001TreeDescription.xml */; };
+		E52D722015627C9B002E73CB /* BAHierarchyElementContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E52D721F15627C9B002E73CB /* BAHierarchyElementContentViewController.m */; };
+		E5440C0F158A40F300AC541F /* BAHierarchyTreeStateCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5440C0E158A40F300AC541F /* BAHierarchyTreeStateCellView.m */; };
+		E54B814C157E3F580029ECC4 /* BAHierarchyElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54B814B157E3F580029ECC4 /* BAHierarchyElementViewController.m */; };
+		E54B8151157E40030029ECC4 /* BAExampleStep.m in Sources */ = {isa = PBXBuildFile; fileRef = E54B8150157E40030029ECC4 /* BAExampleStep.m */; };
+		E54B8156157E40600029ECC4 /* BAExampleStepConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54B8154157E40600029ECC4 /* BAExampleStepConfigViewController.m */; };
+		E54B8157157E40600029ECC4 /* BAExampleStepConfigView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E54B8155157E40600029ECC4 /* BAExampleStepConfigView.xib */; };
+		E54B8159157F751D0029ECC4 /* BAEmptyElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E54B8158157F751D0029ECC4 /* BAEmptyElementView.xib */; };
+		E54B815B157F76AA0029ECC4 /* Luigi.png in Resources */ = {isa = PBXBuildFile; fileRef = E54B815A157F76AA0029ECC4 /* Luigi.png */; };
+		E55B2D7A154989FE007A0452 /* BARTSerialIOFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55B2D79154989FE007A0452 /* BARTSerialIOFramework.framework */; };
+		E55B2DA5154AC27B007A0452 /* libvia.1.6.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E55B2DA3154AC27B007A0452 /* libvia.1.6.0.dylib */; };
+		E55B2DA7154AC27B007A0452 /* libvia.1.6.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E55B2DA3154AC27B007A0452 /* libvia.1.6.0.dylib */; };
+		E55B2DA8154AC27B007A0452 /* libviaio.1.6.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E55B2DA4154AC27B007A0452 /* libviaio.1.6.0.dylib */; };
+		E55B2DAA154AC27B007A0452 /* libviaio.1.6.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E55B2DA4154AC27B007A0452 /* libviaio.1.6.0.dylib */; };
+		E55B2DAB154ACD4B007A0452 /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
+		E55B2DAC154ACD5B007A0452 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
+		E55B2DAD154ACD68007A0452 /* EDDataElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B772C311417C6300B2931A /* EDDataElementVI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E55B2DAE154ACE7E007A0452 /* BARTSerialIOFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55B2D79154989FE007A0452 /* BARTSerialIOFramework.framework */; };
+		E55B2DAF154ACEC0007A0452 /* libvia.1.6.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E55B2DA3154AC27B007A0452 /* libvia.1.6.0.dylib */; };
+		E55B2DB0154ACEC0007A0452 /* libviaio.1.6.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E55B2DA4154AC27B007A0452 /* libviaio.1.6.0.dylib */; };
+		E55B2DB2154ACEED007A0452 /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E55B2DB1154ACEED007A0452 /* libfftw3.a */; };
+		E562D7E6156156B300DE5631 /* BAHierarchyElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E562D7E5156156B300DE5631 /* BAHierarchyElement.m */; };
+		E562D7E91561586700DE5631 /* BASession.m in Sources */ = {isa = PBXBuildFile; fileRef = E562D7E81561586700DE5631 /* BASession.m */; };
+		E562D7EC156158AD00DE5631 /* BAExperiment.m in Sources */ = {isa = PBXBuildFile; fileRef = E562D7EB156158AC00DE5631 /* BAExperiment.m */; };
+		E562D7EF156158DC00DE5631 /* BAStep.m in Sources */ = {isa = PBXBuildFile; fileRef = E562D7EE156158DC00DE5631 /* BAStep.m */; };
+		E56CFEB71562D0F100CA9CC4 /* BAHierarchyTreeContext.m in Sources */ = {isa = PBXBuildFile; fileRef = E56CFEB61562D0F100CA9CC4 /* BAHierarchyTreeContext.m */; };
+		E56CFEBE1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = E56CFEBD1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.m */; };
+		E5799B1615CFFC15009C0F31 /* RTAnalysisExperiment.m in Sources */ = {isa = PBXBuildFile; fileRef = E5799B1515CFFC15009C0F31 /* RTAnalysisExperiment.m */; };
+		E5799B1915D00723009C0F31 /* FirstEverExampleExperiment.m in Sources */ = {isa = PBXBuildFile; fileRef = E5799B1815D00723009C0F31 /* FirstEverExampleExperiment.m */; };
+		E57D97F015C67F4F00E3D1C3 /* mainExp_Feedback_detrend_TR2000.edl in Resources */ = {isa = PBXBuildFile; fileRef = E57D97EE15C67F4F00E3D1C3 /* mainExp_Feedback_detrend_TR2000.edl */; };
+		E57D97F115C67F4F00E3D1C3 /* preScan_TR2000.edl in Resources */ = {isa = PBXBuildFile; fileRef = E57D97EF15C67F4F00E3D1C3 /* preScan_TR2000.edl */; };
+		E57D97FA15C6C74400E3D1C3 /* AddExperimentAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E57D97F915C6C74400E3D1C3 /* AddExperimentAccessoryView.xib */; };
+		E57D97FD15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E57D97FC15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewController.m */; };
+		E597FE4A15937BDF0065A28C /* BASessionTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = E597FE4915937BDF0065A28C /* BASessionTreeController.m */; };
+		E597FE4E1594BABC0065A28C /* BASession2.m in Sources */ = {isa = PBXBuildFile; fileRef = E597FE4D1594BABC0065A28C /* BASession2.m */; };
+		E597FE511594BAD40065A28C /* BAExperiment2.m in Sources */ = {isa = PBXBuildFile; fileRef = E597FE501594BAD40065A28C /* BAExperiment2.m */; };
+		E597FE541594BAEA0065A28C /* BAStep2.m in Sources */ = {isa = PBXBuildFile; fileRef = E597FE531594BAEA0065A28C /* BAStep2.m */; };
+		E5A085F8158F3287002871AA /* BAHierarchyTreeContextMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A085F7158F3286002871AA /* BAHierarchyTreeContextMenuController.m */; };
+		E5A085FF1590A9C4002871AA /* BigLuigi.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5A085FE1590A9C4002871AA /* BigLuigi.xib */; };
+		E5A086011591CD44002871AA /* runner.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A086001591CD44002871AA /* runner.png */; };
+		E5A5B9CC15497FE700A7AA4F /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AF13E805FF00169848 /* CLETUS.dylib */; };
+		E5A5B9CD15497FE700A7AA4F /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
+		E5A5B9CE15497FE700A7AA4F /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AE13E805FF00169848 /* NED.dylib */; };
+		E5A8593D1599E07B00348C6D /* BASessionContext.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A8593C1599E07A00348C6D /* BASessionContext.m */; };
+		E5D075391562B4C60058791E /* BAHierarchyTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D075381562B4C60058791E /* BAHierarchyTreeController.m */; };
+		E5D87BBC15BDAE4000532A1F /* BASessionTreeDescriptionCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D87BBB15BDAE4000532A1F /* BASessionTreeDescriptionCellView.m */; };
+		E5D87BBF15C002F200532A1F /* BASessionTreeStateCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D87BBE15C002F200532A1F /* BASessionTreeStateCellView.m */; };
+		E5E7BF85154EBF2A00D093E4 /* BARTSerialIOPluginEyeTrac.bundle in Copy PlugIns */ = {isa = PBXBuildFile; fileRef = E5E7BF84154EBF2A00D093E4 /* BARTSerialIOPluginEyeTrac.bundle */; };
+		E5ED3A6415920C3D00489E35 /* BAMainToolbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5ED3A6315920C3D00489E35 /* BAMainToolbarController.m */; };
+		E5ED3A6A15932C0500489E35 /* Hierarchy Element Icon Experiment Template.png in Resources */ = {isa = PBXBuildFile; fileRef = E5ED3A6915932C0500489E35 /* Hierarchy Element Icon Experiment Template.png */; };
+		E5ED3A6D1593432300489E35 /* BASessionTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E5ED3A6C1593432300489E35 /* BASessionTreeNode.m */; };
+		E5ED3A7615934F3700489E35 /* SessionTreeNodeIconExperiment.png in Resources */ = {isa = PBXBuildFile; fileRef = E5ED3A7215934F3700489E35 /* SessionTreeNodeIconExperiment.png */; };
+		E5ED3A7715934F3700489E35 /* SessionTreeNodeIconSession.png in Resources */ = {isa = PBXBuildFile; fileRef = E5ED3A7315934F3700489E35 /* SessionTreeNodeIconSession.png */; };
+		E5ED3A7815934F3700489E35 /* SessionTreeNodeIconStep.png in Resources */ = {isa = PBXBuildFile; fileRef = E5ED3A7415934F3700489E35 /* SessionTreeNodeIconStep.png */; };
+		E5ED3A7915934F3700489E35 /* SessionTreeNodeIconUnknown.png in Resources */ = {isa = PBXBuildFile; fileRef = E5ED3A7515934F3700489E35 /* SessionTreeNodeIconUnknown.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -459,6 +498,13 @@
 			remoteGlobalIDString = 00D4415F134B57BD00094A51;
 			remoteInfo = EDNA;
 		};
+		E55B2D871549ADC3007A0452 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00D4415F134B57BD00094A51;
+			remoteInfo = EDNA;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -478,7 +524,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				00FA55A2140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle in Copy PlugIns */,
-				00198339146003C6006F8E27 /* BARTSerialIOPluginEyeTrac.bundle in Copy PlugIns */,
+				E5E7BF85154EBF2A00D093E4 /* BARTSerialIOPluginEyeTrac.bundle in Copy PlugIns */,
 			);
 			name = "Copy PlugIns";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,7 +545,7 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 7;
+			dstSubfolderSpec = 13;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -587,7 +633,6 @@
 		0006F633122E5AA6001DA2BB /* glmtest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = glmtest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0006F7AB122E90FD001DA2BB /* pseudoStimulusDataBlock.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = pseudoStimulusDataBlock.edl; sourceTree = "<group>"; };
 		0006F7AC122E90FD001DA2BB /* rtExperiment_v14_simplified.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rtExperiment_v14_simplified.xsd; sourceTree = "<group>"; };
-		00198337146003B4006F8E27 /* BARTSerialIOPluginEyeTrac.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = BARTSerialIOPluginEyeTrac.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		0023CBB013EAC186006303B6 /* NELogFormatterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NELogFormatterTest.h; sourceTree = "<group>"; };
 		0023CBB113EAC186006303B6 /* NELogFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NELogFormatterTest.m; sourceTree = "<group>"; };
 		0023CBB213EAC186006303B6 /* NEMediaObjectTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NEMediaObjectTest.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -651,7 +696,6 @@
 		0041E4AE13E805FF00169848 /* NED.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = NED.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		0041E4AF13E805FF00169848 /* CLETUS.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = CLETUS.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		0041E4B013E805FF00169848 /* EDNA.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = EDNA.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		004ABB5E137887AC00B13077 /* BARTSerialIOFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BARTSerialIOFramework.framework; path = /Users/Lydi/Library/Frameworks/BARTSerialIOFramework.framework; sourceTree = "<absolute>"; };
 		0056D7D112D3354D002AC73F /* designtest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = designtest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0056D7E512D335D4002AC73F /* designtest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = designtest.h; sourceTree = "<group>"; };
 		005B604411D3812400812781 /* isis_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = isis_test; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -676,7 +720,6 @@
 		00709ED112EA04A5006389C4 /* erDesignTest03_deriv1Reg1_3.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest03_deriv1Reg1_3.edl; sourceTree = "<group>"; };
 		00709ED312EA04A5006389C4 /* erDesignTest05_deriv2Reg2_4.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest05_deriv2Reg2_4.edl; sourceTree = "<group>"; };
 		00709ED412EA04A5006389C4 /* erDesignTest06_parametric.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = erDesignTest06_parametric.edl; sourceTree = "<group>"; };
-		007529D61525FF5C00BBCBD6 /* BARTSerialIOFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BARTSerialIOFramework.framework; path = ../runtime/BART_workspace/Build/Products/Release/BARTSerialIOFramework.framework; sourceTree = "<group>"; };
 		0076642A150F9CD50090895F /* myNewScenario.edl */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = myNewScenario.edl; path = ../tests/NEDTests/myNewScenario.edl; sourceTree = "<group>"; };
 		00786E1013EEC80E00BF2554 /* NEPresentationExternalConditionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEPresentationExternalConditionController.h; sourceTree = "<group>"; };
 		00786E1113EEC80E00BF2554 /* NEPresentationExternalConditionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEPresentationExternalConditionController.m; sourceTree = "<group>"; };
@@ -729,8 +772,6 @@
 		00C3A0021144FBEF00725668 /* COSystemConfigTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = COSystemConfigTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		00C3A07F114510CE00725668 /* Init_Links_1.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Init_Links_1.edl; sourceTree = "<group>"; };
 		00C3A080114510CE00725668 /* rtExperiment_v14.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rtExperiment_v14.xsd; sourceTree = "<group>"; };
-		00D44164134B57E600094A51 /* libvia.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvia.dylib; path = /usr/local/lib/libvia.dylib; sourceTree = "<absolute>"; };
-		00D44166134B57E600094A51 /* libviaio.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libviaio.dylib; path = /usr/local/lib/libviaio.dylib; sourceTree = "<absolute>"; };
 		00DB76B413E84B6C00BB6484 /* libPRINCE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPRINCE.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		00DB77D313EA8AD500BB6484 /* NELogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NELogFormatter.h; sourceTree = "<group>"; };
 		00DB77D413EA8AD500BB6484 /* NELogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NELogFormatter.m; sourceTree = "<group>"; };
@@ -839,14 +880,99 @@
 		A74EB36B1525B0BB00AC7C59 /* RORegistrationMethodTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistrationMethodTest.mm; sourceTree = "<group>"; };
 		A74EB36E1525B0BB00AC7C59 /* TROYTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TROYTests.h; sourceTree = "<group>"; };
 		A74EB36F1525B0BB00AC7C59 /* TROYTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TROYTests.m; sourceTree = "<group>"; };
-		A74EB3741525B17A00AC7C59 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = SDKs/MacOSX10.6.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		A74EB3781525B7A600AC7C59 /* TROYTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TROYTests-Info.plist"; path = "../../projects/TROYTests-Info.plist"; sourceTree = "<group>"; };
 		CE8A2A3910F61713002422B5 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		CE8B709110DA988F007AEB2B /* BARTApplication.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BARTApplication.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED191F110AC8A5300FAFA4F /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		CED191F510AC8A7B00FAFA4F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		CED1922910AC8AD600FAFA4F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
+		E50238E61577A533009072E2 /* Hierarchy Element Icon Experiment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon Experiment.png"; path = "../src/BARTMainApp/Hierarchy Element Icon Experiment.png"; sourceTree = "<group>"; };
+		E50238E71577A533009072E2 /* Hierarchy Element Icon M.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon M.png"; path = "../src/BARTMainApp/Hierarchy Element Icon M.png"; sourceTree = "<group>"; };
+		E50238E81577A533009072E2 /* Hierarchy Element Icon Session.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon Session.png"; path = "../src/BARTMainApp/Hierarchy Element Icon Session.png"; sourceTree = "<group>"; };
+		E50238E91577A533009072E2 /* Hierarchy Element Icon Step.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon Step.png"; path = "../src/BARTMainApp/Hierarchy Element Icon Step.png"; sourceTree = "<group>"; };
+		E50239031577AEA2009072E2 /* Hierarchy Element Icon Unknown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon Unknown.png"; path = "../src/BARTMainApp/Hierarchy Element Icon Unknown.png"; sourceTree = "<group>"; };
+		E50AD5A415822E03001A8154 /* BASimulationDataProviderStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASimulationDataProviderStep.h; sourceTree = "<group>"; };
+		E50AD5A515822E03001A8154 /* BASimulationDataProviderStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASimulationDataProviderStep.m; sourceTree = "<group>"; };
+		E50AD5A715823013001A8154 /* BASimulationDataProviderConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASimulationDataProviderConfigViewController.h; sourceTree = "<group>"; };
+		E50AD5A815823013001A8154 /* BASimulationDataProviderConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASimulationDataProviderConfigViewController.m; sourceTree = "<group>"; };
+		E50AD5A915823013001A8154 /* BASimulationDataProviderConfigView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BASimulationDataProviderConfigView.xib; sourceTree = "<group>"; };
+		E50AD5AC1585FAA0001A8154 /* BASimulationDataProviderExecutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASimulationDataProviderExecutionViewController.h; sourceTree = "<group>"; };
+		E50AD5AD1585FAA0001A8154 /* BASimulationDataProviderExecutionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASimulationDataProviderExecutionViewController.m; sourceTree = "<group>"; };
+		E50AD5AE1585FAA0001A8154 /* BASimulationDataProviderExecutionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BASimulationDataProviderExecutionView.xib; sourceTree = "<group>"; };
+		E50AD5B115861063001A8154 /* AnalysisTest001TreeDescription.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = AnalysisTest001TreeDescription.xml; path = ../src/BARTMainApp/AnalysisTest001TreeDescription.xml; sourceTree = "<group>"; };
+		E52D721E15627C9B002E73CB /* BAHierarchyElementContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyElementContentViewController.h; sourceTree = "<group>"; };
+		E52D721F15627C9B002E73CB /* BAHierarchyElementContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyElementContentViewController.m; sourceTree = "<group>"; };
+		E5440C0D158A40F300AC541F /* BAHierarchyTreeStateCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyTreeStateCellView.h; sourceTree = "<group>"; };
+		E5440C0E158A40F300AC541F /* BAHierarchyTreeStateCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeStateCellView.m; sourceTree = "<group>"; };
 		E54934E21339151E003264FE /* EDDataElementRealTimeLoader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EDDataElementRealTimeLoader.mm; sourceTree = "<group>"; };
+		E54B814A157E3F580029ECC4 /* BAHierarchyElementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyElementViewController.h; sourceTree = "<group>"; };
+		E54B814B157E3F580029ECC4 /* BAHierarchyElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyElementViewController.m; sourceTree = "<group>"; };
+		E54B814F157E40030029ECC4 /* BAExampleStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAExampleStep.h; sourceTree = "<group>"; };
+		E54B8150157E40030029ECC4 /* BAExampleStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAExampleStep.m; sourceTree = "<group>"; };
+		E54B8153157E40600029ECC4 /* BAExampleStepConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAExampleStepConfigViewController.h; sourceTree = "<group>"; };
+		E54B8154157E40600029ECC4 /* BAExampleStepConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAExampleStepConfigViewController.m; sourceTree = "<group>"; };
+		E54B8155157E40600029ECC4 /* BAExampleStepConfigView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BAExampleStepConfigView.xib; sourceTree = "<group>"; };
+		E54B8158157F751D0029ECC4 /* BAEmptyElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BAEmptyElementView.xib; sourceTree = "<group>"; };
+		E54B815A157F76AA0029ECC4 /* Luigi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Luigi.png; path = ../src/BARTMainApp/Luigi.png; sourceTree = "<group>"; };
+		E55B2D79154989FE007A0452 /* BARTSerialIOFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BARTSerialIOFramework.framework; path = ../../DerivedData/BartGUI/Build/Products/Debug/BARTSerialIOFramework.framework; sourceTree = "<group>"; };
+		E55B2DA3154AC27B007A0452 /* libvia.1.6.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvia.1.6.0.dylib; path = /usr/lib/libvia.1.6.0.dylib; sourceTree = "<absolute>"; };
+		E55B2DA4154AC27B007A0452 /* libviaio.1.6.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libviaio.1.6.0.dylib; path = /usr/lib/libviaio.1.6.0.dylib; sourceTree = "<absolute>"; };
+		E55B2DB1154ACEED007A0452 /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3.a; path = ../../../../../../usr/lib/libfftw3.a; sourceTree = "<group>"; };
+		E562D7E4156156B300DE5631 /* BAHierarchyElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyElement.h; sourceTree = "<group>"; };
+		E562D7E5156156B300DE5631 /* BAHierarchyElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyElement.m; sourceTree = "<group>"; };
+		E562D7E71561586700DE5631 /* BASession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASession.h; sourceTree = "<group>"; };
+		E562D7E81561586700DE5631 /* BASession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASession.m; sourceTree = "<group>"; };
+		E562D7EA156158AC00DE5631 /* BAExperiment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAExperiment.h; sourceTree = "<group>"; };
+		E562D7EB156158AC00DE5631 /* BAExperiment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAExperiment.m; sourceTree = "<group>"; };
+		E562D7ED156158DC00DE5631 /* BAStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAStep.h; sourceTree = "<group>"; };
+		E562D7EE156158DC00DE5631 /* BAStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAStep.m; sourceTree = "<group>"; };
+		E562D7F015615CF900DE5631 /* Luigi.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Luigi.xib; sourceTree = "<group>"; };
+		E56CFEB51562D0F100CA9CC4 /* BAHierarchyTreeContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyTreeContext.h; sourceTree = "<group>"; };
+		E56CFEB61562D0F100CA9CC4 /* BAHierarchyTreeContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeContext.m; sourceTree = "<group>"; };
+		E56CFEBC1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyTreeDescriptionCellView.h; sourceTree = "<group>"; };
+		E56CFEBD1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeDescriptionCellView.m; sourceTree = "<group>"; };
+		E5799B1415CFFC15009C0F31 /* RTAnalysisExperiment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTAnalysisExperiment.h; sourceTree = "<group>"; };
+		E5799B1515CFFC15009C0F31 /* RTAnalysisExperiment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTAnalysisExperiment.m; sourceTree = "<group>"; };
+		E5799B1715D00723009C0F31 /* FirstEverExampleExperiment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstEverExampleExperiment.h; sourceTree = "<group>"; };
+		E5799B1815D00723009C0F31 /* FirstEverExampleExperiment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstEverExampleExperiment.m; sourceTree = "<group>"; };
+		E57D97EE15C67F4F00E3D1C3 /* mainExp_Feedback_detrend_TR2000.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = mainExp_Feedback_detrend_TR2000.edl; path = ../src/BARTMainApp/mainExp_Feedback_detrend_TR2000.edl; sourceTree = "<group>"; };
+		E57D97EF15C67F4F00E3D1C3 /* preScan_TR2000.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = preScan_TR2000.edl; path = ../src/BARTMainApp/preScan_TR2000.edl; sourceTree = "<group>"; };
+		E57D97F915C6C74400E3D1C3 /* AddExperimentAccessoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddExperimentAccessoryView.xib; sourceTree = "<group>"; };
+		E57D97FB15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = BAAddExperimentAccessoryViewController.h; sourceTree = "<group>"; };
+		E57D97FC15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAAddExperimentAccessoryViewController.m; sourceTree = "<group>"; };
+		E597FE4815937BDF0065A28C /* BASessionTreeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASessionTreeController.h; sourceTree = "<group>"; };
+		E597FE4915937BDF0065A28C /* BASessionTreeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASessionTreeController.m; sourceTree = "<group>"; };
+		E597FE4C1594BABC0065A28C /* BASession2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASession2.h; sourceTree = "<group>"; };
+		E597FE4D1594BABC0065A28C /* BASession2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASession2.m; sourceTree = "<group>"; };
+		E597FE4F1594BAD40065A28C /* BAExperiment2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAExperiment2.h; sourceTree = "<group>"; };
+		E597FE501594BAD40065A28C /* BAExperiment2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAExperiment2.m; sourceTree = "<group>"; };
+		E597FE521594BAEA0065A28C /* BAStep2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAStep2.h; sourceTree = "<group>"; };
+		E597FE531594BAEA0065A28C /* BAStep2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAStep2.m; sourceTree = "<group>"; };
+		E597FE551594C4580065A28C /* BAConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BAConstants.h; sourceTree = "<group>"; };
+		E5A085F6158F3286002871AA /* BAHierarchyTreeContextMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyTreeContextMenuController.h; sourceTree = "<group>"; };
+		E5A085F7158F3286002871AA /* BAHierarchyTreeContextMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeContextMenuController.m; sourceTree = "<group>"; };
+		E5A085FE1590A9C4002871AA /* BigLuigi.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BigLuigi.xib; path = ../src/BARTMainApp/BigLuigi.xib; sourceTree = "<group>"; };
+		E5A086001591CD44002871AA /* runner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = runner.png; path = ../src/BARTMainApp/runner.png; sourceTree = "<group>"; };
+		E5A8593B1599E07A00348C6D /* BASessionContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BASessionContext.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		E5A8593C1599E07A00348C6D /* BASessionContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BASessionContext.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		E5D075371562B4C60058791E /* BAHierarchyTreeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAHierarchyTreeController.h; sourceTree = "<group>"; };
+		E5D075381562B4C60058791E /* BAHierarchyTreeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAHierarchyTreeController.m; sourceTree = "<group>"; };
+		E5D87BBA15BDAE4000532A1F /* BASessionTreeDescriptionCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASessionTreeDescriptionCellView.h; sourceTree = "<group>"; };
+		E5D87BBB15BDAE4000532A1F /* BASessionTreeDescriptionCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASessionTreeDescriptionCellView.m; sourceTree = "<group>"; };
+		E5D87BBD15C002F200532A1F /* BASessionTreeStateCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASessionTreeStateCellView.h; sourceTree = "<group>"; };
+		E5D87BBE15C002F200532A1F /* BASessionTreeStateCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASessionTreeStateCellView.m; sourceTree = "<group>"; };
+		E5E7BF80154EBE9900D093E4 /* BARTSerialIOPluginFTDITriggerButton.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = BARTSerialIOPluginFTDITriggerButton.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5E7BF82154EBEE100D093E4 /* BARTSerialIOPluginEyeTrac.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = BARTSerialIOPluginEyeTrac.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5E7BF84154EBF2A00D093E4 /* BARTSerialIOPluginEyeTrac.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = BARTSerialIOPluginEyeTrac.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5ED3A6215920C3D00489E35 /* BAMainToolbarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAMainToolbarController.h; sourceTree = "<group>"; };
+		E5ED3A6315920C3D00489E35 /* BAMainToolbarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAMainToolbarController.m; sourceTree = "<group>"; };
+		E5ED3A6915932C0500489E35 /* Hierarchy Element Icon Experiment Template.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Hierarchy Element Icon Experiment Template.png"; path = "../src/BARTMainApp/Hierarchy Element Icon Experiment Template.png"; sourceTree = "<group>"; };
+		E5ED3A6B1593432300489E35 /* BASessionTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASessionTreeNode.h; sourceTree = "<group>"; };
+		E5ED3A6C1593432300489E35 /* BASessionTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASessionTreeNode.m; sourceTree = "<group>"; };
+		E5ED3A7215934F3700489E35 /* SessionTreeNodeIconExperiment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SessionTreeNodeIconExperiment.png; path = ../src/BARTMainApp/SessionTreeNodeIconExperiment.png; sourceTree = "<group>"; };
+		E5ED3A7315934F3700489E35 /* SessionTreeNodeIconSession.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SessionTreeNodeIconSession.png; path = ../src/BARTMainApp/SessionTreeNodeIconSession.png; sourceTree = "<group>"; };
+		E5ED3A7415934F3700489E35 /* SessionTreeNodeIconStep.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SessionTreeNodeIconStep.png; path = ../src/BARTMainApp/SessionTreeNodeIconStep.png; sourceTree = "<group>"; };
+		E5ED3A7515934F3700489E35 /* SessionTreeNodeIconUnknown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SessionTreeNodeIconUnknown.png; path = ../src/BARTMainApp/SessionTreeNodeIconUnknown.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -854,7 +980,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A74EB3751525B17A00AC7C59 /* Cocoa.framework in Frameworks */,
 				A713AA091445CF1600BBF150 /* EDNA.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -863,7 +988,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A74EB3771525B20400AC7C59 /* Cocoa.framework in Frameworks */,
 				A74EB3761525B1F600AC7C59 /* TROY.dylib in Frameworks */,
 				A75A5D64140689F900514CD3 /* EDNA.dylib in Frameworks */,
 			);
@@ -874,8 +998,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				00673D3A13FC1F640056BD4F /* EDNA.dylib in Frameworks */,
-				00E63B85135325D500DC8A50 /* libvia.dylib in Frameworks */,
-				00E63B86135325D500DC8A50 /* libviaio.dylib in Frameworks */,
+				E55B2DA7154AC27B007A0452 /* libvia.1.6.0.dylib in Frameworks */,
+				E55B2DAA154AC27B007A0452 /* libviaio.1.6.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -916,8 +1040,6 @@
 				00673D6413FD7BF60056BD4F /* libfftw3.dylib in Frameworks */,
 				00673D6513FD7C210056BD4F /* CLETUS.dylib in Frameworks */,
 				00673D6613FD7C310056BD4F /* NED.dylib in Frameworks */,
-				00673D6313FD7BF20056BD4F /* libviaio.dylib in Frameworks */,
-				00673D6213FD7BF00056BD4F /* libvia.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -927,8 +1049,6 @@
 			files = (
 				A7763C54143B09A500457A99 /* TROY.dylib in Frameworks */,
 				0016102A134B200800373D77 /* Cocoa.framework in Frameworks */,
-				00D444DC134DEB4100094A51 /* libvia.dylib in Frameworks */,
-				00D444DD134DEB4200094A51 /* libviaio.dylib in Frameworks */,
 				00673D3F13FD4A670056BD4F /* EDNA.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -954,8 +1074,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E55B2DAE154ACE7E007A0452 /* BARTSerialIOFramework.framework in Frameworks */,
 				0041E41D13E8057C00169848 /* AppKit.framework in Frameworks */,
-				00786E1813EEE08000BF2554 /* BARTSerialIOFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -963,7 +1083,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				007529D71525FF5C00BBCBD6 /* BARTSerialIOFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -971,8 +1090,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00D44167134B57E600094A51 /* libviaio.dylib in Frameworks */,
-				00D44165134B57E600094A51 /* libvia.dylib in Frameworks */,
 				00D441BA134B59D600094A51 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -981,10 +1098,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E55B2DB2154ACEED007A0452 /* libfftw3.a in Frameworks */,
+				E55B2DAF154ACEC0007A0452 /* libvia.1.6.0.dylib in Frameworks */,
+				E55B2DB0154ACEC0007A0452 /* libviaio.1.6.0.dylib in Frameworks */,
 				0041E4B113E819A600169848 /* CLETUS.dylib in Frameworks */,
-				00EA8A36135C6FFF00562F3B /* libfftw3.dylib in Frameworks */,
-				00EA8E11135D88E000562F3B /* libgslcblas.dylib in Frameworks */,
-				00EA8E13135D88E100562F3B /* libgsl.0.dylib in Frameworks */,
 				00DB784913EA8CAD00BB6484 /* Foundation.framework in Frameworks */,
 				00DB784C13EA8CF200BB6484 /* QuartzCore.framework in Frameworks */,
 				00DB784D13EA8D6600BB6484 /* QTKit.framework in Frameworks */,
@@ -996,9 +1113,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				007A6DB313E81CC700F5DE58 /* NED.dylib in Frameworks */,
-				007A6DB113E81CB700F5DE58 /* EDNA.dylib in Frameworks */,
-				007A6DB213E81CBC00F5DE58 /* CLETUS.dylib in Frameworks */,
+				E55B2D7A154989FE007A0452 /* BARTSerialIOFramework.framework in Frameworks */,
+				E5A5B9CC15497FE700A7AA4F /* CLETUS.dylib in Frameworks */,
+				E5A5B9CD15497FE700A7AA4F /* EDNA.dylib in Frameworks */,
+				E5A5B9CE15497FE700A7AA4F /* NED.dylib in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				CE8A28C510F51058002422B5 /* QuartzCore.framework in Frameworks */,
 				CE8A28D410F5121D002422B5 /* OpenGL.framework in Frameworks */,
@@ -1006,11 +1124,8 @@
 				CE8A28D610F5121F002422B5 /* Foundation.framework in Frameworks */,
 				CE8A28D710F5121F002422B5 /* CoreData.framework in Frameworks */,
 				CE8A2A3A10F61713002422B5 /* Quartz.framework in Frameworks */,
-				00C730B61369F03500FC8546 /* libvia.dylib in Frameworks */,
-				00138AE613E81D200069E625 /* libgslcblas.dylib in Frameworks */,
-				00138AE813E81D260069E625 /* libgsl.0.dylib in Frameworks */,
-				00138AE713E81D240069E625 /* libfftw3.dylib in Frameworks */,
-				00C730B71369F03600FC8546 /* libviaio.dylib in Frameworks */,
+				E55B2DA5154AC27B007A0452 /* libvia.1.6.0.dylib in Frameworks */,
+				E55B2DA8154AC27B007A0452 /* libviaio.1.6.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1023,8 +1138,6 @@
 				00673D3713FC1E9D0056BD4F /* EDNA.dylib in Frameworks */,
 				0006F57E122D5510001DA2BB /* libgslcblas.dylib in Frameworks */,
 				0006F580122D5512001DA2BB /* libgsl.0.dylib in Frameworks */,
-				00EA8DDA135D871A00562F3B /* libvia.dylib in Frameworks */,
-				00EA8DDB135D871B00562F3B /* libviaio.dylib in Frameworks */,
 				00EA8DF2135D879B00562F3B /* libfftw3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1153,6 +1266,8 @@
 				00AE3E0B1337980800F2D01D /* View */,
 				00AE3E0A1337980200F2D01D /* Model */,
 				00AE3E09133797FA00F2D01D /* Controller */,
+				E5799B1215CFFBCB009C0F31 /* Experiment Implementations */,
+				E54B814E157E3FB50029ECC4 /* Element Implementations */,
 				0040B8631141483B00A57967 /* CIKernels */,
 				0040B7F81141470400A57967 /* main.m */,
 			);
@@ -1287,8 +1402,8 @@
 		006E07711190293C00CEEF38 /* vista */ = {
 			isa = PBXGroup;
 			children = (
-				00D44164134B57E600094A51 /* libvia.dylib */,
-				00D44166134B57E600094A51 /* libviaio.dylib */,
+				E55B2DA3154AC27B007A0452 /* libvia.1.6.0.dylib */,
+				E55B2DA4154AC27B007A0452 /* libviaio.1.6.0.dylib */,
 			);
 			name = vista;
 			sourceTree = "<group>";
@@ -1324,6 +1439,20 @@
 			children = (
 				0040B7EF1141470400A57967 /* BARTApplicationAppDelegate.h */,
 				0040B7F01141470400A57967 /* BARTApplicationAppDelegate.m */,
+				E52D721E15627C9B002E73CB /* BAHierarchyElementContentViewController.h */,
+				E52D721F15627C9B002E73CB /* BAHierarchyElementContentViewController.m */,
+				E5D075371562B4C60058791E /* BAHierarchyTreeController.h */,
+				E5D075381562B4C60058791E /* BAHierarchyTreeController.m */,
+				E54B814A157E3F580029ECC4 /* BAHierarchyElementViewController.h */,
+				E54B814B157E3F580029ECC4 /* BAHierarchyElementViewController.m */,
+				E5A085F6158F3286002871AA /* BAHierarchyTreeContextMenuController.h */,
+				E5A085F7158F3286002871AA /* BAHierarchyTreeContextMenuController.m */,
+				E5ED3A6215920C3D00489E35 /* BAMainToolbarController.h */,
+				E5ED3A6315920C3D00489E35 /* BAMainToolbarController.m */,
+				E597FE4815937BDF0065A28C /* BASessionTreeController.h */,
+				E597FE4915937BDF0065A28C /* BASessionTreeController.m */,
+				E57D97FB15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewController.h */,
+				E57D97FC15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1351,6 +1480,27 @@
 				0023CBD213EAC484006303B6 /* BAProcedureStep_Analysis.m */,
 				0023CBD413EAC4B3006303B6 /* BAProcedureStep_Feedback.h */,
 				0023CBD513EAC4B3006303B6 /* BAProcedureStep_Feedback.m */,
+				E562D7E4156156B300DE5631 /* BAHierarchyElement.h */,
+				E562D7E5156156B300DE5631 /* BAHierarchyElement.m */,
+				E562D7E71561586700DE5631 /* BASession.h */,
+				E562D7E81561586700DE5631 /* BASession.m */,
+				E562D7EA156158AC00DE5631 /* BAExperiment.h */,
+				E562D7EB156158AC00DE5631 /* BAExperiment.m */,
+				E562D7ED156158DC00DE5631 /* BAStep.h */,
+				E562D7EE156158DC00DE5631 /* BAStep.m */,
+				E56CFEB51562D0F100CA9CC4 /* BAHierarchyTreeContext.h */,
+				E56CFEB61562D0F100CA9CC4 /* BAHierarchyTreeContext.m */,
+				E5ED3A6B1593432300489E35 /* BASessionTreeNode.h */,
+				E5ED3A6C1593432300489E35 /* BASessionTreeNode.m */,
+				E597FE4C1594BABC0065A28C /* BASession2.h */,
+				E597FE4D1594BABC0065A28C /* BASession2.m */,
+				E597FE4F1594BAD40065A28C /* BAExperiment2.h */,
+				E597FE501594BAD40065A28C /* BAExperiment2.m */,
+				E5A8593B1599E07A00348C6D /* BASessionContext.h */,
+				E5A8593C1599E07A00348C6D /* BASessionContext.m */,
+				E597FE521594BAEA0065A28C /* BAStep2.h */,
+				E597FE531594BAEA0065A28C /* BAStep2.m */,
+				E597FE551594C4580065A28C /* BAConstants.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1362,6 +1512,14 @@
 				0040B7B21141470400A57967 /* BAGUIProtoCGLayer.m */,
 				0040B7B31141470400A57967 /* BAGUIPrototyp.h */,
 				0040B7B41141470400A57967 /* BAGUIPrototyp.m */,
+				E56CFEBC1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.h */,
+				E56CFEBD1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.m */,
+				E5440C0D158A40F300AC541F /* BAHierarchyTreeStateCellView.h */,
+				E5440C0E158A40F300AC541F /* BAHierarchyTreeStateCellView.m */,
+				E5D87BBA15BDAE4000532A1F /* BASessionTreeDescriptionCellView.h */,
+				E5D87BBB15BDAE4000532A1F /* BASessionTreeDescriptionCellView.m */,
+				E5D87BBD15C002F200532A1F /* BASessionTreeStateCellView.h */,
+				E5D87BBE15C002F200532A1F /* BASessionTreeStateCellView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1567,11 +1725,6 @@
 		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
 			isa = PBXGroup;
 			children = (
-				007529D61525FF5C00BBCBD6 /* BARTSerialIOFramework.framework */,
-				A74EB3741525B17A00AC7C59 /* Cocoa.framework */,
-				0076642A150F9CD50090895F /* myNewScenario.edl */,
-				00198337146003B4006F8E27 /* BARTSerialIOPluginEyeTrac.bundle */,
-				00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */,
 				0040B78F1141470400A57967 /* docs */,
 				0040B7921141470400A57967 /* src */,
 				0040B8521141472200A57967 /* tests */,
@@ -1579,7 +1732,14 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				E55B2D79154989FE007A0452 /* BARTSerialIOFramework.framework */,
+				E5E7BF84154EBF2A00D093E4 /* BARTSerialIOPluginEyeTrac.bundle */,
+				E5E7BF82154EBEE100D093E4 /* BARTSerialIOPluginEyeTrac.bundle */,
+				E5E7BF80154EBE9900D093E4 /* BARTSerialIOPluginFTDITriggerButton.bundle */,
+				00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */,
 				00664BF112ABF71D005216E6 /* PRINCE-Info.plist */,
+				E55B2DB1154ACEED007A0452 /* libfftw3.a */,
+				0076642A150F9CD50090895F /* myNewScenario.edl */,
 			);
 			name = BARTApplication;
 			sourceTree = "<group>";
@@ -1595,11 +1755,29 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E5ED3A7215934F3700489E35 /* SessionTreeNodeIconExperiment.png */,
+				E5ED3A7315934F3700489E35 /* SessionTreeNodeIconSession.png */,
+				E5ED3A7415934F3700489E35 /* SessionTreeNodeIconStep.png */,
+				E5ED3A7515934F3700489E35 /* SessionTreeNodeIconUnknown.png */,
+				E5ED3A6915932C0500489E35 /* Hierarchy Element Icon Experiment Template.png */,
+				E50239031577AEA2009072E2 /* Hierarchy Element Icon Unknown.png */,
+				E50238E61577A533009072E2 /* Hierarchy Element Icon Experiment.png */,
+				E50238E71577A533009072E2 /* Hierarchy Element Icon M.png */,
+				E50238E81577A533009072E2 /* Hierarchy Element Icon Session.png */,
+				E50238E91577A533009072E2 /* Hierarchy Element Icon Step.png */,
+				E5A086001591CD44002871AA /* runner.png */,
+				E54B815A157F76AA0029ECC4 /* Luigi.png */,
 				0040B9B1114173BD00A57967 /* BARTUnitTestSuite-Info.plist */,
 				8D1107310486CEB800E47090 /* BARTApplication-Info.plist */,
+				006E842E15206ED400C05466 /* ConfigBARTApplication.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
-				006E842E15206ED400C05466 /* ConfigBARTApplication.plist */,
+				E562D7F015615CF900DE5631 /* Luigi.xib */,
+				E5A085FE1590A9C4002871AA /* BigLuigi.xib */,
+				E50AD5B115861063001A8154 /* AnalysisTest001TreeDescription.xml */,
+				E57D97EE15C67F4F00E3D1C3 /* mainExp_Feedback_detrend_TR2000.edl */,
+				E57D97EF15C67F4F00E3D1C3 /* preScan_TR2000.edl */,
+				E57D97F915C6C74400E3D1C3 /* AddExperimentAccessoryView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1617,7 +1795,6 @@
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				0041E3F013E8025300169848 /* Cocoa.framework */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
-				004ABB5E137887AC00B13077 /* BARTSerialIOFramework.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1656,6 +1833,54 @@
 				A74EB36F1525B0BB00AC7C59 /* TROYTests.m */,
 			);
 			path = TROYTests;
+			sourceTree = "<group>";
+		};
+		E50AD5A315821BDF001A8154 /* Simulation Data Provider */ = {
+			isa = PBXGroup;
+			children = (
+				E50AD5A415822E03001A8154 /* BASimulationDataProviderStep.h */,
+				E50AD5A515822E03001A8154 /* BASimulationDataProviderStep.m */,
+				E50AD5A715823013001A8154 /* BASimulationDataProviderConfigViewController.h */,
+				E50AD5A815823013001A8154 /* BASimulationDataProviderConfigViewController.m */,
+				E50AD5A915823013001A8154 /* BASimulationDataProviderConfigView.xib */,
+				E50AD5AC1585FAA0001A8154 /* BASimulationDataProviderExecutionViewController.h */,
+				E50AD5AD1585FAA0001A8154 /* BASimulationDataProviderExecutionViewController.m */,
+				E50AD5AE1585FAA0001A8154 /* BASimulationDataProviderExecutionView.xib */,
+			);
+			name = "Simulation Data Provider";
+			sourceTree = "<group>";
+		};
+		E54B814E157E3FB50029ECC4 /* Element Implementations */ = {
+			isa = PBXGroup;
+			children = (
+				E54B8158157F751D0029ECC4 /* BAEmptyElementView.xib */,
+				E54B8152157E40170029ECC4 /* Example Step */,
+				E50AD5A315821BDF001A8154 /* Simulation Data Provider */,
+			);
+			name = "Element Implementations";
+			sourceTree = "<group>";
+		};
+		E54B8152157E40170029ECC4 /* Example Step */ = {
+			isa = PBXGroup;
+			children = (
+				E54B814F157E40030029ECC4 /* BAExampleStep.h */,
+				E54B8150157E40030029ECC4 /* BAExampleStep.m */,
+				E54B8153157E40600029ECC4 /* BAExampleStepConfigViewController.h */,
+				E54B8154157E40600029ECC4 /* BAExampleStepConfigViewController.m */,
+				E54B8155157E40600029ECC4 /* BAExampleStepConfigView.xib */,
+			);
+			name = "Example Step";
+			sourceTree = "<group>";
+		};
+		E5799B1215CFFBCB009C0F31 /* Experiment Implementations */ = {
+			isa = PBXGroup;
+			children = (
+				E5799B1415CFFC15009C0F31 /* RTAnalysisExperiment.h */,
+				E5799B1515CFFC15009C0F31 /* RTAnalysisExperiment.m */,
+				E5799B1715D00723009C0F31 /* FirstEverExampleExperiment.h */,
+				E5799B1815D00723009C0F31 /* FirstEverExampleExperiment.m */,
+			);
+			name = "Experiment Implementations";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1716,9 +1941,9 @@
 			files = (
 				00E0434A13E6A53F006B17B0 /* EDDataElement.h in Headers */,
 				00D4418A134B587500094A51 /* EDDataElementRealTimeLoader.h in Headers */,
+				E55B2DAD154ACD68007A0452 /* EDDataElementVI.h in Headers */,
 				00D44187134B587200094A51 /* EDDataElementIsis.h in Headers */,
 				00D4418B134B587600094A51 /* EDDataElementIsisRealTime.h in Headers */,
-				A744B0C713FD445300F4B13D /* EDDataElementVI.h in Headers */,
 				00EA8ED7135F02DA00562F3B /* EDIsisImage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1960,6 +2185,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				E55B2D881549ADC3007A0452 /* PBXTargetDependency */,
 			);
 			name = CLETUS;
 			productName = CLETUS;
@@ -2183,6 +2409,27 @@
 				00673D4413FD75C80056BD4F /* TestDataset02-functional.nii in Resources */,
 				004E8DB2140283AE00D70294 /* PresentationControl.xib in Resources */,
 				006E842F15206ED400C05466 /* ConfigBARTApplication.plist in Resources */,
+				E50238EA1577A533009072E2 /* Hierarchy Element Icon Experiment.png in Resources */,
+				E50238EB1577A533009072E2 /* Hierarchy Element Icon M.png in Resources */,
+				E50238EC1577A533009072E2 /* Hierarchy Element Icon Session.png in Resources */,
+				E50238ED1577A533009072E2 /* Hierarchy Element Icon Step.png in Resources */,
+				E50239041577AEA2009072E2 /* Hierarchy Element Icon Unknown.png in Resources */,
+				E54B8157157E40600029ECC4 /* BAExampleStepConfigView.xib in Resources */,
+				E54B8159157F751D0029ECC4 /* BAEmptyElementView.xib in Resources */,
+				E54B815B157F76AA0029ECC4 /* Luigi.png in Resources */,
+				E50AD5AB15823013001A8154 /* BASimulationDataProviderConfigView.xib in Resources */,
+				E50AD5B01585FAA0001A8154 /* BASimulationDataProviderExecutionView.xib in Resources */,
+				E50AD5B215861063001A8154 /* AnalysisTest001TreeDescription.xml in Resources */,
+				E5A085FF1590A9C4002871AA /* BigLuigi.xib in Resources */,
+				E5A086011591CD44002871AA /* runner.png in Resources */,
+				E5ED3A6A15932C0500489E35 /* Hierarchy Element Icon Experiment Template.png in Resources */,
+				E5ED3A7615934F3700489E35 /* SessionTreeNodeIconExperiment.png in Resources */,
+				E5ED3A7715934F3700489E35 /* SessionTreeNodeIconSession.png in Resources */,
+				E5ED3A7815934F3700489E35 /* SessionTreeNodeIconStep.png in Resources */,
+				E5ED3A7915934F3700489E35 /* SessionTreeNodeIconUnknown.png in Resources */,
+				E57D97F015C67F4F00E3D1C3 /* mainExp_Feedback_detrend_TR2000.edl in Resources */,
+				E57D97F115C67F4F00E3D1C3 /* preScan_TR2000.edl in Resources */,
+				E57D97FA15C6C74400E3D1C3 /* AddExperimentAccessoryView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2448,8 +2695,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A744B0C513FD442200F4B13D /* EDDataElementVI.m in Sources */,
-				00E0434C13E6A901006B17B0 /* BlockIO.c in Sources */,
+				E55B2DAC154ACD5B007A0452 /* BlockIO.c in Sources */,
+				E55B2DAB154ACD4B007A0452 /* EDDataElementVI.m in Sources */,
 				00D44188134B587400094A51 /* EDDataElementIsis.mm in Sources */,
 				00D44189134B587400094A51 /* EDDataElementRealTimeLoader.mm in Sources */,
 				00D4418C134B587600094A51 /* EDDataElementIsisRealTime.mm in Sources */,
@@ -2517,6 +2764,34 @@
 				0023CBD013EAC45B006303B6 /* BAProcedureStep_Preprocessing.m in Sources */,
 				0023CBD313EAC484006303B6 /* BAProcedureStep_Analysis.m in Sources */,
 				0023CBD613EAC4B3006303B6 /* BAProcedureStep_Feedback.m in Sources */,
+				E562D7E6156156B300DE5631 /* BAHierarchyElement.m in Sources */,
+				E562D7E91561586700DE5631 /* BASession.m in Sources */,
+				E562D7EC156158AD00DE5631 /* BAExperiment.m in Sources */,
+				E562D7EF156158DC00DE5631 /* BAStep.m in Sources */,
+				E52D722015627C9B002E73CB /* BAHierarchyElementContentViewController.m in Sources */,
+				E5D075391562B4C60058791E /* BAHierarchyTreeController.m in Sources */,
+				E56CFEB71562D0F100CA9CC4 /* BAHierarchyTreeContext.m in Sources */,
+				E56CFEBE1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.m in Sources */,
+				E54B814C157E3F580029ECC4 /* BAHierarchyElementViewController.m in Sources */,
+				E54B8151157E40030029ECC4 /* BAExampleStep.m in Sources */,
+				E54B8156157E40600029ECC4 /* BAExampleStepConfigViewController.m in Sources */,
+				E50AD5A615822E03001A8154 /* BASimulationDataProviderStep.m in Sources */,
+				E50AD5AA15823013001A8154 /* BASimulationDataProviderConfigViewController.m in Sources */,
+				E50AD5AF1585FAA0001A8154 /* BASimulationDataProviderExecutionViewController.m in Sources */,
+				E5440C0F158A40F300AC541F /* BAHierarchyTreeStateCellView.m in Sources */,
+				E5A085F8158F3287002871AA /* BAHierarchyTreeContextMenuController.m in Sources */,
+				E5ED3A6415920C3D00489E35 /* BAMainToolbarController.m in Sources */,
+				E5ED3A6D1593432300489E35 /* BASessionTreeNode.m in Sources */,
+				E597FE4A15937BDF0065A28C /* BASessionTreeController.m in Sources */,
+				E597FE4E1594BABC0065A28C /* BASession2.m in Sources */,
+				E597FE511594BAD40065A28C /* BAExperiment2.m in Sources */,
+				E597FE541594BAEA0065A28C /* BAStep2.m in Sources */,
+				E5A8593D1599E07B00348C6D /* BASessionContext.m in Sources */,
+				E5D87BBC15BDAE4000532A1F /* BASessionTreeDescriptionCellView.m in Sources */,
+				E5D87BBF15C002F200532A1F /* BASessionTreeStateCellView.m in Sources */,
+				E57D97FD15C6C93A00E3D1C3 /* BAAddExperimentAccessoryViewController.m in Sources */,
+				E5799B1615CFFC15009C0F31 /* RTAnalysisExperiment.m in Sources */,
+				E5799B1915D00723009C0F31 /* FirstEverExampleExperiment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2640,6 +2915,11 @@
 			isa = PBXTargetDependency;
 			target = 00D4415F134B57BD00094A51 /* EDNA */;
 			targetProxy = A7D1B71514681684009A3335 /* PBXContainerItemProxy */;
+		};
+		E55B2D881549ADC3007A0452 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00D4415F134B57BD00094A51 /* EDNA */;
+			targetProxy = E55B2D871549ADC3007A0452 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3296,7 +3576,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../Library/Frameworks\"",
+					"\"$(SRCROOT)/../../DerivedData/BartGUI/Build/Products/Debug\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
@@ -3306,8 +3586,11 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/lib;
 				LD_DYLIB_INSTALL_NAME = "$(EXECUTABLE_PATH)";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = CLETUS;
 				TEMP_DIR = /tmp/doxygen_temp;
 				TEST_AFTER_BUILD = NO;
@@ -3326,15 +3609,18 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../Library/Frameworks\"",
+					"\"$(SRCROOT)/../../DerivedData/BartGUI/Build/Products/Debug\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/lib;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = CLETUS;
 				TEST_AFTER_BUILD = NO;
 				VALID_ARCHS = x86_64;
@@ -3415,22 +3701,20 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				HEADER_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = "$(inherited)/**";
 				INSTALL_PATH = /usr/local/lib;
 				LD_DYLIB_INSTALL_NAME = "$(EXECUTABLE_PATH)";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/lib,
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
 					Foundation,
 					"-framework",
 					AppKit,
-					"-lisis_core",
 					"-ObjC",
-					"-lboost_system-mt",
-					"-lboost_filesystem-mt",
-					"-lboost_regex-mt",
-					"-lboost_date_time-mt",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = EDNA;
@@ -3451,22 +3735,20 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				HEADER_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = "$(inherited)/**";
 				INSTALL_PATH = /usr/local/lib;
 				LD_DYLIB_INSTALL_NAME = "$(EXECUTABLE_PATH)";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/lib,
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
 					Foundation,
 					"-framework",
 					AppKit,
-					"-lisis_core",
 					"-ObjC",
-					"-lboost_system-mt",
-					"-lboost_filesystem-mt",
-					"-lboost_regex-mt",
-					"-lboost_date_time-mt",
 				);
 				PRODUCT_NAME = EDNA;
 				ZERO_LINK = NO;
@@ -3549,7 +3831,10 @@
 				DOXYGEN_CONFIG = ../docs/BARTApplicationDoxyfile;
 				DOXYGEN_OUTPUT = ../docs;
 				DOXYGEN_PATH = /opt/local/bin/doxygen;
-				FRAMEWORK_SEARCH_PATHS = $inherited;
+				FRAMEWORK_SEARCH_PATHS = (
+					$inherited,
+					"\"$(SRCROOT)/../../DerivedData/BartGUI/Build/Products/Debug\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -3564,10 +3849,11 @@
 					"$(inherited)",
 					"-lisis_core",
 					"-ObjC",
-					"-lboost_system-mt",
-					"-lboost_filesystem-mt",
-					"-lboost_regex-mt",
-					"-lboost_date_time-mt",
+					"-lboost_system",
+					"-lboost_filesystem",
+					"-lboost_regex",
+					"-lboost_date_time",
+					"-lgsl",
 				);
 				PRODUCT_NAME = BARTApplication;
 				SOURCE_ROOT = ../src;
@@ -3582,7 +3868,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = $inherited;
+				FRAMEWORK_SEARCH_PATHS = (
+					$inherited,
+					"\"$(SRCROOT)/../../DerivedData/BartGUI/Build/Products/Debug\"",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -3599,10 +3888,11 @@
 					"$(inherited)",
 					"-lisis_core",
 					"-ObjC",
-					"-lboost_system-mt",
-					"-lboost_filesystem-mt",
-					"-lboost_regex-mt",
-					"-lboost_date_time-mt",
+					"-lboost_system",
+					"-lboost_filesystem",
+					"-lboost_regex",
+					"-lboost_date_time",
+					"-lgsl",
 				);
 				PRODUCT_NAME = BARTApplication;
 			};
@@ -3620,7 +3910,7 @@
 					"\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"",
 					$HOME/Library/Frameworks,
 				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -3631,7 +3921,7 @@
 				);
 				GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1 = "BUILD_PATH=/tmp/test/";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
@@ -3648,8 +3938,8 @@
 					/usr/local/include/InsightToolkit/Utilities,
 					/opt/local/include,
 					/usr/include,
-					/usr/local/include/isis,
-					/opt/local/include/boost,
+					/usr/include/isis,
+					/usr/include/boost,
 					/usr/local/include,
 					/usr/local/lib/InsightToolkit,
 					/usr/local/include/InsightToolkit/Utilities/vxl/core,
@@ -3667,15 +3957,13 @@
 					/usr/X11/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
-					/usr/local/lib/InsightToolkit,
-					/usr/local/lib,
-					/opt/local/lib,
+					"/usr/lib/InsightToolkit/**",
 					/usr/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = "";
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = "-D_GLIBCXX_FULLY_DYNAMIC_STRING";
-				OTHER_CPLUSPLUSFLAGS = "-D_GLIBCXX_FULLY_DYNAMIC_STRING";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "";
+				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
 					"-lITKDICOMParser",
 					"-lITKEXPAT",
@@ -3716,6 +4004,7 @@
 				SDKROOT = "";
 				TEMP_DIR = /tmp/doxygen_temp;
 				TEST_HOST = "";
+				USER_HEADER_SEARCH_PATHS = /usr/include;
 				VALID_ARCHS = x86_64;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -3730,7 +4019,7 @@
 					"\"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Frameworks\"",
 					$HOME/Library/Frameworks,
 				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -3740,7 +4029,7 @@
 					"_GLIBCXX_FULLY_DYNAMIC_STRING=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
@@ -3751,8 +4040,8 @@
 					/usr/local/include/InsightToolkit/Utilities,
 					/opt/local/include,
 					/usr/include,
-					/usr/local/include/isis,
-					/opt/local/include/boost,
+					/usr/include/isis,
+					/usr/include/boost,
 					/usr/local/include,
 					/usr/local/lib/InsightToolkit,
 					/usr/local/include/InsightToolkit/Utilities/vxl/core,
@@ -3770,15 +4059,13 @@
 					/usr/X11/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
-					/usr/local/lib/InsightToolkit,
-					/usr/local/lib,
-					/opt/local/lib,
+					"/usr/lib/InsightToolkit/**",
 					/usr/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = "";
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = "-D_GLIBCXX_FULLY_DYNAMIC_STRING";
-				OTHER_CPLUSPLUSFLAGS = "-D_GLIBCXX_FULLY_DYNAMIC_STRING";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "";
+				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
 					"-lITKDICOMParser",
 					"-lITKEXPAT",
@@ -3817,6 +4104,7 @@
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = "";
+				USER_HEADER_SEARCH_PATHS = /usr/include;
 				VALID_ARCHS = x86_64;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

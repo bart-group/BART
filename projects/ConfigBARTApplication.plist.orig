@@ -3,12 +3,18 @@
 <plist version="1.0">
 <dict>
 	<key>edlFile</key>
+<<<<<<< HEAD
 	<string>/Users/Lydi/Development/BART/tests/NEDTests/testBARTWithTransferFunction.edl</string>
 	<key>dataSetForTest</key>
 	<string>/Users/Lydi/Development/BART/tests/BARTMainAppTests/testfiles/TestDataset02-functional_p.nii</string>
+=======
+	<string>/Users/torsten/Development/BartGUI/BART/tests/NEDTests/timeBasedRegressorNEDTest.edl</string>
+	<key>dataSetForTest</key>
+	<string>/Users/torsten/Development/BartGUI/BART/tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii</string>
 	<key>UseLuigi</key>
 	<string>YES</string>
 	<key>treeFile</key>
 	<string>/Users/torsten/Development/BartGUI/BART/src/BARTMainApp/AnalysisTest001TreeDescription.xml</string>
+>>>>>>> bart-group__ts_ui_development
 </dict>
 </plist>

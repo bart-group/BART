@@ -38,12 +38,24 @@
 //		self = [[NEDesignElementVI alloc] initWithFile:path];} 
 //    return self;
 //}
+
+-(id)initWithDataFromConfig:(COSystemConfig*)config
 {
-	if ((self = [super init])){
-		self = [[NEDesignElementVI alloc] initWithFile:path];} 
-    return self;
+    #pragma unused(config)
+    [self doesNotRecognizeSelector:_cmd];
+	return nil;
+	
 }
 
+<<<<<<< HEAD
+-(id)initWithDynamicDataFromConfig:(COSystemConfig*)config
+{
+    if ((self = [super init])){
+        self = [[NEDesignElementDyn alloc] initWithConfig:config];
+    }
+    return self;
+}
+=======
 -(id)initWithDataFromConfig:(COSystemConfig*)config
 {
     #pragma unused(config)
@@ -59,6 +71,7 @@
     }
     return self;
 }
+>>>>>>> bart-group__ts_ui_development
 -(NSError*)writeDesignFile:(NSString*) path
 {
     #pragma unused(path)
