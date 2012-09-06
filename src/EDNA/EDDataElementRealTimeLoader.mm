@@ -13,6 +13,7 @@
 #import "EDDataElementIsis.h"
 #import "BARTNotifications.h"
 #import "EDDataElementRealTimeLoader.h"
+#import "EDDataElementIsisRealTime.h"
 
 @interface EDDataElementRealTimeLoader ()
 
@@ -22,6 +23,10 @@
 
 
 @implementation EDDataElementRealTimeLoader
+
+EDDataElementIsisRealTime *mDataElementInterest;
+EDDataElementIsisRealTime *mDataElementRest;
+NSMutableArray *arrayLoadedDataElements;
 
 -(id)init
 {

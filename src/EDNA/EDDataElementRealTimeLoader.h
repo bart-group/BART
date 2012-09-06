@@ -10,13 +10,13 @@
 
 #import "Cocoa/Cocoa.h"
 
-#import "EDDataElementIsisRealTime.h"
+//#import "EDDataElementIsisRealTime.h"
 
 @interface EDDataElementRealTimeLoader : NSObject  
 {
-	EDDataElementIsisRealTime *mDataElementInterest;
-	EDDataElementIsisRealTime *mDataElementRest;
-	NSMutableArray *arrayLoadedDataElements;
+//	EDDataElementIsisRealTime *mDataElementInterest;
+//	EDDataElementIsisRealTime *mDataElementRest;
+//	NSMutableArray *arrayLoadedDataElements;
 	
 }
 
