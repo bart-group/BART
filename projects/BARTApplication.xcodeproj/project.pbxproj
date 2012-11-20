@@ -273,6 +273,7 @@
 		00EA8ECC135F00C100562F3B /* EDIsisImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00EA8ECA135F006200562F3B /* EDIsisImage.cpp */; };
 		00EA8ED7135F02DA00562F3B /* EDIsisImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 00EA8ED6135F02DA00562F3B /* EDIsisImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00FA55A2140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle in Copy PlugIns */ = {isa = PBXBuildFile; fileRef = 00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */; };
+		4763CEE2165BCE2000DD34D0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E3F013E8025300169848 /* Cocoa.framework */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A713AA091445CF1600BBF150 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
@@ -298,9 +299,7 @@
 		A74EB3701525B0BB00AC7C59 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A74EB3681525B0BB00AC7C59 /* InfoPlist.strings */; };
 		A74EB3711525B0BB00AC7C59 /* RORegistrationMethodTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = A74EB36B1525B0BB00AC7C59 /* RORegistrationMethodTest.mm */; };
 		A74EB3731525B0BB00AC7C59 /* TROYTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A74EB36F1525B0BB00AC7C59 /* TROYTests.m */; };
-		A74EB3751525B17A00AC7C59 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A74EB3741525B17A00AC7C59 /* Cocoa.framework */; };
 		A74EB3761525B1F600AC7C59 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
-		A74EB3771525B20400AC7C59 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A74EB3741525B17A00AC7C59 /* Cocoa.framework */; };
 		A75A5D611406887300514CD3 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440C0134B4F8800094A51 /* libboost_system-mt.dylib */; };
 		A75A5D64140689F900514CD3 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
 		A75A5D6514068D2000514CD3 /* TestDataset01-functional.nii in Resources */ = {isa = PBXBuildFile; fileRef = 00673D4113FD75C80056BD4F /* TestDataset01-functional.nii */; };
@@ -824,16 +823,6 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* BARTApplication-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTApplication-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* BARTApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BARTApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A72DBECB15387793008E8918 /* libITKCommon-4.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libITKCommon-4.1.a"; path = "../../ITK-install/lib/libITKCommon-4.1.a"; sourceTree = "<group>"; };
-		A72DBECC15387793008E8918 /* libITKOptimizers-4.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libITKOptimizers-4.1.a"; path = "../../ITK-install/lib/libITKOptimizers-4.1.a"; sourceTree = "<group>"; };
-		A72DBECD15387793008E8918 /* libITKSpatialObjects-4.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libITKSpatialObjects-4.1.a"; path = "../../ITK-install/lib/libITKSpatialObjects-4.1.a"; sourceTree = "<group>"; };
-		A72DBECE15387793008E8918 /* libITKStatistics-4.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libITKStatistics-4.1.a"; path = "../../ITK-install/lib/libITKStatistics-4.1.a"; sourceTree = "<group>"; };
-		A72DBECF15387793008E8918 /* libitksys-4.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libitksys-4.1.a"; path = "../../ITK-install/lib/libitksys-4.1.a"; sourceTree = "<group>"; };
-		A72DBED015387793008E8918 /* libitkv3p_netlib-4.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libitkv3p_netlib-4.1.a"; path = "../../ITK-install/lib/libitkv3p_netlib-4.1.a"; sourceTree = "<group>"; };
-		A72DBED115387793008E8918 /* libitkvcl-4.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libitkvcl-4.1.a"; path = "../../ITK-install/lib/libitkvcl-4.1.a"; sourceTree = "<group>"; };
-		A72DBED215387793008E8918 /* libitkvnl_algo-4.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libitkvnl_algo-4.1.a"; path = "../../ITK-install/lib/libitkvnl_algo-4.1.a"; sourceTree = "<group>"; };
-		A72DBED315387793008E8918 /* libitkvnl-4.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libitkvnl-4.1.a"; path = "../../ITK-install/lib/libitkvnl-4.1.a"; sourceTree = "<group>"; };
-		A72DBEE61538790F008E8918 /* libitkzlib-4.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libitkzlib-4.1.a"; path = "../../ITK-install/lib/libitkzlib-4.1.a"; sourceTree = "<group>"; };
 		A74EB3461525B09600AC7C59 /* isisRegistrationFactory3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D.hpp; sourceTree = "<group>"; };
 		A74EB3471525B09600AC7C59 /* isisRegistrationFactory3D_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D_impl.hpp; sourceTree = "<group>"; };
 		A74EB3481525B09600AC7C59 /* isisTimeStepExtractionFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisTimeStepExtractionFilter.hpp; sourceTree = "<group>"; };
@@ -855,7 +844,6 @@
 		A74EB36B1525B0BB00AC7C59 /* RORegistrationMethodTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RORegistrationMethodTest.mm; sourceTree = "<group>"; };
 		A74EB36E1525B0BB00AC7C59 /* TROYTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TROYTests.h; sourceTree = "<group>"; };
 		A74EB36F1525B0BB00AC7C59 /* TROYTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TROYTests.m; sourceTree = "<group>"; };
-		A74EB3741525B17A00AC7C59 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = SDKs/MacOSX10.6.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		A74EB3781525B7A600AC7C59 /* TROYTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TROYTests-Info.plist"; sourceTree = "<group>"; };
 		A76C975C1525DCCF0044FE2D /* libisis_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libisis_core.dylib; path = SDKs/MacOSX10.6.sdk/usr/local/lib/libisis_core.dylib; sourceTree = DEVELOPER_DIR; };
 		A7D1B6B4146448EA009A3335 /* libITKAlgorithms.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libITKAlgorithms.a; path = /usr/local/lib/InsightToolkit/libITKAlgorithms.a; sourceTree = "<absolute>"; };
@@ -901,12 +889,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4763CEE2165BCE2000DD34D0 /* Cocoa.framework in Frameworks */,
 				A76C975E1525DD140044FE2D /* libboost_date_time-mt.dylib in Frameworks */,
 				A76C975F1525DD140044FE2D /* libboost_filesystem-mt.dylib in Frameworks */,
 				A76C97601525DD140044FE2D /* libboost_regex-mt.dylib in Frameworks */,
 				A76C97611525DD140044FE2D /* libboost_system-mt.dylib in Frameworks */,
 				A76C975D1525DCCF0044FE2D /* libisis_core.dylib in Frameworks */,
-				A74EB3751525B17A00AC7C59 /* Cocoa.framework in Frameworks */,
 				A713AA091445CF1600BBF150 /* EDNA.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -916,7 +904,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A76C97621525DD530044FE2D /* libboost_filesystem-mt.dylib in Frameworks */,
-				A74EB3771525B20400AC7C59 /* Cocoa.framework in Frameworks */,
 				A74EB3761525B1F600AC7C59 /* TROY.dylib in Frameworks */,
 				A75A5D64140689F900514CD3 /* EDNA.dylib in Frameworks */,
 				A75A5D611406887300514CD3 /* libboost_system-mt.dylib in Frameworks */,
@@ -1671,19 +1658,8 @@
 		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
 			isa = PBXGroup;
 			children = (
-				A72DBEE61538790F008E8918 /* libitkzlib-4.1.a */,
-				A72DBECB15387793008E8918 /* libITKCommon-4.1.a */,
-				A72DBECC15387793008E8918 /* libITKOptimizers-4.1.a */,
-				A72DBECD15387793008E8918 /* libITKSpatialObjects-4.1.a */,
-				A72DBECE15387793008E8918 /* libITKStatistics-4.1.a */,
-				A72DBECF15387793008E8918 /* libitksys-4.1.a */,
-				A72DBED015387793008E8918 /* libitkv3p_netlib-4.1.a */,
-				A72DBED115387793008E8918 /* libitkvcl-4.1.a */,
-				A72DBED215387793008E8918 /* libitkvnl_algo-4.1.a */,
-				A72DBED315387793008E8918 /* libitkvnl-4.1.a */,
 				A76C975C1525DCCF0044FE2D /* libisis_core.dylib */,
 				A74EB3781525B7A600AC7C59 /* TROYTests-Info.plist */,
-				A74EB3741525B17A00AC7C59 /* Cocoa.framework */,
 				0076642A150F9CD50090895F /* myNewScenario.edl */,
 				009CE2E314B707A800FFDED4 /* libisis_core.0.4.5.dylib */,
 				00198337146003B4006F8E27 /* BARTSerialIOPluginEyeTrac.bundle */,
@@ -2793,10 +2769,10 @@
 					"$(inherited)",
 					/opt/local/lib,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.6;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -2820,10 +2796,10 @@
 					"$(inherited)",
 					/opt/local/lib,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.6;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -3691,7 +3667,7 @@
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"/usr/local/include/ITK-4.1",
+					"/usr/local/include/ITK-4.2",
 					/opt/local/include,
 					/usr/include,
 					/usr/local/include/isis,
@@ -3704,19 +3680,19 @@
 					/usr/local/lib,
 					/usr/lib,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
-					"-litkvnl-4.1",
-					"-litkvnl_algo-4.1",
-					"-litkvcl-4.1",
-					"-litkv3p_netlib-4.1",
-					"-litksys-4.1",
-					"-lITKStatistics-4.1",
-					"-lITKSpatialObjects-4.1",
-					"-lITKOptimizers-4.1",
-					"-lITKCommon-4.1",
+					"-litkvnl-4.2",
+					"-litkvnl_algo-4.2",
+					"-litkvcl-4.2",
+					"-litkv3p_netlib-4.2",
+					"-litksys-4.2",
+					"-lITKStatistics-4.2",
+					"-lITKSpatialObjects-4.2",
+					"-lITKOptimizers-4.2",
+					"-lITKCommon-4.2",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = "";
@@ -3753,7 +3729,7 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"/usr/local/include/ITK-4.1",
+					"/usr/local/include/ITK-4.2",
 					/opt/local/include,
 					/usr/include,
 					/usr/local/include/isis,
@@ -3766,18 +3742,18 @@
 					/usr/local/lib,
 					/usr/lib,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
-					"-litkvnl-4.1",
-					"-litkvnl_algo-4.1",
-					"-litkvcl-4.1",
-					"-litkv3p_netlib-4.1",
-					"-litksys-4.1",
-					"-lITKStatistics-4.1",
-					"-lITKSpatialObjects-4.1",
-					"-lITKOptimizers-4.1",
-					"-lITKCommon-4.1",
+					"-litkvnl-4.2",
+					"-litkvnl_algo-4.2",
+					"-litkvcl-4.2",
+					"-litkv3p_netlib-4.2",
+					"-litksys-4.2",
+					"-lITKStatistics-4.2",
+					"-lITKSpatialObjects-4.2",
+					"-lITKOptimizers-4.2",
+					"-lITKCommon-4.2",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = "";
