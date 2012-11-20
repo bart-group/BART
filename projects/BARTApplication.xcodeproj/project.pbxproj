@@ -3186,7 +3186,7 @@
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = isis_test;
-				SDKROOT = macosx10.6;
+				SDKROOT = "";
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 			};
 			name = Debug;
@@ -3212,7 +3212,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PREBINDING = NO;
 				PRODUCT_NAME = isis_test;
-				SDKROOT = macosx10.6;
+				SDKROOT = "";
 				ZERO_LINK = NO;
 			};
 			name = Release;
