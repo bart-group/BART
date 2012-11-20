@@ -6,9 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#define _GLIBCXX_FULLY_DYNAMIC_STRING 1
-#undef _GLIBCXX_DEBUG
-#undef _GLIBCXX_DEBUG_PEDANTIC
+//#define _GLIBCXX_FULLY_DYNAMIC_STRING 1
+//#undef _GLIBCXX_DEBUG
+//#undef _GLIBCXX_DEBUG_PEDANTIC
 
 #import "EDDataElementIsis.h"
 
