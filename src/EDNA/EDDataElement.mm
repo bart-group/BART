@@ -7,7 +7,7 @@
 //
 
 #import "EDDataElement.h"
-#import "EDDataElementVI.h"
+//#import "EDDataElementVI.h"
 #import "EDDataElementIsis.h"
 #import "EDDataElementIsisRealTime.h"
 //#import <Common/itkImage.h>
@@ -71,21 +71,23 @@
 
 -(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type
 {
-    NSFileManager *fm = [[NSFileManager alloc] init];
-	if ( NO == [fm fileExistsAtPath:path]){
-        [fm release];
-		NSLog(@"No file to load");
-		return nil;
-	}
-    self = [[EDDataElementVI alloc] initWithFile:path ofImageDataType:type];
-    [fm release];
-    return self;
+//    NSFileManager *fm = [[NSFileManager alloc] init];
+//	if ( NO == [fm fileExistsAtPath:path]){
+//        [fm release];
+//		NSLog(@"No file to load");
+//		return nil;
+//	}
+//    self = [[EDDataElementVI alloc] initWithFile:path ofImageDataType:type];
+//    [fm release];
+//    return self;
+    return nil;
 }
 
 -(id)initWithDataType:(enum ImageDataType)type andRows:(int) rows andCols:(int)cols andSlices:(int)slices andTimesteps:(int) tsteps
 {
-    self = [[EDDataElementVI alloc] initWithDataType:type andRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
-    return self;
+//    self = [[EDDataElementVI alloc] initWithDataType:type andRows:rows andCols:cols andSlices:slices andTimesteps:tsteps];
+//    return self;
+    return nil;
 }
 
 -(id)initWithDataFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect ofImageType:(enum ImageType)iType

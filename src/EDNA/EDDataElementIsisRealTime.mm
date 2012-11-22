@@ -7,6 +7,7 @@
 //
 
 #import "EDDataElementIsisRealTime.h"
+#import "EDDataElementIsis.h"
 #import "DataStorage/io_factory.hpp"
 #import <algorithm>
 #include <vector>
@@ -54,7 +55,7 @@
     mImageSize.columns = anImage.getNrOfColumns();
     mImageSize.slices = anImage.getNrOfSlices();
     mImageSize.timesteps = anImage.getNrOfTimesteps();
-    mRepetitionTimeInMs = (anImage.getPropertyAs<isis::util::fvector4>("voxelSize"))[3];
+    mRepetitionTimeInMs = anImage.getPropertyAs<u_int16_t>("repetitionTime");
 	
 	return self;
 }
@@ -75,8 +76,10 @@
 {
     if (nil != mIsisImage){
         delete mIsisImage;}
+
     [mImageSize release];
-	[super dealloc];
+	
+    [super dealloc];
 }
 
 -(short)getShortVoxelValueAtRow: (int)r col:(int)c slice:(int)sl timestep:(int)t
@@ -201,22 +204,22 @@
         case PROPID_BETA:
             break;
 		case PROPID_READVEC:
-			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("rowVec")[0]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("rowVec")[1]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("rowVec")[2]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("rowVec")[3]], nil ] autorelease];
+			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector3>("rowVec")[0]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector3>("rowVec")[1]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector3>("rowVec")[2]], nil ] autorelease];
 			break;
 		case PROPID_PHASEVEC:
-			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("columnVec")[0]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("columnVec")[1]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("columnVec")[2]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("columnVec")[3]], nil ] autorelease];
+			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector3>("columnVec")[0]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector3>("columnVec")[1]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector3>("columnVec")[2]], nil ] autorelease];
 			break;
 		case PROPID_SLICEVEC:
-			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("sliceVec")[0]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("sliceVec")[1]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("sliceVec")[2]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("sliceVec")[3]], nil ] autorelease];
+			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector3>("sliceVec")[0]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector3>("sliceVec")[1]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector3>("sliceVec")[2]], nil ] autorelease];
 			break;
 		case PROPID_SEQNR:
 			ret = [NSNumber numberWithUnsignedShort:1];
 			break;
 		case PROPID_VOXELSIZE:
-			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("voxelSize")[0]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("voxelSize")[1]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("voxelSize")[2]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("voxelSize")[3]], nil ] autorelease];
+			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector3>("voxelSize")[0]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector3>("voxelSize")[1]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector3>("voxelSize")[2]], nil ] autorelease];
 			break;
 		case PROPID_ORIGIN:
-			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("indexOrigin")[0]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("indexOrigin")[1]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("indexOrigin")[2]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector4>("indexOrigin")[3]], nil ] autorelease];
+			ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector3>("indexOrigin")[0]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector3>("indexOrigin")[1]], [NSNumber numberWithFloat:mIsisImage->getPropertyAs<isis::util::fvector3>("indexOrigin")[2]], nil ] autorelease];
 			break;
         default:
             break;
@@ -236,7 +239,7 @@
     if ([self sizeCheckRows:1 Cols:1 Slices:sliceNr Timesteps:tstep]){
 		isis::data::MemChunkNonDel<float> chSlice(mImageSize.columns, mImageSize.rows);
 		mIsisImage->getChunk(0,0, sliceNr, tstep, false).copySlice(0, 0, chSlice, 0, 0);
-		return (( boost::shared_ptr<float> ) chSlice.getValuePtr<float>()).get();
+		return (( boost::shared_ptr<float> ) chSlice.getValueArray<float>()).get();
 	}
 	return NULL;	
 }
@@ -284,7 +287,7 @@
 	//std::vector<boost::shared_ptr<isis::data::Chunk> > vecSlices = mAllDataMap[0];
 	//boost::shared_ptr<isis::data::Chunk> ptrChunk = vecSlices[0];
 	NSMutableArray *propValues = [[NSMutableArray alloc] init];
-	for (NSString *str in propList) {				// type is fvector4
+	for (NSString *str in propList) {				// type is fvector3
 		if ( [[str lowercaseString] isEqualToString:@"indexorigin"]
 			or [[str lowercaseString] isEqualToString:@"rowvec"]
 			or [[str lowercaseString] isEqualToString:@"columnvec"]
@@ -294,8 +297,8 @@
 			or [[str lowercaseString] isEqualToString:@"voxelsize"]
 			or [[str lowercaseString] isEqualToString:@"voxelgap"])
 		{
-			isis::util::fvector4 prop = mIsisImage->getPropertyAs<isis::util::fvector4>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);
-			NSArray* ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:prop[0]], [NSNumber numberWithFloat:prop[1]], [NSNumber numberWithFloat:prop[2]], [NSNumber numberWithFloat:prop[3]], nil ] autorelease];
+			isis::util::fvector3 prop = mIsisImage->getPropertyAs<isis::util::fvector3>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);
+			NSArray* ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:prop[0]], [NSNumber numberWithFloat:prop[1]], [NSNumber numberWithFloat:prop[2]], nil ] autorelease];
 			[propValues addObject:ret];
 		}
 		else if( [[str lowercaseString] isEqualToString:@"acquisitionnumber"]) //type is u_int32_t
@@ -341,7 +344,7 @@
 	//TODO: arbeite mit DIctionary
 	//std::vector<boost::shared_ptr<isis::data::Chunk> > vecSlices = mAllDataMap[0];
 	//boost::shared_ptr<isis::data::Chunk> ptrChunk = vecSlices[0];
-	for (NSString *str in [propDict allKeys]) {		// type is fvector4
+	for (NSString *str in [propDict allKeys]) {		// type is fvector3
 		if ( [[str lowercaseString] isEqualToString:@"indexorigin"]
 			or [[str lowercaseString] isEqualToString:@"rowvec"]
 			or [[str lowercaseString] isEqualToString:@"columnvec"]
@@ -351,11 +354,11 @@
 			or [[str lowercaseString] isEqualToString:@"voxelsize"]
 			or [[str lowercaseString] isEqualToString:@"voxelgap"])
 		{
-			isis::util::fvector4 prop;
+			isis::util::fvector3 prop;
 			if (YES == [[propDict valueForKey:str] isKindOfClass:[NSArray class]]){
 				for (unsigned int i = 0; i < [[propDict valueForKey:str] count]; i++){
 					prop[i] = [[[propDict valueForKey:str] objectAtIndex:i] floatValue];}
-				mIsisImage->setPropertyAs<isis::util::fvector4>([str cStringUsingEncoding:NSISOLatin1StringEncoding], prop);
+				mIsisImage->setPropertyAs<isis::util::fvector3>([str cStringUsingEncoding:NSISOLatin1StringEncoding], prop);
 			}
 		}
 		else if( [[str lowercaseString] isEqualToString:@"acquisitionnumber"]) //type is u_int32_t
@@ -438,6 +441,43 @@
     
 }
 
+//MH FIXME: added
+-(ITKImage::Pointer)asITKImage
+{
+    if (self->mITKAdapter != NULL)  {
+        delete self->mITKAdapter;
+    }
+    
+    self->mITKAdapter = new isis::adapter::itkAdapter;
+    
+    ITKImage::Pointer itkImage = self->mITKAdapter->makeItkImageObject<ITKImage>(*mIsisImage);
+    return itkImage;
+}
+
+
+//MH FIXME: added, Important: this returns a EDDataElementIsis!!!!
+-(EDDataElement*)getDataAtTimeStep:(size_t)tstep
+{
+    std::list<isis::data::Chunk> chList;
+    BARTImageSize *s = [[BARTImageSize alloc] initWithRows:mImageSize.rows andCols:mImageSize.columns andSlices:mImageSize.slices andTimesteps:1];
+    
+    EDDataElementIsis* retElement = nil;
+    if ([self sizeCheckRows:1 Cols:1 Slices:1 Timesteps:tstep]){
+        for (size_t i = 0; i < mImageSize.slices; i++){
+            chList.push_back(mIsisImage->getChunk(0,0,i,tstep));
+        }
+        
+        isis::data::Image retImg(chList);
+        retElement = [[[EDDataElementIsis alloc] initFromImage:retImg ofImageType:IMAGE_FCTDATA] autorelease];
+    }
+    
+    [s release];
+    return retElement;
+}
+
+
+
+
 -(NSArray*)getMinMaxOfDataElement
 {
 
@@ -445,34 +485,5 @@
     NSArray *ret = [NSArray arrayWithObjects:[NSNumber numberWithFloat:minMax.first], [NSNumber numberWithFloat:minMax.second], nil];
     return ret;
 }
--(enum ImageOrientation)getMainOrientation
-{
-    switch (mIsisImage->getMainOrientation()){
-        case isis::data::Image::axial:
-            return ORIENT_AXIAL;
-            break;
-        case isis::data::Image::reversed_axial:
-            return ORIENT_REVAXIAL;
-            break;
-        case isis::data::Image::sagittal:
-            return ORIENT_SAGITTAL;
-            break;
-        case isis::data::Image::reversed_sagittal:
-            return ORIENT_REVSAGITTAL;
-            break;
-        case isis::data::Image::coronal:
-            return ORIENT_CORONAL;
-            break;
-        case isis::data::Image::reversed_coronal:
-            return ORIENT_REVCORONAL;
-            break;
-            
-        default:
-            return ORIENT_UNKNOWN;
-            break;
-    }
-    
-}
-
 
 @end

@@ -314,7 +314,6 @@
 		E54B815B157F76AA0029ECC4 /* Luigi.png in Resources */ = {isa = PBXBuildFile; fileRef = E54B815A157F76AA0029ECC4 /* Luigi.png */; };
 		E55B2DA7154AC27B007A0452 /* libvia.1.6.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E55B2DA3154AC27B007A0452 /* libvia.1.6.0.dylib */; };
 		E55B2DAA154AC27B007A0452 /* libviaio.1.6.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E55B2DA4154AC27B007A0452 /* libviaio.1.6.0.dylib */; };
-		E55B2DAB154ACD4B007A0452 /* EDDataElementVI.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B772C411417C6300B2931A /* EDDataElementVI.m */; };
 		E55B2DAC154ACD5B007A0452 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
 		E55B2DAD154ACD68007A0452 /* EDDataElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B772C311417C6300B2931A /* EDDataElementVI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E562D7E6156156B300DE5631 /* BAHierarchyElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E562D7E5156156B300DE5631 /* BAHierarchyElement.m */; };
@@ -2964,7 +2963,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E55B2DAC154ACD5B007A0452 /* BlockIO.c in Sources */,
-				E55B2DAB154ACD4B007A0452 /* EDDataElementVI.m in Sources */,
 				00D44188134B587400094A51 /* EDDataElementIsis.mm in Sources */,
 				00D44189134B587400094A51 /* EDDataElementRealTimeLoader.mm in Sources */,
 				00D4418C134B587600094A51 /* EDDataElementIsisRealTime.mm in Sources */,
@@ -4325,10 +4323,6 @@
 					"$(inherited)",
 					"-lisis_core",
 					"-ObjC",
-					"-lboost_system",
-					"-lboost_filesystem",
-					"-lboost_regex",
-					"-lboost_date_time",
 					"-lgsl",
 				);
 				PRODUCT_NAME = BARTApplication;
@@ -4365,10 +4359,6 @@
 					"$(inherited)",
 					"-lisis_core",
 					"-ObjC",
-					"-lboost_system",
-					"-lboost_filesystem",
-					"-lboost_regex",
-					"-lboost_date_time",
 					"-lgsl",
 				);
 				PRODUCT_NAME = BARTApplication;
@@ -4479,6 +4469,7 @@
 					"-lboost_filesystem-mt",
 					"-lboost_system-mt",
 					"-lisis_core",
+					"-lboost_regex-mt",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = "";
@@ -4585,6 +4576,7 @@
 					"-lboost_filesystem-mt",
 					"-lboost_system-mt",
 					"-lisis_core",
+					"-lboost_regex-mt",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = "";
@@ -4768,6 +4760,7 @@
 				009BCDDF15F90C380059B8D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		009BCDE015F90C380059B8D3 /* Build configuration list for PBXNativeTarget "ARTIETests" */ = {
 			isa = XCConfigurationList;
@@ -4776,6 +4769,7 @@
 				009BCDE215F90C380059B8D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		00A7DD4F117C366B00062AFE /* Build configuration list for PBXNativeTarget "NEDUnitTestSuite" */ = {
 			isa = XCConfigurationList;

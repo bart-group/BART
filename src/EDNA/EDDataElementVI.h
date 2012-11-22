@@ -14,7 +14,8 @@
 #include <viaio/mu.h>
 #include <viaio/option.h>
 
-#include "BlockIO.h"
+//MHFIXME
+//#include "BlockIO.h"
 
 
 @interface EDDataElementVI : EDDataElement{
