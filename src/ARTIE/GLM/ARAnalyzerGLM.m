@@ -206,7 +206,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         }
 
         float df = (trace * trace) / trace2; /* df ... Degrees of freedom. */
-        printf(" df = %.3f\n", df);
+//        printf(" df = %.3f\n", df);
         
         /**********************
          * create output images
@@ -241,9 +241,10 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         [resOutput copyProps:propsToCopy fromDataElement:data];
         EDDataElement*  resMap = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_TMAP];
         [ resMap copyProps:propsToCopy fromDataElement:data];
-        EDDataElement*  BCOVOutput = [[EDDataElement alloc] initWithDataType:IMAGE_DATA_FLOAT andRows:copyDesign.mNumberExplanatoryVariables andCols:copyDesign.mNumberExplanatoryVariables andSlices:1 andTimesteps:1];
+        s.slices = 1;
+        EDDataElement*  BCOVOutput = [[EDDataElement alloc] initEmptyWithSize:s ofImageType:IMAGE_UNKNOWN] ;
         [s release];
-        
+                
         [betaOutput setImageProperty:PROPID_DF withValue:[NSNumber numberWithFloat:df]];
         [resOutput setImageProperty:PROPID_DF withValue:[NSNumber numberWithFloat:df]];
         
@@ -283,19 +284,13 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         }
         gsl_matrix_float_transpose(betaCovariates);
         
-		//float contrast[mDesign.mNumberExplanatoryVariables];
-		//TODO
-		//for (int i = 0; i < mDesign.numberExplanatoryVariables; i++){
-		//contrast[0] = 1.0;
-		//contrast[1] = 0.0;
-		//contrast[2] = 0.0;
-        //float contrast[3] = {1.0, -1.0, 0.0};
-        gsl_vector_float *gslContrastVector = gsl_vector_float_alloc([contrastVector count]);
+		gsl_vector_float *gslContrastVector = gsl_vector_float_alloc([contrastVector count]);
 		for (size_t i = 0; i < [contrastVector count]; i++){
 			gslContrastVector->data[i] = [[contrastVector objectAtIndex:i] floatValue];	}
         
         gsl_vector_float *tmp = NULL;
         tmp = fmat_x_vector(betaCovariates, gslContrastVector, tmp);
+        
         float variance = fskalarproduct(tmp, gslContrastVector);
         float new_sigma = sqrt(variance);
         
@@ -308,9 +303,9 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         __block int npix = 0;
         for (size_t slice = 0; slice < numberSlices; slice++) {
             
-            if (slice % 5 == 0) {
-                fprintf(stderr, " slice: %3ld\r", slice);
-            }
+//            if (slice % 5 == 0) {
+//                fprintf(stderr, " slice: %3zd\r", slice);
+//            }
             //NSLog(@" Sl: %lu, TS: %lu", numberSlices, numberBands);
             
             if (TRUE == [data sliceIsZero:slice ]) {
@@ -399,14 +394,12 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                                 
                                 ptr1 = beta->data;
                                 for (i = 0; i < numberExplanatoryVariables; i++) {
-									//STCHANGE!
-                                    //*ptr1++ = [mBetaOutput getFloatVoxelValueAtRow:row col:col slice:i timestep:slice];
+									
 									*ptr1++ = [betaOutput getFloatVoxelValueAtRow:row col:col slice:slice timestep:i];
                                 }
                                 sum = fskalarproduct(beta, gslContrastVector);
                                 if (fabs(sum) >= 1.0e-10) {
-									//STCHANGE!!
-                                    //s = [mResOutput getFloatVoxelValueAtRow:row col:col slice:0 timestep:slice];
+									
 									s = [resOutput getFloatVoxelValueAtRow:row col:col slice:slice timestep:0];
                                     tsigma = sqrt(s) * new_sigma;
                                     if (tsigma > 0.00001) {
@@ -422,9 +415,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                                         z_value = 0.0;
                                     }
                                     val = [NSNumber numberWithFloat:z_value];
-									//STCHANGE!
-                                    //[mResMap setVoxelValue:val atRow:row col:col slice:0 timestep:slice];
-									[resMap setVoxelValue:val atRow:row col:col slice:slice timestep:0];
+                                    [resMap setVoxelValue:val atRow:row col:col slice:slice timestep:0];
                                 }
                                 
                                 gsl_vector_float_free(beta);
