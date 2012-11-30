@@ -135,13 +135,13 @@
 	return self;
 }
 
--(short)getShortVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t
+-(short)getShortVoxelValueAtRow: (NSUInteger)r col:(NSUInteger)c slice:(NSUInteger)s timestep:(NSUInteger)t
 {	
 	//TODO we dont want to use this!!
 	return (short)mIsisImage->voxel<float>(c,r,s,t);	//else {
 }
 
--(float)getFloatVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t
+-(float)getFloatVoxelValueAtRow: (NSUInteger)r col:(NSUInteger)c slice:(NSUInteger)s timestep:(NSUInteger)t
 {
 	float val = 0.0;
 	if ([self sizeCheckRows:r Cols:c Slices:s Timesteps:t]){
@@ -150,7 +150,7 @@
     return val;
 }
 
--(void)setVoxelValue:(NSNumber*)val atRow: (unsigned int)r col:(unsigned int)c slice:(unsigned int)sl timestep:(unsigned int)t
+-(void)setVoxelValue:(NSNumber*)val atRow: (NSUInteger)r col:(NSUInteger)c slice:(NSUInteger)sl timestep:(NSUInteger)t
 {
 	if ([self sizeCheckRows:r Cols:c Slices:sl Timesteps:t]){
 		mIsisImage->voxel<float>(c,r,sl,t) = [val floatValue];}
@@ -216,7 +216,7 @@
 	return isis::data::IOFactory::write( imgList, [path cStringUsingEncoding:NSUTF8StringEncoding], [suffix cStringUsingEncoding:NSUTF8StringEncoding], [dialect cStringUsingEncoding:NSUTF8StringEncoding] );
 }
 
--(BOOL)sliceIsZero:(int)slice
+-(BOOL)sliceIsZero:(NSUInteger)slice
 {
 	// TODO quite slowly at the moment check performance
 	return TRUE;
@@ -264,18 +264,18 @@
             break;
 		case PROPID_READVEC:
 			if ( 0 != [value count] ){
-				for (unsigned int i = 0; i<3; i++){
+				for (NSUInteger i = 0; i<3; i++){
 					vec[i] = [[value objectAtIndex:i] floatValue];}}
 			mIsisImage->setPropertyAs<isis::util::fvector3>("rowVec", vec);
 			break;
 		case PROPID_PHASEVEC:
 			if ( 0 != [value count] ){
-				for (unsigned int i = 0; i<3; i++){
+				for (NSUInteger i = 0; i<3; i++){
 					vec[i] = [[value objectAtIndex:i] floatValue];}}
 			mIsisImage->setPropertyAs<isis::util::fvector3>("columnVec", vec);
 			break;
 		case PROPID_SLICEVEC:
-			for (unsigned int i = 0; i<3; i++){
+			for (NSUInteger i = 0; i<3; i++){
 				vec[i] = [[value objectAtIndex:i] floatValue];}
 			mIsisImage->setPropertyAs<isis::util::fvector3>("sliceVec", vec);
 			break;
@@ -283,12 +283,12 @@
 			mIsisImage->setPropertyAs<uint16_t>("sequenceNumber", [value unsignedShortValue]);
 			break;
 		case PROPID_VOXELSIZE:
-			for (unsigned int i = 0; i<3; i++){
+			for (NSUInteger i = 0; i<3; i++){
 				vec[i] = [[value objectAtIndex:i] floatValue];}
 			mIsisImage->setPropertyAs<isis::util::fvector3>("voxelSize", vec);
 			break;
 		case PROPID_ORIGIN:
-			for (unsigned int i = 0; i<3; i++){
+			for (NSUInteger i = 0; i<3; i++){
 				vec[i] = [[value objectAtIndex:i] floatValue];}
 			mIsisImage->setPropertyAs<isis::util::fvector3>("indexOrigin", vec);
 			break;
@@ -482,8 +482,9 @@
 		or [[str lowercaseString] isEqualToString:@"voxelgap"])
 		{
 			isis::util::fvector3 prop = mIsisImage->getPropertyAs<isis::util::fvector3>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);
-			NSArray* ret = [[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:prop[0]], [NSNumber numberWithFloat:prop[1]], [NSNumber numberWithFloat:prop[2]], nil ] ;
+			NSArray* ret = [NSArray arrayWithObjects:[NSNumber numberWithFloat:prop[0]], [NSNumber numberWithFloat:prop[1]], [NSNumber numberWithFloat:prop[2]], nil ] ;
 			[propValues addObject:ret];
+            
 		}
 		else if( [[str lowercaseString] isEqualToString:@"acquisitionnumber"]) //type is u_int32_t
 		{
@@ -516,7 +517,7 @@
             {
 				prop = mIsisImage->getPropertyAs<std::string>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);
             }
-			NSString* ret = [[NSString stringWithCString:prop.c_str() encoding:NSISOLatin1StringEncoding] autorelease];
+			NSString* ret = [NSString stringWithCString:prop.c_str() encoding:NSISOLatin1StringEncoding] ;
 			[propValues addObject:ret];
             
 		}

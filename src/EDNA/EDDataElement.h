@@ -107,9 +107,9 @@ enum ImagePropertyID{
 -(void)dealloc;
 
 // DEPRECATED == VI stuff
--(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
+//-(id)initWithDatasetFile:(NSString*)path ofImageDataType:(enum ImageDataType)type;
 
--(id)initWithDataType:(enum ImageDataType)type andRows:(int) rows andCols:(int)cols andSlices:(int)slices andTimesteps:(int) tsteps;
+//-(id)initWithDataType:(enum ImageDataType)type andRows:(int) rows andCols:(int)cols andSlices:(int)slices andTimesteps:(int) tsteps;
 
 -(BARTImageSize*)getImageSize;
 
@@ -123,11 +123,11 @@ enum ImagePropertyID{
 
 -(id)initWithFile:(NSString*)path andSuffix:(NSString*)suffix andDialect:(NSString*)dialect ofImageType:(enum ImageType)iType;
 
--(short)getShortVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t;
+-(short)getShortVoxelValueAtRow: (NSUInteger)r col:(NSUInteger)c slice:(NSUInteger)s timestep:(NSUInteger)t;
 
--(float)getFloatVoxelValueAtRow: (int)r col:(int)c slice:(int)s timestep:(int)t;
+-(float)getFloatVoxelValueAtRow: (NSUInteger)r col:(NSUInteger)c slice:(NSUInteger)s timestep:(NSUInteger)t;
 
--(void)setVoxelValue:(NSNumber*)val atRow: (unsigned int)r col:(unsigned int)c slice:(unsigned int)s timestep:(unsigned int)t;
+-(void)setVoxelValue:(NSNumber*)val atRow: (NSUInteger)r col:(NSUInteger)c slice:(NSUInteger)s timestep:(NSUInteger)t;
 
 //-(EDDataElement*)CreateNewDataElement: withSize:(NSSize*)size andType:(NSString*)type; 
 
@@ -135,7 +135,7 @@ enum ImagePropertyID{
 
 -(BOOL)WriteDataElementToFile:(NSString*)path withOverwritingSuffix:(NSString*)suffix andDialect:(NSString*)dialect;
 
--(BOOL)sliceIsZero:(int)slice;
+-(BOOL)sliceIsZero:(NSUInteger)slice;
 
 -(void)setImageProperty:(enum ImagePropertyID)key withValue:(id) value;
 

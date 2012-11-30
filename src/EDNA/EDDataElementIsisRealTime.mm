@@ -99,7 +99,7 @@
     
 }
 
--(void)setVoxelValue:(NSNumber*)val atRow: (unsigned int)r col:(unsigned int)c slice:(unsigned int)sl timestep:(unsigned int)t
+-(void)setVoxelValue:(NSNumber*)val atRow: (NSUInteger)r col:(NSUInteger)c slice:(NSUInteger)sl timestep:(NSUInteger)t
 {
    // if (mAllDataMap.size() >= t){
 //        std::vector<boost::shared_ptr<isis::data::Chunk> > vecSlices = mAllDataMap[t];
@@ -356,7 +356,7 @@
 		{
 			isis::util::fvector3 prop;
 			if (YES == [[propDict valueForKey:str] isKindOfClass:[NSArray class]]){
-				for (unsigned int i = 0; i < [[propDict valueForKey:str] count]; i++){
+				for (NSUInteger i = 0; i < [[propDict valueForKey:str] count]; i++){
 					prop[i] = [[[propDict valueForKey:str] objectAtIndex:i] floatValue];}
 				mIsisImage->setPropertyAs<isis::util::fvector3>([str cStringUsingEncoding:NSISOLatin1StringEncoding], prop);
 			}
