@@ -9,26 +9,26 @@
 #import "glmtest.h"
 
 #import "CLETUS/COExperimentContext.h"
-#import "ARAnalyzerGLM.h"
+#import "ARTIE/ARAnalyzerGLM.h"
 #import "ARAnalyzerGLMReference.h"
-#import "EDNA/EDDataElementVI.h"
+//#import "EDNA/EDDataElementVI.h"
 	
 
 @implementation glmtest
 
 @end
 
-int main(void)
+int main()
 {
 	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	COSystemConfig *config = [[COSystemConfig alloc] init];
-	NSError *err = [config fillWithContentsOfEDLFile:@"../../tests/BARTMainAppTests/ConfigTestDataset02.edl"];
+	NSError *err = [config fillWithContentsOfEDLFile:@"../../tests/ARTIETests/ConfigTestDataset02.edl"];
 	if (nil != err)
 		NSLog(@"%@", err);
 	
 	
-	EDDataElement *inputData = [[EDDataElement alloc] initWithDataFile:@"../../tests/BARTMainAppTests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
+	EDDataElement *inputData = [[EDDataElement alloc] initWithDataFile:@"../../tests/ARTIETests/testfiles/TestDataset02-functional.nii" andSuffix:@"" andDialect:@"" ofImageType:IMAGE_FCTDATA];
 	NEDesignElement *inputDesign = [[NEDesignElement alloc] initWithDynamicDataFromConfig:config];
 	
 	uint fwhm = 4;
