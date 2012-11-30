@@ -299,7 +299,6 @@
 		A74EB3711525B0BB00AC7C59 /* RORegistrationMethodTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = A74EB36B1525B0BB00AC7C59 /* RORegistrationMethodTest.mm */; };
 		A74EB3731525B0BB00AC7C59 /* TROYTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A74EB36F1525B0BB00AC7C59 /* TROYTests.m */; };
 		A74EB3761525B1F600AC7C59 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
-		A75A5D611406887300514CD3 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440C0134B4F8800094A51 /* libboost_system-mt.dylib */; };
 		A75A5D64140689F900514CD3 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
 		A75A5D6514068D2000514CD3 /* TestDataset01-functional.nii in Resources */ = {isa = PBXBuildFile; fileRef = 00673D4113FD75C80056BD4F /* TestDataset01-functional.nii */; };
 		A76C975D1525DCCF0044FE2D /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A76C975C1525DCCF0044FE2D /* libisis_core.dylib */; };
@@ -307,7 +306,6 @@
 		A76C975F1525DD140044FE2D /* libboost_filesystem-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BC134B4F8800094A51 /* libboost_filesystem-mt.dylib */; };
 		A76C97601525DD140044FE2D /* libboost_regex-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BE134B4F8800094A51 /* libboost_regex-mt.dylib */; };
 		A76C97611525DD140044FE2D /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440C0134B4F8800094A51 /* libboost_system-mt.dylib */; };
-		A76C97621525DD530044FE2D /* libboost_filesystem-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D440BC134B4F8800094A51 /* libboost_filesystem-mt.dylib */; };
 		A7763C54143B09A500457A99 /* TROY.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000B18313E1C92400029A41 /* TROY.dylib */; };
 		A7763C67143B34DE00457A99 /* TestDataset01-functional.nii in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00673D4113FD75C80056BD4F /* TestDataset01-functional.nii */; };
 		A777CC451525DEEE001A3F1D /* libisis_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A76C975C1525DCCF0044FE2D /* libisis_core.dylib */; };
@@ -902,10 +900,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A76C97621525DD530044FE2D /* libboost_filesystem-mt.dylib in Frameworks */,
 				A74EB3761525B1F600AC7C59 /* TROY.dylib in Frameworks */,
 				A75A5D64140689F900514CD3 /* EDNA.dylib in Frameworks */,
-				A75A5D611406887300514CD3 /* libboost_system-mt.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2832,6 +2828,8 @@
 					SenTestingKit,
 					"-framework",
 					Cocoa,
+					"-lboost_filesystem-mt",
+					"-lboost_system-mt",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
@@ -2866,6 +2864,8 @@
 					SenTestingKit,
 					"-framework",
 					Cocoa,
+					"-lboost_filesystem-mt",
+					"-lboost_system-mt",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
