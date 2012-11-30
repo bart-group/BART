@@ -686,8 +686,8 @@ BOOL isDynamicDesign = NO;
 }
 
 
--(NSNumber*)getValueFromExplanatoryVariable:(unsigned int)cov
-                                 atTimestep:(unsigned int)t
+-(NSNumber*)getValueFromExplanatoryVariable:(NSUInteger)cov
+                                 atTimestep:(NSUInteger)t
 {
     __block NSNumber *value = nil;
     
@@ -750,7 +750,7 @@ BOOL isDynamicDesign = NO;
     
 }
 
--(void)setCovariate:(float*)covariate forCovariateID:(int)covID
+-(void)setCovariate:(float*)covariate forCovariateID:(NSUInteger)covID
 {
     dispatch_sync(serialDesignElementAccessQueue, ^{
         if (mCovariateValues != NULL) {
@@ -758,19 +758,19 @@ BOOL isDynamicDesign = NO;
             mCovariateValues[covID - 1] = NULL;
             mCovariateValues[covID - 1] = covariate;
         } else {
-            NSLog(@"Could not set covariate values for CovariateID %d because number of covariates is 0.", covID);
+            NSLog(@"Could not set covariate values for CovariateID %ld because number of covariates is 0.", covID);
         }
     });
     
 }
 
--(void)setCovariateValue:(float)value forCovariateID:(int)covID atTimestep:(int)timestep
+-(void)setCovariateValue:(float)value forCovariateID:(NSUInteger)covID atTimestep:(NSUInteger)timestep
 {
     dispatch_sync(serialDesignElementAccessQueue, ^{
         if (mCovariateValues != NULL) {
             mCovariateValues[covID - 1][timestep] = value;
         } else {
-            NSLog(@"Could not set covariate value %f for CovariateID %d at timestep %d because number of covariates is 0.", value, covID, timestep);
+            NSLog(@"Could not set covariate value %f for CovariateID %ld at timestep %ld because number of covariates is 0.", value, covID, timestep);
         }
     });
 }

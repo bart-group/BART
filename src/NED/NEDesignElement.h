@@ -87,7 +87,7 @@ typedef struct TrialListStruct {
  * \param cov the column number the value is in
  * \param t the row number the value is in - means timestep
  */
--(NSNumber*)getValueFromExplanatoryVariable: (unsigned int)cov atTimestep:(unsigned int)t;
+-(NSNumber*)getValueFromExplanatoryVariable: (NSUInteger)cov atTimestep:(NSUInteger)t;
 
 /**
  * set a whole column as a regressor
@@ -108,7 +108,7 @@ typedef struct TrialListStruct {
  * \param covID the ID of the covariate to set 
  */
 
--(void)setCovariate:(float*)covariate forCovariateID:(int)covID;
+-(void)setCovariate:(float*)covariate forCovariateID:(NSUInteger)covID;
 
 /**
  * set a single value in one covariate
@@ -116,7 +116,7 @@ typedef struct TrialListStruct {
  * \param covID set value for ID of the covariate 
  * \param timestep set value at the timestep
  */
--(void)setCovariateValue:(float)value forCovariateID:(int)covID atTimestep:(int)timestep;
+-(void)setCovariateValue:(float)value forCovariateID:(NSUInteger)covID atTimestep:(NSUInteger)timestep;
 
 
 /**
