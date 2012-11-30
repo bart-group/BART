@@ -249,6 +249,7 @@
 		00FA6FBE1667C882008E3A68 /* TestDataset01-functional.nii in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00FA6FBA1667C183008E3A68 /* TestDataset01-functional.nii */; };
 		00FA6FBF1667C882008E3A68 /* TestDataset02-functional.nii in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00FA6FBB1667C183008E3A68 /* TestDataset02-functional.nii */; };
 		00FA6FC01668E266008E3A68 /* timeBasedRegressorNEDTest.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00709E4B12E86A06006389C4 /* timeBasedRegressorNEDTest.edl */; };
+		00FE338216690A090005EE3D /* BARTNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 00AE410D133B9EF100F2D01D /* BARTNotifications.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A713AA091445CF1600BBF150 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
@@ -496,13 +497,6 @@
 			remoteGlobalIDString = 00D4415F134B57BD00094A51;
 			remoteInfo = EDNA;
 		};
-		00D441EE134B5B5400094A51 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 00D4415F134B57BD00094A51;
-			remoteInfo = EDNA;
-		};
 		00E63C9B13533E9200DC8A50 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -525,6 +519,13 @@
 			remoteInfo = NED;
 		};
 		00EC13D015D7171900E3878F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00D4415F134B57BD00094A51;
+			remoteInfo = EDNA;
+		};
+		00FE3380166909730005EE3D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
@@ -2070,6 +2071,7 @@
 				E55B2DAD154ACD68007A0452 /* EDDataElementVI.h in Headers */,
 				00D44187134B587200094A51 /* EDDataElementIsis.h in Headers */,
 				00D4418B134B587600094A51 /* EDDataElementIsisRealTime.h in Headers */,
+				00FE338216690A090005EE3D /* BARTNotifications.h in Headers */,
 				00EA8ED7135F02DA00562F3B /* EDIsisImage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2431,10 +2433,10 @@
 				CE8A2B3610F6250A002422B5 /* PBXBuildRule */,
 			);
 			dependencies = (
+				00FE3381166909730005EE3D /* PBXTargetDependency */,
 				00C3A0231144FF0C00725668 /* PBXTargetDependency */,
 				00BCD73913E00D17001C091A /* PBXTargetDependency */,
 				009BCE0215F915710059B8D3 /* PBXTargetDependency */,
-				00D441EF134B5B5400094A51 /* PBXTargetDependency */,
 			);
 			name = BARTApplication;
 			productInstallPath = "$(HOME)/Applications";
@@ -3111,11 +3113,6 @@
 			target = 00D4415F134B57BD00094A51 /* EDNA */;
 			targetProxy = 00D4416F134B582600094A51 /* PBXContainerItemProxy */;
 		};
-		00D441EF134B5B5400094A51 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 00D4415F134B57BD00094A51 /* EDNA */;
-			targetProxy = 00D441EE134B5B5400094A51 /* PBXContainerItemProxy */;
-		};
 		00E63C9C13533E9200DC8A50 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 00D4415F134B57BD00094A51 /* EDNA */;
@@ -3135,6 +3132,11 @@
 			isa = PBXTargetDependency;
 			target = 00D4415F134B57BD00094A51 /* EDNA */;
 			targetProxy = 00EC13D015D7171900E3878F /* PBXContainerItemProxy */;
+		};
+		00FE3381166909730005EE3D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00D4415F134B57BD00094A51 /* EDNA */;
+			targetProxy = 00FE3380166909730005EE3D /* PBXContainerItemProxy */;
 		};
 		A713AA081445CEA300BBF150 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
