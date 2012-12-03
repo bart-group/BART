@@ -126,6 +126,8 @@
 	mImageType = imgType;
     
     mDataTypeID = img.getMajorTypeID();
+    
+    mImageSize = [[BARTImageSize alloc] init];
 	mImageSize.rows = mIsisImage->getNrOfRows(); // getDimSize(isis::data::colDim)
     mImageSize.columns = mIsisImage->getNrOfColumns();
     mImageSize.slices = mIsisImage->getNrOfSlices();
