@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>edlFile</key>
-	<string>/Users/Lydi/RealTimeProject/DemoDynamicDesign/Simulation/dynamicDesign_DEMO.edl</string>
+	<string>timeBasedRegressorNEDTest.edl</string>
 	<key>dataSetForTest</key>
-	<string>/Users/Lydi/RealTimeProject/DemoDynamicDesign/Simulation/data/04304/04304_Moco_Data.nii</string>
+	<string>TestDataset02-functional.nii</string>
 	<key>UseLuigi</key>
 	<string>NO</string>
 	<key>treeFile</key>

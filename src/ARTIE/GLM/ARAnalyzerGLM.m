@@ -85,7 +85,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         index = timestep;
     }
     
-    EDDataElement*  resMap = [self Regression:200
+    EDDataElement*  resMap = [self Regression:2000
                                              :index // sw: slidingWindowSize akk: indexForTimestep
                                              :timestep
                                              :contrastVector
@@ -206,7 +206,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         }
 
         float df = (trace * trace) / trace2; /* df ... Degrees of freedom. */
-//        printf(" df = %.3f\n", df);
+        printf(" df = %.3f\n", df);
         
         /**********************
          * create output images

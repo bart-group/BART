@@ -143,6 +143,8 @@
 		009BCE4A15F9246C0059B8D3 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 009BCE4915F9246C0059B8D3 /* libviaio.dylib */; };
 		009BCE4C15F924A50059B8D3 /* ARTIE.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 009BCDC015F90C380059B8D3 /* ARTIE.dylib */; };
 		009BCE5215F92B030059B8D3 /* ARTIE.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 009BCDC015F90C380059B8D3 /* ARTIE.dylib */; };
+		00A8715F166CFC9C00D25E4B /* glmtest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00FA6FB41667B1CF008E3A68 /* glmtest.m */; };
+		00A87160166CFCD500D25E4B /* ARAnalyzerGLMReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 00FA6FAE1667B1CF008E3A68 /* ARAnalyzerGLMReference.m */; };
 		00B1AC24114554DB008FC09D /* COEDLValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AC22114554DB008FC09D /* COEDLValidator.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00B1AC25114554DB008FC09D /* COEDLValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC23114554DB008FC09D /* COEDLValidator.m */; };
 		00B1AC34114556C3008FC09D /* COEDLValidatorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC33114556C3008FC09D /* COEDLValidatorTest.m */; };
@@ -2793,6 +2795,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00A8715F166CFC9C00D25E4B /* glmtest.m in Sources */,
+				00A87160166CFCD500D25E4B /* ARAnalyzerGLMReference.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3511,11 +3515,11 @@
 		0006F623122E5A56001DA2BB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
+				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -3523,34 +3527,39 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_CFLAGS = "-lstdc++";
+				OTHER_CPLUSPLUSFLAGS = "-lstdc++";
 				OTHER_LDFLAGS = (
 					"-lstdc++",
 					"$(inherited)",
 				);
 				PRODUCT_NAME = glmtest;
-				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = "";
 			};
 			name = Debug;
 		};
 		0006F624122E5A56001DA2BB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_MODEL_TUNING = G5;
+				GCC_MODEL_TUNING = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_CFLAGS = "-lstdc++";
+				OTHER_CPLUSPLUSFLAGS = "-lstdc++";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
 					"-framework",
 					AppKit,
+					"-lstdc++",
 				);
 				PRODUCT_NAME = glmtest;
 			};
@@ -4367,7 +4376,7 @@
 					"/usr/local/lib/InsightToolkit/**",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "";
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -4473,7 +4482,7 @@
 					"/usr/local/lib/InsightToolkit/**",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "";
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (

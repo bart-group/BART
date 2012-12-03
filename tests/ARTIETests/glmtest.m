@@ -14,9 +14,8 @@
 //#import "EDNA/EDDataElementVI.h"
 	
 
-@implementation glmtest
 
-@end
+
 
 int main()
 {
@@ -82,3 +81,4 @@ int main()
 	
 	
 }
+
