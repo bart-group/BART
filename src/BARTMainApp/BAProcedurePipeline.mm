@@ -54,7 +54,7 @@
 {
     if ((self = [super init])) {
         // TODO: appropriate init
-        mCurrentTimestep = 399;
+        mCurrentTimestep = 20;
 		config = [[COExperimentContext getInstance] systemConfig];
 		isRealTimeTCPInput = NO;
 		startAnalysisAtTimeStep = 15;

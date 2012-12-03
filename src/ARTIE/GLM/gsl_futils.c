@@ -11,14 +11,14 @@
 #include <stdlib.h>
 #include <math.h>
 
-//#include <gsl/gsl_cblas.h>
+#include <gsl/gsl_cblas.h>
 #include <gsl/gsl_matrix.h>
 //#include <gsl/gsl_vector.h>
-//#include <gsl/gsl_blas.h>
+#include <gsl/gsl_blas.h>
 #include <gsl/gsl_linalg.h>
 #include <gsl/gsl_sort_vector.h>
 #include "gsl_utils.h"
-#include <Accelerate/Accelerate.h>
+//#include <Accelerate/Accelerate.h>
 
 #define dvset gsl_vector_set
 #define dvget gsl_vector_get
@@ -43,8 +43,7 @@ fmat_x_vector(gsl_matrix_float *A, gsl_vector_float *x, gsl_vector_float *y)
         y = gsl_vector_float_alloc (A->size1);
     }
     
-    //cblas_sgemv(CblasNoTrans, 1.0, A, x, 0.0, y);
-    vSgemv('n', (int32_t) y->size, (int32_t) x->size, 1.0, (vFloat*) A->data, (vFloat*) x->data, 0.0, (vFloat*)y->data);
+    gsl_blas_sgemv(CblasNoTrans, 1.0, A, x, 0.0, y);
     return y;
 }
 
@@ -55,14 +54,11 @@ fmat_x_vector(gsl_matrix_float *A, gsl_vector_float *x, gsl_vector_float *y)
 gsl_matrix_float *
 fmat_x_matT(gsl_matrix_float *A,gsl_matrix_float *B,gsl_matrix_float *C)
 {
-    gsl_matrix_float *temp;
     if (C == NULL) {
         C = gsl_matrix_float_alloc( A->size1, B->size1 );
-        temp = gsl_matrix_float_alloc( A->size1, B->size1 );
     }
     
-    //gsl_blas_sgemm( CblasNoTrans, CblasTrans, 1.0, A, B, 0.0, C );
-    vSgemm((int32_t)C->size1, (int32_t)A->size2, (int32_t)C->size2, (vFloat*)A->data, 'n', (vFloat*)B->data, 'T', (vFloat*)temp->data, 1.0, 0.0, (vFloat*)C->data);
+    gsl_blas_sgemm( CblasNoTrans, CblasTrans, 1.0, A, B, 0.0, C );
     
     return C;
 }
@@ -74,14 +70,11 @@ fmat_x_matT(gsl_matrix_float *A,gsl_matrix_float *B,gsl_matrix_float *C)
 gsl_matrix_float *
 fmatT_x_mat(gsl_matrix_float *A,gsl_matrix_float *B,gsl_matrix_float *C)
 {
-    gsl_matrix_float *temp;
     if (C == NULL) {
         C = gsl_matrix_float_alloc( A->size2, B->size2 );
-        temp = gsl_matrix_float_alloc( A->size2, B->size2 );
     }
     
-//    gsl_blas_sgemm( CblasTrans, CblasNoTrans, 1.0, A, B, 0.0, C );
-    vSgemm((int32_t)C->size1, (int32_t)A->size1, (int32_t)C->size2, (vFloat*)A->data, 'T', (vFloat*)B->data, 'n', (vFloat*)temp->data, 1.0, 0.0, (vFloat*)C->data);
+    gsl_blas_sgemm( CblasTrans, CblasNoTrans, 1.0, A, B, 0.0, C );
     return C;
 }
 
@@ -92,22 +85,12 @@ fmatT_x_mat(gsl_matrix_float *A,gsl_matrix_float *B,gsl_matrix_float *C)
 gsl_matrix_float *
 fmat_x_mat(gsl_matrix_float *A,gsl_matrix_float *B,gsl_matrix_float *C)
 {
-    gsl_matrix_float *temp;
     if (C == NULL) {
-        temp = gsl_matrix_float_alloc( A->size1, B->size2 );
         C = gsl_matrix_float_alloc( A->size1, B->size2 );
     }
     
-    //gsl_blas_sgemm( CblasNoTrans, CblasNoTrans, 1.0, A, B, 0.0, C );
-    vSgemm((int32_t)C->size1, (int32_t)A->size2, (int32_t)C->size2, (vFloat*)A->data, 'n', (vFloat*)B->data, 'n', (vFloat*)temp->data, 1.0, 0.0, (vFloat*)C->data);
-   
-    double *ptr1 = C->data;
-    for(size_t i = 0; i < 1 /* C->size1 */; i++) {
-        for(size_t j = 0; j < C->size2; j++) {
-            printf("%e ", *((C->data) + (j + ((i*4) * C->size2))));
-        }
-        printf("\n");
-    }
+    gsl_blas_sgemm( CblasNoTrans, CblasNoTrans, 1.0, A, B, 0.0, C );
+    
     return C;
 }
 
@@ -279,29 +262,14 @@ fmat_PseudoInv(gsl_matrix_float *A,gsl_matrix_float *B)
     xmax = gsl_vector_get(w,0);
     xmin = tiny;
     j = n-1;
-    double u_div_xmax = 0.0L;
     while ((j > 0)){
-        
-            u = gsl_vector_get(w,j);
-            if (u > 0 && u/xmax > tiny) {
-                j0 = j;
-                break;
-            }
-            j--;
-        
+        u = gsl_vector_get(w,j);
+        if (u > 0 && xmax > 0 && u/xmax > tiny) {
+            j0 = j;
+            break;
+        }
+        j--;
     }
-//    if (u_div_xmax > tiny) {
-//        j0 = j+1;
-//    }
-
-//    for (j=n-1; j >= 0; j--) {
-//        u = gsl_vector_get(w,j);
-//        if (u > 0 && u/xmax > tiny) {
-//            j0 = j;
-//            goto skip;
-//        }
-//    }
-//skip: ;
     if (j0 < n-1) {
         fprintf(stderr," Warning: Matrix is singular, design is probably not orthogonal\n");
         xmin = gsl_vector_get(w,j0) - tiny;

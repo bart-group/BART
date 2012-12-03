@@ -10,11 +10,11 @@
 #import "EDNA/EDDataElement.h"
 #import "NEDesignElement.h"
 #import "BAGUIProtoCGLayer.h"
-#include <Accelerate/Accelerate.h>
-//#import "gsl/gsl_cblas.h"
+//#include <Accelerate/Accelerate.h>
+#import "gsl/gsl_cblas.h"
 #import "gsl/gsl_matrix.h"
 //#import "gsl/gsl_vector.h"
-//#import "gsl/gsl_blas.h"
+#import "gsl/gsl_blas.h"
 #import "gsl_utils.h"
 
 

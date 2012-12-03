@@ -137,6 +137,10 @@
 		009BCE5215F92B030059B8D3 /* ARTIE.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 009BCDC015F90C380059B8D3 /* ARTIE.dylib */; };
 		00A8715F166CFC9C00D25E4B /* glmtest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00FA6FB41667B1CF008E3A68 /* glmtest.m */; };
 		00A87160166CFCD500D25E4B /* ARAnalyzerGLMReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 00FA6FAE1667B1CF008E3A68 /* ARAnalyzerGLMReference.m */; };
+		00A871CB166D64FC00D25E4B /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00A871CA166D64FB00D25E4B /* libgslcblas.dylib */; };
+		00A871CE166D688700D25E4B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00A871CD166D688700D25E4B /* Accelerate.framework */; };
+		00A871CF166D6A7D00D25E4B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00A871CD166D688700D25E4B /* Accelerate.framework */; };
+		00A871D0166D6A9A00D25E4B /* libgsl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00FE3391166CC3C70005EE3D /* libgsl.dylib */; };
 		00B1AC24114554DB008FC09D /* COEDLValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1AC22114554DB008FC09D /* COEDLValidator.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00B1AC25114554DB008FC09D /* COEDLValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC23114554DB008FC09D /* COEDLValidator.m */; };
 		00B1AC34114556C3008FC09D /* COEDLValidatorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AC33114556C3008FC09D /* COEDLValidatorTest.m */; };
@@ -241,7 +245,6 @@
 		00FA6FBF1667C882008E3A68 /* TestDataset02-functional.nii in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00FA6FBB1667C183008E3A68 /* TestDataset02-functional.nii */; };
 		00FA6FC01668E266008E3A68 /* timeBasedRegressorNEDTest.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00709E4B12E86A06006389C4 /* timeBasedRegressorNEDTest.edl */; };
 		00FE338216690A090005EE3D /* BARTNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 00AE410D133B9EF100F2D01D /* BARTNotifications.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		00FE3390166CC39D0005EE3D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00FE338F166CC39D0005EE3D /* Accelerate.framework */; };
 		00FE3392166CC3C70005EE3D /* libgsl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00FE3391166CC3C70005EE3D /* libgsl.dylib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -788,6 +791,8 @@
 		009BCE4915F9246C0059B8D3 /* libviaio.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libviaio.dylib; path = ../../../../../usr/local/lib/libviaio.dylib; sourceTree = "<group>"; };
 		00A7DD4B117C366A00062AFE /* NEDUnitTestSuite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NEDUnitTestSuite.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00A7DD4C117C366A00062AFE /* NEDUnitTestSuite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "NEDUnitTestSuite-Info.plist"; path = "../../projects/NEDUnitTestSuite-Info.plist"; sourceTree = "<group>"; };
+		00A871CA166D64FB00D25E4B /* libgslcblas.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgslcblas.dylib; path = ../../../../../usr/local/lib/libgslcblas.dylib; sourceTree = "<group>"; };
+		00A871CD166D688700D25E4B /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = ../../../../../System/Library/Frameworks/Accelerate.framework; sourceTree = "<group>"; };
 		00AB18EA115246ED003BC915 /* main_SW_BoldModule_2ContinousTargetROIs.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = main_SW_BoldModule_2ContinousTargetROIs.edl; sourceTree = "<group>"; };
 		00AE410D133B9EF100F2D01D /* BARTNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BARTNotifications.h; sourceTree = "<group>"; };
 		00AE42B0133CB00400F2D01D /* BARTNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BARTNotifications.m; sourceTree = "<group>"; };
@@ -905,9 +910,7 @@
 		00FA6FB41667B1CF008E3A68 /* glmtest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = glmtest.m; path = /Users/lydi/Development/BART/tests/ARTIETests/glmtest.m; sourceTree = "<absolute>"; };
 		00FA6FBA1667C183008E3A68 /* TestDataset01-functional.nii */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TestDataset01-functional.nii"; sourceTree = "<group>"; };
 		00FA6FBB1667C183008E3A68 /* TestDataset02-functional.nii */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TestDataset02-functional.nii"; sourceTree = "<group>"; };
-		00FE338F166CC39D0005EE3D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = ../../../../../System/Library/Frameworks/Accelerate.framework; sourceTree = "<group>"; };
 		00FE3391166CC3C70005EE3D /* libgsl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgsl.dylib; path = ../../../../../usr/local/lib/libgsl.dylib; sourceTree = "<group>"; };
-		00FE3393166CDCC30005EE3D /* vecLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vecLib.framework; path = ../../../../../System/Library/Frameworks/vecLib.framework; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -1074,6 +1077,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00A871CB166D64FC00D25E4B /* libgslcblas.dylib in Frameworks */,
 				009BCE4C15F924A50059B8D3 /* ARTIE.dylib in Frameworks */,
 				009BCE4A15F9246C0059B8D3 /* libviaio.dylib in Frameworks */,
 				009BCE4815F924640059B8D3 /* libvia.dylib in Frameworks */,
@@ -1116,8 +1120,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00A871CE166D688700D25E4B /* Accelerate.framework in Frameworks */,
 				00FE3392166CC3C70005EE3D /* libgsl.dylib in Frameworks */,
-				00FE3390166CC39D0005EE3D /* Accelerate.framework in Frameworks */,
 				009BCDC115F90C380059B8D3 /* Cocoa.framework in Frameworks */,
 				009BCDED15F90EF60059B8D3 /* NED.dylib in Frameworks */,
 				009BCE0015F913960059B8D3 /* libfftw3.dylib in Frameworks */,
@@ -1130,6 +1134,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00A871D0166D6A9A00D25E4B /* libgsl.dylib in Frameworks */,
+				00A871CF166D6A7D00D25E4B /* Accelerate.framework in Frameworks */,
 				009BCE5215F92B030059B8D3 /* ARTIE.dylib in Frameworks */,
 				009BCDCF15F90C380059B8D3 /* SenTestingKit.framework in Frameworks */,
 				009BCDD015F90C380059B8D3 /* Cocoa.framework in Frameworks */,
@@ -1816,9 +1822,9 @@
 		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
 			isa = PBXGroup;
 			children = (
-				00FE3393166CDCC30005EE3D /* vecLib.framework */,
+				00A871CD166D688700D25E4B /* Accelerate.framework */,
+				00A871CA166D64FB00D25E4B /* libgslcblas.dylib */,
 				00FE3391166CC3C70005EE3D /* libgsl.dylib */,
-				00FE338F166CC39D0005EE3D /* Accelerate.framework */,
 				009BCE4915F9246C0059B8D3 /* libviaio.dylib */,
 				009BCE4715F924630059B8D3 /* libvia.dylib */,
 				009BCDB915F908AE0059B8D3 /* BARTSerialIOFramework.framework */,
@@ -3767,8 +3773,6 @@
 					"-lboost_filesystem-mt",
 					"-lboost_system-mt",
 					"-lisis_core",
-					"-framework",
-					Accelerate,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
@@ -3828,8 +3832,6 @@
 					"-lboost_filesystem-mt",
 					"-lboost_system-mt",
 					"-lisis_core",
-					"-framework",
-					Accelerate,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
@@ -4393,8 +4395,6 @@
 					"-lboost_system-mt",
 					"-lisis_core",
 					"-lboost_regex-mt",
-					"-framework",
-					Accelerate,
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = "";
@@ -4501,8 +4501,6 @@
 					"-lboost_system-mt",
 					"-lisis_core",
 					"-lboost_regex-mt",
-					"-framework",
-					Accelerate,
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = "";
