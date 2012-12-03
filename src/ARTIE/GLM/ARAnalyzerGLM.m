@@ -10,11 +10,11 @@
 #import "EDNA/EDDataElement.h"
 #import "NEDesignElement.h"
 #import "BAGUIProtoCGLayer.h"
-
-#import "gsl/gsl_cblas.h"
+#include <Accelerate/Accelerate.h>
+//#import "gsl/gsl_cblas.h"
 #import "gsl/gsl_matrix.h"
-#import "gsl/gsl_vector.h"
-#import "gsl/gsl_blas.h"
+//#import "gsl/gsl_vector.h"
+//#import "gsl/gsl_blas.h"
 #import "gsl_utils.h"
 
 
@@ -45,13 +45,22 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 @synthesize slidingWindowSize;
 @synthesize mSlidingWindowAnalysis;
 @synthesize mMinval;
-
+//gsl_vector_float *global_y;
+//gsl_vector_float *global_ys;
+float global_sum;
+float global_sum2;
+float global_nx;
 
 -(id)init
 {
     if ((self = [super init])) {
         slidingWindowSize = 40;
         mSlidingWindowAnalysis = NO;
+        //global_y = gsl_vector_float_alloc(720);
+        //global_ys = gsl_vector_float_alloc(720);
+        global_sum = 0.0f;
+        global_sum2 = 0.0f;
+        global_nx = 0.0f;
     }
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(OnNewData:) name:@"MessageName" object:nil];
     return self;
@@ -83,6 +92,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         index = slidingWindowSize;
     } else {
         index = timestep;
+        
     }
     
     EDDataElement*  resMap = [self Regression:2000
@@ -112,7 +122,8 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
 -(void)dealloc
 {
     
-
+    //gsl_vector_float_free(global_y);
+    //gsl_vector_float_free(global_ys);
     [super dealloc];
 }
 
@@ -136,7 +147,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         size_t numberRows = data.mImageSize.rows;
         size_t numberCols = data.mImageSize.columns;
         size_t numberExplanatoryVariables = copyDesign.mNumberExplanatoryVariables;
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0); /* Global asyn. dispatch queue. */
+        dispatch_queue_t queue = dispatch_queue_create("de.mpg.cbs.BARTAnalyzerGLMQueue", DISPATCH_QUEUE_CONCURRENT); /* asyn. dispatch queue. */
         
         gsl_set_error_handler_off();
         
@@ -149,7 +160,6 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
             NSLog(@" design dimension inconsistency: %ld (numberTimesteps design) %lu (numberTimesteps data)", 
                   copyDesign.mNumberTimesteps, numberBands);
         }
-        
         /* Read design matrix. */
         gsl_matrix_float *X = NULL; /*   matrix. */
         X = gsl_matrix_float_alloc(sliding_window_size, numberExplanatoryVariables);
@@ -161,7 +171,6 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                 fmset(X, timestep - (lastTimestep - sliding_window_size), covariate, (float) x);
             }
         }
-        
         /*
          * pre-coloring, set up K-matrix, S=K, V = K*K^T with K=S
          * K ... correlation matrix
@@ -174,13 +183,13 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         GaussMatrix((double) sigma, S);
         gsl_matrix_float *Vc = NULL;   /* Descibes auto correlation matrix. */
         Vc = fmat_x_matT(S, S, NULL);
-        
+
         /* Compute pseudo inverse. */
         gsl_matrix_float *SX = NULL;   /* "Notation": SX = matrix S multiplied by matrix X. */
         SX = fmat_x_mat(S, X, NULL);
         gsl_matrix_float *XInv = NULL; /* Pseudo inverse matrix of X. */
         XInv = fmat_PseudoInv(SX, NULL);
-        
+        NSLog(@"4444");
         /* Get effective degrees of freedom. */
         gsl_matrix_float *R = NULL;
         R = gsl_matrix_float_alloc(sliding_window_size, sliding_window_size);
@@ -301,11 +310,12 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         
         /* Process. */
         __block int npix = 0;
+        
         for (size_t slice = 0; slice < numberSlices; slice++) {
             
-//            if (slice % 5 == 0) {
-//                fprintf(stderr, " slice: %3zd\r", slice);
-//            }
+            if (slice % 5 == 0) {
+                fprintf(stderr, " slice: %3zd\r", slice);
+            }
             //NSLog(@" Sl: %lu, TS: %lu", numberSlices, numberBands);
             
             if (TRUE == [data sliceIsZero:slice ]) {
@@ -319,7 +329,8 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                             float sum2 = 0.0L;
                             float nx = 0.0L;
                             gsl_vector_float *y = gsl_vector_float_alloc(sliding_window_size);
-                            float *ptr1 = y->data;
+                            
+                            float *ptr1 = y->data;//y->data;
                             size_t i;
                             float u;
                             
@@ -330,13 +341,13 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
                                 sum2 += u * u;
                                 nx++;
                             }
-                                                        
+                            
                             float mean = sum / nx;
                             float sig = sqrt((double) ((sum2 - nx * mean * mean) / (nx - 1.0)));
                             if (sig >= 0.001) {
                                 
                                 /* centering and scaling, Seber, p.330 */
-                                ptr1 = y->data;
+                                ptr1 = y->data;//y->data;
                                 for (i = 0; i < sliding_window_size; i++) {
                                     u = ((*ptr1) - mean) / sig;
                                     (*ptr1++) = u + 100.0;
@@ -438,6 +449,7 @@ extern gsl_vector_float *VectorConvolve(gsl_vector_float *, gsl_vector_float *,
         [betaOutput release];
         [resOutput release];
         [BCOVOutput release];
+        dispatch_release(queue);
     
         return [resMap autorelease];
     }

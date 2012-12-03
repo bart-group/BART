@@ -54,7 +54,7 @@
 {
     if ((self = [super init])) {
         // TODO: appropriate init
-        mCurrentTimestep = 700;
+        mCurrentTimestep = 399;
 		config = [[COExperimentContext getInstance] systemConfig];
 		isRealTimeTCPInput = NO;
 		startAnalysisAtTimeStep = 15;
@@ -212,12 +212,13 @@
 	else {
 		//get data to analyse out of notification
 		mInputData = [aNotification object];
+        //NSLog(@"mInputData %@", mInputData);
 
 		if ([mInputData getImageSize].timesteps == 1){
 			[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadBackgroundImageNotification object:mInputData];
 		}
 		
-		//NSLog(@"Nr of Timesteps in InputData: %lu", [mInputData getImageSize].timesteps);
+		NSLog(@"Nr of Timesteps in InputData: %lu", [mInputData getImageSize].timesteps);
 		if (([mInputData getImageSize].timesteps > startAnalysisAtTimeStep-1 ) && ([mInputData getImageSize].timesteps < [[paradigm designElement] numberTimesteps])) {
 			[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
 		}
@@ -230,7 +231,7 @@
 
 -(void)processDataThread
 {
-	//NSLog(@"processDataThread START");
+	NSLog(@"processDataThread START");
 	NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
 	EDDataElement *resData;
 	
@@ -255,12 +256,12 @@
 	else {
 		resData = [[mAnalyzer anaylzeTheData:mInputData withDesign:[paradigm designElement] atCurrentTimestep:[mInputData getImageSize].timesteps forContrastVector:contrastVector andWriteResultInto:nil] retain];
         
-        NSString *fname =[NSString stringWithFormat:@"zmapnr_%lu.nii", [mInputData getImageSize].timesteps];
-        NSString* newFileName = [[[COExperimentContext getInstance] systemConfig] getProp:@"$logFolder"];
-        newFileName = [newFileName stringByAppendingPathComponent:fname];
+        //NSString *fname =[NSString stringWithFormat:@"zmapnr_%lu.nii", [mInputData getImageSize].timesteps];
+        //NSString* newFileName = [[[COExperimentContext getInstance] systemConfig] getProp:@"$logFolder"];
+        //newFileName = [newFileName stringByAppendingPathComponent:fname];
         
 		//NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%lu.nii", [mInputData getImageSize].timesteps];
-		[resData WriteDataElementToFile:newFileName];
+		//[resData WriteDataElementToFile:newFileName];
 	}
 	
 	//NSLog(@"!!!!resData retainCoung pre notification %d", [resData retainCount]);

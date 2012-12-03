@@ -418,9 +418,9 @@ CGImageRef backgroundCGImage = nil;
             }
         }
     }
-    NSLog(@"maxValue : %2.2f; minValue : %2.2f", maxValue, minValue);
-    NSLog(@"maxSlider: %2.2f; minSlider: %2.2f", maxThreshold, minThreshold);
-    NSLog(@"width: %d, height: %d, spr: %d, spc: %d",displayImageWidth, displayImageHeight, slicesPerRow, slicesPerCol);
+    //NSLog(@"maxValue : %2.2f; minValue : %2.2f", maxValue, minValue);
+    //NSLog(@"maxSlider: %2.2f; minSlider: %2.2f", maxThreshold, minThreshold);
+    //NSLog(@"width: %d, height: %d, spr: %d, spc: %d",displayImageWidth, displayImageHeight, slicesPerRow, slicesPerCol);
     
     if (foregroundImageRaw) {
         free(foregroundImageRaw);

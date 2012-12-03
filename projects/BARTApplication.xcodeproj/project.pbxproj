@@ -13,8 +13,6 @@
 		0006F476122BFADD001DA2BB /* PRPreprocessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 0006F474122BFADD001DA2BB /* PRPreprocessor.h */; };
 		0006F477122BFADD001DA2BB /* PRPreprocessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F475122BFADD001DA2BB /* PRPreprocessor.m */; };
 		0006F518122D2DEF001DA2BB /* NEDesignElementReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006F517122D2DEF001DA2BB /* NEDesignElementReference.m */; };
-		0006F57E122D5510001DA2BB /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573111459587007C02CB /* libgslcblas.dylib */; };
-		0006F580122D5512001DA2BB /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573B11459605007C02CB /* libgsl.0.dylib */; };
 		0006F595122D5881001DA2BB /* EDDataElementIsisTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0006284211A44D9300D369D0 /* EDDataElementIsisTest.mm */; };
 		0006F7AD122E90FD001DA2BB /* pseudoStimulusDataBlock.edl in Resources */ = {isa = PBXBuildFile; fileRef = 0006F7AB122E90FD001DA2BB /* pseudoStimulusDataBlock.edl */; };
 		0006F7AE122E90FD001DA2BB /* rtExperiment_v14_simplified.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 0006F7AC122E90FD001DA2BB /* rtExperiment_v14_simplified.xsd */; };
@@ -98,7 +96,6 @@
 		00786E1713EED14600BF2554 /* COExperimentContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 00786E1513EED14600BF2554 /* COExperimentContext.m */; };
 		007932B3114FB79E007BEB66 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F81141470400A57967 /* main.m */; };
 		007932B4114FB79E007BEB66 /* ColorMappingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F71141470400A57967 /* ColorMappingFilter.m */; };
-		007932B7114FB7A3007BEB66 /* BAGUIPrototyp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B41141470400A57967 /* BAGUIPrototyp.m */; };
 		007932B8114FB7A4007BEB66 /* BAGUIProtoCGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7B21141470400A57967 /* BAGUIProtoCGLayer.m */; };
 		007932BA114FB7A6007BEB66 /* BADocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7AE1141470400A57967 /* BADocument.m */; };
 		0079349E114FF120007BEB66 /* COEDLValidatorLiteral.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B1AD76114645A3008FC09D /* COEDLValidatorLiteral.m */; };
@@ -121,24 +118,19 @@
 		009BCDE515F90ECA0059B8D3 /* gauss.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7991141470400A57967 /* gauss.c */; };
 		009BCDE615F90ECC0059B8D3 /* gsl_futils.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B79A1141470400A57967 /* gsl_futils.c */; };
 		009BCDE715F90ED40059B8D3 /* gsl_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 0040B79C1141470400A57967 /* gsl_utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		009BCDE815F90ED50059B8D3 /* BlockIO.h in Headers */ = {isa = PBXBuildFile; fileRef = 0040B7981141470400A57967 /* BlockIO.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		009BCDE915F90ED80059B8D3 /* ARAnalyzerGLM.h in Headers */ = {isa = PBXBuildFile; fileRef = 0040B7951141470400A57967 /* ARAnalyzerGLM.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		009BCDEB15F90EF00059B8D3 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
 		009BCDEC15F90EF30059B8D3 /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AF13E805FF00169848 /* CLETUS.dylib */; };
 		009BCDED15F90EF60059B8D3 /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AE13E805FF00169848 /* NED.dylib */; };
 		009BCDF615F90F430059B8D3 /* ARAnalyzerElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 009BCDF415F90F430059B8D3 /* ARAnalyzerElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		009BCDF715F90F430059B8D3 /* ARAnalyzerElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 009BCDF515F90F430059B8D3 /* ARAnalyzerElement.m */; };
-		009BCDFE15F913920059B8D3 /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573111459587007C02CB /* libgslcblas.dylib */; };
-		009BCDFF15F913940059B8D3 /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573B11459605007C02CB /* libgsl.0.dylib */; };
 		009BCE0015F913960059B8D3 /* libfftw3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A15135C6F5000562F3B /* libfftw3.dylib */; };
 		009BCE0315F915870059B8D3 /* ARTIE.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 009BCDC015F90C380059B8D3 /* ARTIE.dylib */; };
 		009BCE3215F91A300059B8D3 /* ConfigTestDataset02.edl in Resources */ = {isa = PBXBuildFile; fileRef = 009BCE2F15F91A300059B8D3 /* ConfigTestDataset02.edl */; };
 		009BCE3415F91AA00059B8D3 /* NED.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AE13E805FF00169848 /* NED.dylib */; };
 		009BCE3515F91AA30059B8D3 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
 		009BCE3615F91AA50059B8D3 /* CLETUS.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4AF13E805FF00169848 /* CLETUS.dylib */; };
-		009BCE3F15F91CCE0059B8D3 /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573B11459605007C02CB /* libgsl.0.dylib */; };
 		009BCE4015F91CD80059B8D3 /* libfftw3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A15135C6F5000562F3B /* libfftw3.dylib */; };
-		009BCE4115F91CDA0059B8D3 /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573111459587007C02CB /* libgslcblas.dylib */; };
 		009BCE4815F924640059B8D3 /* libvia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 009BCE4715F924630059B8D3 /* libvia.dylib */; };
 		009BCE4A15F9246C0059B8D3 /* libviaio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 009BCE4915F9246C0059B8D3 /* libviaio.dylib */; };
 		009BCE4C15F924A50059B8D3 /* ARTIE.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 009BCDC015F90C380059B8D3 /* ARTIE.dylib */; };
@@ -176,7 +168,6 @@
 		00D4418C134B587600094A51 /* EDDataElementIsisRealTime.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00AE43A71343912400F2D01D /* EDDataElementIsisRealTime.mm */; };
 		00D441BA134B59D600094A51 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		00D44261134B5E8C00094A51 /* BARTNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AE42B0133CB00400F2D01D /* BARTNotifications.m */; };
-		00D444E2134DEB5300094A51 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
 		00DB77E913EA8AD500BB6484 /* NELogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77D313EA8AD500BB6484 /* NELogFormatter.h */; };
 		00DB77EA13EA8AD500BB6484 /* NELogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB77D413EA8AD500BB6484 /* NELogFormatter.m */; };
 		00DB77EB13EA8AD500BB6484 /* NEMediaAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 00DB77D513EA8AD500BB6484 /* NEMediaAudio.h */; };
@@ -234,9 +225,7 @@
 		00EA8A78135C726200562F3B /* NEDesignGloverKernel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0085EB2311511B2C004795FD /* NEDesignGloverKernel.m */; };
 		00EA8B07135C7C6A00562F3B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		00EA8DF2135D879B00562F3B /* libfftw3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A15135C6F5000562F3B /* libfftw3.dylib */; };
-		00EA8E59135D8BA700562F3B /* libgslcblas.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573111459587007C02CB /* libgslcblas.dylib */; };
 		00EA8E5B135D8BA800562F3B /* libfftw3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EA8A15135C6F5000562F3B /* libfftw3.dylib */; };
-		00EA8E5D135D8BA800562F3B /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1573B11459605007C02CB /* libgsl.0.dylib */; };
 		00EA8ECC135F00C100562F3B /* EDIsisImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00EA8ECA135F006200562F3B /* EDIsisImage.cpp */; };
 		00EA8ED7135F02DA00562F3B /* EDIsisImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 00EA8ED6135F02DA00562F3B /* EDIsisImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00EC145415D97BAD00E3878F /* NERegressorAssignment.h in Headers */ = {isa = PBXBuildFile; fileRef = 00EC145215D97BAB00E3878F /* NERegressorAssignment.h */; };
@@ -252,6 +241,8 @@
 		00FA6FBF1667C882008E3A68 /* TestDataset02-functional.nii in CopyFiles */ = {isa = PBXBuildFile; fileRef = 00FA6FBB1667C183008E3A68 /* TestDataset02-functional.nii */; };
 		00FA6FC01668E266008E3A68 /* timeBasedRegressorNEDTest.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00709E4B12E86A06006389C4 /* timeBasedRegressorNEDTest.edl */; };
 		00FE338216690A090005EE3D /* BARTNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 00AE410D133B9EF100F2D01D /* BARTNotifications.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		00FE3390166CC39D0005EE3D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00FE338F166CC39D0005EE3D /* Accelerate.framework */; };
+		00FE3392166CC3C70005EE3D /* libgsl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00FE3391166CC3C70005EE3D /* libgsl.dylib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A713AA091445CF1600BBF150 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
@@ -300,7 +291,6 @@
 		E54B8157157E40600029ECC4 /* BAExampleStepConfigView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E54B8155157E40600029ECC4 /* BAExampleStepConfigView.xib */; };
 		E54B8159157F751D0029ECC4 /* BAEmptyElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E54B8158157F751D0029ECC4 /* BAEmptyElementView.xib */; };
 		E54B815B157F76AA0029ECC4 /* Luigi.png in Resources */ = {isa = PBXBuildFile; fileRef = E54B815A157F76AA0029ECC4 /* Luigi.png */; };
-		E55B2DAC154ACD5B007A0452 /* BlockIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7971141470400A57967 /* BlockIO.c */; };
 		E55B2DAD154ACD68007A0452 /* EDDataElementVI.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B772C311417C6300B2931A /* EDDataElementVI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E562D7E6156156B300DE5631 /* BAHierarchyElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E562D7E5156156B300DE5631 /* BAHierarchyElement.m */; };
 		E562D7E91561586700DE5631 /* BASession.m in Sources */ = {isa = PBXBuildFile; fileRef = E562D7E81561586700DE5631 /* BASession.m */; };
@@ -720,8 +710,6 @@
 		003D803613E6CC77004DE6E9 /* EDDataElementTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDataElementTest.m; sourceTree = "<group>"; };
 		0040B7951141470400A57967 /* ARAnalyzerGLM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ARAnalyzerGLM.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0040B7961141470400A57967 /* ARAnalyzerGLM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ARAnalyzerGLM.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		0040B7971141470400A57967 /* BlockIO.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BlockIO.c; sourceTree = "<group>"; };
-		0040B7981141470400A57967 /* BlockIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockIO.h; sourceTree = "<group>"; };
 		0040B7991141470400A57967 /* gauss.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gauss.c; sourceTree = "<group>"; };
 		0040B79A1141470400A57967 /* gsl_futils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gsl_futils.c; sourceTree = "<group>"; };
 		0040B79C1141470400A57967 /* gsl_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gsl_utils.h; sourceTree = "<group>"; };
@@ -731,8 +719,6 @@
 		0040B7AE1141470400A57967 /* BADocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADocument.m; sourceTree = "<group>"; };
 		0040B7B11141470400A57967 /* BAGUIProtoCGLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BAGUIProtoCGLayer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0040B7B21141470400A57967 /* BAGUIProtoCGLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BAGUIProtoCGLayer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		0040B7B31141470400A57967 /* BAGUIPrototyp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BAGUIPrototyp.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		0040B7B41141470400A57967 /* BAGUIPrototyp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BAGUIPrototyp.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0040B7EF1141470400A57967 /* BARTApplicationAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BARTApplicationAppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0040B7F01141470400A57967 /* BARTApplicationAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BARTApplicationAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0040B7F51141470400A57967 /* ColorMappingFilter.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ColorMappingFilter.cikernel; sourceTree = "<group>"; };
@@ -808,8 +794,6 @@
 		00AE4356133CEC4A00F2D01D /* EDDataElementRealTimeLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EDDataElementRealTimeLoader.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		00AE43A61343912400F2D01D /* EDDataElementIsisRealTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EDDataElementIsisRealTime.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		00AE43A71343912400F2D01D /* EDDataElementIsisRealTime.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = EDDataElementIsisRealTime.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		00B1573111459587007C02CB /* libgslcblas.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgslcblas.dylib; path = /usr/local/lib/libgslcblas.dylib; sourceTree = "<absolute>"; };
-		00B1573B11459605007C02CB /* libgsl.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgsl.0.dylib; path = /usr/local/lib/libgsl.0.dylib; sourceTree = "<absolute>"; };
 		00B1AC22114554DB008FC09D /* COEDLValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COEDLValidator.h; sourceTree = "<group>"; };
 		00B1AC23114554DB008FC09D /* COEDLValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COEDLValidator.m; sourceTree = "<group>"; };
 		00B1AC32114556C3008FC09D /* COEDLValidatorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COEDLValidatorTest.h; sourceTree = "<group>"; };
@@ -921,6 +905,9 @@
 		00FA6FB41667B1CF008E3A68 /* glmtest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = glmtest.m; path = /Users/lydi/Development/BART/tests/ARTIETests/glmtest.m; sourceTree = "<absolute>"; };
 		00FA6FBA1667C183008E3A68 /* TestDataset01-functional.nii */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TestDataset01-functional.nii"; sourceTree = "<group>"; };
 		00FA6FBB1667C183008E3A68 /* TestDataset02-functional.nii */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TestDataset02-functional.nii"; sourceTree = "<group>"; };
+		00FE338F166CC39D0005EE3D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = ../../../../../System/Library/Frameworks/Accelerate.framework; sourceTree = "<group>"; };
+		00FE3391166CC3C70005EE3D /* libgsl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgsl.dylib; path = ../../../../../usr/local/lib/libgsl.dylib; sourceTree = "<group>"; };
+		00FE3393166CDCC30005EE3D /* vecLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vecLib.framework; path = ../../../../../System/Library/Frameworks/vecLib.framework; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -1094,9 +1081,7 @@
 				00486A2D15D6F9E500A32A3A /* EDNA.dylib in Frameworks */,
 				00486A2C15D6F9E200A32A3A /* NED.dylib in Frameworks */,
 				00486A2E15D6F9E700A32A3A /* CLETUS.dylib in Frameworks */,
-				00EA8E59135D8BA700562F3B /* libgslcblas.dylib in Frameworks */,
 				00EA8E5B135D8BA800562F3B /* libfftw3.dylib in Frameworks */,
-				00EA8E5D135D8BA800562F3B /* libgsl.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1131,11 +1116,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00FE3392166CC3C70005EE3D /* libgsl.dylib in Frameworks */,
+				00FE3390166CC39D0005EE3D /* Accelerate.framework in Frameworks */,
 				009BCDC115F90C380059B8D3 /* Cocoa.framework in Frameworks */,
 				009BCDED15F90EF60059B8D3 /* NED.dylib in Frameworks */,
-				009BCDFE15F913920059B8D3 /* libgslcblas.dylib in Frameworks */,
 				009BCE0015F913960059B8D3 /* libfftw3.dylib in Frameworks */,
-				009BCDFF15F913940059B8D3 /* libgsl.0.dylib in Frameworks */,
 				009BCDEB15F90EF00059B8D3 /* EDNA.dylib in Frameworks */,
 				009BCDEC15F90EF30059B8D3 /* CLETUS.dylib in Frameworks */,
 			);
@@ -1151,8 +1136,6 @@
 				009BCE3415F91AA00059B8D3 /* NED.dylib in Frameworks */,
 				009BCE4015F91CD80059B8D3 /* libfftw3.dylib in Frameworks */,
 				009BCE3515F91AA30059B8D3 /* EDNA.dylib in Frameworks */,
-				009BCE3F15F91CCE0059B8D3 /* libgsl.0.dylib in Frameworks */,
-				009BCE4115F91CDA0059B8D3 /* libgslcblas.dylib in Frameworks */,
 				009BCE3615F91AA50059B8D3 /* CLETUS.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1229,8 +1212,6 @@
 				00673D3613FC1E9B0056BD4F /* NED.dylib in Frameworks */,
 				00673D3813FC1E9F0056BD4F /* CLETUS.dylib in Frameworks */,
 				00673D3713FC1E9D0056BD4F /* EDNA.dylib in Frameworks */,
-				0006F57E122D5510001DA2BB /* libgslcblas.dylib in Frameworks */,
-				0006F580122D5512001DA2BB /* libgsl.0.dylib in Frameworks */,
 				00EA8DF2135D879B00562F3B /* libfftw3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1345,8 +1326,6 @@
 				0040B86F1141488200A57967 /* SmoothnessEstim.c */,
 				0040B7951141470400A57967 /* ARAnalyzerGLM.h */,
 				0040B7961141470400A57967 /* ARAnalyzerGLM.m */,
-				0040B7971141470400A57967 /* BlockIO.c */,
-				0040B7981141470400A57967 /* BlockIO.h */,
 				0040B7991141470400A57967 /* gauss.c */,
 				0040B79A1141470400A57967 /* gsl_futils.c */,
 				0040B79C1141470400A57967 /* gsl_utils.h */,
@@ -1506,9 +1485,7 @@
 		006E07731190296500CEEF38 /* others */ = {
 			isa = PBXGroup;
 			children = (
-				00B1573111459587007C02CB /* libgslcblas.dylib */,
 				00EA8A15135C6F5000562F3B /* libfftw3.dylib */,
-				00B1573B11459605007C02CB /* libgsl.0.dylib */,
 			);
 			name = others;
 			sourceTree = "<group>";
@@ -1624,8 +1601,6 @@
 			children = (
 				0040B7B11141470400A57967 /* BAGUIProtoCGLayer.h */,
 				0040B7B21141470400A57967 /* BAGUIProtoCGLayer.m */,
-				0040B7B31141470400A57967 /* BAGUIPrototyp.h */,
-				0040B7B41141470400A57967 /* BAGUIPrototyp.m */,
 				E56CFEBC1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.h */,
 				E56CFEBD1563D6D000CA9CC4 /* BAHierarchyTreeDescriptionCellView.m */,
 				E5440C0D158A40F300AC541F /* BAHierarchyTreeStateCellView.h */,
@@ -1841,6 +1816,9 @@
 		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
 			isa = PBXGroup;
 			children = (
+				00FE3393166CDCC30005EE3D /* vecLib.framework */,
+				00FE3391166CC3C70005EE3D /* libgsl.dylib */,
+				00FE338F166CC39D0005EE3D /* Accelerate.framework */,
 				009BCE4915F9246C0059B8D3 /* libviaio.dylib */,
 				009BCE4715F924630059B8D3 /* libvia.dylib */,
 				009BCDB915F908AE0059B8D3 /* BARTSerialIOFramework.framework */,
@@ -2042,7 +2020,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				009BCDE715F90ED40059B8D3 /* gsl_utils.h in Headers */,
-				009BCDE815F90ED50059B8D3 /* BlockIO.h in Headers */,
 				009BCDF615F90F430059B8D3 /* ARAnalyzerElement.h in Headers */,
 				009BCDE915F90ED80059B8D3 /* ARAnalyzerGLM.h in Headers */,
 			);
@@ -2814,7 +2791,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				005B604C11D3819E00812781 /* isis_test.mm in Sources */,
-				00D444E2134DEB5300094A51 /* BlockIO.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2904,7 +2880,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E55B2DAC154ACD5B007A0452 /* BlockIO.c in Sources */,
 				00D44188134B587400094A51 /* EDDataElementIsis.mm in Sources */,
 				00D44189134B587400094A51 /* EDDataElementRealTimeLoader.mm in Sources */,
 				00D4418C134B587600094A51 /* EDDataElementIsisRealTime.mm in Sources */,
@@ -2959,7 +2934,6 @@
 				0040B84A1141470400A57967 /* Negative.cikernel in Sources */,
 				007932B3114FB79E007BEB66 /* main.m in Sources */,
 				007932B4114FB79E007BEB66 /* ColorMappingFilter.m in Sources */,
-				007932B7114FB7A3007BEB66 /* BAGUIPrototyp.m in Sources */,
 				007932B8114FB7A4007BEB66 /* BAGUIProtoCGLayer.m in Sources */,
 				007932BA114FB7A6007BEB66 /* BADocument.m in Sources */,
 				00D44159134B569400094A51 /* BAProcedurePipeline.mm in Sources */,
@@ -3793,6 +3767,8 @@
 					"-lboost_filesystem-mt",
 					"-lboost_system-mt",
 					"-lisis_core",
+					"-framework",
+					Accelerate,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
@@ -3852,6 +3828,8 @@
 					"-lboost_filesystem-mt",
 					"-lboost_system-mt",
 					"-lisis_core",
+					"-framework",
+					Accelerate,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
@@ -4415,6 +4393,8 @@
 					"-lboost_system-mt",
 					"-lisis_core",
 					"-lboost_regex-mt",
+					"-framework",
+					Accelerate,
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = "";
@@ -4521,6 +4501,8 @@
 					"-lboost_system-mt",
 					"-lisis_core",
 					"-lboost_regex-mt",
+					"-framework",
+					Accelerate,
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = "";

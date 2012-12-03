@@ -1,12 +1,15 @@
 
+#ifndef GAUSS_C_FILE_H
+#define GAUSS_C_FILE_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-#include <gsl/gsl_cblas.h>
-#include <gsl/gsl_vector.h>
+//#include <gsl/gsl_cblas.h>
+//#include <gsl/gsl_vector.h>
 #include <gsl/gsl_matrix.h>
 #include "gsl_utils.h"
+#include <Accelerate/Accelerate.h>
 
 
 
@@ -143,7 +146,7 @@ VectorConvolve(gsl_vector_float *src,gsl_vector_float *dst,gsl_vector *kernel)
   return dst;
 }
 
-
+#endif
 /*
 int
 main(int argc, char *argv[])

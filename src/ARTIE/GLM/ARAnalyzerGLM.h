@@ -20,8 +20,8 @@
 
 @interface ARAnalyzerGLM : ARAnalyzerElement {
     
-  //  NEDesignElement *mDesign;
-  //  EDDataElement *mData;
+    NEDesignElement *mDesign;
+    EDDataElement *mData;
     
    // EDDataElement *mBetaOutput;
    // EDDataElement *mResOutput;

@@ -1,4 +1,6 @@
 
+#ifndef GSL_UTILS_C_HEADER_H
+#define GSL_UTILS_C_HEADER_H
 /* float */
 extern gsl_vector_float * fmat_x_vector(gsl_matrix_float *,gsl_vector_float *,gsl_vector_float *);
 extern gsl_matrix_float * fmat_x_mat(gsl_matrix_float *,gsl_matrix_float *,gsl_matrix_float *);
@@ -53,3 +55,5 @@ extern gsl_matrix *dtranspose(gsl_matrix *,gsl_matrix *);
 
 /* epsilon interval */
 #define EPSILON 0.000001
+
+#endif

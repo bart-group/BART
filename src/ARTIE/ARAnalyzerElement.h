@@ -55,11 +55,10 @@ static NSString *const kAnalyzerPluginAnalyzerTypeKey = @"AnalyzerPluginType";
 
 -(void)sendFinishNotification;
 
-@end
 
 #pragma mark -
 
-@interface ARAnalyzerElement (SubclassUseOnly)
+
 
 // Private, concrete methods used by subclasses:
 -(void)whatever:(BOOL) findParameters;

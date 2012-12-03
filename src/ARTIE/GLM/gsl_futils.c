@@ -1,323 +1,359 @@
-/* 
-** gsl routines for float data type
-**
-** G.Lohmann, July 2004
-*/
+/*
+ ** gsl routines for float data type
+ **
+ ** G.Lohmann, July 2004
+ */
 
+#ifndef GSL_FUTILS_C_FILE
+#define GSL_FUTILS_C_FILE
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-#include <gsl/gsl_cblas.h>
+//#include <gsl/gsl_cblas.h>
 #include <gsl/gsl_matrix.h>
-#include <gsl/gsl_vector.h>
-#include <gsl/gsl_blas.h>
+//#include <gsl/gsl_vector.h>
+//#include <gsl/gsl_blas.h>
 #include <gsl/gsl_linalg.h>
 #include <gsl/gsl_sort_vector.h>
-#include "gsl_utils.h" 
+#include "gsl_utils.h"
+#include <Accelerate/Accelerate.h>
 
-#define dvset gsl_vector_set 
-#define dvget gsl_vector_get 
-#define dmset gsl_matrix_set 
+#define dvset gsl_vector_set
+#define dvget gsl_vector_get
+#define dmset gsl_matrix_set
 #define dmget gsl_matrix_get
 
-#define fvset gsl_vector_float_set 
-#define fvget gsl_vector_float_get 
-#define fmset gsl_matrix_float_set 
+#define fvset gsl_vector_float_set
+#define fvget gsl_vector_float_get
+#define fmset gsl_matrix_float_set
 #define fmget gsl_matrix_float_get
 
 #define ABS(x) ((x) > 0 ? (x) : -(x))
 
 
 /*
-** y = Ax
-*/
+ ** y = Ax
+ */
 gsl_vector_float *
 fmat_x_vector(gsl_matrix_float *A, gsl_vector_float *x, gsl_vector_float *y)
 {
-  if (y == NULL) {
-    y = gsl_vector_float_alloc (A->size1);
-  }
-
-  gsl_blas_sgemv(CblasNoTrans, 1.0, A, x, 0.0, y);
-
-  return y;
+    if (y == NULL) {
+        y = gsl_vector_float_alloc (A->size1);
+    }
+    
+    //cblas_sgemv(CblasNoTrans, 1.0, A, x, 0.0, y);
+    vSgemv('n', (int32_t) y->size, (int32_t) x->size, 1.0, (vFloat*) A->data, (vFloat*) x->data, 0.0, (vFloat*)y->data);
+    return y;
 }
 
 
 /*
-**    C = A x B^T
-*/
+ **    C = A x B^T
+ */
 gsl_matrix_float *
 fmat_x_matT(gsl_matrix_float *A,gsl_matrix_float *B,gsl_matrix_float *C)
 {
-  if (C == NULL) {
-    C = gsl_matrix_float_alloc( A->size1, B->size1 );
-  }
-
-  gsl_blas_sgemm( CblasNoTrans, CblasTrans, 1.0, A, B, 0.0, C );
-
-  return C;
+    gsl_matrix_float *temp;
+    if (C == NULL) {
+        C = gsl_matrix_float_alloc( A->size1, B->size1 );
+        temp = gsl_matrix_float_alloc( A->size1, B->size1 );
+    }
+    
+    //gsl_blas_sgemm( CblasNoTrans, CblasTrans, 1.0, A, B, 0.0, C );
+    vSgemm((int32_t)C->size1, (int32_t)A->size2, (int32_t)C->size2, (vFloat*)A->data, 'n', (vFloat*)B->data, 'T', (vFloat*)temp->data, 1.0, 0.0, (vFloat*)C->data);
+    
+    return C;
 }
 
 
 /*
-**    C = A^T x B
-*/
+ **    C = A^T x B
+ */
 gsl_matrix_float *
 fmatT_x_mat(gsl_matrix_float *A,gsl_matrix_float *B,gsl_matrix_float *C)
 {
-  if (C == NULL) {
-    C = gsl_matrix_float_alloc( A->size2, B->size2 );
-  }
-
-  gsl_blas_sgemm( CblasTrans, CblasNoTrans, 1.0, A, B, 0.0, C );
-
-  return C;
+    gsl_matrix_float *temp;
+    if (C == NULL) {
+        C = gsl_matrix_float_alloc( A->size2, B->size2 );
+        temp = gsl_matrix_float_alloc( A->size2, B->size2 );
+    }
+    
+//    gsl_blas_sgemm( CblasTrans, CblasNoTrans, 1.0, A, B, 0.0, C );
+    vSgemm((int32_t)C->size1, (int32_t)A->size1, (int32_t)C->size2, (vFloat*)A->data, 'T', (vFloat*)B->data, 'n', (vFloat*)temp->data, 1.0, 0.0, (vFloat*)C->data);
+    return C;
 }
 
 
 /*
-**    C = A x B
-*/
+ **    C = A x B
+ */
 gsl_matrix_float *
 fmat_x_mat(gsl_matrix_float *A,gsl_matrix_float *B,gsl_matrix_float *C)
 {
-  if (C == NULL) {
-    C = gsl_matrix_float_alloc( A->size1, B->size2 );
-  }
-
-  gsl_blas_sgemm( CblasNoTrans, CblasNoTrans, 1.0, A, B, 0.0, C );
-
-  return C;
+    gsl_matrix_float *temp;
+    if (C == NULL) {
+        temp = gsl_matrix_float_alloc( A->size1, B->size2 );
+        C = gsl_matrix_float_alloc( A->size1, B->size2 );
+    }
+    
+    //gsl_blas_sgemm( CblasNoTrans, CblasNoTrans, 1.0, A, B, 0.0, C );
+    vSgemm((int32_t)C->size1, (int32_t)A->size2, (int32_t)C->size2, (vFloat*)A->data, 'n', (vFloat*)B->data, 'n', (vFloat*)temp->data, 1.0, 0.0, (vFloat*)C->data);
+   
+    double *ptr1 = C->data;
+    for(size_t i = 0; i < 1 /* C->size1 */; i++) {
+        for(size_t j = 0; j < C->size2; j++) {
+            printf("%e ", *((C->data) + (j + ((i*4) * C->size2))));
+        }
+        printf("\n");
+    }
+    return C;
 }
 
 
 /*
-**  y = Ax,  A double, x float
-*/
+ **  y = Ax,  A double, x float
+ */
 gsl_vector_float *
 dmat_x_fvector(gsl_matrix *A, gsl_vector_float *x, gsl_vector_float *y)
 {
-  size_t i,j,nrows,ncols;
-  float *ptr2,*ptr3,sum;
-  double *ptr1;
-
-  nrows = A->size1;
-  ncols = A->size2;
-
-  if (y == NULL) {
-     y = gsl_vector_float_alloc (nrows);
-  }
-
-  if (x->size != ncols || y->size != nrows) {
-    fprintf(stderr," fmat_x_vect: incongruent dimensions\n");
-    exit(0);
-  }
-
-  ptr1 = A->data;
-  ptr3 = y->data;
-
-  for (i=0; i<nrows; i++) {
-    sum = 0;
-    ptr2 = x->data;
-    for (j=0; j<ncols; j++) {
-      sum += (*ptr1++) * (*ptr2++);
+    size_t i,j,nrows,ncols;
+    float *ptr2,*ptr3,sum;
+    double *ptr1;
+    
+    nrows = A->size1;
+    ncols = A->size2;
+    
+    if (y == NULL) {
+        y = gsl_vector_float_alloc (nrows);
     }
-    *ptr3++ = sum;
-  }
-  return y;
+    
+    if (x->size != ncols || y->size != nrows) {
+        fprintf(stderr," fmat_x_vect: incongruent dimensions\n");
+        exit(0);
+    }
+    
+    ptr1 = A->data;
+    ptr3 = y->data;
+    
+    for (i=0; i<nrows; i++) {
+        sum = 0;
+        ptr2 = x->data;
+        for (j=0; j<ncols; j++) {
+            sum += (*ptr1++) * (*ptr2++);
+        }
+        *ptr3++ = sum;
+    }
+    return y;
 }
 
 
 /*
-**  z = x^T y
-*/
+ **  z = x^T y
+ */
 float
 fskalarproduct(gsl_vector_float *x,gsl_vector_float *y)
 {
-  size_t i,n;
-  float *ptr1,*ptr2,sum;
-
-  n = x->size;
-  if (y->size != n) {
-    fprintf(stderr," fskalarproduct: incongruent vector sizes: %ld %ld",n,y->size);
-    exit(0);
-  }
-
-  ptr1 = x->data;
-  ptr2 = y->data;
-  sum = 0;
-  for (i=0; i<n; i++) {
-    sum += (*ptr1) * (*ptr2);
-    ptr1++;
-    ptr2++;
-  }
-  return sum;
+    size_t i,n;
+    float *ptr1,*ptr2,sum;
+    
+    n = x->size;
+    if (y->size != n) {
+        fprintf(stderr," fskalarproduct: incongruent vector sizes: %ld %ld",n,y->size);
+        exit(0);
+    }
+    
+    ptr1 = x->data;
+    ptr2 = y->data;
+    sum = 0;
+    for (i=0; i<n; i++) {
+        sum += (*ptr1) * (*ptr2);
+        ptr1++;
+        ptr2++;
+    }
+    return sum;
 }
 
 /*
-**    printout
-*/
+ **    printout
+ */
 void
 fmatprint(FILE *fp,gsl_matrix_float *A,const char *format)
 {
-  size_t i,j;
-  for (i=0; i<A->size1; i++) {
-    for (j=0; j<A->size2; j++) {
-      fprintf(fp,format,fmget(A,i,j));
+    size_t i,j;
+    for (i=0; i<A->size1; i++) {
+        for (j=0; j<A->size2; j++) {
+            fprintf(fp,format,fmget(A,i,j));
+        }
+        fprintf(fp,"\n");
     }
     fprintf(fp,"\n");
-  }
-  fprintf(fp,"\n");
-
+    
 }
 
 /*
-**    B = A^T
-*/
+ **    B = A^T
+ */
 gsl_matrix_float *
 ftranspose(gsl_matrix_float *A,gsl_matrix_float *B)
 {
-  size_t i,j,n,m;
-
-  n = A->size1;
-  m = A->size2;
-  
-  if (B == NULL) {
-    B = gsl_matrix_float_alloc(m,n);
-  }
-  else if (B->size1 != m || B->size2 != n) {
-    gsl_matrix_float_free(B);
-    B = gsl_matrix_float_alloc(m,n);
-  }
-
-  for (i=0; i<n; i++) {
-    for (j=0; j<m; j++) {
-      fmset(B,j,i,fmget(A,i,j));
+    size_t i,j,n,m;
+    
+    n = A->size1;
+    m = A->size2;
+    
+    if (B == NULL) {
+        B = gsl_matrix_float_alloc(m,n);
     }
-  }
-  return B;
+    else if (B->size1 != m || B->size2 != n) {
+        gsl_matrix_float_free(B);
+        B = gsl_matrix_float_alloc(m,n);
+    }
+    
+    for (i=0; i<n; i++) {
+        for (j=0; j<m; j++) {
+            fmset(B,j,i,fmget(A,i,j));
+        }
+    }
+    return B;
 }
 
 
 /*
-**    B = A^-1 = A^+
-*/
+ **    B = A^-1 = A^+
+ */
 gsl_matrix_float *
 fmat_PseudoInv(gsl_matrix_float *A,gsl_matrix_float *B)
 {
-  size_t i,j,k,l,n,m;
-  double u,x;
-  double *dbl_pp;
-  float *flt_pp;
-  static gsl_matrix *U=NULL,*V=NULL,*X=NULL;
-  static gsl_vector *w=NULL, *work=NULL;
-
-  m = A->size1;
-  n = A->size2;
-
-  if (B == NULL) {
-    B = gsl_matrix_float_alloc (n,m);
-  }
-  else if (B->size1 != n || B->size2 != m) {
-    gsl_matrix_float_free(B);
-    B = gsl_matrix_float_alloc (n, m);
-  }
-
-  if (U == NULL) {
-    U = gsl_matrix_alloc (m, n);
-    V = gsl_matrix_alloc (n, n);
-    X = gsl_matrix_alloc (n, n);
-    w = gsl_vector_alloc (n);
-    work = gsl_vector_alloc (n);
-  }
-  else if (U->size1 != m || w->size != n) {
-    gsl_matrix_free(U);
-    gsl_matrix_free(V);
-    gsl_matrix_free(X);
-    gsl_vector_free(w);
-    gsl_vector_free(work);
-    U = gsl_matrix_alloc (m, n);
-    V = gsl_matrix_alloc (n, n);
-    X = gsl_matrix_alloc (n, n);
-    w = gsl_vector_alloc (n);
-    work = gsl_vector_alloc (n);
-  }
-
-  /* singular value decomposition */
-  flt_pp = A->data;
-  dbl_pp = U->data;
-  for (i=0; i<A->size1 * A->size2; i++) 
-    *dbl_pp++ = *flt_pp++;
-
-  /* gsl_linalg_SV_decomp_jacobi(U,V,w); */
-  gsl_linalg_SV_decomp_mod (U,X,V,w,work);
-
-  /* exception from Gaby */
-  size_t j0 = 0;
-  double xmin, xmax, tiny=10.0e-6;
-  xmax = gsl_vector_get(w,0);
-  xmin = tiny;
-  for (j=n-1; j >= 0; j--) {
-    u = gsl_vector_get(w,j);
-    if (u > 0 && u/xmax > tiny) {
-      j0 = j;
-      goto skip;
+    size_t i,j,k,l,n,m;
+    double u,x;
+    double *dbl_pp;
+    float *flt_pp;
+    static gsl_matrix *U=NULL,*V=NULL,*X=NULL;
+    static gsl_vector *w=NULL, *work=NULL;
+    
+    m = A->size1;
+    n = A->size2;
+    
+    if (B == NULL) {
+        B = gsl_matrix_float_alloc (n,m);
     }
-  }
- skip: ;
-  if (j0 < n-1) {
-    fprintf(stderr," Warning: Matrix is singular, design is probably not orthogonal\n");
-    xmin = gsl_vector_get(w,j0) - tiny;
-    if (xmin < 0) xmin = 0;
-  }
-
-  /* Fill the result */
-  gsl_matrix_float_set_zero(B);
-  for (k=0; k<n; k++) {
-    for (l=0; l<m; l++) {
-        x = fmget(B,k,l);
-        for (j=0; j<n; j++) {
-            u = dvget(w,j);
-            if (ABS(u) > xmin) {
-                x += dmget(V,k,j)*dmget(U,l,j)/u;
-            }
-            else {
-                /* because of the sorting of the  sv-vector u, 
-                 * we can skip here */ 
+    else if (B->size1 != n || B->size2 != m) {
+        gsl_matrix_float_free(B);
+        B = gsl_matrix_float_alloc (n, m);
+    }
+    
+    if (U == NULL) {
+        U = gsl_matrix_alloc (m, n);
+        V = gsl_matrix_alloc (n, n);
+        X = gsl_matrix_alloc (n, n);
+        w = gsl_vector_alloc (n);
+        work = gsl_vector_alloc (n);
+    }
+    else if (U->size1 != m || w->size != n) {
+        gsl_matrix_free(U);
+        gsl_matrix_free(V);
+        gsl_matrix_free(X);
+        gsl_vector_free(w);
+        gsl_vector_free(work);
+        U = gsl_matrix_alloc (m, n);
+        V = gsl_matrix_alloc (n, n);
+        X = gsl_matrix_alloc (n, n);
+        w = gsl_vector_alloc (n);
+        work = gsl_vector_alloc (n);
+    }
+    
+    /* singular value decomposition */
+    flt_pp = A->data;
+    dbl_pp = U->data;
+    for (i=0; i<A->size1 * A->size2; i++)
+        *dbl_pp++ = *flt_pp++;
+    
+    /* gsl_linalg_SV_decomp_jacobi(U,V,w); */
+    gsl_linalg_SV_decomp_mod (U,X,V,w,work);
+    
+    /* exception from Gaby */
+    size_t j0 = 0;
+    double xmin, xmax, tiny=10.0e-6;
+    xmax = gsl_vector_get(w,0);
+    xmin = tiny;
+    j = n-1;
+    double u_div_xmax = 0.0L;
+    while ((j > 0)){
+        
+            u = gsl_vector_get(w,j);
+            if (u > 0 && u/xmax > tiny) {
+                j0 = j;
                 break;
             }
-        }
-        fmset(B,k,l,x);
+            j--;
+        
     }
-  }
-  return B;
+//    if (u_div_xmax > tiny) {
+//        j0 = j+1;
+//    }
+
+//    for (j=n-1; j >= 0; j--) {
+//        u = gsl_vector_get(w,j);
+//        if (u > 0 && u/xmax > tiny) {
+//            j0 = j;
+//            goto skip;
+//        }
+//    }
+//skip: ;
+    if (j0 < n-1) {
+        fprintf(stderr," Warning: Matrix is singular, design is probably not orthogonal\n");
+        xmin = gsl_vector_get(w,j0) - tiny;
+        if (xmin < 0){
+            xmin = 0;
+        }
+    }
+    
+    /* Fill the result */
+    gsl_matrix_float_set_zero(B);
+    for (k=0; k<n; k++) {
+        for (l=0; l<m; l++) {
+            x = fmget(B,k,l);
+            for (j=0; j<n; j++) {
+                u = dvget(w,j);
+                if (ABS(u) > xmin) {
+                    x += dmget(V,k,j)*dmget(U,l,j)/u;
+                }
+                else {
+                    /* because of the sorting of the  sv-vector u,
+                     * we can skip here */
+                    break;
+                }
+            }
+            fmset(B,k,l,x);
+        }
+    }
+    return B;
 }
 
 
 /*
-** returns the trace of a matrix M 
-*/
-float 
+ ** returns the trace of a matrix M
+ */
+float
 trace(gsl_matrix_float *M){
-
+    
     gsl_vector_float_view diag = gsl_matrix_float_diagonal(M);
     float sum = 0;
     size_t i = 0;
     for(i = 0;i<diag.vector.size;i++)
         sum += gsl_vector_float_get(&diag.vector,i);
-
+    
     return sum;
 }
 
 /*
-**  rank(A)
-*/
-int 
+ **  rank(A)
+ */
+int
 rank(gsl_matrix_float* mat) {
-
+    
     size_t m = mat->size1;
     size_t n = mat->size2;
     size_t i;
@@ -340,11 +376,11 @@ rank(gsl_matrix_float* mat) {
     V = gsl_matrix_alloc(n,n);
     X = gsl_matrix_alloc (n, n);
     work = gsl_vector_alloc (n);
-   
+    
     /* SVD */
     /* gsl_linalg_SV_decomp_jacobi(U,V,S); */
     gsl_linalg_SV_decomp_mod (U,X,V,S,work);
-
+    
     int rank = 0;
     /* counting the nonzero singular values with a tolerance of EPSILON*/
     for(i=0;i<S->size;i++){
@@ -364,11 +400,11 @@ rank(gsl_matrix_float* mat) {
 
 
 /*
-**  fsum
-*/
-gsl_vector_float* 
+ **  fsum
+ */
+gsl_vector_float*
 fsum(gsl_matrix_float* matrix, int dim, gsl_vector_float* v) {
-        
+    
     size_t row,col;
     float sum;
     
@@ -382,9 +418,9 @@ fsum(gsl_matrix_float* matrix, int dim, gsl_vector_float* v) {
             fprintf(stderr, "Warning in fsum: vector size doesn't match related matrix dimension. Resizing ..");
             gsl_vector_float_free(v);
             v = gsl_vector_float_alloc(matrix->size2);
-        }        
+        }
         
-        for(col=0;col<matrix->size2;col++){            
+        for(col=0;col<matrix->size2;col++){
             sum=0;
             for(row=0;row<matrix->size1;row++) {
                 sum+=matrix->data[col+row*matrix->size2];
@@ -394,7 +430,7 @@ fsum(gsl_matrix_float* matrix, int dim, gsl_vector_float* v) {
     }
     /* build sum over all rows */
     else {
-
+        
         if(v == NULL) {
             v = gsl_vector_float_alloc(matrix->size1);
         }
@@ -404,41 +440,41 @@ fsum(gsl_matrix_float* matrix, int dim, gsl_vector_float* v) {
             gsl_vector_float_free(v);
             v = gsl_vector_float_alloc(matrix->size1);
         }
-
+        
         for(row = 0;row<matrix->size1;row++) {
             sum = 0;
             for(col=0;col<matrix->size2;col++) {
                 sum += matrix->data[col+row*matrix->size2];
             }
             v->data[row] = sum;
-        }        
+        }
     }
-        
+    
     return v;
     
 }
 
 
 /*
-**  funique
-*/
-gsl_vector_float* 
+ **  funique
+ */
+gsl_vector_float*
 funique(gsl_vector_float* V) {
     
     /* working copy */
     gsl_vector_float* v = gsl_vector_float_alloc(V->size);
     /* pointer to result */
-    gsl_vector_float* res;                      
+    gsl_vector_float* res;
     /* holds value of last saved element */
     float max=0;
     /* counter */
     size_t i;
     
     gsl_vector_float_memcpy(v,V);
-        
+    
     /* sort elements from V. */
     gsl_sort_vector_float(v);
-
+    
     /* count number of different elements */
     size_t nelements = 0;
     
@@ -448,13 +484,13 @@ funique(gsl_vector_float* V) {
         /* the first element in the list is special */
         if(i==0) {
             max = *p;
-            nelements++;            
+            nelements++;
         }
         else {
             if(*p > max) {
                 max = *p;
                 nelements++;
-            }                
+            }
         }
         p++;
     }
@@ -476,21 +512,21 @@ funique(gsl_vector_float* V) {
         }
         p++;
     }
-
+    
     gsl_vector_float_free(v);
     
     return res;
 }
 
 /*
-**  subcols
-*/
-gsl_matrix_float* 
+ **  subcols
+ */
+gsl_matrix_float*
 fmat_subcols(gsl_matrix_float* mat,gsl_vector_float* cols) {
     
-    /* some tests */    
+    /* some tests */
     
-    if((cols->size < 0) || (cols->size > mat->size2)) {
+    if( (cols->size > mat->size2)) {
         fprintf(stderr,"column vector: invalid dimensions");
         exit(-1);
     }
@@ -498,18 +534,18 @@ fmat_subcols(gsl_matrix_float* mat,gsl_vector_float* cols) {
     float min, max;
     gsl_vector_float_minmax(cols, &min, &max);
     
-    if((min < 0) || (max > mat->size2)) { 
+    if((min < 0) || (max > mat->size2)) {
         fprintf(stderr,"column vector values exceed matrix dimensions!");
         exit(-1);
     }
     
-    /* TODO reduce column vector to unique values with funique. We will omit 
+    /* TODO reduce column vector to unique values with funique. We will omit
      * this due to performance reasons. */
     
     /* the return value */
     gsl_matrix_float* ret = gsl_matrix_float_alloc(mat->size1, cols->size);
     /* the copy buffer */
-    gsl_vector_float* buff = gsl_vector_float_alloc(mat->size1);        
+    gsl_vector_float* buff = gsl_vector_float_alloc(mat->size1);
     /* counter */
     size_t i;
     
@@ -526,13 +562,13 @@ fmat_subcols(gsl_matrix_float* mat,gsl_vector_float* cols) {
 }
 
 /*
-**  toeplitz
-*/
-gsl_matrix_float* 
+ **  toeplitz
+ */
+gsl_matrix_float*
 fmat_toeplitz(gsl_vector_float* v, gsl_matrix_float* A){
-
+    
     size_t i,j;
-
+    
     if(A == NULL)
         A = gsl_matrix_float_alloc(v->size, v->size);
     else {
@@ -543,60 +579,60 @@ fmat_toeplitz(gsl_vector_float* v, gsl_matrix_float* A){
             A = gsl_matrix_float_alloc(v->size, v->size);
         }
     }
-
+    
     for(i=0;i<A->size1;i++){
         for(j=0;j<A->size2;j++) {
             gsl_matrix_float_set(A,i,j,gsl_vector_float_get(v, ABS(i-j)));
         }
     }
-   
+    
     return A;
-
+    
 }
 
 /*
-**  A^-1
-*/
-gsl_matrix_float* 
+ **  A^-1
+ */
+gsl_matrix_float*
 fInv(gsl_matrix_float *M, gsl_matrix_float *result) {
-  
-    static gsl_matrix *ludecomp=NULL, *res=NULL; 
+    
+    static gsl_matrix *ludecomp=NULL, *res=NULL;
     static gsl_permutation *perm=NULL;
     int s; /*permutation signum for LU-Decomposition*/
     size_t i;
-
+    
     size_t m = M->size1;
     size_t n = M->size2;
-
+    
     if(m != n) {
         fprintf(stderr, "dInv: not a square matrix\n");
         exit(0);
     }
-
-    if(result == NULL){ 
+    
+    if(result == NULL){
         result = gsl_matrix_float_alloc(m,m);
     }
-
+    
     if((result->size1 != m) || (result->size2 != n)) {
         fprintf(stderr,"dInv: incongruent matrix dimensions.\n");
         exit(0);
     }
-   
-
+    
+    
     if (ludecomp == NULL) {
-      ludecomp = gsl_matrix_alloc(m,m);
-      perm = gsl_permutation_alloc(m); 
-      res = gsl_matrix_alloc(m,m);
+        ludecomp = gsl_matrix_alloc(m,m);
+        perm = gsl_permutation_alloc(m);
+        res = gsl_matrix_alloc(m,m);
     }
     else if (ludecomp->size1 != m || perm->size != m || res->size1 != m) {
-      gsl_matrix_free(ludecomp);
-      gsl_matrix_free(res);
-      gsl_permutation_free(perm);
-      ludecomp = gsl_matrix_alloc(m,m);
-      perm = gsl_permutation_alloc(m); 
-      res = gsl_matrix_alloc(m,m);
+        gsl_matrix_free(ludecomp);
+        gsl_matrix_free(res);
+        gsl_permutation_free(perm);
+        ludecomp = gsl_matrix_alloc(m,m);
+        perm = gsl_permutation_alloc(m); 
+        res = gsl_matrix_alloc(m,m);
     }
-
+    
     /* convert from float to double */
     double* d_ptr = ludecomp->data;
     float* f_ptr = M->data;
@@ -616,6 +652,7 @@ fInv(gsl_matrix_float *M, gsl_matrix_float *result) {
         *f_ptr = (float)*d_ptr;
         d_ptr++;f_ptr++;
     }
-
+    
     return result;
 }
+#endif
