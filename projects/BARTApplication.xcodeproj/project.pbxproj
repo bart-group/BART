@@ -262,7 +262,7 @@
 		A74EB3611525B09600AC7C59 /* RORegistrationVnormdata.h in Headers */ = {isa = PBXBuildFile; fileRef = A74EB3521525B09600AC7C59 /* RORegistrationVnormdata.h */; };
 		A74EB3621525B09600AC7C59 /* RORegistrationVnormdata.mm in Sources */ = {isa = PBXBuildFile; fileRef = A74EB3531525B09600AC7C59 /* RORegistrationVnormdata.mm */; };
 		A74EB3631525B09600AC7C59 /* ROTypedef.h in Headers */ = {isa = PBXBuildFile; fileRef = A74EB3541525B09600AC7C59 /* ROTypedef.h */; };
-		A74EB3641525B09600AC7C59 /* TimeUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = A74EB3551525B09600AC7C59 /* TimeUtil.h */; };
+		A74EB3641525B09600AC7C59 /* TimeUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = A74EB3551525B09600AC7C59 /* TimeUtil.h */; settings = {ATTRIBUTES = (); }; };
 		A74EB3701525B0BB00AC7C59 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A74EB3681525B0BB00AC7C59 /* InfoPlist.strings */; };
 		A74EB3711525B0BB00AC7C59 /* RORegistrationMethodTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = A74EB36B1525B0BB00AC7C59 /* RORegistrationMethodTest.mm */; };
 		A74EB3731525B0BB00AC7C59 /* TROYTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A74EB36F1525B0BB00AC7C59 /* TROYTests.m */; };
@@ -519,6 +519,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 00D4415F134B57BD00094A51;
 			remoteInfo = EDNA;
+		};
+		00ED0816166E607700677381 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0000B18213E1C92400029A41;
+			remoteInfo = TROY;
 		};
 		00FE3380166909730005EE3D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1999,9 +2006,9 @@
 				A74EB35B1525B09600AC7C59 /* RORegistrationBART.h in Headers */,
 				A74EB35D1525B09600AC7C59 /* RORegistrationBARTAnaOnly.h in Headers */,
 				A74EB35F1525B09600AC7C59 /* RORegistrationMethod.h in Headers */,
+				A74EB3641525B09600AC7C59 /* TimeUtil.h in Headers */,
 				A74EB3611525B09600AC7C59 /* RORegistrationVnormdata.h in Headers */,
 				A74EB3631525B09600AC7C59 /* ROTypedef.h in Headers */,
-				A74EB3641525B09600AC7C59 /* TimeUtil.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2418,6 +2425,7 @@
 				CE8A2B3610F6250A002422B5 /* PBXBuildRule */,
 			);
 			dependencies = (
+				00ED0817166E607700677381 /* PBXTargetDependency */,
 				00FE3381166909730005EE3D /* PBXTargetDependency */,
 				00C3A0231144FF0C00725668 /* PBXTargetDependency */,
 				00BCD73913E00D17001C091A /* PBXTargetDependency */,
@@ -3117,6 +3125,11 @@
 			target = 00D4415F134B57BD00094A51 /* EDNA */;
 			targetProxy = 00EC13D015D7171900E3878F /* PBXContainerItemProxy */;
 		};
+		00ED0817166E607700677381 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0000B18213E1C92400029A41 /* TROY */;
+			targetProxy = 00ED0816166E607700677381 /* PBXContainerItemProxy */;
+		};
 		00FE3381166909730005EE3D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 00D4415F134B57BD00094A51 /* EDNA */;
@@ -3198,14 +3211,14 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lisis_core",
 					"-lboost_system-mt",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.6;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -3225,14 +3238,14 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lisis_core",
 					"-lboost_system-mt",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.6;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -3306,6 +3319,7 @@
 					Cocoa,
 					"-lisis_core",
 				);
+				PREBINDING = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.6;
 				TEST_AFTER_BUILD = YES;

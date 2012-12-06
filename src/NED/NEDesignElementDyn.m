@@ -10,7 +10,40 @@
 #import "COExperimentContext.h"
 
 
+#include <time.h>
+#include <sys/time.h>
+#include <math.h>
+
+
+
 @implementation NEDesignElementDyn
+
+/**
+ * Utility header for time measurement using standard C routines and types.
+ */
+
+// ###########
+// # Structs
+// ###########
+
+typedef struct {
+	long secs;  // Time in whole seconds
+	long usecs; // Rest time in micro seconds (always less than 1 million)
+} TimeDiff;
+
+typedef struct timeval TimeVal;
+
+TimeVal now();
+
+TimeDiff*  newTimeDiff(TimeVal* start,
+                       TimeVal* end);
+
+char* newTimeDiffString(TimeDiff* t);
+
+double ValasDouble(TimeVal*);
+double DiffasDouble(TimeDiff*);
+double asDouble(long secs, long usecs);
+FILE *logTiming;
 
 double samplingRateInMs = 20.0; /* Temporal resolution for convolution is 20 ms. */
 const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
@@ -18,13 +51,14 @@ const TrialList TRIALLIST_INIT = { {0,0,0,0}, NULL};
 dispatch_queue_t serialDesignElementAccessQueue;
 BOOL isDynamicDesign = NO;
 
+
 -(id)initWithConfig:(COSystemConfig*)config
 {
     [config retain];
     
 	if ( (self = [super init] ))
     {
-        
+        logTiming = fopen("/tmp/logTiming.log", "w+");
         serialDesignElementAccessQueue = dispatch_queue_create("de.mpg.cbs.NEDesignElementDynSerialAccessQueue", DISPATCH_QUEUE_SERIAL);
         
         mDesignHasChanged = NO;
@@ -47,6 +81,7 @@ BOOL isDynamicDesign = NO;
             return nil;
         }
         //NSLog(@"GenDesign GCD: END");
+        
         
     }
 	[config release];
@@ -422,6 +457,7 @@ BOOL isDynamicDesign = NO;
 
 -(NSError*)updateDesign
 {
+    TimeVal start = now();
     __block NSError* error = nil;
     dispatch_sync(serialDesignElementAccessQueue, ^{
         
@@ -467,10 +503,10 @@ BOOL isDynamicDesign = NO;
                 NSString* errorString = [NSString stringWithFormat:@"No trials in event %ld, please re-number event-IDs!", eventNr + 1];
                 error = [NSError errorWithDomain:errorString code:EVENT_NUMERATION userInfo:nil];
             }
-            if (trialcount < 4) {
-                NSLog(@"Warning: too few trials (%d) in event %lu. Statistics will be unreliable.",
-                      trialcount, eventNr + 1);
-            }
+//            if (trialcount < 4) {
+//                NSLog(@"Warning: too few trials (%d) in event %lu. Statistics will be unreliable.",
+//                      trialcount, eventNr + 1);
+//            }
             
             /* fft */
             fftw_execute(mFftPlanForward[eventNr]);
@@ -502,12 +538,17 @@ BOOL isDynamicDesign = NO;
         
         
     });
+    TimeVal end = now();
+    TimeDiff *diff = newTimeDiff(&start, &end);
+    fprintf(logTiming, "%ld.%06ld\n", diff->secs, diff->usecs);
+   // NSLog(@"%ld.%06ld", diff->secs, diff->usecs);
+    free(diff);
     return error;
 }
 
 -(NSError*)writeDesignFile:(NSString*) path
 {
-    
+    fclose(logTiming);
     if (YES == isDynamicDesign)
     {
         COSystemConfig* configCopy = [[COExperimentContext getInstance] systemConfig];
@@ -777,6 +818,7 @@ BOOL isDynamicDesign = NO;
 
 -(void)dealloc
 {
+    
     for (unsigned int col = 0; col < self.mNumberRegressors; col++) {
         free(mRegressorValues[col]);
     }
@@ -855,3 +897,68 @@ BOOL isDynamicDesign = NO;
 }
 
 @end
+
+TimeVal now()
+{
+    TimeVal now;
+    
+    struct timezone tz;
+    tz.tz_minuteswest = 60;
+    tz.tz_dsttime = DST_MET;
+    
+    gettimeofday(&now, &tz);
+    
+    return now;
+}
+
+TimeDiff* newTimeDiff (TimeVal* start, TimeVal* end)
+{
+	TimeDiff* diff = (TimeDiff*) malloc (sizeof(TimeDiff));
+	
+	if (start->tv_sec == end->tv_sec) {
+		diff->secs = 0;
+		diff->usecs = end->tv_usec - start->tv_usec;
+	} else {
+		diff->usecs = 1000000 - start->tv_usec;
+		diff->secs = end->tv_sec - (start->tv_sec + 1);
+		diff->usecs += end->tv_usec;
+		if (diff->usecs >= 1000000) {
+			diff->usecs -= 1000000;
+			diff->secs += 1;
+		}
+	}
+	
+	return diff;
+}
+
+char* newTimeDiffString(TimeDiff* t) {
+    if (t == NULL) {
+        return NULL;
+    } else {
+        char* s = (char*) malloc((1                          // optional signum
+                                  + (log10(t->secs)) + 1 // number of digits showing the seconds
+                                  + 6                        // number of digits showing microseconds (past decimal dot)
+                                  + 1)                       // Null termination of the string
+                                 * sizeof(char));
+        
+        sprintf(s, "%ld.%06ld", t->secs, t->usecs);
+        
+        return s;
+    }
+}
+
+double ValasDouble(TimeVal* tv)
+{
+    return asDouble(tv->tv_sec, tv->tv_usec);
+}
+
+double DiffasDouble(TimeDiff* td)
+{
+    return asDouble(td->secs, td->usecs);
+}
+
+double asDouble(long secs, long usecs)
+{
+    return ((double) secs) + (usecs / 1000000.0);
+}
+
