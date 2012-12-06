@@ -32,6 +32,7 @@
 
 @implementation BAProcedurePipeline
 
+BOOL isApplicationStopped = NO;
 
 -(id)init
 {
@@ -54,10 +55,10 @@
 {
     if ((self = [super init])) {
         // TODO: appropriate init
-        mCurrentTimestep = 20;
+        mCurrentTimestep = 0;
 		config = [[COExperimentContext getInstance] systemConfig];
 		isRealTimeTCPInput = NO;
-		startAnalysisAtTimeStep = 15;
+		startAnalysisAtTimeStep = 15;   
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
                                                  selector:@selector(resetProcedurePipeline:) 
@@ -199,7 +200,7 @@
 -(void)nextDataArrived:(NSNotification*)aNotification
 {
 	if (FALSE == isRealTimeTCPInput){
-		NSLog(@"Timestep: %lu", mCurrentTimestep+1);
+		//NSLog(@"Timestep: %lu", mCurrentTimestep+1);
 		if ((mCurrentTimestep > startAnalysisAtTimeStep-1 ) && (mCurrentTimestep < [[paradigm designElement] numberTimesteps])) {
 			[NSThread detachNewThreadSelector:@selector(processDataThread) toTarget:self withObject:nil];
 		}
@@ -231,7 +232,7 @@
 
 -(void)processDataThread
 {
-	NSLog(@"processDataThread START");
+	//NSLog(@"processDataThread START");
 	NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
 	EDDataElement *resData;
 	
@@ -240,8 +241,10 @@
 	float cVecFromConfig[[[paradigm designElement] numberExplanatoryVariables]];
     memset(cVecFromConfig, 0, (sizeof(float)* [[paradigm designElement] numberExplanatoryVariables] ));
 	cVecFromConfig[0] = 1.0;
-	cVecFromConfig[1] = 0.0;
+	cVecFromConfig[1] = -1.0;
     cVecFromConfig[2] = 0.0;
+    //cVecFromConfig[3] = -1.0;
+   // cVecFromConfig[4] = 0.0;
 //    cVecFromConfig[3] = -1.0;
 	//cVecFromConfig[2] = 0.0;
 	NSMutableArray *contrastVector = [[NSMutableArray alloc] init];
@@ -282,8 +285,15 @@
 	NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
 	
 	[self nextDataArrived:nil];
-	if (mCurrentTimestep > [[paradigm designElement] numberTimesteps]){
-		[[NSThread currentThread] cancel];}
+	if (mCurrentTimestep > 600){//[[paradigm designElement] numberTimesteps]){
+		[[NSThread currentThread] cancel];
+        [[NSNotificationCenter defaultCenter] postNotificationName:BARTStopExperimentNotification object:nil];
+        return;
+    }
+    if (YES == isApplicationStopped){
+        [[NSThread currentThread] cancel];
+        return;
+    }
 	
 	[NSThread sleepForTimeInterval:2.0];
 	[NSThread detachNewThreadSelector:@selector(timerThread) toTarget:self withObject:nil];
@@ -295,11 +305,11 @@
 
 -(void)terminusFromScannerArrived:(NSNotification*)aNotification
 {
-#pragma unused (aNotification)
+    #pragma unused (aNotification)
 	//NSTimeInterval ti = [[NSDate date] timeIntervalSince1970];
 	//TODO: folder from edl
-    if ( nil != [aNotification object] ){
-        
+    
+    isApplicationStopped = YES;//just for timerThread in simulationMode
         NSString *fname =[NSString stringWithFormat:@"image_{sequenceDescription}_{DICOM/ImageType}_{sequenceNumber}_volumes_%lu.nii", [mInputData getImageSize].timesteps];
         
         NSString* newDataFileName = [[[COExperimentContext getInstance] systemConfig] getProp:@"$logFolder"];
@@ -313,7 +323,7 @@
         newFileName = [newFileName stringByAppendingPathComponent:justName];
         
         [[paradigm designElement] writeDesignFile:newFileName];
-    }
+    
 }
 
 -(void)triggerArrived:(NSNotification*)aNotification
