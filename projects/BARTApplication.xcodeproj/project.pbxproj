@@ -31,6 +31,7 @@
 		0023CBD013EAC45B006303B6 /* BAProcedureStep_Preprocessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBCF13EAC45B006303B6 /* BAProcedureStep_Preprocessing.m */; };
 		0023CBD313EAC484006303B6 /* BAProcedureStep_Analysis.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBD213EAC484006303B6 /* BAProcedureStep_Analysis.m */; };
 		0023CBD613EAC4B3006303B6 /* BAProcedureStep_Feedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 0023CBD513EAC4B3006303B6 /* BAProcedureStep_Feedback.m */; };
+		003021BE1670D5660041ED14 /* BARTApplication.icns in Resources */ = {isa = PBXBuildFile; fileRef = 003021BD1670D5660041ED14 /* BARTApplication.icns */; };
 		0032CC37116E023A005117EA /* timeBasedRegressorLydi.edl in Resources */ = {isa = PBXBuildFile; fileRef = 003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */; };
 		0032CC38116E023F005117EA /* main_SW_BoldModule_2ContinousTargetROIs.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00AB18EA115246ED003BC915 /* main_SW_BoldModule_2ContinousTargetROIs.edl */; };
 		003D803713E6CC77004DE6E9 /* EDDataElementTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D803613E6CC77004DE6E9 /* EDDataElementTest.m */; };
@@ -706,6 +707,7 @@
 		0023CBD213EAC484006303B6 /* BAProcedureStep_Analysis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureStep_Analysis.m; sourceTree = "<group>"; };
 		0023CBD413EAC4B3006303B6 /* BAProcedureStep_Feedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAProcedureStep_Feedback.h; sourceTree = "<group>"; };
 		0023CBD513EAC4B3006303B6 /* BAProcedureStep_Feedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAProcedureStep_Feedback.m; sourceTree = "<group>"; };
+		003021BD1670D5660041ED14 /* BARTApplication.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = BARTApplication.icns; sourceTree = "<group>"; };
 		003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = timeBasedRegressorLydi.edl; sourceTree = "<group>"; };
 		0036104F117F9AED00A84F44 /* NEDesignKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEDesignKernel.h; sourceTree = "<group>"; };
 		00361050117F9AED00A84F44 /* NEDesignKernel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignKernel.m; sourceTree = "<group>"; };
@@ -1822,6 +1824,7 @@
 		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
 			isa = PBXGroup;
 			children = (
+				003021BD1670D5660041ED14 /* BARTApplication.icns */,
 				00A871CD166D688700D25E4B /* Accelerate.framework */,
 				00A871CA166D64FB00D25E4B /* libgslcblas.dylib */,
 				00FE3391166CC3C70005EE3D /* libgsl.dylib */,
@@ -2597,6 +2600,7 @@
 				E57D97F015C67F4F00E3D1C3 /* mainExp_Feedback_detrend_TR2000.edl in Resources */,
 				E57D97F115C67F4F00E3D1C3 /* preScan_TR2000.edl in Resources */,
 				E57D97FA15C6C74400E3D1C3 /* AddExperimentAccessoryView.xib in Resources */,
+				003021BE1670D5660041ED14 /* BARTApplication.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
