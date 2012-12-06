@@ -85,7 +85,7 @@ float global_nx;
      * DO REGRESSION
      *********************/
     
-    NSLog(@"Time analysis: Start");
+    //NSLog(@"Time analysis: Start");
     
     int64_t index = 0;
     if (mSlidingWindowAnalysis){
@@ -95,7 +95,7 @@ float global_nx;
         
     }
     
-    EDDataElement*  resMap = [self Regression:2000
+    EDDataElement*  resMap = [self Regression:200
                                              :index // sw: slidingWindowSize akk: indexForTimestep
                                              :timestep
                                              :contrastVector
@@ -103,7 +103,7 @@ float global_nx;
                                              :copyData];
     //    [self sendFinishNotification];
 
-    NSLog(@"Time analysis: End");
+    //NSLog(@"Time analysis: End");
     
 //    indexForTimestep++;
 //    if (indexForTimestep < mData.numberTimesteps){
@@ -156,10 +156,10 @@ float global_nx;
         if (numberExplanatoryVariables >= MBETA) {
             NSLog(@" too many covariates (%lu), max is %d", numberExplanatoryVariables, MBETA);
         }
-        if (copyDesign.mNumberTimesteps != numberBands) {
-            NSLog(@" design dimension inconsistency: %ld (numberTimesteps design) %lu (numberTimesteps data)", 
-                  copyDesign.mNumberTimesteps, numberBands);
-        }
+//        if (copyDesign.mNumberTimesteps != numberBands) {
+//            NSLog(@" design dimension inconsistency: %ld (numberTimesteps design) %lu (numberTimesteps data)", 
+//                  copyDesign.mNumberTimesteps, numberBands);
+//        }
         /* Read design matrix. */
         gsl_matrix_float *X = NULL; /*   matrix. */
         X = gsl_matrix_float_alloc(sliding_window_size, numberExplanatoryVariables);
@@ -189,7 +189,7 @@ float global_nx;
         SX = fmat_x_mat(S, X, NULL);
         gsl_matrix_float *XInv = NULL; /* Pseudo inverse matrix of X. */
         XInv = fmat_PseudoInv(SX, NULL);
-        NSLog(@"4444");
+        
         /* Get effective degrees of freedom. */
         gsl_matrix_float *R = NULL;
         R = gsl_matrix_float_alloc(sliding_window_size, sliding_window_size);
@@ -215,7 +215,7 @@ float global_nx;
         }
 
         float df = (trace * trace) / trace2; /* df ... Degrees of freedom. */
-        printf(" df = %.3f\n", df);
+        //printf(" df = %.3f\n", df);
         
         /**********************
          * create output images
@@ -313,9 +313,9 @@ float global_nx;
         
         for (size_t slice = 0; slice < numberSlices; slice++) {
             
-            if (slice % 5 == 0) {
-                fprintf(stderr, " slice: %3zd\r", slice);
-            }
+//            if (slice % 5 == 0) {
+//                fprintf(stderr, " slice: %3zd\r", slice);
+//            }
             //NSLog(@" Sl: %lu, TS: %lu", numberSlices, numberBands);
             
             if (TRUE == [data sliceIsZero:slice ]) {
@@ -464,7 +464,7 @@ float global_nx;
     float repetitionTime = (float) repTime/1000;
     
 	if (repetitionTime > 0.001 && fwhm > 0.001) {
-		printf(" TR: %.3f seconds\n", repetitionTime);
+		//printf(" TR: %.3f seconds\n", repetitionTime);
 		// the relation between fwhm and sigma for gauss is: fwhm = sqrt(8*ln(2))*sigma what is approx. 2.35482
 		sigma = fwhm / 2.35482;
 		sigma /= repetitionTime;
