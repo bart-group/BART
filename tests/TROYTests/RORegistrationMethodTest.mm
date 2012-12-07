@@ -28,18 +28,19 @@ NSString* imageFile = @"TestDataset01-functional.nii";
 NSString* DIFF_FILE = @"/tmp/RORegistrationMethodTest_DiffFile.txt";
 
 
-NSString* DATA_DIR      = @"/Users/olli/test/reg3d_test/";
-NSString* REFERENCE_DIR = @"/Users/olli/test/reg3d_references/";
 
-NSString* FUN_FILE = @"dataset01/data_10timesteps.nii";
-NSString* ANA_FILE = @"dataset01/ana.nii";
-NSString* MNI_FILE = @"mni_lipsia.nii";
-NSString* REFERENCE_FILE = @"BART_vnormdata_11ts.nii";
+NSString* DATA_DIR          = @"/Users/olli/test/reg3d_test_scansoliver/";
+NSString* DATA_FILE_FUN     = @"14265.5c_fun_axial_64x64.nii";
+NSString* DATA_FILE_ANA     = @"14265.5c_ana_mdeft.nii";
+
+NSString* REF_DIR           = @"/Users/olli/test/reg3d_test_scansoliver/";
+NSString* REF_FILE_ANA_ONLY = @"ref_OZ01_BARTRegAnaOnly_ITK4_2_1_TROYTest_debug.nii";
+
 
 
 // ###
 // # Utility functions
-// ###
+// ###g
 
 NSString* makeDiffCmd(NSString* fileA,
                       NSString* fileB,
@@ -67,19 +68,12 @@ uint64_t getFileSize(NSString* file)
 // # Unit tests
 // ###
 
-// All code under test must be linked into the Unit Test bundle
-- (void)testMath
+-(void)testRegistrationAnaOnly
 {
-    STAssertTrue((1 + 1) == 2, @"Compiler isn't feeling well today :-(");
-}
-
--(void)testRegistrationVnormdata
-{
-    NSString* funPath = [DATA_DIR stringByAppendingString:FUN_FILE];
-    NSString* anaPath = [DATA_DIR stringByAppendingString:ANA_FILE];
-    NSString* mniPath = [DATA_DIR stringByAppendingString:MNI_FILE];
+    NSString* funPath = [DATA_DIR stringByAppendingString:DATA_FILE_FUN];
+    NSString* anaPath = [DATA_DIR stringByAppendingString:DATA_FILE_ANA];
     
-    NSString* refPath = [REFERENCE_DIR stringByAppendingString:REFERENCE_FILE];
+    NSString* refPath = [REF_DIR stringByAppendingString:REF_FILE_ANA_ONLY];
     
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
@@ -93,37 +87,69 @@ uint64_t getFileSize(NSString* file)
                                                               andDialect:@""
                                                              ofImageType:IMAGE_ANADATA];
     
-    EDDataElementIsis* mniData = [[EDDataElementIsis alloc] initWithFile:mniPath
-                                                               andSuffix:@""
-                                                              andDialect:@""
-                                                             ofImageType:IMAGE_ANADATA];
-    
     EDDataElement* reference   = [[EDDataElementIsis alloc] initWithFile:refPath
                                                                andSuffix:@""
                                                               andDialect:@""
                                                              ofImageType:IMAGE_FCTDATA];
     
-    RORegistrationMethod* method = [[RORegistrationVnormdata alloc] initFindingTransform:fctData
-                                                                                 anatomy:anaData
-                                                                               reference:mniData];
+    RORegistrationMethod* method = [[RORegistrationBARTAnaOnly alloc] initFindingTransform:fctData
+                                                                                   anatomy:anaData
+                                                                                 reference:nil];
     
-    EDDataElement* ana2fct2mni = [method apply:fctData];
+    EDDataElement* result = [method apply:fctData];
     
     // Compare image sizes first
-    BARTImageSize* resultSize = [ana2fct2mni getImageSize];
+    BARTImageSize* resultSize    = [result getImageSize];
     BARTImageSize* referenceSize = [reference getImageSize];
     STAssertEquals(resultSize.rows     , referenceSize.rows     , @"Rows missmatch");
     STAssertEquals(resultSize.columns  , referenceSize.columns  , @"Columns missmatch");
     STAssertEquals(resultSize.slices   , referenceSize.slices   , @"Slices missmatch");
     STAssertEquals(resultSize.timesteps, referenceSize.timesteps, @"Timesteps missmatch");
     
-    // TODO: compare ana2fct2mni and reference here
-//    STAssertEquals(1, 2, @"testRegistrationVnormdata: 1 != 2. Surprise!");
+    // Compare data
+    int failures = 0;
+    int maxFailures = 20;
+    float precision = 5.0f;
+    
+//    EDDataElement* diffImg = [[EDDataElement alloc] initEmptyWithSize:referenceSize ofImageType:IMAGE_FCTDATA];
+    
+    for (size_t ts = 0; ts < referenceSize.timesteps; ts++) {
+        for (size_t slice = 0; slice < referenceSize.slices; slice++) {
+            for (size_t row = 0; row < referenceSize.rows; row++) {
+                for (size_t col = 0; col < referenceSize.columns; col++) {
+                    float resVal = [result    getFloatVoxelValueAtRow:row col:col slice:slice timestep:ts];
+                    float refVal = [reference getFloatVoxelValueAtRow:row col:col slice:slice timestep:ts];
+                    
+//                    float diffVal = refVal - resVal;
+//                    NSNumber* diffValNumber = [NSNumber numberWithFloat:diffVal];
+//                    [diffImg setVoxelValue:diffValNumber atRow:row col:col slice:slice timestep:ts];
+                    
+                    if ((resVal < (refVal - precision) or resVal > (refVal + precision)) and failures < maxFailures) {
+                        STAssertEqualsWithAccuracy(resVal,
+                                                   refVal,
+                                                   precision,
+                                                   [NSString stringWithFormat:@"Pos(ts:%ld, slice:%ld, row:%ld, col:%ld) voxel value missmatch .",
+                                                    ts,
+                                                    slice,
+                                                    row,
+                                                    col]);
+                        failures++;
+                    }
+                }
+            }
+        }
+    }
+    
+//    [result WriteDataElementToFile:@"/tmp/regTest_BARTAnaOnly_OZ01.nii"];
+    
+//    [diffImg WriteDataElementToFile:@"/tmp/diff_img.nii"];
+//    [diffImg release];
+    
+    STAssertEquals(failures, 0, [NSString stringWithFormat:@"Some voxel values did not match. If failures is equal to %d then probably more than %d voxels did not match (cut errors to avoid spam).", maxFailures, maxFailures]);
     
     [method release];
     
     [reference release];
-    [mniData release];
     [anaData release];
     [fctData release];
     
