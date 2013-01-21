@@ -10,6 +10,7 @@
 #import "EDNA/EDDataElement.h"
 #import "NED/NEDesignElement.h"
 #import "ARTIE/ARAnalyzerElement.h"
+#import "PRINCE/PRPreprocessor.h"
 #import "EDNA/EDDataElementRealTimeLoader.h"
 #import "BARTNotifications.h"
 #import "CLETUS/COExperimentContext.h"
@@ -55,7 +56,7 @@ BOOL isApplicationStopped = NO;
 {
     if ((self = [super init])) {
         // TODO: appropriate init
-        mCurrentTimestep = 0;
+        mCurrentTimestep = 600;
 		config = [[COExperimentContext getInstance] systemConfig];
 		isRealTimeTCPInput = NO;
 		startAnalysisAtTimeStep = 15;   
@@ -82,6 +83,7 @@ BOOL isApplicationStopped = NO;
 	[mResultData release];
    // [dynamicDesignPipe release];
 	[mAnalyzer release];
+	[mPreprocessor release];
     [paradigm release];
 	
 	
@@ -93,6 +95,7 @@ BOOL isApplicationStopped = NO;
     #pragma unused(aNotification)
     config = [[COExperimentContext getInstance] systemConfig];
     
+    [self initPreprocessor];
     [self initData];
 	//[self initDesign];
 	[self initAnalyzer];
@@ -116,15 +119,17 @@ BOOL isApplicationStopped = NO;
         //NSString *fileName = [NSString stringWithFormat:@"%@/TestDataset02-functional.nii", curDir ];
         
         if (nil != testDataFileName){
-            mInputData = [[EDDataElement alloc] initWithDataFile:testDataFileName 
+            mInputData = [[EDDataElement alloc] initWithDataFile:testDataFileName
                                                        andSuffix:@"" 
                                                       andDialect:@"" 
                                                      ofImageType:IMAGE_FCTDATA];}
         if (nil == mInputData) {
             return FALSE;
         }
-		//POST 
-		[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadBackgroundImageNotification object:mInputData];
+		//POST
+        //[mPreprocessor preprocessTheData:mInputData timestepRange:NSMakeRange(0, mCurrentTimestep+5)];
+        [mPreprocessor preprocessTheData:mInputData timestepRange:NSMakeRange(0, [[mInputData getImageSize] timesteps])];
+       	[[NSNotificationCenter defaultCenter] postNotificationName:BARTDidLoadBackgroundImageNotification object:mInputData];
 	}
 	else{
 		//REALTIMESTUFF
@@ -168,6 +173,18 @@ BOOL isApplicationStopped = NO;
     paradigm = [[BAProcedureStep_Paradigm alloc] init];
     
 	return YES;
+}
+
+-(BOOL) initPreprocessor
+{
+	if (nil != mPreprocessor){
+		[mPreprocessor release];
+		mPreprocessor = nil;}
+	
+	mPreprocessor = [[PRPreprocessor alloc] init];
+	if (nil == mPreprocessor){
+		return FALSE;}
+	return TRUE;
 }
 
 -(BOOL) initAnalyzer
@@ -241,8 +258,9 @@ BOOL isApplicationStopped = NO;
 	float cVecFromConfig[[[paradigm designElement] numberExplanatoryVariables]];
     memset(cVecFromConfig, 0, (sizeof(float)* [[paradigm designElement] numberExplanatoryVariables] ));
 	cVecFromConfig[0] = 1.0;
-	cVecFromConfig[1] = -1.0;
-    cVecFromConfig[2] = 0.0;
+	cVecFromConfig[1] = 1.0;
+    cVecFromConfig[2] = -1.0;
+    cVecFromConfig[2] = -1.0;
     //cVecFromConfig[3] = -1.0;
    // cVecFromConfig[4] = 0.0;
 //    cVecFromConfig[3] = -1.0;
@@ -253,7 +271,11 @@ BOOL isApplicationStopped = NO;
 		[contrastVector addObject:nr];}
 	
 	if (FALSE == isRealTimeTCPInput){
+        //[mPreprocessor preprocessTheData:mInputData timestepRange:NSMakeRange(mCurrentTimestep-1, 1)];
+        
 		resData = [[mAnalyzer anaylzeTheData:mInputData withDesign:[paradigm designElement]  atCurrentTimestep:mCurrentTimestep-1 forContrastVector:contrastVector andWriteResultInto:nil] retain];
+        NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%lu.nii", mCurrentTimestep];
+		[resData WriteDataElementToFile:fname];
         
 	}
 	else {
@@ -263,8 +285,8 @@ BOOL isApplicationStopped = NO;
         //NSString* newFileName = [[[COExperimentContext getInstance] systemConfig] getProp:@"$logFolder"];
         //newFileName = [newFileName stringByAppendingPathComponent:fname];
         
-		//NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%lu.nii", [mInputData getImageSize].timesteps];
-		//[resData WriteDataElementToFile:newFileName];
+		NSString *fname =[NSString stringWithFormat:@"/tmp/test_zmapnr_%lu.nii", [mInputData getImageSize].timesteps];
+		[resData WriteDataElementToFile:fname];
 	}
 	
 	//NSLog(@"!!!!resData retainCoung pre notification %d", [resData retainCount]);
@@ -285,7 +307,7 @@ BOOL isApplicationStopped = NO;
 	NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
 	
 	[self nextDataArrived:nil];
-	if (mCurrentTimestep > 600){//[[paradigm designElement] numberTimesteps]){
+	if (mCurrentTimestep > [[paradigm designElement] numberTimesteps]){
 		[[NSThread currentThread] cancel];
         [[NSNotificationCenter defaultCenter] postNotificationName:BARTStopExperimentNotification object:nil];
         return;

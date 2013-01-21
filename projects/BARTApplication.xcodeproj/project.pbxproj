@@ -35,6 +35,9 @@
 		0032CC37116E023A005117EA /* timeBasedRegressorLydi.edl in Resources */ = {isa = PBXBuildFile; fileRef = 003094271153EFF900E258D9 /* timeBasedRegressorLydi.edl */; };
 		0032CC38116E023F005117EA /* main_SW_BoldModule_2ContinousTargetROIs.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00AB18EA115246ED003BC915 /* main_SW_BoldModule_2ContinousTargetROIs.edl */; };
 		003D803713E6CC77004DE6E9 /* EDDataElementTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 003D803613E6CC77004DE6E9 /* EDDataElementTest.m */; };
+		003FB88316AC38E9003BEFAA /* PRINCE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00664BF012ABF71D005216E6 /* PRINCE.framework */; };
+		003FB88816AC4CC9003BEFAA /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8A2A3910F61713002422B5 /* Quartz.framework */; };
+		003FB88916AC4CC9003BEFAA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED1922910AC8AD600FAFA4F /* QuartzCore.framework */; };
 		0040B8091141470400A57967 /* gauss.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7991141470400A57967 /* gauss.c */; };
 		0040B80A1141470400A57967 /* gsl_futils.c in Sources */ = {isa = PBXBuildFile; fileRef = 0040B79A1141470400A57967 /* gsl_futils.c */; };
 		0040B8441141470400A57967 /* BARTApplicationAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0040B7F01141470400A57967 /* BARTApplicationAppDelegate.m */; };
@@ -359,6 +362,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 00C39FF01144FB2100725668;
 			remoteInfo = CLETUS;
+		};
+		003FB88416AC39D4003BEFAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00D4415F134B57BD00094A51;
+			remoteInfo = EDNA;
 		};
 		0040B9911141708D00A57967 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -713,6 +723,7 @@
 		00361050117F9AED00A84F44 /* NEDesignKernel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEDesignKernel.m; sourceTree = "<group>"; };
 		003D803513E6CC77004DE6E9 /* EDDataElementTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDataElementTest.h; sourceTree = "<group>"; };
 		003D803613E6CC77004DE6E9 /* EDDataElementTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDataElementTest.m; sourceTree = "<group>"; };
+		003FB88616AC4C46003BEFAA /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = ../../../../../System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<group>"; };
 		0040B7951141470400A57967 /* ARAnalyzerGLM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ARAnalyzerGLM.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0040B7961141470400A57967 /* ARAnalyzerGLM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ARAnalyzerGLM.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0040B7991141470400A57967 /* gauss.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gauss.c; sourceTree = "<group>"; };
@@ -1115,6 +1126,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				003FB88816AC4CC9003BEFAA /* Quartz.framework in Frameworks */,
+				003FB88916AC4CC9003BEFAA /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1199,6 +1212,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				003FB88316AC38E9003BEFAA /* PRINCE.framework in Frameworks */,
 				009BCE0315F915870059B8D3 /* ARTIE.dylib in Frameworks */,
 				E5A5B9CC15497FE700A7AA4F /* CLETUS.dylib in Frameworks */,
 				E5A5B9CD15497FE700A7AA4F /* EDNA.dylib in Frameworks */,
@@ -1824,6 +1838,7 @@
 		29B97314FDCFA39411CA2CEA /* BARTApplication */ = {
 			isa = PBXGroup;
 			children = (
+				003FB88616AC4C46003BEFAA /* CoreFoundation.framework */,
 				003021BD1670D5660041ED14 /* BARTApplication.icns */,
 				00A871CD166D688700D25E4B /* Accelerate.framework */,
 				00A871CA166D64FB00D25E4B /* libgslcblas.dylib */,
@@ -2264,6 +2279,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				003FB88516AC39D4003BEFAA /* PBXTargetDependency */,
 			);
 			name = PRINCE;
 			productName = PRINCE;
@@ -3005,6 +3021,11 @@
 			isa = PBXTargetDependency;
 			target = 00C39FF01144FB2100725668 /* CLETUS */;
 			targetProxy = 0006F437122BEF48001DA2BB /* PBXContainerItemProxy */;
+		};
+		003FB88516AC39D4003BEFAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00D4415F134B57BD00094A51 /* EDNA */;
+			targetProxy = 003FB88416AC39D4003BEFAA /* PBXContainerItemProxy */;
 		};
 		0040B9921141708D00A57967 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

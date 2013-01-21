@@ -79,6 +79,7 @@ float global_nx;
     NEDesignElement* copyDesign = [design retain];
    // NSLog(@"DesignEl in Analysis: %@", copyDesign);
     EDDataElement* copyData = [data retain];
+    NSLog(@"copy Data Pointer: %@", data);
         
     
     /**********************

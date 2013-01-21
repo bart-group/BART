@@ -17,7 +17,7 @@
 //@class NEDesignElement;
 @class ARAnalyzerElement;
 @class EDDataElementRealTimeLoader;
-
+@class PRPreprocessor;
 
 
 @interface BAProcedurePipeline : NSObject <BARTScannerTriggerProtocol> {
@@ -26,6 +26,7 @@
     //NEDesignElement *mDesignData;
     EDDataElement *mResultData;
     ARAnalyzerElement *mAnalyzer;
+    PRPreprocessor *mPreprocessor;
     size_t mCurrentTimestep;
     EDDataElementRealTimeLoader *mRtLoader;
     COSystemConfig *config;
@@ -44,6 +45,7 @@
 -(BOOL) initData;
 //-(BOOL) initDesign;
 -(BOOL) initParadigm;
+-(BOOL) initPreprocessor;
 -(BOOL) initAnalyzer;
 -(BOOL) startAnalysis;
 
