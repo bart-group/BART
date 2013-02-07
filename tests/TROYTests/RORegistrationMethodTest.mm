@@ -29,11 +29,9 @@ NSString* DIFF_FILE = @"/tmp/RORegistrationMethodTest_DiffFile.txt";
 
 
 
-NSString* DATA_DIR          = @"/Users/olli/test/reg3d_test_scansoliver/";
+NSString* TESTDATA_DIR      = @"/Users/olli/BART_testdata/TROY/";
 NSString* DATA_FILE_FUN     = @"14265.5c_fun_axial_64x64.nii";
 NSString* DATA_FILE_ANA     = @"14265.5c_ana_mdeft.nii";
-
-NSString* REF_DIR           = @"/Users/olli/test/reg3d_test_scansoliver/";
 NSString* REF_FILE_ANA_ONLY = @"ref_OZ01_BARTRegAnaOnly_ITK4_2_1_TROYTest_debug.nii";
 
 
@@ -70,10 +68,9 @@ uint64_t getFileSize(NSString* file)
 
 -(void)testRegistrationAnaOnly
 {
-    NSString* funPath = [DATA_DIR stringByAppendingString:DATA_FILE_FUN];
-    NSString* anaPath = [DATA_DIR stringByAppendingString:DATA_FILE_ANA];
-    
-    NSString* refPath = [REF_DIR stringByAppendingString:REF_FILE_ANA_ONLY];
+    NSString* funPath = [TESTDATA_DIR stringByAppendingString:DATA_FILE_FUN];
+    NSString* anaPath = [TESTDATA_DIR stringByAppendingString:DATA_FILE_ANA];
+    NSString* refPath = [TESTDATA_DIR stringByAppendingString:REF_FILE_ANA_ONLY];
     
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
