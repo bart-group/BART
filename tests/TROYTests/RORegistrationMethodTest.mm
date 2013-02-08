@@ -108,18 +108,12 @@ uint64_t getFileSize(NSString* file)
     int maxFailures = 20;
     float precision = 5.0f;
     
-//    EDDataElement* diffImg = [[EDDataElement alloc] initEmptyWithSize:referenceSize ofImageType:IMAGE_FCTDATA];
-    
     for (size_t ts = 0; ts < referenceSize.timesteps; ts++) {
         for (size_t slice = 0; slice < referenceSize.slices; slice++) {
             for (size_t row = 0; row < referenceSize.rows; row++) {
                 for (size_t col = 0; col < referenceSize.columns; col++) {
                     float resVal = [result    getFloatVoxelValueAtRow:row col:col slice:slice timestep:ts];
                     float refVal = [reference getFloatVoxelValueAtRow:row col:col slice:slice timestep:ts];
-                    
-//                    float diffVal = refVal - resVal;
-//                    NSNumber* diffValNumber = [NSNumber numberWithFloat:diffVal];
-//                    [diffImg setVoxelValue:diffValNumber atRow:row col:col slice:slice timestep:ts];
                     
                     if ((resVal < (refVal - precision) or resVal > (refVal + precision)) and failures < maxFailures) {
                         STAssertEqualsWithAccuracy(resVal,
@@ -136,11 +130,6 @@ uint64_t getFileSize(NSString* file)
             }
         }
     }
-    
-//    [result WriteDataElementToFile:@"/tmp/regTest_BARTAnaOnly_OZ01.nii"];
-    
-//    [diffImg WriteDataElementToFile:@"/tmp/diff_img.nii"];
-//    [diffImg release];
     
     STAssertEquals(failures, 0, [NSString stringWithFormat:@"Some voxel values did not match. If failures is equal to %d then probably more than %d voxels did not match (cut errors to avoid spam).", maxFailures, maxFailures]);
     
