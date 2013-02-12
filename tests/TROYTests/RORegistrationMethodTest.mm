@@ -13,6 +13,8 @@
 #import "RORegistrationBART.h"
 #import "RORegistrationBARTAnaOnly.h"
 
+#import "TROYTestUtil.h"
+
 #import "EDDataElement.h"
 #import "EDDataElementIsis.h"
 
@@ -52,19 +54,44 @@ uint64_t getFileSize(NSString* file)
     return boost::filesystem::file_size([file UTF8String]);
 }
 
-// ###
-// # Setup
-// ###
+// ####################
+// # Setup & teardown #
+// ####################
 
--(void) setUp
++(void)setUp
 {
+    [super setUp];
+    
 	curDir = [[NSBundle bundleForClass:[self class] ] resourcePath];
     fileName = [NSString stringWithFormat:@"%@/%@", curDir, imageFile];
+    
+    TROYTestUtil* util = [[TROYTestUtil alloc] init];
+    [util redirect:stderr to:@"/tmp/BART_RORegistrationText.txt" using:@"w"];
+    [util release];
 }
 
-// ###
-// # Unit tests
-// ###
++(void)tearDown
+{
+    // Custom teardown goes here
+    
+    [super tearDown];
+}
+
+// ## Per test setup & teardown ##
+
+-(void)setUp
+{
+    [super setUp];
+}
+
+-(void)tearDown
+{
+    [super tearDown];
+}
+
+// ##############
+// # Unit tests #
+// ##############
 
 -(void)testRegistrationAnaOnly
 {
@@ -138,6 +165,28 @@ uint64_t getFileSize(NSString* file)
     [reference release];
     [anaData release];
     [fctData release];
+    
+    [pool drain];
+}
+
+-(void)testRuntime
+{
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
+    TROYTestUtil* util = [[TROYTestUtil alloc] init];
+
+    RORegistrationMethod* method = [RORegistrationBARTAnaOnly alloc];
+    NSArray* times = [util measureRegistrationRuntime:[TESTDATA_DIR stringByAppendingString:DATA_FILE_FUN]
+                                              anatomy:[TESTDATA_DIR stringByAppendingString:DATA_FILE_ANA]
+                                                  mni:nil
+                                                  out:@"/tmp/BART_RORegistrationMethodTest_runtime.nii"
+                                         registration:method
+                                                 runs:1];
+    
+    NSLog(@"Runtime tuple: (%@, %@)", [times objectAtIndex:0], [times objectAtIndex:1]);
+    
+    [method release];
+    [util release];
     
     [pool drain];
 }
