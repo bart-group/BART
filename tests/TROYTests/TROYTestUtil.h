@@ -16,6 +16,20 @@
 @interface TROYTestUtil : NSObject
 
 /**
+ * Redirects all following prints to a stream to a given file.
+ * Call this at the beginning of a SenTest if you want to preserve the
+ * console output.
+ *
+ * \param stream   Stream to redirect (e.g. stdout/stderr).
+ * \param filepath File to redirect prints (e.g. printf, NSLog, <<) to.
+ * \param mode     Mode to open filepath with 
+ *                 (e.g. "a" for append, "w" for (over-)write).
+ */
+-(void)redirect:(FILE*)stream
+             to:(NSString*)filepath
+          using:(NSString*)mode;
+
+/**
  * Creates the voxel-by-voxel difference of two EDDataElements.
  *
  * \param a First EDDataElement.

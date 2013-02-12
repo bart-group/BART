@@ -20,6 +20,13 @@
     return self;
 }
 
+-(void)redirect:(FILE*)stream
+             to:(NSString*)filepath
+          using:(NSString*)mode
+{
+    freopen([filepath UTF8String], [mode UTF8String], stream);
+}
+
 -(EDDataElement*)createDiffImage:(EDDataElement*)a
                                 :(EDDataElement*)b
 {
