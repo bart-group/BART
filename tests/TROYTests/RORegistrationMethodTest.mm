@@ -66,7 +66,7 @@ uint64_t getFileSize(NSString* file)
     fileName = [NSString stringWithFormat:@"%@/%@", curDir, imageFile];
     
     ROTestUtil* util = [[ROTestUtil alloc] init];
-    [util redirect:stderr to:@"/tmp/BART_RORegistrationText.txt" using:@"w"];
+    [util redirect:stderr to:@"/tmp/BART_RORegistrationMethodTest.log" using:@"w"];
     [util release];
 }
 
