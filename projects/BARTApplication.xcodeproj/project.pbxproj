@@ -273,9 +273,9 @@
 		00EA8ED7135F02DA00562F3B /* EDIsisImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 00EA8ED6135F02DA00562F3B /* EDIsisImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00FA55A2140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle in Copy PlugIns */ = {isa = PBXBuildFile; fileRef = 00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */; };
 		4763CEE2165BCE2000DD34D0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E3F013E8025300169848 /* Cocoa.framework */; };
-		47CA495416C55DAE006EC6B3 /* ROTestUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47CA495316C55DAE006EC6B3 /* ROTestUtil.mm */; };
-		47CA496416CD23CE006EC6B3 /* ROTestUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 47CA495216C55DAE006EC6B3 /* ROTestUtil.h */; };
-		47CA496516CD23D4006EC6B3 /* ROTestUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47CA495316C55DAE006EC6B3 /* ROTestUtil.mm */; };
+		47CA496916CD2730006EC6B3 /* ROTestUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47CA496816CD2730006EC6B3 /* ROTestUtil.mm */; };
+		47CA496A16CD2765006EC6B3 /* ROTestUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47CA496816CD2730006EC6B3 /* ROTestUtil.mm */; };
+		47CA496B16CD276F006EC6B3 /* ROTestUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 47CA496716CD2730006EC6B3 /* ROTestUtil.h */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A713AA091445CF1600BBF150 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
@@ -821,8 +821,8 @@
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		256AC3F00F4B6AF500CF3369 /* BARTApplication_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BARTApplication_Prefix.pch; sourceTree = "<group>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		47CA495216C55DAE006EC6B3 /* ROTestUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ROTestUtil.h; path = ../../tests/TROYTests/ROTestUtil.h; sourceTree = "<group>"; };
-		47CA495316C55DAE006EC6B3 /* ROTestUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ROTestUtil.mm; path = ../../tests/TROYTests/ROTestUtil.mm; sourceTree = "<group>"; };
+		47CA496716CD2730006EC6B3 /* ROTestUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROTestUtil.h; sourceTree = "<group>"; };
+		47CA496816CD2730006EC6B3 /* ROTestUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ROTestUtil.mm; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* BARTApplication-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTApplication-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* BARTApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BARTApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A74EB3461525B09600AC7C59 /* isisRegistrationFactory3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D.hpp; sourceTree = "<group>"; };
@@ -1732,8 +1732,8 @@
 				A74EB3521525B09600AC7C59 /* RORegistrationVnormdata.h */,
 				A74EB3531525B09600AC7C59 /* RORegistrationVnormdata.mm */,
 				A74EB3541525B09600AC7C59 /* ROTypedef.h */,
-				47CA495216C55DAE006EC6B3 /* ROTestUtil.h */,
-				47CA495316C55DAE006EC6B3 /* ROTestUtil.mm */,
+				47CA496716CD2730006EC6B3 /* ROTestUtil.h */,
+				47CA496816CD2730006EC6B3 /* ROTestUtil.mm */,
 				A74EB3551525B09600AC7C59 /* TimeUtil.h */,
 			);
 			path = TROY;
@@ -1758,7 +1758,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47CA496416CD23CE006EC6B3 /* ROTestUtil.h in Headers */,
+				47CA496B16CD276F006EC6B3 /* ROTestUtil.h in Headers */,
 				A74EB3571525B09600AC7C59 /* isisRegistrationFactory3D.hpp in Headers */,
 				A74EB3581525B09600AC7C59 /* isisRegistrationFactory3D_impl.hpp in Headers */,
 				A74EB3591525B09600AC7C59 /* isisTimeStepExtractionFilter.hpp in Headers */,
@@ -2398,7 +2398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47CA496516CD23D4006EC6B3 /* ROTestUtil.mm in Sources */,
+				47CA496A16CD2765006EC6B3 /* ROTestUtil.mm in Sources */,
 				A74EB35C1525B09600AC7C59 /* RORegistrationBART.mm in Sources */,
 				A74EB35E1525B09600AC7C59 /* RORegistrationBARTAnaOnly.mm in Sources */,
 				A74EB3601525B09600AC7C59 /* RORegistrationMethod.m in Sources */,
@@ -2608,7 +2608,7 @@
 				0023CBD013EAC45B006303B6 /* BAProcedureStep_Preprocessing.m in Sources */,
 				0023CBD313EAC484006303B6 /* BAProcedureStep_Analysis.m in Sources */,
 				0023CBD613EAC4B3006303B6 /* BAProcedureStep_Feedback.m in Sources */,
-				47CA495416C55DAE006EC6B3 /* ROTestUtil.mm in Sources */,
+				47CA496916CD2730006EC6B3 /* ROTestUtil.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
