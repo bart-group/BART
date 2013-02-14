@@ -273,8 +273,8 @@
 		00EA8ED7135F02DA00562F3B /* EDIsisImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 00EA8ED6135F02DA00562F3B /* EDIsisImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00FA55A2140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle in Copy PlugIns */ = {isa = PBXBuildFile; fileRef = 00FA55A1140BCA150009CD27 /* BARTSerialIOPluginFTDITriggerButton.bundle */; };
 		4763CEE2165BCE2000DD34D0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E3F013E8025300169848 /* Cocoa.framework */; };
-		47CA495416C55DAE006EC6B3 /* TROYTestUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47CA495316C55DAE006EC6B3 /* TROYTestUtil.mm */; };
-		47CA495516C55DAE006EC6B3 /* TROYTestUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47CA495316C55DAE006EC6B3 /* TROYTestUtil.mm */; };
+		47CA495416C55DAE006EC6B3 /* ROTestUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47CA495316C55DAE006EC6B3 /* ROTestUtil.mm */; };
+		47CA495516C55DAE006EC6B3 /* ROTestUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47CA495316C55DAE006EC6B3 /* ROTestUtil.mm */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A713AA091445CF1600BBF150 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
@@ -820,8 +820,8 @@
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		256AC3F00F4B6AF500CF3369 /* BARTApplication_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BARTApplication_Prefix.pch; sourceTree = "<group>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		47CA495216C55DAE006EC6B3 /* TROYTestUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TROYTestUtil.h; sourceTree = "<group>"; };
-		47CA495316C55DAE006EC6B3 /* TROYTestUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TROYTestUtil.mm; sourceTree = "<group>"; };
+		47CA495216C55DAE006EC6B3 /* ROTestUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROTestUtil.h; sourceTree = "<group>"; };
+		47CA495316C55DAE006EC6B3 /* ROTestUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ROTestUtil.mm; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* BARTApplication-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTApplication-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* BARTApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BARTApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A74EB3461525B09600AC7C59 /* isisRegistrationFactory3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D.hpp; sourceTree = "<group>"; };
@@ -1744,8 +1744,8 @@
 				A74EB36B1525B0BB00AC7C59 /* RORegistrationMethodTest.mm */,
 				A74EB36E1525B0BB00AC7C59 /* TROYTests.h */,
 				A74EB36F1525B0BB00AC7C59 /* TROYTests.m */,
-				47CA495216C55DAE006EC6B3 /* TROYTestUtil.h */,
-				47CA495316C55DAE006EC6B3 /* TROYTestUtil.mm */,
+				47CA495216C55DAE006EC6B3 /* ROTestUtil.h */,
+				47CA495316C55DAE006EC6B3 /* ROTestUtil.mm */,
 			);
 			path = TROYTests;
 			sourceTree = "<group>";
@@ -2409,7 +2409,7 @@
 			files = (
 				A74EB3711525B0BB00AC7C59 /* RORegistrationMethodTest.mm in Sources */,
 				A74EB3731525B0BB00AC7C59 /* TROYTests.m in Sources */,
-				47CA495516C55DAE006EC6B3 /* TROYTestUtil.mm in Sources */,
+				47CA495516C55DAE006EC6B3 /* ROTestUtil.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2606,7 +2606,7 @@
 				0023CBD013EAC45B006303B6 /* BAProcedureStep_Preprocessing.m in Sources */,
 				0023CBD313EAC484006303B6 /* BAProcedureStep_Analysis.m in Sources */,
 				0023CBD613EAC4B3006303B6 /* BAProcedureStep_Feedback.m in Sources */,
-				47CA495416C55DAE006EC6B3 /* TROYTestUtil.mm in Sources */,
+				47CA495416C55DAE006EC6B3 /* ROTestUtil.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

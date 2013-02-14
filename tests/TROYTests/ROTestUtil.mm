@@ -1,12 +1,12 @@
 //
-//  TROYTestUtil.m
+//  ROTestUtil.m
 //  BARTApplication
 //
 //  Created by Oliver Zscheyge on 2/8/13.
 //  Copyright (c) 2013 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
-#import "TROYTestUtil.h"
+#import "ROTestUtil.h"
 
 #import "EDDataElementIsis.h"
 
@@ -14,7 +14,7 @@
 
 #import "TimeUtil.h"
 
-@implementation TROYTestUtil
+@implementation ROTestUtil
 
 -(id)init
 {

@@ -1,5 +1,5 @@
 //
-//  TROYTestUtil.h
+//  ROTestUtil.h
 //  BARTApplication
 //
 //  Created by Oliver Zscheyge on 2/8/13.
@@ -14,7 +14,7 @@
 /**
  * Utilities for testing the BART registration module.
  */
-@interface TROYTestUtil : NSObject
+@interface ROTestUtil : NSObject
 
 /**
  * Redirects all following prints to a stream to a given file.

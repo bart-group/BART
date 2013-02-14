@@ -13,7 +13,7 @@
 #import "RORegistrationBART.h"
 #import "RORegistrationBARTAnaOnly.h"
 
-#import "TROYTestUtil.h"
+#import "ROTestUtil.h"
 
 #import "EDDataElement.h"
 #import "EDDataElementIsis.h"
@@ -65,7 +65,7 @@ uint64_t getFileSize(NSString* file)
 	curDir = [[NSBundle bundleForClass:[self class] ] resourcePath];
     fileName = [NSString stringWithFormat:@"%@/%@", curDir, imageFile];
     
-    TROYTestUtil* util = [[TROYTestUtil alloc] init];
+    ROTestUtil* util = [[ROTestUtil alloc] init];
     [util redirect:stderr to:@"/tmp/BART_RORegistrationText.txt" using:@"w"];
     [util release];
 }
@@ -173,7 +173,7 @@ uint64_t getFileSize(NSString* file)
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
-    TROYTestUtil* util = [[TROYTestUtil alloc] init];
+    ROTestUtil* util = [[ROTestUtil alloc] init];
 
     RORegistrationMethod* method = [RORegistrationBARTAnaOnly alloc];
     NSArray* times = [util measureRegistrationRuntime:[TESTDATA_DIR stringByAppendingString:DATA_FILE_FUN]
