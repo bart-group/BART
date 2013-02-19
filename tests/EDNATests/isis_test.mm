@@ -15,6 +15,7 @@
 #import "RORegistrationBARTAnaOnly.h"
 
 #import "TimeUtil.h"
+#import "ROTestUtil.h"
 
 
 
@@ -164,6 +165,21 @@ void testRegistrationITK4Params(NSString* funPath,
                                 NSString* mniPath,
                                 int runs,
                                 NSString* outPath);
+
+enum RegistrationMethod {
+    VNORMDATA_MNI = 0,
+    VNORMDATA_T1,
+    BART_MNI,
+    BART_T1,
+    BART_ANAONLY
+};
+
+void testITK4RuntimeParams(NSString* funPath,
+                           NSString* anaPath,
+                           NSString* mniPath,
+                           NSString* outPath,
+                           enum RegistrationMethod method,
+                           int runs);
 
 
 
@@ -797,68 +813,110 @@ void testITK4RegistrationExample3Params(NSString* funPath,
 
 }
 
-//void testRegistrationITK4()
-//{
-//    int runs = 1;
-//    NSString* mni = t1File;
-//    
-//    //    NSLog(anaFile);
-//    //    NSLog(mni);
-//    
-//    testRegistrationITK4Params(fctFile,
-//                               anaFile,
-//                               mni,
-//                               runs,
-//                               @"/tmp/BART_regITK4_out.nii");
-//}
 
-//void testRegistrationITK4Params(NSString* funPath,
-//                                NSString* anaPath,
-//                                NSString* mniPath,
-//                                int runs,
-//                                NSString* outPath)
-//{
-//    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-//    
-//    EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:funPath
-//                                                               andSuffix:@"" 
-//                                                              andDialect:@"" 
-//                                                             ofImageType:IMAGE_FCTDATA];
-//    
-//    EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaPath
-//                                                               andSuffix:@"" 
-//                                                              andDialect:@"" 
-//                                                             ofImageType:IMAGE_ANADATA];
-//
-//    EDDataElementIsis* mniData = [[EDDataElementIsis alloc] initWithFile:mniPath
-//                                                               andSuffix:@"" 
-//                                                              andDialect:@"" 
-//                                                             ofImageType:IMAGE_ANADATA];
-//    
-////    RORegistrationMethod* method = [[RORegistrationITK4 alloc] initFindiform:fctData
-////                                                                            anatomy:anaDatangTrans
-////                                                                          reference:mniData];
-//
-//    EDDataElement* registeredFun = [method apply:fctData];
-//    
-//    [registeredFun WriteDataElementToFile:outPath];
-//    
-//    [method release];
-//    
-//    [mniData release];
-//    [anaData release];
-//    [fctData release];
-//    
-//    [pool drain];
-//}
+void testITK4Runtime()
+{
+    ROTestUtil* util = [[ROTestUtil alloc] init];
+    [util redirect:stderr to:@"/Users/olli/tmp/BART_isis_test_release_ITK4_runtime.txt" using:@"w"];
+    [util release];
+    
+    int runs = 20;
+    
+    // Base directories
+    NSString* data_dir = @"/Users/olli/BART_testdata/TROY_ITK4_runtime/";
+    NSString* out_dir = @"/Users/olli/tmp/";
+    
+    NSArray* mniTemplates = [NSArray arrayWithObjects:@"mni_lipsia.nii", @"T1_spm.nii", nil];
+    
+    NSArray* methodNames = [NSArray arrayWithObjects:@"Vnormdata_mni_lipsia", @"Vnormdata_T1_spm", @"BARTReg_mni_lipsia", @"BARTReg_T1_spm", @"BARTRegAnaOnly", nil];
+    
+    // dataset oliver
+    NSArray* ozAnas = [NSArray arrayWithObjects:@"14265.5c_ana_mdeft.nii", @"14265.5c_ana_mprage.nii", nil];
+    NSArray* ozFuns = [NSArray arrayWithObjects:@"14265.5c_fun_axial_128x128.nii", @"14265.5c_fun_axial_64x64.nii", @"14265.5c_fun_coronar_64x64.nii", nil];
+    //@"14265.5c_fun_sagittal_64x64.nii", nil]; // crashes with sagittal image!
+    NSString* ozFun1TS = @"14265.5c_fun_axial_64x64_just1timestep.nii";
+    
+    // dataset03
+    NSString* ds03_ana = @"dataset03/09556.72_ana_mprage.nii";
+    NSString* ds03_fun = @"dataset03/09556.72_fun_axial_64x64_10timesteps.nii";
+    
+    for (NSUInteger method = 0; method < [methodNames count]; method++) {
+        for (NSUInteger ana = 0; ana < [ozAnas count]; ana++) {
+            for (NSUInteger fun = 0; fun < [ozFuns count]; fun++) {
+                testITK4RuntimeParams([data_dir stringByAppendingString:[ozFuns objectAtIndex:fun]],
+                                      [data_dir stringByAppendingString:[ozAnas objectAtIndex:ana]],
+                                      [data_dir stringByAppendingString:[mniTemplates objectAtIndex:method % 2]],
+                                      [NSString stringWithFormat:@"%@out_OZ%ld%ld_%@_ITK4_2_1_isis_test_release.nii", out_dir, ana, fun, [methodNames objectAtIndex:method]],
+                                      (enum RegistrationMethod) method,
+                                      runs);
+            }
+            
+            // 1 timestep
+            testITK4RuntimeParams([data_dir stringByAppendingString:ozFun1TS],
+                                  [data_dir stringByAppendingString:[ozAnas objectAtIndex:ana]],
+                                  [data_dir stringByAppendingString:[mniTemplates objectAtIndex:method % 2]],
+                                  [NSString stringWithFormat:@"%@out_OZ1TS%ld_%@_ITK4_2_1_isis_test_release.nii", out_dir, ana, [methodNames objectAtIndex:method]],
+                                  (enum RegistrationMethod) method,
+                                  runs);
+        }
+        
+        // dataset03
+        testITK4RuntimeParams([data_dir stringByAppendingString:ds03_fun],
+                              [data_dir stringByAppendingString:ds03_ana],
+                              [data_dir stringByAppendingString:[mniTemplates objectAtIndex:method % 2]],
+                              [NSString stringWithFormat:@"%@out_dataset03_%@_ITK4_2_1_isis_test_release.nii", out_dir, [methodNames objectAtIndex:method]],
+                              (enum RegistrationMethod) method,
+                              runs);
+    }
+
+}
+
+void testITK4RuntimeParams(NSString* funPath,
+                           NSString* anaPath,
+                           NSString* mniPath,
+                           NSString* outPath,
+                           enum RegistrationMethod method,
+                           int runs)
+{
+    ROTestUtil* util = [[ROTestUtil alloc] init];
+    RORegistrationMethod* methodObj = nil;
+    
+    switch (method) {
+        case VNORMDATA_MNI:
+        case VNORMDATA_T1:
+            methodObj = [RORegistrationVnormdata alloc];
+            break;
+        case BART_MNI:
+        case BART_T1:
+            methodObj = [RORegistrationBART alloc];
+            break;
+        case BART_ANAONLY:
+            methodObj = [RORegistrationBARTAnaOnly alloc];
+            break;
+        default:
+            break;
+    }
+    
+    if (methodObj != nil) {
+        [util measureRegistrationRuntime:funPath
+                                 anatomy:anaPath
+                                     mni:mniPath
+                                     out:outPath
+                            registration:methodObj
+                                    runs:runs];
+        [methodObj release];
+    }
+    
+    [util release];
+}
 
 int main(void)
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
     /* # Output redirection # */
-    system("rm -f /tmp/BART_regRuntime.txt");
-    freopen("/tmp/BART_regRuntime.txt", "a", stderr);
+//    system("rm -f /tmp/BART_regRuntime.txt");
+//    freopen("/tmp/BART_regRuntime.txt", "a", stderr);
     
     /* # General Isis tests # */
 //    testAdapterConversion();
@@ -866,7 +924,7 @@ int main(void)
 //    testPluginReadWrite();
 
     /* # Registration tests # */
-    testBARTRegistrationAnaOnly();
+//    testBARTRegistrationAnaOnly();
 //    testBARTRegistrationWorkflow();
 //    testVnormdataRegistrationWorkflow();
     
@@ -875,14 +933,13 @@ int main(void)
     
     /* # ITK 4 tests # */
 //    testITK4RegistrationExample3();
-//    testRegistrationITK4();
-    
+    testITK4Runtime();
     
 //    testVnormdataRegistrationWorkflowParams(fctFile,
 //                                            anaFile,
 //                                            mniFile,
 //                                            1,
 //                                            @"/tmp/BART_ITK4vnormdata.nii");
-    
+
     [pool drain];
 }
