@@ -295,13 +295,13 @@
 			or [[str lowercaseString] isEqualToString:@"voxelgap"])
 		{
 			isis::util::fvector4 prop = mIsisImage->getPropertyAs<isis::util::fvector4>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);
-			NSArray* ret = [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:prop[0]], [NSNumber numberWithFloat:prop[1]], [NSNumber numberWithFloat:prop[2]], [NSNumber numberWithFloat:prop[3]], nil ] autorelease];
+			NSArray* ret = [NSArray arrayWithObjects:[NSNumber numberWithFloat:prop[0]], [NSNumber numberWithFloat:prop[1]], [NSNumber numberWithFloat:prop[2]], [NSNumber numberWithFloat:prop[3]], nil];
 			[propValues addObject:ret];
 		}
 		else if( [[str lowercaseString] isEqualToString:@"acquisitionnumber"]) //type is u_int32_t
 		{
 			u_int32_t prop = mIsisImage->getPropertyAs<u_int32_t>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);
-			NSNumber* ret = [[NSNumber numberWithUnsignedLong:prop] autorelease];
+			NSNumber* ret = [NSNumber numberWithUnsignedLong:prop];
 			[propValues addObject:ret];
 		}
 		else if ( [[str lowercaseString] isEqualToString:@"repetitiontime"]	// type is u_int16_t
@@ -312,14 +312,14 @@
 				 or   [[str lowercaseString] isEqualToString:@"numberofaverages"] )
 		{
 			u_int16_t prop = mIsisImage->getPropertyAs<u_int16_t>([str  cStringUsingEncoding:NSISOLatin1StringEncoding ]);
-			NSNumber* ret = [[NSNumber numberWithUnsignedInt:prop] autorelease];
+			NSNumber* ret = [NSNumber numberWithUnsignedInt:prop];
 			[propValues addObject:ret];
 		}
 		else if ( [[str lowercaseString] isEqualToString:@"echotime"]	 // type is float
 				 or   [[str lowercaseString] isEqualToString:@"acquisitiontime"] )
 		{
 			float prop = mIsisImage->getPropertyAs<float>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);
-			NSNumber* ret = [[NSNumber numberWithFloat:prop] autorelease];
+			NSNumber* ret = [NSNumber numberWithFloat:prop];
 			[propValues addObject:ret];
 		}
 		else									// everything else is interpreted as string (conversion by isis)
@@ -327,7 +327,7 @@
 			std::string prop = "";
 			if (mIsisImage->hasProperty([str cStringUsingEncoding:NSISOLatin1StringEncoding])){
 				prop = mIsisImage->getPropertyAs<std::string>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);}
-			NSString* ret = [[NSString stringWithCString:prop.c_str() encoding:NSISOLatin1StringEncoding] autorelease];
+			NSString* ret = [NSString stringWithCString:prop.c_str() encoding:NSISOLatin1StringEncoding];
 			[propValues addObject:ret];
 		}
 	} 
