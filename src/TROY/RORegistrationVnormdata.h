@@ -66,7 +66,7 @@ public:
 enum ETransform {
     VersorRigid3DTransform = 0,
     AffineTransform,
-    BSplineDeformableTransform,
+    BSplineTransform,
     TranslationTransform
 };
 
