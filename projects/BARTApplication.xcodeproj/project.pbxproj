@@ -247,6 +247,8 @@
 		00FA6FC01668E266008E3A68 /* timeBasedRegressorNEDTest.edl in Resources */ = {isa = PBXBuildFile; fileRef = 00709E4B12E86A06006389C4 /* timeBasedRegressorNEDTest.edl */; };
 		00FE338216690A090005EE3D /* BARTNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 00AE410D133B9EF100F2D01D /* BARTNotifications.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		00FE3392166CC3C70005EE3D /* libgsl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 00FE3391166CC3C70005EE3D /* libgsl.dylib */; };
+		47C0D3EB16DD07BB00C59C27 /* ROTestUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 47C0D3E916DD07BB00C59C27 /* ROTestUtil.h */; };
+		47C0D3EC16DD07BB00C59C27 /* ROTestUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47C0D3EA16DD07BB00C59C27 /* ROTestUtil.mm */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A713AA091445CF1600BBF150 /* EDNA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0041E4B013E805FF00169848 /* EDNA.dylib */; };
@@ -919,6 +921,8 @@
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		256AC3F00F4B6AF500CF3369 /* BARTApplication_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BARTApplication_Prefix.pch; sourceTree = "<group>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		47C0D3E916DD07BB00C59C27 /* ROTestUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROTestUtil.h; sourceTree = "<group>"; };
+		47C0D3EA16DD07BB00C59C27 /* ROTestUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ROTestUtil.mm; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* BARTApplication-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BARTApplication-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* BARTApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BARTApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A74EB3461525B09600AC7C59 /* isisRegistrationFactory3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isisRegistrationFactory3D.hpp; sourceTree = "<group>"; };
@@ -1907,6 +1911,8 @@
 		A74EB3451525B09600AC7C59 /* TROY */ = {
 			isa = PBXGroup;
 			children = (
+				47C0D3E916DD07BB00C59C27 /* ROTestUtil.h */,
+				47C0D3EA16DD07BB00C59C27 /* ROTestUtil.mm */,
 				A74EB3461525B09600AC7C59 /* isisRegistrationFactory3D.hpp */,
 				A74EB3471525B09600AC7C59 /* isisRegistrationFactory3D_impl.hpp */,
 				A74EB3481525B09600AC7C59 /* isisTimeStepExtractionFilter.hpp */,
@@ -2005,6 +2011,7 @@
 				A74EB3611525B09600AC7C59 /* RORegistrationVnormdata.h in Headers */,
 				A74EB3631525B09600AC7C59 /* ROTypedef.h in Headers */,
 				A74EB3641525B09600AC7C59 /* TimeUtil.h in Headers */,
+				47C0D3EB16DD07BB00C59C27 /* ROTestUtil.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2742,6 +2749,7 @@
 				A74EB35E1525B09600AC7C59 /* RORegistrationBARTAnaOnly.mm in Sources */,
 				A74EB3601525B09600AC7C59 /* RORegistrationMethod.m in Sources */,
 				A74EB3621525B09600AC7C59 /* RORegistrationVnormdata.mm in Sources */,
+				47C0D3EC16DD07BB00C59C27 /* ROTestUtil.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3209,7 +3217,7 @@
 					"-lboost_system-mt",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.6;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -3236,7 +3244,7 @@
 					"-lboost_system-mt",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.6;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -3632,7 +3640,7 @@
 					"-lboost_system-mt",
 				);
 				PRODUCT_NAME = isis_test;
-				SDKROOT = macosx10.6;
+				SDKROOT = "";
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 			};
 			name = Debug;
@@ -3663,7 +3671,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = isis_test;
-				SDKROOT = macosx10.6;
+				SDKROOT = "";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -3742,42 +3750,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"-lITKDICOMParser",
-					"-lITKEXPAT",
-					"-lITKFEM",
-					"-litkgdcm",
-					"-litkjpeg8",
-					"-litkjpeg12",
-					"-litkjpeg16",
-					"-lITKMetaIO",
-					"-litkNetlibSlatec",
-					"-lITKniftiio",
-					"-lITKNrrdIO",
-					"-litkopenjpeg",
-					"-litkpng",
-					"-litktiff",
-					"-litkv3p_lsqr",
-					"-litkv3p_netlib",
-					"-lITKznz",
-					"-lITKAlgorithms",
-					"-lITKBasicFilters",
-					"-lITKCommon",
-					"-lITKIOReview",
-					"-lITKNumerics",
-					"-lITKSpatialObject",
-					"-lITKStatistics",
-					"-litksys",
-					"-litkvcl",
-					"-litkvnl_algo",
-					"-litkvnl_inst",
-					"-litkvnl",
-					"-litkzlib",
-					"-lboost_date_time-mt",
-					"-lboost_filesystem-mt",
-					"-lboost_system-mt",
-					"-lisis_core",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
 			};
@@ -3801,42 +3774,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				OTHER_LDFLAGS = (
-					"-lITKDICOMParser",
-					"-lITKEXPAT",
-					"-lITKFEM",
-					"-litkgdcm",
-					"-litkjpeg8",
-					"-litkjpeg12",
-					"-litkjpeg16",
-					"-lITKMetaIO",
-					"-litkNetlibSlatec",
-					"-lITKniftiio",
-					"-lITKNrrdIO",
-					"-litkopenjpeg",
-					"-litkpng",
-					"-litktiff",
-					"-litkv3p_lsqr",
-					"-litkv3p_netlib",
-					"-lITKznz",
-					"-lITKAlgorithms",
-					"-lITKBasicFilters",
-					"-lITKCommon",
-					"-lITKIOReview",
-					"-lITKNumerics",
-					"-lITKSpatialObject",
-					"-lITKStatistics",
-					"-litksys",
-					"-litkvcl",
-					"-litkvnl_algo",
-					"-litkvnl_inst",
-					"-litkvnl",
-					"-litkzlib",
-					"-lboost_date_time-mt",
-					"-lboost_filesystem-mt",
-					"-lboost_system-mt",
-					"-lisis_core",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
 			};
@@ -4331,74 +4269,39 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include/boost,
-					/usr/local/include/InsightToolkit/Utilities,
 					/opt/local/include,
 					/usr/include,
 					/usr/local/include/isis,
 					/usr/local/include/boost,
 					/usr/local/include,
-					/usr/local/lib/InsightToolkit,
-					/usr/local/include/InsightToolkit/Utilities/vxl/core,
-					/usr/local/include/InsightToolkit/Utilities/vxl/core/vnl,
-					/usr/local/include/InsightToolkit/Utilities/vxl/core/vnl/algo,
-					/usr/local/include/InsightToolkit/Utilities/vxl/vcl,
-					/usr/local/include/InsightToolkit/SpatialObject,
-					/usr/local/include/InsightToolkit/Review,
-					"/usr/local/include/InsightToolkit/Numerics/**",
-					/usr/local/include/InsightToolkit/IO,
-					/usr/local/include/InsightToolkit/Algorithms,
-					/usr/local/include/InsightToolkit,
-					/usr/local/include/InsightToolkit/BasicFilters,
-					/usr/local/include/InsightToolkit/Common,
+					/usr/local/include/ITK,
 					/usr/X11/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
-					"/usr/lib/InsightToolkit/**",
 					/usr/lib,
 					/usr/local/lib,
 					"/usr/local/lib/isis/**",
-					"/usr/local/lib/InsightToolkit/**",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
-					"-lITKDICOMParser",
-					"-lITKEXPAT",
-					"-lITKFEM",
-					"-litkgdcm",
-					"-litkjpeg8",
-					"-litkjpeg12",
-					"-litkjpeg16",
-					"-lITKMetaIO",
-					"-litkNetlibSlatec",
-					"-lITKniftiio",
-					"-lITKNrrdIO",
-					"-litkopenjpeg",
-					"-litkpng",
-					"-litktiff",
-					"-litkv3p_lsqr",
-					"-litkv3p_netlib",
-					"-lITKznz",
-					"-lITKAlgorithms",
-					"-lITKBasicFilters",
-					"-lITKCommon",
-					"-lITKIOReview",
-					"-lITKNumerics",
-					"-lITKSpatialObject",
-					"-lITKStatistics",
-					"-litksys",
-					"-litkvcl",
-					"-litkvnl_algo",
-					"-litkvnl_inst",
-					"-litkvnl",
-					"-litkzlib",
 					"-lboost_date_time-mt",
 					"-lboost_filesystem-mt",
 					"-lboost_system-mt",
 					"-lisis_core",
 					"-lboost_regex-mt",
+					"-lITKVTK-4.2",
+					"-lITKStatistics-4.2",
+					"-lITKSpatialObjects-4.2",
+					"-lITKOptimizers-4.2",
+					"-lITKCommon-4.2",
+					"-litkvnl_algo-4.2",
+					"-litkvnl-4.2",
+					"-litkvcl-4.2",
+					"-litksys-4.2",
+					"-litkv3p_netlib-4.2",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = "";
@@ -4437,74 +4340,39 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include/boost,
-					/usr/local/include/InsightToolkit/Utilities,
 					/opt/local/include,
 					/usr/include,
 					/usr/local/include/isis,
 					/usr/local/include/boost,
 					/usr/local/include,
-					/usr/local/lib/InsightToolkit,
-					/usr/local/include/InsightToolkit/Utilities/vxl/core,
-					/usr/local/include/InsightToolkit/Utilities/vxl/core/vnl,
-					/usr/local/include/InsightToolkit/Utilities/vxl/core/vnl/algo,
-					/usr/local/include/InsightToolkit/Utilities/vxl/vcl,
-					/usr/local/include/InsightToolkit/SpatialObject,
-					/usr/local/include/InsightToolkit/Review,
-					"/usr/local/include/InsightToolkit/Numerics/**",
-					/usr/local/include/InsightToolkit/IO,
-					/usr/local/include/InsightToolkit/Algorithms,
-					/usr/local/include/InsightToolkit,
-					/usr/local/include/InsightToolkit/BasicFilters,
-					/usr/local/include/InsightToolkit/Common,
+					/usr/local/include/ITK,
 					/usr/X11/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
-					"/usr/lib/InsightToolkit/**",
 					/usr/lib,
 					/usr/local/lib,
 					"/usr/local/lib/isis/**",
-					"/usr/local/lib/InsightToolkit/**",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
-					"-lITKDICOMParser",
-					"-lITKEXPAT",
-					"-lITKFEM",
-					"-litkgdcm",
-					"-litkjpeg8",
-					"-litkjpeg12",
-					"-litkjpeg16",
-					"-lITKMetaIO",
-					"-litkNetlibSlatec",
-					"-lITKniftiio",
-					"-lITKNrrdIO",
-					"-litkopenjpeg",
-					"-litkpng",
-					"-litktiff",
-					"-litkv3p_lsqr",
-					"-litkv3p_netlib",
-					"-lITKznz",
-					"-lITKAlgorithms",
-					"-lITKBasicFilters",
-					"-lITKCommon",
-					"-lITKIOReview",
-					"-lITKNumerics",
-					"-lITKSpatialObject",
-					"-lITKStatistics",
-					"-litksys",
-					"-litkvcl",
-					"-litkvnl_algo",
-					"-litkvnl_inst",
-					"-litkvnl",
-					"-litkzlib",
 					"-lboost_date_time-mt",
 					"-lboost_filesystem-mt",
 					"-lboost_system-mt",
 					"-lisis_core",
 					"-lboost_regex-mt",
+					"-lITKVTK-4.2",
+					"-lITKStatistics-4.2",
+					"-lITKSpatialObjects-4.2",
+					"-lITKOptimizers-4.2",
+					"-lITKCommon-4.2",
+					"-litkvnl_algo-4.2",
+					"-litkvnl-4.2",
+					"-litkvcl-4.2",
+					"-litksys-4.2",
+					"-litkv3p_netlib-4.2",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = "";
