@@ -42,6 +42,28 @@ TimeStepExtractionFilter<TInputImage, TOutputImage>::TimeStepExtractionFilter()
 	m_RequestedTimeRangeEnd = 0;
 }
 
+
+
+template<class TInputImage, class TOutputImage>
+void TimeStepExtractionFilter<TInputImage, TOutputImage>::SetDirectionCollapseToSubmatrix()
+{
+    m_ExtractFilter->SetDirectionCollapseToSubmatrix();
+}
+
+template<class TInputImage, class TOutputImage>
+void TimeStepExtractionFilter<TInputImage, TOutputImage>::SetDirectionCollapseToGuess()
+{
+    m_ExtractFilter->SetDirectionCollapseToGuess();
+}
+
+template<class TInputImage, class TOutputImage>
+void TimeStepExtractionFilter<TInputImage, TOutputImage>::SetDirectionCollapseToIdentity()
+{
+    m_ExtractFilter->SetDirectionCollapseToIdentity();
+}
+
+
+
 template<class TInputImage, class TOutputImage>
 void TimeStepExtractionFilter<TInputImage, TOutputImage>::Update()
 {

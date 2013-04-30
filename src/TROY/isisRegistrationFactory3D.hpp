@@ -44,7 +44,11 @@
 
 
 //non-linear
+#if ITK_VERSION_MAJOR < 4
 #include "itkBSplineDeformableTransform.h"
+#else
+#include "itkBSplineTransform.h"
+#endif
 
 //metric includes
 #include "itkMutualInformationImageToImageMetric.h" //Viola-Wells-Mutual
@@ -100,8 +104,7 @@ public:
 	typedef itk::SmartPointer<Self> Pointer;
 	typedef itk::SmartPointer<const Self> ConstPointer;
 
-	itkNewMacro( Self )
-	;
+	itkNewMacro( Self );
 
 	typedef TFixedImageType FixedImageType;
 	typedef TMovingImageType MovingImageType;
@@ -172,7 +175,11 @@ public:
 
 	typedef itk::Transform<double, 3, 3> BulkTransformType;
 
-	typedef typename itk::BSplineDeformableTransform<CoordinateRepType, FixedImageDimension, 3> BSplineTransformType;
+#if ITK_VERSION_MAJOR < 4
+    typedef typename itk::BSplineDeformableTransform<CoordinateRepType, FixedImageDimension, 3> BSplineTransformType;
+#else
+    typedef typename itk::BSplineTransform<          CoordinateRepType, FixedImageDimension, 3> BSplineTransformType;
+#endif
 
 	//optimizer typedefs
 	typedef itk::RegularStepGradientDescentOptimizer RegularStepGradientDescentOptimizerType;
@@ -217,9 +224,8 @@ public:
 		VersorRigid3DTransform,
 		AffineTransform,
 		CenteredAffineTransform,
-		BSplineDeformableTransform,
-		Rigid3DTransform
-
+		BSplineTransform
+//		Rigid3DTransform
 	};
 
 	enum eMetricType {
@@ -320,14 +326,19 @@ public:
 	}
 
 private:
+    
+    static void Displace(DeformationFieldPointer deformationField,
+                         const TransformType* transform,
+                         typename itk::Transform<double, FixedImageDimension, MovingImageDimension>::InputPointType,
+                         unsigned int, unsigned int, unsigned int);
 
 	struct {
 		bool TRANSLATION;
 		bool VERSORRIGID;
 		bool AFFINE;
 		bool CENTEREDAFFINE;
-		bool BSPLINEDEFORMABLETRANSFORM;
-		bool RIGID3D;
+		bool BSPLINETRANSFORM;
+//		bool RIGID3D;
 	} transform;
 
 	struct Optimizer {

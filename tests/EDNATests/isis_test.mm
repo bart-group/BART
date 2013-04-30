@@ -15,6 +15,7 @@
 #import "RORegistrationBARTAnaOnly.h"
 
 #import "TimeUtil.h"
+#import "ROTestUtil.h"
 
 
 
@@ -24,7 +25,7 @@
 
 /* # Constants # */
 
-const int RUNS = 20;
+const int RUNS = 1;
 
 /* # Dataset files # */
 
@@ -60,55 +61,56 @@ NSString* ZMAP03 = @"_zmap03";
 
 NSString* NII_EXT = @".nii";
 
-NSString* T1_OUT_DIR = @"/Users/Lydi/RealTimeProject/data/Testdata_Registration/TROYTests/";
+NSString* T1_OUT_DIR = @"/Users/oliver/test/reg3d_test_t1out/";
+NSString* MNI_LIPSIA_OUT_DIR = @"/Users/oliver/test/reg3d_test_Lipsia-MNI_out/";
 
-NSString *testfilePath = @"/Users/Lydi/RealTimeProject/data/Testdata_Registration/TROYTests/";
 
-NSString* fctFile = nil;
-NSString* anaFile = nil;
 
-NSString* mniFile = nil;
-NSString* t1File  = nil;
+NSString* fctFile = @"/Users/oliver/test/reg3d_test/dataset01/data_10timesteps.nii";
+NSString* anaFile = @"/Users/oliver/test/reg3d_test/dataset01/ana.nii"; //_visotrop.nii";
 
-NSString* OZfun1ts =nil;
+NSString* mniFile = @"/Users/oliver/test/reg3d_test/mni_lipsia.nii";
+NSString* t1File  = @"/Users/oliver/test/reg3d_test/T1.nii";
 
-NSString* OZ00fun = nil;
-NSString* OZ00ana = nil;
-NSString* OZ00out = nil;
+NSString* OZfun1ts = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_axial_64x64_just1timestep.nii";
 
-NSString* OZ01fun = nil;
-NSString* OZ01ana = nil;
-NSString* OZ01out = nil;
+NSString* OZ00fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_axial_128x128.nii";
+NSString* OZ00ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mdeft.nii";
+NSString* OZ00out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ00out.nii";
 
-NSString* OZ02fun = nil;
-NSString* OZ02ana = nil;
-NSString* OZ02out = nil;
+NSString* OZ01fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_axial_64x64.nii";
+NSString* OZ01ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mdeft.nii";
+NSString* OZ01out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ01out.nii";
 
-NSString* OZ03fun = nil;
-NSString* OZ03ana = nil;
-NSString* OZ03out = nil;
+NSString* OZ02fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_coronar_64x64.nii";
+NSString* OZ02ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mdeft.nii";
+NSString* OZ02out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ02out.nii";
 
-NSString* OZ10fun = nil;
-NSString* OZ10ana = nil;
-NSString* OZ10out = nil;
+NSString* OZ03fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_sagittal_64x64.nii";
+NSString* OZ03ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mdeft.nii";
+NSString* OZ03out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ03out.nii";
 
-NSString* OZ11fun = nil;
-NSString* OZ11ana = nil;
-NSString* OZ11out = nil;
+NSString* OZ10fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_axial_128x128.nii";
+NSString* OZ10ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mprage.nii";
+NSString* OZ10out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ10out.nii";
 
-NSString* OZ12fun = nil;
-NSString* OZ12ana = nil;
-NSString* OZ12out = nil;
+NSString* OZ11fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_axial_64x64.nii";
+NSString* OZ11ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mprage.nii";
+NSString* OZ11out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ11out.nii";
 
-NSString* OZ13fun = nil;
-NSString* OZ13ana = nil;
-NSString* OZ13out = nil;
+NSString* OZ12fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_coronar_64x64.nii";
+NSString* OZ12ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mprage.nii";
+NSString* OZ12out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ12out.nii";
+
+NSString* OZ13fun = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_fun_sagittal_64x64.nii";
+NSString* OZ13ana = @"/Users/oliver/test/reg3d_test_scansoliver/14265.5c_ana_mprage.nii";
+NSString* OZ13out = @"/Users/oliver/test/reg3d_test_scansoliver/OZ13out.nii";
 
 /* ### Zmaps ### */
-NSString* dataset01zmap = nil;
-NSString* OZzmap01 = nil;
-NSString* OZzmap02 = nil;
-NSString* OZzmap03 = nil;
+NSString* dataset01zmap = @"/Users/oliver/test/reg3d_test/dataset01/zmap02_11timesteps.nii";
+NSString* OZzmap01 = @"/Users/oliver/test/reg3d_test_scansoliver/zmap01_10timesteps.nii";
+NSString* OZzmap02 = @"/Users/oliver/test/reg3d_test_scansoliver/zmap02_10timesteps.nii";
+NSString* OZzmap03 = @"/Users/oliver/test/reg3d_test_scansoliver/zmap03_10timesteps.nii";
 
 
 
@@ -152,6 +154,33 @@ void testZmapsParams(NSString* funPath,
                      int runs,
                      NSString* outPath);
 
+void testITK4RegistrationExample3Params(NSString* funPath,
+                                        NSString* anaPath,
+                                        NSString* mniPath,
+                                        int runs,
+                                        NSString* outPath);
+
+void testRegistrationITK4Params(NSString* funPath,
+                                NSString* anaPath,
+                                NSString* mniPath,
+                                int runs,
+                                NSString* outPath);
+
+enum RegistrationMethod {
+    VNORMDATA_MNI = 0,
+    VNORMDATA_T1,
+    BART_MNI,
+    BART_T1,
+    BART_ANAONLY
+};
+
+void testITK4RuntimeParams(NSString* funPath,
+                           NSString* anaPath,
+                           NSString* mniPath,
+                           NSString* outPath,
+                           enum RegistrationMethod method,
+                           int runs);
+
 
 
 /* # Function definitions # */
@@ -183,7 +212,7 @@ NSString* outFileName(NSString* baseDir,
 void testVnormdataRegistrationWorkflow()
 {
     int runs = RUNS;
-    NSString* dir = T1_OUT_DIR;
+    NSString* dir = @"/tmp/"; // [NSString stringWithFormat:@"%@%@", MNI_LIPSIA_OUT_DIR, @"itk4/"];
     NSString* mni = t1File;
     
     testVnormdataRegistrationWorkflowParams(fctFile,
@@ -192,17 +221,17 @@ void testVnormdataRegistrationWorkflow()
                                             runs,
                                             outFileName(dir, BART_VNORMDATA, DS01));
     
-    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ00ana, mni, runs, outFileName(dir, BART_VNORMDATA, ONE_TS_MDEFT));
-    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ10ana, mni, runs, outFileName(dir, BART_VNORMDATA, ONE_TS_MPRAGE));
-    
-    testVnormdataRegistrationWorkflowParams(OZ00fun, OZ00ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ00));
-    testVnormdataRegistrationWorkflowParams(OZ01fun, OZ01ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ01));
-    testVnormdataRegistrationWorkflowParams(OZ02fun, OZ02ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ02));
-    testVnormdataRegistrationWorkflowParams(OZ03fun, OZ03ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ03));
-    testVnormdataRegistrationWorkflowParams(OZ10fun, OZ10ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ10));
-    testVnormdataRegistrationWorkflowParams(OZ11fun, OZ11ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ11));
-    testVnormdataRegistrationWorkflowParams(OZ12fun, OZ12ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ12));
-    testVnormdataRegistrationWorkflowParams(OZ13fun, OZ13ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ13));
+//    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ00ana, mni, runs, outFileName(dir, BART_VNORMDATA, ONE_TS_MDEFT));
+//    testVnormdataRegistrationWorkflowParams(OZfun1ts, OZ10ana, mni, runs, outFileName(dir, BART_VNORMDATA, ONE_TS_MPRAGE));
+//    
+//    testVnormdataRegistrationWorkflowParams(OZ00fun, OZ00ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ00));
+//    testVnormdataRegistrationWorkflowParams(OZ01fun, OZ01ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ01));
+//    testVnormdataRegistrationWorkflowParams(OZ02fun, OZ02ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ02));
+//    testVnormdataRegistrationWorkflowParams(OZ03fun, OZ03ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ03));
+//    testVnormdataRegistrationWorkflowParams(OZ10fun, OZ10ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ10));
+//    testVnormdataRegistrationWorkflowParams(OZ11fun, OZ11ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ11));
+//    testVnormdataRegistrationWorkflowParams(OZ12fun, OZ12ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ12));
+//    testVnormdataRegistrationWorkflowParams(OZ13fun, OZ13ana, mni, runs, outFileName(dir, BART_VNORMDATA, OZ13));
 }
 
 void testVnormdataRegistrationWorkflowParams(NSString* funPath,
@@ -370,12 +399,12 @@ void testBARTRegistrationAnaOnly()
     int runs = RUNS;
     NSString* bartRegAnaOnlyOut = @"/tmp/BART_bartRegAnaOnly.nii";
     
-//    testBARTRegistrationAnaOnlyParams(fctFile,
-//                                      anaFile,
-//                                      runs,
-//                                      bartRegAnaOnlyOut);
+    testBARTRegistrationAnaOnlyParams(fctFile,
+                                      anaFile,
+                                      runs,
+                                      bartRegAnaOnlyOut);
     
-    testBARTRegistrationAnaOnlyParams(OZfun1ts, OZ00ana, runs, bartRegAnaOnlyOut);
+//    testBARTRegistrationAnaOnlyParams(OZfun1ts, OZ00ana, runs, bartRegAnaOnlyOut);
 //    testBARTRegistrationAnaOnlyParams(OZfun1ts, OZ10ana, runs, bartRegAnaOnlyOut);
 //    
 //    testBARTRegistrationAnaOnlyParams(OZ00fun, OZ00ana, runs, OZ00out);
@@ -456,15 +485,15 @@ void testZmaps()
 //    dataset01    
     int runs = RUNS;
     
-    testZmapsParams(fctFile, anaFile, dataset01zmap, runs, outFileName(testfilePath,
+    testZmapsParams(fctFile, anaFile, dataset01zmap, runs, outFileName(@"/Users/oliver/test/reg3d_test/dataset01/",
                                                                        ZMAP_BASE_DS01,
                                                                        @""));
 
-    testZmapsParams(OZ01fun, OZ01ana, OZzmap01, runs, outFileName(testfilePath, ZMAP_BASE, ZMAP01));
-    testZmapsParams(OZ11fun, OZ11ana, OZzmap01, runs, outFileName(testfilePath, ZMAP_BASE, ZMAP01));
+    testZmapsParams(OZ01fun, OZ01ana, OZzmap01, runs, outFileName(@"/Users/oliver/test/reg3d_test_scansoliver/", ZMAP_BASE, ZMAP01));
+    testZmapsParams(OZ11fun, OZ11ana, OZzmap01, runs, outFileName(@"/Users/oliver/test/reg3d_test_scansoliver/", ZMAP_BASE, ZMAP01));
     
-    testZmapsParams(OZ01fun, OZ01ana, OZzmap03, runs, outFileName(testfilePath, ZMAP_BASE, ZMAP03));
-    testZmapsParams(OZ11fun, OZ11ana, OZzmap03, runs, outFileName(testfilePath, ZMAP_BASE, ZMAP03));
+    testZmapsParams(OZ01fun, OZ01ana, OZzmap03, runs, outFileName(@"/Users/oliver/test/reg3d_test_scansoliver/", ZMAP_BASE, ZMAP03));
+    testZmapsParams(OZ11fun, OZ11ana, OZzmap03, runs, outFileName(@"/Users/oliver/test/reg3d_test_scansoliver/", ZMAP_BASE, ZMAP03));
     
 }
 
@@ -483,12 +512,11 @@ void testZmapsParams(NSString* funPath,
     for (int i = 0; i < runs; i++) {
         
         NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-        NSLog(@"FUNPATH: %@", funPath);
+        
         EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:funPath
                                                                    andSuffix:@"" 
                                                                   andDialect:@"" 
                                                                  ofImageType:IMAGE_FCTDATA];
-        
         NSArray* forceMemoryLoad = [fctData getMinMaxOfDataElement];
         
         EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaPath
@@ -541,7 +569,7 @@ void testAdapterConversion() {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     // Functional data
-    NSString* fctFile = [testfilePath stringByAppendingPathComponent:@"data_10timesteps.nii"];
+    NSString* fctFile = @"/Users/oliver/test/reg3d_test/dataset01/data.nii";
     EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:fctFile
                                                                andSuffix:@"" 
                                                               andDialect:@"" 
@@ -557,7 +585,7 @@ void testAdapterConversion() {
     
     
     // Anatomical data
-    NSString* anaFile = [testfilePath stringByAppendingPathComponent:@"ana.nii"]; //_visotrop.nii";
+    NSString* anaFile = @"/Users/oliver/test/reg3d_test/dataset01/ana.nii"; //_visotrop.nii";
     EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaFile
                                                                andSuffix:@"" 
                                                               andDialect:@"" 
@@ -618,69 +646,277 @@ void testPluginReadWrite()
     [pool drain];
 }
 
+void testITK4RegistrationExample3()
+{
+    int runs = 1;
+    NSString* mni = t1File;
+    
+//    NSLog(anaFile);
+//    NSLog(mni);
+
+    testITK4RegistrationExample3Params(fctFile,
+                                       anaFile,
+                                       mni,
+                                       runs,
+                                       @"/tmp/itk4_regtest_out.nii");
+}
+
+void testITK4RegistrationExample3Params(NSString* funPath,
+                                        NSString* anaPath,
+                                        NSString* mniPath,
+                                        int runs,
+                                        NSString* outPath)
+{
+    // ImageRegistration3.cxx
+    
+    EDDataElementIsis* fctData = [[EDDataElementIsis alloc] initWithFile:funPath
+                                                               andSuffix:@"" 
+                                                              andDialect:@"" 
+                                                             ofImageType:IMAGE_FCTDATA];
+    ITKImage::Pointer fctDataITK = [fctData asITKImage];
+    
+    EDDataElementIsis* anaData = [[EDDataElementIsis alloc] initWithFile:anaPath
+                                                               andSuffix:@"" 
+                                                              andDialect:@"" 
+                                                             ofImageType:IMAGE_ANADATA];
+    ITKImage::Pointer anaDataITK = [anaData asITKImage];
+    
+    EDDataElementIsis* mniData = [[EDDataElementIsis alloc] initWithFile:mniPath
+                                                               andSuffix:@"" 
+                                                              andDialect:@"" 
+                                                             ofImageType:IMAGE_ANADATA];
+    ITKImage::Pointer mniDataITK = [mniData asITKImage];
+
+    typedef itk::TranslationTransform< double, IMAGE_DIMENSION > TransformType;
+    
+    typedef itk::RegularStepGradientDescentOptimizer       OptimizerType;
+    
+    typedef itk::LinearInterpolateImageFunction<ITKImage, double> InterpolatorType;
+    
+    typedef itk::ImageRegistrationMethod<ITKImage, ITKImage>  RegistrationType;
+    
+    typedef itk::MattesMutualInformationImageToImageMetric<ITKImage,
+    ITKImage >  MetricType;
+    
+    TransformType::Pointer      transform     = TransformType::New();
+    OptimizerType::Pointer      optimizer     = OptimizerType::New();
+    InterpolatorType::Pointer   interpolator  = InterpolatorType::New();
+    RegistrationType::Pointer   registration  = RegistrationType::New();
+    
+    registration->SetOptimizer(     optimizer     );
+    registration->SetTransform(     transform     );
+    registration->SetInterpolator(  interpolator  );
+    
+    MetricType::Pointer      metric = MetricType::New();
+    
+    registration->SetMetric( metric );
+    
+    registration->SetFixedImage( mniDataITK);
+    registration->SetMovingImage(anaDataITK);
+ 
+    registration->SetFixedImageRegion(mniDataITK->GetBufferedRegion() );
+    
+    typedef RegistrationType::ParametersType ParametersType;
+    ParametersType initialParameters( transform->GetNumberOfParameters() );
+    
+    initialParameters[0] = 0.0;  // Initial offset in mm along X
+    initialParameters[1] = 0.0;  // Initial offset in mm along Y
+    
+    registration->SetInitialTransformParameters( initialParameters );
+    
+    optimizer->SetMaximumStepLength( 4.00 );
+    optimizer->SetMinimumStepLength( 0.01 );
+    optimizer->SetNumberOfIterations( 200 );
+    
+    optimizer->MaximizeOff();
+
+    try
+    {
+        registration->Update();
+        std::cout << "Optimizer stop condition: "
+        << registration->GetOptimizer()->GetStopConditionDescription()
+        << std::endl;
+    }
+    catch( itk::ExceptionObject & err )
+    {
+        std::cout << "ExceptionObject caught !" << std::endl;
+        std::cout << err << std::endl;
+    }
+
+    
+    
+    ParametersType finalParameters = registration->GetLastTransformParameters();
+    
+    const double TranslationAlongX = finalParameters[0];
+    const double TranslationAlongY = finalParameters[1];
+    
+    const unsigned int numberOfIterations = optimizer->GetCurrentIteration();
+    
+    const double bestValue = optimizer->GetValue();
+    
+    std::cout << "Registration done !" << std::endl;
+    std::cout << "Number of iterations = " << numberOfIterations << std::endl;
+    std::cout << "Translation along X  = " << TranslationAlongX << std::endl;
+    std::cout << "Translation along Y  = " << TranslationAlongY << std::endl;
+    std::cout << "Optimal metric value = " << bestValue << std::endl;
+    
+    
+    // Prepare the resampling filter in order to map the moving image.
+    //
+    typedef itk::ResampleImageFilter<ITKImage, ITKImage >    ResampleFilterType;
+    
+    TransformType::Pointer finalTransform = TransformType::New();
+    
+    finalTransform->SetParameters( finalParameters );
+    finalTransform->SetFixedParameters( transform->GetFixedParameters() );
+    
+    ResampleFilterType::Pointer resample = ResampleFilterType::New();
+    
+    resample->SetTransform( finalTransform );
+    resample->SetInput( anaDataITK );
+    
+    ITKImage::Pointer fixedImage = mniDataITK;
+    
+    resample->SetSize(    fixedImage->GetLargestPossibleRegion().GetSize() );
+    resample->SetOutputOrigin(  fixedImage->GetOrigin() );
+    resample->SetOutputSpacing( fixedImage->GetSpacing() );
+    resample->SetOutputDirection( fixedImage->GetDirection() );
+    resample->SetDefaultPixelValue( 100 );
+    
+    
+    resample->Update();
+    
+    EDDataElement* aligned = [anaData convertFromITKImage:resample->GetOutput()];
+    
+    [aligned WriteDataElementToFile:outPath];
+    
+    
+//    // Prepare a writer and caster filters to send the resampled moving image to
+//    // a file
+//    //
+//    typedef  unsigned char  OutputPixelType;
+//    
+//    typedef itk::Image< ITKImagePixelType, IMAGE_DIMENSION > OutputImageType;
+//    
+//    typedef itk::CastImageFilter<
+//    ITKImage,
+//    ITKImage > CastFilterType;
+//    
+//    
+//    CastFilterType::Pointer  caster =  CastFilterType::New();
+//    
+//
+//    caster->SetInput( resample->GetOutput() );
+//    writer->SetInput( caster->GetOutput()   );
+//    writer->Update();
+
+
+}
+
+
+void testITK4Runtime()
+{
+    ROTestUtil* util = [[ROTestUtil alloc] init];
+    [util redirect:stderr to:@"/Users/olli/tmp/BART_isis_test_release_ITK4_runtime.txt" using:@"w"];
+    [util release];
+    
+    int runs = 20;
+    
+    // Base directories
+    NSString* data_dir = @"/Users/olli/BART_testdata/TROY_ITK4_runtime/";
+    NSString* out_dir = @"/Users/olli/tmp/";
+    
+    NSArray* mniTemplates = [NSArray arrayWithObjects:@"mni_lipsia.nii", @"T1_spm.nii", nil];
+    
+    NSArray* methodNames = [NSArray arrayWithObjects:@"Vnormdata_mni_lipsia", @"Vnormdata_T1_spm", @"BARTReg_mni_lipsia", @"BARTReg_T1_spm", @"BARTRegAnaOnly", nil];
+    
+    // dataset oliver
+    NSArray* ozAnas = [NSArray arrayWithObjects:@"14265.5c_ana_mdeft.nii", @"14265.5c_ana_mprage.nii", nil];
+    NSArray* ozFuns = [NSArray arrayWithObjects:@"14265.5c_fun_axial_128x128.nii", @"14265.5c_fun_axial_64x64.nii", @"14265.5c_fun_coronar_64x64.nii", nil];
+    //@"14265.5c_fun_sagittal_64x64.nii", nil]; // crashes with sagittal image!
+    NSString* ozFun1TS = @"14265.5c_fun_axial_64x64_just1timestep.nii";
+    
+    // dataset03
+    NSString* ds03_ana = @"dataset03/09556.72_ana_mprage.nii";
+    NSString* ds03_fun = @"dataset03/09556.72_fun_axial_64x64_10timesteps.nii";
+    
+    for (NSUInteger method = 0; method < [methodNames count]; method++) {
+        for (NSUInteger ana = 0; ana < [ozAnas count]; ana++) {
+            for (NSUInteger fun = 0; fun < [ozFuns count]; fun++) {
+                testITK4RuntimeParams([data_dir stringByAppendingString:[ozFuns objectAtIndex:fun]],
+                                      [data_dir stringByAppendingString:[ozAnas objectAtIndex:ana]],
+                                      [data_dir stringByAppendingString:[mniTemplates objectAtIndex:method % 2]],
+                                      [NSString stringWithFormat:@"%@out_OZ%ld%ld_%@_ITK4_2_1_isis_test_release.nii", out_dir, ana, fun, [methodNames objectAtIndex:method]],
+                                      (enum RegistrationMethod) method,
+                                      runs);
+            }
+            
+            // 1 timestep
+            testITK4RuntimeParams([data_dir stringByAppendingString:ozFun1TS],
+                                  [data_dir stringByAppendingString:[ozAnas objectAtIndex:ana]],
+                                  [data_dir stringByAppendingString:[mniTemplates objectAtIndex:method % 2]],
+                                  [NSString stringWithFormat:@"%@out_OZ1TS%ld_%@_ITK4_2_1_isis_test_release.nii", out_dir, ana, [methodNames objectAtIndex:method]],
+                                  (enum RegistrationMethod) method,
+                                  runs);
+        }
+        
+        // dataset03
+        testITK4RuntimeParams([data_dir stringByAppendingString:ds03_fun],
+                              [data_dir stringByAppendingString:ds03_ana],
+                              [data_dir stringByAppendingString:[mniTemplates objectAtIndex:method % 2]],
+                              [NSString stringWithFormat:@"%@out_dataset03_%@_ITK4_2_1_isis_test_release.nii", out_dir, [methodNames objectAtIndex:method]],
+                              (enum RegistrationMethod) method,
+                              runs);
+    }
+
+}
+
+void testITK4RuntimeParams(NSString* funPath,
+                           NSString* anaPath,
+                           NSString* mniPath,
+                           NSString* outPath,
+                           enum RegistrationMethod method,
+                           int runs)
+{
+    ROTestUtil* util = [[ROTestUtil alloc] init];
+    RORegistrationMethod* methodObj = nil;
+    
+    switch (method) {
+        case VNORMDATA_MNI:
+        case VNORMDATA_T1:
+            methodObj = [RORegistrationVnormdata alloc];
+            break;
+        case BART_MNI:
+        case BART_T1:
+            methodObj = [RORegistrationBART alloc];
+            break;
+        case BART_ANAONLY:
+            methodObj = [RORegistrationBARTAnaOnly alloc];
+            break;
+        default:
+            break;
+    }
+    
+    if (methodObj != nil) {
+        [util measureRegistrationRuntime:funPath
+                                 anatomy:anaPath
+                                     mni:mniPath
+                                     out:outPath
+                            registration:methodObj
+                                    runs:runs];
+        [methodObj release];
+    }
+    
+    [util release];
+}
+
 int main(void)
 {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    
-    fctFile = [testfilePath stringByAppendingPathComponent:@"data_10timesteps.nii"];
-    anaFile = [testfilePath stringByAppendingPathComponent:@"ana.nii"]; //_visotrop.nii";
-    
-    mniFile = [testfilePath stringByAppendingPathComponent:@"mni_lipsia.nii"];
-    t1File  = [testfilePath stringByAppendingPathComponent:@"T1.nii"];
-    
-    OZfun1ts = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_axial_64x64_just1timestep.nii"];
-    
-    OZ00fun = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_axial_128x128.nii"];
-    OZ00ana = [testfilePath stringByAppendingPathComponent:@"14265.5c_ana_mdeft.nii"];
-    OZ00out = [testfilePath stringByAppendingPathComponent:@"OZ00out.nii"];
-    
-    OZ01fun = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_axial_64x64.nii"];
-    OZ01ana = [testfilePath stringByAppendingPathComponent:@"14265.5c_ana_mdeft.nii"];
-    OZ01out = [testfilePath stringByAppendingPathComponent:@"OZ01out.nii"];
-    
-    OZ02fun = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_coronar_64x64.nii"];
-    OZ02ana = [testfilePath stringByAppendingPathComponent:@"14265.5c_ana_mdeft.nii"];
-    OZ02out = [testfilePath stringByAppendingPathComponent:@"OZ02out.nii"];
-    
-    OZ03fun = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_sagittal_64x64.nii"];
-    OZ03ana = [testfilePath stringByAppendingPathComponent:@"14265.5c_ana_mdeft.nii"];
-    OZ03out = [testfilePath stringByAppendingPathComponent:@"OZ03out.nii"];
-    
-    OZ10fun = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_axial_128x128.nii"];
-    OZ10ana = [testfilePath stringByAppendingPathComponent:@"14265.5c_ana_mprage.nii"];
-    OZ10out = [testfilePath stringByAppendingPathComponent:@"OZ10out.nii"];
-    
-    OZ11fun = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_axial_64x64.nii"];
-    OZ11ana = [testfilePath stringByAppendingPathComponent:@"14265.5c_ana_mprage.nii"];
-    OZ11out = [testfilePath stringByAppendingPathComponent:@"OZ11out.nii"];
-    
-    OZ12fun = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_coronar_64x64.nii"];
-    OZ12ana = [testfilePath stringByAppendingPathComponent:@"14265.5c_ana_mprage.nii"];
-    OZ12out = [testfilePath stringByAppendingPathComponent:@"OZ12out.nii"];
-    
-    OZ13fun = [testfilePath stringByAppendingPathComponent:@"14265.5c_fun_sagittal_64x64.nii"];
-    OZ13ana = [testfilePath stringByAppendingPathComponent:@"14265.5c_ana_mprage.nii"];
-    OZ13out = [testfilePath stringByAppendingPathComponent:@"OZ13out.nii"];
-    
-    /* ### Zmaps ### */
-    dataset01zmap = [testfilePath stringByAppendingPathComponent:@"zmap02_11timesteps.nii"];
-    OZzmap01 = [testfilePath stringByAppendingPathComponent:@"zmap01_10timesteps.nii"];
-    OZzmap02 = [testfilePath stringByAppendingPathComponent:@"zmap02_10timesteps.nii"];
-    OZzmap03 = [testfilePath stringByAppendingPathComponent:@"zmap03_10timesteps.nii"];
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
     /* # Output redirection # */
-   // system("rm -f /tmp/BART_regRuntime.txt");
-   // freopen("/tmp/BART_regRuntime.txt", "a", stderr);
+//    system("rm -f /tmp/BART_regRuntime.txt");
+//    freopen("/tmp/BART_regRuntime.txt", "a", stderr);
     
     /* # General Isis tests # */
 //    testAdapterConversion();
@@ -693,7 +929,17 @@ int main(void)
 //    testVnormdataRegistrationWorkflow();
     
     /* # Zmap tests # */
-    testZmaps();
+//    testZmaps();
     
+    /* # ITK 4 tests # */
+//    testITK4RegistrationExample3();
+    testITK4Runtime();
+    
+//    testVnormdataRegistrationWorkflowParams(fctFile,
+//                                            anaFile,
+//                                            mniFile,
+//                                            1,
+//                                            @"/tmp/BART_ITK4vnormdata.nii");
+
     [pool drain];
 }

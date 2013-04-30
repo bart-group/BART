@@ -122,11 +122,12 @@
 -(id)initFromImage:(isis::data::Image) img  ofImageType:(enum ImageType)imgType
 {
 	self = [self init];
-    mImageSize = [[BARTImageSize alloc] init];
 	mIsisImage = new isis::data::Image(img);
 	mImageType = imgType;
     
     mDataTypeID = img.getMajorTypeID();
+    
+    mImageSize = [[BARTImageSize alloc] init];
 	mImageSize.rows = mIsisImage->getNrOfRows(); // getDimSize(isis::data::colDim)
     mImageSize.columns = mIsisImage->getNrOfColumns();
     mImageSize.slices = mIsisImage->getNrOfSlices();
@@ -485,7 +486,6 @@
 			isis::util::fvector3 prop = mIsisImage->getPropertyAs<isis::util::fvector3>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);
 			NSArray* ret = [NSArray arrayWithObjects:[NSNumber numberWithFloat:prop[0]], [NSNumber numberWithFloat:prop[1]], [NSNumber numberWithFloat:prop[2]], nil ] ;
 			[propValues addObject:ret];
-            
 		}
 		else if( [[str lowercaseString] isEqualToString:@"acquisitionnumber"]) //type is u_int32_t
 		{
@@ -518,7 +518,7 @@
             {
 				prop = mIsisImage->getPropertyAs<std::string>([str  cStringUsingEncoding:NSISOLatin1StringEncoding]);
             }
-			NSString* ret = [NSString stringWithCString:prop.c_str() encoding:NSISOLatin1StringEncoding] ;
+			NSString* ret = [NSString stringWithCString:prop.c_str() encoding:NSISOLatin1StringEncoding];
 			[propValues addObject:ret];
             
 		}

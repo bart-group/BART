@@ -12,6 +12,4 @@
     
 }
 
-- (void)testMath;    // simple standalone test
-
 @end
