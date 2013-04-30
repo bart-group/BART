@@ -6,6 +6,9 @@
 //  Copyright 2010 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
+#ifndef EDDATAELEMENTISIS_H
+#define EDDATAELEMENTISIS_H
+
 #import <Cocoa/Cocoa.h>
 #import "EDDataElement.h"
 #import "DataStorage/image.hpp"
@@ -24,8 +27,10 @@
 }
 
 -(void)appendVolume:(EDDataElement*)nextVolume;
--(BOOL)sizeCheckRows:(uint)r Cols:(uint)c Slices:(uint)s Timesteps:(uint)t;
+-(BOOL)sizeCheckRows:(NSUInteger)r Cols:(NSUInteger)c Slices:(NSUInteger)s Timesteps:(NSUInteger)t;
 -(id)initFromImage:(isis::data::Image)img ofImageType:(enum ImageType)imgType;
 
 
 @end
+
+#endif // EDDATAELEMENTISIS_H

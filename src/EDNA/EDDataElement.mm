@@ -111,6 +111,13 @@
 	
 }
 
+-(id)initEmptyWithSize:(BARTImageSize*) imageSize ofImageType:(enum ImageType)iType withOrientationFrom:(EDDataElement*)inputData
+{
+	self = [[EDDataElementIsis alloc] initEmptyWithSize:imageSize ofImageType:(enum ImageType)iType withOrientationFrom:inputData];
+    return self;
+	
+}
+
 -(id)initForRealTimeTCPIPWithSize:(BARTImageSize*)s ofImageType:(enum ImageType)iType
 {
 	self = [[EDDataElementIsisRealTime alloc] initEmptyWithSize:s ofImageType:(enum ImageType)iType];

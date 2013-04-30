@@ -108,6 +108,67 @@
     }
     return self;
 }
+
+
+-(id)initEmptyWithSize:(BARTImageSize*) imageSize ofImageType:(enum ImageType)iType withOrientationFrom:(EDDataElement*)inputData
+{
+    if ((self = [self init])) {
+		
+		mImageSize = [imageSize copy];
+        mDataTypeID = isis::data::ValueArray<float>::staticID;
+		mImageType = iType;
+        
+        NSArray *propsToCopy = [NSArray arrayWithObjects:
+                                @"voxelsize",
+                                @"voxelGap",
+                                @"rowVec",
+                                @"sliceVec",
+                                @"columnVec",
+                                @"indexOrigin",
+                                nil];
+        
+        NSDictionary* orientationProps = [inputData getProps:propsToCopy];
+        
+        
+        
+        // empty isis image
+        std::list<isis::data::Chunk> chList;
+        
+        // create it with each slice and each timestep as a chunk and with type float (loaded ones are converted)
+        for (size_t ts = 0; ts < mImageSize.timesteps; ts++){
+            for (size_t sl = 0; sl < mImageSize.slices; sl++){
+                isis::data::MemChunk<float> ch(mImageSize.columns, mImageSize.rows);
+                
+                ch.setPropertyAs<u_int32_t>("acquisitionNumber", sl+ts*mImageSize.slices);//sl+ts*mImageSize.slices
+                ch.setPropertyAs<u_int16_t>("sequenceNumber", 1);
+                for (NSString *str in [orientationProps allKeys]) {		// type is fvector3
+                    if ( [[str lowercaseString] isEqualToString:@"indexorigin"]
+                        or [[str lowercaseString] isEqualToString:@"rowvec"]
+                        or [[str lowercaseString] isEqualToString:@"columnvec"]
+                        or [[str lowercaseString] isEqualToString:@"slicevec"]
+                        or [[str lowercaseString] isEqualToString:@"voxelsize"]
+                        or [[str lowercaseString] isEqualToString:@"voxelgap"])
+                    {
+                        isis::util::fvector3 prop;
+                        if (YES == [[orientationProps valueForKey:str] isKindOfClass:[NSArray class]]){
+                            //fvector3 consists of 3 values - if array is longer will be ignored
+                            size_t maxCount = [[orientationProps valueForKey:str] count] < 3 ? [[orientationProps valueForKey:str] count] : 3;
+                            for (size_t i = 0; i < maxCount; i++){
+                                prop[i] = [[[orientationProps valueForKey:str] objectAtIndex:i] floatValue];}
+                            ch.setPropertyAs<isis::util::fvector3>([str cStringUsingEncoding:NSISOLatin1StringEncoding], prop);
+                        }
+                    }
+                }
+                chList.push_back(ch);
+            }
+        }
+        
+        mIsisImage = new isis::data::Image(chList);
+    }
+    return self;
+    	
+}
+
 -(void)dealloc
 {
     if (self->mITKAdapter != NULL) {
@@ -453,7 +514,7 @@
 	mIsisImage->print(std::cout, true);
 }
 
--(BOOL)sizeCheckRows:(uint)r Cols:(uint)c Slices:(uint)s Timesteps:(uint)t
+-(BOOL)sizeCheckRows:(NSUInteger)r Cols:(NSUInteger)c Slices:(NSUInteger)s Timesteps:(NSUInteger)t
 {
 	if (r < mImageSize.rows       and
 		c < mImageSize.columns    and
@@ -737,5 +798,35 @@
 {
     return nil;
 }
+
+-(enum ImageOrientation)getMainOrientation
+{
+    switch (mIsisImage->getMainOrientation()){
+        case isis::data::Image::axial:
+            return ORIENT_AXIAL;
+            break;
+        case isis::data::Image::reversed_axial:
+            return ORIENT_REVAXIAL;
+            break;
+        case isis::data::Image::sagittal:
+            return ORIENT_SAGITTAL;
+            break;
+        case isis::data::Image::reversed_sagittal:
+            return ORIENT_REVSAGITTAL;
+            break;
+        case isis::data::Image::coronal:
+            return ORIENT_CORONAL;
+            break;
+        case isis::data::Image::reversed_coronal:
+            return ORIENT_REVCORONAL;
+            break;
+            
+        default:
+            return ORIENT_UNKNOWN;
+            break;
+    }
+    
+}
+
 
 @end

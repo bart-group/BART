@@ -7,6 +7,8 @@
  *
  */
 
+#ifndef EDDATAELEMENTRTLOADER_H
+#define EDDATAELEMENTRTLOADER_H
 
 #import "Cocoa/Cocoa.h"
 
@@ -25,3 +27,5 @@
 -(void)startRealTimeInputOfImageType;
 
 @end
+
+#endif //EDDATAELEMENTRTLOADER_H

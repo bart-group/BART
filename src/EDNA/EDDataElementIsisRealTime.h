@@ -6,6 +6,9 @@
 //  Copyright 2011 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
+#ifndef EDDATAELEMENTISISREALTIME_H
+#define EDDATAELEMENTISISREALTIME_H
+
 #import <Cocoa/Cocoa.h>
 #import "EDDataElement.h"
 #import "DataStorage/image.hpp"
@@ -31,3 +34,5 @@
 -(void)appendVolume:(isis::data::Image)img;
 
 @end
+
+#endif //EDDATAELEMENTISISREALTIME_H

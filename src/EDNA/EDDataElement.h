@@ -6,6 +6,9 @@
 //  Copyright 2009 MPI Cognitive and Human Brain Sciences Leipzig. All rights reserved.
 //
 
+#ifndef EDDATAELEMENT_H
+#define EDDATAELEMENT_H
+
 #import <Cocoa/Cocoa.h>
 
 #ifdef __cplusplus
@@ -27,6 +30,17 @@ enum ImageType {
 	IMAGE_MOCO,
 	IMAGE_UNKNOWN
 };
+
+enum ImageOrientation {
+    ORIENT_AXIAL,
+    ORIENT_REVAXIAL,
+    ORIENT_SAGITTAL,
+    ORIENT_REVSAGITTAL,
+    ORIENT_CORONAL,
+    ORIENT_REVCORONAL,
+    ORIENT_UNKNOWN
+};
+
 
 enum ImageDataType {
     IMAGE_DATA_FLOAT,
@@ -102,6 +116,8 @@ enum ImagePropertyID{
 
 -(id)initEmptyWithSize:(BARTImageSize*) imageSize ofImageType:(enum ImageType)iType;
 
+-(id)initEmptyWithSize:(BARTImageSize*) imageSize ofImageType:(enum ImageType)iType withOrientationFrom:(EDDataElement*)inputData;
+
 -(id)initForRealTimeTCPIPWithSize:(BARTImageSize*)s ofImageType:(enum ImageType)iType;
 
 -(void)dealloc;
@@ -142,6 +158,8 @@ enum ImagePropertyID{
 -(id)getImageProperty:(enum ImagePropertyID)key;
 
 -(enum ImageDataType)getImageDataType;
+
+-(enum ImageOrientation)getMainOrientation;
 
 /*
  *
@@ -247,3 +265,5 @@ enum ImagePropertyID{
 #endif
 
 @end
+
+#endif //EDDATAELEMENT_H

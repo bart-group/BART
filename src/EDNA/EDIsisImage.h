@@ -7,6 +7,8 @@
  *
  */
 
+#ifndef EDISISIMAGE_H
+#define EDISISIMAGE_H
 
 #include <isis/DataStorage/image.hpp>
 
@@ -21,5 +23,5 @@ public:
     
 };
 
-
+#endif //EDISISIMAGE_H
 
