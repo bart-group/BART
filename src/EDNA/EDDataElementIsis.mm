@@ -124,7 +124,6 @@
                                 @"rowVec",
                                 @"sliceVec",
                                 @"columnVec",
-                                @"indexOrigin",
                                 nil];
         
         NSDictionary* orientationProps = [inputData getProps:propsToCopy];
@@ -141,9 +140,10 @@
                 
                 ch.setPropertyAs<u_int32_t>("acquisitionNumber", sl+ts*mImageSize.slices);//sl+ts*mImageSize.slices
                 ch.setPropertyAs<u_int16_t>("sequenceNumber", 1);
+                //damit die Sortierung funktioniert, muss der indexOrigin hier iteriert werden
+                ch.setPropertyAs<isis::util::fvector3>("indexOrigin", isis::util::fvector3(0,0,sl));//sl
                 for (NSString *str in [orientationProps allKeys]) {		// type is fvector3
-                    if ( [[str lowercaseString] isEqualToString:@"indexorigin"]
-                        or [[str lowercaseString] isEqualToString:@"rowvec"]
+                    if (   [[str lowercaseString] isEqualToString:@"rowvec"]
                         or [[str lowercaseString] isEqualToString:@"columnvec"]
                         or [[str lowercaseString] isEqualToString:@"slicevec"]
                         or [[str lowercaseString] isEqualToString:@"voxelsize"]
@@ -164,6 +164,11 @@
         }
         
         mIsisImage = new isis::data::Image(chList);
+        // der korrekte indexOrigin aus dem andren Bild wird jetzt gesetz
+        NSArray *propsToCopyForComplImage = [NSArray arrayWithObjects:
+                                             @"voxelsize",@"indexOrigin", nil];
+        [self copyProps:propsToCopyForComplImage fromDataElement:inputData];
+        //[[str lowercaseString] isEqualToString:@"indexorigin"]
     }
     return self;
     	
